@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、介绍开源深度学习库 TensorFlow 允许将深度神经网络的计算部署到任意数量的 CPU 或 GPU 的服务器、PC 或移动设备上，且只利用一个 TensorFlow API。你可能会问，还有很多其他的深度学习库，如 Torch、Theano、Caffe 和 MxNet，那 TensorFlow 与其他深度学习库的区别在哪里呢？包括 TensorFlow 在内的大多数深度学习库能够自动求导、">
+  <meta name="description" content="参考：莫烦TensorFlow 一、介绍900百亿神经细胞组成了我们的生物神经网络，而它是通过刺激来产生新的联结，让信号能够 通过新的联结传递来形成反馈；     人工神经网络一种典型模式就是通过训练数据来进行预测，而预测的结果不一定很好，所以就 通过正向或是反向传播来更新神经元，从而再形成一个好的神经系统。其在本质上，是一个能 让计算机处理和优化的数学模型。      当今神经网络是是深度学习最">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow-1.介绍">
 <meta property="og:url" content="http://gongyanli.com/TensorFlow-1-%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="一、介绍开源深度学习库 TensorFlow 允许将深度神经网络的计算部署到任意数量的 CPU 或 GPU 的服务器、PC 或移动设备上，且只利用一个 TensorFlow API。你可能会问，还有很多其他的深度学习库，如 Torch、Theano、Caffe 和 MxNet，那 TensorFlow 与其他深度学习库的区别在哪里呢？包括 TensorFlow 在内的大多数深度学习库能够自动求导、">
+<meta property="og:description" content="参考：莫烦TensorFlow 一、介绍900百亿神经细胞组成了我们的生物神经网络，而它是通过刺激来产生新的联结，让信号能够 通过新的联结传递来形成反馈；     人工神经网络一种典型模式就是通过训练数据来进行预测，而预测的结果不一定很好，所以就 通过正向或是反向传播来更新神经元，从而再形成一个好的神经系统。其在本质上，是一个能 让计算机处理和优化的数学模型。      当今神经网络是是深度学习最">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-02-18T13:24:09.000Z">
-<meta property="article:modified_time" content="2020-02-19T10:31:14.169Z">
+<meta property="article:modified_time" content="2020-09-18T08:55:26.871Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="TensorFlow">
 <meta name="twitter:card" content="summary">
@@ -192,8 +192,21 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-19 18:31:14" itemprop="dateModified" datetime="2020-02-19T18:31:14+08:00">2020-02-19</time>
+                <time title="Modified: 2020-09-18 16:55:26" itemprop="dateModified" datetime="2020-09-18T16:55:26+08:00">2020-09-18</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
+                </span>
+            </span>
 
           
 
@@ -206,7 +219,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>开源深度学习库 TensorFlow 允许将深度神经网络的计算部署到任意数量的 CPU 或 GPU 的服务器、PC 或移动设备上，且只利用一个 TensorFlow API。你可能会问，还有很多其他的深度学习库，如 Torch、Theano、Caffe 和 MxNet，那 TensorFlow 与其他深度学习库的区别在哪里呢？包括 TensorFlow 在内的大多数深度学习库能够自动求导、开源、支持多种 CPU/GPU、拥有预训练模型，并支持常用的NN架构，如递归神经网络（RNN）、卷积神经网络（CNN）和深度置信网络（DBN）。</p>
+        <p>参考：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/">莫烦TensorFlow</a></p>
+<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><pre><code>900百亿神经细胞组成了我们的生物神经网络，而它是通过刺激来产生新的联结，让信号能够
+通过新的联结传递来形成反馈；
+    人工神经网络一种典型模式就是通过训练数据来进行预测，而预测的结果不一定很好，所以就
+通过正向或是反向传播来更新神经元，从而再形成一个好的神经系统。其在本质上，是一个能
+让计算机处理和优化的数学模型。
+
+    当今神经网络是是深度学习最流行的一种框架，它的基本原理就是梯度下降(Gradient Descent)
+机制，其中的梯度就是我们大学所学的求导求微分。一般来说, 神经网络是一连串神经层所组成的把输入进行加工再输出的系统。</code></pre>
+<p>开源深度学习库 TensorFlow 允许将深度神经网络的计算部署到任意数量的 CPU 或 GPU 的服务器、PC 或移动设备上，且只利用一个 TensorFlow API。你可能会问，还有很多其他的深度学习库，如 Torch、Theano、Caffe 和 MxNet，那 TensorFlow 与其他深度学习库的区别在哪里呢？包括 TensorFlow 在内的大多数深度学习库能够自动求导、开源、支持多种 CPU/GPU、拥有预训练模型，并支持常用的NN架构，如递归神经网络（RNN）、卷积神经网络（CNN）和深度置信网络（DBN）。</p>
 <p>TensorFlow 则还有更多的特点，如下：<br>    支持所有流行语言，如 Python、C++、Java、R和Go。<br>    可以在多种平台上工作，甚至是移动平台和分布式平台。<br>    它受到所有云服务（AWS、Google和Azure）的支持。<br>    Keras——高级神经网络 API，已经与 TensorFlow 整合。<br>    与 Torch/Theano 比较，TensorFlow 拥有更好的计算图表可视化。<br>    允许模型部署到工业生产中，并且容易使用。<br>    有非常好的社区支持。<br>    TensorFlow 不仅仅是一个软件库，它是一套包括 TensorFlow，TensorBoard 和 TensorServing 的软件。</p>
 <p>谷歌 research 博客列出了全球一些使用 TensorFlow 开发的有趣项目：</p>
 <pre><code>Google 翻译运用了 TensorFlow 和 TPU（Tensor Processing Units）。
@@ -371,20 +393,20 @@ cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

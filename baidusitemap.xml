@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/TensorFlow-1-%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/KNN/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -337,10 +349,6 @@
     <lastmod>2020-02-19</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/TensorFlow-1-%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2020-02-19</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/TensorFlow-5-%E7%9F%A9%E9%98%B5/</loc>
     <lastmod>2020-02-18</lastmod>
   </url>
@@ -359,10 +367,6 @@
   <url>
     <loc>http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2018-09-17</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/KNN/</loc>
-    <lastmod>2018-09-10</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
@@ -493,19 +497,11 @@
     <lastmod>2018-05-27</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/</loc>
-    <lastmod>2018-05-27</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/</loc>
     <lastmod>2018-05-27</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</loc>
-    <lastmod>2018-05-27</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Tensorflow/</loc>
     <lastmod>2018-05-27</lastmod>
   </url>
   <url>
