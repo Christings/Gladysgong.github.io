@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/Linux-1-%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/python%E5%B9%B6%E5%8F%91-9-%E7%BA%BF%E7%A8%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-local/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -90,10 +94,6 @@
   </url>
   <url>
     <loc>http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-3-BFS%E5%92%8CDFS/</loc>
-    <lastmod>2020-09-18</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/Linux%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
   <url>
