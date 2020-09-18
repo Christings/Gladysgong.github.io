@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/Css-Xpath/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -17,15 +25,7 @@
     <lastmod>2020-09-18</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/Css-Xpath/</loc>
-    <lastmod>2020-09-18</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2020-09-18</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
   <url>
