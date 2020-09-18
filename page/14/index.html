@@ -158,103 +158,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/" class="post-title-link" itemprop="url">echarts echarts-x echarts-gl 制作3D地球</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-08 17:04:42" itemprop="dateCreated datePublished" datetime="2018-01-08T17:04:42+08:00">2018-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 13:44:11" itemprop="dateModified" datetime="2020-09-18T13:44:11+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" itemprop="url" rel="index"><span itemprop="name">echarts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">gongyanli.com</a>  </p>
-<p>github：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/3D_earth_all">https://github.com/Gladysgong/3D_earth_all</a></p>
-<p>csdn: <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012052168/article/details/78459872">http://blog.csdn.net/u012052168/article/details/78459872</a></p>
-</blockquote>
-<p>前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以直接运行，具体情况看我每个里面怎么说的。小伙伴们可以自己先研究一下，等有时候我详细代码注释一下。</p>
-<h3 id="1-worldFlights"><a href="#1-worldFlights" class="headerlink" title="1.worldFlights"></a>1.worldFlights</h3><pre><code>所用框架：philogl
-位置：examples\worldFlights
-说明：philogl (https://github.com/senchalabs/philogl) 官方项目下的一个demo，把全球飞行航线在3d地球上表示出来。</code></pre>
-<h3 id="2-airline-china"><a href="#2-airline-china" class="headerlink" title="2.airline_china"></a>2.airline_china</h3><pre><code>所用框架：philogl
-说明： 一位博主基于philogl官方项目的demo改写而成，把全球的飞行路线改为了中国飞行路线(参照:examples\worldFlights)</code></pre>
-<h3 id="3-3dmap"><a href="#3-3dmap" class="headerlink" title="3.3dmap"></a>3.3dmap</h3><pre><code>所用框架：echart-x
-说明：利用echart-x制作的3d地球，其数据是把根据经纬度的高低来对国家进行分类（高、中、低）</code></pre>
-<h3 id="4-echarts-gl"><a href="#4-echarts-gl" class="headerlink" title="4.echarts-gl"></a>4.echarts-gl</h3><pre><code>说明：echarts-gl官方项目，我使用npm拉取代码后，依然运行有问题，显示不清楚，所以弃用，可能还是我自己哪里有问题，但是没找出来。</code></pre>
-<h3 id="5-echarts3D-globe"><a href="#5-echarts3D-globe" class="headerlink" title="5.echarts3D-globe"></a>5.echarts3D-globe</h3><pre><code>所用框架：echarts-gl
-说明：一位童鞋（不好意思，等我有时间把你的gith补上，么么哒）利用echarts-gl而制作的3d地球，模拟的是网络攻击的数据，但我发现依然使用的是飞行航线的数据，所以这个数据究竟能否反应网络攻击有待证实。</code></pre>
-<h3 id="6-earth"><a href="#6-earth" class="headerlink" title="6.earth"></a>6.earth</h3><pre><code>所用框架：echarts-gl
-说明：基于echarts3D-globe重写了一个适合自己需要的精简的地球</code></pre>
-<h3 id="7-earth-x"><a href="#7-earth-x" class="headerlink" title="7.earth-x"></a>7.earth-x</h3><pre><code>所用框架：echarts-x
-说明：基于3dmap重写了一个适合自身需要的最终地球。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%8A%93%E5%8F%96%E7%99%BE%E5%BA%A6%E3%80%81google%E3%80%81bing%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E7%9A%84%E7%88%AC%E8%99%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -543,20 +446,20 @@ hexo s -p 8022
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

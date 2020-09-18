@@ -181,21 +181,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-08-31 11:33:11 / Modified: 11:36:28" itemprop="dateCreated datePublished" datetime="2018-08-31T11:33:11+08:00">2018-08-31</time>
+              <time title="Created: 2018-08-31 11:33:11" itemprop="dateCreated datePublished" datetime="2018-08-31T11:33:11+08:00">2018-08-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:34:21" itemprop="dateModified" datetime="2020-09-18T16:34:21+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/SSH/" itemprop="url" rel="index"><span itemprop="name">SSH</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
                 </span>
             </span>
 
@@ -785,7 +791,7 @@ Git官网：http://git-scm.com</code></pre>
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/MySql%E8%BF%9E%E6%8E%A5%E6%97%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF/">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -799,7 +805,7 @@ Git官网：http://git-scm.com</code></pre>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/MySql%E8%BF%9E%E6%8E%A5%E6%97%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">MySql连接时的一些错误</a>
+            <a href="/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">MySql-1-错误记录</a>
         </h2>
 
         <div class="post-meta">
@@ -808,97 +814,16 @@ Git官网：http://git-scm.com</code></pre>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-08-16 11:29:03 / Modified: 11:48:41" itemprop="dateCreated datePublished" datetime="2018-08-16T11:29:03+08:00">2018-08-16</time>
+              <time title="Created: 2018-08-15 13:17:25" itemprop="dateCreated datePublished" datetime="2018-08-15T13:17:25+08:00">2018-08-15</time>
             </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>由于我的电脑时Mac的，所以只介绍Mac上的解决办法了。</p>
-<h3 id="1-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES"><a href="#1-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES" class="headerlink" title="1.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)"></a>1.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)</h3><pre><code>解决办法：
-$ sudo cd /usr/local/mysql/data
-$ rm -rf ib_logfile0
-$ rm -rf ib_logfile1
-停止mysql服务；
-$ cd /usr/local/mysql/bin/
-$ sudo su
-$ ./mysqld_safe --skip-grant-tables &amp; # 禁止mysql验证功能
-# 回车后mysql会自动重启
-$ ./mysql
-&gt; FLUSH PRIVILEGES; 
-&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;; </code></pre>
-<h3 id="2-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found"><a href="#2-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found" class="headerlink" title="2.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found"></a>2.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found</h3><pre><code>解决办法：
-$ mysql -u root -p
-&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;新密码&#39;;</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/MySql%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/MySql%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">MySql中的常见错误</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:32:19" itemprop="dateModified" datetime="2020-09-18T16:32:19+08:00">2020-09-18</time>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-08-15 13:17:25 / Modified: 13:33:27" itemprop="dateCreated datePublished" datetime="2018-08-15T13:17:25+08:00">2018-08-15</time>
-            </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -945,6 +870,21 @@ $ mysql&gt; set global max_allowed_packet = 64M;</code></pre>
 db = pymysql.connect(&quot;localhost&quot;,&quot;root&quot;,&quot;00000000&quot;,&quot;TESTDB&quot; ,use_unicode=True, charset=&quot;utf8&quot;)
 注意：如果charset=&quot;utf-8&quot;也会报错，错误信息为【AttributeError: &#39;NoneType&#39; object has no attribute &#39;encoding&#39;】
 可以看出是编码格式的问题，原来connect中的charset是&quot;utf8&quot;，而不是&quot;utf-8&quot;。同时port的需要number而不是string。</code></pre>
+<h2 id="三-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES"><a href="#三-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES" class="headerlink" title="三.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)"></a>三.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)</h2><pre><code>mac解决办法：
+$ sudo cd /usr/local/mysql/data
+$ rm -rf ib_logfile0
+$ rm -rf ib_logfile1
+停止mysql服务；
+$ cd /usr/local/mysql/bin/
+$ sudo su
+$ ./mysqld_safe --skip-grant-tables &amp; # 禁止mysql验证功能
+# 回车后mysql会自动重启
+$ ./mysql
+&gt; FLUSH PRIVILEGES; 
+&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;; </code></pre>
+<h2 id="四-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found"><a href="#四-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found" class="headerlink" title="四.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found"></a>四.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found</h2><pre><code>mac解决办法：
+$ mysql -u root -p
+&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;新密码&#39;;</code></pre>
 
       
     </div>
@@ -1545,21 +1485,27 @@ n &lt;&amp; m    将输入文件 m 和 n 合并。
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-06-19 10:15:26 / Modified: 10:46:58" itemprop="dateCreated datePublished" datetime="2018-06-19T10:15:26+08:00">2018-06-19</time>
+              <time title="Created: 2018-06-19 10:15:26" itemprop="dateCreated datePublished" datetime="2018-06-19T10:15:26+08:00">2018-06-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:33:56" itemprop="dateModified" datetime="2020-09-18T16:33:56+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/SSH/" itemprop="url" rel="index"><span itemprop="name">SSH</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
                 </span>
             </span>
 
@@ -1807,6 +1753,89 @@ r.status_code</code></pre>
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">Mac下ssh免密码登录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 18:16:42" itemprop="dateCreated datePublished" datetime="2018-06-11T18:16:42+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:34:32" itemprop="dateModified" datetime="2020-09-18T16:34:32+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="本地生成公钥和私钥（客户端Mac）"><a href="#本地生成公钥和私钥（客户端Mac）" class="headerlink" title="本地生成公钥和私钥（客户端Mac）"></a>本地生成公钥和私钥（客户端Mac）</h2><pre><code>$ ssh-keygen -t rsa
+$ cd ~/.ssh
+$ vi id_rsa.pub  # 复制公钥</code></pre>
+<h2 id="远程主机上添加信任的公钥（远程主机Mac或Linux）"><a href="#远程主机上添加信任的公钥（远程主机Mac或Linux）" class="headerlink" title="远程主机上添加信任的公钥（远程主机Mac或Linux）"></a>远程主机上添加信任的公钥（远程主机Mac或Linux）</h2><pre><code>$ cd ~/.ssh
+$ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
+<p>此时，再登录就不需要密码了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1876,20 +1905,20 @@ r.status_code</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
