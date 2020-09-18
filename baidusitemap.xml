@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -365,10 +373,6 @@
     <lastmod>2018-08-17</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/hexo-themes%E4%B8%BB%E9%A2%98%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A4%87%E4%BB%BD/</loc>
-    <lastmod>2018-07-11</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2018-05-27</lastmod>
   </url>
@@ -382,14 +386,6 @@
   </url>
   <url>
     <loc>http://gongyanli.com/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2018-05-27</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-05-27</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/Hexo%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E4%B8%AD%E5%85%B3%E4%BA%8E%E5%A4%A7%E5%B0%8F%E5%86%99%E7%9A%84bug/</loc>
     <lastmod>2018-05-27</lastmod>
   </url>
   <url>

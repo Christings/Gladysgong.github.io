@@ -440,108 +440,6 @@ $ svn merge -r 200:201 test.txt 将版本200与201之间的差异合并到当前
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/hexo-themes%E4%B8%BB%E9%A2%98%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A4%87%E4%BB%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/hexo-themes%E4%B8%BB%E9%A2%98%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A4%87%E4%BB%BD/" class="post-title-link" itemprop="url">hexo--themes主题无法进行备份</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-05-29 15:00:36" itemprop="dateCreated datePublished" datetime="2018-05-29T15:00:36+08:00">2018-05-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-07-11 16:47:35" itemprop="dateModified" datetime="2018-07-11T16:47:35+08:00">2018-07-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
-</blockquote>
-<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
-<p>解决：</p>
-<pre><code>$ git rm --cached themes/yilia
-rm &#39;themes/yilia&#39;
-
-$ git status</code></pre>
-<p>原因：</p>
-<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
-
-在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
-
-这个功能的意义：
-
-在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
-
-只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
-
-相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
-
-这里我偷懒直接将子模块删除，将整个仓库进行备份了。
-
-比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0GitHub%E4%B8%8A%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E9%A1%B9%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1318,6 +1216,243 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">使用Flask+Gunicorn+Nginx在Linux进行网站部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:33:57" itemprop="dateCreated datePublished" datetime="2018-04-13T14:33:57+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7da2e5892dd6">https://www.jianshu.com/p/7da2e5892dd6</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79985613">https://blog.csdn.net/u012052168/article/details/79985613</a></p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>这个网站部署属于很心酸的过程，至于如何心酸我必须得说出来，给我自己的时间一个交代。开始我使用Flask+uWsgi+Nginx进行配置的，哪哪儿都配置好了，Nginx欢迎页也可以访问，Flask本身也没问题，但就是uWsgi访问不了。<br>因为哪里配置都没问题，但就是无法访问，我Google、baidu各种查了好久，都解决不了。有说权限问题的，但是我都换到root下了，有说哪里哪里加个plugins的，对于我还是不行。后来我看见有人说，他也遇到这个问题解决不了，后来他就搁置不弄了，过了一星期左右，打开<br>自己就连接上了。于是我想了想，对于这种我该放弃了。<br>网上看了看，说Gunicorn比uWsgi好用，于是我就换成了Gunicorn，然后分分钟成功，可是我却在这上面干耗了一天。<br>顺便提一下，代码中flask_aiot为网站文件，scrapy_aiot是我的爬虫文件，用来抓取网站所用的数据，有兴趣可以看一下，当时写的好像不是很完善，有不对的地方留言告诉就ok，我改。</p>
+<h2 id="二、环境和目录结构"><a href="#二、环境和目录结构" class="headerlink" title="二、环境和目录结构"></a>二、环境和目录结构</h2><pre><code>Centos7
+Python3
+Flask：是一个用Python实现的Web开发的微服务框架
+Guicorn：Web服务器，和UWsgi类似
+Nginx：反向代理</code></pre>
+<hr>
+<pre><code>flask_aiot
+    ├── app
+    ├── config.py
+    ├── manage.py
+    ├── requirements.txt
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        └── share</code></pre>
+<h2 id="三、安装基础环境"><a href="#三、安装基础环境" class="headerlink" title="三、安装基础环境"></a>三、安装基础环境</h2><p>我用的是Python3，而现在Centos下默认的还是Python2，所以我用Anaconda安装了一个Python3，很方便。<br>不同的项目可能会需要不同的依赖包，所以我用了VirtualEnv来管理依赖。</p>
+<pre><code>pip install virtualenv
+创建虚拟环境并激活
+[root@localhost flask_aiot]# source venv/bin/activate</code></pre>
+<h2 id="四、安装Flask"><a href="#四、安装Flask" class="headerlink" title="四、安装Flask"></a>四、安装Flask</h2><pre><code>直接在虚拟环境下安装requirements.txt即可，一次性把依赖都安装齐全。
+(venv) [root@localhost flask_aiot]# pip install -r requirements.txt </code></pre>
+<h2 id="五、项目文件"><a href="#五、项目文件" class="headerlink" title="五、项目文件"></a>五、项目文件</h2><p>在生产环境中，我们的Flask项目是做在包内的，在包外采用Flask Script写一个manage.py文件作为启动文件，这样方便支持各种项目。manage.py文件如下：</p>
+<pre><code>`
+#!/usr/bin/env python
+import os
+
+if os.path.exists(&#39;.env&#39;):
+    print(&#39;Importing environment from .env...&#39;)
+    for line in open(&#39;.env&#39;):
+        var = line.strip().split(&#39;=&#39;)
+        if len(var) == 2:
+            os.environ[var[0]] = var[1]
+
+# from app import create_app, db
+from app import create_app, mongo
+from app.models import User, AllProductPrice, Ny135, Chinacwa, Iot
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+
+app = create_app(os.getenv(&#39;FLASK_CONFIG&#39;) or &#39;default&#39;)
+manager = Manager(app)
+migrate = Migrate(app, mongo)
+
+
+def make_shell_context():
+    return dict(app=app, db=mongo, User=User, AllProductPrice=AllProductPrice,
+                Ny135=Ny135, Chinacwa=Chinacwa, Iot=Iot)
+
+
+manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
+manager.add_command(&#39;db&#39;, MigrateCommand)
+
+
+@manager.command
+def test():
+    &quot;&quot;&quot;Run the unit tests.&quot;&quot;&quot;
+    import unittest
+    tests = unittest.TestLoader().discover(&#39;tests&#39;)
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
+if __name__ == &#39;__main__&#39;:
+    manager.run()
+`</code></pre>
+<p>此时我们可以直接在虚拟环境中运行Flask：</p>
+<pre><code>默认地址和端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver  
+任意地址和8099端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver -h 0.0.0.0 -p 8099
+运行：
+curl i 127.0.0.1:8099  # 看到网站返回的内容</code></pre>
+<h2 id="六、安装Gunicorn"><a href="#六、安装Gunicorn" class="headerlink" title="六、安装Gunicorn"></a>六、安装Gunicorn</h2><p>Flask的生产环境比较成熟的有Gunicorn和uWSGI,无奈我一直配置uWSGI不成功，所以换成了Gunicorn，而且和uWSGI相比起来，Gunicorn的配置真的蛮简单的。</p>
+<pre><code>(venv) [root@localhost flask_aiot]# pip install gunicorn
+运行：
+(venv) [root@localhost flask_aiot]# gunicorn -w 4 -b 127.0.0.1:8001 manage:app
+curl i 127.0.0.1:8001  # 看到网站返回的内容</code></pre>
+<h2 id="七、Nginx"><a href="#七、Nginx" class="headerlink" title="七、Nginx"></a>七、Nginx</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><pre><code>网上好多用yum install nginx来进行安装的，但是目前centos7上已经不支持了，所以我用安装包进行安装的。</code></pre>
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><pre><code>vi /etc/nginx/conf.d/default.conf
+
+default.conf如下：
+server &#123;
+    listen       8099;
+    server_name  10.200.116.13;
+    # server_name  111.203.20.92;
+
+    location / &#123;
+      #  include uwsgi_params;
+      #  uwsgi_pass  127.0.0.1:8001; # 指向uwsgi 所应用的内部地址,所有请求将转发给uwsgi 处理
+      #  uwsgi_param UWSGI_PYHOME /home/lilly/www/flask_scrapy_aiot/flask_aiot/venv; # 指向虚拟环境目录
+      #  uwsgi_param UWSGI_CHDIR  /home/lilly/www/flask_scrapy_aiot/flask_aiot; # 指向网站根目录
+      #  uwsgi_param UWSGI_SCRIPT manage:app; # 指定启动程序
+      #  uwsgi_read_timeout 100;
+        proxy_pass http://localhost:8001;
+        proxy_redirect          off;
+        proxy_set_header        Host                    $host;
+        proxy_set_header        X-Real-IP               $remote_addr;
+        proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwared-Proto        $scheme;
+      #  root   /usr/share/nginx/html;
+      #  index  index.html index.htm;
+    &#125;</code></pre>
+<hr>
+<pre><code>vi /etc/nginx/nginx.conf 
+
+nginx.conf如下：
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+
+http &#123;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;   # 这句话很重要，相当于引入了上面的default.conf配置文件
+&#125;</code></pre>
+<h3 id="3、重启Nginx"><a href="#3、重启Nginx" class="headerlink" title="3、重启Nginx"></a>3、重启Nginx</h3><pre><code>sudo service nginx restart
+sudo systemctl restart  nginx.service
+我用以上方式启动的时候总是提示：Job for nginx.service failed because the control process exited with error code. 
+See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.
+我查看的时候说：nginx: [emerg] open() &quot;/var/run/nginx.pid&quot; failed (13: Permission denied)
+但是我都是用root来启动的了，不应该存在这种问题啊。
+所以我是直接nginx这样启动的，确实nginx是起来了的。</code></pre>
+<h3 id="4、访问网站"><a href="#4、访问网站" class="headerlink" title="4、访问网站"></a>4、访问网站</h3><pre><code>curl i 10.200.116.13：8099  # 返回网站内容</code></pre>
+<h2 id="八、Supervisor"><a href="#八、Supervisor" class="headerlink" title="八、Supervisor"></a>八、Supervisor</h2><p>如果想要当进程意外关闭后能自动重启，应该再配置一个Supervisor来实现。目前Supervisor只支持Python2，我看官方说目前Python3已经在进行中，应该很快就能支持了。我在这个部署里就没做这块了，即使在Python3下面也可以用Supervisor，因为他只是调进程而已，想做的话可以网上找找文档，不难。</p>
+<h2 id="九、后续"><a href="#九、后续" class="headerlink" title="九、后续"></a>九、后续</h2><p>Nginx等一系列部署好后，我打开网站还发现了一个bug，当然这是我程序的问题。bug如下：</p>
+<pre><code>当我10.200.116.13：8099时停留在首页，当我点击网站的某一按钮，跳转到另一个页面，出现404错误，而此时我看网站的url为
+10.200.116.13/show
+这也就意味着网站跳转时没把8099的端口给带上，而我手动在地址栏输入10.200.116.13：8099/show时，页面是能够正常显示的。
+说明8099的端口有些地方是静态的，没有动态更着走。把下面的语句1改为语句2就可以了。</code></pre>
+<hr>
+<pre><code>语句1:&lt;li&gt;&lt;a href=&quot;/show_ny135&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;#&#125;
+
+语句2：&lt;li&gt;&lt;a href=&quot;&#123;&#123; url_for('main.ShowNy135View') &#125;&#125;&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1387,20 +1522,20 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
