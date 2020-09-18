@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -367,10 +371,6 @@
   <url>
     <loc>http://gongyanli.com/TensorFlow-2-HelloWorld/</loc>
     <lastmod>2020-02-18</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/</loc>
-    <lastmod>2018-09-17</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
