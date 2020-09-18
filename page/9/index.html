@@ -255,7 +255,7 @@ $ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">SVN基本命令</a>
+            <a href="/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">svn-1-基本命令</a>
         </h2>
 
         <div class="post-meta">
@@ -264,21 +264,168 @@ $ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-06-11 10:42:30 / Modified: 10:45:45" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
+              <time title="Created: 2018-06-11 10:42:30" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:23:37" itemprop="dateModified" datetime="2020-09-18T16:23:37+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">版本管理</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/SVN/" itemprop="url" rel="index"><span itemprop="name">SVN</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" itemprop="url" rel="index"><span itemprop="name">svn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.帮助文档</p>
+<pre><code>$ svn --help
+$ svn help
+$ svn help ci</code></pre>
+<p>2.将文件checkout到本地</p>
+<pre><code>$ svn checkout PATH
+$ svn checkout http://svn.sogou-inc.com/svn/operation/op-tools/build build
+简写：svn co</code></pre>
+<p>3.往版本库中添加新的文件</p>
+<pre><code>$ svn add file
+$ svn add test.txt
+$ svn add *.txt</code></pre>
+<p>4.将修改文件提交到版本库</p>
+<pre><code>$ svn commit -m &quot;LogMessage&quot; [-N] [--no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)
+$ svn commit -m &quot;add test&quot; test.txt
+简写：svn ci</code></pre>
+<p>5.加锁/解锁</p>
+<pre><code>$ svn lock -m &quot;LockMessage&quot; [--force] PATH
+$ svn lock -m &quot;lock test&quot; test.php
+$ svn unlock PATH</code></pre>
+<p>6.更新版本</p>
+<pre><code>$ svn update -r m PATH
+$ svn update  如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
+$svn update -r 200 test.php (将版本库中的文件test.php还原到版本200)
+$ svn update test.php  (更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)
+简写：svn up</code></pre>
+<p>7.查看文件或者目录状态</p>
+<pre><code>$ svn status path（目录下的文件和子目录的状态，正常状态不显示）
+# 不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
+$ svn status -v path(显示文件和子目录状态)
+# 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。
+# svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。
+简写：svn st</code></pre>
+<p>8.删除文件</p>
+<pre><code>$ svn delete path -m “delete test“
+$ svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”
+
+$ svn delete test.php 
+$ svn ci -m ‘delete test‘
+简写：svn (del, remove, rm)</code></pre>
+<p>9.查看日志</p>
+<pre><code>$ svn log PATH
+$ svn log test.txt # 显示这个文件的所有修改记录，及其版本号的变化</code></pre>
+<p>10.查看文件详细信息</p>
+<pre><code>$ svn info PATH
+$ svn info test.txt</code></pre>
+<p>11.比较差异</p>
+<pre><code>$ svn diff PATH  # 将修改的文件与基础版本比较
+ $ svn diff test.txt
+$ svn diff -r m:n PATH # 对版本m和版本n比较差异
+$ svn diff -r 200:201 test.txt
+简写：svn di</code></pre>
+<p>12.将两个版本之间的差异合并到当前文件</p>
+<pre><code>$ svn merge -r m:n PATH
+$ svn merge -r 200:201 test.txt 将版本200与201之间的差异合并到当前文件，一般需要处理一下</code></pre>
+<p>13.版本库下的文件和目录列表</p>
+<pre><code>$ svn list path # 显示path目录下的所有属于版本库的文件和目录
+简写：svn ls</code></pre>
+<p>14.代码库url变更</p>
+<pre><code>$ svn switch/sw</code></pre>
+<p>15.恢复本地修改</p>
+<pre><code>$ svn revert</code></pre>
+<p>16.解决冲突</p>
+<pre><code>$ svn resolved</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">svn-1-基本命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 10:42:30" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:23:13" itemprop="dateModified" datetime="2020-09-18T16:23:13+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" itemprop="url" rel="index"><span itemprop="name">svn</span></a>
                 </span>
             </span>
 
@@ -1147,113 +1294,6 @@ rules = (
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/" class="post-title-link" itemprop="url">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-17 13:30:10" itemprop="dateCreated datePublished" datetime="2018-04-17T13:30:10+08:00">2018-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%88%AC%E8%99%AB/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf</a>  </p>
-</blockquote>
-<p>前言：之前写过一篇利用文章——<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>，来抓取巨潮资讯企业基本信息的文章，后来我还需要拿这些企业的年报的PDF文件，所以我试过也用也用上面这种思路去抓取，但是太过复杂，需要动态点击的元素太多，实现起来很麻烦。后来仔细看年报这块儿是通过post请求加参数来发送request，所以就很简单了。</p>
-<h2 id="一、思路"><a href="#一、思路" class="headerlink" title="一、思路"></a>一、思路</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo3.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo2.jpg"></p>
-<pre><code>第一张图中我们选中了行业和所需要的年度报告，发送请求后会返回列表，里面有所有农业企业年度报告的链接。
-第二张图中我们看到了请求的url和所需参数，如图示绿色框所示，所以我们只需要构建这样的请求即可。</code></pre>
-<hr>
-<pre><code>query = &#123;
-    &#39;stock&#39;: &#39;&#39;,
-    &#39;searchkey&#39;: &#39;&#39;,
-    # &#39;plate&#39;: PLATE,
-    &#39;plate&#39;: &#39;&#39;,
-    &#39;category&#39;: CATEGORY,
-    &#39;trade&#39;: &#39;农、林、牧、渔业&#39;,
-    &#39;column&#39;: &#39;szse&#39;,
-    &#39;columnTitle&#39;: &#39;历史公告查询&#39;,
-    &#39;pageNum&#39;: page_num,
-    &#39;pageSize&#39;: MAX_PAGESIZE,
-    &#39;tabName&#39;: &#39;fulltext&#39;,
-    &#39;sortName&#39;: &#39;&#39;,
-    &#39;sortType&#39;: &#39;&#39;,
-    &#39;limit&#39;: &#39;&#39;,
-    &#39;showTitle&#39;: &#39;&#39;,
-    &#39;seDate&#39;: START_DATE + &#39;~&#39; + END_DATE,
-&#125;
-r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
-<hr>
-<pre><code>不复杂，把请求的返回内容存入csv文件，最后再通过downloader读取csv文件，最后根据csv中的链接把PDF文件下载下来。</code></pre>
-<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">代码</a>我和**PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)**这篇文章的代码放在一起了，放着cninfo的pdf文件中了，感兴趣自己可以看，可以跑起来的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1323,20 +1363,20 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

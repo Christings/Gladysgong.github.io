@@ -255,21 +255,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-08-24 18:56:03 / Modified: 19:35:35" itemprop="dateCreated datePublished" datetime="2018-08-24T18:56:03+08:00">2018-08-24</time>
+              <time title="Created: 2018-08-24 18:56:03" itemprop="dateCreated datePublished" datetime="2018-08-24T18:56:03+08:00">2018-08-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:24:53" itemprop="dateModified" datetime="2020-09-18T16:24:53+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">版本管理</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
                 </span>
             </span>
 
@@ -1126,7 +1132,7 @@ Message
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell%E8%84%9A%E6%9C%AC-integer-expression-expected%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1140,7 +1146,7 @@ Message
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Shell%E8%84%9A%E6%9C%AC-integer-expression-expected%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="post-title-link" itemprop="url">Shell脚本--integer expression expected解决办法</a>
+            <a href="/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Shell-1-问题记录</a>
         </h2>
 
         <div class="post-meta">
@@ -1149,21 +1155,27 @@ Message
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-07-26 09:54:56 / Modified: 10:04:49" itemprop="dateCreated datePublished" datetime="2018-07-26T09:54:56+08:00">2018-07-26</time>
+              <time title="Created: 2018-07-26 09:54:56" itemprop="dateCreated datePublished" datetime="2018-07-26T09:54:56+08:00">2018-07-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:19:10" itemprop="dateModified" datetime="2020-09-18T16:19:10+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
                 </span>
             </span>
 
@@ -1178,7 +1190,7 @@ Message
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-错误及原因"><a href="#1-错误及原因" class="headerlink" title="1.错误及原因"></a>1.错误及原因</h3><pre><code>在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expected”的错误。这是因为参数-eq，-lt，-gt比较的都是数字和变量，而变量var如果是一个字符串的话，就会出现上述错误了。</code></pre>
+          <h2 id="一、问题：integer-expression-expected"><a href="#一、问题：integer-expression-expected" class="headerlink" title="一、问题：integer expression expected"></a>一、问题：integer expression expected</h2><h3 id="1-错误及原因"><a href="#1-错误及原因" class="headerlink" title="1.错误及原因"></a>1.错误及原因</h3><pre><code>在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expected”的错误。这是因为参数-eq，-lt，-gt比较的都是数字和变量，而变量var如果是一个字符串的话，就会出现上述错误了。</code></pre>
 <h3 id="2-解决办法"><a href="#2-解决办法" class="headerlink" title="2.解决办法"></a>2.解决办法</h3><pre><code>此时可以采用一种迂回的办法，即用awk工具对变量进行比较，返回比较结果，再将比较结果与相应的数字量进行比较。
 如：
 [ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq 0]</code></pre>
@@ -1205,7 +1217,7 @@ Message
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell%E7%BC%96%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-2-%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1219,7 +1231,7 @@ Message
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Shell%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">Shell编程</a>
+            <a href="/Shell-2-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shell-2-基础</a>
         </h2>
 
         <div class="post-meta">
@@ -1228,21 +1240,27 @@ Message
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-07-11 16:43:14 / Modified: 16:44:40" itemprop="dateCreated datePublished" datetime="2018-07-11T16:43:14+08:00">2018-07-11</time>
+              <time title="Created: 2018-07-11 16:43:14" itemprop="dateCreated datePublished" datetime="2018-07-11T16:43:14+08:00">2018-07-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:22:39" itemprop="dateModified" datetime="2020-09-18T16:22:39+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
                 </span>
             </span>
 
@@ -1858,20 +1876,20 @@ r.status_code</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

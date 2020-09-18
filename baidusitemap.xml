@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/Shell-2-%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/Linux-1-%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -329,10 +349,6 @@
     <lastmod>2018-08-31</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/</loc>
-    <lastmod>2018-08-24</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/Re_CNN%E5%88%9D%E6%8E%A2/</loc>
     <lastmod>2018-08-17</lastmod>
   </url>
@@ -345,24 +361,12 @@
     <lastmod>2018-08-15</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/Shell%E8%84%9A%E6%9C%AC-integer-expression-expected%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
-    <lastmod>2018-07-26</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/hexo-themes%E4%B8%BB%E9%A2%98%E6%97%A0%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%A4%87%E4%BB%BD/</loc>
-    <lastmod>2018-07-11</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/Shell%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2018-07-11</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/</loc>
     <lastmod>2018-06-19</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2018-06-11</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/</loc>

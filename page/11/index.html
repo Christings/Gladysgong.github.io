@@ -158,6 +158,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Python3爬虫--PhantomJS安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-29 15:40:06" itemprop="dateCreated datePublished" datetime="2018-03-29T15:40:06+08:00">2018-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><pre><code>http://phantomjs.org/download.html </code></pre>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><pre><code>解压文件，examlpe中有很多小例子可以试试
+把解压后的bin路径配置到path变量中
+打开cmd，输入phantomjs验证</code></pre>
+<h2 id="三、验证"><a href="#三、验证" class="headerlink" title="三、验证"></a>三、验证</h2><pre><code>`from selenium import webdriver
+browser = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+browser.get(&#39;https://www.baidu.com&#39;)
+print(browser.current_url)`</code></pre>
+<hr>
+<pre><code>输出：https:www.baidu.com
+
+成功！</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1720,85 +1796,6 @@ def recommend(self, user):
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/" class="post-title-link" itemprop="url">该读的书</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-27 16:44:21" itemprop="dateCreated datePublished" datetime="2018-02-27T16:44:21+08:00">2018-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book/" itemprop="url" rel="index"><span itemprop="name">book</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.神经网络–《Make Your Own Neural Network》</p>
-<pre><code>人工神经网络原理及代码实现，深度学习入门推荐</code></pre>
-<p>2.写给程序员的数据挖掘–实践指南</p>
-<pre><code>给我感觉是一本很小巧的书，但却很有实用价值，里面详细分析了推荐算法，还在看</code></pre>
-<p>3.Python爬虫开发与项目实战–范传辉</p>
-<pre><code>很适合中国读者的一本书，我跳着看的，哈哈</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1868,20 +1865,20 @@ def recommend(self, user):
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
