@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1、padding的方式： 说明： 1、摘录自http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;37674306&#x2F;what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t 2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width&#x3D;13,只允许滑动2次">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow-7-conv2d的padding及参数解释">
+<meta property="og:url" content="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="1、padding的方式： 说明： 1、摘录自http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;37674306&#x2F;what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t 2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width&#x3D;13,只允许滑动2次">
+<meta property="og:locale">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg">
+<meta property="article:published_time" content="2020-04-17T07:51:56.000Z">
+<meta property="article:modified_time" content="2020-04-17T11:04:54.692Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="TensorFlow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg">
+
+<link rel="canonical" href="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>TensorFlow-7-conv2d的padding及参数解释 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TensorFlow-7-conv2d的padding及参数解释
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-17 15:51:56 / Modified: 19:04:54" itemprop="dateCreated datePublished" datetime="2020-04-17T15:51:56+08:00">2020-04-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1、padding的方式："><a href="#1、padding的方式：" class="headerlink" title="1、padding的方式："></a>1、padding的方式：</h3><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg"></p>
+<p>说明：</p>
+<p>1、摘录自<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t">http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t</a></p>
+<p>2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width=13,只允许滑动2次,多余的元素全部丢掉</p>
+<p>3、SAME的方式,采用的是补全的方式,对于上述的情况,允许滑动3次,但是需要补3个元素,左奇右偶,在左边补一个0,右边补2个0</p>
+<p>4、For the SAME padding, the output height and width are computed as:</p>
+<pre><code>out_height = ceil(float(in_height) / float(strides[1]))
+
+out_width = ceil(float(in_width) / float(strides[2]))
+
+For the VALID padding, the output height and width are computed as:
+
+out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))
+
+out_width = ceil(float(in_width - filter_width + 1) / float(strides[2]))</code></pre>
+<h3 id="2、conv2d的参数："><a href="#2、conv2d的参数：" class="headerlink" title="2、conv2d的参数："></a>2、conv2d的参数：</h3><p>1、strides[0] = strides[3] = 1</p>
+<h3 id="3、conv2d的参数解释："><a href="#3、conv2d的参数解释：" class="headerlink" title="3、conv2d的参数解释："></a>3、conv2d的参数解释：</h3><p>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)<br>除去name参数用以指定该操作的name，与方法有关的一共五个参数：</p>
+<p>第一个参数input：指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一</p>
+<p>第二个参数filter：相当于CNN中的卷积核，它要求是一个Tensor，具有[filter_height, filter_width, in_channels, out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同,filter的通道数要求与input的in_channels一致，有一个地方需要注意，第三维in_channels，就是参数input的第四维</p>
+<p>第三个参数strides：卷积时在图像每一维的步长，这是一个一维的向量，长度4，strides[0]=strides[3]=1</p>
+<p>第四个参数padding：string类型的量，只能是”SAME”,”VALID”其中之一，这个值决定了不同的卷积方式（后面会介绍）</p>
+<p>第五个参数：use_cudnn_on_gpu:bool类型，是否使用cudnn加速，默认为true</p>
+<p>结果返回一个Tensor，这个输出，就是我们常说的feature map</p>
+<h3 id="4、conv2d的例子："><a href="#4、conv2d的例子：" class="headerlink" title="4、conv2d的例子："></a>4、conv2d的例子：</h3><p>那么TensorFlow的卷积具体是怎样实现的呢，用一些例子去解释它：</p>
+<p>import tensorflow as tf<br>#case 2<br>input = tf.Variable(tf.random_normal([1,3,3,5]))<br>filter = tf.Variable(tf.random_normal([1,1,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>import tensorflow as tf</p>
+<p>input = tf.Variable(tf.random_normal([1,5,5,5]))<br>filter = tf.Variable(tf.random_normal([3,3,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>说明：</p>
+<p>1、使用VALID方式,feature map的尺寸为<br>out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))=(5-3+1)/1 = 3</p>
+<p>out_width = ceil(float(in_width - filter_width + 1) / float(strides[2])) = (5-3+1)/1 = 3</p>
+<p>所以,feature map的尺寸为3*3</p>
+<p>2、filter的参数个数为3<em>3</em>5<em>1,也即对于输入的每个通道数都对应于一个3</em>3的滤波器,然后共5个通道数,conv2d的过程就是对5个输入进行点击然后求和,得到一张feature map。如果要得到3张feature map,那么应该使用的参数为3<em>3</em>5*3个参数.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/PyTorch-5-transforms/" rel="prev" title="PyTorch-5-transforms">
+      <i class="fa fa-chevron-left"></i> PyTorch-5-transforms
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" rel="next" title="PyTorch-6-卷积神经网络参数解释">
+      PyTorch-6-卷积神经网络参数解释 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81padding%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">1、padding的方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81conv2d%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">2、conv2d的参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81conv2d%E7%9A%84%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">3、conv2d的参数解释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81conv2d%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">4、conv2d的例子：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

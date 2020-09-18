@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：http:&#x2F;&#x2F;gongyanli.com代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;wordbank简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b8253ad8054eCSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;79806493  一、总体思路    我的目标是下载世">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Scrapy下载世界银行excel文件">
+<meta property="og:url" content="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：http:&#x2F;&#x2F;gongyanli.com代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;wordbank简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b8253ad8054eCSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;79806493  一、总体思路    我的目标是下载世">
+<meta property="og:locale">
+<meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/worldbank.jpg">
+<meta property="article:published_time" content="2018-04-03T08:36:53.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Scrapy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://p2lakvkq0.bkt.clouddn.com/worldbank.jpg">
+
+<link rel="canonical" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>利用Scrapy下载世界银行excel文件 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用Scrapy下载世界银行excel文件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-03 16:36:53" itemprop="dateCreated datePublished" datetime="2018-04-03T16:36:53+08:00">2018-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/wordbank">https://github.com/Gladysgong/wordbank</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b8253ad8054e">https://www.jianshu.com/p/b8253ad8054e</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79806493">https://blog.csdn.net/u012052168/article/details/79806493</a></p>
+</blockquote>
+<h2 id="一、总体思路"><a href="#一、总体思路" class="headerlink" title="一、总体思路"></a>一、总体思路</h2><pre><code>    我的目标是下载世界银行中各个指标的excel文件，刚好世界银行给我们提供了excel下载页面的url地址，这样子我们只需要构建url地址进行
+请求就好了，还蛮简单的，也不会太大劲。
+    首先我需要把所有指标的地址拿到，于是我找到了这个地址**https://data.worldbank.org/indicator?tab=all**，通过这个地址拿到所
+有指标的href，再进行拼接，最后把拼接的结果进行请求。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/worldbank.jpg"></p>
+<h2 id="二、item模块"><a href="#二、item模块" class="headerlink" title="二、item模块"></a>二、item模块</h2><pre><code>class WorldBankItem(scrapy.Item):
+    indi_url = scrapy.Field()  # 指标(indicator)的url
+    indi_name = scrapy.Field()  # 指标(indicator)的名字</code></pre>
+<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>1.解析url
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]&#39;)
+        indi_url = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/@href&#39;).extract()
+        # indi = re.findall(r&#39;/indicator/.*/?view=chart&#39;, indicators, re.S)
+        indi_name = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/text()&#39;).extract()
+
+        for each in indi_url:
+            each = each[:-10] + &quot;downloadformat=excel&quot;
+            # i.replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;) #使用replace进行替换时总是不成功，有待探索！
+            item[&#39;indi_url&#39;] = each
+            print(&quot;indi_url&quot;, item[&#39;indi_url&#39;])
+            yield item
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + each,
+                                 callback=self.download_excel)
+
+        for each in indi_name:
+            print(&quot;indi_name:&quot;, each)
+            item[&#39;indi_name&#39;] = each
+            # self.filenames = indi_name
+            yield item
+2.下载excel文件并写入
+    def download_excel(self, response):
+        name_temp = response.url.split(&quot;/&quot;)[-1]
+        name = name_temp.split(&quot;?&quot;)[-2]
+        print(&quot;storename:&quot;, name, &#39;-&#39;, response.url)
+        filename = r&quot;D:\workspace\scrapy\worldbank\worldbankexcelfiles\%s.xls&quot; % name
+        resp = requests.get(response.url)
+        output = open(filename, &#39;wb&#39;)
+        output.write(resp.content)
+        output.close()
+        return None</code></pre>
+<h2 id="四、数据持久化"><a href="#四、数据持久化" class="headerlink" title="四、数据持久化"></a>四、数据持久化</h2><pre><code>1.定义mysql类（属于我单独定义的）
+    import pymysql
+    class Mysql:
+        def __init__(self, host, user, pwd, db):
+            self.host = host
+            self.user = user
+            self.pwd = pwd
+            self.db = db
+
+        def __GetConnect(self):
+            if not self.db:
+                raise (NameError, &#39;数据库不存在&#39;)
+            self.conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, database=self.db, charset=&#39;utf8&#39;)
+            cur = self.conn.cursor()
+            if not cur:
+                raise (NameError, &#39;账号或密码错误&#39;)
+            else:
+                return cur
+
+        def ExecQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            resList = cur.fetchall()
+
+            self.conn.close()
+            return resList
+
+        def ExecNoQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            self.conn.commit()
+            self.conn.close()
+2.pipelines
+    from worldbank.db.mysql import Mysql
+    from worldbank.items import WorldBankItem
+
+
+    class WorldbankPipeline(object):
+        def process_item(self, item, spider):
+            if isinstance(item, WorldBankItem):
+                mysql = Mysql(host=&#39;localhost&#39;, user=&#39;root&#39;, pwd=&#39;421498&#39;, db=&#39;saas&#39;)
+                if len(item[&#39;indi_name&#39;]) == 0:
+                    pass
+                else:
+                    newsql = &quot;insert into worldbank_indi(indi_url,indi_name)values(&#39;%s&#39;,&#39;%s&#39;)&quot; % (
+                        item[&#39;indi_url&#39;], item[&#39;indi_name&#39;])
+                    print(newsql)
+                    mysql.ExecNoQuery(newsql.encode(&#39;utf-8&#39;))
+            else:
+                pass
+            return item</code></pre>
+<h2 id="五、设置settings"><a href="#五、设置settings" class="headerlink" title="五、设置settings"></a>五、设置settings</h2><pre><code>ITEM_PIPELINES = &#123;
+       &#39;worldbank.pipelines.WorldbankPipeline&#39;: 300,&#125; # 记得开启此处</code></pre>
+<h2 id="六、bug"><a href="#六、bug" class="headerlink" title="六、bug"></a>六、bug</h2><pre><code>    在爬虫模块parse_urls()中我不光拼接了url地址，我还把指标的url和name放进了item中，因为我这边考虑的，excel文件命名的时候我是
+用的url的一部分命名的，像这样子**EN.ATM.GHGO.KT.CE**，这是属于指标名字的简写，的确我们手工下载数据的时候也是以这个命名。但是像我
+这种对指标不熟悉的人，完全看不出简写的含义，所以我就想把简写以及指标的全名存储进入数据库，以方便对照，所以我用的yield item这样子来
+返回数据。
+    但是实际存储的时候，总是报错**KeyError: &#39;indi_name&#39;**，但是数据也确实存进了数据库，所以我很不理解，这个问题有待于探索，也希
+望知道的朋友可以告知。
+    本来我也试过用Request中meta来传递item，然后一起返回，但是插入数据库的时候，报错主键的值必须唯一。
+    有可能和用的数据库也有关系，用MySQL的数据来存储爬虫数据很不顺手，因为需要自己手工建立数据库和表，或者写代码建立。而MongoDB就很
+方便了，告诉数据库名字和表名，自动就帮我们创建了。</code></pre>
+<h2 id="七、我是二傻"><a href="#七、我是二傻" class="headerlink" title="七、我是二傻"></a>七、我是二傻</h2><pre><code>    原来上面的问题我早就解决了，只是我忘记了，果然好记性不如烂笔头。
+parse_url()换成如下：
+其实是把两个for改成了一个for，但是这样子就需要把list换成str来进行存储，并且存储的时候我遇到了转义字符的问题，报错如下：
+**pymysql.err.ProgrammingError: (1064, &#39;You have an error in your SQL syntax; check the manual that corresponds to 
+your MySQL server version for the right syntax to use near \&#39;Recipe&quot; of Machine Learning&quot;,&quot;https://i.ytimg.com/vi/
+DkgJ_VkU5jM/hqdefault.jpg&quot;,\&#39; at line 4&#39;)**
+改pipelines文件，把字段包裹上pymysql.escape_string(),同时我已经将代码更新，可以自己去看。
+
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]/section[@class=&quot;nav-item&quot;]/ul/li&#39;)
+
+        for i in indicators:
+            temp_url = i.xpath(&#39;a/@href&#39;).extract()  # 得到的结果为list
+            # indi_url = str(temp_url)[:-12] + &quot;downloadformat=excel&quot;
+            indi_url = str(temp_url).replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;)
+            item[&quot;indi_url&quot;] = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            # print(&#39;item[&quot;indi_url&quot;]:&#39;, item[&quot;indi_url&quot;])
+
+            indi_name = i.xpath(&#39;a/text()&#39;).extract()
+            item[&quot;indi_name&quot;] = str(indi_name)
+            # print(&#39;item[&quot;indi_name&quot;]:&#39;, item[&quot;indi_name&quot;])
+            yield item
+
+            url = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + url, callback=self.download_excel)</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Scrapy/" rel="tag"># Scrapy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/" rel="prev" title="基于关键字在主流搜索引擎中抓取信息">
+      <i class="fa fa-chevron-left"></i> 基于关键字在主流搜索引擎中抓取信息
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/" rel="next" title="Flask+Scrapy+MongoDB开发">
+      Flask+Scrapy+MongoDB开发 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">一、总体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81item%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">二、item模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%88%AC%E8%99%AB%E6%A8%A1%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">二、爬虫模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">四、数据持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%BE%E7%BD%AEsettings"><span class="nav-number">5.</span> <span class="nav-text">五、设置settings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81bug"><span class="nav-number">6.</span> <span class="nav-text">六、bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%88%91%E6%98%AF%E4%BA%8C%E5%82%BB"><span class="nav-number">7.</span> <span class="nav-text">七、我是二傻</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

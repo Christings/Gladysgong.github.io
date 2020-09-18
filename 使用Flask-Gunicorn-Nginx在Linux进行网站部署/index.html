@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：http:&#x2F;&#x2F;gongyanli.com&#x2F;代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;flask_scrapy_aiot简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;7da2e5892dd6CSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;79985613  一、前言这个网站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Flask+Gunicorn+Nginx在Linux进行网站部署">
+<meta property="og:url" content="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：http:&#x2F;&#x2F;gongyanli.com&#x2F;代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;flask_scrapy_aiot简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;7da2e5892dd6CSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;79985613  一、前言这个网站">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-13T06:33:57.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Gunicorn">
+<meta property="article:tag" content="Nginx">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>使用Flask+Gunicorn+Nginx在Linux进行网站部署 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Flask+Gunicorn+Nginx在Linux进行网站部署
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:33:57" itemprop="dateCreated datePublished" datetime="2018-04-13T14:33:57+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7da2e5892dd6">https://www.jianshu.com/p/7da2e5892dd6</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79985613">https://blog.csdn.net/u012052168/article/details/79985613</a></p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>这个网站部署属于很心酸的过程，至于如何心酸我必须得说出来，给我自己的时间一个交代。开始我使用Flask+uWsgi+Nginx进行配置的，哪哪儿都配置好了，Nginx欢迎页也可以访问，Flask本身也没问题，但就是uWsgi访问不了。<br>因为哪里配置都没问题，但就是无法访问，我Google、baidu各种查了好久，都解决不了。有说权限问题的，但是我都换到root下了，有说哪里哪里加个plugins的，对于我还是不行。后来我看见有人说，他也遇到这个问题解决不了，后来他就搁置不弄了，过了一星期左右，打开<br>自己就连接上了。于是我想了想，对于这种我该放弃了。<br>网上看了看，说Gunicorn比uWsgi好用，于是我就换成了Gunicorn，然后分分钟成功，可是我却在这上面干耗了一天。<br>顺便提一下，代码中flask_aiot为网站文件，scrapy_aiot是我的爬虫文件，用来抓取网站所用的数据，有兴趣可以看一下，当时写的好像不是很完善，有不对的地方留言告诉就ok，我改。</p>
+<h2 id="二、环境和目录结构"><a href="#二、环境和目录结构" class="headerlink" title="二、环境和目录结构"></a>二、环境和目录结构</h2><pre><code>Centos7
+Python3
+Flask：是一个用Python实现的Web开发的微服务框架
+Guicorn：Web服务器，和UWsgi类似
+Nginx：反向代理</code></pre>
+<hr>
+<pre><code>flask_aiot
+    ├── app
+    ├── config.py
+    ├── manage.py
+    ├── requirements.txt
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        └── share</code></pre>
+<h2 id="三、安装基础环境"><a href="#三、安装基础环境" class="headerlink" title="三、安装基础环境"></a>三、安装基础环境</h2><p>我用的是Python3，而现在Centos下默认的还是Python2，所以我用Anaconda安装了一个Python3，很方便。<br>不同的项目可能会需要不同的依赖包，所以我用了VirtualEnv来管理依赖。</p>
+<pre><code>pip install virtualenv
+创建虚拟环境并激活
+[root@localhost flask_aiot]# source venv/bin/activate</code></pre>
+<h2 id="四、安装Flask"><a href="#四、安装Flask" class="headerlink" title="四、安装Flask"></a>四、安装Flask</h2><pre><code>直接在虚拟环境下安装requirements.txt即可，一次性把依赖都安装齐全。
+(venv) [root@localhost flask_aiot]# pip install -r requirements.txt </code></pre>
+<h2 id="五、项目文件"><a href="#五、项目文件" class="headerlink" title="五、项目文件"></a>五、项目文件</h2><p>在生产环境中，我们的Flask项目是做在包内的，在包外采用Flask Script写一个manage.py文件作为启动文件，这样方便支持各种项目。manage.py文件如下：</p>
+<pre><code>`
+#!/usr/bin/env python
+import os
+
+if os.path.exists(&#39;.env&#39;):
+    print(&#39;Importing environment from .env...&#39;)
+    for line in open(&#39;.env&#39;):
+        var = line.strip().split(&#39;=&#39;)
+        if len(var) == 2:
+            os.environ[var[0]] = var[1]
+
+# from app import create_app, db
+from app import create_app, mongo
+from app.models import User, AllProductPrice, Ny135, Chinacwa, Iot
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+
+app = create_app(os.getenv(&#39;FLASK_CONFIG&#39;) or &#39;default&#39;)
+manager = Manager(app)
+migrate = Migrate(app, mongo)
+
+
+def make_shell_context():
+    return dict(app=app, db=mongo, User=User, AllProductPrice=AllProductPrice,
+                Ny135=Ny135, Chinacwa=Chinacwa, Iot=Iot)
+
+
+manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
+manager.add_command(&#39;db&#39;, MigrateCommand)
+
+
+@manager.command
+def test():
+    &quot;&quot;&quot;Run the unit tests.&quot;&quot;&quot;
+    import unittest
+    tests = unittest.TestLoader().discover(&#39;tests&#39;)
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
+if __name__ == &#39;__main__&#39;:
+    manager.run()
+`</code></pre>
+<p>此时我们可以直接在虚拟环境中运行Flask：</p>
+<pre><code>默认地址和端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver  
+任意地址和8099端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver -h 0.0.0.0 -p 8099
+运行：
+curl i 127.0.0.1:8099  # 看到网站返回的内容</code></pre>
+<h2 id="六、安装Gunicorn"><a href="#六、安装Gunicorn" class="headerlink" title="六、安装Gunicorn"></a>六、安装Gunicorn</h2><p>Flask的生产环境比较成熟的有Gunicorn和uWSGI,无奈我一直配置uWSGI不成功，所以换成了Gunicorn，而且和uWSGI相比起来，Gunicorn的配置真的蛮简单的。</p>
+<pre><code>(venv) [root@localhost flask_aiot]# pip install gunicorn
+运行：
+(venv) [root@localhost flask_aiot]# gunicorn -w 4 -b 127.0.0.1:8001 manage:app
+curl i 127.0.0.1:8001  # 看到网站返回的内容</code></pre>
+<h2 id="七、Nginx"><a href="#七、Nginx" class="headerlink" title="七、Nginx"></a>七、Nginx</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><pre><code>网上好多用yum install nginx来进行安装的，但是目前centos7上已经不支持了，所以我用安装包进行安装的。</code></pre>
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><pre><code>vi /etc/nginx/conf.d/default.conf
+
+default.conf如下：
+server &#123;
+    listen       8099;
+    server_name  10.200.116.13;
+    # server_name  111.203.20.92;
+
+    location / &#123;
+      #  include uwsgi_params;
+      #  uwsgi_pass  127.0.0.1:8001; # 指向uwsgi 所应用的内部地址,所有请求将转发给uwsgi 处理
+      #  uwsgi_param UWSGI_PYHOME /home/lilly/www/flask_scrapy_aiot/flask_aiot/venv; # 指向虚拟环境目录
+      #  uwsgi_param UWSGI_CHDIR  /home/lilly/www/flask_scrapy_aiot/flask_aiot; # 指向网站根目录
+      #  uwsgi_param UWSGI_SCRIPT manage:app; # 指定启动程序
+      #  uwsgi_read_timeout 100;
+        proxy_pass http://localhost:8001;
+        proxy_redirect          off;
+        proxy_set_header        Host                    $host;
+        proxy_set_header        X-Real-IP               $remote_addr;
+        proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwared-Proto        $scheme;
+      #  root   /usr/share/nginx/html;
+      #  index  index.html index.htm;
+    &#125;</code></pre>
+<hr>
+<pre><code>vi /etc/nginx/nginx.conf 
+
+nginx.conf如下：
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+
+http &#123;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;   # 这句话很重要，相当于引入了上面的default.conf配置文件
+&#125;</code></pre>
+<h3 id="3、重启Nginx"><a href="#3、重启Nginx" class="headerlink" title="3、重启Nginx"></a>3、重启Nginx</h3><pre><code>sudo service nginx restart
+sudo systemctl restart  nginx.service
+我用以上方式启动的时候总是提示：Job for nginx.service failed because the control process exited with error code. 
+See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.
+我查看的时候说：nginx: [emerg] open() &quot;/var/run/nginx.pid&quot; failed (13: Permission denied)
+但是我都是用root来启动的了，不应该存在这种问题啊。
+所以我是直接nginx这样启动的，确实nginx是起来了的。</code></pre>
+<h3 id="4、访问网站"><a href="#4、访问网站" class="headerlink" title="4、访问网站"></a>4、访问网站</h3><pre><code>curl i 10.200.116.13：8099  # 返回网站内容</code></pre>
+<h2 id="八、Supervisor"><a href="#八、Supervisor" class="headerlink" title="八、Supervisor"></a>八、Supervisor</h2><p>如果想要当进程意外关闭后能自动重启，应该再配置一个Supervisor来实现。目前Supervisor只支持Python2，我看官方说目前Python3已经在进行中，应该很快就能支持了。我在这个部署里就没做这块了，即使在Python3下面也可以用Supervisor，因为他只是调进程而已，想做的话可以网上找找文档，不难。</p>
+<h2 id="九、后续"><a href="#九、后续" class="headerlink" title="九、后续"></a>九、后续</h2><p>Nginx等一系列部署好后，我打开网站还发现了一个bug，当然这是我程序的问题。bug如下：</p>
+<pre><code>当我10.200.116.13：8099时停留在首页，当我点击网站的某一按钮，跳转到另一个页面，出现404错误，而此时我看网站的url为
+10.200.116.13/show
+这也就意味着网站跳转时没把8099的端口给带上，而我手动在地址栏输入10.200.116.13：8099/show时，页面是能够正常显示的。
+说明8099的端口有些地方是静态的，没有动态更着走。把下面的语句1改为语句2就可以了。</code></pre>
+<hr>
+<pre><code>语句1:&lt;li&gt;&lt;a href=&quot;/show_ny135&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;#&#125;
+
+语句2：&lt;li&gt;&lt;a href=&quot;&#123;&#123; url_for('main.ShowNy135View') &#125;&#125;&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Gunicorn/" rel="tag"># Gunicorn</a>
+              <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Hexo%E5%88%86%E7%B1%BB%E6%A0%87%E7%AD%BE%E4%B8%AD%E5%85%B3%E4%BA%8E%E5%A4%A7%E5%B0%8F%E5%86%99%E7%9A%84bug/" rel="prev" title="Hexo分类标签中关于大小写的bug">
+      <i class="fa fa-chevron-left"></i> Hexo分类标签中关于大小写的bug
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/" rel="next" title="用Python下载巨潮资讯农业上市企业的年报PDF文件(二)">
+      用Python下载巨潮资讯农业上市企业的年报PDF文件(二) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%8E%AF%E5%A2%83%E5%92%8C%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">二、环境和目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">三、安装基础环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85Flask"><span class="nav-number">4.</span> <span class="nav-text">四、安装Flask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">五、项目文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%89%E8%A3%85Gunicorn"><span class="nav-number">6.</span> <span class="nav-text">六、安装Gunicorn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81Nginx"><span class="nav-number">7.</span> <span class="nav-text">七、Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">7.1.</span> <span class="nav-text">1、安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">2、配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%87%8D%E5%90%AFNginx"><span class="nav-number">7.3.</span> <span class="nav-text">3、重启Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99"><span class="nav-number">7.4.</span> <span class="nav-text">4、访问网站</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81Supervisor"><span class="nav-number">8.</span> <span class="nav-text">八、Supervisor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%90%8E%E7%BB%AD"><span class="nav-number">9.</span> <span class="nav-text">九、后续</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

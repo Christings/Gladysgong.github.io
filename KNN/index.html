@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1234#coding:utf-8import numpy as npimport operator   1234def createDataSet():    group&#x3D;np.array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])    labels&#x3D;[&amp;#x27;A&amp;#x27;,&amp;#x27;A&amp;#x27;,&amp;#x27;B&amp;#x27;,&amp;#x27;B&amp;#x27;]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KNN">
+<meta property="og:url" content="http://gongyanli.com/KNN/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="1234#coding:utf-8import numpy as npimport operator   1234def createDataSet():    group&#x3D;np.array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])    labels&#x3D;[&amp;#x27;A&amp;#x27;,&amp;#x27;A&amp;#x27;,&amp;#x27;B&amp;#x27;,&amp;#x27;B&amp;#x27;]">
+<meta property="og:locale">
+<meta property="og:image" content="http://gongyanli.com/KNN/Untitled_7_0.png">
+<meta property="article:published_time" content="2018-09-10T06:26:36.000Z">
+<meta property="article:modified_time" content="2018-09-10T07:13:31.904Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gongyanli.com/KNN/Untitled_7_0.png">
+
+<link rel="canonical" href="http://gongyanli.com/KNN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>KNN | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/KNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          KNN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-09-10 14:26:36 / Modified: 15:13:31" itemprop="dateCreated datePublished" datetime="2018-09-10T14:26:36+08:00">2018-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%EF%BC%88%E4%B9%A6%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">机器学习实战（书）</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%EF%BC%88%E4%B9%A6%EF%BC%89/K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">K-近邻算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> operator</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDataSet</span>():</span></span><br><span class="line">    group=np.array([[<span class="number">1.0</span>,<span class="number">1.1</span>],[<span class="number">1.0</span>,<span class="number">1.0</span>],[<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0.1</span>]])</span><br><span class="line">    labels=[<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;B&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> group,labels</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">group,labels=createDataSet()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">group,labels</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(array([[1. , 1.1],
+        [1. , 1. ],
+        [0. , 0. ],
+        [0. , 0.1]]), [&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;])</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span>(<span class="params">inX,dataSet,labels,k</span>):</span></span><br><span class="line">    dataSetSize=dataSet.shape[<span class="number">0</span>] <span class="comment"># dataSet的行数</span></span><br><span class="line">    print(<span class="string">&quot;dataSetSize:&quot;</span>,dataSetSize)</span><br><span class="line">    diffMat=np.tile(inX,(dataSetSize,<span class="number">1</span>))-dataSet <span class="comment"># 构造一个和dataSet一样的矩阵，再和dataSet相减</span></span><br><span class="line">    print(<span class="string">&quot;diffMat:&quot;</span>,diffMat)</span><br><span class="line">    sqDiffMat=diffMat**<span class="number">2</span> <span class="comment"># 矩阵的平方</span></span><br><span class="line">    print(<span class="string">&quot;sqDiffMat:&quot;</span>,sqDiffMat)</span><br><span class="line">    sqDistances=sqDiffMat.sum(axis=<span class="number">1</span>) <span class="comment"># 按行相加</span></span><br><span class="line">    print(<span class="string">&quot;sqDistances:&quot;</span>,sqDistances)</span><br><span class="line">    distances=sqDistances**<span class="number">0.5</span> <span class="comment"># 开方，求距离</span></span><br><span class="line">    print(<span class="string">&quot;distances:&quot;</span>,distances)</span><br><span class="line">    sortedDistIndicies=distances.argsort() <span class="comment"># 对距离排序</span></span><br><span class="line">    print(<span class="string">&quot;sortedDistIndicies:&quot;</span>,sortedDistIndicies)</span><br><span class="line">    classCount=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        voteIlabel=labels[sortedDistIndicies[i]]</span><br><span class="line">        print(<span class="string">&quot;voteIlable:&quot;</span>,voteIlabel)</span><br><span class="line">        classCount[voteIlabel]=classCount.get(voteIlabel,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">        print(<span class="string">&quot;classCount:&quot;</span>,classCount)</span><br><span class="line">    sortedClassCount=sorted(classCount.items(),key=operator.itemgetter(<span class="number">1</span>),reverse=<span class="literal">True</span>)</span><br><span class="line">    print(sortedClassCount)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">classify0([<span class="number">1.0</span>,<span class="number">1.2</span>],group,labels,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>dataSetSize: 4
+diffMat: [[0.  0.1]
+ [0.  0.2]
+ [1.  1.2]
+ [1.  1.1]]
+sqDiffMat: [[0.   0.01]
+ [0.   0.04]
+ [1.   1.44]
+ [1.   1.21]]
+sqDistances: [0.01 0.04 2.44 2.21]
+distances: [0.1        0.2        1.56204994 1.48660687]
+sortedDistIndicies: [0 1 3 2]
+voteIlable: A
+classCount: &#123;&#39;A&#39;: 1&#125;
+voteIlable: A
+classCount: &#123;&#39;A&#39;: 2&#125;
+voteIlable: B
+classCount: &#123;&#39;A&#39;: 2, &#39;B&#39;: 1&#125;
+[(&#39;A&#39;, 2), (&#39;B&#39;, 1)]
+
+
+
+
+
+&#39;A&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将文本记录转换为numpy矩阵</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file2matrix</span>(<span class="params">filename</span>):</span></span><br><span class="line">    fr=open(filename)</span><br><span class="line">    </span><br><span class="line">    numberOfLines=len(fr.readlines())</span><br><span class="line">    returnMat=np.zeros((numberOfLines,<span class="number">3</span>)) <span class="comment"># 创建一个和文本一样形式的0矩阵</span></span><br><span class="line">    classLabelVector=[]</span><br><span class="line">    fr=open(filename)</span><br><span class="line">    </span><br><span class="line">    index=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        line=line.strip()</span><br><span class="line">        listFromLine=line.split(<span class="string">&#x27;\t&#x27;</span>)</span><br><span class="line">        returnMat[index,:]=listFromLine[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line">        classLabelVector.append(int(listFromLine[<span class="number">-1</span>]))</span><br><span class="line">        index+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> returnMat,classLabelVector</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">datingDataMat,datingLabels=file2matrix(<span class="string">&#x27;datingTestSet2.txt&#x27;</span>)</span><br><span class="line">datingDataMat,datingLabels[<span class="number">0</span>:<span class="number">20</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(array([[4.0920000e+04, 8.3269760e+00, 9.5395200e-01],
+        [1.4488000e+04, 7.1534690e+00, 1.6739040e+00],
+        [2.6052000e+04, 1.4418710e+00, 8.0512400e-01],
+        ...,
+        [2.6575000e+04, 1.0650102e+01, 8.6662700e-01],
+        [4.8111000e+04, 9.1345280e+00, 7.2804500e-01],
+        [4.3757000e+04, 7.8826010e+00, 1.3324460e+00]]),
+ [3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 2, 3])</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分析数据，使用Matplotlib创建散点图</span></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># mpl.rcParams[&#x27;font.sans-serif&#x27;] = [&#x27;SimHei&#x27;]  </span></span><br><span class="line"><span class="comment"># mpl.rcParams[&#x27;axes.unicode_minus&#x27;] = False  </span></span><br><span class="line">fig=plt.figure()</span><br><span class="line">ax=fig.add_subplot(<span class="number">111</span>)</span><br><span class="line"></span><br><span class="line">datingLabels = np.array(datingLabels)</span><br><span class="line"></span><br><span class="line">idx_1=np.where(datingLabels==<span class="number">1</span>)</span><br><span class="line">p1=ax.scatter(datingDataMat[idx_1,<span class="number">0</span>],datingDataMat[idx_1,<span class="number">1</span>],color=<span class="string">&#x27;y&#x27;</span>,label=<span class="string">&#x27;1&#x27;</span>,s=<span class="number">10</span>)</span><br><span class="line">idx_2=np.where(datingLabels==<span class="number">2</span>)</span><br><span class="line">p2=ax.scatter(datingDataMat[idx_2,<span class="number">0</span>],datingDataMat[idx_2,<span class="number">1</span>],color=<span class="string">&#x27;g&#x27;</span>,label=<span class="string">&#x27;1&#x27;</span>,s=<span class="number">20</span>)</span><br><span class="line">idx_3=np.where(datingLabels==<span class="number">3</span>)</span><br><span class="line">p3=ax.scatter(datingDataMat[idx_3,<span class="number">0</span>],datingDataMat[idx_3,<span class="number">1</span>],color=<span class="string">&#x27;b&#x27;</span>,label=<span class="string">&#x27;1&#x27;</span>,s=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ax.scatter(datingDataMat[:,1],datingDataMat[:,2],15.0*np.array(datingLabels),15.0*np.array(datingLabels),c=&#x27;yellow&#x27;)</span></span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">u&#x27;每年获取的飞行常客里程数&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">u&#x27;玩视频游戏所耗时间百分比&#x27;</span>)</span><br><span class="line">ax.legend((p1,p2,p3), (<span class="string">u&#x27;不喜欢&#x27;</span>, <span class="string">u&#x27;魅力一般&#x27;</span>, <span class="string">u&#x27;极具魅力&#x27;</span>), loc=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># ax.rc(&#x27;font&#x27;,family=[&#x27;SeiHei&#x27;])</span></span><br><span class="line"><span class="comment">#ax.legend((p1,p2,p3), (u&#x27;不喜欢&#x27;, u&#x27;魅力一般&#x27;, u&#x27;极具魅力&#x27;), loc=2, prop=zhfont)</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/KNN/Untitled_7_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 归一化特征值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">autoNorm</span>(<span class="params">dataSet</span>):</span></span><br><span class="line">    minVals=dataSet.min(<span class="number">0</span>) <span class="comment"># 3列数据中的3个最小值</span></span><br><span class="line">    maxVals=dataSet.max(<span class="number">0</span>) <span class="comment"># 3列数据中的3个最大值</span></span><br><span class="line">    print(minVals)</span><br><span class="line"></span><br><span class="line">    ranges=maxVals-minVals</span><br><span class="line">    normDateSet=np.zeros(np.shape(dataSet))</span><br><span class="line">    print(normDateSet)</span><br><span class="line">    m=dataSet.shape[<span class="number">0</span>] <span class="comment"># 行数1000</span></span><br><span class="line">    normDateSet=dataSet-np.tile(minVals,(m,<span class="number">1</span>)) <span class="comment">#dataSet减去同样格式的最小值组成的矩阵</span></span><br><span class="line">    print(normDateSet)</span><br><span class="line">    normDateSet=normDateSet/np.tile(ranges,(m,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> normDateSet,ranges,minVals</span><br></pre></td></tr></table></figure>
+
+<p>normMat,ranges,minVals=autoNorm(datingDataMat)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分类器针对约会网站的测试代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">datingClassTest</span>():</span></span><br><span class="line">    hoRatio=<span class="number">0.5</span></span><br><span class="line">    datingDataMat,datingLabels=file2matrix(<span class="string">&#x27;datingTestSet2.txt&#x27;</span>)</span><br><span class="line">    normMat,ranges,minVals=autoNorm(datingDataMat)</span><br><span class="line">    m=normMat.shape[<span class="number">0</span>]</span><br><span class="line">    numTestVecs=int(m*hoRatio)</span><br><span class="line">    errorCount=<span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTestVecs):</span><br><span class="line">        classifierResult=classify0(normDateSet)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/" rel="prev" title="如何将ipynb文件转换为html，markdown，pdf等">
+      <i class="fa fa-chevron-left"></i> 如何将ipynb文件转换为html，markdown，pdf等
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/" rel="next" title="线性回归--从0开始实现">
+      线性回归--从0开始实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

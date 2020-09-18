@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="博弈类问题的套路都差不多，其核心思路是在二维 dp 的基础上使用元组分别存储两个人的博弈结果（俩海盗分宝石，俩人拿硬币的问题）。 「石头游戏」： 你和你的朋友面前有一排石头堆，用一个数组 piles 表示，piles[i] 表示第 i 堆石子有多少个。你们轮流拿石头，一次拿一堆，但是只能拿走最左边或者最右边的石头堆。所有石头被拿完后，谁拥有的石头多，谁获胜。 石头的堆数可以是任意正整数，石头的总数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法-9-动态规划-博弈系列">
+<meta property="og:url" content="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="博弈类问题的套路都差不多，其核心思路是在二维 dp 的基础上使用元组分别存储两个人的博弈结果（俩海盗分宝石，俩人拿硬币的问题）。 「石头游戏」： 你和你的朋友面前有一排石头堆，用一个数组 piles 表示，piles[i] 表示第 i 堆石子有多少个。你们轮流拿石头，一次拿一堆，但是只能拿走最左边或者最右边的石头堆。所有石头被拿完后，谁拥有的石头多，谁获胜。 石头的堆数可以是任意正整数，石头的总数">
+<meta property="og:locale">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp17.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp18.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp19.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp20.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp21.jpg">
+<meta property="article:published_time" content="2020-06-14T13:51:09.000Z">
+<meta property="article:modified_time" content="2020-08-30T15:01:36.026Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg">
+
+<link rel="canonical" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>数据结构与算法-9-动态规划-博弈系列 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构与算法-9-动态规划-博弈系列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-14 21:51:09" itemprop="dateCreated datePublished" datetime="2020-06-14T21:51:09+08:00">2020-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-30 23:01:36" itemprop="dateModified" datetime="2020-08-30T23:01:36+08:00">2020-08-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>博弈类问题的套路都差不多，其核心思路是在二维 dp 的基础上使用元组分别存储两个人的博弈结果（俩海盗分宝石，俩人拿硬币的问题）。</p>
+<p>「石头游戏」：</p>
+<p>你和你的朋友面前有一排石头堆，用一个数组 piles 表示，piles[i] 表示第 i 堆石子有多少个。你们轮流拿石头，一次拿一堆，但是只能拿走最左边或者最右边的石头堆。所有石头被拿完后，谁拥有的石头多，谁获胜。</p>
+<p>石头的堆数可以是任意正整数，石头的总数也可以是任意正整数，这样就能打破先手必胜的局面了。比如有三堆石头 piles = [1,100,3]，先手不管拿 1 还是 3，能够决定胜负的 100 都会被后手拿走，后手会获胜。</p>
+<p>假设两人都很聪明，请你设计一个算法，返回先手和后手的最后得分（石头总数）之差。比如上面那个例子，先手能获得 4 分，后手会获得 100 分，你的算法应该返回 -96。</p>
+<p>博弈问题的难点在于，两个人要轮流进行选择，而且都贼精明，应该如何编程表示这个过程呢？</p>
+<p>1、定义dp数组的含义</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg"></p>
+<p>dp数组解释：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp17.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp17.jpg"></p>
+<p>答案是先手和后手最终分数之差，按照这个定义也就是 dp[0][n−1].fir−dp[0][n−1].sec</p>
+<p>2、状态转移方程</p>
+<p>状态：开始的索引 i，结束的索引 j，当前轮到的人。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j][fir or sec]</span><br><span class="line">其中：</span><br><span class="line">0 &lt;&#x3D; i &lt; piles.length</span><br><span class="line">i &lt;&#x3D; j &lt; piles.length</span><br></pre></td></tr></table></figure>
+
+<p>选择有两个：选择最左边的那堆石头，或者选择最右边的那堆石头</p>
+<p>穷举所有状态：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp18.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp18.jpg"></p>
+<p>状态转移方程：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp19.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp19.jpg"></p>
+<p>base case:<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp20.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp20.jpg"></p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp21.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp21.jpg"></p>
+<p>推算 dp[i][j] 时需要用到 dp[i+1][j] 和 dp[i][j-1]：所以需要斜着遍历数组</p>
+<p>3、实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def stoneGame(self, piles: List[int]) -&gt; bool:</span><br></pre></td></tr></table></figure>
+<pre><code>    返回先手和后手的得分之差
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">n&#x3D;len(piles)</span><br><span class="line">dp&#x3D;[[[0]*2 for i in range(n)] for i in range(n)] # 初始化dp</span><br><span class="line"></span><br><span class="line"># 初始值</span><br><span class="line">for i in range(n):</span><br><span class="line">    dp[i][i][0]&#x3D;piles[i]</span><br><span class="line"></span><br><span class="line">for i in range(n):</span><br><span class="line">    dp[i][i][0]&#x3D;piles[i]</span><br><span class="line">    dp[i][i][1]&#x3D;0</span><br><span class="line"></span><br><span class="line"># 斜着遍历数组</span><br><span class="line">for t in range(2,n+1):</span><br><span class="line">    for i in range(n-t+1):</span><br><span class="line">        j&#x3D;t+i-1</span><br><span class="line"></span><br><span class="line">        # 先手选择最左边或者最右边的分数</span><br><span class="line">        left&#x3D;piles[i]+dp[i+1][j][1]</span><br><span class="line">        right&#x3D;piles[j]+dp[i][j-1][1]</span><br><span class="line"></span><br><span class="line">        # 状态转移</span><br><span class="line">        if left &gt; right:</span><br><span class="line">            dp[i][j][0]&#x3D;left</span><br><span class="line">            dp[i][j][1]&#x3D;dp[i+1][j][0]</span><br><span class="line">        else:</span><br><span class="line">            dp[i][j][0]&#x3D;right</span><br><span class="line">            dp[i][j][1]&#x3D;dp[i][j-1][0]</span><br><span class="line">res&#x3D;dp[0][n-1]</span><br><span class="line">return res[0] - res[1]</span><br></pre></td></tr></table></figure></code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def stoneGame(self, piles: List[int]) -&gt; bool:</span><br><span class="line">        n&#x3D;len(piles)</span><br><span class="line">        dp&#x3D;[[[0]*2 for i in range(n)] for i in range(n)]</span><br><span class="line">        for i in range(n):</span><br><span class="line">            dp[i][i][0]&#x3D;piles[i]</span><br><span class="line"></span><br><span class="line">        for i in range(n):</span><br><span class="line">            dp[i][i][0]&#x3D;piles[i]</span><br><span class="line">            dp[i][i][1]&#x3D;0</span><br><span class="line"></span><br><span class="line">        for i in range(n-1,-1,-1):</span><br><span class="line">            for j in range(i,n):</span><br><span class="line">                if i&#x3D;&#x3D;j:</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">                left&#x3D;piles[i]+dp[i+1][j][1]</span><br><span class="line">                right&#x3D;piles[j]+dp[i][j-1][1]</span><br><span class="line"></span><br><span class="line">                if left &gt;&#x3D; right:</span><br><span class="line">                    dp[i][j][0]&#x3D;left</span><br><span class="line">                    dp[i][j][1]&#x3D;dp[i+1][j][0]</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j][0]&#x3D;right</span><br><span class="line">                    dp[i][j][1]&#x3D;dp[i][j-1][0]</span><br><span class="line">        res&#x3D;dp[n-1][n-1]</span><br><span class="line">        return res[0] - res[1]</span><br></pre></td></tr></table></figure>
+
+<h3 id="877-石子游戏"><a href="#877-石子游戏" class="headerlink" title="877. 石子游戏"></a>877. 石子游戏</h3><pre><code>链接：https://leetcode-cn.com/problems/stone-game/
+
+亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。
+
+游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。
+
+亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。
+
+假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。
+
+示例：
+
+输入：[5,3,4,5]
+输出：true
+解释：
+亚历克斯先开始，只能拿前 5 颗或后 5 颗石子 。
+假设他取了前 5 颗，这一行就变成了 [3,4,5] 。
+如果李拿走前 3 颗，那么剩下的是 [4,5]，亚历克斯拿走后 5 颗赢得 10 分。
+如果李拿走后 5 颗，那么剩下的是 [3,4]，亚历克斯拿走后 4 颗赢得 9 分。
+这表明，取前 5 颗石子对亚历克斯来说是一个胜利的举动，所以我们返回 true 。 
+
+提示：
+
+2 &lt;= piles.length &lt;= 500
+piles.length 是偶数。
+1 &lt;= piles[i] &lt;= 500
+sum(piles) 是奇数。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def stoneGame(self, piles: List[int]) -&gt; bool:</span><br><span class="line">        n&#x3D;len(piles)</span><br><span class="line">        dp&#x3D;[[[0]*2 for i in range(n)] for i in range(n)]</span><br><span class="line">        for i in range(n):</span><br><span class="line">            dp[i][i][0]&#x3D;piles[i]</span><br><span class="line"></span><br><span class="line">        for i in range(n):</span><br><span class="line">            dp[i][i][0]&#x3D;piles[i]</span><br><span class="line">            dp[i][i][1]&#x3D;0</span><br><span class="line"></span><br><span class="line">        for i in range(n-1,-1,-1):</span><br><span class="line">            for j in range(i,n):</span><br><span class="line">                if i&#x3D;&#x3D;j:</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">                left&#x3D;piles[i]+dp[i+1][j][1]</span><br><span class="line">                right&#x3D;piles[j]+dp[i][j-1][1]</span><br><span class="line"></span><br><span class="line">                if left &gt;&#x3D; right:</span><br><span class="line">                    dp[i][j][0]&#x3D;left</span><br><span class="line">                    dp[i][j][1]&#x3D;dp[i+1][j][0]</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j][0]&#x3D;right</span><br><span class="line">                    dp[i][j][1]&#x3D;dp[i][j-1][0]</span><br><span class="line">        res&#x3D;dp[n-1][n-1]</span><br><span class="line">        return res[0] &gt; res[1]</span><br></pre></td></tr></table></figure>
+
+<p>题目有两个条件很重要：一是石头总共有偶数堆，石头的总数是奇数。这两个看似增加游戏公平性的条件，反而使该游戏成为了一个割韭菜游戏。</p>
+<p>先手必胜！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def stoneGame(self, piles: List[int]) -&gt; bool:</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/" rel="prev" title="数据结构与算法-8-动态规划-背包系列">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法-8-动态规划-背包系列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-15-%E8%84%91%E7%AD%8B%E6%80%A5%E8%BD%AC%E5%BC%AF/" rel="next" title="LeetCode-15-脑筋急转弯">
+      LeetCode-15-脑筋急转弯 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#877-%E7%9F%B3%E5%AD%90%E6%B8%B8%E6%88%8F"><span class="nav-number">1.</span> <span class="nav-text">877. 石子游戏</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

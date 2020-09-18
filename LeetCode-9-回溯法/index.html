@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="参考文章：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xiaomangxie&#x2F;p&#x2F;10208441.html参考文章：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;permutations&#x2F;solution&#x2F;hui-su-suan-fa-xiang-jie-by-labuladong-2&#x2F; 九、回溯法回溯法（back tracking）（探索与回溯法）是一种选优搜索法，又称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-9-回溯法">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="参考文章：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xiaomangxie&#x2F;p&#x2F;10208441.html参考文章：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;permutations&#x2F;solution&#x2F;hui-su-suan-fa-xiang-jie-by-labuladong-2&#x2F; 九、回溯法回溯法（back tracking）（探索与回溯法）是一种选优搜索法，又称">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-01-21T09:20:06.000Z">
+<meta property="article:modified_time" content="2020-08-26T08:46:56.662Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCode-9-回溯法 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-9-回溯法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-21 17:20:06" itemprop="dateCreated datePublished" datetime="2020-01-21T17:20:06+08:00">2020-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 16:46:56" itemprop="dateModified" datetime="2020-08-26T16:46:56+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaomangxie/p/10208441.html">https://www.cnblogs.com/xiaomangxie/p/10208441.html</a><br>参考文章：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/">https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/</a></p>
+<h2 id="九、回溯法"><a href="#九、回溯法" class="headerlink" title="九、回溯法"></a>九、回溯法</h2><p>回溯法（back tracking）（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<p>解决一个回溯问题，实际上就是一个决策树的遍历过程。你只需要思考 3 个问题：</p>
+<pre><code>1、路径：也就是已经做出的选择。
+
+2、选择列表：也就是你当前可以做的选择。
+
+3、结束条件：也就是到达决策树底层，无法再做选择的条件。</code></pre>
+<p>回溯算法的框架: 其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result &#x3D; []</span><br><span class="line">def backtrack(路径, 选择列表):</span><br><span class="line">    if 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        return</span><br><span class="line">    </span><br><span class="line">    for 选择 in 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
+
+<pre><code>「路径」，记录你已经做过的选择；
+「选择列表」，表示你当前可以做出的选择；
+「结束条件」就是遍历到树的底层，在这里就是选择列表为空的时候。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for 选择 in 选择列表:</span><br><span class="line">    # 做选择</span><br><span class="line">    将该选择从选择列表移除</span><br><span class="line">    路径.add(选择)</span><br><span class="line">    backtrack(路径, 选择列表)</span><br><span class="line">    # 撤销选择</span><br><span class="line">    路径.remove(选择)</span><br><span class="line">    将该选择再加入选择列表</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+示例:
+
+输入：&quot;23&quot;
+输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].
+说明:
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</code></pre>
+<p>题解一|暴力：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def letterCombinations(self, digits: str) -&gt; List[str]:</span><br><span class="line">        key_all&#x3D;&#123;</span><br><span class="line">            &#39;2&#39;: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;],</span><br><span class="line">            &#39;3&#39;: [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;],</span><br><span class="line">            &#39;4&#39;: [&#39;g&#39;, &#39;h&#39;, &#39;i&#39;],</span><br><span class="line">            &#39;5&#39;: [&#39;j&#39;, &#39;k&#39;, &#39;l&#39;],</span><br><span class="line">            &#39;6&#39;: [&#39;m&#39;, &#39;n&#39;, &#39;o&#39;],</span><br><span class="line">            &#39;7&#39;: [&#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;],</span><br><span class="line">            &#39;8&#39;: [&#39;t&#39;, &#39;u&#39;, &#39;v&#39;],</span><br><span class="line">            &#39;9&#39;: [&#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]</span><br><span class="line">        &#125;</span><br><span class="line">        if digits&#x3D;&#x3D;&#39;&#39;:</span><br><span class="line">            return &#39;&#39;</span><br><span class="line">        ans&#x3D;[&#39;&#39;]</span><br><span class="line">        for num in digits:</span><br><span class="line">            ans&#x3D;[pre+suf for pre in ans for suf in key_all[num]]</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def letterCombinations(self, digits):</span><br><span class="line">        key_all&#x3D;&#123;</span><br><span class="line">            &#39;2&#39;: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;],</span><br><span class="line">            &#39;3&#39;: [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;],</span><br><span class="line">            &#39;4&#39;: [&#39;g&#39;, &#39;h&#39;, &#39;i&#39;],</span><br><span class="line">            &#39;5&#39;: [&#39;j&#39;, &#39;k&#39;, &#39;l&#39;],</span><br><span class="line">            &#39;6&#39;: [&#39;m&#39;, &#39;n&#39;, &#39;o&#39;],</span><br><span class="line">            &#39;7&#39;: [&#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;],</span><br><span class="line">            &#39;8&#39;: [&#39;t&#39;, &#39;u&#39;, &#39;v&#39;],</span><br><span class="line">            &#39;9&#39;: [&#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]</span><br><span class="line">        &#125;</span><br><span class="line">        if digits&#x3D;&#x3D;&#39;&#39;:</span><br><span class="line">            return &#39;&#39;</span><br><span class="line">        ans&#x3D;[&#39;&#39;]</span><br><span class="line">        for num in digits:</span><br><span class="line">            tmp&#x3D;[]</span><br><span class="line">            for pre in ans:</span><br><span class="line">                for suf in key_all[num]:</span><br><span class="line">                    tmp.append(pre+suf)</span><br><span class="line">            ans&#x3D;tmp[:]</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
+
+<p>题解二|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def letterCombinations(self, digits: str) -&gt; List[str]:</span><br><span class="line">        if not digits:</span><br><span class="line">            return []</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        hash&#x3D;&#123;</span><br><span class="line">            1:&#39;&#39;,</span><br><span class="line">            2:&#39;abc&#39;,</span><br><span class="line">            3:&#39;def&#39;,</span><br><span class="line">            4:&#39;ghi&#39;,</span><br><span class="line">            5:&#39;jkl&#39;,</span><br><span class="line">            6:&#39;mno&#39;,</span><br><span class="line">            7:&#39;pqrs&#39;,</span><br><span class="line">            8:&#39;tuv&#39;,</span><br><span class="line">            9:&#39;wxyz&#39;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        def traceback(digits,index,path):</span><br><span class="line">            if index &#x3D;&#x3D; len(digits):</span><br><span class="line">                res.append(&#39;&#39;.join(path))</span><br><span class="line">                return</span><br><span class="line">            </span><br><span class="line">            digit&#x3D;int(digits[index])</span><br><span class="line">            for i in hash.get(digit,[]):</span><br><span class="line">                path.append(i)</span><br><span class="line">                traceback(digits,index+1,path)</span><br><span class="line">                path.pop()</span><br><span class="line">        traceback(digits,0,[])</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h3><pre><code>链接：https://leetcode-cn.com/problems/generate-parentheses/
+
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+
+示例：
+
+输入：n = 3
+输出：[
+       &quot;((()))&quot;,
+       &quot;(()())&quot;,
+       &quot;(())()&quot;,
+       &quot;()(())&quot;,
+       &quot;()()()&quot;
+     ]</code></pre>
+<p>题解一|暴力：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def generateParenthesis(self, n: int) -&gt; List[str]:</span><br><span class="line">        def generate(A):</span><br><span class="line">            if len(A) &#x3D;&#x3D; 2*n:</span><br><span class="line">                if valid(A):</span><br><span class="line">                    ans.append(&quot;&quot;.join(A))</span><br><span class="line">            else:</span><br><span class="line">                A.append(&#39;(&#39;)</span><br><span class="line">                generate(A)</span><br><span class="line">                A.pop()</span><br><span class="line">                A.append(&#39;)&#39;)</span><br><span class="line">                generate(A)</span><br><span class="line">                A.pop()</span><br><span class="line"></span><br><span class="line">        def valid(A):</span><br><span class="line">            bal &#x3D; 0</span><br><span class="line">            for c in A:</span><br><span class="line">                if c &#x3D;&#x3D; &#39;(&#39;: bal +&#x3D; 1</span><br><span class="line">                else: bal -&#x3D; 1</span><br><span class="line">                if bal &lt; 0: return False</span><br><span class="line">            return bal &#x3D;&#x3D; 0</span><br><span class="line"></span><br><span class="line">        ans &#x3D; []</span><br><span class="line">        generate([])</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
+
+<p>题解二|回溯：</p>
+<p>可以只在序列仍然保持有效时才添加 ‘(‘ or ‘)’，而不是像 方法一 那样每次添加。</p>
+<p>我们可以通过跟踪到目前为止放置的左括号和右括号的数目来做到这一点，</p>
+<p>如果左括号数量不大于 n，我们可以放一个左括号。如果右括号数量小于左括号的数量，我们可以放一个右括号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def generateParenthesis(self, n: int) -&gt; List[str]:</span><br><span class="line">        </span><br><span class="line">        def backtrace(S,left,right):</span><br><span class="line">            if len(S) &#x3D;&#x3D; 2*n:</span><br><span class="line">                res.append(&#39;&#39;.join(S))</span><br><span class="line">                return</span><br><span class="line">            </span><br><span class="line">            if left &lt; n:</span><br><span class="line">                S.append(&#39;(&#39;)</span><br><span class="line">                backtrace(S,left+1,right)</span><br><span class="line">                S.pop()</span><br><span class="line">            if right &lt; left:</span><br><span class="line">                S.append(&#39;)&#39;)</span><br><span class="line">                backtrace(S,left,right+1)</span><br><span class="line">                S.pop()</span><br><span class="line"></span><br><span class="line">        res &#x3D; []</span><br><span class="line">        backtrace([],0,0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def generateParenthesis(self, n: int) -&gt; List[str]:</span><br><span class="line">        </span><br><span class="line">        def backtrace(S,index):</span><br><span class="line">            if len(S) &#x3D;&#x3D; 2*n:</span><br><span class="line">                if index &#x3D;&#x3D; 0:</span><br><span class="line">                    res.append(&#39;&#39;.join(S))</span><br><span class="line">                return</span><br><span class="line">            </span><br><span class="line">            if index &lt; n:</span><br><span class="line">                S.append(&#39;(&#39;)</span><br><span class="line">                backtrace(S,index+1)</span><br><span class="line">                S.pop()</span><br><span class="line">            if index &gt; 0:</span><br><span class="line">                S.append(&#39;)&#39;)</span><br><span class="line">                backtrace(S,index-1)</span><br><span class="line">                S.pop()</span><br><span class="line"></span><br><span class="line">        res &#x3D; []</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<p>题解三|递归：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def generateParenthesis(self, n: int) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def helper(left,right,n,s):</span><br><span class="line">            if left&#x3D;&#x3D;n and right&#x3D;&#x3D;n:</span><br><span class="line">                res.append(s)</span><br><span class="line">                return</span><br><span class="line">            if left &lt; n:</span><br><span class="line">                helper(left+1,right,n,s+&#39;(&#39;)</span><br><span class="line">            if left &gt; right:</span><br><span class="line">            # if left &gt; right and right &lt; n:</span><br><span class="line">                helper(left,right+1,n,s+&#39;)&#39;)</span><br><span class="line"></span><br><span class="line">        helper(0,0,n,&#39;&#39;)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><pre><code>链接：https://leetcode-cn.com/problems/sudoku-solver/
+
+编写一个程序，通过已填充的空格来解决数独问题。
+
+一个数独的解法需遵循如下规则：
+
+数字 1-9 在每一行只能出现一次。
+数字 1-9 在每一列只能出现一次。
+数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+空白格用 &#39;.&#39; 表示。
+
+一个数独。
+
+答案被标成红色。
+
+Note:
+
+给定的数独序列只包含数字 1-9 和字符 &#39;.&#39; 。
+你可以假设给定的数独只有唯一解。
+给定数独永远是 9x9 形式的。</code></pre>
+<p>题解一|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def solveSudoku(self, board: List[List[str]]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify board in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        def backtrace(board,i,j):</span><br><span class="line">            m,n&#x3D;9,9</span><br><span class="line">            if j&#x3D;&#x3D;n: # 走到9越界，进入下一行</span><br><span class="line">                return backtrace(board,i+1,0)</span><br><span class="line">            if i&#x3D;&#x3D;m: # 走到最后一行，找到一个可行解</span><br><span class="line">                return True</span><br><span class="line">            if board[i][j] !&#x3D; &#39;.&#39;: # 当前是预设数字，直接跳到下一个</span><br><span class="line">                return backtrace(board,i,j+1)</span><br><span class="line">            chars&#x3D;[str(i) for i in range(1,10)]</span><br><span class="line">            for char in chars:</span><br><span class="line">                if not isValid(board,i,j,char): # 遇到不合法的数字，跳过</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line">                board[i][j]&#x3D;char # 做选择</span><br><span class="line">                if backtrace(board,i,j+1): # 如果找到一个可行解，立即结束</span><br><span class="line">                    return True</span><br><span class="line">                board[i][j]&#x3D;&#39;.&#39; # 撤销选择</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">        def isValid(board,r,c,char):</span><br><span class="line">            for i in range(9):</span><br><span class="line">                # 判断行是否存在重复</span><br><span class="line">                if board[r][i] &#x3D;&#x3D; char:</span><br><span class="line">                    return False</span><br><span class="line">                # 判断列是否存在重复</span><br><span class="line">                if board[i][c] &#x3D;&#x3D; char:</span><br><span class="line">                    return False</span><br><span class="line">                # 判断 3 * 3 方框是否存在重复</span><br><span class="line">                if board[(r&#x2F;&#x2F;3)*3+i&#x2F;&#x2F;3][(c&#x2F;&#x2F;3)*3+i%3] &#x3D;&#x3D; char:</span><br><span class="line">                    return False</span><br><span class="line">            return True</span><br><span class="line">        backtrace(board,0,0)</span><br></pre></td></tr></table></figure>
+
+<h3 id="39-组合总和"><a href="#39-组合总和" class="headerlink" title="39. 组合总和"></a>39. 组合总和</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum/
+
+给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的数字可以无限制重复被选取。
+
+说明：
+
+所有数字（包括 target）都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: candidates = [2,3,6,7], target = 7,
+所求解集为:
+[
+  [7],
+  [2,2,3]
+]
+示例 2:
+
+输入: candidates = [2,3,5], target = 8,
+所求解集为:
+[
+  [2,2,2,2],
+  [2,3,3],
+  [3,5]
+]</code></pre>
+<p>题解一（回溯）:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/">https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        size&#x3D;len(candidates)</span><br><span class="line">        if size&#x3D;&#x3D;0:</span><br><span class="line">            return []</span><br><span class="line">            </span><br><span class="line">        candidates.sort()</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        path&#x3D;[]</span><br><span class="line">        return self.helper(candidates,0,size,target,res,path)</span><br><span class="line">    def helper(self,candidates,begin,size,target,res,path):</span><br><span class="line">        if target&#x3D;&#x3D;0:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        for i in range(begin,size):</span><br><span class="line">            residue&#x3D;target-candidates[i]</span><br><span class="line">            if residue &lt; 0:</span><br><span class="line">                break</span><br><span class="line">            path.append(candidates[i])</span><br><span class="line">            self.helper(candidates,i,size,residue,res,path)</span><br><span class="line">            path.pop()</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(candidates,start,path,target):</span><br><span class="line">            if target&#x3D;&#x3D;0:</span><br><span class="line">                # res.append(path[:])</span><br><span class="line">                res.append(path+[])</span><br><span class="line">                return</span><br><span class="line"></span><br><span class="line">            for i in range(start,len(candidates)):</span><br><span class="line">                tmp&#x3D;target-candidates[i]</span><br><span class="line">                if tmp &lt; 0:</span><br><span class="line">                    continue</span><br><span class="line">                path.append(candidates[i])</span><br><span class="line">                backtrace(candidates,i,path,tmp) # 注意此处i的取值</span><br><span class="line">                path.pop()</span><br><span class="line">        </span><br><span class="line">        backtrace(candidates,0,[],target)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<h3 id="40-组合总和-II"><a href="#40-组合总和-II" class="headerlink" title="40.组合总和 II"></a>40.组合总和 II</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-ii/
+
+给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+说明：
+
+所有数字（包括目标数）都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+所求解集为:
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+示例 2:
+
+输入: candidates = [2,5,2,1,2], target = 5,
+所求解集为:
+[
+  [1,2,2],
+  [5]
+]</code></pre>
+<p>这道题与上一问的区别在于：</p>
+<p>第 39 题：candidates 中的数字可以无限制重复被选取。<br>第 40 题：candidates 中的每个数字在每个组合中只能使用一次。<br>编码的不同在于下一层递归的起始索引不一样。</p>
+<p>第 39 题：还从候选数组的当前索引值开始。<br>第 40 题：从候选数组的当前索引值的下一位开始。<br>相同之处：解集不能包含重复的组合。</p>
+<p>题解一（回溯）:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-3/">https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-3/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combinationSum2(self, candidates: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        size&#x3D;len(candidates)</span><br><span class="line">        if size&#x3D;&#x3D;0:</span><br><span class="line">            return []</span><br><span class="line">            </span><br><span class="line">        candidates.sort()</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        path&#x3D;[]</span><br><span class="line">        return self.helper(candidates,0,size,target,res,path)</span><br><span class="line">    def helper(self,candidates,begin,size,target,res,path):</span><br><span class="line">        if target&#x3D;&#x3D;0:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        for i in range(begin,size):</span><br><span class="line">            residue&#x3D;target-candidates[i]</span><br><span class="line">            if residue &lt; 0:</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">            if i &gt; begin and candidates[i-1] &#x3D;&#x3D; candidates[i]:</span><br><span class="line">                continue</span><br><span class="line"></span><br><span class="line">            path.append(candidates[i])</span><br><span class="line">            self.helper(candidates,i+1,size,residue,res,path)</span><br><span class="line">            path.pop()</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+
+<p>去重：无论是求组合/子集/排列，只要原数组中含有重复元素，通用一个去重方法：</p>
+<pre><code>1.先排序，使相同元素相邻；
+2.在backtrack的for循环里：
+    if(i&gt;start &amp;&amp; candidates[i]==candidates[i-1]) continue;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">这个避免重复当思想是在是太重要了。</span><br><span class="line">这个方法最重要的作用是，可以让同一层级，不出现相同的元素。即</span><br><span class="line">                  1</span><br><span class="line">                 &#x2F; \</span><br><span class="line">                2   2  这种情况不会发生 但是却允许了不同层级之间的重复即：</span><br><span class="line">               &#x2F;     \</span><br><span class="line">              5       5</span><br><span class="line">                例2</span><br><span class="line">                  1</span><br><span class="line">                 &#x2F;</span><br><span class="line">                2      这种情况确是允许的</span><br><span class="line">               &#x2F;</span><br><span class="line">              2  </span><br><span class="line">                </span><br><span class="line">为何会有这种神奇的效果呢？</span><br><span class="line">首先 i-1 &#x3D;&#x3D; i 是用于判定当前元素是否和之前元素相同的语句。这个语句就能砍掉例1。</span><br><span class="line">可是问题来了，如果把所有当前与之前一个元素相同的都砍掉，那么例二的情况也会消失。 </span><br><span class="line">因为当第二个2出现的时候，他就和前一个2相同了。</span><br><span class="line">                </span><br><span class="line">那么如何保留例2呢？</span><br><span class="line">那么就用i &gt; start 来避免这种情况，你发现例1中的两个2是处在同一个层级上的，</span><br><span class="line">例2的两个2是处在不同层级上的。</span><br><span class="line">在一个for循环中，所有被遍历到的数都是属于一个层级的。我们要让一个层级中，</span><br><span class="line">必须出现且只出现一个2，那么就放过第一个出现重复的2，但不放过后面出现的2。</span><br><span class="line">第一个出现的2的特点就是 i &#x3D;&#x3D; start. 第二个出现的2 特点是i &gt; start.</span><br><span class="line"></span><br><span class="line">再通俗点，就是有重复元素的话，比如测试用例中的第一个1和第二个1，都会有1,7组成8，这样就产生了重复的list。因为都是从当前数开始遍历，所以加这一层的意思就是过滤掉重复的数，但是第一个1依然能使用第二个1，而第二个1是失去了作用的。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combinationSum2(self, candidates: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        if not candidates:</span><br><span class="line">            return []</span><br><span class="line">        candidates.sort()</span><br><span class="line">        res&#x3D;[]</span><br><span class="line"></span><br><span class="line">        def backtrace(candidates,start,path,target):</span><br><span class="line">            if target&#x3D;&#x3D;0:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line">            for i in range(start,len(candidates)):</span><br><span class="line">                tmp&#x3D;target-candidates[i]</span><br><span class="line">                if tmp &lt; 0:</span><br><span class="line">                    continue</span><br><span class="line">                if i &gt; start and candidates[i] &#x3D;&#x3D; candidates[i-1]:</span><br><span class="line">                    continue</span><br><span class="line">                path.append(candidates[i])</span><br><span class="line">                backtrace(candidates,i+1,path,tmp) # 此处是i+1</span><br><span class="line">                path.pop()</span><br><span class="line">        </span><br><span class="line">        backtrace(candidates,0,[],target)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<h3 id="46-全排列"><a href="#46-全排列" class="headerlink" title="46.全排列"></a>46.全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations/
+
+给定一个没有重复数字的序列，返回其所有可能的全排列。
+
+示例:
+
+输入: [1,2,3]
+输出:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]</code></pre>
+<p>题解一（回溯）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permute(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        </span><br><span class="line">        def backtrack(first&#x3D;0):</span><br><span class="line">            if first&#x3D;&#x3D;lens:</span><br><span class="line">                output.append(nums[:])</span><br><span class="line">            for i in range(first,lens):</span><br><span class="line">                nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line">                backtrack(first+1) # 注意：不能使用i+1，否则会出现[[1,2,3],[1,3,2],[2,1,3],[3,2,1]]</span><br><span class="line">                nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line">        </span><br><span class="line">        lens&#x3D;len(nums)</span><br><span class="line">        output&#x3D;[]</span><br><span class="line">        backtrack()</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permute(self, nums):</span><br><span class="line">        def backtrack(first&#x3D;0):</span><br><span class="line">            # if all integers are used up</span><br><span class="line">            print(&#39;---------------first&#39;, first)</span><br><span class="line">            if first &#x3D;&#x3D; n:</span><br><span class="line">                output.append(nums[:])</span><br><span class="line">                print(&#39;output:&#39;,output)</span><br><span class="line">            for i in range(first, n):</span><br><span class="line">                # place i-th integer first</span><br><span class="line">                # in the current permutation</span><br><span class="line">                print(&#39;i,first:&#39;,i, first)</span><br><span class="line">                print(nums[i], nums[first])</span><br><span class="line">                nums[first], nums[i] &#x3D; nums[i], nums[first]</span><br><span class="line">                # use next integers to complete the permutations</span><br><span class="line">                backtrack(first + 1)</span><br><span class="line">                # backtrack</span><br><span class="line">                nums[first], nums[i] &#x3D; nums[i], nums[first]</span><br><span class="line">                print(&#39;2:i,first:&#39;, i, first)</span><br><span class="line">                print(&#39;2:&#39;, nums[i], nums[first])</span><br><span class="line"></span><br><span class="line">        n &#x3D; len(nums)</span><br><span class="line">        output &#x3D; []</span><br><span class="line">        backtrack()</span><br><span class="line">        return output</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">---------------first 0</span><br><span class="line">i,first: 0 0</span><br><span class="line">1 1</span><br><span class="line">---------------first 1</span><br><span class="line">i,first: 1 1</span><br><span class="line">2 2</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">3 3</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 3 3</span><br><span class="line">2:i,first: 1 1</span><br><span class="line">2: 2 2</span><br><span class="line">i,first: 2 1</span><br><span class="line">3 2</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">2 2</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3], [1, 3, 2]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 2 2</span><br><span class="line">2:i,first: 2 1</span><br><span class="line">2: 3 2</span><br><span class="line">2:i,first: 0 0</span><br><span class="line">2: 1 1</span><br><span class="line">i,first: 1 0</span><br><span class="line">2 1</span><br><span class="line">---------------first 1</span><br><span class="line">i,first: 1 1</span><br><span class="line">1 1</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">3 3</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3], [1, 3, 2], [2, 1, 3]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 3 3</span><br><span class="line">2:i,first: 1 1</span><br><span class="line">2: 1 1</span><br><span class="line">i,first: 2 1</span><br><span class="line">3 1</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">1 1</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 1 1</span><br><span class="line">2:i,first: 2 1</span><br><span class="line">2: 3 1</span><br><span class="line">2:i,first: 1 0</span><br><span class="line">2: 2 1</span><br><span class="line">i,first: 2 0</span><br><span class="line">3 1</span><br><span class="line">---------------first 1</span><br><span class="line">i,first: 1 1</span><br><span class="line">2 2</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">1 1</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 1 1</span><br><span class="line">2:i,first: 1 1</span><br><span class="line">2: 2 2</span><br><span class="line">i,first: 2 1</span><br><span class="line">1 2</span><br><span class="line">---------------first 2</span><br><span class="line">i,first: 2 2</span><br><span class="line">2 2</span><br><span class="line">---------------first 3</span><br><span class="line">output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]</span><br><span class="line">2:i,first: 2 2</span><br><span class="line">2: 2 2</span><br><span class="line">2:i,first: 2 1</span><br><span class="line">2: 1 2</span><br><span class="line">2:i,first: 2 0</span><br><span class="line">2: 3 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="47-全排列-II"><a href="#47-全排列-II" class="headerlink" title="47. 全排列 II"></a>47. 全排列 II</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations-ii/
+
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+
+示例:
+
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]</code></pre>
+<p>题解一（回溯）：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        </span><br><span class="line">        def backtrack(first&#x3D;0):</span><br><span class="line">            if first&#x3D;&#x3D;lens:</span><br><span class="line">                output.append(nums[:])</span><br><span class="line">            for i in range(first,lens):</span><br><span class="line">                if not duplicat(nums,first,i):</span><br><span class="line">                    continue</span><br><span class="line">                nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line">                backtrack(first+1) # 注意：不能使用i+1，否则会出现[[1,2,3],[1,3,2],[2,1,3],[3,2,1]]</span><br><span class="line">                nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line"></span><br><span class="line">        def duplicat(nums,begin,end):</span><br><span class="line">            i&#x3D;begin</span><br><span class="line">            while i&lt;end:</span><br><span class="line">                if nums[i]&#x3D;&#x3D;nums[end]:</span><br><span class="line">                    return False</span><br><span class="line">                i+&#x3D;1</span><br><span class="line">            return True</span><br><span class="line">    </span><br><span class="line">        lens&#x3D;len(nums)</span><br><span class="line">        output&#x3D;[]</span><br><span class="line">        backtrack()</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        </span><br><span class="line">        def backtrack(first&#x3D;0):</span><br><span class="line">            if first&#x3D;&#x3D;lens:</span><br><span class="line">                output.append(nums[:])</span><br><span class="line">            for i in range(first,lens):</span><br><span class="line">                </span><br><span class="line">                if nums[i] not in nums[first:i]:</span><br><span class="line">                    nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line">                    backtrack(first+1)</span><br><span class="line">                    nums[first],nums[i]&#x3D;nums[i],nums[first]</span><br><span class="line">        </span><br><span class="line">        lens&#x3D;len(nums)</span><br><span class="line">        output&#x3D;[]</span><br><span class="line">        nums.sort()</span><br><span class="line">        backtrack()</span><br><span class="line">        return output</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrack(first,path,used):</span><br><span class="line">            if first &#x3D;&#x3D; len(nums):</span><br><span class="line">                res.append(path[:])</span><br><span class="line">                return</span><br><span class="line">            for i in range(len(nums)):</span><br><span class="line">                if not used[i]:</span><br><span class="line">                    if i&gt;0 and nums[i] &#x3D;&#x3D; nums[i-1] and not used[i-1]:</span><br><span class="line">                        continue</span><br><span class="line">                    used[i]&#x3D;True</span><br><span class="line">                    path.append(nums[i])</span><br><span class="line">                    backtrack(first+1,path,used)</span><br><span class="line">                    used[i]&#x3D;False</span><br><span class="line">                    path.pop()</span><br><span class="line">        nums.sort()</span><br><span class="line">        used&#x3D;[False] * len(nums)</span><br><span class="line">        backtrack(0,[],used)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="51-N皇后"><a href="#51-N皇后" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><pre><code>链接：https://leetcode-cn.com/problems/n-queens/
+
+n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+上图为 8 皇后问题的一种解法。
+
+给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。
+
+每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 &#39;Q&#39; 和 &#39;.&#39; 分别代表了皇后和空位。
+
+示例:
+
+输入: 4
+输出: [
+ [&quot;.Q..&quot;,  // 解法 1
+  &quot;...Q&quot;,
+  &quot;Q...&quot;,
+  &quot;..Q.&quot;],
+
+ [&quot;..Q.&quot;,  // 解法 2
+  &quot;Q...&quot;,
+  &quot;...Q&quot;,
+  &quot;.Q..&quot;]
+]
+解释: 4 皇后问题存在两个不同的解法。</code></pre>
+<p>题解一（回溯法）:</p>
+<p>问题是十九世纪著名的数学家高斯1850年提出：在8X8格的国际象棋上摆放八个皇后（棋子），使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
+<p>1、判断每次输入的皇后是否在同一行、同一列或者同一斜线上<br>2、核心算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def solveNQueens(self, n: int) -&gt; List[List[str]]:</span><br><span class="line">        board,ret&#x3D;[[&#39;.&#39;]*n for _ in range(n)],[]</span><br><span class="line">        self.dfs(board,n,0,ret)</span><br><span class="line">        return ret</span><br><span class="line">    def dfs(self,board,n,row,ret):</span><br><span class="line">        if row&#x3D;&#x3D;n:</span><br><span class="line">            ret.append([&#39;&#39;.join(i) for i in board])</span><br><span class="line">            return</span><br><span class="line">        for i in range(n):</span><br><span class="line">            if not self.isVaild(row,i,n,board):</span><br><span class="line">                continue</span><br><span class="line">            board[row][i]&#x3D;&#39;Q&#39;</span><br><span class="line">            self.dfs(board,n,row+1,ret)</span><br><span class="line">            board[row][i]&#x3D;&#39;.&#39;</span><br><span class="line"></span><br><span class="line">    def isVaild(self,row,col,n,board):</span><br><span class="line">        for i in range(1, row + 1):</span><br><span class="line">            # 判断同一列上是否有Q</span><br><span class="line">            if board[row - i][col] &#x3D;&#x3D; &#39;Q&#39;:</span><br><span class="line">                return False</span><br><span class="line">            # 判断逆对角线是否有Q</span><br><span class="line">            if col - i &gt;&#x3D; 0 and board[row - i][col - i] &#x3D;&#x3D; &#39;Q&#39;:</span><br><span class="line">                return False</span><br><span class="line">            # 判断正对角线是否有Q</span><br><span class="line">            if col + i &lt; n and board[row - i][col + i] &#x3D;&#x3D; &#39;Q&#39;:</span><br><span class="line">                return False</span><br><span class="line">        return True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>???### 60. 第k个排列<br>    给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。</p>
+<pre><code>按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+
+&quot;123&quot;
+&quot;132&quot;
+&quot;213&quot;
+&quot;231&quot;
+&quot;312&quot;
+&quot;321&quot;
+给定 n 和 k，返回第 k 个排列。
+
+说明：
+
+给定 n 的范围是 [1, 9]。
+给定 k 的范围是[1,  n!]。
+示例 1:
+
+输入: n = 3, k = 3
+输出: &quot;213&quot;
+示例 2:
+
+输入: n = 4, k = 9
+输出: &quot;2314&quot;</code></pre>
+<p>题解一|回溯|超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def getPermutation(self, n: int, k: int) -&gt; str:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        used&#x3D;[False]*n # 使用used去重</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            if len(path) &#x3D;&#x3D; n:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line"></span><br><span class="line">            for i in range(1,n+1):</span><br><span class="line">                if used[i-1]: </span><br><span class="line">                    continue</span><br><span class="line">                used[i-1]&#x3D;True</span><br><span class="line">                path.append(i)</span><br><span class="line">                backtrace(path,i+1)</span><br><span class="line">                used[i-1]&#x3D;False</span><br><span class="line">                path.pop()</span><br><span class="line">        if not n or not k:</span><br><span class="line">            return &#39;&#39;</span><br><span class="line">        backtrace([],1)</span><br><span class="line">        print(res)</span><br><span class="line">        tmp&#x3D;[str(i) for i in res[k-1]]</span><br><span class="line">        return &#39;&#39;.join(tmp)</span><br></pre></td></tr></table></figure>
+
+<p>优化|超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def getPermutation(self, n: int, k: int) -&gt; str:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        used&#x3D;[False]*n # 使用used去重</span><br><span class="line">        def backtrace(path):</span><br><span class="line">            if len(res) &#x3D;&#x3D; k:</span><br><span class="line">                return</span><br><span class="line">            </span><br><span class="line">            if len(path) &#x3D;&#x3D; n:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line"></span><br><span class="line">            for i in range(1,n+1):</span><br><span class="line">                if used[i-1]: </span><br><span class="line">                    continue</span><br><span class="line">                used[i-1]&#x3D;True</span><br><span class="line">                path.append(i)</span><br><span class="line">                backtrace(path)</span><br><span class="line">                used[i-1]&#x3D;False</span><br><span class="line">                path.pop()</span><br><span class="line">        if not n or not k:</span><br><span class="line">            return &#39;&#39;</span><br><span class="line">        backtrace([])</span><br><span class="line">        tmp&#x3D;[str(i) for i in res[-1]]</span><br><span class="line">        return &#39;&#39;.join(tmp)</span><br></pre></td></tr></table></figure>
+
+<p>???</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def getPermutation(self, n: int, k: int) -&gt; str:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrack(k,first):</span><br><span class="line">            if first &#x3D;&#x3D; n:</span><br><span class="line">                return</span><br><span class="line">            cnt&#x3D;factorial[n-1-first]</span><br><span class="line">            for i in range(1,n+1):</span><br><span class="line">                if used[i]:</span><br><span class="line">                    continue</span><br><span class="line">                if cnt &lt; k:</span><br><span class="line">                    k-&#x3D;cnt</span><br><span class="line">                    continue</span><br><span class="line">                res.append(i)</span><br><span class="line">                used[i]&#x3D;True</span><br><span class="line">                backtrack(k,first+1)</span><br><span class="line"></span><br><span class="line">        used&#x3D;[False] * (n+1) # 使用used去重</span><br><span class="line">        factorial&#x3D;[ 1 for _ in range(n+1)]</span><br><span class="line">        for i in range(2,n+1):</span><br><span class="line">            factorial[i]&#x3D;factorial[i-1]*i</span><br><span class="line">        backtrack(k,0)</span><br><span class="line">        return &#39;&#39;.join([str(num) for num in res])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="77-组合"><a href="#77-组合" class="headerlink" title="77.组合"></a>77.组合</h3><pre><code>链接：https://leetcode-cn.com/problems/combinations/
+
+给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+
+示例:
+
+输入: n = 4, k = 2
+输出:
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]</code></pre>
+<p>题解一|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combine(self, n: int, k: int) -&gt; List[List[int]]:</span><br><span class="line">        if k &#x3D;&#x3D; 0 or n&#x3D;&#x3D;0:</span><br><span class="line">            return []</span><br><span class="line">    </span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        path&#x3D;[]</span><br><span class="line">        return self.helper(n,k,res,path,1)</span><br><span class="line">    def helper(self,n,k,res,path,first&#x3D;1):</span><br><span class="line">        if len(path)&#x3D;&#x3D;k:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        for i in range(first,n+1):</span><br><span class="line">            path.append(i)</span><br><span class="line"></span><br><span class="line">            self.helper(n,k,res,path,i+1) </span><br><span class="line">            # self.helper(n,k,res,path,first+1) </span><br><span class="line">            # [[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,2],[3,3],[3,4],[4,2],[4,3],[4,4]]</span><br><span class="line">            path.pop()</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combine(self, n: int, k: int) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            if len(path) &#x3D;&#x3D; k:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line">            for i in range(first,n+1):</span><br><span class="line">                path.append(i)</span><br><span class="line">                backtrace(path,i+1)</span><br><span class="line">                # backtrace(path,first+1)</span><br><span class="line">                path.pop()</span><br><span class="line">        if not n or not k:</span><br><span class="line">            return []</span><br><span class="line">        backtrace([],1)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combine(self, n: int, k: int) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            if len(path) &#x3D;&#x3D; k:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line">            for i in range(first,n+1):</span><br><span class="line">                path.append(i)</span><br><span class="line">                backtrace(path,i+1) # 输出：[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]</span><br><span class="line">                # backtrace(path,i) # 输出：[[1,1],[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,3],[3,4],[4,4]]</span><br><span class="line">                # backtrace(path,first+1) # 输出：[[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,2],[3,3],[3,4],[4,2],[4,3],[4,4]]</span><br><span class="line">                # backtrace(path,first) # 输出：[[1,1],[1,2],[1,3],[1,4],[2,1],[2,2],[2,3],[2,4],[3,1],[3,2],[3,3],[3,4],[4,1],[4,2],[4,3],[4,4]]</span><br><span class="line">                path.pop()</span><br><span class="line">        if not n or not k:</span><br><span class="line">            return []</span><br><span class="line">        backtrace([],1)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="78-子集"><a href="#78-子集" class="headerlink" title="78.子集"></a>78.子集</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets/submissions/
+
+给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一（库函数）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsets(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        import itertools</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        for i in range(len(nums)+1):</span><br><span class="line">            for j in itertools.combinations(nums,i):</span><br><span class="line">                res.append(j)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<p>题解二（迭代）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsets(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[[]]</span><br><span class="line">        for i in nums:</span><br><span class="line">            res+&#x3D;[[i]+j for j in res]</span><br><span class="line">            # print(res)</span><br><span class="line">        return res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>题解三（回溯）:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subsets/solution/hui-su-python-dai-ma-by-liweiwei1419/">https://leetcode-cn.com/problems/subsets/solution/hui-su-python-dai-ma-by-liweiwei1419/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsets(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length&#x3D;len(nums)</span><br><span class="line">        if length&#x3D;&#x3D;0:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        path&#x3D;[]</span><br><span class="line">        return self.helper(nums,res,path,0)</span><br><span class="line">    </span><br><span class="line">    def helper(self,nums,res,path,first&#x3D;1):</span><br><span class="line">        res.append(path[:])</span><br><span class="line">        for i in range(first,len(nums)):</span><br><span class="line">            path.append(nums[i])</span><br><span class="line">            self.helper(nums,res,path,i+1)</span><br><span class="line">            path.pop()</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsets(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            res.append(path[:])</span><br><span class="line">            for i in range(first,len(nums)):</span><br><span class="line">                path.append(nums[i])</span><br><span class="line">                backtrace(path,i+1)</span><br><span class="line">                path.pop()</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<h3 id="90-子集-II"><a href="#90-子集-II" class="headerlink" title="90. 子集 II"></a>90. 子集 II</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets-ii/submissions/
+
+给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+输入: [1,2,2]
+输出:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一（回溯）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        length&#x3D;len(nums)</span><br><span class="line">        if length&#x3D;&#x3D;0:</span><br><span class="line">            return []</span><br><span class="line">        </span><br><span class="line">        nums.sort() # 一定需要先排序，否则结果中有重复的。</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        path&#x3D;[]</span><br><span class="line">        return self.helper(nums,res,path,0)</span><br><span class="line">    </span><br><span class="line">    def helper(self,nums,res,path,first&#x3D;1):</span><br><span class="line">        res.append(path[:])</span><br><span class="line">        for i in range(first,len(nums)):</span><br><span class="line">            if i&gt;first and nums[i]&#x3D;&#x3D;nums[i-1]:</span><br><span class="line">                continue</span><br><span class="line">            path.append(nums[i])</span><br><span class="line">            self.helper(nums,res,path,i+1)</span><br><span class="line">            path.pop()</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/">https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        nums.sort()</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            res.append(path[:]) # ???没有return</span><br><span class="line">            for i in range(first,len(nums)):</span><br><span class="line">                if i&gt;first and nums[i]&#x3D;&#x3D;nums[i-1]: # 滤重</span><br><span class="line">                    continue</span><br><span class="line">                path.append(nums[i])</span><br><span class="line">                backtrace(path,i+1)</span><br><span class="line">                path.pop()</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<h3 id="93-复原IP地址"><a href="#93-复原IP地址" class="headerlink" title="93.复原IP地址"></a>93.复原IP地址</h3><pre><code>链接：https://leetcode-cn.com/problems/restore-ip-addresses/
+
+给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
+
+示例:
+
+输入: &quot;25525511135&quot;
+输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]</code></pre>
+<p>注意：<br>    IP的格式,每位是在0~255之间,<br>    不能出现以0开头的两位以上数字,比如012,08…</p>
+<p>题解一(暴力):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def restoreIpAddresses(self, s: str) -&gt; List[str]:</span><br><span class="line">        n&#x3D;len(s)</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        </span><br><span class="line">        def helper(tmp):</span><br><span class="line">            if tmp&#x3D;&#x3D;&#39;&#39; or (tmp[0]&#x3D;&#x3D;&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:</span><br><span class="line">            # if not tmp or (tmp[0]&#x3D;&#x3D;&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:</span><br><span class="line">                return False</span><br><span class="line">            return True</span><br><span class="line">        </span><br><span class="line">        for i in range(3):</span><br><span class="line">            for j in range(i+1,i+4):</span><br><span class="line">                for k in range(j+1,j+4):</span><br><span class="line">                    if i&lt;n and j&lt;n and k&lt;n:</span><br><span class="line">                        tmp1&#x3D;s[:i+1]</span><br><span class="line">                        tmp2&#x3D;s[i+1:j+1]</span><br><span class="line">                        tmp3&#x3D;s[j+1:k+1]</span><br><span class="line">                        tmp4&#x3D;s[k+1:]</span><br><span class="line"></span><br><span class="line">                        if all(map(helper,[tmp1,tmp2,tmp3,tmp4])):</span><br><span class="line">                            res.append(tmp1+&#39;.&#39;+tmp2+&#39;.&#39;+tmp3+&#39;.&#39;+tmp4)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<p>题解二（回溯）:</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/">https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/</a></p>
+<p>思路:</p>
+<pre><code>做第一步时我们有几种 选择 以 &quot;25525511135&quot; 为例：
+
+    选 &quot;2&quot; 作为第一个片段
+    选 &quot;25&quot; 作为第一个片段
+    选 &quot;255&quot; 作为第一个片段
+
+有三种选择，做了选择后，又面临三种选择：再切出一种长度的片段作为第二个片段。
+这会像树一样向下分支，我们用 DFS 去遍历所有选择，并且是回溯，为什么是回溯？
+因为某一步的选择可能来到一个错误的状态，得不到正确的结果，不要往下做了，要撤销最后一个选择，回到选择前的状态，去试另一个选择。
+大概像是：选择、探索、撤销选择的过程。好，我们现在了解了回溯的要点1——选择。</code></pre>
+<p>回溯的要点2——约束:</p>
+<pre><code>约束限制了我们的搜索分支，这道题的约束条件是：
+
+    一个片段的长度是 1~3
+    片段的值范围是 0~255
+    不能是 &quot;0x&quot;、&quot;0xx&quot; 形式（这个是测试用例告诉我们的）
+
+我们要用这些约束在DFS中充分地剪枝，规避掉一些选择，避免去搜索一些不会产生正确答案的分支。</code></pre>
+<p>回溯的要点3——目标:</p>
+<pre><code>我们的目标决定了我们 DFS 什么时候捕捉答案，什么时候砍掉死支，不继续走了返回出来。
+我们目标是生成 4 个有效片段，并且要用光 IP 字符串的字符。
+当遍历的节点满足该条件时，说明已经生成了一个有效组合，推入结果数组。然后回溯，继续探索。
+生成了4个有效片段，但没用光所有字符，不是有效的组合，不继续往下递归，直接返回，提前回溯。</code></pre>
+<p>定义dfs函数:</p>
+<pre><code>dfs函数传什么，用什么代表不同节点的状态？
+选择切出一个长度的片段后，剩余的子串继续递归，可以传子串，也可以传指向起始位置的指针，加上当前已经生成的片段数组，作为状态，传入 dfs 函数。
+dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def restoreIpAddresses(self, s: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def helper(path,first):</span><br><span class="line">            if len(path)&#x3D;&#x3D;4 and first&#x3D;&#x3D;len(s):</span><br><span class="line">                res.append(&#39;.&#39;.join(path))</span><br><span class="line">            if len(path)&#x3D;&#x3D;4 and first &lt; len(s):</span><br><span class="line">                return</span><br><span class="line">            for i in range(1,4):</span><br><span class="line">                if first+i-1 &gt;&#x3D; len(s):</span><br><span class="line">                    return</span><br><span class="line">                if i &gt;&#x3D; 2 and s[first]&#x3D;&#x3D;&#39;0&#39;:</span><br><span class="line">                    return</span><br><span class="line">                tmp&#x3D;s[first:first+i]                </span><br><span class="line">                if i&#x3D;&#x3D;3 and int(tmp)&gt;255:</span><br><span class="line">                    return</span><br><span class="line">                path.append(tmp)</span><br><span class="line">                helper(path,first+i)</span><br><span class="line">                path.pop()</span><br><span class="line">        helper([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def restoreIpAddresses(self, s: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def helper(path,first):</span><br><span class="line">            if len(path)&#x3D;&#x3D;4 and first&#x3D;&#x3D;len(s):</span><br><span class="line">                res.append(&#39;.&#39;.join(path))</span><br><span class="line">            if len(path)&#x3D;&#x3D;4 and first &lt; len(s):</span><br><span class="line">                return</span><br><span class="line">            for i in range(1,4):</span><br><span class="line">                if first+i-1 &gt;&#x3D; len(s):</span><br><span class="line">                    return</span><br><span class="line">                if i &gt;&#x3D; 2 and s[first]&#x3D;&#x3D;&#39;0&#39;:</span><br><span class="line">                    return</span><br><span class="line">                tmp&#x3D;s[first:first+i]                </span><br><span class="line">                if i&#x3D;&#x3D;3 and int(tmp)&gt;255:</span><br><span class="line">                    return</span><br><span class="line">                helper(path+[tmp],first+i)</span><br><span class="line">        helper([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def restoreIpAddresses(self, s: str) -&gt; List[str]:</span><br><span class="line">        def __segment(s,left,right):</span><br><span class="line">            size&#x3D;right-left+1</span><br><span class="line"></span><br><span class="line">            if size &gt; 1 and s[left]&#x3D;&#39;0&#39;:</span><br><span class="line">                return -1</span><br><span class="line">            res&#x3D;0</span><br><span class="line">            for i in range(left,right+1):</span><br><span class="line">                res&#x3D;res*10 + ord(s[i])-ord(&#39;0&#39;)</span><br><span class="line"></span><br><span class="line">            if res &gt; 255:</span><br><span class="line">                return -1</span><br><span class="line">            return res</span><br><span class="line"></span><br><span class="line">        def backtrace(split,first,path):</span><br><span class="line">            if first &#x3D;&#x3D; len(s):</span><br><span class="line">                if split &#x3D;&#x3D; 4:</span><br><span class="line">                    res.append(&#39;&#39;.join(path))</span><br><span class="line">                return</span><br><span class="line">            if len(s) - first</span><br></pre></td></tr></table></figure>
+
+<h3 id="216-组合总和-III"><a href="#216-组合总和-III" class="headerlink" title="216. 组合总和 III"></a>216. 组合总和 III</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-iii/
+
+找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+
+说明：
+
+所有数字都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: k = 3, n = 7
+输出: [[1,2,4]]
+示例 2:
+
+输入: k = 3, n = 9
+输出: [[1,2,6], [1,3,5], [2,3,4]]</code></pre>
+<p>题解一|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def combinationSum3(self, k: int, n: int) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first,n):</span><br><span class="line">            if len(path)&#x3D;&#x3D;k and n&#x3D;&#x3D;0:</span><br><span class="line">                return res.append(path[:])</span><br><span class="line">            for i in range(first,10):</span><br><span class="line">                tmp&#x3D;n-i</span><br><span class="line">                if tmp &lt; 0:</span><br><span class="line">                    continue</span><br><span class="line">                path.append(i)</span><br><span class="line">                backtrace(path,i+1,tmp)</span><br><span class="line">                path.pop()</span><br><span class="line">        if not k or not n:</span><br><span class="line">            return []</span><br><span class="line">        backtrace([],1,n)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="357-计算各个位数不同的数字个数"><a href="#357-计算各个位数不同的数字个数" class="headerlink" title="357. 计算各个位数不同的数字个数"></a>357. 计算各个位数不同的数字个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
+
+给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x &lt; 10n 。
+
+示例:
+
+输入: 2
+输出: 91 
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。</code></pre>
+<p>题解一|动态规划：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:</span><br><span class="line">        if n&#x3D;&#x3D;0:</span><br><span class="line">            return 1</span><br><span class="line">        dp1&#x3D;[0]*(n+1)</span><br><span class="line">        dp2&#x3D;[0]*(n+1)</span><br><span class="line">        dp1[1]&#x3D;10</span><br><span class="line">        dp2[1]&#x3D;9</span><br><span class="line">        for i in range(2,min(11,n+1)):</span><br><span class="line">            dp2[i]&#x3D;dp2[i-1]*(10-(i-1))</span><br><span class="line">            dp1[i]&#x3D;dp2[i]+dp1[i-1]</span><br><span class="line">        if n&gt;&#x3D;11:</span><br><span class="line">            return dp[10]</span><br><span class="line">        return dp1[n]</span><br></pre></td></tr></table></figure>
+
+<p>题解二|数学：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">这是一道数学题，很容易发现规律：</span><br><span class="line"></span><br><span class="line">如果 n &#x3D; 1，ans &#x3D; 10；</span><br><span class="line">如果 n &#x3D; 2，考虑两位数都不相同，有 9 * 9 &#x3D; 81 种情况（第一个数字不能以 0 开头，第二个数字可以有 0），再加上 n &#x3D; 1 时的情况即可得到 ans &#x3D; 91；</span><br><span class="line">如果 n &#x3D; 3，考虑三位数都不相同，有 9 * 9 * 8 &#x3D; 648 种情况（第一个数字不能以 0 开头），再加上 n &#x3D; 2 时的情况即可得到 ans &#x3D; 739；</span><br><span class="line">以此类推即可。</span><br><span class="line"></span><br><span class="line">因此，我们从 i &#x3D; 1 开始，每次累加结果，一直计算到 i &#x3D; n 即可得到答案。注意：当 n &gt; 10 时，与 n &#x3D; 10 的结果相同。</span><br><span class="line"></span><br><span class="line">Python3 实现：</span><br><span class="line">class Solution:</span><br><span class="line">    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:</span><br><span class="line">        def factorial(cnt):  # 从9阶乘cnt次</span><br><span class="line">            res &#x3D; 1</span><br><span class="line">            factor &#x3D; 9</span><br><span class="line">            for i in range(cnt):</span><br><span class="line">                res *&#x3D; factor</span><br><span class="line">                factor -&#x3D; 1</span><br><span class="line">            return res</span><br><span class="line">        </span><br><span class="line">        pre &#x3D; i &#x3D; 1</span><br><span class="line">        while i &lt;&#x3D; n and i &lt;&#x3D; 10:  # i要&lt;&#x3D;10</span><br><span class="line">            pre +&#x3D; 9 * factorial(i-1)  # i位不同的数字与前面结果累加</span><br><span class="line">            i +&#x3D; 1</span><br><span class="line">        return pre</span><br></pre></td></tr></table></figure>
+
+<p>??题解三|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:</span><br><span class="line">        used&#x3D;[False]*10</span><br><span class="line">        def backtrace(first,used):</span><br><span class="line">            count&#x3D;0</span><br><span class="line">            if first !&#x3D; n:</span><br><span class="line">                for i in range(10):</span><br><span class="line">                    if i&#x3D;&#x3D;0 and n&gt;1 and first&#x3D;&#x3D;1:</span><br><span class="line">                        continue</span><br><span class="line">                    if used[i]:</span><br><span class="line">                        continue</span><br><span class="line">                    used[i]&#x3D;True</span><br><span class="line">                    count+&#x3D;backtrace(first+1,used)+1</span><br><span class="line">                    used[i]&#x3D;False</span><br><span class="line">            return count</span><br><span class="line">        if not n:</span><br><span class="line">            return 1</span><br><span class="line">        return backtrace(0,used)</span><br></pre></td></tr></table></figure>
+
+<h3 id="401-二进制手表"><a href="#401-二进制手表" class="headerlink" title="401. 二进制手表"></a>401. 二进制手表</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-watch/
+
+二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。
+
+每个 LED 代表一个 0 或 1，最低位在右侧。
+
+
+例如，上面的二进制手表读取 “3:25”。
+
+给定一个非负整数 n 代表当前 LED 亮着的数量，返回所有可能的时间。
+
+示例：
+
+输入: n = 1
+返回: [&quot;1:00&quot;, &quot;2:00&quot;, &quot;4:00&quot;, &quot;8:00&quot;, &quot;0:01&quot;, &quot;0:02&quot;, &quot;0:04&quot;, &quot;0:08&quot;, &quot;0:16&quot;, &quot;0:32&quot;]
+
+
+提示：
+
+输出的顺序没有要求。
+小时不会以零开头，比如 “01:00” 是不允许的，应为 “1:00”。
+分钟必须由两位数组成，可能会以零开头，比如 “10:2” 是无效的，应为 “10:02”。
+超过表示范围（小时 0-11，分钟 0-59）的数据将会被舍弃，也就是说不会出现 &quot;13:00&quot;, &quot;0:61&quot; 等时间。</code></pre>
+<p>题解一|暴力：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def readBinaryWatch(self, num: int) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        for i in range(12):</span><br><span class="line">            for j in range(60):</span><br><span class="line">                if (bin(i)+bin(j)).count(&#39;1&#39;) &#x3D;&#x3D; num:</span><br><span class="line">                    res.append(&#39;%d:%02d&#39;%(i,j))</span><br><span class="line">        return res     </span><br></pre></td></tr></table></figure>
+
+<p>扩展：</p>
+<pre><code>%d就是普通的输出了整形数
+%2d是将数字按宽度为2，采用右对齐方式输出，若数据位数不到2位，则左边补空格。
+%02d，和%2d差不多，只不过左边补0
+
+%-2d将数字按宽度为2，采用左对齐方式输出，若数据位数不到2位，则右边补空格
+%.2d 输出整形时最少输出2位，如不够前面以0占位。如输出2时变成02，200时只输出200；输出浮点型时（%.2f）小数点后强制2位输出</code></pre>
+<p>比如：</p>
+<pre><code>num = 1
+print(&quot;%d&quot; % (num))结果为：   （1）
+print(&quot;%2d&quot; % (num))结果为：  （ 1）
+print(&quot;%02d&quot; % (num))结果为： （01）
+print(&quot;%-2d&quot; % (num))结果为： （1 ）
+print(&quot;%.2d&quot; % (num))结果为： （01）
+print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
+<p>题解二|回溯</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def readBinaryWatch(self, num: int) -&gt; List[str]:</span><br><span class="line">        </span><br><span class="line">        def traceback(num,index,status):</span><br><span class="line">            if num&#x3D;&#x3D;0:</span><br><span class="line">                hour&#x3D;status[0]+2*status[1]+4*status[2]+8*status[3]</span><br><span class="line">                mintue&#x3D;status[4]+2*status[5]+4*status[6]+8*status[7]+16*status[8]+32*status[9]</span><br><span class="line">                if hour&lt;12 and mintue &lt;60:</span><br><span class="line">                    res.append(&#39;%d:%02d&#39;%(hour,mintue))</span><br><span class="line">                return</span><br><span class="line">            for i in range(index,10):</span><br><span class="line">                status[i]&#x3D;1</span><br><span class="line">                traceback(num-1,i+1,status)</span><br><span class="line">                status[i]&#x3D;0</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        traceback(num,0,[0]*10)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def readBinaryWatch(self, num: int) -&gt; List[str]:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    思路： 递归回溯法</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    if num &lt; 0:</span><br><span class="line">        return []</span><br><span class="line">    # 一共只有10个灯</span><br><span class="line">    res, hour, minute &#x3D; [], [1, 2, 4, 8], [1, 2, 4, 8, 16, 32]</span><br><span class="line">    def traceback(num, index, status):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        num : 还剩下的可点亮的灯的数量</span><br><span class="line">        index: 是当前选择点亮哪一个灯</span><br><span class="line">        status: 记录是哪些位置的灯被点亮了</span><br><span class="line">        </span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if num &#x3D;&#x3D; 0: # 没有可以点亮的灯了，记录当前结果，并返回</span><br><span class="line">            h &#x3D; sum([i*j for i,j in zip(hour, status[:4])])</span><br><span class="line">            m &#x3D; sum([i*j for i,j in zip(minute, status[4:])])</span><br><span class="line">            if h &lt; 12 and m &lt; 60:</span><br><span class="line">                res.append(&#39;%d:%02d&#39; % (h, m))</span><br><span class="line">            return</span><br><span class="line">        for i in range(index, 10):</span><br><span class="line">            status[i] &#x3D; 1 # 做出下一步的选择</span><br><span class="line">            traceback(num-1, i+1, status) # 在剩下的灯里面去点亮num-1个灯</span><br><span class="line">            status[i] &#x3D; 0 # 返回到上一步选择时的状态            </span><br><span class="line">    </span><br><span class="line">    traceback(num, 0, [0] * 10)</span><br><span class="line">    return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="784-字母大小写全排列"><a href="#784-字母大小写全排列" class="headerlink" title="784. 字母大小写全排列"></a>784. 字母大小写全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-case-permutation/
+
+给定一个字符串S，通过将字符串S中的每个字母转变大小写，我们可以获得一个新的字符串。返回所有可能得到的字符串集合。
+
+示例:
+输入: S = &quot;a1b2&quot;
+输出: [&quot;a1b2&quot;, &quot;a1B2&quot;, &quot;A1b2&quot;, &quot;A1B2&quot;]
+
+输入: S = &quot;3z4&quot;
+输出: [&quot;3z4&quot;, &quot;3Z4&quot;]
+
+输入: S = &quot;12345&quot;
+输出: [&quot;12345&quot;]
+注意：
+
+S 的长度不超过12。
+S 仅由数字和字母组成。</code></pre>
+<p>题解一|递归：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def letterCasePermutation(self, S: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line"></span><br><span class="line">        def dfs(s,tmp):</span><br><span class="line">            if not s:</span><br><span class="line">                res.append(&#39;&#39;.join(tmp))</span><br><span class="line">                return</span><br><span class="line">            if s[0].isalpha():</span><br><span class="line">                dfs(s[1:],tmp+[s[0].upper()])</span><br><span class="line">                dfs(s[1:],tmp+[s[0].lower()])</span><br><span class="line">            else:</span><br><span class="line">                dfs(s[1:],tmp+[s[0]])</span><br><span class="line">        dfs(S,[])</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<p>题解二|迭代</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def letterCasePermutation(self, S: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[&#39;&#39;]</span><br><span class="line">        for i,c in enumerate(S):</span><br><span class="line">            if c.isdigit():</span><br><span class="line">                for j,r in enumerate(res):</span><br><span class="line">                    res[j]&#x3D;r+c</span><br><span class="line">            else:</span><br><span class="line">                tmp&#x3D;[]</span><br><span class="line">                for r in res:</span><br><span class="line">                    tmp.append(r+c.upper())</span><br><span class="line">                    tmp.append(r+c.lower())</span><br><span class="line">                res&#x3D;tmp[:]</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="剑指-Offer-38-字符串的排列"><a href="#剑指-Offer-38-字符串的排列" class="headerlink" title="剑指 Offer 38. 字符串的排列"></a>剑指 Offer 38. 字符串的排列</h3><pre><code>链接：https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/
+
+输入一个字符串，打印出该字符串中字符的所有排列。
+
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+示例:
+
+输入：s = &quot;abc&quot;
+输出：[&quot;abc&quot;,&quot;acb&quot;,&quot;bac&quot;,&quot;bca&quot;,&quot;cab&quot;,&quot;cba&quot;]
+
+
+限制：
+
+1 &lt;= s 的长度 &lt;= 8</code></pre>
+<p>题解一|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permutation(self, s: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        c&#x3D;list(s)</span><br><span class="line">        </span><br><span class="line">        def backtrace(first):</span><br><span class="line">            if len(s) &#x3D;&#x3D; first:  # 不能使用len(s)&#x3D;&#x3D;len(c)作为结束条件，因为c其实没变。</span><br><span class="line">                return res.append(&#39;&#39;.join(c))</span><br><span class="line">            isDup&#x3D;set()</span><br><span class="line">            for i in range(first,len(c)):</span><br><span class="line">                if c[i] in isDup: # 还有一种简单去重方法，直接把res定义为set()</span><br><span class="line">                    continue</span><br><span class="line">                isDup.add(c[i])</span><br><span class="line">                c[first],c[i]&#x3D;c[i],c[first]</span><br><span class="line">                backtrace(first+1)</span><br><span class="line">                c[first],c[i]&#x3D;c[i],c[first]</span><br><span class="line">        backtrace(0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permutation(self, s: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        list_s&#x3D;list(s)</span><br><span class="line">        list_s.sort()</span><br><span class="line">        self.sort_s&#x3D;&#39;&#39;.join(list_s)</span><br><span class="line">        used&#x3D;[False]*len(s)        </span><br><span class="line">        </span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            if len(self.sort_s) &#x3D;&#x3D; len(path): </span><br><span class="line">                return res.append(&#39;&#39;.join(path[:]))</span><br><span class="line">            for i in range(len(self.sort_s)):</span><br><span class="line">                if used[i]:</span><br><span class="line">                    continue</span><br><span class="line">                if i&gt;0 and self.sort_s[i]&#x3D;&#x3D;self.sort_s[i-1] and used[i-1] &#x3D;&#x3D; False: # ？？？？</span><br><span class="line">                    continue</span><br><span class="line">                used[i]&#x3D;True</span><br><span class="line">                path.append(self.sort_s[i])</span><br><span class="line">                backtrace(path,first+1)</span><br><span class="line">                path.pop()</span><br><span class="line">                used[i]&#x3D;False</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题-08-04-幂集"><a href="#面试题-08-04-幂集" class="headerlink" title="面试题 08.04. 幂集"></a>面试题 08.04. 幂集</h3><pre><code>幂集。编写一种方法，返回某集合的所有子集。集合中不包含重复的元素。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+ 输入： nums = [1,2,3]
+ 输出：
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一|回溯：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def subsets(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            res.append(path[:])</span><br><span class="line">            for i in range(first,len(nums)):</span><br><span class="line">                path.append(nums[i])</span><br><span class="line">                backtrace(path,i+1)</span><br><span class="line">                path.pop()</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题-08-07-无重复字符串的排列组合"><a href="#面试题-08-07-无重复字符串的排列组合" class="headerlink" title="面试题 08.07. 无重复字符串的排列组合"></a>面试题 08.07. 无重复字符串的排列组合</h3><pre><code>无重复字符串的排列组合。编写一种方法，计算某字符串的所有排列组合，字符串每个字符均不相同。
+
+示例1:
+
+ 输入：S = &quot;qwe&quot;
+ 输出：[&quot;qwe&quot;, &quot;qew&quot;, &quot;wqe&quot;, &quot;weq&quot;, &quot;ewq&quot;, &quot;eqw&quot;]
+示例2:
+
+ 输入：S = &quot;ab&quot;
+ 输出：[&quot;ab&quot;, &quot;ba&quot;]
+提示:
+
+字符都是英文字母。
+字符串长度在[1, 9]之间。</code></pre>
+<p>题解一|回溯:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def permutation(self, S: str) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        c&#x3D;list(S)</span><br><span class="line">        </span><br><span class="line">        def backtrace(first):</span><br><span class="line">            if len(S) &#x3D;&#x3D; first:  # 不能使用len(s)&#x3D;&#x3D;len(c)作为结束条件，因为c其实没变。</span><br><span class="line">                return res.append(&#39;&#39;.join(c))</span><br><span class="line">            for i in range(first,len(c)):</span><br><span class="line">                c[first],c[i]&#x3D;c[i],c[first]</span><br><span class="line">                backtrace(first+1)</span><br><span class="line">                c[first],c[i]&#x3D;c[i],c[first]</span><br><span class="line">        backtrace(0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题-08-09-括号"><a href="#面试题-08-09-括号" class="headerlink" title="面试题 08.09. 括号"></a>面试题 08.09. 括号</h3><pre><code>括号。设计一种算法，打印n对括号的所有合法的（例如，开闭一一对应）组合。
+
+说明：解集不能包含重复的子集。
+
+例如，给出 n = 3，生成结果为：
+
+[
+  &quot;((()))&quot;,
+  &quot;(()())&quot;,
+  &quot;(())()&quot;,
+  &quot;()(())&quot;,
+  &quot;()()()&quot;
+]</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def generateParenthesis(self, n: int) -&gt; List[str]:</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        def backtrace(path,first):</span><br><span class="line">            if len(path) &#x3D;&#x3D; 2*n:</span><br><span class="line">                if first&#x3D;&#x3D;0:</span><br><span class="line">                    res.append(&#39;&#39;.join(path))</span><br><span class="line">                return</span><br><span class="line">            if first &lt; n:</span><br><span class="line">                path.append(&#39;(&#39;)</span><br><span class="line">                backtrace(path,first+1)</span><br><span class="line">                path.pop()</span><br><span class="line">            if first &gt; 0:</span><br><span class="line">                path.append(&#39;)&#39;)</span><br><span class="line">                backtrace(path,first-1)</span><br><span class="line">                path.pop()</span><br><span class="line">            print(path)</span><br><span class="line">        backtrace([],0)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/LeetCode-4-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="prev" title="LeetCode-4-动态规划">
+      <i class="fa fa-chevron-left"></i> LeetCode-4-动态规划
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-6-%E8%B4%AA%E5%BF%83/" rel="next" title="LeetCode-6-贪心">
+      LeetCode-6-贪心 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%9B%9E%E6%BA%AF%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">九、回溯法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88"><span class="nav-number">1.1.</span> <span class="nav-text">17. 电话号码的字母组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text">22. 括号生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%A7%A3%E6%95%B0%E7%8B%AC"><span class="nav-number">1.3.</span> <span class="nav-text">37. 解数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C"><span class="nav-number">1.4.</span> <span class="nav-text">39. 组合总和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#40-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-II"><span class="nav-number">1.5.</span> <span class="nav-text">40.组合总和 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#46-%E5%85%A8%E6%8E%92%E5%88%97"><span class="nav-number">1.6.</span> <span class="nav-text">46.全排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#47-%E5%85%A8%E6%8E%92%E5%88%97-II"><span class="nav-number">1.7.</span> <span class="nav-text">47. 全排列 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E"><span class="nav-number">1.8.</span> <span class="nav-text">51. N皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#77-%E7%BB%84%E5%90%88"><span class="nav-number">1.9.</span> <span class="nav-text">77.组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#78-%E5%AD%90%E9%9B%86"><span class="nav-number">1.10.</span> <span class="nav-text">78.子集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#90-%E5%AD%90%E9%9B%86-II"><span class="nav-number">1.11.</span> <span class="nav-text">90. 子集 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80"><span class="nav-number">1.12.</span> <span class="nav-text">93.复原IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-III"><span class="nav-number">1.13.</span> <span class="nav-text">216. 组合总和 III</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#357-%E8%AE%A1%E7%AE%97%E5%90%84%E4%B8%AA%E4%BD%8D%E6%95%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0"><span class="nav-number">1.14.</span> <span class="nav-text">357. 计算各个位数不同的数字个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#401-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%89%8B%E8%A1%A8"><span class="nav-number">1.15.</span> <span class="nav-text">401. 二进制手表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#784-%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%B0%8F%E5%86%99%E5%85%A8%E6%8E%92%E5%88%97"><span class="nav-number">1.16.</span> <span class="nav-text">784. 字母大小写全排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%91%E6%8C%87-Offer-38-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97"><span class="nav-number">1.17.</span> <span class="nav-text">剑指 Offer 38. 字符串的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-08-04-%E5%B9%82%E9%9B%86"><span class="nav-number">1.18.</span> <span class="nav-text">面试题 08.04. 幂集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-08-07-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88"><span class="nav-number">1.19.</span> <span class="nav-text">面试题 08.07. 无重复字符串的排列组合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-08-09-%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.20.</span> <span class="nav-text">面试题 08.09. 括号</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

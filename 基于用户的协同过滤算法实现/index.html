@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、简单介绍协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。当然，协同过滤中会存在两个问题：1.如何确定一个用户和你的爱好兴趣相似？2.如何将你的最近邻的兴趣爱好排序？ 实现&#96;import codecs  from math import sqrt  user">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于用户的协同过滤算法实现">
+<meta property="og:url" content="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="一、简单介绍协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。当然，协同过滤中会存在两个问题：1.如何确定一个用户和你的爱好兴趣相似？2.如何将你的最近邻的兴趣爱好排序？ 实现&#96;import codecs  from math import sqrt  user">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-02-28T02:43:38.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>基于用户的协同过滤算法实现 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于用户的协同过滤算法实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-28 10:43:38" itemprop="dateCreated datePublished" datetime="2018-02-28T10:43:38+08:00">2018-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、简单介绍"><a href="#一、简单介绍" class="headerlink" title="一、简单介绍"></a>一、简单介绍</h2><p>协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。<br>当然，协同过滤中会存在两个问题：<br>1.如何确定一个用户和你的爱好兴趣相似？<br>2.如何将你的最近邻的兴趣爱好排序？</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>`import codecs 
+from math import sqrt
+
+users = &#123;&quot;Angelica&quot;: &#123;&quot;Blues Traveler&quot;: 3.5, &quot;Broken Bells&quot;: 2.0,
+                  &quot;Norah Jones&quot;: 4.5, &quot;Phoenix&quot;: 5.0,
+                  &quot;Slightly Stoopid&quot;: 1.5,
+                  &quot;The Strokes&quot;: 2.5, &quot;Vampire Weekend&quot;: 2.0&#125;,
+
+     &quot;Bill&quot;:&#123;&quot;Blues Traveler&quot;: 2.0, &quot;Broken Bells&quot;: 3.5,
+             &quot;Deadmau5&quot;: 4.0, &quot;Phoenix&quot;: 2.0,
+             &quot;Slightly Stoopid&quot;: 3.5, &quot;Vampire Weekend&quot;: 3.0&#125;,
+
+     &quot;Chan&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 1.0,
+              &quot;Deadmau5&quot;: 1.0, &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5,
+              &quot;Slightly Stoopid&quot;: 1.0&#125;,
+
+     &quot;Dan&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Broken Bells&quot;: 4.0,
+             &quot;Deadmau5&quot;: 4.5, &quot;Phoenix&quot;: 3.0,
+             &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
+             &quot;Vampire Weekend&quot;: 2.0&#125;,
+
+     &quot;Hailey&quot;: &#123;&quot;Broken Bells&quot;: 4.0, &quot;Deadmau5&quot;: 1.0,
+                &quot;Norah Jones&quot;: 4.0, &quot;The Strokes&quot;: 4.0,
+                &quot;Vampire Weekend&quot;: 1.0&#125;,
+
+     &quot;Jordyn&quot;:  &#123;&quot;Broken Bells&quot;: 4.5, &quot;Deadmau5&quot;: 4.0,
+                 &quot;Norah Jones&quot;: 5.0, &quot;Phoenix&quot;: 5.0,
+                 &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
+                 &quot;Vampire Weekend&quot;: 4.0&#125;,
+
+     &quot;Sam&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 2.0,
+             &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5.0,
+             &quot;Slightly Stoopid&quot;: 4.0, &quot;The Strokes&quot;: 5.0&#125;,
+
+     &quot;Veronica&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Norah Jones&quot;: 5.0,
+                  &quot;Phoenix&quot;: 4.0, &quot;Slightly Stoopid&quot;: 2.5,
+                  &quot;The Strokes&quot;: 3.0&#125;
+    &#125;
+
+
+
+class recommender:
+
+    def __init__(self, data, k=1, metric=&#39;pearson&#39;, n=5):
+        &quot;&quot;&quot; initialize recommender
+        currently, if data is dictionary the recommender is initialized
+        to it.
+        For all other data types of data, no initialization occurs
+        k is the k value for k nearest neighbor
+        metric is which distance formula to use
+        n is the maximum number of recommendations to make&quot;&quot;&quot;
+        self.k = k
+        self.n = n
+        self.username2id = &#123;&#125;
+        self.userid2name = &#123;&#125;
+        self.productid2name = &#123;&#125;
+        # for some reason I want to save the name of the metric
+        self.metric = metric
+        if self.metric == &#39;pearson&#39;:
+            self.fn = self.pearson
+        #
+        # if data is dictionary set recommender data to it
+        #
+        if type(data).__name__ == &#39;dict&#39;:
+            self.data = data
+
+def convertProductID2name(self, id):
+    &quot;&quot;&quot;Given product id number return product name&quot;&quot;&quot;
+    if id in self.productid2name:
+        return self.productid2name[id]
+    else:
+        return id
+
+
+def userRatings(self, id, n):
+    &quot;&quot;&quot;Return n top ratings for user with id&quot;&quot;&quot;
+    print (&quot;Ratings for &quot; + self.userid2name[id])
+    ratings = self.data[id]
+    print(len(ratings))
+    ratings = list(ratings.items())
+    ratings = [(self.convertProductID2name(k), v)
+               for (k, v) in ratings]
+    # finally sort and return
+    ratings.sort(key=lambda artistTuple: artistTuple[1],
+                 reverse = True)
+    ratings = ratings[:n]
+    for rating in ratings:
+        print(&quot;%s\t%i&quot; % (rating[0], rating[1]))
+
+
+
+
+def loadBookDB(self, path=&#39;&#39;):
+    &quot;&quot;&quot;loads the BX book dataset. Path is where the BX files are
+    located&quot;&quot;&quot;
+    self.data = &#123;&#125;
+    i = 0
+    #
+    # First load book ratings into self.data
+    #
+    f = codecs.open(path + &quot;BX-Book-Ratings.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        user = fields[0].strip(&#39;&quot;&#39;)
+        book = fields[1].strip(&#39;&quot;&#39;)
+        rating = int(fields[2].strip().strip(&#39;&quot;&#39;))
+        if user in self.data:
+            currentRatings = self.data[user]
+        else:
+            currentRatings = &#123;&#125;
+        currentRatings[book] = rating
+        self.data[user] = currentRatings
+    f.close()
+    #
+    # Now load books into self.productid2name
+    # Books contains isbn, title, and author among other fields
+    #
+    f = codecs.open(path + &quot;BX-Books.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        isbn = fields[0].strip(&#39;&quot;&#39;)
+        title = fields[1].strip(&#39;&quot;&#39;)
+        author = fields[2].strip().strip(&#39;&quot;&#39;)
+        title = title + &#39; by &#39; + author
+        self.productid2name[isbn] = title
+    f.close()
+    #
+    #  Now load user info into both self.userid2name and
+    #  self.username2id
+    #
+    f = codecs.open(path + &quot;BX-Users.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #print(line)
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        userid = fields[0].strip(&#39;&quot;&#39;)
+        location = fields[1].strip(&#39;&quot;&#39;)
+        if len(fields) &gt; 3:
+            age = fields[2].strip().strip(&#39;&quot;&#39;)
+        else:
+            age = &#39;NULL&#39;
+        if age != &#39;NULL&#39;:
+            value = location + &#39;  (age: &#39; + age + &#39;)&#39;
+        else:
+            value = location
+        self.userid2name[userid] = value
+        self.username2id[location] = userid
+    f.close()
+    print(i)
+
+
+def pearson(self, rating1, rating2):
+    sum_xy = 0
+    sum_x = 0
+    sum_y = 0
+    sum_x2 = 0
+    sum_y2 = 0
+    n = 0
+    for key in rating1:
+        if key in rating2:
+            n += 1
+            x = rating1[key]
+            y = rating2[key]
+            sum_xy += x * y
+            sum_x += x
+            sum_y += y
+            sum_x2 += pow(x, 2)
+            sum_y2 += pow(y, 2)
+    if n == 0:
+        return 0
+    # now compute denominator
+    denominator = (sqrt(sum_x2 - pow(sum_x, 2) / n)
+                   * sqrt(sum_y2 - pow(sum_y, 2) / n))
+    if denominator == 0:
+        return 0
+    else:
+        return (sum_xy - (sum_x * sum_y) / n) / denominator
+
+
+def computeNearestNeighbor(self, username):
+    &quot;&quot;&quot;creates a sorted list of users based on their distance to
+    username&quot;&quot;&quot;
+    distances = []
+    for instance in self.data:
+        if instance != username:
+            distance = self.fn(self.data[username],
+                               self.data[instance])
+            distances.append((instance, distance))
+    # sort based on distance -- closest first
+    distances.sort(key=lambda artistTuple: artistTuple[1],
+                   reverse=True)
+    return distances
+
+def recommend(self, user):
+   &quot;&quot;&quot;Give list of recommendations&quot;&quot;&quot;
+   recommendations = &#123;&#125;
+   # first get list of users  ordered by nearness
+   nearest = self.computeNearestNeighbor(user)
+   #
+   # now get the ratings for the user
+   #
+   userRatings = self.data[user]
+   #
+   # determine the total distance
+   totalDistance = 0.0
+   for i in range(self.k):
+      totalDistance += nearest[i][1]
+   # now iterate through the k nearest neighbors
+   # accumulating their ratings
+   for i in range(self.k):
+      # compute slice of pie 
+      weight = nearest[i][1] / totalDistance
+      # get the name of the person
+      name = nearest[i][0]
+      # get the ratings for this person
+      neighborRatings = self.data[name]
+      # get the name of the person
+      # now find bands neighbor rated that user didn&#39;t
+      for artist in neighborRatings:
+         if not artist in userRatings:
+            if artist not in recommendations:
+               recommendations[artist] = (neighborRatings[artist]
+                                          * weight)
+            else:
+               recommendations[artist] = (recommendations[artist]
+                                          + neighborRatings[artist]
+                                          * weight)
+   # now make list from dictionary
+   recommendations = list(recommendations.items())
+   recommendations = [(self.convertProductID2name(k), v)
+                      for (k, v) in recommendations]
+   # finally sort and return
+   recommendations.sort(key=lambda artistTuple: artistTuple[1],
+                        reverse = True)
+   # Return the first n items
+   return recommendations[:self.n]</code></pre>
+<p>`</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/" rel="prev" title="该读的书">
+      <i class="fa fa-chevron-left"></i> 该读的书
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/TensorFlow%E5%AD%A6%E4%B9%A0/" rel="next" title="TensorFlow学习">
+      TensorFlow学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">一、简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

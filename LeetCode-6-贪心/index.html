@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="六、贪心贪心和动态规划一样，考验的是对问题分析的能力，贪心算法解题的关键在于如何找到每次的局部最优解，动态规划则是如何找到状态转移方程。 什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。 比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-6-贪心">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-6-%E8%B4%AA%E5%BF%83/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="六、贪心贪心和动态规划一样，考验的是对问题分析的能力，贪心算法解题的关键在于如何找到每次的局部最优解，动态规划则是如何找到状态转移方程。 什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。 比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满">
+<meta property="og:locale">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png">
+<meta property="article:published_time" content="2020-01-31T04:09:27.000Z">
+<meta property="article:modified_time" content="2020-08-26T11:54:18.135Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png">
+
+<link rel="canonical" href="http://gongyanli.com/LeetCode-6-%E8%B4%AA%E5%BF%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCode-6-贪心 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-6-%E8%B4%AA%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-6-贪心
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-31 12:09:27" itemprop="dateCreated datePublished" datetime="2020-01-31T12:09:27+08:00">2020-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 19:54:18" itemprop="dateModified" datetime="2020-08-26T19:54:18+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="六、贪心"><a href="#六、贪心" class="headerlink" title="六、贪心"></a>六、贪心</h2><p>贪心和动态规划一样，考验的是对问题分析的能力，贪心算法解题的关键在于如何找到每次的局部最优解，动态规划则是如何找到状态转移方程。</p>
+<p>什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。</p>
+<p>比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满足贪心选择性质，那么可以进一步降低时间复杂度，达到线性级别的。</p>
+<p>什么是贪心选择性质呢，简单说就是：每一步都做出一个局部最优的选择，最终的结果就是全局最优。注意哦，这是一种特殊性质，其实只有一小部分问题拥有这个性质。</p>
+<p>问题：Interval Scheduling（区间调度问题）。给你很多形如[start,end]的闭区间，请你设计一个算法，算出这些区间中最多有几个互不相交的区间。</p>
+<p>举个例子，intvs=[[1,3],[2,4],[3,6]]，这些区间最多有两个区间互不相交，即[[1,3],[3,6]]，你的算法应该返回 2。注意边界相同并不算相交。比如你今天有好几个活动，每个活动都可以用区间[start,end]表示开始和结束的时间，请问你今天最多能参加几个活动呢？</p>
+<p>思路：</p>
+<pre><code>1、从区间集合 intvs 中选择一个区间 x，这个 x 是在当前所有区间中结束最早的（end 最小）。
+2、把所有与 x 区间相交的区间从区间集合 intvs 中删除。
+3、重复步骤 1 和 2，直到 intvs 为空为止。之前选出的那些 x 就是最大不相交子集。</code></pre>
+<p>实现：按每个区间的end数值升序排序</p>
+<pre><code>步骤 1：由于我们预先按照end排了序，所以选择 x 是很容易的。关键在于，如何去除与 x 相交的区间，选择下一轮循环的 x 呢？
+
+由于我们事先排了序，不难发现所有与 x 相交的区间必然会与 x 的end相交；如果一个区间不想与 x 的end相交，它的start必须要大于（或等于）x 的end</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def intervalSchedule(intvs):</span><br><span class="line">    if not intvs:</span><br><span class="line">        return 0</span><br><span class="line">    intvs.sort(key&#x3D;lambda x:x[1]) # 升序排序</span><br><span class="line">    count&#x3D;1 # 至少应该有1个区间不相交</span><br><span class="line">    x_end&#x3D;intvs[0][1] # 排序后，第一个区间就是x</span><br><span class="line">    for interval in intvs:</span><br><span class="line">        start&#x3D;interval[0]</span><br><span class="line">        if start &gt;&#x3D; x_end:</span><br><span class="line">            count+&#x3D;1</span><br><span class="line">            x_end&#x3D;interval[1] # 更新x</span><br><span class="line">    return count</span><br></pre></td></tr></table></figure>
+
+<h3 id="45-跳跃游戏-II"><a href="#45-跳跃游戏-II" class="headerlink" title="45.跳跃游戏 II"></a>45.跳跃游戏 II</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game-ii/
+
+给定一个非负整数数组，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+示例:
+
+输入: [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+说明:
+
+假设你总是可以到达数组的最后一个位置。</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect</a></p>
+<p>问题是：保证你一定可以跳到最后一格，请问你最少要跳多少次，才能跳过去？</p>
+<p>题解一|从右向左搜索：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png"></p>
+<p>时间复杂度为 O(n^2)，空间复杂度为 O(1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def jump(self, nums: List[int]) -&gt; int:</span><br><span class="line">        right&#x3D;len(nums)-1</span><br><span class="line">        sum&#x3D;0</span><br><span class="line">        while right&gt;0:</span><br><span class="line">            cur&#x3D;right-1</span><br><span class="line">            for i in range(right-2,-1,-1):</span><br><span class="line">                if (i+nums[i]) &gt;&#x3D; right:</span><br><span class="line">                    cur&#x3D;i</span><br><span class="line">            right&#x3D;cur</span><br><span class="line">            sum+&#x3D;1</span><br><span class="line">        return sum</span><br></pre></td></tr></table></figure>
+
+<p>题解二|自顶向下的动态规划：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; memo;</span><br><span class="line">&#x2F;&#x2F; 主函数</span><br><span class="line">int jump(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    int n &#x3D; nums.size();</span><br><span class="line">    &#x2F;&#x2F; 备忘录都初始化为 n，相当于 INT_MAX</span><br><span class="line">    &#x2F;&#x2F; 因为从 0 调到 n - 1 最多 n - 1 步</span><br><span class="line">    memo &#x3D; vector&lt;int&gt;(n, n);</span><br><span class="line">    return dp(nums, 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int dp(vector&lt;int&gt;&amp; nums, int p) &#123;</span><br><span class="line">    int n &#x3D; nums.size();</span><br><span class="line">    &#x2F;&#x2F; base case</span><br><span class="line">    if (p &gt;&#x3D; n - 1) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 子问题已经计算过</span><br><span class="line">    if (memo[p] !&#x3D; n) &#123;</span><br><span class="line">        return memo[p];</span><br><span class="line">    &#125;</span><br><span class="line">    int steps &#x3D; nums[p];</span><br><span class="line">    &#x2F;&#x2F; 你可以选择跳 1 步，2 步...</span><br><span class="line">    for (int i &#x3D; 1; i &lt;&#x3D; steps; i++) &#123;</span><br><span class="line">        &#x2F;&#x2F; 穷举每一个选择</span><br><span class="line">        &#x2F;&#x2F; 计算每一个子问题的结果</span><br><span class="line">        int subProblem &#x3D; dp(nums, p + i);</span><br><span class="line">        &#x2F;&#x2F; 取其中最小的作为最终结果</span><br><span class="line">        memo[p] &#x3D; min(memo[p], subProblem + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    return memo[p];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题解三|贪心:</p>
+<p>贪心选择性质，我们不需要「递归地」计算出所有选择的具体结果然后比较求最值，而只需要做出那个最有「潜力」，看起来最优的选择即可。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png"></p>
+<p>时间复杂度是 O(n)，空间复杂度是 O(1)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def jump(self, nums: List[int]) -&gt; int:</span><br><span class="line">        if len(nums)&lt;2:</span><br><span class="line">            return 0</span><br><span class="line">        sum,end,maxDistance&#x3D;0,0,0</span><br><span class="line">        # end代表能跳到的最远距离，maxDistance代表下一步能跳到的最远距离。</span><br><span class="line">        for i in range(len(nums)-1):</span><br><span class="line">            maxDistance&#x3D;max(maxDistance,i+nums[i])</span><br><span class="line">            if i&#x3D;&#x3D;end:</span><br><span class="line">                end&#x3D;maxDistance</span><br><span class="line">                sum+&#x3D;1</span><br><span class="line">        return sum</span><br></pre></td></tr></table></figure>
+
+<h3 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55.跳跃游戏"></a>55.跳跃游戏</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game/
+
+给定一个非负整数数组，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个位置。
+
+示例 1:
+
+输入: [2,3,1,1,4]
+输出: true
+解释: 我们可以先跳 1 步，从位置 0 到达 位置 1, 然后再从位置 1 跳 3 步到达最后一个位置。
+示例 2:
+
+输入: [3,2,1,0,4]
+输出: false
+解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。</code></pre>
+<p>题解一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def canJump(self, nums: List[int]) -&gt; bool:</span><br><span class="line">        right&#x3D;len(nums)-1</span><br><span class="line">        for i in range(len(nums)-2,-1,-1):</span><br><span class="line">            if (i+nums[i]) &gt;&#x3D; right:</span><br><span class="line">                right&#x3D;i</span><br><span class="line">        if right&#x3D;&#x3D;0:</span><br><span class="line">            return True</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+
+<p>题解二|贪心：</p>
+<p>思考：<br>    通过题目中的跳跃规则，最多能跳多远？如果能够越过最后一格，返回 true，否则返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def canJump(self, nums: List[int]) -&gt; bool:</span><br><span class="line">        n&#x3D;len(nums)</span><br><span class="line">        maxDistance&#x3D;0</span><br><span class="line">        for i in range(n-1):</span><br><span class="line">            maxDistance&#x3D;max(maxDistance,i+nums[i])</span><br><span class="line">            if maxDistance &lt;&#x3D; i:</span><br><span class="line">                return False</span><br><span class="line">        return maxDistance &gt;&#x3D; n-1</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def canJump(self, nums: List[int]) -&gt; bool:</span><br><span class="line">        if len(nums)&lt;2:</span><br><span class="line">            return True</span><br><span class="line">        end,maxDistance&#x3D;0,0</span><br><span class="line">        # end代表能跳到的最远距离，maxDistance代表下一步能跳到的最远距离。</span><br><span class="line">        for i in range(len(nums)-1): # for i in range(len(nums)):</span><br><span class="line">            maxDistance&#x3D;max(maxDistance,i+nums[i])</span><br><span class="line">            if i&#x3D;&#x3D;end:</span><br><span class="line">                end&#x3D;maxDistance</span><br><span class="line">            if end &gt;&#x3D; len(nums)-1:</span><br><span class="line">                return True</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+
+<h3 id="135-分发糖果"><a href="#135-分发糖果" class="headerlink" title="135.分发糖果"></a>135.分发糖果</h3><pre><code>链接：https://leetcode-cn.com/problems/candy/
+
+老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。
+
+你需要按照以下要求，帮助老师给这些孩子分发糖果：
+
+每个孩子至少分配到 1 个糖果。
+相邻的孩子中，评分高的孩子必须获得更多的糖果。
+那么这样下来，老师至少需要准备多少颗糖果呢？
+
+示例 1:
+
+输入: [1,0,2]
+输出: 5
+解释: 你可以分别给这三个孩子分发 2、1、2 颗糖果。
+示例 2:
+
+输入: [1,2,2]
+输出: 4
+解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
+     第三个孩子只得到 1 颗糖果，这已满足上述两个条件。</code></pre>
+<p>题解一：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def candy(self, ratings: List[int]) -&gt; int:</span><br><span class="line">        left&#x3D;[1 for _ in range(len(ratings))]</span><br><span class="line">        right&#x3D;left[:]</span><br><span class="line">        for i in range(1,len(ratings)):</span><br><span class="line">            if ratings[i]&gt;ratings[i-1]:</span><br><span class="line">                left[i]&#x3D;left[i-1]+1</span><br><span class="line">        count&#x3D;left[-1] # 从右向左遍历时，最后一个元素没有比较大小，所以此处计算count。</span><br><span class="line">        for i in range(len(ratings)-2,-1,-1):</span><br><span class="line">            if ratings[i]&gt;ratings[i+1]:</span><br><span class="line">                right[i]&#x3D;right[i+1]+1</span><br><span class="line">            count+&#x3D;max(left[i],right[i])</span><br><span class="line">        return count</span><br></pre></td></tr></table></figure>
+<p>题解二：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
+<h3 id="316-去除重复字母"><a href="#316-去除重复字母" class="headerlink" title="316.去除重复字母"></a>316.去除重复字母</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicate-letters/
+
+给定一个仅包含小写字母的字符串，去除字符串中重复的字母，使得每个字母只出现一次。需保证返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
+
+示例 1:
+
+输入: &quot;bcabc&quot;
+输出: &quot;abc&quot;
+示例 2:
+
+输入: &quot;cbacdcbc&quot;
+输出: &quot;acdb&quot;</code></pre>
+<p>名词解释：</p>
+<pre><code>字典序：对于字符而言，按 ascii 码值进行比较，小的排在前，大的排在后。对于字符串，从第 0 位字符开始比较，ascii 码数值小的排在前面，如果相同，就延后一位比较 ascii 码值大小。
+
+子序列：子序列不同于子串，子串要求它们在原串中连续，而子序列则不要求连续。例如acd是abcd的子序列，但不是子串。</code></pre>
+<p>?题解一（递归）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicateLetters(self, s: str) -&gt; str:</span><br><span class="line">        for i in sorted(set(s)):</span><br><span class="line">            tmp&#x3D;s[s.index(i):]</span><br><span class="line">            if len(set(tmp)) &#x3D;&#x3D; len(set(s)):</span><br><span class="line">                return i+self.removeDuplicateLetters(tmp.replace(i,&#39;&#39;))</span><br><span class="line">        return &#39;&#39;</span><br></pre></td></tr></table></figure>
+<p>?题解二（迭代）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicateLetters(self, s: str) -&gt; str:</span><br><span class="line">        res &#x3D; &quot;&quot;</span><br><span class="line">        while s:</span><br><span class="line">            # 从右往左找，找到最小位置的索引号</span><br><span class="line">            loc &#x3D; min(map(s.rindex, s))</span><br><span class="line">            # 找该索引前面最小的字母</span><br><span class="line">            a &#x3D; min(s[:loc + 1])</span><br><span class="line">            res +&#x3D; a</span><br><span class="line">            s &#x3D; s[s.index(a):].replace(a, &quot;&quot;)</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<p>题解三(栈):<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicateLetters(self, s: str) -&gt; str:</span><br><span class="line">        from collections import Counter</span><br><span class="line">        count&#x3D;Counter(s)</span><br><span class="line">        stack&#x3D;[]</span><br><span class="line">        existed&#x3D;set()</span><br><span class="line">        for i in s:</span><br><span class="line">            if i not in existed:</span><br><span class="line">                while stack and stack[-1]&gt;i and count[stack[-1]]&gt;0:</span><br><span class="line">                    existed.remove(stack.pop())</span><br><span class="line">                stack.append(i)</span><br><span class="line">                existed.add(i)</span><br><span class="line">            count[i]-&#x3D;1</span><br><span class="line">        return &#39;&#39;.join(stack)</span><br></pre></td></tr></table></figure>
+
+<h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435.无重叠区间"></a>435.无重叠区间</h3><pre><code>链接:https://leetcode-cn.com/problems/non-overlapping-intervals/
+
+给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
+
+注意:
+
+可以认为区间的终点总是大于它的起点。
+区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。
+示例 1:
+
+输入: [ [1,2], [2,3], [3,4], [1,3] ]
+
+输出: 1
+
+解释: 移除 [1,3] 后，剩下的区间没有重叠。
+示例 2:
+
+输入: [ [1,2], [1,2], [1,2] ]
+
+输出: 2
+
+解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。
+示例 3:
+
+输入: [ [1,2], [2,3] ]
+
+输出: 0
+
+解释: 你不需要移除任何区间，因为它们已经是无重叠的了。</code></pre>
+<p>已经会求最多有几个区间不会重叠了，那么剩下的不就是至少需要去除的区间吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def eraseOverlapIntervals(intervals) &#123;</span><br><span class="line">    n&#x3D;len(intervals)</span><br><span class="line">    return n - intervalSchedule(intervals);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题解一（贪心）:</p>
+<pre><code>先计算能组成不重叠最多区间个数： 
+（1）按区间结尾排序
+（2）每次选择结尾最小，且与前一个区间不重叠</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def eraseOverlapIntervals(self, intervals: List[List[int]]) -&gt; int:</span><br><span class="line">        if not intervals:</span><br><span class="line">            return 0</span><br><span class="line">        intervals.sort(key&#x3D;lambda x:x[1])</span><br><span class="line"></span><br><span class="line">        curr&#x3D;0</span><br><span class="line">        count&#x3D;1</span><br><span class="line">        for i in range(1,len(intervals)):</span><br><span class="line">            if intervals[i][0]&gt;&#x3D;intervals[curr][1]:</span><br><span class="line">                curr&#x3D;i</span><br><span class="line">                count+&#x3D;1</span><br><span class="line">        return len(intervals)-count</span><br></pre></td></tr></table></figure>
+
+<h3 id="452-用最少数量的箭引爆气球"><a href="#452-用最少数量的箭引爆气球" class="headerlink" title="452. 用最少数量的箭引爆气球"></a>452. 用最少数量的箭引爆气球</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/
+
+在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。由于它是水平的，所以y坐标并不重要，因此只要知道开始和结束的x坐标就足够了。开始坐标总是小于结束坐标。平面内最多存在104个气球。
+
+一支弓箭可以沿着x轴从不同点完全垂直地射出。在坐标x处射出一支箭，若有一个气球的直径的开始和结束坐标为 xstart，xend， 且满足  xstart ≤ x ≤ xend，则该气球会被引爆。可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。
+
+Example:
+
+输入:
+[[10,16], [2,8], [1,6], [7,12]]
+
+输出:
+2
+
+解释:
+对于该样例，我们可以在x = 6（射爆[2,8],[1,6]两个气球）和 x = 11（射爆另外两个气球）。</code></pre>
+<p>思考：</p>
+<p>只是有一点不一样，在intervalSchedule算法中，如果两个区间的边界触碰，不算重叠；而按照这道题目的描述，箭头如果碰到气球的边界气球也会爆炸，所以说相当于区间的边界触碰也算重叠。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def findMinArrowShots(self, points: List[List[int]]) -&gt; int:</span><br><span class="line">        if not points:</span><br><span class="line">            return 0</span><br><span class="line">        points.sort(key&#x3D;lambda x:x[1])</span><br><span class="line">        n&#x3D;len(points)</span><br><span class="line">        count&#x3D;1</span><br><span class="line">        x_end&#x3D;points[0][1]</span><br><span class="line">        for point in points:</span><br><span class="line">            start&#x3D;point[0]</span><br><span class="line">            if start &gt; x_end:</span><br><span class="line">                count+&#x3D;1</span><br><span class="line">                x_end&#x3D;point[1]</span><br><span class="line">        return count</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/" rel="prev" title="LeetCode-9-回溯法">
+      <i class="fa fa-chevron-left"></i> LeetCode-9-回溯法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-8-%E4%B8%AD%E4%BD%8D%E6%95%B0/" rel="next" title="LeetCode-8-中位数">
+      LeetCode-8-中位数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B4%AA%E5%BF%83"><span class="nav-number">1.</span> <span class="nav-text">六、贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II"><span class="nav-number">1.1.</span> <span class="nav-text">45.跳跃游戏 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F"><span class="nav-number">1.2.</span> <span class="nav-text">55.跳跃游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">135.分发糖果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#316-%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AF%8D"><span class="nav-number">1.4.</span> <span class="nav-text">316.去除重复字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4"><span class="nav-number">1.5.</span> <span class="nav-text">435.无重叠区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83"><span class="nav-number">1.6.</span> <span class="nav-text">452. 用最少数量的箭引爆气球</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

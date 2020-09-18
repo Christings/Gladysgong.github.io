@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="面试题 04.10. 检查子树链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;check-subtree-lcci&#x2F;  检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。  如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-3-树-二">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="面试题 04.10. 检查子树链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;check-subtree-lcci&#x2F;  检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。  如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-08T03:41:24.000Z">
+<meta property="article:modified_time" content="2020-09-16T07:39:34.024Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCode-3-树-二 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-3-树-二
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-08 11:41:24" itemprop="dateCreated datePublished" datetime="2020-05-08T11:41:24+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-16 15:39:34" itemprop="dateModified" datetime="2020-09-16T15:39:34+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="面试题-04-10-检查子树"><a href="#面试题-04-10-检查子树" class="headerlink" title="面试题 04.10. 检查子树"></a>面试题 04.10. 检查子树</h3><pre><code>链接：https://leetcode-cn.com/problems/check-subtree-lcci/
+
+检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。
+
+如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与 T2 完全相同。
+
+示例1:
+
+ 输入：t1 = [1, 2, 3], t2 = [2]
+ 输出：true
+示例2:
+
+ 输入：t1 = [1, null, 2, 4], t2 = [3, 2]
+ 输出：false
+提示：
+
+树的节点数目范围为[0, 20000]。</code></pre>
+<p>题解一|递归：</p>
+<pre><code>一：在 t1 中找到 t2 的起点。先判断 t1 当前节点，如果不对就判断 t1 左子树和 t1 右子树。
+二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:</span><br><span class="line"></span><br><span class="line">        def helper(t1,t2):</span><br><span class="line">            if not t2:</span><br><span class="line">                return True</span><br><span class="line">            elif not t1 and t2:</span><br><span class="line">                return False</span><br><span class="line">            elif t1.val !&#x3D; t2.val:</span><br><span class="line">                return False</span><br><span class="line">            else:</span><br><span class="line">                return helper(t1.left,t2.left) and helper(t1.right,t2.right)</span><br><span class="line"></span><br><span class="line">        if not  t1:</span><br><span class="line">            return False</span><br><span class="line">        if not t2:</span><br><span class="line">            return True</span><br><span class="line">        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:</span><br><span class="line">        if not  t1:</span><br><span class="line">            return False</span><br><span class="line">        if not t2:</span><br><span class="line">            return True</span><br><span class="line">        return self.helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</span><br><span class="line">    </span><br><span class="line">    def helper(self,t1,t2):</span><br><span class="line">        if not t2:</span><br><span class="line">            return True</span><br><span class="line">        elif not t1 and t2:</span><br><span class="line">            return False</span><br><span class="line">        elif t1.val !&#x3D; t2.val:</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:</span><br><span class="line">        if not A or not B:</span><br><span class="line">            return False</span><br><span class="line">        return self.helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)</span><br><span class="line">    </span><br><span class="line">    def helper(self,A,B):</span><br><span class="line">        if not A and B:</span><br><span class="line">            return False</span><br><span class="line">        elif not B:</span><br><span class="line">            return True</span><br><span class="line">        elif A.val !&#x3D; B.val:</span><br><span class="line">            return False</span><br><span class="line">        else:</span><br><span class="line">            return self.helper(A.left,B.left) and self.helper(A.right,B.right)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:</span><br><span class="line">        def helper(A,B):</span><br><span class="line">            if not B:</span><br><span class="line">                return True</span><br><span class="line">            if not A or (A.val !&#x3D; B.val):</span><br><span class="line">                return False</span><br><span class="line">            return helper(A.left,B.left) and helper(A.right,B.right)</span><br><span class="line">        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题-17-12-BiNode"><a href="#面试题-17-12-BiNode" class="headerlink" title="面试题 17.12. BiNode"></a>面试题 17.12. BiNode</h3><pre><code>链接：https://leetcode-cn.com/problems/binode-lcci/
+
+二叉树数据结构TreeNode可用来表示单向链表（其中left置空，right为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求值的顺序保持不变，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。
+
+返回转换后的单向链表的头节点。
+
+注意：本题相对原题稍作改动
+
+示例：
+
+输入： [4,2,5,1,3,null,6,0]
+输出： [0,null,1,null,2,null,3,null,4,null,5,null,6]
+提示：
+
+节点数量不会超过 100000。</code></pre>
+<p>题解一|迭代|中序遍历：</p>
+<pre><code>root.left=None
+pre.right=root
+pre=root</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:</span><br><span class="line">        head&#x3D;TreeNode(0)</span><br><span class="line">        pre&#x3D;head</span><br><span class="line">        stack&#x3D;[]</span><br><span class="line">        while stack or root:</span><br><span class="line">            if root:</span><br><span class="line">                stack.append(root)</span><br><span class="line">                root&#x3D;root.left</span><br><span class="line">            else:</span><br><span class="line">                root&#x3D;stack.pop()</span><br><span class="line"></span><br><span class="line">                root.left&#x3D;None</span><br><span class="line">                pre.right&#x3D;root</span><br><span class="line">                pre&#x3D;root</span><br><span class="line"></span><br><span class="line">                root&#x3D;root.right</span><br><span class="line">        return head.right</span><br></pre></td></tr></table></figure>
+
+<p>题解二|递归:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:</span><br><span class="line">        head&#x3D;TreeNode(0)</span><br><span class="line">        self.helper(root,head)</span><br><span class="line">        return head.right</span><br><span class="line">    </span><br><span class="line">    def helper(self,root,pre):</span><br><span class="line">        if root:</span><br><span class="line">            pre&#x3D;self.helper(root.left,pre)</span><br><span class="line">            root.left&#x3D;None</span><br><span class="line">            pre.right&#x3D;root</span><br><span class="line">            pre&#x3D;root</span><br><span class="line">            pre&#x3D;self.helper(root.right,pre)</span><br><span class="line">        return pre</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:</span><br><span class="line">        head&#x3D;TreeNode(0)</span><br><span class="line">        self.pre&#x3D;head</span><br><span class="line">        self.helper(root)</span><br><span class="line">        return head.right</span><br><span class="line"></span><br><span class="line">    def helper(self,root):</span><br><span class="line">        if not root:</span><br><span class="line">            return</span><br><span class="line">        self.helper(root.left)</span><br><span class="line"></span><br><span class="line">        root.left&#x3D;None</span><br><span class="line">        self.pre.right&#x3D;root</span><br><span class="line">        self.pre&#x3D;root</span><br><span class="line"></span><br><span class="line">        self.helper(root.right)</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题-04-12-求和路径"><a href="#面试题-04-12-求和路径" class="headerlink" title="面试题 04.12. 求和路径"></a>面试题 04.12. 求和路径</h3><pre><code>链接：https://leetcode-cn.com/problems/paths-with-sum-lcci/
+
+给定一棵二叉树，其中每个节点都含有一个整数数值(该值或正或负)。设计一个算法，打印节点数值总和等于某个给定值的所有路径的数量。注意，路径不一定非得从二叉树的根节点或叶节点开始或结束，但是其方向必须向下(只能从父节点指向子节点方向)。
+
+示例:
+给定如下二叉树，以及目标和 sum = 22，
+
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+返回:
+
+3
+解释：和为 22 的路径有：[5,4,11,2], [5,8,4,5], [4,11,7]
+提示：
+
+节点总数 &lt;= 10000</code></pre>
+<p>题解一|递归：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def pathSum(self, root: TreeNode, sum: int) -&gt; int:</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        return self.helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)</span><br><span class="line"></span><br><span class="line">    def helper(self,root,sum):</span><br><span class="line">        count&#x3D;0</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        if sum-root.val&#x3D;&#x3D;0:</span><br><span class="line">            count+&#x3D;1</span><br><span class="line">        count+&#x3D;self.helper(root.left,sum-root.val)</span><br><span class="line">        count+&#x3D;self.helper(root.right,sum-root.val)</span><br><span class="line">        return count</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="面试题54-二叉搜索树的第k大节点"><a href="#面试题54-二叉搜索树的第k大节点" class="headerlink" title="面试题54. 二叉搜索树的第k大节点"></a>面试题54. 二叉搜索树的第k大节点</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+
+给定一棵二叉搜索树，请找出其中第k大的节点。
+
+示例 1:
+
+输入: root = [3,1,4,null,2], k = 1
+   3
+  / \
+ 1   4
+  \
+   2
+输出: 4
+示例 2:
+
+输入: root = [5,3,6,2,4,null,null,1], k = 3
+       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+输出: 4
+
+限制：
+
+1 ≤ k ≤ 二叉搜索树元素个数</code></pre>
+<p>注意：和二叉搜索树的第k小节点的区别。</p>
+<p>题解一|迭代：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def kthLargest(self, root: TreeNode, k: int) -&gt; int:</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        stack&#x3D;[]</span><br><span class="line">        while stack or root:</span><br><span class="line">            if root:</span><br><span class="line">                stack.append(root)</span><br><span class="line">                root&#x3D;root.right</span><br><span class="line">            else:</span><br><span class="line">                root&#x3D;stack.pop()</span><br><span class="line">                k-&#x3D;1</span><br><span class="line">                if k&#x3D;&#x3D;0:</span><br><span class="line">                    return root.val</span><br><span class="line">                root&#x3D;root.left</span><br></pre></td></tr></table></figure>
+
+<p>题解二|递归:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def kthLargest(self, root: TreeNode, k: int) -&gt; int:</span><br><span class="line">        self.k&#x3D;k</span><br><span class="line">        self.res&#x3D;0</span><br><span class="line">        self.helper(root)</span><br><span class="line">        return self.res</span><br><span class="line">    def helper(self,root):</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        self.helper(root.right)</span><br><span class="line">        if self.k&#x3D;&#x3D;0: return # ？？提高性能，提前返回。</span><br><span class="line">        self.k-&#x3D;1        </span><br><span class="line">        if self.k&#x3D;&#x3D;0:</span><br><span class="line">            self.res&#x3D;root.val # 直接return不行，需要存入全局变量中</span><br><span class="line">        self.helper(root.left)</span><br><span class="line">        return self.res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def kthLargest(self, root: TreeNode, k: int) -&gt; int:</span><br><span class="line">        self.k&#x3D;k</span><br><span class="line">        self.res&#x3D;0</span><br><span class="line">        self.helper(root)</span><br><span class="line">        return self.res</span><br><span class="line">    def helper(self,root):</span><br><span class="line">        if not root or self.k &#x3D;&#x3D; 0:</span><br><span class="line">            return 0</span><br><span class="line">        self.helper(root.right)</span><br><span class="line">        self.k-&#x3D;1        </span><br><span class="line">        if self.k&#x3D;&#x3D;0:</span><br><span class="line">            self.res&#x3D;root.val # 直接return不行，需要存入全局变量中</span><br><span class="line">        self.helper(root.left)</span><br><span class="line">        return self.res</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题55-I-二叉树的深度"><a href="#面试题55-I-二叉树的深度" class="headerlink" title="面试题55 - I. 二叉树的深度"></a>面试题55 - I. 二叉树的深度</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
+
+输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+例如：
+
+给定二叉树 [3,9,20,null,null,15,7]，
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回它的最大深度 3 。
+
+提示：节点总数 &lt;= 10000</code></pre>
+<p>题解一（递归）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxDepth(self, root: TreeNode) -&gt; int:</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        left&#x3D;self.maxDepth(root.left)</span><br><span class="line">        right&#x3D;self.maxDepth(root.right)</span><br><span class="line">        return max(left,right)+1</span><br></pre></td></tr></table></figure>
+
+<p>题解二（迭代）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxDepth(self, root: TreeNode) -&gt; int:</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        stack&#x3D;[root]</span><br><span class="line">        depth&#x3D;0</span><br><span class="line">        while stack:</span><br><span class="line">            tmp&#x3D;[]</span><br><span class="line">            for i in range(len(stack)):</span><br><span class="line">                root&#x3D;stack.pop() </span><br><span class="line">                if root.left:</span><br><span class="line">                    tmp.append(root.left)</span><br><span class="line">                if root.right:</span><br><span class="line">                    tmp.append(root.right)</span><br><span class="line">            stack&#x3D;tmp</span><br><span class="line">            depth+&#x3D;1</span><br><span class="line">        return depth</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxDepth(self, root: TreeNode) -&gt; int:</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        stack&#x3D;[root]</span><br><span class="line">        depth&#x3D;0</span><br><span class="line">        while stack:</span><br><span class="line">            tmp&#x3D;[]</span><br><span class="line">            for root in stack:</span><br><span class="line">                if root.left:</span><br><span class="line">                    tmp.append(root.left)</span><br><span class="line">                if root.right:</span><br><span class="line">                    tmp.append(root.right)</span><br><span class="line">            stack&#x3D;tmp</span><br><span class="line">            depth+&#x3D;1</span><br><span class="line">        return depth</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题55-II-平衡二叉树"><a href="#面试题55-II-平衡二叉树" class="headerlink" title="面试题55 - II. 平衡二叉树"></a>面试题55 - II. 平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
+
+输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
+
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回 true 。
+
+示例 2:
+
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+返回 false 。</code></pre>
+<p>限制：1 &lt;= 树的结点个数 &lt;= 10000</p>
+<p>题解一（递归）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isBalanced(self, root: TreeNode) -&gt; bool:</span><br><span class="line">        if not root:</span><br><span class="line">            return True</span><br><span class="line">        return abs(self.helper(root.left)-self.helper(root.right))&lt;&#x3D;1 and self.isBalanced(root.left) and self.isBalanced(root.right)</span><br><span class="line">    </span><br><span class="line">    def helper(self,root):</span><br><span class="line">        if not root:</span><br><span class="line">            return 0</span><br><span class="line">        left&#x3D;self.helper(root.left)</span><br><span class="line">        right&#x3D;self.helper(root.right)</span><br><span class="line">        return max(left,right)+1</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题68-I-二叉搜索树的最近公共祖先"><a href="#面试题68-I-二叉搜索树的最近公共祖先" class="headerlink" title="面试题68 - I. 二叉搜索树的最近公共祖先"></a>面试题68 - I. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+
+给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]
+
+示例 1:
+
+输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+输出: 6 
+解释: 节点 2 和节点 8 的最近公共祖先是 6。
+示例 2:
+
+输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+输出: 2
+解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
+
+
+说明:
+
+所有节点的值都是唯一的。
+p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
+<p>最近公共祖先（最近公共节点）:</p>
+<pre><code>根据题目给定的前提：
+
+    所有节点的值都是唯一的。
+    p、q 为不同节点且均存在于给定的二叉搜索树中。
+
+说明有以下几种情况：
+
+    二叉树本身为空，root == null ，return root
+    p.val == q.val ,一个节点也可以是它自己的祖先
+    p.val 和 q.val 都小于 root.val
+    (两个子节点的值都小于根节点的值，说明它们的公共节点只能在二叉树的左子树寻找）
+    p.val 和 q.val 都大于 root.val
+    (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
+    如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
+    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
+<p>题解一（递归）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:</span><br><span class="line">        # if not root:</span><br><span class="line">        #     return</span><br><span class="line">        if root.val &lt; p.val and root.val &lt; q.val:</span><br><span class="line">            return self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">        elif root.val &gt; p.val and root.val &gt; q.val:</span><br><span class="line">            return self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">        return root</span><br></pre></td></tr></table></figure>
+
+<p>题解二（后序遍历）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:</span><br><span class="line">        if not root or root&#x3D;&#x3D;p or root&#x3D;&#x3D;q:</span><br><span class="line">            return root</span><br><span class="line">        l&#x3D;self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">        r&#x3D;self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">        if not l:</span><br><span class="line">            return r</span><br><span class="line">        elif not r:</span><br><span class="line">            return l</span><br><span class="line">        else:</span><br><span class="line">            return root</span><br></pre></td></tr></table></figure>
+
+<p>题解三（迭代）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:</span><br><span class="line">        while root:</span><br><span class="line">            if root.val &lt; p.val and root.val &lt; q.val:</span><br><span class="line">                root&#x3D;root.right</span><br><span class="line">            elif root.val &gt; p.val and root.val &gt; q.val:</span><br><span class="line">                root&#x3D;root.left</span><br><span class="line">            else:</span><br><span class="line">                break</span><br><span class="line">        return root</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题68-II-二叉树的最近公共祖先"><a href="#面试题68-II-二叉树的最近公共祖先" class="headerlink" title="面试题68 - II. 二叉树的最近公共祖先"></a>面试题68 - II. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉树:  root = [3,5,1,6,2,0,8,null,null,7,4]
+
+示例 1:
+
+输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+输出: 3
+解释: 节点 5 和节点 1 的最近公共祖先是节点 3。
+示例 2:
+
+输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+输出: 5
+解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
+
+
+说明:
+
+所有节点的值都是唯一的。
+p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
+<p>题解一（后序遍历）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Definition for a binary tree node.</span><br><span class="line"># class TreeNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val &#x3D; x</span><br><span class="line">#         self.left &#x3D; None</span><br><span class="line">#         self.right &#x3D; None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:</span><br><span class="line">        if not root or root&#x3D;&#x3D;p or root&#x3D;&#x3D;q:</span><br><span class="line">            return root</span><br><span class="line">        l&#x3D;self.lowestCommonAncestor(root.left,p,q)</span><br><span class="line">        r&#x3D;self.lowestCommonAncestor(root.right,p,q)</span><br><span class="line">        if not l:</span><br><span class="line">            return r</span><br><span class="line">        elif not r:</span><br><span class="line">            return l</span><br><span class="line">        else:</span><br><span class="line">            return root</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:</span><br><span class="line">        if not root or root &#x3D;&#x3D; p or root &#x3D;&#x3D; q: return root</span><br><span class="line">        left &#x3D; self.lowestCommonAncestor(root.left, p, q)</span><br><span class="line">        right &#x3D; self.lowestCommonAncestor(root.right, p, q)</span><br><span class="line">        if not left and not right: return # 1.</span><br><span class="line">        if not left: return right # 3.</span><br><span class="line">        if not right: return left # 4.</span><br><span class="line">        return root # 2. if left and right:</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/" rel="prev" title="数据结构与算法-2-Manacher算法">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法-2-Manacher算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-3-%E6%A0%91-%E4%B8%89-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C%E4%B8%93%E9%A2%98/" rel="next" title="LeetCode-3-树-三-路径总和专题">
+      LeetCode-3-树-三-路径总和专题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-10-%E6%A3%80%E6%9F%A5%E5%AD%90%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">面试题 04.10. 检查子树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-17-12-BiNode"><span class="nav-number">2.</span> <span class="nav-text">面试题 17.12. BiNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-12-%E6%B1%82%E5%92%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">面试题 04.12. 求和路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9854-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">面试题54. 二叉搜索树的第k大节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-I-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">面试题55 - I. 二叉树的深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-II-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">面试题55 - II. 平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-I-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">7.</span> <span class="nav-text">面试题68 - I. 二叉搜索树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-II-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">8.</span> <span class="nav-text">面试题68 - II. 二叉树的最近公共祖先</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

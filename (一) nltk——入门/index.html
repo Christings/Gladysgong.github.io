@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：gongyanli.com   参考博客：http:&#x2F;&#x2F;www.shareditor.com&#x2F;blogshow?blogId&#x3D;65    前言：NLTK(Natural Language Toolkit) 是一个用于构建处理人类语言数据的python应用的开源平台。它提供了超过50多个素材库和词库资源的易用接口，其中有很多文本处理库，可以用来给文本分类，符号化，提取词根，贴标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nltk-一-入门">
+<meta property="og:url" content="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：gongyanli.com   参考博客：http:&#x2F;&#x2F;www.shareditor.com&#x2F;blogshow?blogId&#x3D;65    前言：NLTK(Natural Language Toolkit) 是一个用于构建处理人类语言数据的python应用的开源平台。它提供了超过50多个素材库和词库资源的易用接口，其中有很多文本处理库，可以用来给文本分类，符号化，提取词根，贴标">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-01-12T02:13:56.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="nltk">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>nltk-一-入门 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nltk-一-入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-12 10:13:56" itemprop="dateCreated datePublished" datetime="2018-01-12T10:13:56+08:00">2018-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nlp/" itemprop="url" rel="index"><span itemprop="name">nlp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nlp/nltk/" itemprop="url" rel="index"><span itemprop="name">nltk</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">gongyanli.com</a>  </p>
+<p>参考博客：<a target="_blank" rel="noopener" href="http://www.shareditor.com/blogshow?blogId=65">http://www.shareditor.com/blogshow?blogId=65</a>  </p>
+</blockquote>
+<p>前言：NLTK(Natural Language Toolkit) 是一个用于构建处理人类语言数据的python应用的开源平台。它提供了超过50多个素材库和词库资源的易用接口，其中有很多文本处理库，可以用来给文本分类，符号化，提取词根，贴标签，解析，语义推理，或者打包成工业级的自然语言处理库。本文简单介绍了nltk的安装与使用，希望对小伙伴们有用。</p>
+<h2 id="一、NTLK库安装"><a href="#一、NTLK库安装" class="headerlink" title="一、NTLK库安装"></a>一、NTLK库安装</h2><pre><code>$ pip install nltk</code></pre>
+<h2 id="二、NLTK模块与功能介绍"><a href="#二、NLTK模块与功能介绍" class="headerlink" title="二、NLTK模块与功能介绍"></a>二、NLTK模块与功能介绍</h2><pre><code>语言处理任务            NLTK模块                功能描述
+获取语料库            nltk.corpus            语料库和词典的标准化接口
+字符串处理            nltk.tokenize,        分词、句子分解
+                    nltk.stem            词干化
+搭配研究                nltk.collocations    t-检验、卡方、点互信息
+词性标注                nltk.tag            n-gram、backoff、Brill、HMM、TnT
+分类                    nltk.classify        决策树、最大熵、朴素贝叶斯、EM、K-Means
+                    nltk.cluster        
+分块                    nltk.chunk            正则表达式、n-gram、命名实体
+解析                    nltk.parse            图标、基于特征、一致性、概率性、依赖项
+语义解释                nltk.stem            λ演算、一阶逻辑、模型检验
+                    nltk.inference        
+指标测评                nltk.metrics        精度、召回率、协议系数
+概率与估计            nltk.probalility    频率分布、平滑概率分布
+应用                    nltk.app            图形化的关键词排序、分析器、wordnet查看器
+                    nltk.chat
+语言学领域的工作        nltk.toolbox        处理STL工具箱格式的数据</code></pre>
+<h2 id="三、下载书籍"><a href="#三、下载书籍" class="headerlink" title="三、下载书籍"></a>三、下载书籍</h2><pre><code>$ python
+&gt;&gt;&gt; import nltk
+&gt;&gt;&gt; nltk.download()
+选择语料库--book进行下载
+&gt;&gt;&gt; nltk.book import *
+&gt;&gt;&gt; text1
+&lt;Text: Moby Dick by Herman Melville 1851&gt;</code></pre>
+<h2 id="四、NLTK基本使用"><a href="#四、NLTK基本使用" class="headerlink" title="四、NLTK基本使用"></a>四、NLTK基本使用</h2><pre><code>1.搜索文本
+    &gt;&gt;&gt; text1.concordancd(&quot;next&quot;)
+    &gt; 显示20个包含next的语句上下文
+2.搜索相关词
+    &gt;&gt;&gt; text1.similar(&quot;boat&quot;)
+    &gt;查找出boat的近义词等相关词
+3.查找词在文章中的位置
+    &gt;&gt;&gt; text1.dispersion_plot([&quot;bext&quot;,&quot;city&quot;,&quot;America&quot;])
+    &gt; 如果出现错误，请记得安装matplotlib
+    &gt; pip install matplotlib
+4.词统计
+    len(text1)：返回总字数
+    set(text1)：返回文本的所有词集合
+    len(set(text4))：返回文本总词数
+    text4.count(&quot;is&quot;)：返回“is”这个词出现的总次数
+    FreqDist(text1)：统计文章的词频并按从大到小排序存到一个列表里
+    fdist1 = FreqDist(text1);fdist1.plot(50, cumulative=True)：统计词频，并输出累计图像
+    fdist1.hapaxes()：返回只出现一次的词text4.collocations()：频繁的双联词</code></pre>
+<h2 id="五、NLTK–文本预处理"><a href="#五、NLTK–文本预处理" class="headerlink" title="五、NLTK–文本预处理"></a>五、NLTK–文本预处理</h2><p>1.分词<br>(1)英文分词</p>
+<pre><code>方法1：将文本分割成单词
+split()
+方法2：将文本分割成句子
+from nltk.tokenize import sent_tokenize
+sent=sent_token(text)
+方法3:将文本分割成单词
+from nltk.tokenize import word_tokenize
+word=word_tokenize(text)</code></pre>
+<p>(2)非英文分词</p>
+<pre><code>from nltk.tokenize import sent_tokenize
+sent=sent_token(text,&quot;french&quot;)</code></pre>
+<p>2.词干化处理（stem）</p>
+<p>文档分词后一般要进行词干化处理，词干化处理就是将名词复数变为单数，动词不同时态变为基本时态等。</p>
+<pre><code>from nltk.stem import PorterStemmer
+from nltk.corpus import wordnet as wn
+from nltk import PorterStemmer
+from nltk.stem.lancaster import LancasterStemmer
+
+def stemWords(self,wordsList):
+
+    # 方法1
+    porter=PorterStemmer()
+    result=[porter.stem(w) for w in wordsList]
+    # 方法2
+    stemWords=[]
+    for words in wordsList:
+        stemWords+=[[wn.morphy(w) for w in words]]
+    return stemWords
+    # 方法3--支持非英文词干化提取
+    stemmer=SnowballStemmer(&quot;english&quot;)
+    result=stemmer.stem(&quot;imaging&quot;)
+    # 方法4
+    lancaster_stemmer = LancasterStemmer()
+    lancaster_stemmer.stem(‘saying’)</code></pre>
+<p>3.单词变体还原–将单词还原成一个真实的单词<br>当用PorterStemmer和PorterStemmer对imaging这个单词进行词干化处理时，得到的结果是imag，显然这并不是我们想要的结果，所以这时候就很有必要进行还原。<br>有时候将单词变体还原时，总是得到同样的词，这是因为语言默认部分为名词，要想得到动词，使用pos=”v”</p>
+<pre><code>from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+print(lemmatizer.lemmatize(&#39;imaging&#39;, pos=&quot;v&quot;))
+
+pos=&quot;v&quot;--动词
+pos=&quot;n&quot;--名词
+pos=&quot;a&quot;--形容词
+pos=&quot;r&quot;--副词</code></pre>
+<p>4.停用词处理（stopwords）</p>
+<pre><code>from nltk.corpus import stopwordds
+stopwordset=stopwords.words(&quot;english&quot;)
+clean_tokens=list()
+for token in tokens:
+    if token not in stopwordset:
+        clean_tokens.append(token)
+# clean_list=[token for tokens in text if token not in stopwordset]</code></pre>
+<p>5.同义词处理</p>
+<pre><code># WordNet是一个为自然语言处理而建立的数据库，包含一些同义词组及简短定义
+from nltk.corpus import wordnet
+# 获取单词的定义和示例
+  syn = wordnet.synsets(&quot;pain&quot;)
+print(syn[0].definition())
+print(syn[0].examples())
+# 获取同义词
+synonyms = []
+for syn in wordnet.synsets(&quot;computer&quot;):
+    for lemma in syn.lemmas():
+        synonyms.append(lemma.name())
+print(synonyms)</code></pre>
+<p>6.反义词处理</p>
+<pre><code>from nltk.corpus import wordnet
+  antonyms = []
+for syn in wordnet.synsets(&quot;small&quot;):
+    for l in syn.lemmas():
+        if l.antonyms():
+            antonyms.append(l.antonyms()[0].name())
+print(antonyms)</code></pre>
+<p>7.词性标注(pos tagger)</p>
+<pre><code>import nltk
+tokens=nltk.pos_tag(tokens) # 进行词性标注
+
+# 查看相关说明文档
+nltk.help.upeen_tagset(&quot;JJ&quot;)
+nltk.help.upeen_tagset(&quot;IN&quot;)
+nltk.help.upeen_tagset(&quot;NNP&quot;)</code></pre>
+<p>8.去掉数字标点和非字母字符</p>
+<pre><code>def CleanLines(self,line):  
+    identify = string.maketrans(&#39;&#39;, &#39;&#39;)  
+    delEStr = string.punctuation +string.digits  #ASCII 标点符号，数字    
+    cleanLine =line.translate(identify,delEStr) #去掉ASCII 标点符号  
+   return cleanLine  </code></pre>
+<p>9.拼写检查</p>
+<pre><code>def WordCheck(self,words):#拼写检查  
+    d = enchant.Dict(&quot;en_US&quot;)  
+    checkedWords=()  
+    for word in words:  
+        if not d.check(word):  
+            d.suggest(word)  
+            word=raw_input()  
+        checkedWords = (checkedWords,&#39;05&#39;)  
+   return checkedWords  </code></pre>
+<h2 id="六、NLTK结合Stanford-NLP工具包进行文本处理"><a href="#六、NLTK结合Stanford-NLP工具包进行文本处理" class="headerlink" title="六、NLTK结合Stanford NLP工具包进行文本处理"></a>六、NLTK结合Stanford NLP工具包进行文本处理</h2><p>待完成</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nltk/" rel="tag"># nltk</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/" rel="prev" title="echarts,map,百度地图扩展">
+      <i class="fa fa-chevron-left"></i> echarts,map,百度地图扩展
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/(%E4%BA%8C)%20nltk%E2%80%94%E2%80%94%E8%AF%AD%E6%96%99%E5%BA%93%E4%BD%BF%E7%94%A8/" rel="next" title="nltk-二-语料库使用">
+      nltk-二-语料库使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81NTLK%E5%BA%93%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">一、NTLK库安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81NLTK%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">二、NLTK模块与功能介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E8%BD%BD%E4%B9%A6%E7%B1%8D"><span class="nav-number">3.</span> <span class="nav-text">三、下载书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81NLTK%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">四、NLTK基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81NLTK%E2%80%93%E6%96%87%E6%9C%AC%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">五、NLTK–文本预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81NLTK%E7%BB%93%E5%90%88Stanford-NLP%E5%B7%A5%E5%85%B7%E5%8C%85%E8%BF%9B%E8%A1%8C%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">六、NLTK结合Stanford NLP工具包进行文本处理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

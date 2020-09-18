@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：gongyanli.com代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;cninfo简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b5ef0e7e2b87CSDN: https:&#x2F;&#x2F;mp.csdn.net&#x2F;mdeditor&#x2F;79759833      首先说说我的目标把，就是抓取巨潮资讯网上一些上市农业企业的基本信息，主要是对页面的公司">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)">
+<meta property="og:url" content="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：gongyanli.com代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;cninfo简书: https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b5ef0e7e2b87CSDN: https:&#x2F;&#x2F;mp.csdn.net&#x2F;mdeditor&#x2F;79759833      首先说说我的目标把，就是抓取巨潮资讯网上一些上市农业企业的基本信息，主要是对页面的公司">
+<meta property="og:locale">
+<meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/cninfo.jpg">
+<meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/cninfo1.jpg">
+<meta property="article:published_time" content="2018-03-30T02:39:34.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="Selenium">
+<meta property="article:tag" content="PhantomJS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://p2lakvkq0.bkt.clouddn.com/cninfo.jpg">
+
+<link rel="canonical" href="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一) | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 10:39:34" itemprop="dateCreated datePublished" datetime="2018-03-30T10:39:34+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo">https://github.com/Gladysgong/cninfo</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5ef0e7e2b87">https://www.jianshu.com/p/b5ef0e7e2b87</a><br>CSDN: <a target="_blank" rel="noopener" href="https://mp.csdn.net/mdeditor/79759833">https://mp.csdn.net/mdeditor/79759833</a></p>
+</blockquote>
+<pre><code>    首先说说我的目标把，就是抓取巨潮资讯网上一些上市农业企业的基本信息，主要是对页面的公司概况、高管人员、十大股东这几个板块的信
+息进行抓取，如图。要抓取的上市农业企业的名单已经准备好了，但是同时要拿到的这些农业企业的url地址。本来考虑的是做一个整站提取url，
+但是再想一想，这个网站包含了太多上市公司的信息，即使拿到了，也需要慢慢找。加上我们要抓取的农业企业不多，所以分析页面结果后，手动
+整理他们的url，算是本爬虫的一个缺陷。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo.jpg"></p>
+<pre><code>    巨潮资讯地址：http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
+    上面这个就是公司概况的url地址，而高管人员只需要把brief换成management,十大股东只需要把brief换成shareholders，而后面的后缀
+szmb000998这个是手动整理的，这个szmb没看出什么意思，后面的数字是当前公司的股票代码。
+    经过分析，发现网页是动态加载的，里面的内容都是通过js来控制iframe进行展现的，通过scrapy中response.body获取网页的返回结果中，
+没有完美所需要的内容，所以我们需要用selenium。</code></pre>
+<h2 id="一、PhantomJS–PhantomJS安装验证"><a href="#一、PhantomJS–PhantomJS安装验证" class="headerlink" title="一、PhantomJS–PhantomJS安装验证"></a>一、PhantomJS–<a href="http://gongyanli.com/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/">PhantomJS安装验证</a></h2><pre><code>PhantomJS是一个基于webkit内核的没有界面的浏览器，所以它和chrome、Firefox这些没有什么差别，只是没有界面而已啦，所以并无高深之处。
+关于它的安装及验证非常简单，大家可以参考我的另一篇文章，标题处去点击链接把。</code></pre>
+<h2 id="二、Selenium–Selenium的使用"><a href="#二、Selenium–Selenium的使用" class="headerlink" title="二、Selenium–Selenium的使用"></a>二、Selenium–<a target="_blank" rel="noopener" href="https://cuiqingcai.com/5630.html">Selenium的使用</a></h2><pre><code>Selinium是一个自动化的测试工具，用它可以驱动浏览器执行特定的操作，比如点击按钮，切换到ifame中等操作，同时能够获取到浏览器渲染后的
+源码。所以它对于那些用JavaScript渲染的网页来讲，Selenium是再合适不过了。
+崔庆才的博客中有一篇详细讲解了Selenium的用法，可以参考。</code></pre>
+<h2 id="三、通过Scrapy来使用Selenium"><a href="#三、通过Scrapy来使用Selenium" class="headerlink" title="三、通过Scrapy来使用Selenium"></a>三、通过Scrapy来使用Selenium</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo1.jpg"></p>
+<h3 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1.中间件"></a>1.中间件</h3><pre><code>首先看一下我的工作目录把，没有什么特点，scrapy典型的工作目录，唯一不一样的是middlewares文件夹，里面存放的是我自定义的中间件。通过
+自定义的中间件去把scrapy原本的中间件覆盖，从而用我们自己实现的功能去替换scrapy原有的功能。
+我的中间件代码如下：打开PhantomJS浏览器，请求url地址，睡眠，接着切换iframe，因为我要获取的公司概况信息就在id=&#39;i_nr&#39;的这个ifame
+中，再睡眠，等待浏览器渲染出这个ifame中的内容，然后再body中保存此网页的源码，最后利用HtmlResponse把body传送离开。</code></pre>
+<hr>
+<pre><code>`from selenium import webdriver
+from scrapy.http import HtmlResponse
+import time
+
+class JavaScriptMiddleware(object):
+    def process_request(self, request, spider):
+        if spider.name == &#39;CninfoSpider&#39;:
+            print(&#39;PhantomJS1 is starting...&#39;)
+            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+            driver.get(request.url)
+            time.sleep(1)
+            driver.switch_to.frame(&#39;i_nr&#39;)
+            time.sleep(2)
+            body = driver.page_source
+            print(&quot;访问：&quot;, request.url)
+            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
+        elif spider.name == &#39;CninfoManaSpider&#39;:
+            print(&#39;PhantomJS2 is starting...&#39;)
+            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+            driver.get(request.url)
+            time.sleep(1)
+            driver.switch_to.frame(&#39;i_nr&#39;)
+            time.sleep(2)
+            body = driver.page_source
+            print(&quot;访问：&quot;, request.url)
+            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
+        else:
+            return</code></pre>
+<p>`</p>
+<h3 id="2-数据解析–cninfo-py"><a href="#2-数据解析–cninfo-py" class="headerlink" title="2.数据解析–cninfo.py"></a>2.数据解析–cninfo.py</h3><pre><code>之后，我们就可以回到cninfo.py文件中对内容进行解析了。重写__init__，使用webdriver打开PhantomJS浏览器。重写start_requests方法，
+拼接url，同时可以自定义返回函数parse。</code></pre>
+<hr>
+<pre><code>`# --*-- coding:utf-8 -*-
+import scrapy
+from scrapy import Request
+from scrapy.spiders import Spider
+from selenium import webdriver
+from ..items import AgriBasicItem
+
+# 巨潮资讯网--上市农业企业基本信息
+class CninfoSpider(Spider):
+    name = &#39;CninfoSpider&#39;
+
+    def __init__(self):
+        self.broswer = webdriver.PhantomJS(
+            executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+        self.broswer.set_page_load_timeout(30)
+
+    def closed(self, spider):
+        print(&#39;spider closed!&#39;)
+        self.broswer.close()
+
+    def start_requests(self):
+        myurls = [&#39;szmb000998&#39;, &#39;szsme002041&#39;, &#39;szsme002772&#39;, &#39;szcn300087&#39;, &#39;szcn300189&#39;, &#39;szcn300511&#39;,
+                       &#39;shmb600108&#39;,
+                       &#39;shmb600313&#39;, &#39;shmb600354&#39;, &#39;shmb600359&#39;,
+                       &#39;shmb600371&#39;, &#39;shmb600506&#39;, &#39;shmb600598&#39;, &#39;shmb601118&#39;, &#39;szmb000592&#39;, &#39;szsme002200&#39;,
+                       &#39;szsme002679&#39;,
+                       &#39;shmb600265&#39;, &#39;szmb000735&#39;, &#39;szsme002234&#39;,
+                       &#39;szsme002299&#39;, &#39;szsme002321&#39;, &#39;szsme002458&#39;, &#39;szsme002477&#39;, &#39;szsme002505&#39;, &#39;szsme002714&#39;,
+                       &#39;szsme002746&#39;, &#39;szcn300106&#39;, &#39;szcn300313&#39;, &#39;szcn300498&#39;,
+                       &#39;shmb600965&#39;, &#39;shmb600975&#39;, &#39;szmb000798&#39;, &#39;szsme002086&#39;, &#39;szsme002696&#39;, &#39;szmb200992&#39;,
+                       &#39;szcn300094&#39;,
+                       &#39;shmb600097&#39;, &#39;shmb600257&#39;, &#39;shmb600467&#39;, &#39;szmb000711&#39;, &#39;szmb000713&#39;]
+        start_urls = [
+            (&#39;http://www.cninfo.com.cn/information/companyinfo_n.html?brief?&#39; + each) for each in myurls]
+
+        for url in start_urls:
+            yield Request(url=url, callback=self.parse)
+
+    def parse(self, response):
+        item = AgriBasicItem()
+
+        item[&#39;full_name&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[1]/td[2]/text()&#39;).extract()[0]  # 公司名称
+        item[&#39;en_name&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[2]/td[2]/text()&#39;).extract()[0]  # 英文名称
+        item[&#39;cn_name&#39;] = item[&#39;full_name&#39;]  # 中文名称
+        item[&#39;nation&#39;] = &#39;china&#39;  # 国别
+        item[&#39;address&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[3]/td[2]/text()&#39;).extract()[0]  # 注册地址
+        item[&#39;established_time&#39;] = None  # 成立时间
+        item[&#39;stock_time&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[13]/td[2]/text()&#39;).extract()[0]  # 上市时间
+        # shareholders = scrapy.Field()  # 主要股东
+        item[&#39;industry&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[8]/td[2]/text()&#39;).extract()[
+            0]  # 行业(经营类别)
+        # managers = scrapy.Field()  # 主要管理人员
+        item[&#39;parent_company&#39;] = None  # 母公司
+        item[&#39;subsidiaries&#39;] = None  # 子公司
+        item[&#39;offical_website&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[12]/td[2]/text()&#39;).extract()[0]  # 官网
+        item[&#39;phone&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[10]/td[2]/text()&#39;).extract()[0]  # 公司电话
+        item[&#39;fax&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[11]/td[2]/text()&#39;).extract()[0]  # 公司传真
+        item[&#39;Twitter&#39;] = None  # Twitter
+
+        item[&#39;stock_code&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[
+            0]  # 股票代码
+        item[&#39;abbr&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[1]  # 公司简称
+
+        yield item
+
+`</code></pre>
+<h3 id="3-数据持久化–pipelines-py"><a href="#3-数据持久化–pipelines-py" class="headerlink" title="3.数据持久化–pipelines.py"></a>3.数据持久化–pipelines.py</h3><pre><code>把抓取下来的数据存进mongo数据库，实现数据的持久化。setting中数据库配置如下：
+MONGO_HOST = &#39;127.0.0.1&#39; # 主机ip
+MONGO_PORT = 27017    # 端口号
+MONGO_DB = &#39;agriEn&#39;     # 数据库名称</code></pre>
+<hr>
+<pre><code>`import pymongo
+from scrapy.conf import settings
+from .items import AgriBasicItem
+from .items import AgriManaItem
+
+
+class CninfoPipeline(object):
+    def __init__(self):
+        self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
+        self.db = self.client[settings[&#39;MONGO_DB&#39;]]
+        self.cninfo_base = self.db[&#39;cninfo_base&#39;]
+        self.cninfo_mana = self.db[&#39;cninfo_mana&#39;]
+        self.cninfo_share = self.db[&#39;cninfo_share&#39;]
+
+    def process_item(self, item, spider):
+        if isinstance(item, AgriBasicItem):
+            try:
+                if item[&#39;full_name&#39;]:
+                    item = dict(item)
+                    self.cninfo_base.insert(item)
+                    print(&quot;insert baseinfo success ！&quot;)
+                    return item
+
+            except Exception as e:
+                spider.logger.exception(&quot;insert failed&quot;)
+        elif isinstance(item,AgriManaItem):
+            if item[&#39;managers&#39;]:
+                item = dict(item)
+                self.cninfo_mana.insert(item)
+                print(&quot;insert managers success ！&quot;)
+                return item`</code></pre>
+<h3 id="4-配置文件–setting-py"><a href="#4-配置文件–setting-py" class="headerlink" title="4.配置文件–setting.py"></a>4.配置文件–setting.py</h3><pre><code>ROBOTSTXT_OBEY = False
+
+DOWNLOADER_MIDDLEWARES = &#123;
+# 键是中间件类的路径，值是中间的顺序
+&#39;cninfo.middlewares.middleware.JavaScriptMiddleware&#39;: 543,
+# 禁止内置的中间件
+&#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;: None &#125;
+
+# 记得开启pipelines的调用
+ITEM_PIPELINES = &#123;
+&#39;cninfo.pipelines.CninfoPipeline&#39;: 300,&#125;</code></pre>
+<h2 id="四、缺陷"><a href="#四、缺陷" class="headerlink" title="四、缺陷"></a>四、缺陷</h2><pre><code>在这个爬虫中，其实出现了蛮多问题的，有些解决了，有些没有，记录一下，加深印象，还有感觉代码好垃圾。</code></pre>
+<h3 id="1-缺陷1"><a href="#1-缺陷1" class="headerlink" title="1.缺陷1"></a>1.缺陷1</h3><pre><code>上市农业企业的名字，以及名字的url链接手动整理的，因为只有40来个企业，所以才会用这个方法。本来是想通过Scarpy的CrawlSpider抓取，
+抓取时通过Rule来控制所需要的农业企业，但是发现实在没有什么规律，只会把巨潮资讯上所有上市企业的url都获取下来，所以最后手动整理的
+这40多个农业企业，希望日后能找到更简便的办法。</code></pre>
+<h3 id="2-缺陷2"><a href="#2-缺陷2" class="headerlink" title="2.缺陷2"></a>2.缺陷2</h3><pre><code>对于网页中的高管人员信息抓取中，本来是想思考放在一个爬虫中获取到的，但是仔细分析后发现，公司概况和高管人员分别对应着不同的url，
+然后不同的url下再对应中动态加载iframe。url对比如下：
+http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
+http://www.cninfo.com.cn/information/companyinfo_n.html?management?szmb000998
+这样子的话，就涉及到我需要在Selenuim中点击按钮，然后再渲染id=&#39;i_nr&#39;的iframe，而且不同页面中iframe名字都叫i_nr。我试过这个
+办法，但是拿回的源码并不是高管人员页面的源码，依然是公司概况页面的源码，也许是我方法用的不对，有待仔细研究。
+所以我又在cninfo_mana.py中又写了一个爬虫，从而单独来获取高管人员页面的信息。</code></pre>
+<h3 id="3-缺陷3"><a href="#3-缺陷3" class="headerlink" title="3.缺陷3"></a>3.缺陷3</h3><pre><code>对于十大股东页面，按理说我应该在写一个py文件来单独获取它的页面信息，这样子就ok了，实际上我也是这么做的。但是爬虫运行是，却发
+现我拿不到股东的信息，因为我发现当请求http://www.cninfo.com.cn/information/companyinfo_n.html?shareholders?
+szmb000998时，首先切换到id=&#39;i_nr&#39;的iframe中，但是随后股东的详细信息又在一个id=&#39;i_nr&#39;的ifrma中，相当于这里有两个iframe，
+我在中间件试了试两个这样子切换iframe，但是很遗憾我没拿到我想要的东西，源代码还是停留在第一层iframe中，所以最后我放弃了，没有
+拿十大股东的信息，这个问题智能留着我以后解决了。</code></pre>
+<h3 id="4-缺陷4"><a href="#4-缺陷4" class="headerlink" title="4.缺陷4"></a>4.缺陷4</h3><pre><code>self.broswer = webdriver.PhantomJS(
+        executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+这个代码在中间件和爬虫代码中都有，说明两次打开了浏览器，致使性能降低。</code></pre>
+<h2 id="五、其他项目"><a href="#五、其他项目" class="headerlink" title="五、其他项目"></a>五、其他项目</h2><pre><code>    其实我之前还用Selenium写过一个项目，用过抓取FAO的国家分类信息，以前习惯不好，做事不记录，导致做完就忘，只有个模糊的印象。
+今天把之前那个项目找到了，重新运行了一下，但是抓不到东西了，我看看了网站的结构没变，应该是在动态加载方面变化了，等有时间的时候
+看看究竟哪里变了，再把代码优化一下，附上github地址，有兴趣可以参考一下。如果有帮助，给个star把，好不要脸，第一次求star。</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/fao">https://github.com/Gladysgong/fao</a></p>
+<h2 id="六、后续"><a href="#六、后续" class="headerlink" title="六、后续"></a>六、后续</h2><p>后来我又写了一篇文章——<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E5%B9%B4%E6%8A%A5/">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>，有兴趣的可以看看。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Scrapy/" rel="tag"># Scrapy</a>
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+              <a href="/tags/PhantomJS/" rel="tag"># PhantomJS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/" rel="prev" title="Python3爬虫--PhantomJS安装">
+      <i class="fa fa-chevron-left"></i> Python3爬虫--PhantomJS安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/" rel="next" title="利用Scrapy抓取一带一路战略性支撑平台信息">
+      利用Scrapy抓取一带一路战略性支撑平台信息 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81PhantomJS%E2%80%93PhantomJS%E5%AE%89%E8%A3%85%E9%AA%8C%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">一、PhantomJS–PhantomJS安装验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Selenium%E2%80%93Selenium%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">二、Selenium–Selenium的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%80%9A%E8%BF%87Scrapy%E6%9D%A5%E4%BD%BF%E7%94%A8Selenium"><span class="nav-number">3.</span> <span class="nav-text">三、通过Scrapy来使用Selenium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E2%80%93cninfo-py"><span class="nav-number">3.2.</span> <span class="nav-text">2.数据解析–cninfo.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E2%80%93pipelines-py"><span class="nav-number">3.3.</span> <span class="nav-text">3.数据持久化–pipelines.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E2%80%93setting-py"><span class="nav-number">3.4.</span> <span class="nav-text">4.配置文件–setting.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BC%BA%E9%99%B7"><span class="nav-number">4.</span> <span class="nav-text">四、缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BC%BA%E9%99%B71"><span class="nav-number">4.1.</span> <span class="nav-text">1.缺陷1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BC%BA%E9%99%B72"><span class="nav-number">4.2.</span> <span class="nav-text">2.缺陷2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BC%BA%E9%99%B73"><span class="nav-number">4.3.</span> <span class="nav-text">3.缺陷3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BC%BA%E9%99%B74"><span class="nav-number">4.4.</span> <span class="nav-text">4.缺陷4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%85%B6%E4%BB%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">5.</span> <span class="nav-text">五、其他项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%90%8E%E7%BB%AD"><span class="nav-number">6.</span> <span class="nav-text">六、后续</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

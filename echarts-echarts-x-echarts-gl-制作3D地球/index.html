@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：gongyanli.com   github：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;3D_earth_all csdn: http:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;78459872  前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts echarts-x echarts-gl 制作3D地球">
+<meta property="og:url" content="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：gongyanli.com   github：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;3D_earth_all csdn: http:&#x2F;&#x2F;blog.csdn.net&#x2F;u012052168&#x2F;article&#x2F;details&#x2F;78459872  前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-01-08T09:04:42.000Z">
+<meta property="article:modified_time" content="2020-09-18T05:44:11.155Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="echarts">
+<meta property="article:tag" content="echarts-x">
+<meta property="article:tag" content="echarts-gl">
+<meta property="article:tag" content="3D地球">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>echarts echarts-x echarts-gl 制作3D地球 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          echarts echarts-x echarts-gl 制作3D地球
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-08 17:04:42" itemprop="dateCreated datePublished" datetime="2018-01-08T17:04:42+08:00">2018-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:44:11" itemprop="dateModified" datetime="2020-09-18T13:44:11+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" itemprop="url" rel="index"><span itemprop="name">echarts</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">gongyanli.com</a>  </p>
+<p>github：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/3D_earth_all">https://github.com/Gladysgong/3D_earth_all</a></p>
+<p>csdn: <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012052168/article/details/78459872">http://blog.csdn.net/u012052168/article/details/78459872</a></p>
+</blockquote>
+<p>前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以直接运行，具体情况看我每个里面怎么说的。小伙伴们可以自己先研究一下，等有时候我详细代码注释一下。</p>
+<h3 id="1-worldFlights"><a href="#1-worldFlights" class="headerlink" title="1.worldFlights"></a>1.worldFlights</h3><pre><code>所用框架：philogl
+位置：examples\worldFlights
+说明：philogl (https://github.com/senchalabs/philogl) 官方项目下的一个demo，把全球飞行航线在3d地球上表示出来。</code></pre>
+<h3 id="2-airline-china"><a href="#2-airline-china" class="headerlink" title="2.airline_china"></a>2.airline_china</h3><pre><code>所用框架：philogl
+说明： 一位博主基于philogl官方项目的demo改写而成，把全球的飞行路线改为了中国飞行路线(参照:examples\worldFlights)</code></pre>
+<h3 id="3-3dmap"><a href="#3-3dmap" class="headerlink" title="3.3dmap"></a>3.3dmap</h3><pre><code>所用框架：echart-x
+说明：利用echart-x制作的3d地球，其数据是把根据经纬度的高低来对国家进行分类（高、中、低）</code></pre>
+<h3 id="4-echarts-gl"><a href="#4-echarts-gl" class="headerlink" title="4.echarts-gl"></a>4.echarts-gl</h3><pre><code>说明：echarts-gl官方项目，我使用npm拉取代码后，依然运行有问题，显示不清楚，所以弃用，可能还是我自己哪里有问题，但是没找出来。</code></pre>
+<h3 id="5-echarts3D-globe"><a href="#5-echarts3D-globe" class="headerlink" title="5.echarts3D-globe"></a>5.echarts3D-globe</h3><pre><code>所用框架：echarts-gl
+说明：一位童鞋（不好意思，等我有时间把你的gith补上，么么哒）利用echarts-gl而制作的3d地球，模拟的是网络攻击的数据，但我发现依然使用的是飞行航线的数据，所以这个数据究竟能否反应网络攻击有待证实。</code></pre>
+<h3 id="6-earth"><a href="#6-earth" class="headerlink" title="6.earth"></a>6.earth</h3><pre><code>所用框架：echarts-gl
+说明：基于echarts3D-globe重写了一个适合自己需要的精简的地球</code></pre>
+<h3 id="7-earth-x"><a href="#7-earth-x" class="headerlink" title="7.earth-x"></a>7.earth-x</h3><pre><code>所用框架：echarts-x
+说明：基于3dmap重写了一个适合自身需要的最终地球。</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/echarts/" rel="tag"># echarts</a>
+              <a href="/tags/echarts-x/" rel="tag"># echarts-x</a>
+              <a href="/tags/echarts-gl/" rel="tag"># echarts-gl</a>
+              <a href="/tags/3D%E5%9C%B0%E7%90%83/" rel="tag"># 3D地球</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%8A%93%E5%8F%96%E7%99%BE%E5%BA%A6%E3%80%81google%E3%80%81bing%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E7%9A%84%E7%88%AC%E8%99%AB/" rel="prev" title="抓取百度、google、bing搜索结果的爬虫">
+      <i class="fa fa-chevron-left"></i> 抓取百度、google、bing搜索结果的爬虫
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/" rel="next" title="echarts,map,百度地图扩展">
+      echarts,map,百度地图扩展 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-worldFlights"><span class="nav-number">1.</span> <span class="nav-text">1.worldFlights</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-airline-china"><span class="nav-number">2.</span> <span class="nav-text">2.airline_china</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3dmap"><span class="nav-number">3.</span> <span class="nav-text">3.3dmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-echarts-gl"><span class="nav-number">4.</span> <span class="nav-text">4.echarts-gl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-echarts3D-globe"><span class="nav-number">5.</span> <span class="nav-text">5.echarts3D-globe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-earth"><span class="nav-number">6.</span> <span class="nav-text">6.earth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-earth-x"><span class="nav-number">7.</span> <span class="nav-text">7.earth-x</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

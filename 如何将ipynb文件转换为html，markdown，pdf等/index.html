@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言本文讲将jupyter notebook中的文件（xxx.ipynb）转换成html，md，pdf等格式呢。 如果使用下列命令有误的话，建议安装jupyter相关插件： $ pip install jupyter_contrib_nbextensions 一.ipynb转为html格式$ jupyter nbconvert --to html notebook.ipynb  jupyter中提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将ipynb文件转换为html，markdown，pdf等">
+<meta property="og:url" content="http://gongyanli.com/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="前言本文讲将jupyter notebook中的文件（xxx.ipynb）转换成html，md，pdf等格式呢。 如果使用下列命令有误的话，建议安装jupyter相关插件： $ pip install jupyter_contrib_nbextensions 一.ipynb转为html格式$ jupyter nbconvert --to html notebook.ipynb  jupyter中提">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-09-09T14:25:54.000Z">
+<meta property="article:modified_time" content="2020-09-18T05:59:10.939Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Jupyter">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>如何将ipynb文件转换为html，markdown，pdf等 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何将ipynb文件转换为html，markdown，pdf等
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-09 22:25:54" itemprop="dateCreated datePublished" datetime="2018-09-09T22:25:54+08:00">2018-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:59:10" itemprop="dateModified" datetime="2020-09-18T13:59:10+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%B7%A5%E5%85%B7%E7%AF%87/Jupyter/" itemprop="url" rel="index"><span itemprop="name">Jupyter</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><pre><code>本文讲将jupyter notebook中的文件（xxx.ipynb）转换成html，md，pdf等格式呢。
+如果使用下列命令有误的话，建议安装jupyter相关插件：
+$ pip install jupyter_contrib_nbextensions</code></pre>
+<h2 id="一-ipynb转为html格式"><a href="#一-ipynb转为html格式" class="headerlink" title="一.ipynb转为html格式"></a>一.ipynb转为html格式</h2><pre><code>$ jupyter nbconvert --to html notebook.ipynb
+
+jupyter中提供了一些命令，可以对生成的html格式进行配置：
+$ jupyter nbconvert --to html --template full notebook.ipynb
+
+默认配置，提供完整的静态html格式，交互性更强。
+$ jupyter nbconvert --to html --template basic notebook.ipynb
+简化的html，用于嵌入网页、博客等，这不包括html标题。</code></pre>
+<h2 id="二-ipynb转换为md格式"><a href="#二-ipynb转换为md格式" class="headerlink" title="二.ipynb转换为md格式"></a>二.ipynb转换为md格式</h2><pre><code>$ jupyter nbconvert --to markdown notebook.ipynb
+简单的Markdown格式输出，cell单元不受影响，代码cell缩进4个空格。</code></pre>
+<h2 id="三-ipynb转换为tex格式"><a href="#三-ipynb转换为tex格式" class="headerlink" title="三.ipynb转换为tex格式"></a>三.ipynb转换为tex格式</h2><pre><code>$ jupyter nbconvert --to letex notebook.ipynb
+
+Letex导出格式，生成后缀名为NOTEBOOK_NAME.tex的文件。jupyter提供的额外模板配置为：
+$ jupyter nbconvert --to letex -template article notebook.ipynb
+
+默认配置，Latex文章。
+$ jupyter nbconvert --to letex -template report notebook.ipynb
+
+Latex报告，提供目录和章节。
+$ jupyter nbconvert --to letex -template basic notebook.ipynb
+最基本的Latex输出，经常用来自定义配置。</code></pre>
+<h2 id="四-jupyter转换为pdf格式"><a href="#四-jupyter转换为pdf格式" class="headerlink" title="四.jupyter转换为pdf格式"></a>四.jupyter转换为pdf格式</h2><pre><code>$ jupyter nbconvert --to pdf notebook.ipynb
+
+转换为pdf格式分模板配置与latex配置是一样的。但是直接转换为pdf格式经常会出现xelatex错误：
+该错误提示没有安装xelatex。所以，我们需要提前安装xelatex，方法是安装texLive套装：
+
+$ sudo apt-get install texlive-full
+texlive-full的安装包有点大，约1G多。</code></pre>
+<h2 id="五-简单的转换方法"><a href="#五-简单的转换方法" class="headerlink" title="五.简单的转换方法"></a>五.简单的转换方法</h2><pre><code>ipynb转换为html、md、pdf等格式，还有另一种更简单的方法：在jupyter notebook中，选择File-&gt;Download as，直接选择需要转换的格式就可以了。需要注意的是，转换为pdf格式之前，同样要保证已经安装了xelatex。</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Jupyter/" rel="tag"># Jupyter</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="Mac:matplotlib无法显示中文的问题">
+      <i class="fa fa-chevron-left"></i> Mac:matplotlib无法显示中文的问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/KNN/" rel="next" title="KNN">
+      KNN <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-ipynb%E8%BD%AC%E4%B8%BAhtml%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">一.ipynb转为html格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-ipynb%E8%BD%AC%E6%8D%A2%E4%B8%BAmd%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">二.ipynb转换为md格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-ipynb%E8%BD%AC%E6%8D%A2%E4%B8%BAtex%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">三.ipynb转换为tex格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-jupyter%E8%BD%AC%E6%8D%A2%E4%B8%BApdf%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">四.jupyter转换为pdf格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E7%AE%80%E5%8D%95%E7%9A%84%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">五.简单的转换方法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="代码：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;gluon_learning&#x2F;blob&#x2F;master&#x2F;chap3_basic&#x2F; 一.线性回归线性回归输出是连续值，因此不适用于回归问题； Softmax回归输出是是离散值，因为适用于分类问题。 1.线性回归要素模型:      表达式： $$\hat{y} &#x3D; x_1 w_1 + x_2 w_2 + b,$$     模型训练:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性回归--从0开始实现">
+<meta property="og:url" content="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="代码：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;gluon_learning&#x2F;blob&#x2F;master&#x2F;chap3_basic&#x2F; 一.线性回归线性回归输出是连续值，因此不适用于回归问题； Softmax回归输出是是离散值，因为适用于分类问题。 1.线性回归要素模型:      表达式： $$\hat{y} &#x3D; x_1 w_1 + x_2 w_2 + b,$$     模型训练:">
+<meta property="og:locale">
+<meta property="og:image" content="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/linear_regression_6_1.svg">
+<meta property="article:published_time" content="2018-09-17T11:19:43.000Z">
+<meta property="article:modified_time" content="2018-09-17T11:30:00.933Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="线性回归">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/linear_regression_6_1.svg">
+
+<link rel="canonical" href="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>线性回归--从0开始实现 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线性回归--从0开始实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-09-17 19:19:43 / Modified: 19:30:00" itemprop="dateCreated datePublished" datetime="2018-09-17T19:19:43+08:00">2018-09-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/" itemprop="url" rel="index"><span itemprop="name">gluon</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">深度学习基础</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" itemprop="url" rel="index"><span itemprop="name">线性回归</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>代码：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/">https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/</a></p>
+<h2 id="一-线性回归"><a href="#一-线性回归" class="headerlink" title="一.线性回归"></a>一.线性回归</h2><pre><code>线性回归输出是连续值，因此不适用于回归问题；
+Softmax回归输出是是离散值，因为适用于分类问题。</code></pre>
+<h3 id="1-线性回归要素"><a href="#1-线性回归要素" class="headerlink" title="1.线性回归要素"></a>1.线性回归要素</h3><pre><code>模型: 
+    表达式：</code></pre>
+<p>$$\hat{y} = x_1 w_1 + x_2 w_2 + b,$$</p>
+<pre><code>    模型训练:
+        训练数据
+        损失函数
+        优化算法:
+            解析解：误差最小化问题的解可以直接用公式表达出来
+            数值解：大多数深度学习模型并没有解析解，只能通过优化算法有限次迭代模型参数来尽可能降低损失函数的值
+                   小批量随机梯度下降：批量大小和学习率是认为设定的，叫做超参数
+
+    模型预测</code></pre>
+<h3 id="2-线性回归表示方法"><a href="#2-线性回归表示方法" class="headerlink" title="2.线性回归表示方法"></a>2.线性回归表示方法</h3><pre><code>神经网络图
+矢量计算表达式</code></pre>
+<h2 id="二-线性回归–从0开始实现"><a href="#二-线性回归–从0开始实现" class="headerlink" title="二.线性回归–从0开始实现"></a>二.线性回归–从0开始实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">from</span> IPython <span class="keyword">import</span> display</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mxnet <span class="keyword">import</span> autograd, nd</span><br><span class="line"><span class="keyword">import</span> random</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-生成数据集"><a href="#1-生成数据集" class="headerlink" title="1.生成数据集"></a>1.生成数据集</h3><pre><code>numpy.random.normal(loc=0.0, scale=1.0, size=None)11
+loc：float
+    此概率分布的均值（对应着整个分布的中心centre）
+scale：float
+    此概率分布的标准差（对应于分布的宽度，scale越大越矮胖，scale越小，越瘦高）
+size：int or tuple of ints
+    输出的shape，默认为None</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num_inputs=<span class="number">2</span></span><br><span class="line">num_examples=<span class="number">1000</span></span><br><span class="line">true_w=[<span class="number">2</span>,<span class="number">-3.4</span>]</span><br><span class="line">true_b=<span class="number">4.2</span></span><br><span class="line">features=nd.random.normal(scale=<span class="number">1</span>,shape=(num_examples,num_inputs))</span><br><span class="line">labels=true_w[<span class="number">0</span>]*features[:,<span class="number">0</span>]+true_w[<span class="number">1</span>]*features[:,<span class="number">1</span>]+true_b</span><br><span class="line">labels+=nd.random.normal(scale=<span class="number">0.01</span>,shape=labels.shape)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">features[<span class="number">0</span>],labels[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(
+ [ 1.16307867  0.48380461]
+ &lt;NDArray 2 @cpu(0)&gt;, 
+ [ 4.87962484]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">use_svg_display</span>():</span></span><br><span class="line">    <span class="comment"># 用矢量图表示</span></span><br><span class="line">    display.set_matplotlib_formats(<span class="string">&#x27;svg&#x27;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_figsize</span>(<span class="params">figsize=(<span class="params"><span class="number">3.5</span>,<span class="number">2.5</span></span>)</span>):</span></span><br><span class="line">    <span class="comment">#set_matplotlib_formats(&#x27;svg&#x27;)</span></span><br><span class="line">    use_svg_display()</span><br><span class="line">    <span class="comment"># 设置图的尺寸</span></span><br><span class="line">    plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>]=figsize</span><br><span class="line">    </span><br><span class="line">set_figsize()</span><br><span class="line">plt.scatter(features[:,<span class="number">1</span>].asnumpy(),labels.asnumpy(),<span class="number">1</span>)</span><br><span class="line"><span class="comment"># plt.show()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x117cadda0&gt;</code></pre>
+<p><img src="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/linear_regression_6_1.svg" alt="svg"></p>
+<h3 id="2-读取数据"><a href="#2-读取数据" class="headerlink" title="2.读取数据"></a>2.读取数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每次返回batch_size(批量大小)个随机样本的特征和标签</span></span><br><span class="line"><span class="comment"># 此函数已保存在gluonbook包中方便以后使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_iter</span>(<span class="params">batch_size,features,labels</span>):</span></span><br><span class="line">    num_examples=len(features)</span><br><span class="line">    print(<span class="string">&quot;长度：&quot;</span>,num_examples)  <span class="comment"># 1000,行数</span></span><br><span class="line">    indices=list(range(num_examples)) </span><br><span class="line"><span class="comment">#     print(&quot;indices：&quot;,indices)  # 0-999</span></span><br><span class="line">    random.shuffle(indices) <span class="comment"># 样本的读取顺序是随机的。</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,num_examples,batch_size):</span><br><span class="line">        j=nd.array(indices[i:min(i+batch_size,num_examples)])</span><br><span class="line">        <span class="keyword">yield</span> features.take(j),labels.take(j) <span class="comment"># take 函数根据索引返回对应元素。</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个批量的特征形状为（10， 2），分别对应批量大小和输入个数；标签形状为批量大小。</span></span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">    print(X, y)</span><br><span class="line">    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>长度： 1000
+
+[[-1.4370029  -2.39830184]
+ [ 0.86399084 -0.95994246]
+ [-1.49929214  1.21278656]
+ [ 2.52268934 -0.37837121]
+ [ 1.39448225  0.56141484]
+ [ 0.50767344  0.07797763]
+ [ 0.37963197 -0.65589839]
+ [-0.47827247 -1.17394924]
+ [-0.11860342  1.41482413]
+ [ 1.18384051  0.65427899]]
+&lt;NDArray 10x2 @cpu(0)&gt; 
+[  9.47776413   9.20563984  -2.91862679  10.52518559   5.09047413
+   4.9430213    7.19049788   7.2272377   -0.82722223   4.32375574]
+&lt;NDArray 10 @cpu(0)&gt;</code></pre>
+<h3 id="3-初始化模型参数"><a href="#3-初始化模型参数" class="headerlink" title="3.初始化模型参数"></a>3.初始化模型参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将权重初始化成均值为 0 标准差为 0.01 的正态随机数，偏差则初始化成 0。</span></span><br><span class="line">w=nd.random.normal(scale=<span class="number">0.01</span>,shape=(num_inputs,<span class="number">1</span>))</span><br><span class="line">b=nd.zeros(shape=(<span class="number">1</span>,))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w,b</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(
+ [[ 0.01464221]
+  [-0.01305814]]
+ &lt;NDArray 2x1 @cpu(0)&gt;, 
+ [ 0.]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建梯度，yinw需要对这些参数求梯度来迭代参数的值</span></span><br><span class="line">w.attach_grad() <span class="comment"># 申请存储梯度所需要的内存</span></span><br><span class="line">b.attach_grad()</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-定义模型"><a href="#4-定义模型" class="headerlink" title="4.定义模型"></a>4.定义模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 线性回归的矢量计算表达式的实现</span></span><br><span class="line"><span class="comment"># 本函数已保存在 gluonbook 包中方便以后使用。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">linreg</span>(<span class="params">X,w,b</span>):</span></span><br><span class="line">    <span class="keyword">return</span> nd.dot(X,w)+b <span class="comment"># dot做矩阵乘法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-定义损失函数"><a href="#5-定义损失函数" class="headerlink" title="5.定义损失函数"></a>5.定义损失函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用平方损失来定义线性回归的损失函数</span></span><br><span class="line"><span class="comment"># 本函数已保存在 gluonbook 包中方便以后使用。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">squared_loss</span>(<span class="params">y_hat,y</span>):</span></span><br><span class="line">    <span class="keyword">return</span>(y_hat-y.reshape(y_hat.shape))**<span class="number">2</span>/<span class="number">2</span> <span class="comment"># y_hat是线性回归对真实价格 y 的预测或估计</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-定义优化算法"><a href="#6-定义优化算法" class="headerlink" title="6.定义优化算法"></a>6.定义优化算法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用sgd函数实现小批量随机梯度下降算法</span></span><br><span class="line"><span class="comment"># 通过不断迭代模型参数来优化损失函数，这里自动求导模块计算得来的梯度是一个批量样本的梯度和，将它除以批量大小来得到平均值。</span></span><br><span class="line"><span class="comment"># 本函数已保存在 gluonbook 包中方便以后使用。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sgd</span>(<span class="params">params,lr,batch_size</span>):</span></span><br><span class="line">    <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">        param[:]=param-lr*param.grad/batch_size</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-训练模型"><a href="#7-训练模型" class="headerlink" title="7.训练模型"></a>7.训练模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">lr = <span class="number">0.03</span></span><br><span class="line">num_epochs = <span class="number">3</span></span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):  <span class="comment"># 训练模型一共需要 num_epochs 个迭代周期。</span></span><br><span class="line">    <span class="comment"># 在一个迭代周期中，使用训练数据集中所有样本一次（假设样本数能够被批量大小整除）。</span></span><br><span class="line">    <span class="comment"># X 和 y 分别是小批量样本的特征和标签。</span></span><br><span class="line">    <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">        <span class="keyword">with</span> autograd.record():</span><br><span class="line">            l = loss(net(X, w, b), y)  <span class="comment"># l 是有关小批量 X 和 y 的损失。</span></span><br><span class="line">        l.backward()  <span class="comment"># 小批量的损失对模型参数求梯度。</span></span><br><span class="line">        sgd([w, b], lr, batch_size)  <span class="comment"># 使用小批量随机梯度下降迭代模型参数。</span></span><br><span class="line">    train_l = loss(net(features, w, b), labels)</span><br><span class="line">    print(<span class="string">&#x27;epoch %d, loss %f&#x27;</span> % (epoch + <span class="number">1</span>, train_l.mean().asnumpy()))</span><br></pre></td></tr></table></figure>
+
+<pre><code>长度： 1000
+epoch 1, loss 0.000048
+长度： 1000
+epoch 2, loss 0.000048
+长度： 1000
+epoch 3, loss 0.000048</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true_w,w</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>([2, -3.4], 
+ [[ 2.00003362]
+  [-3.40025949]]
+ &lt;NDArray 2x1 @cpu(0)&gt;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true_b,b</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(4.2, 
+ [ 4.20015049]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag"># 线性回归</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/KNN/" rel="prev" title="KNN">
+      <i class="fa fa-chevron-left"></i> KNN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-1-%E6%95%B0%E7%BB%84/" rel="next" title="LeetCode-1-数组">
+      LeetCode-1-数组 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">1.</span> <span class="nav-text">一.线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%A6%81%E7%B4%A0"><span class="nav-number">1.1.</span> <span class="nav-text">1.线性回归要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">2.线性回归表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E2%80%93%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">二.线性回归–从0开始实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">1.生成数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">2.2.</span> <span class="nav-text">2.读取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">3.初始化模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.4.</span> <span class="nav-text">4.定义模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">5.定义损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.</span> <span class="nav-text">6.定义优化算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.7.</span> <span class="nav-text">7.训练模型</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

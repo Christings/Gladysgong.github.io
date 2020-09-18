@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="中文名称规范联合数据库检索系统: http:&#x2F;&#x2F;cnass.cccna.org&#x2F;jsp&#x2F;index.jspCALIS 联合目录规范OPAC: http:&#x2F;&#x2F;opac.calis.edu.cn&#x2F;aopac&#x2F;ajsp&#x2F;history.jsp美国伊利诺大学的罗伯特名称规范控制工作5个流程：建立规范记录；   将规范记录集中，形成规范文档； 将规范文档和书目文档连接； 对规范文档和规范系统进行维护； 对规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="规范库建设">
+<meta property="og:url" content="http://gongyanli.com/%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="中文名称规范联合数据库检索系统: http:&#x2F;&#x2F;cnass.cccna.org&#x2F;jsp&#x2F;index.jspCALIS 联合目录规范OPAC: http:&#x2F;&#x2F;opac.calis.edu.cn&#x2F;aopac&#x2F;ajsp&#x2F;history.jsp美国伊利诺大学的罗伯特名称规范控制工作5个流程：建立规范记录；   将规范记录集中，形成规范文档； 将规范文档和书目文档连接； 对规范文档和规范系统进行维护； 对规">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-24T01:47:01.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>规范库建设 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          规范库建设
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-24 09:47:01" itemprop="dateCreated datePublished" datetime="2018-04-24T09:47:01+08:00">2018-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="中文名称规范联合数据库检索系统-http-cnass-cccna-org-jsp-index-jsp"><a href="#中文名称规范联合数据库检索系统-http-cnass-cccna-org-jsp-index-jsp" class="headerlink" title="中文名称规范联合数据库检索系统: http://cnass.cccna.org/jsp/index.jsp"></a>中文名称规范联合数据库检索系统: <a target="_blank" rel="noopener" href="http://cnass.cccna.org/jsp/index.jsp">http://cnass.cccna.org/jsp/index.jsp</a></h3><h3 id="CALIS-联合目录规范OPAC-http-opac-calis-edu-cn-aopac-ajsp-history-jsp"><a href="#CALIS-联合目录规范OPAC-http-opac-calis-edu-cn-aopac-ajsp-history-jsp" class="headerlink" title="CALIS 联合目录规范OPAC: http://opac.calis.edu.cn/aopac/ajsp/history.jsp"></a>CALIS 联合目录规范OPAC: <a target="_blank" rel="noopener" href="http://opac.calis.edu.cn/aopac/ajsp/history.jsp">http://opac.calis.edu.cn/aopac/ajsp/history.jsp</a></h3><h3 id="美国伊利诺大学的罗伯特名称规范控制工作5个流程："><a href="#美国伊利诺大学的罗伯特名称规范控制工作5个流程：" class="headerlink" title="美国伊利诺大学的罗伯特名称规范控制工作5个流程："></a>美国伊利诺大学的罗伯特名称规范控制工作5个流程：</h3><pre><code>建立规范记录；  
+将规范记录集中，形成规范文档；
+将规范文档和书目文档连接；
+对规范文档和规范系统进行维护；
+对规范文档和规范系统进行评估。</code></pre>
+<p>简而言之，名称规范控制的建设就是建立规范记录、形成规范文档、及时对规范维护的过程。 </p>
+<h3 id="中国科学院机构名称规范库建设思路："><a href="#中国科学院机构名称规范库建设思路：" class="headerlink" title="中国科学院机构名称规范库建设思路："></a>中国科学院机构名称规范库建设思路：</h3><pre><code>①对于机构存在隶属关系的，应对所属关系、共建关系、依托关系等进行名称规范控制；
+②对于机构存在历史变更的，应对更名变更、合并拆分、转移变更等进行名称规范控制；
+③对于机构存在其他名称的，要明确机构的主标目名称，而其他所有与机构主标目名称不同，但指向同一机构的名称作为连接标目名称。 </code></pre>
+<h3 id="“中科院机构名称规范库”建设的内容："><a href="#“中科院机构名称规范库”建设的内容：" class="headerlink" title="“中科院机构名称规范库”建设的内容："></a>“中科院机构名称规范库”建设的内容：</h3><p>1.机构别名词表<br>2.机构名称标识<br>3.机构关联关系 </p>
+<pre><code>机构历史关系：等级关系、共建关系、依托关系
+机构变更关系：更名、拆分、合并、转移、前身</code></pre>
+<h3 id="规范库建设中的元数据语义化映射"><a href="#规范库建设中的元数据语义化映射" class="headerlink" title="规范库建设中的元数据语义化映射"></a>规范库建设中的元数据语义化映射</h3><pre><code>过程：
+    元数据集合识别
+    数据元素分组
+    语义映射：基于结构和基于本体
+
+元数据层次结构：
+    内容规则层：给出元素的确切的和可操作的定义，是对元素集合层的解释
+    元素集合层：元数据表现为一组“实体—属性”对
+    载体层：载体语言将元数据以计算机能够理解的逻辑表达出来
+    字符编码层：转换成计算机代码</code></pre>
+<h4 id="识别元数据"><a href="#识别元数据" class="headerlink" title="识别元数据"></a>识别元数据</h4><p>1.任务是将不同数据库中表示同一信息对象的所有有效数据元素集合进行采集，从中识别将被映射的候选数据元素集合。<br>2.目的是识别可被映射的数据元素，剔除不适合被映射的数据元素。<br>3.为了实现元数据语义化映射的自动化过程，必须通过模型化方式使得机器可以自动识别元数据集，通常的方法是通过构建元数据树匹配模型识别出符合标准的元数据，从而实现元数据的提取、分类、存储或检索。</p>
+<h4 id="分组数据元素"><a href="#分组数据元素" class="headerlink" title="分组数据元素"></a>分组数据元素</h4><pre><code>过程：
+    发现对象
+    根据对象对元素进行分组
+    发现属性
+    根据属性对元素进行分组</code></pre>
+<p>元数据容器包括机构名称、机构关系、机构标签、地理信息、知识体系；每个元数据容器中又包含符合该容器定义的元数据元素</p>
+<h4 id="语义映射"><a href="#语义映射" class="headerlink" title="语义映射"></a>语义映射</h4><pre><code>1.将所有的数据元素汇总成表，并对数据元素的匹配精确度进行注释
+2.产生一组被推荐的元数据，用于指导以后的元数据语义化映射标准</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Scrapy-CrawlSpider/" rel="prev" title="Scrapy--CrawlSpider">
+      <i class="fa fa-chevron-left"></i> Scrapy--CrawlSpider
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/" rel="next" title="Python中的编码">
+      Python中的编码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%87%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83%E8%81%94%E5%90%88%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A3%80%E7%B4%A2%E7%B3%BB%E7%BB%9F-http-cnass-cccna-org-jsp-index-jsp"><span class="nav-number">1.</span> <span class="nav-text">中文名称规范联合数据库检索系统: http:&#x2F;&#x2F;cnass.cccna.org&#x2F;jsp&#x2F;index.jsp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CALIS-%E8%81%94%E5%90%88%E7%9B%AE%E5%BD%95%E8%A7%84%E8%8C%83OPAC-http-opac-calis-edu-cn-aopac-ajsp-history-jsp"><span class="nav-number">2.</span> <span class="nav-text">CALIS 联合目录规范OPAC: http:&#x2F;&#x2F;opac.calis.edu.cn&#x2F;aopac&#x2F;ajsp&#x2F;history.jsp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BE%8E%E5%9B%BD%E4%BC%8A%E5%88%A9%E8%AF%BA%E5%A4%A7%E5%AD%A6%E7%9A%84%E7%BD%97%E4%BC%AF%E7%89%B9%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83%E6%8E%A7%E5%88%B6%E5%B7%A5%E4%BD%9C5%E4%B8%AA%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">美国伊利诺大学的罗伯特名称规范控制工作5个流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E9%99%A2%E6%9C%BA%E6%9E%84%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">中国科学院机构名称规范库建设思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E4%B8%AD%E7%A7%91%E9%99%A2%E6%9C%BA%E6%9E%84%E5%90%8D%E7%A7%B0%E8%A7%84%E8%8C%83%E5%BA%93%E2%80%9D%E5%BB%BA%E8%AE%BE%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">“中科院机构名称规范库”建设的内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE%E4%B8%AD%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E8%AF%AD%E4%B9%89%E5%8C%96%E6%98%A0%E5%B0%84"><span class="nav-number">6.</span> <span class="nav-text">规范库建设中的元数据语义化映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">6.1.</span> <span class="nav-text">识别元数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0"><span class="nav-number">6.2.</span> <span class="nav-text">分组数据元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E6%98%A0%E5%B0%84"><span class="nav-number">6.3.</span> <span class="nav-text">语义映射</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="转载于：https:&#x2F;&#x2F;blog.csdn.net&#x2F;u011995719&#x2F;article&#x2F;details&#x2F;85107009 本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：https:&#x2F;&#x2F;github.com&#x2F;tensor-yu&#x2F;PyTorch_Tutorial 本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch-5-transforms">
+<meta property="og:url" content="http://gongyanli.com/PyTorch-5-transforms/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="转载于：https:&#x2F;&#x2F;blog.csdn.net&#x2F;u011995719&#x2F;article&#x2F;details&#x2F;85107009 本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：https:&#x2F;&#x2F;github.com&#x2F;tensor-yu&#x2F;PyTorch_Tutorial 本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-04-14T07:27:30.000Z">
+<meta property="article:modified_time" content="2020-04-14T07:28:57.792Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="PyTorch">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/PyTorch-5-transforms/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>PyTorch-5-transforms | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-5-transforms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyTorch-5-transforms
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-14 15:27:30 / Modified: 15:28:57" itemprop="dateCreated datePublished" datetime="2020-04-14T15:27:30+08:00">2020-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转载于：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011995719/article/details/85107009">https://blog.csdn.net/u011995719/article/details/85107009</a></p>
+<p>本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：<a target="_blank" rel="noopener" href="https://github.com/tensor-yu/PyTorch_Tutorial">https://github.com/tensor-yu/PyTorch_Tutorial</a></p>
+<p>本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列，没有归纳总结，顺序很乱，这里总结一共有四大类，方便大家索引：</p>
+<p>裁剪——Crop 中心裁剪：transforms.CenterCrop 随机裁剪：transforms.RandomCrop 随机长宽比裁剪：transforms.RandomResizedCrop 上下左右中心裁剪：transforms.FiveCrop 上下左右中心裁剪后翻转，transforms.TenCrop<br>翻转和旋转——Flip and Rotation 依概率p水平翻转：transforms.RandomHorizontalFlip(p=0.5) 依概率p垂直翻转：transforms.RandomVerticalFlip(p=0.5) 随机旋转：transforms.RandomRotation<br>图像变换 resize：transforms.Resize 标准化：transforms.Normalize 转为tensor，并归一化至[0-1]：transforms.ToTensor 填充：transforms.Pad 修改亮度、对比度和饱和度：transforms.ColorJitter 转灰度图：transforms.Grayscale 线性变换：transforms.LinearTransformation() 仿射变换：transforms.RandomAffine 依概率p转为灰度图：transforms.RandomGrayscale 将数据转换为PILImage：transforms.ToPILImage transforms.Lambda：Apply a user-defined lambda as a transform.<br>对transforms操作，使数据增强更灵活 transforms.RandomChoice(transforms)， 从给定的一系列transforms中选一个进行操作 transforms.RandomApply(transforms, p=0.5)，给一个transform加上概率，依概率进行操作 transforms.RandomOrder，将transforms中的操作随机打乱<br>一、 裁剪——Crop<br>1.随机裁剪：transforms.RandomCrop<br>class torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=’constant’) 功能：依据给定的size随机裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，暂不了解。 4. symmetric，暂不了解。</p>
+<p>2.中心裁剪：transforms.CenterCrop<br>class torchvision.transforms.CenterCrop(size) 功能：依据给定的size从中心裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>3.随机长宽比裁剪 transforms.RandomResizedCrop<br>class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=2) 功能：随机大小，随机长宽比裁剪原始图片，最后将图片resize到设定好的size 参数： size- 输出的分辨率 scale- 随机crop的大小区间，如scale=(0.08, 1.0)，表示随机crop出来的图片会在的0.08倍至1倍之间。 ratio- 随机长宽比设置 interpolation- 插值的方法，默认为双线性插值(PIL.Image.BILINEAR)</p>
+<p>4.上下左右中心裁剪：transforms.FiveCrop<br>class torchvision.transforms.FiveCrop(size) 功能：对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>5.上下左右中心裁剪后翻转: transforms.TenCrop<br>class torchvision.transforms.TenCrop(size, vertical_flip=False) 功能：对图片进行上下左右以及中心裁剪，然后全部翻转（水平或者垂直），获得10张图片，返回一个4D-tensor。 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) vertical_flip (bool) - 是否垂直翻转，默认为flase，即默认为水平翻转</p>
+<p>二、翻转和旋转——Flip and Rotation<br>6.依概率p水平翻转transforms.RandomHorizontalFlip<br>class torchvision.transforms.RandomHorizontalFlip(p=0.5) 功能：依据概率p对PIL图片进行水平翻转 参数： p- 概率，默认值为0.5</p>
+<p>7.依概率p垂直翻转transforms.RandomVerticalFlip<br>class torchvision.transforms.RandomVerticalFlip(p=0.5) 功能：依据概率p对PIL图片进行垂直翻转 参数： p- 概率，默认值为0.5</p>
+<p>8.随机旋转：transforms.RandomRotation<br>class torchvision.transforms.RandomRotation(degrees, resample=False, expand=False, center=None) 功能：依degrees随机旋转一定角度 参数： degress- (sequence or float or int) ，若为单个数，如 30，则表示在（-30，+30）之间随机旋转 若为sequence，如(30，60)，则表示在30-60度之间随机旋转 resample- 重采样方法选择，可选 PIL.Image.NEAREST, PIL.Image.BILINEAR, PIL.Image.BICUBIC，默认为最近邻 expand- ? center- 可选为中心旋转还是左上角旋转</p>
+<p>三、图像变换<br>9.resize：transforms.Resize<br>class torchvision.transforms.Resize(size, interpolation=2) 功能：重置图像分辨率 参数： size- If size is an int, if height &gt; width, then image will be rescaled to (size * height / width, size)，所以建议size设定为h*w interpolation- 插值方法选择，默认为PIL.Image.BILINEAR</p>
+<p>10.标准化：transforms.Normalize<br>class torchvision.transforms.Normalize(mean, std) 功能：对数据按通道进行标准化，即先减均值，再除以标准差，注意是 hwc</p>
+<p>11.转为tensor：transforms.ToTensor<br>class torchvision.transforms.ToTensor 功能：将PIL Image或者 ndarray 转换为tensor，并且归一化至[0-1] 注意事项：归一化至[0-1]是直接除以255，若自己的ndarray数据尺度有变化，则需要自行修改。</p>
+<p>12.填充：transforms.Pad<br>class torchvision.transforms.Pad(padding, fill=0, padding_mode=’constant’) 功能：对图像进行填充 参数： padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，？ 4. symmetric，？</p>
+<p>13.修改亮度、对比度和饱和度：transforms.ColorJitter<br>class torchvision.transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0) 功能：修改修改亮度、对比度和饱和度</p>
+<p>14.转灰度图：transforms.Grayscale<br>class torchvision.transforms.Grayscale(num_output_channels=1) 功能：将图片转换为灰度图 参数： num_output_channels- (int) ，当为1时，正常的灰度图，当为3时， 3 channel with r == g == b</p>
+<p>15.线性变换：transforms.LinearTransformation()<br>class torchvision.transforms.LinearTransformation(transformation_matrix) 功能：对矩阵做线性变化，可用于白化处理！ whitening: zero-center the data, compute the data covariance matrix 参数： transformation_matrix (Tensor) – tensor [D x D], D = C x H x W</p>
+<p>16.仿射变换：transforms.RandomAffine<br>class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0) 功能：仿射变换</p>
+<p>17.依概率p转为灰度图：transforms.RandomGrayscale<br>class torchvision.transforms.RandomGrayscale(p=0.1) 功能：依概率p将图片转换为灰度图，若通道数为3，则3 channel with r == g == b</p>
+<p>18.将数据转换为PILImage：transforms.ToPILImage<br>class torchvision.transforms.ToPILImage(mode=None) 功能：将tensor 或者 ndarray的数据转换为 PIL Image 类型数据 参数： mode- 为None时，为1通道， mode=3通道默认转换为RGB，4通道默认转换为RGBA</p>
+<p>19.transforms.Lambda<br>Apply a user-defined lambda as a transform. 暂不了解，待补充。</p>
+<p>四、对transforms操作，使数据增强更灵活<br>PyTorch不仅可设置对图片的操作，还可以对这些操作进行随机选择、组合</p>
+<p>20.transforms.RandomChoice(transforms)<br>功能：从给定的一系列transforms中选一个进行操作，randomly picked from a list</p>
+<p>21.transforms.RandomApply(transforms, p=0.5)<br>功能：给一个transform加上概率，以一定的概率执行该操作</p>
+<p>22.transforms.RandomOrder<br>功能：将transforms中的操作顺序随机打乱</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PyTorch/" rel="tag"># PyTorch</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/" rel="prev" title="PyTorch-2-总体结构">
+      <i class="fa fa-chevron-left"></i> PyTorch-2-总体结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" rel="next" title="TensorFlow-7-conv2d的padding及参数解释">
+      TensorFlow-7-conv2d的padding及参数解释 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

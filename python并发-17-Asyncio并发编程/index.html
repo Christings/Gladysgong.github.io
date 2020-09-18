@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性： 1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。 同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；异步：是指不同操作间可以相互交替">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python并发-17.Asyncio并发编程">
+<meta property="og:url" content="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性： 1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。 同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；异步：是指不同操作间可以相互交替">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-02-27T15:06:24.000Z">
+<meta property="article:modified_time" content="2020-09-18T06:03:04.111Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Python并发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>python并发-17.Asyncio并发编程 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python并发-17.Asyncio并发编程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:06:24" itemprop="dateCreated datePublished" datetime="2020-02-27T23:06:24+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:04" itemprop="dateModified" datetime="2020-09-18T14:03:04+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：</p>
+<p>1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；<br>2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。</p>
+<p>同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；<br>异步：是指不同操作间可以相互交替执行，如果其中地某个操作被堵塞，程序并不会等待，而是会找出可执行的操作继续执行。</p>
+<p>例子（做一份报表，并以邮件的方式提交）：</p>
+<p>同步：应先向软件中输入各项数据，接下来等报表生成，再写邮件提交；<br>异步：向软件中输出各项数据后，会先写邮件，等待报表生成后，暂停写邮件的工作去查看生成的报表，确认无误后在写邮件直到发送完毕。</p>
+<h2 id="一、关于Asyncio"><a href="#一、关于Asyncio" class="headerlink" title="一、关于Asyncio"></a>一、关于Asyncio</h2><p>Asyncio 和其他 Python 程序一样，是单线程的，它只有一个主线程，但可以进行多个不同的任务。这里的任务，指的就是特殊的 future 对象，我们可以把它类比成多线程版本里的多个线程。</p>
+<p>这些不同的任务，被一个叫做事件循环（Event Loop）的对象所控制。<br>所谓事件循环，是指主线程每次将执行序列中的任务清空后，就去事件队列中检查是否有等待执行的任务，如果有则每次取出一个推到执行序列中执行，这个过程是循环往复的。</p>
+<p>为了简化讲解这个问题，可以假设任务只有两个状态：，分别是预备状态和等待状态：</p>
+<pre><code>预备状态是指任务目前空闲，但随时待命准备运行；
+等待状态是指任务已经运行，但正在等待外部的操作完成，比如 I/O 操作。</code></pre>
+<p>在这种情况下，事件循环会维护两个任务列表，分别对应这两种状态，并且选取预备状态的一个任务（具体选取哪个任务，和其等待的时间长短、占用的资源等等相关）使其运行，一直到这个任务把控制权交还给事件循环为止。</p>
+<p>当任务把控制权交还给事件循环对象时，它会根据其是否完成把任务放到预备或等待状态的列表，然后遍历等待状态列表的任务，查看他们是否完成：如果完成，则将其放到预备状态的列表；反之，则继续放在等待状态的列表。而原先在预备状态列表的任务位置仍旧不变，因为它们还未运行。</p>
+<p>这样，当所有任务被重新放置在合适的列表后，新一轮的循环又开始了，事件循环对象继续从预备状态的列表中选取一个任务使其执行…如此周而复始，直到所有任务完成。</p>
+<p>值得一提的是，对于 Asyncio 来说，它的任务在运行时不会被外部的一些因素打断，因此 Asyncio 内的操作不会出现竞争资源（多个线程同时使用同一资源）的情况，也就不需要担心线程安全的问题了。</p>
+<h2 id="二、Asyncio的使用"><a href="#二、Asyncio的使用" class="headerlink" title="二、Asyncio的使用"></a>二、Asyncio的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">import aiohttp</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async def downloadOne(url):</span><br><span class="line">    async with aiohttp.ClientSession() as session:</span><br><span class="line">        async with session.get(url) as resp:</span><br><span class="line">            print(&#39;Read &#123;&#125; from &#123;&#125;&#39;.format(resp.content_length, url))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async def downloadAll(urls):</span><br><span class="line">    tasks &#x3D; [asyncio.ensure_future(downloadOne(url)) for url in urls]</span><br><span class="line">    await asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    urls &#x3D; [</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#39;,</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#x2F;c&#39;,</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#x2F;python&#39;</span><br><span class="line">    ]</span><br><span class="line">    start &#x3D; time.perf_counter()</span><br><span class="line">    loop &#x3D; asyncio.get_event_loop()</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        loop.run_until_complete(downloadAll(urls))</span><br><span class="line">    finally:</span><br><span class="line">        loop.close()</span><br><span class="line"></span><br><span class="line">    end &#x3D; time.perf_counter()</span><br><span class="line">    print(&#39;Download &#123;&#125; urls in &#123;&#125; seconds&#39;.format(len(urls), end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<pre><code>Read None from http://c.biancheng.net
+Read None from http://c.biancheng.net/c
+Read None from http://c.biancheng.net/python
+Download 3 urls in 0.10918640485033393 seconds</code></pre>
+<p>注意：Async 和 await 关键字是 Asyncio 的最新写法，表示这个语句（函数）是非阻塞的，正好对应前面所讲的事件循环的概念，即如果任务执行的过程需要等待，则将其放入等待状态的列表中，然后继续执行预备状态列表里的任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loop &#x3D; asyncio.get_event_loop()</span><br><span class="line">    try:</span><br><span class="line">        loop.run_until_complete(downloadll(sites))</span><br><span class="line">    finally:</span><br><span class="line">        loop.close()</span><br></pre></td></tr></table></figure>
+<p>上述代码表示拿到事件循环对象，并运行 downloadAll() 函数，直到其结束，最后关闭这个事件循环对象。</p>
+<p>注意：如果读者使用 Python 3.7 及以上版本，上述代码可以直接用 asyncio.run(downloadAll(sites)) 来代替。</p>
+<p>至于 Asyncio 版本的函数 downloadAll()，和之前多线程版本有很大的区别：</p>
+<p>1、这里的 asyncio.ensure_future(coro) 表示对输入的协程 coro 创建一个任务，安排它的执行，并返回此任务对象。可以看到，这里对每一个网站的下载，都创建了一个对应的任务。</p>
+<pre><code>注意：Python 3.7+ 版本之后，可以使用 asyncio.create_task(coro) 等效替代 asyncio.ensure_future(coro)。</code></pre>
+<p>2、asyncio.gather() 表示在事件循环对象中运行 aws 序列的所有任务。</p>
+<pre><code>可以看到，其输出结果显示用时只有 0.11s，比之前的多线程版本效率更高，充分体现其优势。</code></pre>
+<p>Asyncio 还有很多其他的用法，可以查看 Python 事件循环官方文档进行了解。</p>
+<h2 id="三、Asyncio的缺陷"><a href="#三、Asyncio的缺陷" class="headerlink" title="三、Asyncio的缺陷"></a>三、Asyncio的缺陷</h2><p>在学习多线程编程中使用的是 requests 库，但本节使用的是 aiohttp 库，原因在于 requests 库并不兼容 Asyncio，而 aiohttp 库兼容。Asyncio 软件库的兼容性问题，在 Python3 的早期一直是个大问题，但是随着技术的发展，这个问题正逐步得到解决。</p>
+<p>使用 Asyncio 时，因为在任务调度方面有了更大的自主权，写代码时就得更加注意，不然很容易出错。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python%E5%B9%B6%E5%8F%91/" rel="tag"># Python并发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/python%E5%B9%B6%E5%8F%91-16-Futures%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="prev" title="python并发-16.Futures并发编程">
+      <i class="fa fa-chevron-left"></i> python并发-16.Futures并发编程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/" rel="next" title="python并发-18.GIL全局解释器锁">
+      python并发-18.GIL全局解释器锁 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8EAsyncio"><span class="nav-number">1.</span> <span class="nav-text">一、关于Asyncio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Asyncio%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">二、Asyncio的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Asyncio%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">3.</span> <span class="nav-text">三、Asyncio的缺陷</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

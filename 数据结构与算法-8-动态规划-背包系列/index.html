@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;RXfnhSpVBmVneQjDSUSAVQ一、背包系列1、01背包 给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？ 举个简单的例子，输入如下： N &#x3D; 3, W &#x3D; 4 wt &#x3D; [2, 1, 3] val &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法-8-动态规划-背包系列">
+<meta property="og:url" content="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;RXfnhSpVBmVneQjDSUSAVQ一、背包系列1、01背包 给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？ 举个简单的例子，输入如下： N &#x3D; 3, W &#x3D; 4 wt &#x3D; [2, 1, 3] val &#x3D;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-06-11T08:12:15.000Z">
+<meta property="article:modified_time" content="2020-08-27T10:36:23.827Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>数据结构与算法-8-动态规划-背包系列 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构与算法-8-动态规划-背包系列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-11 16:12:15" itemprop="dateCreated datePublished" datetime="2020-06-11T16:12:15+08:00">2020-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-27 18:36:23" itemprop="dateModified" datetime="2020-08-27T18:36:23+08:00">2020-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="原文：https-mp-weixin-qq-com-s-RXfnhSpVBmVneQjDSUSAVQ"><a href="#原文：https-mp-weixin-qq-com-s-RXfnhSpVBmVneQjDSUSAVQ" class="headerlink" title="原文：https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ"></a>原文：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ">https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ</a></h2><h2 id="一、背包系列"><a href="#一、背包系列" class="headerlink" title="一、背包系列"></a>一、背包系列</h2><p>1、01背包</p>
+<p>给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？</p>
+<p>举个简单的例子，输入如下：</p>
+<pre><code>N = 3, W = 4
+wt = [2, 1, 3]
+val = [4, 2, 3]</code></pre>
+<p>算法返回 6，选择前两件物品装进背包，总重量 3 小于W，可以获得最大价值 6。</p>
+<p>思考：</p>
+<pre><code>题目中的物品不可以分割，要么装进包里，要么不装，不能说切成两块装一半。</code></pre>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 状态1 in 状态1的所有取值：</span><br><span class="line">for 状态2 in 状态2的所有取值：</span><br><span class="line">    for ...</span><br><span class="line">        dp[状态1][状态2][...] &#x3D; 择优(选择1，选择2...)</span><br></pre></td></tr></table></figure>
+
+<p>第二步：dp数组的定义</p>
+<p>明确问题有什么「状态」，现在需要用dp数组把状态表示出来。</p>
+<p>「状态」，有两个，也就是说我们需要一个二维dp数组，一维表示可选择的物品，一维表示背包的容量。</p>
+<p>dp[i][w]的定义如下：对于前i个物品，当前背包的容量为w，这种情况下可以装的最大价值是dp[i][w]。</p>
+<p>比如说，如果 dp[3][5] = 6，其含义为：对于给定的一系列物品中，若只对前 3 个物品进行选择，当背包容量为 5 时，最多可以装下的价值为 6。</p>
+<p>bad case：<br>dp[0][..] = dp[..][0] = 0，因为没有物品或者背包没有空间的时候，能装的最大价值就是 0。</p>
+<p>答案就是dp[N][W]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int dp[N+1][W+1]</span><br><span class="line">dp[0][..] &#x3D; 0</span><br><span class="line">dp[..][0] &#x3D; 0</span><br><span class="line"></span><br><span class="line">for i in [1..N]:</span><br><span class="line">    for w in [1..W]:</span><br><span class="line">        dp[i][w] &#x3D; max(</span><br><span class="line">            把物品 i 装进背包,</span><br><span class="line">            不把物品 i 装进背包</span><br><span class="line">        )</span><br><span class="line">return dp[N][W]</span><br></pre></td></tr></table></figure>
+
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>dp[i][w]表示：对于前i个物品，当前背包的容量为w时，这种情况下可以装下的最大价值是dp[i][w]。</p>
+<p>如果你没有把这第i个物品装入背包，那么很显然，最大价值dp[i][w]应该等于dp[i-1][w]。不装的时候，那就继承之前的结果。</p>
+<p>如果你把这第i个物品装入了背包，那么dp[i][w]应该等于dp[i-1][w-wt[i-1]] + val[i-1]。</p>
+<p>ps：</p>
+<pre><code>由于i是从 1 开始的，所以对val和wt的取值是i-1。
+
+dp[i-1][w-wt[i-1]]：你如果想装第i个物品，你怎么计算这时候的最大价值？换句话说，在装第i个物品的前提下，背包能装的最大价值是多少？
+
+寻求剩余重量w-wt[i-1]限制下能装的最大价值，加上第i个物品的价值val[i-1]，这就是装第i个物品的前提下，背包可以装的最大价值。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for i in [1..N]:</span><br><span class="line">    for w in [1..W]:</span><br><span class="line">        dp[i][w] &#x3D; max(</span><br><span class="line">            dp[i-1][w],</span><br><span class="line">            dp[i-1][w - wt[i-1]] + val[i-1]</span><br><span class="line">        )</span><br><span class="line">return dp[N][W]</span><br></pre></td></tr></table></figure>
+
+<p>c++:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int knapsack(int W, int N, vector&lt;int&gt;&amp; wt, vector&lt;int&gt;&amp; val) &#123;</span><br><span class="line">    &#x2F;&#x2F; vector 全填入 0，base case 已初始化</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; dp(N + 1, vector&lt;int&gt;(W + 1, 0));</span><br><span class="line">    for (int i &#x3D; 1; i &lt;&#x3D; N; i++) &#123;</span><br><span class="line">        for (int w &#x3D; 1; w &lt;&#x3D; W; w++) &#123;</span><br><span class="line">            if (w - wt[i-1] &lt; 0) &#123;</span><br><span class="line">                &#x2F;&#x2F; 当前背包容量装不下，只能选择不装入背包</span><br><span class="line">                dp[i][w] &#x3D; dp[i - 1][w];</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; 装入或者不装入背包，择优</span><br><span class="line">                dp[i][w] &#x3D; max(dp[i - 1][w - wt[i-1]] + val[i-1], </span><br><span class="line">                               dp[i - 1][w]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return dp[N][W];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>python:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def knapsack(W,N,wt,val):</span><br><span class="line">    dp&#x3D;[[0]*(W+1) for i in range(N+1)]</span><br><span class="line">    for i in range(1,N+1):</span><br><span class="line">        for j in range(1,W+1):</span><br><span class="line">            if j-wt[i-1] &lt; 0:</span><br><span class="line">                dp[i][j]&#x3D;dp[i-1][j]</span><br><span class="line">            else:</span><br><span class="line">                dp[i][j]&#x3D;max(dp[i-1][j-wt[i-1]]+val[i-1],dp[i-1][j])</span><br><span class="line">    # print(dp)</span><br><span class="line">    return dp[N][W]</span><br></pre></td></tr></table></figure>
+
+<p>2、01背包变体</p>
+<h3 id="416-分割等和子集"><a href="#416-分割等和子集" class="headerlink" title="416. 分割等和子集"></a>416. 分割等和子集</h3><pre><code>链接：https://leetcode-cn.com/problems/partition-equal-subset-sum/
+
+给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+注意:
+
+每个数组中的元素不会超过 100
+数组的大小不会超过 200
+示例 1:
+
+输入: [1, 5, 11, 5]
+
+输出: true
+
+解释: 数组可以分割成 [1, 5, 5] 和 [11].
+
+示例 2:
+
+输入: [1, 2, 3, 5]
+
+输出: false
+
+解释: 数组不能分割成两个元素和相等的子集.</code></pre>
+<p>思考：</p>
+<p>给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？</p>
+<p>可以先对集合求和，得出sum，把问题转化为背包问题：给一个可装载重量为sum/2的背包和N个物品，每个物品的重量为nums[i]。现在让你装物品，是否存在一种装法，能够恰好将背包装满？</p>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<p>第二步：dp数组的定义</p>
+<p>dp[i][j] = x表示，对于前i个物品，当前背包的容量为j时，若x为true，则说明可以恰好将背包装满，若x为false，则说明不能恰好将背包装满。</p>
+<p>比如说，如果dp[4][9] = true，其含义为：对于容量为 9 的背包，若只是用前 4 个物品，可以有一种方法把背包恰好装满。</p>
+<p>或者说对于本题，含义是对于给定的集合中，若只对前 4 个数字进行选择，存在一个子集的和可以恰好凑出 9。</p>
+<p>根据这个定义，我们想求的最终答案就是dp[N][sum/2]，base case 就是dp[..][0] = true和dp[0][..] = false，因为背包没有空间的时候，就相当于装满了，而当没有物品可选择的时候，肯定没办法装满背包。</p>
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>根据「选择」对dp[i][j]得到以下状态转移：</p>
+<p>如果不把nums[i]算入子集，或者说你不把这第i个物品装入背包，那么是否能够恰好装满背包，取决于上一个状态dp[i-1][j]，继承之前的结果。</p>
+<p>如果把nums[i]算入子集，或者说你把这第i个物品装入了背包，那么是否能够恰好装满背包，取决于状态dp[i - 1][j-nums[i-1]]。</p>
+<p>首先，由于i是从 1 开始的，而数组索引是从 0 开始的，所以第i个物品的重量应该是nums[i-1]，这一点不要搞混。</p>
+<p>dp[i - 1][j-nums[i-1]]也很好理解：你如果装了第i个物品，就要看背包的剩余重量j - nums[i-1]限制下是否能够被恰好装满。</p>
+<p>换句话说，如果j - nums[i-1]的重量可以被恰好装满，那么只要把第i个物品装进去，也可恰好装满j的重量；否则的话，重量j肯定是装不满的。</p>
+<p>c++:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">bool canPartition(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    int sum &#x3D; 0;</span><br><span class="line">    for (int num : nums) sum +&#x3D; num;</span><br><span class="line">    &#x2F;&#x2F; 和为奇数时，不可能划分成两个和相等的集合</span><br><span class="line">    if (sum % 2 !&#x3D; 0) return false;</span><br><span class="line">    int n &#x3D; nums.size();</span><br><span class="line">    sum &#x3D; sum &#x2F; 2;</span><br><span class="line">    vector&lt;vector&lt;bool&gt;&gt; </span><br><span class="line">        dp(n + 1, vector&lt;bool&gt;(sum + 1, false));</span><br><span class="line">    &#x2F;&#x2F; base case</span><br><span class="line">    for (int i &#x3D; 0; i &lt;&#x3D; n; i++)</span><br><span class="line">        dp[i][0] &#x3D; true;</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;</span><br><span class="line">        for (int j &#x3D; 1; j &lt;&#x3D; sum; j++) &#123;</span><br><span class="line">            if (j - nums[i - 1] &lt; 0) &#123;</span><br><span class="line">               &#x2F;&#x2F; 背包容量不足，不能装入第 i 个物品</span><br><span class="line">                dp[i][j] &#x3D; dp[i - 1][j]; </span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; 装入或不装入背包</span><br><span class="line">                dp[i][j] &#x3D; dp[i - 1][j] | dp[i - 1][j-nums[i-1]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[n][sum];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>python:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def canPartition(self, nums: List[int]) -&gt; bool:</span><br><span class="line">        sum&#x3D;0</span><br><span class="line">        for i in nums:</span><br><span class="line">            sum+&#x3D;i</span><br><span class="line">        if sum %2 !&#x3D; 0:</span><br><span class="line">            return False</span><br><span class="line">        n&#x3D;len(nums)</span><br><span class="line">        sum&#x3D;sum&#x2F;&#x2F;2</span><br><span class="line">        dp&#x3D;[[False]*(sum+1) for i in range(n+1)]</span><br><span class="line">        # print(dp)</span><br><span class="line">        for i in range(n+1):</span><br><span class="line">            dp[i][0]&#x3D;True</span><br><span class="line">        for i in range(1,n+1):</span><br><span class="line">            for j in range(1,sum+1):</span><br><span class="line">                if j-nums[i-1]&lt;0:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j]</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j] or dp[i-1][j-nums[i-1]]</span><br><span class="line">                    # dp[i][j]&#x3D;dp[i-1][j] | dp[i-1][j-nums[i-1]]</span><br><span class="line">        return dp[n][sum]</span><br></pre></td></tr></table></figure>
+
+
+<p>状态压缩：</p>
+<p>注意: </p>
+<pre><code>dp[i][j]都是通过上一行dp[i-1][..]转移过来的，之前的数据都不会再使用了。
+dp[j]其实就相当于dp[i-1][j]</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bool canPartition(vector&lt;int&gt;&amp; nums) &#123;</span><br><span class="line">    int sum &#x3D; 0, n &#x3D; nums.size();</span><br><span class="line">    for (int num : nums) sum +&#x3D; num;</span><br><span class="line">    if (sum % 2 !&#x3D; 0) return false;</span><br><span class="line">    sum &#x3D; sum &#x2F; 2;</span><br><span class="line">    vector&lt;bool&gt; dp(sum + 1, false);</span><br><span class="line">    &#x2F;&#x2F; base case</span><br><span class="line">    dp[0] &#x3D; true;</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 0; i &lt; n; i++) </span><br><span class="line">        for (int j &#x3D; sum; j &gt;&#x3D; 0; j--) </span><br><span class="line">            if (j - nums[i] &gt;&#x3D; 0) </span><br><span class="line">                dp[j] &#x3D; dp[j] || dp[j - nums[i]];</span><br><span class="line"></span><br><span class="line">    return dp[sum];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、完全背包</p>
+<h3 id="518-零钱兑换-II"><a href="#518-零钱兑换-II" class="headerlink" title="518. 零钱兑换 II"></a>518. 零钱兑换 II</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change-2/
+
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。 
+
+示例 1:
+
+输入: amount = 5, coins = [1, 2, 5]
+输出: 4
+解释: 有四种方式可以凑成总金额:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+示例 2:
+
+输入: amount = 3, coins = [2]
+输出: 0
+解释: 只用面额2的硬币不能凑成总金额3。
+示例 3:
+
+输入: amount = 10, coins = [10] 
+输出: 1
+
+
+注意:
+
+你可以假设：
+
+0 &lt;= amount (总金额) &lt;= 5000
+1 &lt;= coin (硬币面额) &lt;= 5000
+硬币种类不超过 500 种
+结果符合 32 位符号整数</code></pre>
+<p>思考：</p>
+<p>有一个背包，最大容量为amount，有一系列物品coins，每个物品的重量为coins[i]，每个物品的数量无限。请问有多少种方法，能够把背包恰好装满？</p>
+<p>和01背包最大的区别就是，每个物品的数量是无限的，这也就是传说中的「完全背包问题」</p>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 状态1 in 状态1的所有取值：</span><br><span class="line">    for 状态2 in 状态2的所有取值：</span><br><span class="line">        for ...</span><br><span class="line">            dp[状态1][状态2][...] &#x3D; 计算(选择1，选择2...)</span><br></pre></td></tr></table></figure>
+
+<p>第二步：dp数组的定义</p>
+<p>dp[i][j]的定义如下：</p>
+<p>若只使用前i个物品，当背包容量为j时，有dp[i][j]种方法可以装满背包。<br>即只使用coins中的前i个硬币的面值，若想凑出金额j，有dp[i][j]种凑法。</p>
+<p>base case 为dp[0][..] = 0， dp[..][0] = 1。因为如果不使用任何硬币面值，就无法凑出任何金额；如果凑出的目标金额为 0，那么“无为而治”就是唯一的一种凑法。</p>
+<p>答案就是dp[N][amount]，其中N为coins数组的大小。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int dp[N+1][amount+1]</span><br><span class="line">dp[0][..] &#x3D; 0</span><br><span class="line">dp[..][0] &#x3D; 1</span><br><span class="line"></span><br><span class="line">for i in [1..N]:</span><br><span class="line">    for j in [1..amount]:</span><br><span class="line">        把物品 i 装进背包,</span><br><span class="line">        不把物品 i 装进背包</span><br><span class="line">return dp[N][amount]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>特殊点：在于物品的数量是无限的</p>
+<p>如果你不把这第i个物品装入背包，也就是说你不使用coins[i]这个面值的硬币，那么凑出面额j的方法数dp[i][j]应该等于dp[i-1][j]，继承之前的结果。</p>
+<p>如果你把这第i个物品装入了背包，也就是说你使用coins[i]这个面值的硬币，那么dp[i][j]应该等于dp[i][j-coins[i-1]]。</p>
+<p>首先由于i是从 1 开始的，所以coins的索引是i-1时表示第i个硬币的面值。</p>
+<p>总结：</p>
+<pre><code>状态：硬币，金额
+选择：当前硬币选或者不选
+
+dp数组含义：dp[i][j]表示前i个硬币可以达到j金额的组合数
+
+状态转移方程：dp[i][j]=dp[i−1][j]+dp[i][j−coins[i−1]]
+
+注意：就是不选和选相加，选时的硬币下标仍为i，因为硬币个数无限，这个硬币上次仍然可以选；
+     完全背包和01背包的唯一不同之处；</code></pre>
+<p>java：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int change(int amount, int[] coins) &#123;</span><br><span class="line">    int n &#x3D; coins.length;</span><br><span class="line">    int[][] dp &#x3D; amount int[n + 1][amount + 1];</span><br><span class="line">    &#x2F;&#x2F; base case</span><br><span class="line">    for (int i &#x3D; 0; i &lt;&#x3D; n; i++) </span><br><span class="line">        dp[i][0] &#x3D; 1;</span><br><span class="line"></span><br><span class="line">    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;</span><br><span class="line">        for (int j &#x3D; 1; j &lt;&#x3D; amount; j++)</span><br><span class="line">            if (j - coins[i-1] &gt;&#x3D; 0)</span><br><span class="line">                dp[i][j] &#x3D; dp[i - 1][j] </span><br><span class="line">                         + dp[i][j - coins[i-1]];</span><br><span class="line">            else </span><br><span class="line">                dp[i][j] &#x3D; dp[i - 1][j];</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[n][amount];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int change(int amount, int[] coins) &#123;</span><br><span class="line">    int n &#x3D; coins.length;</span><br><span class="line">    int[] dp &#x3D; new int[amount + 1];</span><br><span class="line">    dp[0] &#x3D; 1; &#x2F;&#x2F; base case</span><br><span class="line">    for (int i &#x3D; 0; i &lt; n; i++)</span><br><span class="line">        for (int j &#x3D; 1; j &lt;&#x3D; amount; j++)</span><br><span class="line">            if (j - coins[i] &gt;&#x3D; 0)</span><br><span class="line">                dp[j] &#x3D; dp[j] + dp[j-coins[i]];</span><br><span class="line"></span><br><span class="line">    return dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>python:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def change(self, amount: int, coins: List[int]) -&gt; int:</span><br><span class="line">        n&#x3D;len(coins)</span><br><span class="line">        dp&#x3D;[[0]*(amount+1) for i in range(n+1)]</span><br><span class="line">        for i in range(n+1):</span><br><span class="line">            dp[i][0]&#x3D;1</span><br><span class="line">        for i in range(1,n+1):</span><br><span class="line">            for j in range(1,amount+1):</span><br><span class="line">                if j-coins[i-1]&gt;&#x3D;0:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j]+dp[i][j-coins[i-1]]</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j]</span><br><span class="line">        return dp[n][amount]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-7-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E7%B3%BB%E5%88%97/" rel="prev" title="数据结构与算法-7-动态规划-打家劫舍系列">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法-7-动态规划-打家劫舍系列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/" rel="next" title="数据结构与算法-9-动态规划-博弈系列">
+      数据结构与算法-9-动态规划-博弈系列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E6%96%87%EF%BC%9Ahttps-mp-weixin-qq-com-s-RXfnhSpVBmVneQjDSUSAVQ"><span class="nav-number">1.</span> <span class="nav-text">原文：https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;RXfnhSpVBmVneQjDSUSAVQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">一、背包系列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">416. 分割等和子集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-II"><span class="nav-number">2.2.</span> <span class="nav-text">518. 零钱兑换 II</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

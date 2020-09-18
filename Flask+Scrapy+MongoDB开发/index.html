@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;flask_scrapy_aiot    前言：最近心血来潮，想把以前做的事情总结一下，这个小demo是2017年8月左右写的把，很幼稚也有很多需要改进的地方。如果看了的朋友觉得有帮助的话，github上动动小手指给我个star把，我现在很需要star，你懂得啦，多谢多谢可爱的各位捧场。 一、总体思路1.利用Scrapy抓取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask+Scrapy+MongoDB开发">
+<meta property="og:url" content="http://gongyanli.com/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="代码传送门：https:&#x2F;&#x2F;github.com&#x2F;Gladysgong&#x2F;flask_scrapy_aiot    前言：最近心血来潮，想把以前做的事情总结一下，这个小demo是2017年8月左右写的把，很幼稚也有很多需要改进的地方。如果看了的朋友觉得有帮助的话，github上动动小手指给我个star把，我现在很需要star，你懂得啦，多谢多谢可爱的各位捧场。 一、总体思路1.利用Scrapy抓取">
+<meta property="og:locale">
+<meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/flask.jpg">
+<meta property="article:published_time" content="2018-04-04T03:01:32.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="MongoDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://p2lakvkq0.bkt.clouddn.com/flask.jpg">
+
+<link rel="canonical" href="http://gongyanli.com/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Flask+Scrapy+MongoDB开发 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask+Scrapy+MongoDB开发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-04 11:01:32" itemprop="dateCreated datePublished" datetime="2018-04-04T11:01:32+08:00">2018-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a>  </p>
+</blockquote>
+<p>前言：最近心血来潮，想把以前做的事情总结一下，这个小demo是2017年8月左右写的把，很幼稚也有很多需要改进的地方。如果看了的朋友觉得有<br>帮助的话，github上动动小手指给我个star把，我现在很需要star，你懂得啦，多谢多谢可爱的各位捧场。</p>
+<h2 id="一、总体思路"><a href="#一、总体思路" class="headerlink" title="一、总体思路"></a>一、总体思路</h2><pre><code>1.利用Scrapy抓取一些农业网站的信息，存储进入MongoDB数据库；
+2.利用Flask搭建我们的后端；
+3.读取MongoDB中存储的信息，并展示在前端；</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/flask.jpg">   </p>
+<pre><code>目录结构如下，分为flask_aiot和scrapy_aiot两块，其中flask——aiot中包含前后端代码，而scrapy_aiot中包含爬虫代码。很简单把，
+现在让我们开启这趟Flask+Scrapy+MongoDB之旅把！</code></pre>
+<h2 id="二、scrapy-aiot爬虫模块"><a href="#二、scrapy-aiot爬虫模块" class="headerlink" title="二、scrapy-aiot爬虫模块"></a>二、scrapy-aiot爬虫模块</h2><p>在这个模块中，我抓取了5个网站的信息存储进入MongoDB数据库，数据只要是文章和价格，下面具体来看把。</p>
+<h3 id="1-items定义"><a href="#1-items定义" class="headerlink" title="1.items定义"></a>1.items定义</h3><pre><code># chinacwa——中国智慧农业网
+class ChinacwaItem(scrapy.Item):
+    # 文章标题、关键字、图片地址、摘要、内容地址、内容
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_imageurl = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# iot——国家农业物联网
+class IotItem(scrapy.Item):
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# ny135——中国农业物联网
+class Ny135Item(scrapy.Item):
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# productprice——农产品价格
+class ProductpriceItem(scrapy.Item):
+    product_name = scrapy.Field()
+    product_lowestprice = scrapy.Field()
+    product_averageprice = scrapy.Field()
+    product_highestprice = scrapy.Field()
+    product_specification = scrapy.Field()
+    product_unit = scrapy.Field()
+    product_releasedate = scrapy.Field()
+
+# AProductsPrice——全国农产品价格
+class AllProductsPriceItem(scrapy.Item):
+    product_name = scrapy.Field()
+    product_price = scrapy.Field()
+    product_market = scrapy.Field()
+    product_releasedate = scrapy.Field()</code></pre>
+<h3 id="2-爬虫文件"><a href="#2-爬虫文件" class="headerlink" title="2.爬虫文件"></a>2.爬虫文件</h3><p>主要就是发起请求，然后解析response中的内容。对于这几个网站我都是用的CrawlSpider，因为可以做到整站抓取，很方便。来看看iot.py<br>文件中的内容把。其余四个文件就不一一展示了，可以去github下载来看。<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">传送门</a></p>
+<pre><code># 国家农业物联网
+class IotSpider(CrawlSpider):
+    name = &quot;IotSpider&quot;
+    allowed_domains = [&#39;iot-cn.org&#39;]
+    start_urls = [&#39;http://www.iot-cn.org&#39;]
+    rules = [
+        Rule(LinkExtractor(allow=(&#39;/news/show.php&#39;)),
+             callback=&#39;parse_article&#39;,
+             follow=True)
+    ]
+
+    def parse_article(self, response):
+        item = IotItem()
+        sel = Selector(response)
+        article_title = sel.xpath(&#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/h1[@id=&quot;title&quot;]/text()&#39;).extract()[0]
+        article_keywords = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@class=&quot;keytags&quot;]/a/text()&#39;).extract()
+        article_abstract = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@class=&quot;introduce&quot;]/text()&#39;).extract()[0]
+        article_url = response.url
+        article_content = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@id=&quot;content&quot;]/div&#39;).xpath(&#39;string(.)&#39;).extract()[0]
+
+        item[&#39;article_title&#39;] = article_title
+        item[&#39;article_keywords&#39;] = article_keywords
+        item[&#39;article_abstract&#39;] = article_abstract
+        item[&#39;article_url&#39;] = article_url
+        item[&#39;article_content&#39;] = article_content
+
+        print(&quot;article_title:&quot;, article_title)
+        print(&quot;article_keywords:&quot;, article_keywords)
+        print(&quot;article_abstract:&quot;, article_abstract)
+        print(&quot;article_url:&quot;, article_url)
+        print(&quot;article_content:&quot;, article_content)
+
+        yield item</code></pre>
+<h3 id="3-数据持久化–MongoDB"><a href="#3-数据持久化–MongoDB" class="headerlink" title="3.数据持久化–MongoDB"></a>3.数据持久化–MongoDB</h3><pre><code># 农业物联网
+class AiotPipeline(object):
+    def __init__(self):
+        self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
+        self.db = self.client[settings[&#39;MONGO_DB&#39;]]
+        # self.coll = self.db[settings[&#39;MONGO_COLL2&#39;]]
+        self.chinacwa = self.db[&#39;chinacwa&#39;]
+        self.iot = self.db[&#39;iot&#39;]
+        self.ny135 = self.db[&#39;ny135&#39;]
+        self.productprice = self.db[&#39;productprice&#39;]
+        self.allproductprice = self.db[&#39;allproductprice&#39;]
+
+    def process_item(self, item, spider):
+        if isinstance(item, ChinacwaItem):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.chinacwa.insert(item)
+                    print(&quot;插入成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;&quot;)
+        elif isinstance(item, IotItem):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.iot.insert(item)
+                    print(&quot;成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;&quot;)
+        elif isinstance(item, Ny135Item):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.ny135.insert(item)
+                    print(&quot;插入&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;ny135存储失败&quot;)
+        elif isinstance(item, ProductpriceItem):
+            try:
+                if item[&quot;product_name&quot;]:
+                    item = dict(item)
+                    self.productprice.insert(item)
+                    print(&quot;农产品价格数据&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;农产品价格数据存储失败&quot;)
+        elif isinstance(item, AllProductsPriceItem):
+            try:
+                if item[&quot;product_name&quot;]:
+                    item = dict(item)
+                    self.allproductprice.insert(item)
+                    print(&quot;全国农产品价格数据&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;全国农产品价格数据存储失败&quot;)</code></pre>
+<h2 id="三、flask-aiot模块"><a href="#三、flask-aiot模块" class="headerlink" title="三、flask_aiot模块"></a>三、flask_aiot模块</h2><pre><code>功能点:登录，注册，数据展示，搜索
+熟悉Flask的朋友可以直接看懂，不熟悉Flask的话就得需要看点儿东西呢，写到这里打算抽时间写一篇如何使用Flask来创建一个web网站的
+的文章，有了这样子的基础后，就能很轻易往下看了。</code></pre>
+<h3 id="1-定义model"><a href="#1-定义model" class="headerlink" title="1.定义model"></a>1.定义model</h3><pre><code>class Chinacwa(mongo.Document):
+    article_id = mongo.IntField(required=True)
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+
+    meta = &#123;
+        &#39;collection&#39;: &#39;chinacwa&#39;,
+        &#39;ordering&#39;: [&#39;-article_id&#39;],
+        &#39;indexes&#39;: [&#39;-article_id&#39;]
+    &#125;
+
+class Iot(mongo.Document):
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+
+    meta = &#123;&#39;collection&#39;: &#39;iot&#39;&#125;
+
+class Ny135(mongo.Document):
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+    meta = &#123;&#39;collection&#39;: &#39;ny135&#39;&#125;
+
+class AllProductPrice(mongo.Document):
+    product_name = mongo.StringField(required=True)
+    product_price = mongo.StringField(required=True)
+    product_market = mongo.StringField(required=True)
+    product_releasedate = mongo.StringField(required=True)
+    meta = &#123;&#39;collection&#39;: &#39;allproductprice&#39;&#125;
+
+
+class User(UserMixin, mongo.Document):
+    # uid = mongo.IntField(requires=True)
+    email = mongo.StringField(max_length=255, requires=True)
+    username = mongo.StringField(max_length=255, requires=True)
+    # password = mongo.StringField(requires=True)
+    password_hash = mongo.StringField(requires=True)
+    # confirmed=mongo.BooleanField(default=False)
+    # password_hash = mongo.StringField(requires=True)
+    # meta = &#123;&#39;collection&#39;: &#39;user&#39;&#125;
+
+    @property
+    def password(self):
+        raise AttributeError(&#39;password is not a readable attribute&#39;)
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return &#39;&lt;User %r&gt;&#39; % self.email
+
+    def get_id(self):
+        try:
+            # return unicode(self.username)
+            return self.email
+        except AttributeError:
+            raise NotImplementedError(&#39;No `username` attribute - override `get_id`&#39;)
+
+    def __unicode__(self):
+        return self.email
+
+        # def confirm(self,token):
+        #     s=Serializer(current_app.config[&#39;SECRET_KEY&#39;])
+        #     try:
+        #         data=s.loads(token)
+        #     except:
+        #         return False
+        #     if data.get(&#39;confirm&#39;)!=self.username
+        #         return False
+        #     self.confirmd=True
+
+@login_manager.user_loader
+def load_user(email):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        user = None
+    return user</code></pre>
+<h3 id="2-待续未完"><a href="#2-待续未完" class="headerlink" title="2.待续未完"></a>2.待续未完</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
+              <a href="/tags/Scrapy/" rel="tag"># Scrapy</a>
+              <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/" rel="prev" title="利用Scrapy下载世界银行excel文件">
+      <i class="fa fa-chevron-left"></i> 利用Scrapy下载世界银行excel文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%B8%82%E5%9C%BA%E4%B8%8A%E7%88%AC%E8%99%AB%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90%E5%9B%BE/" rel="next" title="市场上爬虫产品调研分析图">
+      市场上爬虫产品调研分析图 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">一、总体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81scrapy-aiot%E7%88%AC%E8%99%AB%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">二、scrapy-aiot爬虫模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-items%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">1.items定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%88%AC%E8%99%AB%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2.爬虫文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E2%80%93MongoDB"><span class="nav-number">2.3.</span> <span class="nav-text">3.数据持久化–MongoDB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81flask-aiot%E6%A8%A1%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">三、flask_aiot模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%9A%E4%B9%89model"><span class="nav-number">3.1.</span> <span class="nav-text">1.定义model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%BE%85%E7%BB%AD%E6%9C%AA%E5%AE%8C"><span class="nav-number">3.2.</span> <span class="nav-text">2.待续未完</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

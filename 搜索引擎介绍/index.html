@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文首发于我的博客：gongyanli.com    前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。 一、搜索引擎介绍搜索引擎工作流程：从互联网抓取网页–创建抓取网页的索引库–从索引库中进行搜索搜索引擎重要组成单元：网页爬行器、索引器、查询器 1.网页爬行器 依据url之间的关联性自动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索引擎介绍">
+<meta property="og:url" content="http://gongyanli.com/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="本文首发于我的博客：gongyanli.com    前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。 一、搜索引擎介绍搜索引擎工作流程：从互联网抓取网页–创建抓取网页的索引库–从索引库中进行搜索搜索引擎重要组成单元：网页爬行器、索引器、查询器 1.网页爬行器 依据url之间的关联性自动">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-01-19T02:58:56.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="搜索引擎">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>搜索引擎介绍 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搜索引擎介绍
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-19 10:58:56" itemprop="dateCreated datePublished" datetime="2018-01-19T10:58:56+08:00">2018-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">搜索引擎</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文首发于我的博客：gongyanli.com  </p>
+</blockquote>
+<p>前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。</p>
+<h2 id="一、搜索引擎介绍"><a href="#一、搜索引擎介绍" class="headerlink" title="一、搜索引擎介绍"></a>一、搜索引擎介绍</h2><p>搜索引擎工作流程：从互联网抓取网页–创建抓取网页的索引库–从索引库中进行搜索<br>搜索引擎重要组成单元：网页爬行器、索引器、查询器</p>
+<p>1.网页爬行器</p>
+<pre><code>依据url之间的关联性自动爬取整个互联网，并对爬行过的网页进行去重、抓取、搜集</code></pre>
+<p>2.索引器</p>
+<pre><code>当网页被收集回来后，采用索引分析程序进行网页信息的分析，依据一定的相关度算法（如超链接算法）进行大量计算，创建倒排序的索引库。</code></pre>
+<p>3.查询器</p>
+<pre><code>索引库建好后，用户通过提供的搜索界面提交关键词进行搜索，依据特定的排序算法返回搜索结果。</code></pre>
+<h2 id="二、搜索引擎"><a href="#二、搜索引擎" class="headerlink" title="二、搜索引擎"></a>二、搜索引擎</h2><h3 id="（一）、开源搜索引擎开发工具包"><a href="#（一）、开源搜索引擎开发工具包" class="headerlink" title="（一）、开源搜索引擎开发工具包"></a>（一）、开源搜索引擎开发工具包</h3><p>1.Lucene–<a target="_blank" rel="noopener" href="http://lucene.apache.org/">http://lucene.apache.org/ </a></p>
+<pre><code>开源全文搜索引擎，隶属于Apache基金会
+提供了完整的查询引擎和索引引擎，没有中文分词引擎，需要自己去实现
+不是一个具有完整特征的搜索应用程序，而是专注于文本索引和搜索的工具包,不支持实时搜索
+linkedin和twitter有分别对Lucene改进的实时搜素
+语言：Java
+只支持文本文件和少量语种的索引，不具备爬虫功能
+通过接口在其上添加分词器、爬虫器、文本解析器等
+在Lucene基础上加上爬行器和文本解析器形成了LIUS和Nutch等搜索引擎
+
+CLucene:Lucene的C++移植版本，理论上比Lucene快</code></pre>
+<p>2.Sphinx–<a target="_blank" rel="noopener" href="http://sphinxsearch.com/about/sphinx/">http://sphinxsearch.com/about/sphinx/ </a></p>
+<pre><code>开源搜索引擎，主流搜索引擎之一
+语言：C++
+建立索引的事件方面比Lucene快50%，但是索引文件比Lucene要大一倍，因此Sphinx在索引的建立方面是空间换取事件的策略
+在检索速度上，和lucene相差不大，但检索精准度方面Lucene要优于Sphinx
+在加入中文分词引擎难度方面，Lucene要优于Sphinx
+Sphinx支持实时搜索，使用起来比较简单方便</code></pre>
+<p>3.LIUS</p>
+<pre><code>以Lucene为基础的文本索引框架，和Lucene一样，同样可以看作搜索引擎开发工具包。
+新功能：
+借助于开源软件，可以直接对各种不同格式/类型的文档(MS Word、MS Excel、MS PowerPoing、RTF、PDF、XML、HTML、TXT、Open Office及JavaBeans等)进行文本解析与索引，对Java Beans的支持对于进行数据库索引非常有用，在用户进行对象关系映射（如：Hibernate、JDO、TopLink、Torque等）的数据库连接编程时会变得更加精确。
+增加索引更新功能，使针对索引的维护功能进一步完善。
+支持混和索引，可以把同一目录下与某一条件相关的所有内容整合到一起，这种功能对于需要对多种不同格式的文档同时进行索引时非常有用。</code></pre>
+<p>4.Egothor</p>
+<pre><code>开源高性能全文搜索引擎，适用于基于全文搜索功能的搜索应用
+核心算法与Luccene类似
+可把Egothor看作一个用于全文搜索引擎的Java库，能够为具体的应用程序添加全文搜索功能。
+它提供了扩展的Boolean模块，使得它能被作为Boolean模块或者Vector模块使用，并且Egothor具有一些其他搜索引擎所不具有的特有功能：它采用新的动态算法以有效提高索引更新的速度，并且支持平行的查询方式，可有效提高查询效率。在Egothor的发行版中，加入了爬行器、文本解析器等许多增强易用性的应用程序，融入了Golomb、Elias-Gamma等多种高效的压缩方法，支持多种常用文档格式的文本解析，如HTML、PDF、PS、微软Office文档、XLS等，提供了GUI的索引界面及基于Applet或者Web的查询方式。另外，Egothor还能被方便地配置成独立的搜索引擎、元数据搜索器、点对点的HUB等多种且体的应用系统。</code></pre>
+<p>5.Xapian–<a target="_blank" rel="noopener" href="http://xapian.org/">http://xapian.org/ </a></p>
+<pre><code>基于GPL发布的搜索引擎开发库，全文检索程序
+语言：C++
+api和检索原理和lucene在很多方面都很相似，算是填补了lucene在C++中的一个空缺. 
+通过其提供绑定程序包可以使Perl、Python、PHP、Java、Tck、C#、Ruby等语言方便地使用它
+
+Xapian还是一个具有高适应性的工具集，使开发人员能够方便地为他们的应用程序添加高级索引及搜索功能。它支持信息检索的概率模型及丰富的布尔查询操作。Xapian的发布包通常由两部分组成：xapian-core及xapian-bindings，前者是核心主程序，后者是与其他语言进行绑定的程序包。
+
+Xapian为程序开发者提供了丰富的API及文档进行程序的编制，而且还提供了许多编程实例及一个基于Xapian的应用程序Omega，Omega由索引器及基于CGI的前端搜索组成，能够为HTML、PHP、PDF、PostScript、OpenOffice/StarOffice、RTF等多种格式的文档编制索引，通过使用Perl DBI模块甚至能为MySQL、PostgreSQL、SQLite、Sybase、MS SQL、LDAP、ODBC等关系数据库编制索引，并能以CSV或XML格式从前端导出搜索结果，程序开发者可以在此基础上进行扩展。</code></pre>
+<p>6.Compass</p>
+<pre><code>Compass是在Lucene上实现的开源搜索引擎架构，相对比于Lucene而言，提供更加简洁的搜索引擎API
+增加了索引事务处理的支持，使其能够更方便地与数据库等事务处理应用进行整合
+它更新时无需删除原文档，更加简单更加高效。
+资源与搜索引擎之间采用映射机制，此种机制使得那些已经使用了Lucene或者不支持对象及XML的应用程序迁移到Compass上进行开发变得非常容易。
+
+Compass还能与Hibernate、Spring等架构进行集成，因此如果想在Hibernate、Spring项目中加入搜索引擎功能，Compass是个极好的选择。</code></pre>
+<p>7.DataparkSearch–<a target="_blank" rel="noopener" href="http://www.dataparksearch.org/">http://www.dataparksearch.org/ </a></p>
+<pre><code>开源的搜索引擎
+语言：c
+网页排序是采用神经网络模型
+支持HTTP，HTTPS，FTP，NNTP等下载网页
+包括索引引擎，检索引擎和中文分词引擎**(这个也是唯一的一个开源的搜索引擎里有中文分词引擎)**
+能个性化定制搜索结果，拥有完整的日志记录. </code></pre>
+<p>8.Zettair–<a target="_blank" rel="noopener" href="http://www.seg.rmit.edu.au/zettair/about.html">http://www.seg.rmit.edu.au/zettair/about.html </a></p>
+<pre><code>根据Justin Zobel的研究成果为基础的全文检索实验系统
+语言：C 
+Justin Zobel在全文检索领域很有名气，是业界第一个系统提出倒排序索引差分压缩算法的人，倒排列表的压缩大大提高了检索和加载的性能，同时空间膨胀率也缩小到相当优秀的水平
+支持linux，windows，mac os等系统</code></pre>
+<p>9.Indri–<a target="_blank" rel="noopener" href="http://www.lemurproject.org/indri/">http://www.lemurproject.org/indri/ </a></p>
+<pre><code>全文检索引擎系统
+语言：C语言和C++
+特点：跨平台，API接口支持Java，PHP，C++. </code></pre>
+<p>10.Terrier–<a target="_blank" rel="noopener" href="http://terrier.org/">http://terrier.org/ </a></p>
+<pre><code>研发机构：School of Computing Science，Universityof Glasgow
+语言：java
+全文检索系统</code></pre>
+<p>11.Zebra–<a target="_blank" rel="noopener" href="https://www.indexdata.com/zebra">https://www.indexdata.com/zebra </a></p>
+<pre><code>检索程序
+语言：C
+特点是对大数据的支持，支持EMAIL，XML，MARC等格式的数据. </code></pre>
+<p>12.Solr–<a target="_blank" rel="noopener" href="http://lucene.apache.org/solr/">http://lucene.apache.org/solr/ </a></p>
+<pre><code>独立的企业级搜索应用服务器
+语言：java
+提供了类似于Web-service的API接口
+基于Lucene的全文检索服务器，也算是Lucene的一个变种，很多一线互联网公司都在使用Solr，也算是一种成熟的解决方案. </code></pre>
+<p>13.Elasticsearch–<a target="_blank" rel="noopener" href="http://www.elasticsearch.org/">http://www.elasticsearch.org/ </a></p>
+<pre><code>语言：java
+基于Lucene构造的开源，分布式的搜索引擎. 
+设计用于云计算中，能够达到实时搜索，稳定可靠.
+Elasticsearch的数据模型是JSON. </code></pre>
+<p>14.Whoosh–<a target="_blank" rel="noopener" href="https://bitbucket.org/mchaput/whoosh/wiki/Home">https://bitbucket.org/mchaput/whoosh/wiki/Home</a></p>
+<pre><code>开源搜索引擎
+语言：纯python</code></pre>
+<h3 id="（二）、开源Web搜索引擎系统"><a href="#（二）、开源Web搜索引擎系统" class="headerlink" title="（二）、开源Web搜索引擎系统"></a>（二）、开源Web搜索引擎系统</h3><p>1．Nutch–<a target="_blank" rel="noopener" href="http://nutch.apache.org/">http://nutch.apache.org/ </a></p>
+<pre><code>作者：Lucene的作者Doug Cutting
+语言：java
+基于Lucene构建的完整的Web搜索引擎系统，Lucene为Nutch提供了文本索引和搜索的API. 
+包括爬虫crawler，索引引擎，查询引擎
+可以使用Nutch搭建类似Google的完整的搜索引擎系统，进行局域网、互联网的搜索。 </code></pre>
+<p>2．YaCy</p>
+<pre><code>基于P2P(peer-to-peer)的分布式开源Web搜索引擎系统
+语言：Java
+核心是分布在数百台计算机上的被称为YaCy-peer的计算机程序，基于P2P网络构成了YaCy网络，整个网络是一个分散的架构，在其中所有的YaCy-peers都处于对等的地位，没有统一的中心服务器，每个YaCy-peer都能独立的进行互联网的爬行抓取、分析及创建索引库，通过P2P网络与其他YaCy-peers进行共享，并且每个YaCy-peer又都是一个独立的代理服务器，能够对本机用户使用过的网页进行索引，并且采取多机制来保护用户的隐私，同时用户也通过本机运行的Web服务器进行查询及返回查询结果。
+
+主要包括五个部分，除普通搜索引擎所具有的爬行器、索引器、反排序的索引库外，它还包括了一个非常丰富的搜索与管理界面以及用于数据共享的P2P网络。</code></pre>
+<h3 id="（三）、开源桌面搜索引擎系统"><a href="#（三）、开源桌面搜索引擎系统" class="headerlink" title="（三）、开源桌面搜索引擎系统"></a>（三）、开源桌面搜索引擎系统</h3><p>1．Regain</p>
+<pre><code>与Web搜索引擎类似的桌面搜索引擎系统
+不同之处在于regain不是对Internet内容的搜索，而是针对自己的文档或文件的搜索，使用regain可以轻松地在几秒内完成大量数据（许多个G）的搜索。
+采用Lucene的搜索语法，因此支持多种查询方式，支持多索引的搜索及基于文件类型的高级搜索，并且能实现URL重写及文件到HTTP的桥接，并且对中文也提供了较好的支持。
+
+提供两种版本：桌面搜索及服务器搜索。
+桌面搜索提供了对普通桌面计算机的文档与局域网环境下的网页的快速搜索。
+服务器版本主要安装在Web服务器上，为网站及局域网环境下的文件服务器进行搜索。
+
+语言：Java，跨平台安装，能安装于Windows、Linux、Mac OS及Solaris上。
+服务器版本需要JSPs环境及标签库（tag library），因此需要安装一个Tomcat容器。
+桌面版自带了一个小型的Web服务器，安装非常简单。</code></pre>
+<p>2．Zilverline</p>
+<pre><code>以Lucene为基础的桌面搜索引擎，采用了Spring框架
+主要用于个人本地磁盘及局域网内容的搜索，支持多种语言，并且具有自己的中文名字：银钱查打引擎。
+提供丰富的文档格式的索引支持，如微软Office文档、RTF、Java、CHM等，甚至能够为归档文件编制索引进行搜索，如zip、rar及其他归档文件，在索引过程中，Zilverline从zip、rar、chm等归档文件中抽取文件来编制索引。
+可以支持增量索引的方式，只对新文件编制索引，同时也支持定期自动索引，其索引库能被存放于Zilverline能够访问到的地方，甚至是DVD中。
+支持文件路径到URL的映射，这样可以使用户远程搜索本地文件。
+
+提供了个人及研究、商业应用两种许可方式，其发布形式为一个简单的war包，可以从其官方网站下载（http://www.zilverline.org/）。Zilverline的运行环境需要Java环境及Servlet容器，一般使用Tomcat即可。在确保正确安装JDK及Tomcat容器后只需将Zilverline的war包（zilverline-1.5.0.war）拷贝到Tomcat的webapps目录后重启Tomcat容器即可开始使用Zilverline搜索引擎了。</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" rel="tag"># 搜索引擎</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" rel="prev" title="PyTorch-4-简单介绍、回归问题优化和手写数字识别">
+      <i class="fa fa-chevron-left"></i> PyTorch-4-简单介绍、回归问题优化和手写数字识别
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Numpy%E5%AD%A6%E4%B9%A0/" rel="next" title="Numpy学习">
+      Numpy学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">一、搜索引擎介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="nav-number">2.</span> <span class="nav-text">二、搜索引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E3%80%81%E5%BC%80%E6%BA%90%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="nav-number">2.1.</span> <span class="nav-text">（一）、开源搜索引擎开发工具包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E3%80%81%E5%BC%80%E6%BA%90Web%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">（二）、开源Web搜索引擎系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E3%80%81%E5%BC%80%E6%BA%90%E6%A1%8C%E9%9D%A2%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">（三）、开源桌面搜索引擎系统</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

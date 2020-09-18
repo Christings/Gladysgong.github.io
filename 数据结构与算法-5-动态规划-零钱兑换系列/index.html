@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="322.零钱兑换链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;coin-change&#x2F;  给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。  示例 1:  输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11 输出: 3  解释: 11 &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法-5-动态规划-零钱兑换系列">
+<meta property="og:url" content="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%E7%B3%BB%E5%88%97/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="322.零钱兑换链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;coin-change&#x2F;  给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。  示例 1:  输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11 输出: 3  解释: 11 &#x3D;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-08-26T03:51:34.000Z">
+<meta property="article:modified_time" content="2020-08-26T04:50:55.373Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%E7%B3%BB%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>数据结构与算法-5-动态规划-零钱兑换系列 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构与算法-5-动态规划-零钱兑换系列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-26 11:51:34 / Modified: 12:50:55" itemprop="dateCreated datePublished" datetime="2020-08-26T11:51:34+08:00">2020-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="322-零钱兑换"><a href="#322-零钱兑换" class="headerlink" title="322.零钱兑换"></a>322.零钱兑换</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change/
+
+给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
+
+示例 1:
+
+输入: coins = [1, 2, 5], amount = 11
+输出: 3 
+解释: 11 = 5 + 5 + 1
+示例 2:
+
+输入: coins = [2], amount = 3
+输出: -1
+说明:
+你可以认为每种硬币的数量是无限的。</code></pre>
+<p>题解一|递归|超时：</p>
+<pre><code>递归遍历添加所有硬币的情况，每次添加某硬币，则递归遍历总金额-某硬币 的子问题。
+
+    若 当前总金额&#39; 为 0 则表明当前硬币情况有解，返回 0。
+
+    若 当前总金额&#39; 不为 0，则继续添加硬币
+
+        若 当前总金额&#39;-硬币&lt;0 表明不能添加该硬币（无解），尝试添加其他硬币。
+
+        若 当前总金额&#39;-硬币&gt;0 则递归遍历 当前总金额-硬币 的子问题，若子问题无解，尝试添加其他硬币；若子问题有解，则每次添加硬币时记录，硬币数 +1，最终比较取最小值。
+
+    返回情况，若子问题有解，则返回子问题的 最少硬币数，否则返回 -1。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def coinChange(self, coins: List[int], amount: int) -&gt; int:</span><br><span class="line">        self.res&#x3D;float(&#39;inf&#39;)</span><br><span class="line">        def helper(amount,count):</span><br><span class="line">            if amount &lt; 0:</span><br><span class="line">                return</span><br><span class="line">            if amount &#x3D;&#x3D; 0:</span><br><span class="line">                self.res&#x3D;min(self.res,count)</span><br><span class="line">            for i in range(len(coins)):</span><br><span class="line">                helper(amount-coins[i],count+1)</span><br><span class="line"></span><br><span class="line">        if len(coins)&#x3D;&#x3D;0:</span><br><span class="line">            return -1</span><br><span class="line">        helper(amount,0)</span><br><span class="line">        if self.res &#x3D;&#x3D; float(&#39;inf&#39;):</span><br><span class="line">            return -1</span><br><span class="line">        return self.res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def coinChange(self, coins: List[int], amount: int) -&gt; int:</span><br><span class="line">        if amount &lt; 0:</span><br><span class="line">            return 0</span><br><span class="line">        res&#x3D;float(&#39;inf&#39;)</span><br><span class="line">        for coin in coins:</span><br><span class="line">            if amount-coin &lt; 0:</span><br><span class="line">                continue</span><br><span class="line">            sub&#x3D;self.coinChange(coins,amount-coin)</span><br><span class="line">            if sub &#x3D;&#x3D; -1:</span><br><span class="line">                continue</span><br><span class="line">            res&#x3D;min(res,sub+1)</span><br><span class="line">        return res if res !&#x3D; float(&#39;inf&#39;) else -1</span><br></pre></td></tr></table></figure>
+
+<p>题解二|记忆化搜索：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def coinChange(self, coins: List[int], amount: int) -&gt; int:</span><br><span class="line">        def helper(coins,amount,memo):</span><br><span class="line">            if amount &#x3D;&#x3D; 0:</span><br><span class="line">                return 0</span><br><span class="line">            if amount in memo:</span><br><span class="line">                return memo[amount]</span><br><span class="line"></span><br><span class="line">            res&#x3D;float(&#39;inf&#39;)</span><br><span class="line"></span><br><span class="line">            for coin in coins:</span><br><span class="line">                if amount-coin &lt; 0:</span><br><span class="line">                    continue</span><br><span class="line">                sub&#x3D;helper(coins,amount-coin,memo)</span><br><span class="line">                if sub &#x3D;&#x3D; -1:</span><br><span class="line">                    continue</span><br><span class="line">                res&#x3D;min(res,sub+1)</span><br><span class="line">            if res !&#x3D; float(&#39;inf&#39;):</span><br><span class="line">                memo[amount]&#x3D;res</span><br><span class="line">            else:</span><br><span class="line">                memo[amount]&#x3D;-1</span><br><span class="line">            return memo[amount]</span><br><span class="line">        memo&#x3D;&#123;&#125;</span><br><span class="line">        return helper(coins,amount,memo)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def coinChange(self, coins: List[int], amount: int) -&gt; int:</span><br><span class="line">        def helper(amount):</span><br><span class="line">            if amount in memo:</span><br><span class="line">                return memo[amount]</span><br><span class="line">            if amount &#x3D;&#x3D; 0:</span><br><span class="line">                return 0</span><br><span class="line">            if amount &lt; 0:</span><br><span class="line">                return -1</span><br><span class="line"></span><br><span class="line">            res&#x3D;float(&#39;inf&#39;)</span><br><span class="line">            for coin in coins:</span><br><span class="line">                sub&#x3D;helper(amount-coin)</span><br><span class="line">                if sub &#x3D;&#x3D; -1:</span><br><span class="line">                    continue</span><br><span class="line">                res&#x3D;min(res,sub+1)</span><br><span class="line">            if res !&#x3D; float(&#39;inf&#39;):</span><br><span class="line">                memo[amount]&#x3D;res</span><br><span class="line">            else:</span><br><span class="line">                memo[amount]&#x3D;-1</span><br><span class="line">            return memo[amount]</span><br><span class="line">        memo&#x3D;&#123;&#125;</span><br><span class="line">        return helper(coins,amount,memo)</span><br></pre></td></tr></table></figure>
+
+<p>题解三|动态规划：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect</a></p>
+<p>1、定义数组含义</p>
+<pre><code>dp[i] 保存金额 i 的最小组成数。</code></pre>
+<p>2、找出数组递推关系式</p>
+<pre><code>遍历 dp 数组，i 遍历区间 [1,amount+1)：
+
+    遍历每种硬币的面值 coin：
+        必须满足条件 i&gt;=coin，表示金额必须比硬币面值大。
+        dp[i]=min(dp[i],dp(i-coin)+1)，保证保存的是最小的组成数。
+
+若 dp[amount]不为MAX，则返回，否则返回 −1。</code></pre>
+<p>3、找到初始值</p>
+<pre><code>初试化 dp=[MAX,⋯,MAX]，长度为 amount+1
+dp[0]=0，表示 0 元的组成种类为 0</code></pre>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def coinChange(self, coins: List[int], amount: int) -&gt; int:</span><br><span class="line">        dp&#x3D;[float(&#39;inf&#39;)]*(amount+1)</span><br><span class="line">        dp[0]&#x3D;0</span><br><span class="line">        for i in range(1,amount+1):</span><br><span class="line">            for coin in coins:</span><br><span class="line">                if i &gt;&#x3D; coin:</span><br><span class="line">                    dp[i]&#x3D;min(dp[i],dp[i-coin]+1)</span><br><span class="line">        return dp[-1] if dp[-1] !&#x3D; float(&#39;inf&#39;) else -1</span><br></pre></td></tr></table></figure>
+
+<h3 id="518-零钱兑换-II"><a href="#518-零钱兑换-II" class="headerlink" title="518. 零钱兑换 II"></a>518. 零钱兑换 II</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change-2/
+
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。 
+
+示例 1:
+
+输入: amount = 5, coins = [1, 2, 5]
+输出: 4
+解释: 有四种方式可以凑成总金额:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+
+示例 2:
+
+输入: amount = 3, coins = [2]
+输出: 0
+解释: 只用面额2的硬币不能凑成总金额3。
+
+示例 3:
+
+输入: amount = 10, coins = [10] 
+输出: 1
+
+注意:
+
+你可以假设：
+
+0 &lt;= amount (总金额) &lt;= 5000
+1 &lt;= coin (硬币面额) &lt;= 5000
+硬币种类不超过 500 种
+结果符合 32 位符号整数</code></pre>
+<p>题解一|回溯|超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def change(self, amount: int, coins: List[int]) -&gt; int:</span><br><span class="line">        n&#x3D;len(coins)</span><br><span class="line">        self.res&#x3D;0</span><br><span class="line">        def helper(first,amount):</span><br><span class="line">            if amount &#x3D;&#x3D; 0:</span><br><span class="line">                self.res+&#x3D;1</span><br><span class="line">                return</span><br><span class="line">            </span><br><span class="line">            for i in range(first,len(coins)):</span><br><span class="line">                if coins[i] &lt;&#x3D; amount:</span><br><span class="line">                    helper(i,amount-coins[i])</span><br><span class="line">        coins.sort()</span><br><span class="line">        helper(0,amount)</span><br><span class="line">        return self.res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def change(self, amount: int, coins: List[int]) -&gt; int:</span><br><span class="line">        n&#x3D;len(coins)</span><br><span class="line">        self.res&#x3D;0</span><br><span class="line">        def helper(first,amount):</span><br><span class="line">            if amount &#x3D;&#x3D; 0:</span><br><span class="line">                self.res+&#x3D;1</span><br><span class="line">                return </span><br><span class="line">            for i in range(first,len(coins)):</span><br><span class="line">                if amount &gt;&#x3D; coins[i]:</span><br><span class="line">                    amount-&#x3D;coins[i]</span><br><span class="line">                    helper(i,amount)</span><br><span class="line">                    amount+&#x3D;coins[i]</span><br><span class="line">        coins.sort()</span><br><span class="line">        helper(0,amount)</span><br><span class="line">        return self.res</span><br></pre></td></tr></table></figure>
+
+<p>题解二|动态规划：</p>
+<pre><code>参考背包系列</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def change(self, amount: int, coins: List[int]) -&gt; int:</span><br><span class="line">        n&#x3D;len(coins)</span><br><span class="line">        dp&#x3D;[[0]*(amount+1) for i in range(n+1)]</span><br><span class="line">        for i in range(n+1):</span><br><span class="line">            dp[i][0]&#x3D;1</span><br><span class="line">        for i in range(1,n+1):</span><br><span class="line">            for j in range(1,amount+1):</span><br><span class="line">                if j-coins[i-1]&gt;&#x3D;0:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j]+dp[i][j-coins[i-1]]</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j]&#x3D;dp[i-1][j]</span><br><span class="line">        return dp[n][amount]</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-13-%E7%BA%A2%E9%BB%91%E6%A0%91/" rel="prev" title="数据结构与算法-13-红黑树">
+      <i class="fa fa-chevron-left"></i> 数据结构与算法-13-红黑树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-14-%E6%8E%92%E5%BA%8F/" rel="next" title="数据结构与算法-14-排序">
+      数据结构与算法-14-排序 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">322.零钱兑换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#518-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2-II"><span class="nav-number">2.</span> <span class="nav-text">518. 零钱兑换 II</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

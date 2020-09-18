@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、多进程Python中实现多进程有2种方式：     os模块中的fork()方法     使用multiprocessing模块  区别：     fork()仅仅适用于Unix&#x2F;Linux操作系统，不支持Windows     multiprocessing支持跨平台 1.使用os模块的fork实现多进程fork方法来源于Unix&#x2F;Linux中提供的fork系统调用，此方法很特殊。 普通方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中的进程与线程">
+<meta property="og:url" content="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="一、多进程Python中实现多进程有2种方式：     os模块中的fork()方法     使用multiprocessing模块  区别：     fork()仅仅适用于Unix&#x2F;Linux操作系统，不支持Windows     multiprocessing支持跨平台 1.使用os模块的fork实现多进程fork方法来源于Unix&#x2F;Linux中提供的fork系统调用，此方法很特殊。 普通方法">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-03-27T06:35:23.000Z">
+<meta property="article:modified_time" content="2018-05-27T13:27:25.000Z">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Python中的进程与线程 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python中的进程与线程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-27 14:35:23" itemprop="dateCreated datePublished" datetime="2018-03-27T14:35:23+08:00">2018-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、多进程"><a href="#一、多进程" class="headerlink" title="一、多进程"></a>一、多进程</h2><pre><code>Python中实现多进程有2种方式：
+    os模块中的fork()方法
+    使用multiprocessing模块
+
+区别：
+    fork()仅仅适用于Unix/Linux操作系统，不支持Windows
+    multiprocessing支持跨平台</code></pre>
+<h3 id="1-使用os模块的fork实现多进程"><a href="#1-使用os模块的fork实现多进程" class="headerlink" title="1.使用os模块的fork实现多进程"></a>1.使用os模块的fork实现多进程</h3><pre><code>fork方法来源于Unix/Linux中提供的fork系统调用，此方法很特殊。
+普通方法调用一次，返回一次，fork方法调用一次，返回两次。
+原因：操作系统将当前进程（父进程）复制出一份进程（子进程），两个进程几乎完全相同，于是fork方法分别在父进程和子进程中分别返回。
+子进程中永远返回0，父进程中返回子进程的ID。
+
+getpid() -- 获取当前进程的ID
+getppid() -- 获取父进程的ID</code></pre>
+<hr>
+<pre><code>`import os
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;current Process (%s) start ...&#39;,(os.getpid()))
+    pid=os.fork()
+    if pid&lt;0:
+        print(&#39;error in fork&#39;)
+    elif pid==0:
+        print(&#39;I am child process(%s) and my parent process is (%s)&#39;,(os.getpid(),os.getppid()))
+    else:
+        print(&#39;I (%s) created a child process (%s).&#39;,(os.getpid(),pid))`</code></pre>
+<hr>
+<pre><code>输出：
+current Process (%s) start ... 17441
+I (%s) created a child process (%s). (17441, 20736)
+I am child process(%s) and my parent process is (%s) (20736, 17441)</code></pre>
+<h3 id="2-使用multiprocessing模块创建多进程"><a href="#2-使用multiprocessing模块创建多进程" class="headerlink" title="2.使用multiprocessing模块创建多进程"></a>2.使用multiprocessing模块创建多进程</h3><pre><code>multiprocessing模块提供Process类来描述一个进程对象，当创建子进程时，
+只需要传入一个执行函数和函数参数，即可完成Process实例的创建，再用start
+()方法启动进程，用join()方法实现进程间的同步。</code></pre>
+<hr>
+<pre><code>`import os
+from multiprocessing import Process
+# 子进程要执行的代码
+def run_proc(name):
+    print(&#39;Child process %s (%s) Running...&#39;%(name,os.getpid()))
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;Parent Process %s.&#39;%(os.getpid()))
+    for i in range(5):
+        p=Process(target=run_proc,args=(str(i),))
+        print(&#39;Process will start&#39;)
+        p.start()
+    p.join()
+    print(&#39;Process end.&#39;)`</code></pre>
+<hr>
+<pre><code>输出：
+Parent Process 17441.
+Process will start
+Process will start
+Process will start
+Child process 0 (38587) Running...
+Process will start
+Child process 1 (38590) Running...
+Process will start
+Child process 2 (38591) Running...
+Child process 3 (38596) Running...
+Child process 4 (38599) Running...
+Process end.</code></pre>
+<h3 id="3-使用multiprocessing模块的Pool类来代表进程池对象"><a href="#3-使用multiprocessing模块的Pool类来代表进程池对象" class="headerlink" title="3.使用multiprocessing模块的Pool类来代表进程池对象"></a>3.使用multiprocessing模块的Pool类来代表进程池对象</h3><pre><code>如果要启动大量的子进程，使用进程池批量创建子进程的方式更加常见。
+Pool可以提供指定数量的进程供用户调用，默认大小是CPU核数。
+当新请求提交到Pool中时，如果池未满，就会创建新进程来执行该请求；
+但如果池中进程数已达到最大值，请求就会等待，直到池中有进程结束，才会创建新进程来处理。
+注意：Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前须
+调用close()，调用close()后就不能添加新的Process</code></pre>
+<hr>
+<pre><code>`import os,time,random
+from multiprocessing import Pool
+
+def run_task(name):
+    print(&#39;Task %s (pid=%s) is Running...&#39;%(name,os.getpid()))
+    time.sleep(random.random()*3)
+    print(&#39;Task %s end.&#39;%name)
+
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;Current Process %s.&#39;%(os.getpid()))
+    p=Pool(processes=3)
+    for i in range(5):
+        p.apply_async(run_task,args=(i,))
+    print(&#39;Waiting for all subprocesses done...&#39;)
+    p.close()
+    p.join()
+    print(&#39;All subprocess done.&#39;)`    </code></pre>
+<hr>
+<pre><code>输出:
+Current Process 17441.
+Task 2 (pid=40820) is Running...
+Task 1 (pid=40819) is Running...
+Task 0 (pid=40818) is Running...
+Waiting for all subprocesses done...
+Task 2 end.
+Task 3 (pid=40820) is Running...
+Task 0 end.
+Task 4 (pid=40818) is Running...
+Task 1 end.
+Task 4 end.
+Task 3 end.
+All subprocess done.</code></pre>
+<h3 id="4-进程间通信"><a href="#4-进程间通信" class="headerlink" title="4.进程间通信"></a>4.进程间通信</h3><pre><code>Python进程通信方式：Queue、Pipe、Value+Array
+区别：Pipe常用于两个进程间通信，Queue用于多个进程间通信
+Queue：put和get</code></pre>
+<h4 id="4-1-Queue"><a href="#4-1-Queue" class="headerlink" title="4.1 Queue"></a>4.1 Queue</h4><hr>
+<pre><code>`# ----Queue----
+import os,time,random
+from multiprocessing import Process,Queue
+
+# 写数据进程执行的代码：
+def proc_write(q,urls):
+    print(&#39;Process (%s) is writing...&#39;%os.getpid())
+    for url in urls:
+        q.put(url)
+        print(&#39;Put %s to queue...&#39;%url)
+        time.sleep(random.random())
+
+# 读数据进程执行的代码：
+def proc_read(q):
+    print(&#39;Process (%s) is reading...&#39;%os.getpid())
+    while True:
+        url=q.get(True)
+        print(&#39;Get %s from queue.&#39;%url)
+
+if __name__ ==&#39;__main__&#39;:
+    # 父进程创建Queue，并传给各个子进程：
+    q=Queue()
+    proc_writer1=Process(target=proc_write,args=(q,[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;]))
+    proc_writer2=Process(target=proc_write,args=(q,[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;]))
+    proc_reader=Process(target=proc_read,args=(q,))
+    # 启动子进程proc_writer,写入：
+    proc_writer1.start()
+    proc_writer2.start()
+    # 启动子进程proc_reader,读取：
+    proc_reader.start()
+    # 等待proc_writer结束：
+    proc_writer1.join()
+    proc_writer2.join()
+    # proc_reader进程里是死循环，无法等待其结束，只能强行终止：
+    proc_reader.terminate()`</code></pre>
+<hr>
+<pre><code>输出：
+Process (45109) is writing...
+Process (45110) is writing...
+Put url_1 to queue...
+Put url_4 to queue...
+Process (45113) is reading...
+Get url_1 from queue.
+Get url_4 from queue.
+Put url_5 to queue...
+Get url_5 from queue.
+Put url_2 to queue...
+Get url_2 from queue.
+Put url_6 to queue...
+Get url_6 from queue.
+Put url_3 to queue...
+Get url_3 from queue.</code></pre>
+<h4 id="4-2-Pipe"><a href="#4-2-Pipe" class="headerlink" title="4.2 Pipe"></a>4.2 Pipe</h4><pre><code>`# ----Pipe----
+import os,time,random
+import multiprocessing
+
+def proc_send(pipe,urls):
+    for url in urls:
+        print(&#39;Process (%s) send: %s&#39;%(os.getpid(),url))
+        pipe.send(url)
+        time.sleep(random.random())
+
+def proc_recv(pipe):
+    while True:
+        print(&#39;Process (%s) recv: %s&#39;%(os.getpid(),pipe.recv()))
+        time.sleep(random.random())
+
+if __name__ ==&#39;__main__&#39;:
+    pipe=multiprocessing.Pipe()
+    p1=multiprocessing.Process(target=proc_send,args=(pipe[0],[&#39;url_&#39;+str(i) for i in range(10) ]))
+    p2=multiprocessing.Process(target=proc_recv,args=(pipe[1],))
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.terminate()`</code></pre>
+<hr>
+<pre><code>输出：
+Process (15338) send: url_0
+Process (15339) recv: url_0
+Process (15338) send: url_1
+Process (15339) recv: url_1
+Process (15338) send: url_2
+Process (15339) recv: url_2
+Process (15338) send: url_3
+Process (15339) recv: url_3
+Process (15338) send: url_4
+Process (15338) send: url_5
+Process (15339) recv: url_4
+Process (15339) recv: url_5
+Process (15338) send: url_6
+Process (15339) recv: url_6
+Process (15338) send: url_7
+Process (15339) recv: url_7
+Process (15338) send: url_8
+Process (15339) recv: url_8
+Process (15338) send: url_9</code></pre>
+<h2 id="二、多线程"><a href="#二、多线程" class="headerlink" title="二、多线程"></a>二、多线程</h2><pre><code>Python中提供2个模块实现多线程：thread和threading
+thread属于低级模块，threading是高级模块，对thread进行了封装
+大多数使用threading模块</code></pre>
+<h3 id="1-用threading模块创建多线程"><a href="#1-用threading模块创建多线程" class="headerlink" title="1.用threading模块创建多线程"></a>1.用threading模块创建多线程</h3><pre><code>两种方式：
+    函数传入并创建Thread实例，调用start方法开始执行
+    直接从threading.Thread继承并创建线程类，重写__init__和run方法</code></pre>
+<h4 id="1-1-函数传入"><a href="#1-1-函数传入" class="headerlink" title="1.1 函数传入"></a>1.1 函数传入</h4><pre><code>`import random 
+import time,threading
+
+# 新线程执行的代码：
+def thread_run(urls):
+    print(&#39;Current %s is running...&#39;%threading.current_thread().name)
+    for url in urls:
+        print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
+        time.sleep(random.random())
+    print(&#39;%s ended.&#39;%threading.current_thread().name)
+
+print(&#39;%s is running...&#39;%threading.current_thread().name)
+t1=threading.Thread(target=thread_run,name=&#39;Thread_1&#39;,args=([&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;],))
+t2=threading.Thread(target=thread_run,name=&#39;Thread_2&#39;,args=([&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;],))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
+<hr>
+<pre><code>输出：
+MainThread is running...
+Current Thread_1 is running...
+Thread_1----&gt;&gt;&gt; url_1
+Current Thread_2 is running...
+Thread_2----&gt;&gt;&gt; url_4
+Thread_2----&gt;&gt;&gt; url_5
+Thread_1----&gt;&gt;&gt; url_2
+Thread_1----&gt;&gt;&gt; url_3
+Thread_2----&gt;&gt;&gt; url_6
+Thread_2 ended.
+Thread_1 ended.
+MainThread ended.</code></pre>
+<h4 id="1-2-直接继承"><a href="#1-2-直接继承" class="headerlink" title="1.2 直接继承"></a>1.2 直接继承</h4><pre><code>`import random 
+import time,threading
+
+class myThread(threading.Thread):
+    def __init__(self,name,urls):
+        threading.Thread.__init__(self,name=name)
+        self.urls=urls
+
+    def run(self):
+        print(&#39;Current %s is running...&#39;%threading.current_thread().name)
+        for url in self.urls:
+            print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
+            time.sleep(random.random())
+        print(&#39;%s ended.&#39;%threading.current_thread().name)   
+
+print(&#39;%s is running...&#39;%threading.current_thread().name)
+t1=myThread(name=&#39;Thread_1&#39;,urls=[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;])
+t2=myThread(name=&#39;Thread_2&#39;,urls=[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;])
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
+<hr>
+<pre><code>输出：
+MainThread is running...
+Current Thread_1 is running...
+Current Thread_2 is running...
+Thread_2----&gt;&gt;&gt; url_4
+Thread_1----&gt;&gt;&gt; url_1
+Thread_1----&gt;&gt;&gt; url_2
+Thread_2----&gt;&gt;&gt; url_5
+Thread_2----&gt;&gt;&gt; url_6
+Thread_1----&gt;&gt;&gt; url_3
+Thread_2 ended.
+Thread_1 ended.
+MainThread ended.</code></pre>
+<h3 id="2-线程同步"><a href="#2-线程同步" class="headerlink" title="2.线程同步"></a>2.线程同步</h3><pre><code>Thread对象的Lock和RLock可实现线程同步，2个对象均有acquire和release方法
+`import random 
+import time,threading
+
+mylock=threading.RLock()
+num=0
+
+class myThread(threading.Thread):
+    def __init__(self,name):
+        threading.Thread.__init__(self,name=name)
+
+    def run(self):
+        global num
+        while True:
+            mylock.acquire()
+            print(&#39;%s locked,Number:%d&#39;%(threading.current_thread().name,num))
+            if num&gt;=4:
+                mylock.release()
+                print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
+                break
+            num+=1
+            print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
+            mylock.release()
+if __name__==&#39;__main__&#39;:
+    t1=myThread(name=&#39;Thread_1&#39;)
+    t2=myThread(name=&#39;Thread_2&#39;)
+    t1.start()
+    t2.start()`</code></pre>
+<hr>
+<pre><code>输出：
+Thread_1 locked,Number:0
+Thread_1 released,Number:1
+Thread_1 locked,Number:1
+Thread_1 released,Number:2
+Thread_1 locked,Number:2
+Thread_1 released,Number:3
+Thread_1 locked,Number:3
+Thread_1 released,Number:4
+Thread_1 locked,Number:4
+Thread_1 released,Number:4
+Thread_2 locked,Number:4
+Thread_2 released,Number:4</code></pre>
+<h2 id="三、协程"><a href="#三、协程" class="headerlink" title="三、协程"></a>三、协程</h2><pre><code>Python中通过yield提供对协程的基本支持，但不完全。
+所以我们用第三方geven库来使用协程。
+spawn用来形成协程，joinall用来添加协程任务。</code></pre>
+<hr>
+<pre><code>`from gevent import monkey
+monkey.patch_all()
+import gevent
+import urllib.request
+
+def run_task(url):
+    print(&#39;Visit --&gt; %s&#39;%url)
+    try:
+        response=urllib.request.urlopen(url)
+        data=response.read()
+        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
+    except Exception as e:
+        print(e)
+
+if __name__==&#39;__main__&#39;:
+    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
+    greenlets=[gevent.spawn(run_task,url) for url in urls]
+    gevent.joinall(greenlets)`</code></pre>
+<hr>
+<pre><code>输出：
+Visit --&gt; https://github.com/
+Visit --&gt; https://www.python.org/
+Visit --&gt; https://www.baidu.com/
+227 bytes received from https://www.baidu.com/.
+52801 bytes received from https://github.com/.
+48922 bytes received from https://www.python.org/.</code></pre>
+<hr>
+<pre><code>`# 提供对pool的支持，当拥有动态数量的greenlets需要进行并发管理
+from gevent import monkey
+monkey.patch_all()
+import gevent
+import urllib.request
+from gevent.pool import Pool
+
+def run_task(url):
+    print(&#39;Visit --&gt; %s&#39;%url)
+    try:
+        response=urllib.request.urlopen(url)
+        data=response.read()
+        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
+    except Exception as e:
+        print(e)
+    print(&#39;url:%s ---&gt;finish&#39;%url)
+
+if __name__==&#39;__main__&#39;:
+    pool=Pool()
+    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
+#     greenlets=[gevent.spawn(run_task,url) for url in urls]
+#     gevent.joinall(greenlets)
+    results=pool.map(run_task,urls)
+    print(results)`</code></pre>
+<hr>
+<pre><code>输出：
+Visit --&gt; https://github.com/
+Visit --&gt; https://www.python.org/
+Visit --&gt; https://www.baidu.com/
+227 bytes received from https://www.baidu.com/.
+url:https://www.baidu.com/ ---&gt;finish
+48922 bytes received from https://www.python.org/.
+url:https://www.python.org/ ---&gt;finish
+52801 bytes received from https://github.com/.
+url:https://github.com/ ---&gt;finish
+[None, None, None]</code></pre>
+<h2 id="四、分布式进程"><a href="#四、分布式进程" class="headerlink" title="四、分布式进程"></a>四、分布式进程</h2><pre><code>写一个服务进程作为调度者，将任务分布到其他多个子进程中，依靠网络通信进行管理。
+步骤：
+    未完--待续</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" rel="prev" title="Python操作文件和目录">
+      <i class="fa fa-chevron-left"></i> Python操作文件和目录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/" rel="next" title="Python3爬虫--PhantomJS安装">
+      Python3爬虫--PhantomJS安装 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">一、多进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8os%E6%A8%A1%E5%9D%97%E7%9A%84fork%E5%AE%9E%E7%8E%B0%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.使用os模块的fork实现多进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8multiprocessing%E6%A8%A1%E5%9D%97%E5%88%9B%E5%BB%BA%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2.使用multiprocessing模块创建多进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8multiprocessing%E6%A8%A1%E5%9D%97%E7%9A%84Pool%E7%B1%BB%E6%9D%A5%E4%BB%A3%E8%A1%A8%E8%BF%9B%E7%A8%8B%E6%B1%A0%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">3.使用multiprocessing模块的Pool类来代表进程池对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">1.4.</span> <span class="nav-text">4.进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-Queue"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 Queue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Pipe"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 Pipe</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二、多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%A8threading%E6%A8%A1%E5%9D%97%E5%88%9B%E5%BB%BA%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">1.用threading模块创建多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E5%87%BD%E6%95%B0%E4%BC%A0%E5%85%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 函数传入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E7%9B%B4%E6%8E%A5%E7%BB%A7%E6%89%BF"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 直接继承</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">2.2.</span> <span class="nav-text">2.线程同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8D%8F%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%9B%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">四、分布式进程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

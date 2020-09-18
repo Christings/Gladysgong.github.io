@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、os.fork()–在windows系统上无效每个 Python 程序在执行时，系统都会生成一个新的进程，该进程又称父进程（或主进程）。 Python os 模块提供 fork() 函数，该函数可以在当前程序中再创建出一个进程（又称子进程）。 程序调用 os.fork() 函数，程序中会拥有 2 个进程，其中父进程负责执行整个程序代码，而通过 fork() 函数创建出的子进程，会从创建位置开始">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python并发-12.进程创建">
+<meta property="og:url" content="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-12-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="一、os.fork()–在windows系统上无效每个 Python 程序在执行时，系统都会生成一个新的进程，该进程又称父进程（或主进程）。 Python os 模块提供 fork() 函数，该函数可以在当前程序中再创建出一个进程（又称子进程）。 程序调用 os.fork() 函数，程序中会拥有 2 个进程，其中父进程负责执行整个程序代码，而通过 fork() 函数创建出的子进程，会从创建位置开始">
+<meta property="og:locale">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png">
+<meta property="article:published_time" content="2020-02-26T12:51:12.000Z">
+<meta property="article:modified_time" content="2020-09-18T06:02:45.329Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="Python并发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png">
+
+<link rel="canonical" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-12-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>python并发-12.进程创建 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-12-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python并发-12.进程创建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 20:51:12" itemprop="dateCreated datePublished" datetime="2020-02-26T20:51:12+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:02:45" itemprop="dateModified" datetime="2020-09-18T14:02:45+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、os-fork-–在windows系统上无效"><a href="#一、os-fork-–在windows系统上无效" class="headerlink" title="一、os.fork()–在windows系统上无效"></a>一、os.fork()–在windows系统上无效</h2><p>每个 Python 程序在执行时，系统都会生成一个新的进程，该进程又称父进程（或主进程）。</p>
+<p>Python os 模块提供 fork() 函数，该函数可以在当前程序中再创建出一个进程（又称子进程）。</p>
+<p>程序调用 os.fork() 函数，程序中会拥有 2 个进程，其中父进程负责执行整个程序代码，而通过 fork() 函数创建出的子进程，会从创建位置开始，执行后续所有的程序（包含创建子进程的代码）。</p>
+<pre><code>注意：os.fork() 函数在 Windows 系统上无效，只在 UNIX 及类 UNIX 系统上（包括UNIX、Linux 和 Mac OS X）效。</code></pre>
+<p>fork()语法：pid = os.fork()</p>
+<p>pid 作为函数的返回值，主进程和子进程都会执行该语句，但主进程执行 fork() 函数得到的 pid 值为非 0 值（其实是子进程的进程 ID），而子进程执行该语句得到的 pid 值为 0。因此，pid 常常作为区分父进程和子进程的标志。</p>
+<p>在大多数操作系统中，都会为执行的进程配备唯一的 ID 号，os 模块提供了 getpid() 和 getppid() 函数，可分别用来获取当前进程的 ID 号和父进程的 ID 号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&#39;父进程 id&#x3D;&#39;, os.getpid())</span><br><span class="line">pid &#x3D; os.fork()  # 创建子进程，下面代码会被两个进程执行</span><br><span class="line">print(&#39;当前进程 id&#x3D;&#39;, os.getpid(), &#39; pid&#x3D;&#39;, pid)</span><br><span class="line">if pid &#x3D;&#x3D; 0:</span><br><span class="line">    print(&#39;子进程 id&#x3D;&#39;, os.getpid(), &#39; 父进程 id&#x3D;&#39;, os.getppid())</span><br><span class="line">else:</span><br><span class="line">    print(&#39;父进程 id&#x3D;&#39;, os.getpid(), &#39; pid&#x3D;&#39;, pid)</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<pre><code>父进程 id= 10396
+当前进程 id= 10396  pid= 10397
+父进程 id= 10396  pid= 10397
+当前进程 id= 10397  pid= 0
+子进程 id= 10397  父进程 id= 10396</code></pre>
+<p>注意，程序 if 判断语句，通过判断 pid 值是否为 0，分别为父进程和 fork() 函数创建的子进程布置了不同的执行任务，即子进程负责执行 if 代码块，而父进程则负责执行 else 代码块。</p>
+<h2 id="二、Process"><a href="#二、Process" class="headerlink" title="二、Process"></a>二、Process</h2><p>Python multiprocessing 模块提供了 Process 类，该类可用来在 Windows 平台上创建新进程。和使用 Thread 类创建多线程方法类似，使用 Process 类创建多进程也有以下 2 种方式：</p>
+<pre><code>直接创建 Process 类的实例对象，由此就可以创建一个新的进程；
+
+通过继承 Process 类的子类，创建实例对象，也可以创建新的进程。注意，继承 Process 类的子类需重写父类的 run() 方法。</code></pre>
+<p>Process类常用属性和方法：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png"></p>
+<h3 id="2-1-通过Process类创建进程"><a href="#2-1-通过Process类创建进程" class="headerlink" title="2.1 通过Process类创建进程"></a>2.1 通过Process类创建进程</h3><p>和使用 thread 类创建子线程的方式非常类似，使用 Process 类创建实例化对象，其本质是调用该类的构造方法创建新进程。Process 类的构造方法格式如下：</p>
+<pre><code>def __init__(self,group=None,target=None,name=None,args=(),kwargs=&#123;&#125;)</code></pre>
+<p>参数的含义为：</p>
+<pre><code>group：该参数未进行实现，不需要传参；
+target：为新建进程指定执行任务，也就是指定一个函数；
+name：为新建进程设置名称；
+args：为 target 参数指定的参数传递非关键字参数；
+kwargs：为 target 参数指定的参数传递关键字参数。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&#39;当前进程id：&#39;, os.getpid())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def action(name, *add):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    准备作为新进程的 target 参数</span><br><span class="line">    :param name:</span><br><span class="line">    :param add:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    print(name)</span><br><span class="line">    for arc in add:</span><br><span class="line">        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    myTuple &#x3D; (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)</span><br><span class="line">    myProcess &#x3D; Process(target&#x3D;action, args&#x3D;(&#39;myProcess进程&#39;, *myTuple))  # 创建子进程，执行 action 函数</span><br><span class="line">    myProcess.start()  # 启动子进程</span><br><span class="line">    action(&#39;主进程&#39;, *myTuple)  # 主进程执行 action 函数</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<pre><code>当前进程id： 68797
+主进程
+python --当前进程68797
+shell --当前进程68797
+java --当前进程68797
+myProcess进程
+python --当前进程68798
+shell --当前进程68798
+java --当前进程68798</code></pre>
+<p>说明：通过 multiprocessing.Process 来创建并启动进程时，程序必须先判断 if <strong>name</strong>==’<strong>main</strong>‘:，否则运行该程序会引发异常。</p>
+<p>程序分别为主进程和我们创建的新进程，主进程会执行整个程序，而子进程不会执行 if <strong>name</strong> == ‘<strong>main</strong>‘ 中包含的程序，而是先执行此判断语句之外的所有可执行程序，然后再执行我们分配让它的任务（也就是通过 target 参数指定的函数）。</p>
+<h3 id="2-2-通过Process继承类创建进程"><a href="#2-2-通过Process继承类创建进程" class="headerlink" title="2.2 通过Process继承类创建进程"></a>2.2 通过Process继承类创建进程</h3><p>注意：在创建 Process 的子类时，需在子类内容重写 run() 方法。实际上，该方法所起到的作用，就如同第一种创建方式中 target 参数执行的函数。</p>
+<p>通过 Process 子类创建进程，和使用 Process 类一样，先创建该类的实例对象，然后调用 start() 方法启动该进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&#39;当前进程id：&#39;, os.getpid())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def action(name, *add):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    准备作为新进程的 target 参数</span><br><span class="line">    :param name:</span><br><span class="line">    :param add:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    print(name)</span><br><span class="line">    for arc in add:</span><br><span class="line">        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class MyProcess(Process):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    定义进程类</span><br><span class="line">    :param Process:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, *add):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.name &#x3D; name</span><br><span class="line">        self.add &#x3D; add</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        print(self.name)</span><br><span class="line">        for arc in self.add:</span><br><span class="line">            print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    myTuple &#x3D; (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)</span><br><span class="line">    myProcess &#x3D; MyProcess(&#39;myprocess进程&#39;, *myTuple)</span><br><span class="line">    myProcess.start()</span><br><span class="line">    action(&#39;主进程&#39;, *myTuple)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>当前进程id： 80398
+主进程
+python --当前进程80398
+shell --当前进程80398
+java --当前进程80398
+myprocess进程
+python --当前进程80399
+shell --当前进程80399
+java --当前进程80399</code></pre>
+<p>运行结果与上一个程序的运行结果大致相同，它们只是创建进程的方式略有不同而已，推荐使用第一种来创建，更加简单。</p>
+<h2 id="三、进程启动"><a href="#三、进程启动" class="headerlink" title="三、进程启动"></a>三、进程启动</h2><p>我们可以使用 os.fork() 和 Process 类来创建进程。<br>其中：</p>
+<p>1、使用 os.fork() 函数创建的子进程，会从创建位置处开始，执行后续所有的程序，主进程如何执行，则子进程就如何执行；</p>
+<p>2、而使用 Process 类创建的进程，则仅会执行if “<strong>name</strong>“=”<strong>main</strong>“之外的可执行代码以及该类构造方法中 target 参数指定的函数（使用 Process 子类创建的进程，只能执行重写的 run() 方法）。</p>
+<p>实际上，Python 创建的子进程执行的内容，和启动该进程的方式有关。而根据不同的平台，启动进程的方式大致可分为以下 3 种：</p>
+<p>1、spawn：使用此方式启动的进程，只会执行和 target 参数或者 run() 方法相关的代码。Windows 平台只能使用此方法，事实上该平台默认使用的也是该启动方式。相比其他两种方式，此方式启动进程的效率最低。</p>
+<p>2、fork：使用此方式启动的进程，基本等同于主进程（即主进程拥有的资源，该子进程全都有）。因此，该子进程会从创建位置起，和主进程一样执行程序中的代码。注意，此启动方式仅适用于 UNIX 平台，os.fork() 创建的进程就是采用此方式启动的。</p>
+<p>3、forserver：使用此方式，程序将会启动一个服务器进程。即当程序每次请求启动新进程时，父进程都会连接到该服务器进程，请求由服务器进程来创建新进程。通过这种方式启动的进程不需要从父进程继承资源。注意，此启动方式只在 UNIX 平台上有效。</p>
+<p>总的来说，使用类 UNIX 平台，启动进程的方式有以上 3 种，而使用 Windows 平台，只能选用 spawn 方式（默认即可）。</p>
+<p>在了解以上 3 种进程启动方式的基础上，我们还需要知道手动设置进程启动方式的方法，大致有以下  2 种：</p>
+<p>1、 Python multiprocessing 模块提供了一个set_start_method() 函数，该函数可用于设置启动进程的方式。需要注意的是，该函数的调用位置，必须位于所有与多进程有关的代码之前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import multiprocessing</span><br><span class="line">from multiprocessing import Process</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&#39;当前进程id：&#39;, os.getpid())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def action(name, *add):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    准备作为新进程的 target 参数</span><br><span class="line">    :param name:</span><br><span class="line">    :param add:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    print(name)</span><br><span class="line">    for arc in add:</span><br><span class="line">        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    myTuple &#x3D; (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)</span><br><span class="line">    multiprocessing.set_start_method(&#39;spawn&#39;)  # 设置进程启动方式</span><br><span class="line">    myProcess &#x3D; Process(target&#x3D;action, args&#x3D;(&#39;myProcess进程&#39;, *myTuple))  # 创建子进程，执行 action 函数</span><br><span class="line">    myProcess.start()  # 启动子进程</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code>当前进程id： 82570
+当前进程id： 82572
+myProcess进程
+python --当前进程82572
+shell --当前进程82572
+java --当前进程82572</code></pre>
+<p>注意：由于此程序中进程的启动方式为 spawn，因此该程序可以在任意（ Windows 和类 UNIX 上都可以 ）平台上执行。</p>
+<p>2、除此之外，还可以使用 multiprocessing 模块提供的 get_context() 函数来设置进程启动的方法，调用该函数时可传入 “spawn”、”fork”、”forkserver” 作为参数，用来指定进程启动的方式。</p>
+<p>注意：前面创建进程使用的 multiprocessing.Process() 这种形式，而在使用 get_context() 函数设置启动进程方式时，需用该函数的返回值，代替 multiprocessing 模块调用 Process()。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import multiprocessing</span><br><span class="line">from multiprocessing import Process</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&#39;当前进程id：&#39;, os.getpid())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def action(name, *add):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    准备作为新进程的 target 参数</span><br><span class="line">    :param name:</span><br><span class="line">    :param add:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    print(name)</span><br><span class="line">    for arc in add:</span><br><span class="line">        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    myTuple &#x3D; (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)</span><br><span class="line">    ctx &#x3D; multiprocessing.get_context(&#39;spawn&#39;)  # 设置进程启动方式</span><br><span class="line">    myProcess &#x3D; ctx.Process(target&#x3D;action,</span><br><span class="line">                            args&#x3D;(&#39;myProcess进程&#39;, *myTuple))  # 用 ctx 代替 multiprocessing 模块创建子进程，执行 action() 函数</span><br><span class="line">    myProcess.start()  # 启动子进程</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<pre><code>当前进程id： 83308
+当前进程id： 83310
+myProcess进程
+python --当前进程83310
+shell --当前进程83310
+java --当前进程83310</code></pre>
+<p>仅演示了在 Windows 平台上设置进程启动方式的效果，有兴趣的读者可自行尝试选择类 UNIX 平台测试其他启动进程的方式。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python%E5%B9%B6%E5%8F%91/" rel="tag"># Python并发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/" rel="prev" title="进程创建">
+      <i class="fa fa-chevron-left"></i> 进程创建
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/python%E5%B9%B6%E5%8F%91-13-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%90%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" rel="next" title="python并发-13.多进程编程合多线程编程的优缺点">
+      python并发-13.多进程编程合多线程编程的优缺点 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81os-fork-%E2%80%93%E5%9C%A8windows%E7%B3%BB%E7%BB%9F%E4%B8%8A%E6%97%A0%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">一、os.fork()–在windows系统上无效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Process"><span class="nav-number">2.</span> <span class="nav-text">二、Process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%80%9A%E8%BF%87Process%E7%B1%BB%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 通过Process类创建进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%80%9A%E8%BF%87Process%E7%BB%A7%E6%89%BF%E7%B1%BB%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 通过Process继承类创建进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">三、进程启动</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
