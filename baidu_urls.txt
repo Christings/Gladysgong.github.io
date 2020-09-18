@@ -70,7 +70,7 @@ http://gongyanli.com/Django-2-ModelForm%E8%AF%A6%E8%A7%A3/
 http://gongyanli.com/iTerm2-sshpass-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/
 http://gongyanli.com/Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/
 http://gongyanli.com/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/
-http://gongyanli.com/Re_CNN%E5%88%9D%E6%8E%A2/
+http://gongyanli.com/CNN%E5%88%9D%E6%8E%A2/
 http://gongyanli.com/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/
 http://gongyanli.com/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/
 http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/

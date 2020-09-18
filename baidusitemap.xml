@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/CNN%E5%88%9D%E6%8E%A2/</loc>
+    <lastmod>2020-09-18</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/TensorFlow-1-%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -317,10 +325,6 @@
     <lastmod>2020-04-17</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/</loc>
-    <lastmod>2020-04-15</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2020-04-14</lastmod>
   </url>
@@ -371,10 +375,6 @@
   <url>
     <loc>http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2018-09-02</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/Re_CNN%E5%88%9D%E6%8E%A2/</loc>
-    <lastmod>2018-08-17</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/</loc>
