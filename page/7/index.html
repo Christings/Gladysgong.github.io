@@ -4309,7 +4309,7 @@ texlive-full的安装包有点大，约1G多。</code></pre>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Mac:matplotlib无法显示中文的问题</a>
+            <a href="/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">matplotlib-1-问题记录</a>
         </h2>
 
         <div class="post-meta">
@@ -4318,21 +4318,27 @@ texlive-full的安装包有点大，约1G多。</code></pre>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-09-02 13:29:05 / Modified: 14:21:00" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
+              <time title="Created: 2018-09-02 13:29:05" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:07:42" itemprop="dateModified" datetime="2020-09-18T17:07:42+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
                 </span>
             </span>
 
@@ -4347,9 +4353,9 @@ texlive-full的安装包有点大，约1G多。</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
-<h2 id="下载SimHei-ttf字体"><a href="#下载SimHei-ttf字体" class="headerlink" title="下载SimHei.ttf字体"></a>下载SimHei.ttf字体</h2><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><pre><code>1.找到Matplotlib路径
+          <h2 id="一、问题：matplotlib无法显示中文的问题"><a href="#一、问题：matplotlib无法显示中文的问题" class="headerlink" title="一、问题：matplotlib无法显示中文的问题"></a>一、问题：matplotlib无法显示中文的问题</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
+<h3 id="1、下载SimHei-ttf字体"><a href="#1、下载SimHei-ttf字体" class="headerlink" title="1、下载SimHei.ttf字体"></a>1、下载SimHei.ttf字体</h3><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
+<h3 id="2、解决办法"><a href="#2、解决办法" class="headerlink" title="2、解决办法"></a>2、解决办法</h3><pre><code>1.找到Matplotlib路径
 $ python
 &gt; import matplotlib
 &gt; print(matplotlib.matplotlib_fname()) # 获得matplotlib包所在文件夹路径
@@ -4398,7 +4404,7 @@ $ vi fontList.json</code></pre>
 &#125;,
 
 之后重启项目，matplotlib即可显示中文字体了。</code></pre>
-<h2 id="查看matplotlib支持的字体集"><a href="#查看matplotlib支持的字体集" class="headerlink" title="查看matplotlib支持的字体集"></a>查看matplotlib支持的字体集</h2><pre><code>$ python 
+<h2 id="二、查看matplotlib支持的字体集"><a href="#二、查看matplotlib支持的字体集" class="headerlink" title="二、查看matplotlib支持的字体集"></a>二、查看matplotlib支持的字体集</h2><pre><code>$ python 
 &gt; import matplotlib
 &gt; xxx=sorted(f.name for f in matplotlib.font_manager.fontManager.ttflist)
 &gt; for i in xxx:

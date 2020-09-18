@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。 下载SimHei.ttf字体http:&#x2F;&#x2F;www.fontpalace.com&#x2F;font-details&#x2F;SimHei&#x2F; 解决办法1.找到Matplotlib路径 $ python &gt; import matplotlib &gt; print(matplotlib.mat">
+  <meta name="description" content="一、问题：matplotlib无法显示中文的问题网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。 1、下载SimHei.ttf字体http:&#x2F;&#x2F;www.fontpalace.com&#x2F;font-details&#x2F;SimHei&#x2F; 2、解决办法1.找到Matplotlib路径 $ python &gt; import matplotlib">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac:matplotlib无法显示中文的问题">
+<meta property="og:title" content="matplotlib-1-问题记录">
 <meta property="og:url" content="http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="前言网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。 下载SimHei.ttf字体http:&#x2F;&#x2F;www.fontpalace.com&#x2F;font-details&#x2F;SimHei&#x2F; 解决办法1.找到Matplotlib路径 $ python &gt; import matplotlib &gt; print(matplotlib.mat">
+<meta property="og:description" content="一、问题：matplotlib无法显示中文的问题网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。 1、下载SimHei.ttf字体http:&#x2F;&#x2F;www.fontpalace.com&#x2F;font-details&#x2F;SimHei&#x2F; 2、解决办法1.找到Matplotlib路径 $ python &gt; import matplotlib">
 <meta property="og:locale">
 <meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/matplotlib_fonts.png">
 <meta property="article:published_time" content="2018-09-02T05:29:05.000Z">
-<meta property="article:modified_time" content="2018-09-02T06:21:00.591Z">
+<meta property="article:modified_time" content="2020-09-18T09:07:42.117Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="Matplotlib">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Mac:matplotlib无法显示中文的问题 | 茉莉Python</title>
+  <title>matplotlib-1-问题记录 | 茉莉Python</title>
   
 
 
@@ -177,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Mac:matplotlib无法显示中文的问题
+          matplotlib-1-问题记录
         </h1>
 
         <div class="post-meta">
@@ -186,21 +186,27 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2018-09-02 13:29:05 / Modified: 14:21:00" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
+              <time title="Created: 2018-09-02 13:29:05" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:07:42" itemprop="dateModified" datetime="2020-09-18T17:07:42+08:00">2020-09-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
                 </span>
             </span>
 
@@ -215,9 +221,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
-<h2 id="下载SimHei-ttf字体"><a href="#下载SimHei-ttf字体" class="headerlink" title="下载SimHei.ttf字体"></a>下载SimHei.ttf字体</h2><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><pre><code>1.找到Matplotlib路径
+        <h2 id="一、问题：matplotlib无法显示中文的问题"><a href="#一、问题：matplotlib无法显示中文的问题" class="headerlink" title="一、问题：matplotlib无法显示中文的问题"></a>一、问题：matplotlib无法显示中文的问题</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
+<h3 id="1、下载SimHei-ttf字体"><a href="#1、下载SimHei-ttf字体" class="headerlink" title="1、下载SimHei.ttf字体"></a>1、下载SimHei.ttf字体</h3><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
+<h3 id="2、解决办法"><a href="#2、解决办法" class="headerlink" title="2、解决办法"></a>2、解决办法</h3><pre><code>1.找到Matplotlib路径
 $ python
 &gt; import matplotlib
 &gt; print(matplotlib.matplotlib_fname()) # 获得matplotlib包所在文件夹路径
@@ -266,7 +272,7 @@ $ vi fontList.json</code></pre>
 &#125;,
 
 之后重启项目，matplotlib即可显示中文字体了。</code></pre>
-<h2 id="查看matplotlib支持的字体集"><a href="#查看matplotlib支持的字体集" class="headerlink" title="查看matplotlib支持的字体集"></a>查看matplotlib支持的字体集</h2><pre><code>$ python 
+<h2 id="二、查看matplotlib支持的字体集"><a href="#二、查看matplotlib支持的字体集" class="headerlink" title="二、查看matplotlib支持的字体集"></a>二、查看matplotlib支持的字体集</h2><pre><code>$ python 
 &gt; import matplotlib
 &gt; xxx=sorted(f.name for f in matplotlib.font_manager.fontManager.ttflist)
 &gt; for i in xxx:
@@ -354,7 +360,7 @@ $ vi fontList.json</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDSimHei-ttf%E5%AD%97%E4%BD%93"><span class="nav-number">2.</span> <span class="nav-text">下载SimHei.ttf字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bmatplotlib%E6%94%AF%E6%8C%81%E7%9A%84%E5%AD%97%E4%BD%93%E9%9B%86"><span class="nav-number">4.</span> <span class="nav-text">查看matplotlib支持的字体集</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%EF%BC%9Amatplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">一、问题：matplotlib无法显示中文的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BDSimHei-ttf%E5%AD%97%E4%BD%93"><span class="nav-number">1.1.</span> <span class="nav-text">1、下载SimHei.ttf字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">2、解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9F%A5%E7%9C%8Bmatplotlib%E6%94%AF%E6%8C%81%E7%9A%84%E5%AD%97%E4%BD%93%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">二、查看matplotlib支持的字体集</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
