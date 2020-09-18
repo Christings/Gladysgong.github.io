@@ -158,147 +158,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/SVN%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">svn-1-基本命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-11 10:42:30" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:23:37" itemprop="dateModified" datetime="2020-09-18T16:23:37+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" itemprop="url" rel="index"><span itemprop="name">svn</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.帮助文档</p>
-<pre><code>$ svn --help
-$ svn help
-$ svn help ci</code></pre>
-<p>2.将文件checkout到本地</p>
-<pre><code>$ svn checkout PATH
-$ svn checkout http://svn.sogou-inc.com/svn/operation/op-tools/build build
-简写：svn co</code></pre>
-<p>3.往版本库中添加新的文件</p>
-<pre><code>$ svn add file
-$ svn add test.txt
-$ svn add *.txt</code></pre>
-<p>4.将修改文件提交到版本库</p>
-<pre><code>$ svn commit -m &quot;LogMessage&quot; [-N] [--no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)
-$ svn commit -m &quot;add test&quot; test.txt
-简写：svn ci</code></pre>
-<p>5.加锁/解锁</p>
-<pre><code>$ svn lock -m &quot;LockMessage&quot; [--force] PATH
-$ svn lock -m &quot;lock test&quot; test.php
-$ svn unlock PATH</code></pre>
-<p>6.更新版本</p>
-<pre><code>$ svn update -r m PATH
-$ svn update  如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
-$svn update -r 200 test.php (将版本库中的文件test.php还原到版本200)
-$ svn update test.php  (更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)
-简写：svn up</code></pre>
-<p>7.查看文件或者目录状态</p>
-<pre><code>$ svn status path（目录下的文件和子目录的状态，正常状态不显示）
-# 不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
-$ svn status -v path(显示文件和子目录状态)
-# 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。
-# svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。
-简写：svn st</code></pre>
-<p>8.删除文件</p>
-<pre><code>$ svn delete path -m “delete test“
-$ svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”
-
-$ svn delete test.php 
-$ svn ci -m ‘delete test‘
-简写：svn (del, remove, rm)</code></pre>
-<p>9.查看日志</p>
-<pre><code>$ svn log PATH
-$ svn log test.txt # 显示这个文件的所有修改记录，及其版本号的变化</code></pre>
-<p>10.查看文件详细信息</p>
-<pre><code>$ svn info PATH
-$ svn info test.txt</code></pre>
-<p>11.比较差异</p>
-<pre><code>$ svn diff PATH  # 将修改的文件与基础版本比较
- $ svn diff test.txt
-$ svn diff -r m:n PATH # 对版本m和版本n比较差异
-$ svn diff -r 200:201 test.txt
-简写：svn di</code></pre>
-<p>12.将两个版本之间的差异合并到当前文件</p>
-<pre><code>$ svn merge -r m:n PATH
-$ svn merge -r 200:201 test.txt 将版本200与201之间的差异合并到当前文件，一般需要处理一下</code></pre>
-<p>13.版本库下的文件和目录列表</p>
-<pre><code>$ svn list path # 显示path目录下的所有属于版本库的文件和目录
-简写：svn ls</code></pre>
-<p>14.代码库url变更</p>
-<pre><code>$ svn switch/sw</code></pre>
-<p>15.恢复本地修改</p>
-<pre><code>$ svn revert</code></pre>
-<p>16.解决冲突</p>
-<pre><code>$ svn resolved</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1251,7 +1110,7 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+                <time title="Modified: 2020-09-18 16:46:22" itemprop="dateModified" datetime="2020-09-18T16:46:22+08:00">2020-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1259,11 +1118,11 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
                 </span>
             </span>
 
@@ -1453,10 +1312,131 @@ See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; fo
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Hexo-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:13:58" itemprop="dateCreated datePublished" datetime="2018-04-13T14:13:58+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:42:58" itemprop="dateModified" datetime="2020-09-18T16:42:58+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、分类标签中关于大小写的bug"><a href="#一、分类标签中关于大小写的bug" class="headerlink" title="一、分类标签中关于大小写的bug"></a>一、分类标签中关于大小写的bug</h2><h3 id="1-描述"><a href="#1-描述" class="headerlink" title="1.描述"></a>1.描述</h3><pre><code>当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
+当我把标签改为scrapy小写，再发布到网上，点击scrapy就不会出现404问题。
+后来发现原来是git标签生成时忽略了大写，生成的实际标签为scrapy。
+于是我来到我的Github中，找到Gladysgong.github.io/categories/爬虫/这个目录，发现实际生成的也是scrapy，所以
+原因就在这里了。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_bug.jpg"></p>
+<h3 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h3><pre><code>修改文件：
+    cd blog/.deploy_git
+    vi .git/config
+    将ignorecase=true改为ignorecase=false
+删除Gladysgong.github.io中的文件并提交：
+    git rm -rm *
+    git commit -m &quot;clean all files&quot;
+    git push
+Hexo再次生成及部署：
+    cd ..
+    hexo clean
+    hexo g
+    hexo d</code></pre>
+<h2 id="二、分类和标签全部404"><a href="#二、分类和标签全部404" class="headerlink" title="二、分类和标签全部404"></a>二、分类和标签全部404</h2><pre><code>npm install hexo-generator-category --save
+npm install --save hexo-generator-tag --save</code></pre>
+<h2 id="三、themes主题无法备份"><a href="#三、themes主题无法备份" class="headerlink" title="三、themes主题无法备份"></a>三、themes主题无法备份</h2><p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
+<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
+<p>解决：</p>
+<pre><code>$ git rm --cached themes/yilia
+rm &#39;themes/yilia&#39;
+
+$ git status</code></pre>
+<p>原因：</p>
+<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
+
+在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
+
+这个功能的意义：
+
+在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
+
+只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
+
+相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
+
+这里我偷懒直接将子模块删除，将整个仓库进行备份了。
+
+比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1522,14 +1502,14 @@ See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; fo
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

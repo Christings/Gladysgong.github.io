@@ -158,127 +158,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Hexo-1-问题记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-13 14:13:58" itemprop="dateCreated datePublished" datetime="2018-04-13T14:13:58+08:00">2018-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:42:58" itemprop="dateModified" datetime="2020-09-18T16:42:58+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、分类标签中关于大小写的bug"><a href="#一、分类标签中关于大小写的bug" class="headerlink" title="一、分类标签中关于大小写的bug"></a>一、分类标签中关于大小写的bug</h2><h3 id="1-描述"><a href="#1-描述" class="headerlink" title="1.描述"></a>1.描述</h3><pre><code>当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
-当我把标签改为scrapy小写，再发布到网上，点击scrapy就不会出现404问题。
-后来发现原来是git标签生成时忽略了大写，生成的实际标签为scrapy。
-于是我来到我的Github中，找到Gladysgong.github.io/categories/爬虫/这个目录，发现实际生成的也是scrapy，所以
-原因就在这里了。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_bug.jpg"></p>
-<h3 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h3><pre><code>修改文件：
-    cd blog/.deploy_git
-    vi .git/config
-    将ignorecase=true改为ignorecase=false
-删除Gladysgong.github.io中的文件并提交：
-    git rm -rm *
-    git commit -m &quot;clean all files&quot;
-    git push
-Hexo再次生成及部署：
-    cd ..
-    hexo clean
-    hexo g
-    hexo d</code></pre>
-<h2 id="二、分类和标签全部404"><a href="#二、分类和标签全部404" class="headerlink" title="二、分类和标签全部404"></a>二、分类和标签全部404</h2><pre><code>npm install hexo-generator-category --save
-npm install --save hexo-generator-tag --save</code></pre>
-<h2 id="三、themes主题无法备份"><a href="#三、themes主题无法备份" class="headerlink" title="三、themes主题无法备份"></a>三、themes主题无法备份</h2><p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
-<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
-<p>解决：</p>
-<pre><code>$ git rm --cached themes/yilia
-rm &#39;themes/yilia&#39;
-
-$ git status</code></pre>
-<p>原因：</p>
-<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
-
-在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
-
-这个功能的意义：
-
-在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
-
-只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
-
-相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
-
-这里我偷懒直接将子模块删除，将整个仓库进行备份了。
-
-比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2107,10 +1986,155 @@ url:https://github.com/ ---&gt;finish
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
+<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
+
+2. os.listdir() -- 返回指定目录下的所有文件和目录名
+   os.listdir(&#39;c:\\&#39;)
+
+3. os.remove(filepath) -- 删除一个文件
+
+4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
+
+5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
+
+6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
+
+7. os.path.isabs() -- 判断是否是绝对路径
+
+8. os.path.exists() -- 检验路径是否真的存在
+   os.path.exists(r&#39;d:\python&#39;)
+
+9. os.path.split() -- 分离一个路径的目录名和文件名
+   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
+
+10. os.path.splitext() -- 分离扩展名
+    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
+
+11. os.path.dirname(filepath) --获取路径名
+
+12. os.path.basename(filepath)-- 获取文件名
+
+13. os.getenv()和os.putenv() -- 读取和设置环境变量
+
+14. os.linesep -- 给出当前平台使用的行终止符
+    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
+
+15. os.system() -- 运行shell命令
+
+16. os.name -- 指示你正在使用的平台
+    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
+
+17. os.rename(old， new) -- 重命名文件或目录
+
+18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
+
+19. os.mkdir(“test”) -- 创建单个目录
+
+20. os.stat(file) --获取文件属性
+
+21. os.chmod(file) -- 修改文件权限与时间戳
+
+22. os.exit() -- 终止当前进程
+
+23. os.path.getsize(filename) -- 获取文件大小：
+
+24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
+    olddir和newdir都只能为目录，且newdir必须不存在
+
+25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir和newdir都只能为文件
+    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir只能为文件，newfile可以是文件，也可以是目标目录
+
+26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
+
+27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
+
+28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2176,14 +2200,14 @@ url:https://github.com/ ---&gt;finish
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
