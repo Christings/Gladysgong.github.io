@@ -3276,7 +3276,7 @@ base case：n == 1时，排序 1 个饼时不需要翻转。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 15:40:06" itemprop="dateModified" datetime="2020-09-16T15:40:06+08:00">2020-09-16</time>
+                <time title="Modified: 2020-09-21 14:41:47" itemprop="dateModified" datetime="2020-09-21T14:41:47+08:00">2020-09-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3425,7 +3425,7 @@ base case：n == 1时，排序 1 个饼时不需要翻转。</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/linknode3.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/linknode3.jpg"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def rotateRight(self, head: ListNode, k: int) -&gt; ListNode:</span><br><span class="line">        if not head:</span><br><span class="line">            return None</span><br><span class="line">        cur&#x3D;head</span><br><span class="line">        length&#x3D;1</span><br><span class="line">        while cur.next:</span><br><span class="line">            cur&#x3D;cur.next</span><br><span class="line">            length+&#x3D;1</span><br><span class="line">        cur.next&#x3D;head # 头尾拼接</span><br><span class="line">        k&#x3D;length-k%length                                          </span><br><span class="line">        while k:</span><br><span class="line">            k-&#x3D;1</span><br><span class="line">            cur&#x3D;cur.next</span><br><span class="line">        head&#x3D;cur.next # 找到头指针</span><br><span class="line">        cur.next&#x3D;None  # 断开尾节点             </span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
 
-<h3 id="82-删除排序链表中的重复元素-II"><a href="#82-删除排序链表中的重复元素-II" class="headerlink" title="??82.删除排序链表中的重复元素 II"></a>??82.删除排序链表中的重复元素 II</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
+<h3 id="82-删除排序链表中的重复元素-II"><a href="#82-删除排序链表中的重复元素-II" class="headerlink" title="82.删除排序链表中的重复元素 II"></a>82.删除排序链表中的重复元素 II</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
 
 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
 

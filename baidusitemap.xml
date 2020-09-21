@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/LeetCode-5-%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2020-09-21</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/</loc>
+    <lastmod>2020-09-19</lastmod>
+  </url>
+  <url>
+    <loc>http://gongyanli.com/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2020-09-19</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
@@ -26,10 +38,6 @@
   </url>
   <url>
     <loc>http://gongyanli.com/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2020-09-18</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2020-09-18</lastmod>
   </url>
   <url>
@@ -361,10 +369,6 @@
     <lastmod>2020-09-17</lastmod>
   </url>
   <url>
-    <loc>http://gongyanli.com/LeetCode-5-%E9%93%BE%E8%A1%A8/</loc>
-    <lastmod>2020-09-16</lastmod>
-  </url>
-  <url>
     <loc>http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/</loc>
     <lastmod>2020-09-16</lastmod>
   </url>
@@ -506,10 +510,6 @@
   </url>
   <url>
     <loc>http://gongyanli.com/%E8%A7%84%E8%8C%83%E5%BA%93%E5%BB%BA%E8%AE%BE/</loc>
-    <lastmod>2018-05-27</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/</loc>
     <lastmod>2018-05-27</lastmod>
   </url>
 </urlset> 
