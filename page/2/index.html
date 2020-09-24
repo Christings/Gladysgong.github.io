@@ -158,6 +158,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-4-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-4-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">数据结构与算法-4-二分查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-08 11:35:45" itemprop="dateCreated datePublished" datetime="2020-06-08T11:35:45+08:00">2020-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:02:30" itemprop="dateModified" datetime="2020-08-26T20:02:30+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/M1KfTfNlu4OCK8i9PSAmug">https://mp.weixin.qq.com/s/M1KfTfNlu4OCK8i9PSAmug</a></p>
+<h2 id="一、二分查找框架"><a href="#一、二分查找框架" class="headerlink" title="一、二分查找框架"></a>一、二分查找框架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; ...;</span><br><span class="line"></span><br><span class="line">    while(...) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; ...</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>技巧：</p>
+<pre><code>不要出现 else，而是把所有情况用 else if 写清楚，这样可以清楚地展现所有细节；
+
+计算 mid 时需要防止溢出，代码中left + (right - left) / 2就和(left + right) / 2的结果相同，但是有效防止了left和right太大直接相加导致溢出。</code></pre>
+<h2 id="二、寻找一个数"><a href="#二、寻找一个数" class="headerlink" title="二、寻找一个数"></a>二、寻找一个数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0; </span><br><span class="line">    int right &#x3D; nums.length - 1; &#x2F;&#x2F; 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if(nums[mid] &#x3D;&#x3D; target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left &#x3D; mid + 1; &#x2F;&#x2F; 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right &#x3D; mid - 1; &#x2F;&#x2F; 注意</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1、为什么while 循环的条件中是 &lt;=，而不是 &lt; ?</p>
+<pre><code>因为初始化right的赋值是nums.length - 1，即最后一个元素的索引，而不是nums.length。</code></pre>
+<h2 id="三、寻找左侧边界的二分搜索"><a href="#三、寻找左侧边界的二分搜索" class="headerlink" title="三、寻找左侧边界的二分搜索"></a>三、寻找左侧边界的二分搜索</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length &#x3D;&#x3D; 0) return -1;</span><br><span class="line">    int left &#x3D; 0;</span><br><span class="line">    int right &#x3D; nums.length; &#x2F;&#x2F; 注意</span><br><span class="line"></span><br><span class="line">    while (left &lt; right) &#123; &#x2F;&#x2F; 注意</span><br><span class="line">        int mid &#x3D; (left + right) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            right &#x3D; mid;</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid; &#x2F;&#x2F; 注意</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1、为什么 while 中是&lt;而不是&lt;=?</p>
+<p>答：用相同的方法分析，因为right = nums.length而不是nums.length - 1。因此每次循环的「搜索区间」是[left, right)左闭右开。</p>
+<p>while(left &lt; right)终止的条件是left == right，此时搜索区间[left, left)为空，所以可以正确终止。</p>
+<p>2、为什么没有返回 -1 的操作？如果nums中不存在target这个值，怎么办？</p>
+<p>改写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1;</span><br><span class="line">    &#x2F;&#x2F; 搜索区间为 [left, right]</span><br><span class="line">    while (left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 搜索区间变为 [mid+1, right]</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 搜索区间变为 [left, mid-1]</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 收缩右侧边界</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 检查出界情况</span><br><span class="line">    if (left &gt;&#x3D; nums.length || nums[left] !&#x3D; target)</span><br><span class="line">        return -1;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、寻找右侧边界的二分查找"><a href="#四、寻找右侧边界的二分查找" class="headerlink" title="四、寻找右侧边界的二分查找"></a>四、寻找右侧边界的二分查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int right_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length &#x3D;&#x3D; 0) return -1;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length;</span><br><span class="line"></span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid &#x3D; (left + right) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1; &#x2F;&#x2F; 注意</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return left - 1; &#x2F;&#x2F; 注意</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="五、逻辑统一"><a href="#五、逻辑统一" class="headerlink" title="五、逻辑统一"></a>五、逻辑统一</h2><p>第一个，最基本的二分查找算法：</p>
+<pre><code>因为我们初始化 right = nums.length - 1
+所以决定了我们的「搜索区间」是 [left, right]
+所以决定了 while (left &lt;= right)
+同时也决定了 left = mid+1 和 right = mid-1
+
+因为我们只需找到一个 target 的索引即可
+所以当 nums[mid] == target 时可以立即返回</code></pre>
+<p>第二个，寻找左侧边界的二分查找：</p>
+<pre><code>因为我们初始化 right = nums.length
+所以决定了我们的「搜索区间」是 [left, right)
+所以决定了 while (left &lt; right)
+同时也决定了 left = mid + 1 和 right = mid
+
+因为我们需找到 target 的最左侧索引
+所以当 nums[mid] == target 时不要立即返回
+而要收紧右侧边界以锁定左侧边界</code></pre>
+<p>第三个，寻找右侧边界的二分查找：</p>
+<pre><code>因为我们初始化 right = nums.length
+所以决定了我们的「搜索区间」是 [left, right)
+所以决定了 while (left &lt; right)
+同时也决定了 left = mid + 1 和 right = mid
+
+因为我们需找到 target 的最右侧索引
+所以当 nums[mid] == target 时不要立即返回
+而要收紧左侧边界以锁定右侧边界
+
+又因为收紧左侧边界时必须 left = mid + 1
+所以最后无论返回 left 还是 right，必须减一</code></pre>
+<p>对于寻找左右边界的二分搜索，常见的手法是使用左闭右开的「搜索区间」，我们还根据逻辑将「搜索区间」全都统一成了两端都闭，便于记忆，只要修改两处即可变化出三种写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">int binary_search(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1; </span><br><span class="line">    while(left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1; </span><br><span class="line">        &#125; else if(nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 直接返回</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 直接返回</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int left_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1;</span><br><span class="line">    while (left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 别返回，锁定左侧边界</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 最后要检查 left 越界的情况</span><br><span class="line">    if (left &gt;&#x3D; nums.length || nums[left] !&#x3D; target)</span><br><span class="line">        return -1;</span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int right_bound(int[] nums, int target) &#123;</span><br><span class="line">    int left &#x3D; 0, right &#x3D; nums.length - 1;</span><br><span class="line">    while (left &lt;&#x3D; right) &#123;</span><br><span class="line">        int mid &#x3D; left + (right - left) &#x2F; 2;</span><br><span class="line">        if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right &#x3D; mid - 1;</span><br><span class="line">        &#125; else if (nums[mid] &#x3D;&#x3D; target) &#123;</span><br><span class="line">            &#x2F;&#x2F; 别返回，锁定右侧边界</span><br><span class="line">            left &#x3D; mid + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 最后要检查 right 越界的情况</span><br><span class="line">    if (right &lt; 0 || nums[right] !&#x3D; target)</span><br><span class="line">        return -1;</span><br><span class="line">    return right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-3-BFS%E5%92%8CDFS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1292,117 +1422,6 @@ torchvison:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/" class="post-title-link" itemprop="url">数据结构与算法-11-堆</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-01 15:57:57" itemprop="dateCreated datePublished" datetime="2020-04-01T15:57:57+08:00">2020-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-26 20:03:45" itemprop="dateModified" datetime="2020-08-26T20:03:45+08:00">2020-08-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>二叉堆是一种特殊的二叉树, 它总是保证一棵树的最小元素(最小堆)或者最大元素(最大堆)处于树根上, 常见的应用场景就是用于构建优先队列, 在jdk中Doug Lea所实现的ScheduledThreadPoolExecutor中就用到了最小堆;</p>
-<h3 id="1、最小堆"><a href="#1、最小堆" class="headerlink" title="1、最小堆"></a>1、最小堆</h3><h4 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h4><pre><code>BinaryHeap() 创建一个新的，空的二叉堆。
-insert(k) 向堆添加一个新项。
-findMin() 返回具有最小键值的项，并将项留在堆中。
-delMin() 返回具有最小键值的项，从堆中删除该项。
-如果堆是空的，isEmpty() 返回 true，否则返回 false。
-size() 返回堆中的项数。
-buildHeap(list) 从键列表构建一个新的堆。</code></pre>
-<p>注意，无论我们向堆中添加项的顺序是什么，每次都删除最小的。</p>
-<h4 id="1-2-实现"><a href="#1-2-实现" class="headerlink" title="1.2 实现"></a>1.2 实现</h4><p>为了使我们的堆有效地工作，我们将利用二叉树的对数性质来表示我们的堆。 为了保证对数性能，我们必须保持树平衡。平衡二叉树在根的左和右子树中具有大致相同数量的节点。 在我们的堆实现中，我们通过创建一个 完整二叉树 来保持树平衡。 一个完整的二叉树是一个树，其中每个层都有其所有的节点，除了树的最底层，从左到右填充，如图。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap1.png"></p>
-<p>完整二叉树的另一个有趣的属性是，我们可以使用单个列表来表示它。 我们不需要使用节点和引用，甚至列表的列表。因为树是完整的，父节点的左子节点（在位置 p 处）是在列表中位置 2p 中找到的节点。 类似地，父节点的右子节点在列表中的位置 2p + 1。为了找到树中任意节点的父节点，我们可以简单地使用Python 的整数除法。 假定节点在列表中的位置 n，则父节点在位置 n/2。如图，请注意父级和子级之间是 2p 和 2p+1 关系。 树的列表表示以及完整的结构属性允许我们仅使用几个简单的数学运算来高效地遍历一个完整的二叉树。 我们将看到，这也是我们的二叉堆的有效实现。</p>
-<p>我们用于堆中存储项的方法依赖于维护堆的排序属性。 堆的排序属性如下：在堆中，对于具有父 p 的每个节点 x，p 中的键小于或等于 x 中的键。 下图展示了具有堆顺序属性的完整二叉树。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap2.png"></p>
-<p>我们将开始实现一个二叉堆的构造函数。由于整个二叉堆可以由单个列表表示，所以构造函数将初始化列表和一个 currentSize 属性来跟踪堆的当前大小。一个空的二叉堆有一个单一的零作为 heapList 的第一个元素，这个零只是放那里，用于以后简单的整数除法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class BinHeap:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.heapList&#x3D;[0]</span><br><span class="line">        self.currentSize&#x3D;0</span><br></pre></td></tr></table></figure>
-
-<p>将项添加到列表中最简单，最有效的方法是将项附加到列表的末尾。 它维护完整的树属性。但可能违反堆结构属性。可以编写一个方法，通过比较新添加的项与其父项，我们可以重新获得堆结构属性。 如果新添加的项小于其父项，则我们可以将项与其父项交换。 </p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap3.png"></p>
-<p>注意，当我们完成一个项时，我们需要恢复新添加的项和父项之间的堆属性。 我们还需保留任何兄弟节点的堆属性。当然，如果新添加的项非常小，我们可能仍需要将其交换另一上层。事实上，我们可能需要交换到树的顶部。</p>
-<p>percUp 方法，它在树中向上遍历一个新项，因为它需要去维护堆属性。注意，我们可以通过使用简单的整数除法来计算任意节点的父节点。 当前节点的父节点可以通过将当前节点的索引除以 2 来计算。</p>
-<p>插入方法中的大部分工作都是由 percUp 完成的。 一旦一个新项被追加到树上，percUp 接管并正确定位新项。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def percUp(self,i):</span><br><span class="line">    while i&#x2F;&#x2F;2&gt;0:</span><br><span class="line">        if self.heapList[i] &lt; self.heapList[i&#x2F;&#x2F;2]:</span><br><span class="line">            tmp&#x3D;self.heapList[i&#x2F;&#x2F;2]</span><br><span class="line">            self.heapList[i&#x2F;&#x2F;2]&#x3D;self.heapList[i]</span><br><span class="line">            self.heapList[i]&#x3D;tmp</span><br><span class="line">        i&#x3D;i&#x2F;&#x2F;2</span><br><span class="line"></span><br><span class="line">def insert(self,k):</span><br><span class="line">    self.heapList.append(k)</span><br><span class="line">    self.currentSize+&#x3D;1</span><br><span class="line">    self.percUp(self.currentSize)</span><br></pre></td></tr></table></figure>
-
-<p>因为堆属性要求树的根是树中的最小项，所以找到最小项很容易。delMin 的难点在根被删除后恢复堆结构和堆顺序属性。 我们可以分两步恢复我们的堆。首先，我们将通过获取列表中的最后一个项并将其移动到根位置来恢复根项，保持我们的堆结构属性。 但是，我们可能已经破坏了我们的二叉堆的堆顺序属性。 第二，我们通过将新的根节点沿着树向下推到其正确位置来恢复堆顺序属性。 下图展示了将新的根节点移动到堆中的正确位置所需的交换序列。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap4.png"></p>
-<p>为了维护堆顺序属性，我们所需要做的是将根节点和最小的子节点交换。在初始交换之后，我们可以将节点和其子节点重复交换，直到节点被交换到正确的位置，使它小于两个子节点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">def percDown(self, i):</span><br><span class="line">    while (i * 2) &lt;&#x3D; self.currentSize:</span><br><span class="line">        mc &#x3D; self.minChild(i)</span><br><span class="line">        if self.heapList[i] &gt; self.heapList[mc]:</span><br><span class="line">            tmp &#x3D; self.heapList[i]</span><br><span class="line">            self.heapList[i] &#x3D; self.heapList[mc]</span><br><span class="line">            self.heapList[mc] &#x3D; tmp</span><br><span class="line">        i &#x3D; mc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def minChild(self, i):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    找到最小子节点：</span><br><span class="line">        如果右子节点不存在，那么最小子节点为左；</span><br><span class="line">        如果右子节点存在，判断左右的大小后再返回；</span><br><span class="line">    :param self:</span><br><span class="line">    :param i:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    if i * 2 + 1 &gt; self.currentSize:</span><br><span class="line">        return i * 2</span><br><span class="line">    else:</span><br><span class="line">        if self.heapList[i * 2] &lt; self.heapList[i * 2 + 1]:</span><br><span class="line">            return i * 2</span><br><span class="line">        else:</span><br><span class="line">            return i * 2 + 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def delMin(self):</span><br><span class="line">    retval &#x3D; self.heapList[1]</span><br><span class="line">    self.heapList[1] &#x3D; self.heapList[self.currentSize]</span><br><span class="line">    self.currentSize -&#x3D; 1</span><br><span class="line">    self.heapList.pop()</span><br><span class="line">    self.percDown(1)</span><br><span class="line">    return retval</span><br></pre></td></tr></table></figure>
-
-<p>为了完成我们对二叉堆的讨论，我们将看从一个列表构建整个堆的方法.如图，给定一个列表，通过一次插入一个键轻松地构建一个堆。由于你从一个项的列表开始，该列表是有序的，可以使用二分查找找到正确的位置，以大约 O(logn)O(logn) 操作的成本插入下一个键。 但是，请记住，在列表中间插入项可能需要 O(n)O(n) 操作来移动列表的其余部分，为新项腾出空间。 因此，要在堆中插入 n 个键，将需要总共 O(nlogn)O(nlogn) 操作。 然而，如果我们从整个列表开始，那么我们可以在 O(n)O(n) 操作中构建整个堆。Listing 6 展示了构建整个堆的代码。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png"></p>
-<p>buildHeap 方法在 [9,6,5,2,3] 的初始树中的节点移动到其正确位置时所做的交换。虽然我们从树的中间开始，并以我们的方式回到根节点，percDown 方法确保最大的子节点总是沿着树向下移动。因为堆是一个完整的二叉树，超过中途点的任何节点都将是树叶，因此没有子节点。注意，当i = 1 时，我们从树的根节点向下交换，因此可能需要多次交换。正如你在上图最右边的两个树中可以看到的，首先 9 从根位置移出，但是 9 在树中向下移动一级之后，percDown 检查下一组子树，以确保它被推到下一层。在这种情况下，它与 3 进行第二次交换。现在 9 已经移动到树的最低层，不能进行进一步交换。将上图所示的这一系列交换的列表与树进行比较是有用的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def buildHeap(self, alist):</span><br><span class="line">    i &#x3D; len(alist) &#x2F;&#x2F; 2</span><br><span class="line">    self.currentSize &#x3D; len(alist)</span><br><span class="line">    self.heapList &#x3D; [0] + alist[:]</span><br><span class="line">    while i &gt; 0:</span><br><span class="line">        self.percDown(i)</span><br><span class="line">        i -&#x3D; 1</span><br></pre></td></tr></table></figure>
-
-<p>完整代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class BinHeap:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.heapList &#x3D; [0]</span><br><span class="line">        self.currentSize &#x3D; 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def percUp(self,i):</span><br><span class="line">        while i &#x2F;&#x2F; 2 &gt; 0:</span><br><span class="line">          if self.heapList[i] &lt; self.heapList[i &#x2F;&#x2F; 2]:</span><br><span class="line">             tmp &#x3D; self.heapList[i &#x2F;&#x2F; 2]</span><br><span class="line">             self.heapList[i &#x2F;&#x2F; 2] &#x3D; self.heapList[i]</span><br><span class="line">             self.heapList[i] &#x3D; tmp</span><br><span class="line">          i &#x3D; i &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">    def insert(self,k):</span><br><span class="line">      self.heapList.append(k)</span><br><span class="line">      self.currentSize &#x3D; self.currentSize + 1</span><br><span class="line">      self.percUp(self.currentSize)</span><br><span class="line"></span><br><span class="line">    def percDown(self,i):</span><br><span class="line">      while (i * 2) &lt;&#x3D; self.currentSize:</span><br><span class="line">          mc &#x3D; self.minChild(i)</span><br><span class="line">          if self.heapList[i] &gt; self.heapList[mc]:</span><br><span class="line">              tmp &#x3D; self.heapList[i]</span><br><span class="line">              self.heapList[i] &#x3D; self.heapList[mc]</span><br><span class="line">              self.heapList[mc] &#x3D; tmp</span><br><span class="line">          i &#x3D; mc</span><br><span class="line"></span><br><span class="line">    def minChild(self,i):</span><br><span class="line">      if i * 2 + 1 &gt; self.currentSize:</span><br><span class="line">          return i * 2</span><br><span class="line">      else:</span><br><span class="line">          if self.heapList[i*2] &lt; self.heapList[i*2+1]:</span><br><span class="line">              return i * 2</span><br><span class="line">          else:</span><br><span class="line">              return i * 2 + 1</span><br><span class="line"></span><br><span class="line">    def delMin(self):</span><br><span class="line">      retval &#x3D; self.heapList[1]</span><br><span class="line">      self.heapList[1] &#x3D; self.heapList[self.currentSize]</span><br><span class="line">      self.currentSize &#x3D; self.currentSize - 1</span><br><span class="line">      self.heapList.pop()</span><br><span class="line">      self.percDown(1)</span><br><span class="line">      return retval</span><br><span class="line"></span><br><span class="line">    def buildHeap(self,alist):</span><br><span class="line">      i &#x3D; len(alist) &#x2F;&#x2F; 2</span><br><span class="line">      self.currentSize &#x3D; len(alist)</span><br><span class="line">      self.heapList &#x3D; [0] + alist[:]</span><br><span class="line">      while (i &gt; 0):</span><br><span class="line">          self.percDown(i)</span><br><span class="line">          i &#x3D; i - 1</span><br><span class="line"></span><br><span class="line">bh &#x3D; BinHeap()</span><br><span class="line">bh.buildHeap([9,5,6,2,3])</span><br><span class="line"></span><br><span class="line">print(bh.delMin())</span><br><span class="line">print(bh.delMin())</span><br><span class="line">print(bh.delMin())</span><br><span class="line">print(bh.delMin())</span><br><span class="line">print(bh.delMin())</span><br></pre></td></tr></table></figure>
-
-<p>我们可以在 O(n)中构建堆的断言可能看起来有点神秘，证明超出了范围。 然而，理解的关键是记住 logn 因子是从树的高度派生的。 对于buildHeap 中的大部分工作，树比 logn 短。<br>基于可以从 O(n) 时间构建堆的事实，你可以使用堆对列表在 O(nlogn)时间内排序，作为本章结尾的练习。</p>
-<h3 id="2、最大堆"><a href="#2、最大堆" class="headerlink" title="2、最大堆"></a>2、最大堆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class BinHeap:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.heapList &#x3D; [0]</span><br><span class="line">        self.currentSize &#x3D; 0</span><br><span class="line"></span><br><span class="line">    def percUp(self, i):</span><br><span class="line">        while i &#x2F;&#x2F; 2 &gt; 0:</span><br><span class="line">            if self.heapList[i] &gt; self.heapList[i &#x2F;&#x2F; 2]:</span><br><span class="line">                tmp &#x3D; self.heapList[i &#x2F;&#x2F; 2]</span><br><span class="line">                self.heapList[i &#x2F;&#x2F; 2] &#x3D; self.heapList[i]</span><br><span class="line">                self.heapList[i] &#x3D; tmp</span><br><span class="line">            i &#x3D; i &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">    def insert(self, k):</span><br><span class="line">        self.heapList.append(k)</span><br><span class="line">        self.currentSize &#x3D; self.currentSize + 1</span><br><span class="line">        self.percUp(self.currentSize)</span><br><span class="line"></span><br><span class="line">    def percDown(self, i):</span><br><span class="line">        while (i * 2) &lt;&#x3D; self.currentSize:</span><br><span class="line">            mc &#x3D; self.maxChild(i)</span><br><span class="line">            if self.heapList[i] &lt; self.heapList[mc]:</span><br><span class="line">                tmp &#x3D; self.heapList[i]</span><br><span class="line">                self.heapList[i] &#x3D; self.heapList[mc]</span><br><span class="line">                self.heapList[mc] &#x3D; tmp</span><br><span class="line">            i &#x3D; mc</span><br><span class="line"></span><br><span class="line">    def maxChild(self, i):</span><br><span class="line">        if i * 2 + 1 &gt; self.currentSize:</span><br><span class="line">            return i * 2</span><br><span class="line">        else:</span><br><span class="line">            if self.heapList[i * 2] &lt; self.heapList[i * 2 + 1]:</span><br><span class="line">                return i * 2 + 1</span><br><span class="line">            else:</span><br><span class="line">                return i * 2</span><br><span class="line"></span><br><span class="line">    def delMax(self):</span><br><span class="line">        retval &#x3D; self.heapList[1]</span><br><span class="line">        self.heapList[1] &#x3D; self.heapList[self.currentSize]</span><br><span class="line">        self.currentSize &#x3D; self.currentSize - 1</span><br><span class="line">        self.heapList.pop()</span><br><span class="line">        self.percDown(1)</span><br><span class="line">        return retval</span><br><span class="line"></span><br><span class="line">    def buildHeap(self, alist):</span><br><span class="line">        i &#x3D; len(alist) &#x2F;&#x2F; 2</span><br><span class="line">        self.currentSize &#x3D; len(alist)</span><br><span class="line">        self.heapList &#x3D; [0] + alist[:]</span><br><span class="line">        while (i &gt; 0):</span><br><span class="line">            self.percDown(i)</span><br><span class="line">            i &#x3D; i - 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bh &#x3D; BinHeap()</span><br><span class="line">bh.buildHeap([9, 5, 6, 2, 3])</span><br><span class="line"></span><br><span class="line">print(bh.heapList)</span><br><span class="line">print(bh.currentSize)</span><br><span class="line">print(bh.delMax())</span><br><span class="line">print(bh.heapList)</span><br><span class="line">print(bh.delMax())</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1472,7 +1491,7 @@ buildHeap(list) 从键列表构建一个新的堆。</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

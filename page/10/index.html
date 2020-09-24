@@ -158,6 +158,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:39:42" itemprop="dateModified" datetime="2020-09-18T21:39:42+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
+insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
+insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+
+使用insert,select语句将现有表中的数据添加到已有的新表中
+insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
+insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
+<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
+delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
+<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
+update Students set tel=default where id=5
+update students set age=age+1
+update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
+<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
+1.查询所有数据行和列
+select * from Students
+2.查询部分行列--条件查询
+select * from Student where name=&#39;李三&#39;
+3.在查询中使用as更改列名
+select name as 姓名 from Students where sex=&#39;男&#39;
+4.查询空行
+select name from Student where sex is null
+5.查询排序
+select name from Student where age&gt;25 order by desc
+6.查询返回限制行数
+select top 10 name from Student</code></pre>
+<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
+select * from Student where name like &#39;李%&#39;
+2.使用between在某个范围内进行查询
+select * from Student where age between 20 and 25
+3.使用in在列举数值内进行查询(in后是多个的数据)
+select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
+<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
+select id as 学号，AVG(score) as 平均成绩 from score group by id
+2.用having子句进行分组筛选
+select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
+<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
+<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
+右连：Right Join
+内连：Inner Join
+左连接where只影响右表，右连接where只影响左表
+
+select * from table1 Left Join table2 where table1.id=table2.id
+左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
+
+select * from table1 Right Join table2 where table1.id=table2.id
+右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
+
+select * from table1 Inner Join table2 on table1.id=table2.id
+功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2131,151 +2255,6 @@ url:https://github.com/ ---&gt;finish
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
-<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
-
-2. os.listdir() -- 返回指定目录下的所有文件和目录名
-   os.listdir(&#39;c:\\&#39;)
-
-3. os.remove(filepath) -- 删除一个文件
-
-4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
-
-5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
-
-6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
-
-7. os.path.isabs() -- 判断是否是绝对路径
-
-8. os.path.exists() -- 检验路径是否真的存在
-   os.path.exists(r&#39;d:\python&#39;)
-
-9. os.path.split() -- 分离一个路径的目录名和文件名
-   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
-
-10. os.path.splitext() -- 分离扩展名
-    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
-
-11. os.path.dirname(filepath) --获取路径名
-
-12. os.path.basename(filepath)-- 获取文件名
-
-13. os.getenv()和os.putenv() -- 读取和设置环境变量
-
-14. os.linesep -- 给出当前平台使用的行终止符
-    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
-
-15. os.system() -- 运行shell命令
-
-16. os.name -- 指示你正在使用的平台
-    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
-
-17. os.rename(old， new) -- 重命名文件或目录
-
-18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
-
-19. os.mkdir(“test”) -- 创建单个目录
-
-20. os.stat(file) --获取文件属性
-
-21. os.chmod(file) -- 修改文件权限与时间戳
-
-22. os.exit() -- 终止当前进程
-
-23. os.path.getsize(filename) -- 获取文件大小：
-
-24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
-    olddir和newdir都只能为目录，且newdir必须不存在
-
-25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir和newdir都只能为文件
-    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir只能为文件，newfile可以是文件，也可以是目标目录
-
-26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
-
-27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
-
-28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2345,7 +2324,7 @@ url:https://github.com/ ---&gt;finish
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

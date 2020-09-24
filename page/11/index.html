@@ -158,6 +158,151 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
+<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
+
+2. os.listdir() -- 返回指定目录下的所有文件和目录名
+   os.listdir(&#39;c:\\&#39;)
+
+3. os.remove(filepath) -- 删除一个文件
+
+4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
+
+5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
+
+6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
+
+7. os.path.isabs() -- 判断是否是绝对路径
+
+8. os.path.exists() -- 检验路径是否真的存在
+   os.path.exists(r&#39;d:\python&#39;)
+
+9. os.path.split() -- 分离一个路径的目录名和文件名
+   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
+
+10. os.path.splitext() -- 分离扩展名
+    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
+
+11. os.path.dirname(filepath) --获取路径名
+
+12. os.path.basename(filepath)-- 获取文件名
+
+13. os.getenv()和os.putenv() -- 读取和设置环境变量
+
+14. os.linesep -- 给出当前平台使用的行终止符
+    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
+
+15. os.system() -- 运行shell命令
+
+16. os.name -- 指示你正在使用的平台
+    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
+
+17. os.rename(old， new) -- 重命名文件或目录
+
+18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
+
+19. os.mkdir(“test”) -- 创建单个目录
+
+20. os.stat(file) --获取文件属性
+
+21. os.chmod(file) -- 修改文件权限与时间戳
+
+22. os.exit() -- 终止当前进程
+
+23. os.path.getsize(filename) -- 获取文件大小：
+
+24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
+    olddir和newdir都只能为目录，且newdir必须不存在
+
+25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir和newdir都只能为文件
+    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir只能为文件，newfile可以是文件，也可以是目标目录
+
+26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
+
+27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
+
+28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1301,90 +1446,6 @@ def recommend(self, user):
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/" class="post-title-link" itemprop="url">基于知识图谱技术的搜索引擎研发</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-08 13:42:23" itemprop="dateCreated datePublished" datetime="2018-02-08T13:42:23+08:00">2018-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:23:12" itemprop="dateModified" datetime="2020-09-18T17:23:12+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>研发基于知识图谱的知识库搜索引擎，该搜索引擎主要包含以下功能模块及研究内容： </p>
-<p>（1）搜索模块：该模块定时的向百度百科，中文本体网等百科类网站执行“网络爬虫”程序，获取百科类网站中的结构化数据。该模块又可以分为网页/数据的爬取解析、清洗、消重（歧）三个小模块。 </p>
-<p>（2）图数据库：该模块运用数据挖据能力将散落在互联网上碎片化的知识整合起来，先以“知识卡片”的形式将与关键词相关的知识体系系统化的归纳在一起，然后以“图谱”的形式将含有语义关系的“知识卡片”连接在一起并存储构建成图数据库。 </p>
-<p>（3）检索模块：以“语义理解”技术为核心，首先对用户输入的搜索信息进行语义分析，试图理解用户的搜索意图，并将分析结果传入检索库，检索模块根据此结果在知识图谱上进行挖掘，主要的过程包含推理（Reasoning或Inference），实体重要性排序，相关实体挖掘三个过程。最后得出的结果展示到客户端。 </p>
-<p>（4）用户交互网站：用户交互网站是用来接纳用户查询，显示查询结果，提供个性化的查询服务的前端显示界面。</p>
-<p>未完待续中。。。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/Awesome-Chinese-NLP">https://github.com/Gladysgong/Awesome-Chinese-NLP</a><br><a target="_blank" rel="noopener" href="http://zake7749.github.io/2016/12/17/how-to-develop-chatbot/">http://zake7749.github.io/2016/12/17/how-to-develop-chatbot/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1454,7 +1515,7 @@ def recommend(self, user):
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
