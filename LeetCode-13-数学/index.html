@@ -28,7 +28,7 @@
 <meta property="og:description" content="十三、数学172. 阶乘后的零链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;factorial-trailing-zeroes&#x2F;  给定一个整数 n，返回 n! 结果尾数中零的数量。  示例 1:  输入: 3 输出: 0 解释: 3! &#x3D; 6, 尾数中没有零。 示例 2:  输入: 5 输出: 1 解释: 5! &#x3D; 120, 尾数中有 1 个零. 说明: 你算法的时间复">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-03-29T12:12:16.000Z">
-<meta property="article:modified_time" content="2020-08-18T14:36:58.529Z">
+<meta property="article:modified_time" content="2020-10-22T11:54:22.327Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:36:58" itemprop="dateModified" datetime="2020-08-18T22:36:58+08:00">2020-08-18</time>
+                <time title="Modified: 2020-10-22 19:54:22" itemprop="dateModified" datetime="2020-10-22T19:54:22+08:00">2020-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,6 +259,35 @@
 <p>写程序的话，如果直接按照上边的式子计算，分母可能会造成溢出。所以算 n / 25 的时候，我们先把 n 更新，n = n / 5，然后再计算 n / 5 即可，后边的同理。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def trailingZeroes(self, n: int) -&gt; int:</span><br><span class="line">        count&#x3D;0</span><br><span class="line">        while n&gt;0:</span><br><span class="line">            count+&#x3D;n&#x2F;&#x2F;5</span><br><span class="line">            n&#x2F;&#x2F;&#x3D;5</span><br><span class="line">        return count</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h3 id="1447-最简分数"><a href="#1447-最简分数" class="headerlink" title="1447. 最简分数"></a>1447. 最简分数</h3><pre><code>链接：https://leetcode-cn.com/problems/simplified-fractions/
+
+给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于  n 的 最简 分数 。分数可以以 任意 顺序返回。
+
+示例 1：
+
+输入：n = 2
+输出：[&quot;1/2&quot;]
+解释：&quot;1/2&quot; 是唯一一个分母小于等于 2 的最简分数。
+示例 2：
+
+输入：n = 3
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;2/3&quot;]
+示例 3：
+
+输入：n = 4
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;1/4&quot;,&quot;2/3&quot;,&quot;3/4&quot;]
+解释：&quot;2/4&quot; 不是最简分数，因为它可以化简为 &quot;1/2&quot; 。
+示例 4：
+
+输入：n = 1
+输出：[]
+
+
+提示：
+
+1 &lt;= n &lt;= 100</code></pre>
+<p>题解一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def simplifiedFractions(self, n: int) -&gt; List[str]:</span><br><span class="line">        def gcd(x,y):</span><br><span class="line">            while y:</span><br><span class="line">                x,y&#x3D;y,x%y</span><br><span class="line">            return x</span><br><span class="line">    </span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        tmp&#x3D;set()</span><br><span class="line">        for i in range(2,n+1):</span><br><span class="line">            for j in range(1,i):</span><br><span class="line">                c&#x3D;gcd(i,j)</span><br><span class="line">                a,b&#x3D;j&#x2F;&#x2F;c,i&#x2F;&#x2F;c</span><br><span class="line">                if (a,b) in tmp:</span><br><span class="line">                    continue</span><br><span class="line">                tmp.add((a,b))</span><br><span class="line">                res.append(str(a)+&#39;&#x2F;&#39;+str(b))</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -341,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%95%B0%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">十三、数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#172-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6"><span class="nav-number">1.1.</span> <span class="nav-text">172. 阶乘后的零</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%95%B0%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">十三、数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#172-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6"><span class="nav-number">1.1.</span> <span class="nav-text">172. 阶乘后的零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1447-%E6%9C%80%E7%AE%80%E5%88%86%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">1447. 最简分数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -355,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

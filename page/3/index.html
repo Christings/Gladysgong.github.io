@@ -158,6 +158,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">PyTorch-2-总体结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-14 15:16:47 / Modified: 15:22:16" itemprop="dateCreated datePublished" datetime="2020-04-14T15:16:47+08:00">2020-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://pytorch-cn.readthedocs.io/zh/latest/">https://pytorch-cn.readthedocs.io/zh/latest/</a></p>
+<p>PyTorch文档中主要包含2个模块，一个是 torch, 一个 torchvision, torch 是主模块, 用来搭建神经网络的, torchvision 是辅模块, 有数据库, 还有一些已经训练好的神经网络等着你直接用, 比如 (VGG, AlexNet, ResNet).</p>
+<pre><code>torch:
+    Tensor
+    Storage
+    nn
+    nn.functional
+    autograd
+    optim
+    nn.init
+    multiprocessing
+    legacy
+    cuda
+    utils.fit
+    utils.data
+    utils.model_zoo
+
+torchvison:
+    datasets
+    models
+    transforms
+    utils</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -401,7 +494,7 @@ SQL架构
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:36:58" itemprop="dateModified" datetime="2020-08-18T22:36:58+08:00">2020-08-18</time>
+                <time title="Modified: 2020-10-22 19:54:22" itemprop="dateModified" datetime="2020-10-22T19:54:22+08:00">2020-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -468,6 +561,35 @@ SQL架构
 <p>写程序的话，如果直接按照上边的式子计算，分母可能会造成溢出。所以算 n / 25 的时候，我们先把 n 更新，n = n / 5，然后再计算 n / 5 即可，后边的同理。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def trailingZeroes(self, n: int) -&gt; int:</span><br><span class="line">        count&#x3D;0</span><br><span class="line">        while n&gt;0:</span><br><span class="line">            count+&#x3D;n&#x2F;&#x2F;5</span><br><span class="line">            n&#x2F;&#x2F;&#x3D;5</span><br><span class="line">        return count</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h3 id="1447-最简分数"><a href="#1447-最简分数" class="headerlink" title="1447. 最简分数"></a>1447. 最简分数</h3><pre><code>链接：https://leetcode-cn.com/problems/simplified-fractions/
+
+给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于  n 的 最简 分数 。分数可以以 任意 顺序返回。
+
+示例 1：
+
+输入：n = 2
+输出：[&quot;1/2&quot;]
+解释：&quot;1/2&quot; 是唯一一个分母小于等于 2 的最简分数。
+示例 2：
+
+输入：n = 3
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;2/3&quot;]
+示例 3：
+
+输入：n = 4
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;1/4&quot;,&quot;2/3&quot;,&quot;3/4&quot;]
+解释：&quot;2/4&quot; 不是最简分数，因为它可以化简为 &quot;1/2&quot; 。
+示例 4：
+
+输入：n = 1
+输出：[]
+
+
+提示：
+
+1 &lt;= n &lt;= 100</code></pre>
+<p>题解一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def simplifiedFractions(self, n: int) -&gt; List[str]:</span><br><span class="line">        def gcd(x,y):</span><br><span class="line">            while y:</span><br><span class="line">                x,y&#x3D;y,x%y</span><br><span class="line">            return x</span><br><span class="line">    </span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        tmp&#x3D;set()</span><br><span class="line">        for i in range(2,n+1):</span><br><span class="line">            for j in range(1,i):</span><br><span class="line">                c&#x3D;gcd(i,j)</span><br><span class="line">                a,b&#x3D;j&#x2F;&#x2F;c,i&#x2F;&#x2F;c</span><br><span class="line">                if (a,b) in tmp:</span><br><span class="line">                    continue</span><br><span class="line">                tmp.add((a,b))</span><br><span class="line">                res.append(str(a)+&#39;&#x2F;&#39;+str(b))</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1318,7 +1440,7 @@ split(&#39; &#39;)的时候，多个空格也要分割，会分割出来空。</
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-03 18:11:49" itemprop="dateModified" datetime="2020-09-03T18:11:49+08:00">2020-09-03</time>
+                <time title="Modified: 2020-10-21 13:26:51" itemprop="dateModified" datetime="2020-10-21T13:26:51+08:00">2020-10-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1460,6 +1582,44 @@ left ，right分别代表从左到右移动和从右到左移动的指针。
 
 <p>？？？题解三|位运算:</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png"></p>
+<h3 id="84-柱状图中最大的矩形"><a href="#84-柱状图中最大的矩形" class="headerlink" title="84. 柱状图中最大的矩形"></a>84. 柱状图中最大的矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。
+
+图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。
+
+示例:
+
+输入: [2,1,5,6,2,3]
+输出: 10</code></pre>
+<p>题解一|暴力|超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def largestRectangleArea(self, heights: List[int]) -&gt; int:</span><br><span class="line">        if not heights:</span><br><span class="line">            return 0</span><br><span class="line">        n&#x3D;len(heights)</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(n):</span><br><span class="line">            tmp&#x3D;heights[i]</span><br><span class="line">            for j in range(i,n):</span><br><span class="line">                tmp&#x3D;min(tmp,heights[j])</span><br><span class="line">                area&#x3D;max(area,tmp*(j-i+1))</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
+<p>题解二|递增栈：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def largestRectangleArea(self, heights: List[int]) -&gt; int:</span><br><span class="line">        if not heights:</span><br><span class="line">            return 0</span><br><span class="line">        n&#x3D;len(heights)</span><br><span class="line">        stack&#x3D;[]</span><br><span class="line">        area,i&#x3D;0,0</span><br><span class="line">        while i &lt; n:</span><br><span class="line">            if not stack or (heights[i] &gt; heights[stack[-1]]):</span><br><span class="line">                stack.append(i)</span><br><span class="line">                i+&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                tmp&#x3D;stack.pop()</span><br><span class="line">                area&#x3D;max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))</span><br><span class="line">        while stack:</span><br><span class="line">            tmp&#x3D;stack.pop()</span><br><span class="line">            area&#x3D;max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
+<h3 id="85-最大矩形"><a href="#85-最大矩形" class="headerlink" title="85. 最大矩形"></a>85. 最大矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/maximal-rectangle/
+
+给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+示例:
+
+输入:
+[
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]
+]
+输出: 6</code></pre>
+<p>题解一|暴力：</p>
+<p>时间复杂度：O（m²n）。<br>空间复杂度：O（mn）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maximalRectangle(self, matrix: List[List[str]]) -&gt; int:</span><br><span class="line">        if not matrix:</span><br><span class="line">            return 0</span><br><span class="line">        m&#x3D;len(matrix)</span><br><span class="line">        n&#x3D;len(matrix[0])</span><br><span class="line">        dp&#x3D;[[0] * n for i in range(m)]</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(m):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                if matrix[i][j]&#x3D;&#x3D;&#39;1&#39;:</span><br><span class="line">                    if n&#x3D;&#x3D;0:</span><br><span class="line">                        dp[i][j]&#x3D;1</span><br><span class="line">                    else:</span><br><span class="line">                        dp[i][j]&#x3D;dp[i][j-1]+1</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j]&#x3D;0   </span><br><span class="line"></span><br><span class="line">                minWidth&#x3D;dp[i][j]</span><br><span class="line">                for k in range(i,-1,-1):</span><br><span class="line">                    height&#x3D;i-k+1</span><br><span class="line">                    minWidth&#x3D;min(minWidth,dp[k][j])</span><br><span class="line">                    area&#x3D;max(area,height*minWidth)</span><br><span class="line">            </span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
 <h3 id="409-最长回文串"><a href="#409-最长回文串" class="headerlink" title="409.最长回文串"></a>409.最长回文串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindrome/
 
 给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
@@ -2080,116 +2240,6 @@ finished memory used: 10.85546875 MB</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">python并发-17.Asyncio并发编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-27 23:06:24" itemprop="dateCreated datePublished" datetime="2020-02-27T23:06:24+08:00">2020-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:04" itemprop="dateModified" datetime="2020-09-18T14:03:04+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：</p>
-<p>1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；<br>2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。</p>
-<p>同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；<br>异步：是指不同操作间可以相互交替执行，如果其中地某个操作被堵塞，程序并不会等待，而是会找出可执行的操作继续执行。</p>
-<p>例子（做一份报表，并以邮件的方式提交）：</p>
-<p>同步：应先向软件中输入各项数据，接下来等报表生成，再写邮件提交；<br>异步：向软件中输出各项数据后，会先写邮件，等待报表生成后，暂停写邮件的工作去查看生成的报表，确认无误后在写邮件直到发送完毕。</p>
-<h2 id="一、关于Asyncio"><a href="#一、关于Asyncio" class="headerlink" title="一、关于Asyncio"></a>一、关于Asyncio</h2><p>Asyncio 和其他 Python 程序一样，是单线程的，它只有一个主线程，但可以进行多个不同的任务。这里的任务，指的就是特殊的 future 对象，我们可以把它类比成多线程版本里的多个线程。</p>
-<p>这些不同的任务，被一个叫做事件循环（Event Loop）的对象所控制。<br>所谓事件循环，是指主线程每次将执行序列中的任务清空后，就去事件队列中检查是否有等待执行的任务，如果有则每次取出一个推到执行序列中执行，这个过程是循环往复的。</p>
-<p>为了简化讲解这个问题，可以假设任务只有两个状态：，分别是预备状态和等待状态：</p>
-<pre><code>预备状态是指任务目前空闲，但随时待命准备运行；
-等待状态是指任务已经运行，但正在等待外部的操作完成，比如 I/O 操作。</code></pre>
-<p>在这种情况下，事件循环会维护两个任务列表，分别对应这两种状态，并且选取预备状态的一个任务（具体选取哪个任务，和其等待的时间长短、占用的资源等等相关）使其运行，一直到这个任务把控制权交还给事件循环为止。</p>
-<p>当任务把控制权交还给事件循环对象时，它会根据其是否完成把任务放到预备或等待状态的列表，然后遍历等待状态列表的任务，查看他们是否完成：如果完成，则将其放到预备状态的列表；反之，则继续放在等待状态的列表。而原先在预备状态列表的任务位置仍旧不变，因为它们还未运行。</p>
-<p>这样，当所有任务被重新放置在合适的列表后，新一轮的循环又开始了，事件循环对象继续从预备状态的列表中选取一个任务使其执行…如此周而复始，直到所有任务完成。</p>
-<p>值得一提的是，对于 Asyncio 来说，它的任务在运行时不会被外部的一些因素打断，因此 Asyncio 内的操作不会出现竞争资源（多个线程同时使用同一资源）的情况，也就不需要担心线程安全的问题了。</p>
-<h2 id="二、Asyncio的使用"><a href="#二、Asyncio的使用" class="headerlink" title="二、Asyncio的使用"></a>二、Asyncio的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">import aiohttp</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async def downloadOne(url):</span><br><span class="line">    async with aiohttp.ClientSession() as session:</span><br><span class="line">        async with session.get(url) as resp:</span><br><span class="line">            print(&#39;Read &#123;&#125; from &#123;&#125;&#39;.format(resp.content_length, url))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async def downloadAll(urls):</span><br><span class="line">    tasks &#x3D; [asyncio.ensure_future(downloadOne(url)) for url in urls]</span><br><span class="line">    await asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    urls &#x3D; [</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#39;,</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#x2F;c&#39;,</span><br><span class="line">        &#39;http:&#x2F;&#x2F;c.biancheng.net&#x2F;python&#39;</span><br><span class="line">    ]</span><br><span class="line">    start &#x3D; time.perf_counter()</span><br><span class="line">    loop &#x3D; asyncio.get_event_loop()</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        loop.run_until_complete(downloadAll(urls))</span><br><span class="line">    finally:</span><br><span class="line">        loop.close()</span><br><span class="line"></span><br><span class="line">    end &#x3D; time.perf_counter()</span><br><span class="line">    print(&#39;Download &#123;&#125; urls in &#123;&#125; seconds&#39;.format(len(urls), end - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<pre><code>Read None from http://c.biancheng.net
-Read None from http://c.biancheng.net/c
-Read None from http://c.biancheng.net/python
-Download 3 urls in 0.10918640485033393 seconds</code></pre>
-<p>注意：Async 和 await 关键字是 Asyncio 的最新写法，表示这个语句（函数）是非阻塞的，正好对应前面所讲的事件循环的概念，即如果任务执行的过程需要等待，则将其放入等待状态的列表中，然后继续执行预备状态列表里的任务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">loop &#x3D; asyncio.get_event_loop()</span><br><span class="line">    try:</span><br><span class="line">        loop.run_until_complete(downloadll(sites))</span><br><span class="line">    finally:</span><br><span class="line">        loop.close()</span><br></pre></td></tr></table></figure>
-<p>上述代码表示拿到事件循环对象，并运行 downloadAll() 函数，直到其结束，最后关闭这个事件循环对象。</p>
-<p>注意：如果读者使用 Python 3.7 及以上版本，上述代码可以直接用 asyncio.run(downloadAll(sites)) 来代替。</p>
-<p>至于 Asyncio 版本的函数 downloadAll()，和之前多线程版本有很大的区别：</p>
-<p>1、这里的 asyncio.ensure_future(coro) 表示对输入的协程 coro 创建一个任务，安排它的执行，并返回此任务对象。可以看到，这里对每一个网站的下载，都创建了一个对应的任务。</p>
-<pre><code>注意：Python 3.7+ 版本之后，可以使用 asyncio.create_task(coro) 等效替代 asyncio.ensure_future(coro)。</code></pre>
-<p>2、asyncio.gather() 表示在事件循环对象中运行 aws 序列的所有任务。</p>
-<pre><code>可以看到，其输出结果显示用时只有 0.11s，比之前的多线程版本效率更高，充分体现其优势。</code></pre>
-<p>Asyncio 还有很多其他的用法，可以查看 Python 事件循环官方文档进行了解。</p>
-<h2 id="三、Asyncio的缺陷"><a href="#三、Asyncio的缺陷" class="headerlink" title="三、Asyncio的缺陷"></a>三、Asyncio的缺陷</h2><p>在学习多线程编程中使用的是 requests 库，但本节使用的是 aiohttp 库，原因在于 requests 库并不兼容 Asyncio，而 aiohttp 库兼容。Asyncio 软件库的兼容性问题，在 Python3 的早期一直是个大问题，但是随着技术的发展，这个问题正逐步得到解决。</p>
-<p>使用 Asyncio 时，因为在任务调度方面有了更大的自主权，写代码时就得更加注意，不然很容易出错。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2259,7 +2309,7 @@ Download 3 urls in 0.10918640485033393 seconds</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

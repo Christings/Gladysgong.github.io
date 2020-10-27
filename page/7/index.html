@@ -158,6 +158,293 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-7-%E9%80%92%E5%BD%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-7-%E9%80%92%E5%BD%92/" class="post-title-link" itemprop="url">LeetCode-7-递归</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-16 18:30:44" itemprop="dateCreated datePublished" datetime="2020-01-16T18:30:44+08:00">2020-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-18 22:37:06" itemprop="dateModified" datetime="2020-08-18T22:37:06+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="七-递归"><a href="#七-递归" class="headerlink" title="七.递归"></a>七.递归</h2><p>参考文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485092&amp;idx=1&amp;sn=ff44f169aa57cac8a8e6595b7ff49ab8&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485092&amp;idx=1&amp;sn=ff44f169aa57cac8a8e6595b7ff49ab8&amp;scene=21#wechat_redirect</a></p>
+<p>递归的三大要素:</p>
+<pre><code>第一要素：明确你这个函数想要干什么
+第二要素：寻找递归结束条件
+第三要素：找出函数的等价关系式,不断缩小参数的范围</code></pre>
+<p>递归优化（建议看完一题再看优化）：</p>
+<pre><code>1.考虑是否重复计算
+比如说f(n-1),f(n-2)等就是 f(n) 的子问题了，这些子问题会被重复计算。
+
+一般我们可以把我们计算的结果保证起来，例如把 f(4) 的计算结果保证起来，当再次要计算 f(4) 的时候，我们先判断一下，之前是否计算过，如果计算过，直接把 f(4) 的结果取出来就可以了，没有计算过的话，再递归计算。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def fib(n):</span><br><span class="line">        if n&lt;&#x3D;2:</span><br><span class="line">            return n</span><br><span class="line"></span><br><span class="line">        # 判断是否计算过</span><br><span class="line">        if arr[n] !&#x3D; -1:</span><br><span class="line">            return arr[n]</span><br><span class="line">        else:</span><br><span class="line">            # 没有计算过，递归计算,并且把结果保存到 arr数组里</span><br><span class="line">            arr[n]&#x3D;f(n-1)+f(n-2)</span><br><span class="line">            return arr[n]</span><br></pre></td></tr></table></figure>
+
+<pre><code>2.考虑是否可以自底向上,这种方法也被称为递推。
+
+对于递归的问题，我们一般都是从上往下递归的，直到递归到最底，再一层一层着把值返回。
+不过，有时候当 n 比较大的时候，例如当 n = 10000 时，那么必须要往下递归10000层直到 n &lt;=1 才将结果慢慢返回，如果n太大的话，可能栈空间会不够用。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def f(n):</span><br><span class="line">        if n&lt;&#x3D;2:</span><br><span class="line">            return n</span><br><span class="line">        f1&#x3D;1</span><br><span class="line">        f2&#x3D;2</span><br><span class="line">        sum&#x3D;0</span><br><span class="line">        for i in range(3,n+1):</span><br><span class="line">            sum&#x3D;f1+f2</span><br><span class="line">            f1&#x3D;f2</span><br><span class="line">            f2&#x3D;sum</span><br><span class="line">        return  sum</span><br></pre></td></tr></table></figure>
+
+<h3 id="在两个长度相等的排序数组中找到上中位数"><a href="#在两个长度相等的排序数组中找到上中位数" class="headerlink" title="在两个长度相等的排序数组中找到上中位数"></a>在两个长度相等的排序数组中找到上中位数</h3><pre><code>给定两个有序数组arr1和arr2，已知两个数组的长度都为N，求两个数组中所有数的上中位数。要求时间复杂度O(logN)，空间复杂度O(1）
+
+例如 arr1 = [1, 2,3,4]，arr2 = [3,4,5,6]。
+
+总共8个数，则中位数就是第 4 小的数，为 3.
+
+例如 arr1 = [0,1,2]，arr2 = [3,4,5]。
+
+总共6个数，则中位数就是第 3 小的数，为 2.</code></pre>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485087&amp;idx=3&amp;sn=9db76b899a0ed1c9274211a0218c2e8e&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485087&amp;idx=3&amp;sn=9db76b899a0ed1c9274211a0218c2e8e&amp;scene=21#wechat_redirect</a></p>
+<p>题解一（递归）：</p>
+<pre><code>(1)、当 两个数组的长度为偶数时：
+
+mid1 = (n-1)/2 = 1。
+mid2 = (n - 1)/2 = 1。</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median1.png"></p>
+<pre><code>(2)、当两个数组的长度为奇数时：
+
+mid1 = (n-1)/2 = 2。
+mid2 = (n - 1)/2 = 2。
+
+如果 arr2[mid2] &gt; arr1[mid1] 时，则和上面那个情况有点小差别，这时候目标数只存在于 arr1[mid1…n] 和 arr2[0…mid2]中。注意他们的差别，从arr1[mid1+1…n] =&gt; arr1[mid1…n]。
+
+(3)、总结
+
+当数组长度为奇数时：
+    arr2[mid1] &lt; arr1[mid2]：mid1+1~n和0～mid2
+    arr2[mid1] &gt; arr1[mid2]：0～mid1和mid2+1～n
+当数组长度为偶数时:
+    arr2[mid1] &lt; arr1[mid2]：mid1~n和0～mid2
+    arr2[mid1] &gt; arr1[mid2]：0～mid1和mid2～n</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def getUpMedian(arr1, arr2):</span><br><span class="line">    if arr1 is None or arr2 is None:</span><br><span class="line">        return -1</span><br><span class="line"></span><br><span class="line">    return helper(arr1, 0, len(arr1) - 1, arr2, 0, len(arr2) - 1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def helper(arr1, l1, r1, arr2, l2, r2):</span><br><span class="line">    # mid1 &#x3D; (r1 + l1) &#x2F;&#x2F; 2</span><br><span class="line">    # mid2 &#x3D; (r2 + l2) &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">    mid1 &#x3D; l1+(r1 - l1) &#x2F;&#x2F; 2 # 不明白为何这样求中位数？</span><br><span class="line">    mid2 &#x3D; l2+(r2 - l2) &#x2F;&#x2F; 2</span><br><span class="line"></span><br><span class="line">    if l1 &gt;&#x3D; r1:</span><br><span class="line">        return min(arr1[l1], arr2[l2])</span><br><span class="line"></span><br><span class="line">    offset &#x3D; ((r1 - l1 + 1) &amp; 1) ^ 1</span><br><span class="line"></span><br><span class="line">    if arr1[mid1] &lt; arr2[mid2]:</span><br><span class="line">        return helper(arr1, mid1 + offset, r1, arr2, l2, mid2)</span><br><span class="line">    elif arr1[mid1] &gt; arr2[mid2]:</span><br><span class="line">        return helper(arr1, l1, mid1, arr2, mid2 + offset, r2)</span><br><span class="line">    else:</span><br><span class="line">        return arr1[mid1]</span><br><span class="line"></span><br><span class="line">print(getUpMedian([1, 2, 4, 6,9], [2, 2, 7, 9,10]))</span><br></pre></td></tr></table></figure>
+
+<p>题解二（迭代）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">def getUpMedian(arr1, arr2):</span><br><span class="line">    if arr1 is None or arr2 is None:</span><br><span class="line">        return -1</span><br><span class="line"></span><br><span class="line">    l1 &#x3D; 0</span><br><span class="line">    r1 &#x3D; len(arr1) - 1</span><br><span class="line">    l2 &#x3D; 0</span><br><span class="line">    r2 &#x3D; len(arr2) - 1</span><br><span class="line">    mid1, mid2 &#x3D; 0, 0</span><br><span class="line">    offset &#x3D; 0</span><br><span class="line"></span><br><span class="line">    while l1 &lt; r1:</span><br><span class="line">        # mid1 &#x3D; (r1 - l1) &#x2F;&#x2F; 2</span><br><span class="line">        # mid2 &#x3D; (r2 - l2) &#x2F;&#x2F; 2</span><br><span class="line">        mid1 &#x3D; l1 + (r1 - l1) &#x2F;&#x2F; 2</span><br><span class="line">        mid2 &#x3D; l2 + (r2 - l2) &#x2F;&#x2F; 2</span><br><span class="line">        offset &#x3D; ((r1 - l1 + 1) &amp; 1) ^ 1</span><br><span class="line"></span><br><span class="line">        if arr1[mid1] &lt; arr2[mid2]:</span><br><span class="line">            l1 &#x3D; mid1 + offset</span><br><span class="line">            r2 &#x3D; mid2</span><br><span class="line">        elif arr1[mid1] &gt; arr2[mid2]:</span><br><span class="line">            r1 &#x3D; mid1</span><br><span class="line">            l2 &#x3D; mid2 + offset</span><br><span class="line">        else:</span><br><span class="line">            return arr1[mid1]</span><br><span class="line">    return min(arr1[l1], arr2[l2])</span><br><span class="line"></span><br><span class="line">print(getUpMedian([1, 2, 4, 6, 9], [2, 2, 7, 9, 10]))</span><br></pre></td></tr></table></figure>
+
+<h3 id="？？？求两个有序数组的第K小数"><a href="#？？？求两个有序数组的第K小数" class="headerlink" title="？？？求两个有序数组的第K小数"></a>？？？求两个有序数组的第K小数</h3><pre><code>给定两个有序数组arr1和arr2，已知两个数组的长度分别为 m1 和 m2，求两个数组中的第 K 小数。要求时间复杂度O(log(m1 + m2))。
+
+【举例】
+例如 arr1 = [1, 2,3]，arr2 = [3,4,5,6]，K = 4。
+
+则第 K 小数为 3.
+
+例如 arr1 = [0,1,2]，arr2 = [3,4,5，7，8]， K = 3;
+
+则第 K 小数为 2.</code></pre>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485084&amp;idx=3&amp;sn=2cd46fef0f9e80bfe5a47043afc8ccbb&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485084&amp;idx=3&amp;sn=2cd46fef0f9e80bfe5a47043afc8ccbb&amp;scene=21#wechat_redirect</a></p>
+<p>题解一（递归）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">def findKth(arr1, arr2, k):</span><br><span class="line">    if arr1 is None or len(arr1) &lt; 1:</span><br><span class="line">        return arr2[k - 1]</span><br><span class="line">    if arr2 is None or len(arr2) &lt; 1:</span><br><span class="line">        return arr1[k - 1]</span><br><span class="line">    return helper(arr1, 0, len(arr1) - 1, arr2, 0, len(arr2) - 1, k)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def helper(arr1, l1, r1, arr2, l2, r2, k):</span><br><span class="line">    if l1 &gt; r1:</span><br><span class="line">        return arr2[l2 + k]</span><br><span class="line">    if l2 &gt; r2:</span><br><span class="line">        return arr1[l1 + k]</span><br><span class="line">    if k &#x3D;&#x3D; 0:</span><br><span class="line">        return min(arr1[l1], arr2[l2])</span><br><span class="line"></span><br><span class="line">    mid1 &#x3D; l1 + k &#x2F;&#x2F; 2 if (l1 + k &#x2F;&#x2F; 2) &lt; (r1) else r1</span><br><span class="line">    mid2 &#x3D; l2 + k &#x2F;&#x2F; 2 if (l1 + k &#x2F;&#x2F; 2) &lt; (r2 - l1) else r2</span><br><span class="line"></span><br><span class="line">    if arr1[mid1] &lt; arr2[mid2]:</span><br><span class="line">        return helper(arr1, mid1 + 1, r1, arr2, l2, r2, k - k &#x2F;&#x2F; 2 - 1)</span><br><span class="line">    elif arr1[mid1] &gt; arr2[mid2]:</span><br><span class="line">        return helper(arr1, l1, r1, arr2, mid2 + 1, r2, k - k &#x2F;&#x2F; 2 - 1)</span><br><span class="line">    else:</span><br><span class="line">        return arr1[mid1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70.爬楼梯"></a>70.爬楼梯</h3><pre><code>链接：https://leetcode-cn.com/problems/climbing-stairs/
+
+假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+注意：给定 n 是一个正整数。
+
+示例 1：
+
+输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。
+1.  1 阶 + 1 阶
+2.  2 阶
+示例 2：
+
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶</code></pre>
+<p>题解一(递归):</p>
+<pre><code>第一要素：明确你这个函数想要干什么</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f(n) 的功能是跳上一个n级的台阶总共有多少种跳法.</span><br><span class="line">def f(n):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+
+<pre><code>第二要素：寻找递归结束条件</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n&#x3D;1,f(1) &#x3D; 1</span><br><span class="line">n&#x3D;2,f(2) &#x3D; 2</span><br><span class="line"></span><br><span class="line">def f(n):</span><br><span class="line">    if n&lt;&#x3D; 2:</span><br><span class="line">        return n</span><br></pre></td></tr></table></figure>
+<pre><code>第三要素：找出函数的等价关系式,不断缩小参数的范围</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">每次跳的时候，小青蛙可以跳一个台阶，也可以跳两个台阶，也就是说，每次跳的时候，小青蛙有两种跳法。</span><br><span class="line"></span><br><span class="line">跳上n个台阶时，可以从n-1台阶跳上来，或者从n-2台阶跳上来。</span><br><span class="line"></span><br><span class="line">第一种跳法：第一次我跳了一个台阶，那么还剩下n-1个台阶还没跳，剩下的n-1个台阶的跳法有f(n-1)种。</span><br><span class="line"></span><br><span class="line">第二种跳法：第一次跳了两个台阶，那么还剩下n-2个台阶还没，剩下的n-2个台阶的跳法有f(n-2)种。</span><br><span class="line"></span><br><span class="line">f(n) &#x3D; f(n-1) + f(n-2)</span><br><span class="line"></span><br><span class="line">def f(n):</span><br><span class="line">    # 递归结束条件</span><br><span class="line">    if n&lt;&#x3D;2:</span><br><span class="line">        return n</span><br><span class="line">    # 等价关系式</span><br><span class="line">    return  fib(n-1)+fib(n-2)</span><br></pre></td></tr></table></figure>
+<h3 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206. 反转链表"></a>206. 反转链表</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-linked-list/
+
+反转一个单链表。
+
+示例:
+
+输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
+输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL
+进阶:
+你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</code></pre>
+<p>题解一（递归）:</p>
+<pre><code>第一要素：明确你这个函数想要干什么</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reverseList(head) 的功能是反转单链表，head表示头节点</span><br><span class="line">def reverseList(head):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+
+<pre><code>第二要素：寻找递归结束条件
+当链表只有一个节点，或者链表为空时，递归结束。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def reverseList(head):</span><br><span class="line">    if head is None or head.next is None:</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
+
+<pre><code>第三要素：找出函数的等价关系式,不断缩小参数的范围
+
+等价条件中，一定是范围不断在缩小，对于链表来说，就是链表的节点个数不断在变小.
+head -&gt; 1 -&gt; 2 -&gt;3 -&gt;4
+
+newList -&gt; 4 -&gt; 3 -&gt; 2 &lt;- 1 &lt;- head
+
+接下来只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了.
+
+newList -&gt; 4 -&gt; 3 -&gt; 2 -&gt; 1 -&gt; null</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def reverseList(head):</span><br><span class="line">    def helper(head):</span><br><span class="line">        if head is None or head.next is None:</span><br><span class="line">            return head</span><br><span class="line">        pre,last&#x3D;helper(head.next)</span><br><span class="line">        last.next&#x3D;head</span><br><span class="line">        head.next&#x3D;None</span><br><span class="line">        return pre,head</span><br><span class="line">    rt,_&#x3D;helper(head)</span><br><span class="line">    return rt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">不理解？？？</span><br><span class="line">class Solution(object):</span><br><span class="line">    def reverseList(self, head):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type head: ListNode</span><br><span class="line">        :rtype: ListNode</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # 递归终止条件是当前为空，或者下一个节点为空</span><br><span class="line">        if(head&#x3D;&#x3D;None or head.next&#x3D;&#x3D;None):</span><br><span class="line">            return head</span><br><span class="line">        # 这里的cur就是最后一个节点</span><br><span class="line">        cur &#x3D; self.reverseList(head.next)</span><br><span class="line">        # 这里请配合动画演示理解</span><br><span class="line">        # 如果链表是 1-&gt;2-&gt;3-&gt;4-&gt;5，那么此时的cur就是5</span><br><span class="line">        # 而head是4，head的下一个是5，下下一个是空</span><br><span class="line">        # 所以head.next.next 就是5-&gt;4</span><br><span class="line">        head.next.next &#x3D; head</span><br><span class="line">        # 防止链表循环，需要将head.next设置为空</span><br><span class="line">        head.next &#x3D; None</span><br><span class="line">        # 每层递归函数都返回cur，也就是最后一个节点</span><br><span class="line">        return cur</span><br></pre></td></tr></table></figure>
+<h3 id="509-斐波那契数列"><a href="#509-斐波那契数列" class="headerlink" title="509.斐波那契数列"></a>509.斐波那契数列</h3><pre><code>链接：https://leetcode-cn.com/problems/fibonacci-number/
+
+斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+
+F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+给定 N，计算 F(N)。
+
+ 
+
+示例 1：
+
+输入：2
+输出：1
+解释：F(2) = F(1) + F(0) = 1 + 0 = 1.
+示例 2：
+
+输入：3
+输出：2
+解释：F(3) = F(2) + F(1) = 1 + 1 = 2.
+示例 3：
+
+输入：4
+输出：3
+解释：F(4) = F(3) + F(2) = 2 + 1 = 3.
+ 
+
+提示：
+
+0 ≤ N ≤ 30</code></pre>
+<p>题解一（递归）:</p>
+<pre><code>第一要素：明确你这个函数想要干什么</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f(n) 的功能是求第 n 项的值.</span><br><span class="line"></span><br><span class="line">def fib(n):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+<pre><code>第二要素：寻找递归结束条件</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f(1) &#x3D; f(2) &#x3D; 1。所以递归结束条件可以为  n &lt;&#x3D; 2。</span><br><span class="line"></span><br><span class="line">def fib(n):</span><br><span class="line">    if n&lt;2:</span><br><span class="line">        return 1</span><br></pre></td></tr></table></figure>
+<pre><code>第三要素：找出函数的等价关系式,不断缩小参数的范围</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">f(n) &#x3D; f(n-1) + f(n-2)</span><br><span class="line"></span><br><span class="line">def fib(n):</span><br><span class="line">    # 递归结束条件</span><br><span class="line">    if n&lt;2:</span><br><span class="line">        return 1</span><br><span class="line">    # 等价关系式</span><br><span class="line">    return  fib(n-1)+fib(n-2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="969-煎饼排序"><a href="#969-煎饼排序" class="headerlink" title="969. 煎饼排序"></a>969. 煎饼排序</h3><pre><code>链接：https://leetcode-cn.com/problems/pancake-sorting/
+
+给定数组 A，我们可以对其进行煎饼翻转：我们选择一些正整数 k &lt;= A.length，然后反转 A 的前 k 个元素的顺序。我们要执行零次或多次煎饼翻转（按顺序一次接一次地进行）以完成对数组 A 的排序。
+
+返回能使 A 排序的煎饼翻转操作所对应的 k 值序列。任何将数组排序且翻转次数在 10 * A.length 范围内的有效答案都将被判断为正确。
+
+示例 1：
+
+输入：[3,2,4,1]
+输出：[4,2,4,3]
+解释：
+我们执行 4 次煎饼翻转，k 值分别为 4，2，4，和 3。
+初始状态 A = [3, 2, 4, 1]
+第一次翻转后 (k=4): A = [1, 4, 2, 3]
+第二次翻转后 (k=2): A = [4, 1, 2, 3]
+第三次翻转后 (k=4): A = [3, 2, 1, 4]
+第四次翻转后 (k=3): A = [1, 2, 3, 4]，此时已完成排序。 
+示例 2：
+
+输入：[1,2,3]
+输出：[]
+解释：
+输入已经排序，因此不需要翻转任何内容。
+请注意，其他可能的答案，如[3，3]，也将被接受。
+
+提示：
+
+1 &lt;= A.length &lt;= 100
+A[i] 是 [1, 2, ..., A.length] 的排列</code></pre>
+<p>题解一|递归</p>
+<p>思路：</p>
+<pre><code>1、找到n个饼中最大的那个。
+
+2、把这个最大的饼移到最底下。
+
+3、递归调用pancakeSort(A, n - 1)。
+
+base case：n == 1时，排序 1 个饼时不需要翻转。</code></pre>
+<p>操作：</p>
+<p>1、用锅铲将前 3 块饼翻转一下，这样最大的饼就翻到了最上面。</p>
+<p>2、用锅铲将前n块饼全部翻转，这样最大的饼就翻到了第n块，也就是最后一块。</p>
+<p>时间复杂度：因为递归调用的次数是n，每次递归调用都需要一次 for 循环，时间复杂度是 O(n)，所以总的复杂度是 O(n^2)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def pancakeSort(self, A: List[int]) -&gt; List[int]:</span><br><span class="line">        self.res&#x3D;[]</span><br><span class="line">        self.sort(A,len(A))</span><br><span class="line">        return self.res</span><br><span class="line">    </span><br><span class="line">    def sort(self,arr,n):</span><br><span class="line">        if n&#x3D;&#x3D;1:</span><br><span class="line">            return</span><br><span class="line">        maxCake&#x3D;0</span><br><span class="line">        maxCakeIndex&#x3D;0</span><br><span class="line">        # 寻找最大饼的索引</span><br><span class="line">        for i in range(n):</span><br><span class="line">            if arr[i]&gt;maxCake:</span><br><span class="line">                maxCake&#x3D;arr[i]</span><br><span class="line">                maxCakeIndex&#x3D;i</span><br><span class="line">        self.reverse(arr,0,maxCakeIndex) # 第一次翻转，将最大饼翻到最上面</span><br><span class="line">        self.res.append(maxCakeIndex+1)</span><br><span class="line">        self.reverse(arr,0,n-1) # 第二次翻转，将最大饼翻到最下面</span><br><span class="line">        self.res.append(n)</span><br><span class="line"></span><br><span class="line">        self.sort(arr,n-1) # 递归调用</span><br><span class="line"></span><br><span class="line">    def reverse(self,arr,i,j):</span><br><span class="line">        while i&lt;j:</span><br><span class="line">            arr[i],arr[j]&#x3D;arr[j],arr[i]</span><br><span class="line">            i+&#x3D;1</span><br><span class="line">            j-&#x3D;1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-5-%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2698,7 +2985,7 @@ b.append(a) # 输出[4,5,[1,2,3]]</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 12:41:31" itemprop="dateModified" datetime="2020-09-18T12:41:31+08:00">2020-09-18</time>
+                <time title="Modified: 2020-10-27 21:17:21" itemprop="dateModified" datetime="2020-10-27T21:17:21+08:00">2020-10-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3116,6 +3403,61 @@ T     S     G</code></pre>
 <p>3.交换了也排好序了，退出第一次层遍历return nums</p>
 <p>这里有个细节：nums本来就是降序，第一次遍历找不到nums[i],那么直接sort()</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def nextPermutation(self, nums: List[int]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        for i in range(len(nums)-2,-1,-1):</span><br><span class="line">            if nums[i] &lt; nums[i+1]:</span><br><span class="line">                nums[i+1:]&#x3D;sorted(nums[i+1:])</span><br><span class="line">                for j in range(i+1,len(nums)):</span><br><span class="line">                    if nums[i] &lt; nums[j]:</span><br><span class="line">                        nums[i],nums[j]&#x3D;nums[j],nums[i]</span><br><span class="line">                        # break</span><br><span class="line">                        return</span><br><span class="line"></span><br><span class="line">        nums.sort()</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="36-有效的数独"><a href="#36-有效的数独" class="headerlink" title="36. 有效的数独"></a>36. 有效的数独</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-sudoku/
+
+判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
+
+数字 1-9 在每一行只能出现一次。
+数字 1-9 在每一列只能出现一次。
+数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+
+
+上图是一个部分填充的有效的数独。
+
+数独部分空格内已填入了数字，空白格用 &#39;.&#39; 表示。
+
+示例 1:
+
+输入:
+[
+  [&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+  [&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+  [&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;],
+  [&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;],
+  [&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;],
+  [&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;],
+  [&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;],
+  [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;],
+  [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]
+]
+输出: true
+示例 2:
+
+输入:
+[
+  [&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+  [&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;],
+  [&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;],
+  [&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;],
+  [&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;],
+  [&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;],
+  [&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;],
+  [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;],
+  [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]
+]
+输出: false
+解释: 除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。
+     但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。
+说明:
+
+一个有效的数独（部分已被填充）不一定是可解的。
+只需要根据以上规则，验证已经填入的数字是否有效即可。
+给定数独序列只包含数字 1-9 和字符 &#39;.&#39; 。
+给定数独永远是 9x9 形式的。</code></pre>
+<p>题解一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isValidSudoku(self, board: List[List[str]]) -&gt; bool:</span><br><span class="line">        rows&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        columns&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        boxes&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        for i in range(9):</span><br><span class="line">            for j in range(9):</span><br><span class="line">                char&#x3D;board[i][j]</span><br><span class="line">                if char !&#x3D; &#39;.&#39;:</span><br><span class="line">                    index&#x3D;(i&#x2F;&#x2F;3)*3+j&#x2F;&#x2F;3</span><br><span class="line">                    rows[i][char]&#x3D;rows[i].get(char,0)+1</span><br><span class="line">                    columns[j][char]&#x3D;columns[j].get(char,0)+1</span><br><span class="line">                    boxes[index][char]&#x3D;boxes[index].get(char,0)+1</span><br><span class="line"></span><br><span class="line">                    if rows[i][char]&gt;1 or columns[j][char]&gt;1 or boxes[index][char]&gt;1:</span><br><span class="line">                        return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
 
 <h3 id="45-跳跃游戏-II"><a href="#45-跳跃游戏-II" class="headerlink" title="45. 跳跃游戏 II"></a>45. 跳跃游戏 II</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game-ii/
 
@@ -4358,86 +4700,6 @@ $ sshpass -h # 验证是否安装成功</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/" class="post-title-link" itemprop="url">Mac下使用iTerm2连接远程主机</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-31 11:33:11" itemprop="dateCreated datePublished" datetime="2018-08-31T11:33:11+08:00">2018-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:34:21" itemprop="dateModified" datetime="2020-09-18T16:34:21+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h2><pre><code>1. 打开一个 iTerm2 窗口，选择菜单 profiles 中的 Open Profiles，然后选择 Edit Profiles 中创建一个新的 Profile，自己命名
-2. 选择 command，输入 ssh -A -p xxx root@输入远程计算机的 IP 地址（xxx 表示端口）。
-3. 然后选择这个新的 profile，New 一个 window 就可以连接远程服务器了。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4507,7 +4769,7 @@ $ sshpass -h # 验证是否安装成功</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

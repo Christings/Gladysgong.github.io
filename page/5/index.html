@@ -158,6 +158,146 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-7-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0-Condition%E3%80%81Queue%E5%92%8CEvent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-7-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0-Condition%E3%80%81Queue%E5%92%8CEvent/" class="post-title-link" itemprop="url">python并发-7.线程通信的实现(Condition、Queue和Event)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-23 21:58:38" itemprop="dateCreated datePublished" datetime="2020-02-23T21:58:38+08:00">2020-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:38" itemprop="dateModified" datetime="2020-09-18T14:03:38+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、Condition"><a href="#一、Condition" class="headerlink" title="一、Condition"></a>一、Condition</h2><p>当线程在系统中运行时，线程的调度具有一定的透明性，通常程序无法准确控制线程的轮换执行，如果有需要，Python 可通过线程通信来保证线程协调运行。</p>
+<p>假设系统中有两个线程，这两个线程分别代表存款者和取钱者，现在假设系统有一种特殊的要求，即要求存款者和取钱者不断地重复存款、取钱的动作，而且要求每当存款者将钱存入指定账户后，取钱者就立即取出该笔钱。不允许存款者连续两次存钱，也不允许取钱者连续两次取钱。</p>
+<p>为了实现这种功能，可以借助于 Condition 对象来保持协调。使用 Condition 可以让那些己经得到 Lock 对象却无法继续执行的线程释放 Lock 对象，Condition 对象也可以唤醒其他处于等待状态的线程。</p>
+<p>将 Condition 对象与 Lock 对象组合使用，可以为每个对象提供多个等待集（wait-set）。因此，Condition 对象总是需要有对应的 Lock 对象。从 Condition 的构造器 <strong>init</strong>(self, lock=None) 可以看出，程序在创建 Condition 时可通过 lock 参数传入要绑定的 Lock 对象；如果不指定 lock 参数，在创建 Condition 时它会自动创建一个与之绑定的 Lock 对象。</p>
+<p>Condition 类提供了如下几个方法：</p>
+<pre><code>acquire([timeout])/release()：调用 Condition 关联的 Lock 的 acquire() 或 release() 方法。
+
+wait([timeout])：导致当前线程进入 Condition 的等待池等待通知并释放锁，直到其他线程调用该 Condition 的 notify() 或 notify_all() 方法来唤醒该线程。在调用该 wait() 方法时可传入一个 timeout 参数，指定该线程最多等待多少秒。
+
+notify()：唤醒在该 Condition 等待池中的单个线程并通知它，收到通知的线程将自动调用 acquire() 方法尝试加锁。如果所有线程都在该 Condition 等待池中等待，则会选择唤醒其中一个线程，选择是任意性的。
+
+notify_all()：唤醒在该 Condition 等待池中等待的所有线程并通知它们。</code></pre>
+<p>Account类：</p>
+<p>通过一个旗标来标识账户中是否已有存款，当旗标为 False 时，表明账户中没有存款，存款者线程可以向下执行，当存款者把钱存入账户中后，将旗标设为 True，并调用 Condition 的 notify() 或 notify_all() 方法来唤醒其他线程。</p>
+<p>当存款者线程进入线程体后，如果旗标为 True，就调用 Condition 的 wait() 方法让该线程等待。当旗标为 True 时，表明账户中已经存入了钱，取钱者线程可以向下执行，当取钱者把钱从账户中取出后，将旗标设为 False，并调用 Condition 的 notify() 或 notify_all() 方法来唤醒其他线程；当取钱者线程进入线程体后，如果旗标为 False，就调用 wait() 方法让该线程等待。</p>
+<pre><code>draw():取钱
+deposit():存钱
+
+这两个方法可能需要并发修改 Account 类的 self.balance 成员变量的值，所以它们都使用 Lock 来控制线程安全。
+除此之外，这两个方法还使用了 Condition 的 wait() 和 notify_all() 来控制线程通信。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Account:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    定义账户类</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line">    def __init__(self, accountNo, balance):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        封装账户编号、账户余额两个成员变量</span><br><span class="line">        :param accountNo:</span><br><span class="line">        :param balance:</span><br><span class="line">        :param _flag: 代表是否已经存钱的标识</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        self.accountNo &#x3D; accountNo</span><br><span class="line">        self._balance &#x3D; balance</span><br><span class="line">        self.cond &#x3D; threading.Condition()</span><br><span class="line">        self._flag &#x3D; False</span><br><span class="line"></span><br><span class="line">    def getBalance(self):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        账户余额不允许随便修改，所以只为self._balance提供getter方法</span><br><span class="line">        :return:</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        return self._balance</span><br><span class="line"></span><br><span class="line">    def draw(self, drawAmount):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        取钱</span><br><span class="line">        :param drawAmount:</span><br><span class="line">        :return:</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        self.cond.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()</span><br><span class="line">        try:</span><br><span class="line">            if not self._flag:  # 如果self._flag为假，表明账户中还没有人存钱进去，取钱方法阻塞</span><br><span class="line">                self.cond.wait()</span><br><span class="line">            else:</span><br><span class="line">                print(threading.current_thread().name + &#39;取钱：&#39; + str(drawAmount))</span><br><span class="line">                self._balance -&#x3D; drawAmount</span><br><span class="line">                print(&#39;账户余额:&#39; + str(self._balance))</span><br><span class="line">                self._flag &#x3D; False  # 将标识账户是否已有存款的旗标设为False</span><br><span class="line">                self.cond.notify_all()  # 唤醒其他线程</span><br><span class="line">        finally:</span><br><span class="line">            self.cond.release()  # 释放锁</span><br><span class="line"></span><br><span class="line">    def desposit(self, depositAmount):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        存钱</span><br><span class="line">        :param depositAmount:</span><br><span class="line">        :return:</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        self.cond.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()</span><br><span class="line">        try:</span><br><span class="line">            if self._flag:  # 如果self._flag为真，表明账户中已有人存钱进去，存钱方法阻塞</span><br><span class="line">                self.cond.wait()</span><br><span class="line">            else:</span><br><span class="line">                print(threading.current_thread().name + &#39;存钱：&#39; + str(depositAmount))</span><br><span class="line">                self._balance +&#x3D; depositAmount</span><br><span class="line">                print(&#39;账户余额:&#39; + str(self._balance))</span><br><span class="line">                self._flag &#x3D; True  # 将表示账户是否已有存款的旗标设为True</span><br><span class="line">                self.cond.notify_all()  # 唤醒其他线程</span><br><span class="line">        finally:</span><br><span class="line">            self.cond.release()  # 释放锁</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>对存款者线程而言，当程序进入 deposit() 方法后，如果 self._flag 为 True，则表明账户中已有存款，程序调用 Condition 的 wait() 方法被阻塞；否则，程序向下执行存款操作，当存款操作执行完成后，系统将 self._flag 设为 True，然后调用 notify_all() 来唤醒其他被阻塞的线程。如果系统中有存款者线程，存款者线程也会被唤醒，但该存款者线程执行到 ① 号代码处时再次进入阻塞状态，只有执行 draw() 方法的取钱者线程才可以向下执行。同理，取钱者线程的运行流程也是如此。</p>
+<p>存款者线程循环 100 次重复存款，而取钱者线程则循环 100 次重复取钱，存款者线程和取钱者线程分别调用 Account 对象的 deposit()、draw() 方法来实现。主程序可以启动任意多个“存款”线程和“取钱”线程，可以看到所有的“取钱”线程必须等“存款”线程存钱后才可以向下执行，而“存款”线程也必须等“取钱”线程取钱后才可以向下执行。主程序代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def draw_many(account, drawAmount, max):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    模拟重复max次取钱操作</span><br><span class="line">    :param account:</span><br><span class="line">    :param drawAmount:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    for i in range(max):</span><br><span class="line">        account.draw(drawAmount)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def deposit_many(account, depositAmout, max):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    模拟重复max次存款操作</span><br><span class="line">    :param account:</span><br><span class="line">    :param depositAmout:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    for i in range(max):</span><br><span class="line">        account.deposit(depositAmout)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">acct &#x3D; Account(&#39;12345&#39;, 0)  # 创建账户</span><br><span class="line">threading.Thread(name&#x3D;&#39;取钱者&#39;, target&#x3D;draw_many, args&#x3D;(acct, 800, 100)).start()  # 创建、并启动一个“取钱”线程</span><br><span class="line">threading.Thread(name&#x3D;&#39;存款者甲&#39;, target&#x3D;deposit_many, args&#x3D;(acct, 800, 100)).start()  # 创建、并启动一个“取钱”线程</span><br><span class="line">threading.Thread(name&#x3D;&#39;存款者乙&#39;, target&#x3D;deposit_many, args&#x3D;(acct, 800, 100)).start()</span><br><span class="line">threading.Thread(name&#x3D;&#39;存款者丙&#39;, target&#x3D;deposit_many, args&#x3D;(acct, 800, 100)).start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>只有当取钱者线程取钱后，存款者线程才可以存钱；同理，只有等存款者线程存钱后，取钱者线程才可以取钱。</p>
+<p>程序最后被阻塞无法继续向下执行。这是因为 3 个存款者线程共有 300 次尝试存钱操作，但 1 个取钱者线程只有 100 次尝试取钱操作，所以程序最后被阻塞。</p>
+<p>此处的阻塞并不是死锁，对于这种情况，取钱者线程已经执行结束，而存款者线程只是在等待其他线程来取钱而已，并不是等待其他线程释放同步监视器。不要把死锁和程序阻塞等同起来。</p>
+<h2 id="二、Queue"><a href="#二、Queue" class="headerlink" title="二、Queue"></a>二、Queue</h2><p>queue 模块下提供了几个阻塞队列，这些队列主要用于实现线程通信。在 queue 模块下主要提供了三个类，分别代表三种队列，其主要区别就在于进队列、出队列的不同。</p>
+<p>关于三个队列类介绍如下：</p>
+<p>1、queue.Queue(maxsize=0)：代表 FIFO（先进先出）的常规队列，maxsize 可以限制队列的大小。如果队列的大小达到队列的上限，就会加锁，再次加入元素时就会被阻塞，直到队列中的元素被消费。如果将 maxsize 设置为 0 或负数，则该队列的大小就是无限制的。</p>
+<p>2、queue.LifoQueue(maxsize=0)：代表 LIFO（后进先出）的队列，与 Queue 的区别就是出队列的顺序不同。</p>
+<p>3、PriorityQueue(maxsize=0)：代表优先级队列，优先级最小的元素先出队列。</p>
+<p>三个队列类的属性和方法基本相同， 它们都提供了如下属性和方法：</p>
+<pre><code>Queue.qsize()：返回队列的实际大小，也就是该队列中包含几个元素。
+Queue.empty()：判断队列是否为空。
+Queue.full()：判断队列是否已满。
+Queue.put(item, block=True, timeout=None)：向队列中放入元素。如果队列己满，且 block 参数为 True（阻塞），当前线程被阻塞，timeout 指定阻塞时间，如果将 timeout 设置为 None，则代表一直阻塞，直到该队列的元素被消费；如果队列己满，且 block 参数为 False（不阻塞），则直接引发 queue.FULL 异常。
+Queue.put_nowait(item)：向队列中放入元素，不阻塞。相当于在上一个方法中将 block 参数设置为 False。
+Queue.get(item, block=True, timeout=None)：从队列中取出元素（消费元素）。如果队列已满，且 block 参数为 True（阻塞），当前线程被阻塞，timeout 指定阻塞时间，如果将 timeout 设置为 None，则代表一直阻塞，直到有元素被放入队列中； 如果队列己空，且 block 参数为 False（不阻塞），则直接引发 queue.EMPTY 异常。
+Queue.get_nowait(item)：从队列中取出元素，不阻塞。相当于在上一个方法中将 block 参数设置为 False。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line">import queue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def product(bq):</span><br><span class="line">    str_tuple &#x3D; (&#39;python&#39;, &#39;java&#39;, &#39;c++&#39;)</span><br><span class="line">    for i in range(99999):</span><br><span class="line">        print(threading.current_thread().name + &#39;生产者准备生产元组元素&#39;)</span><br><span class="line">        time.sleep(0.2)</span><br><span class="line">        bq.put(str_tuple[i % 3])  # 尝试放入元素，如果队列已满，则线程被阻塞</span><br><span class="line">        print(threading.current_thread().name + &#39;生产者生产元素完成&#39;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def consume(bq):</span><br><span class="line">    while True:</span><br><span class="line">        print(threading.current_thread().name + &#39;消费者准备消费元组元素&#39;)</span><br><span class="line">        time.sleep(0.2)</span><br><span class="line">        t &#x3D; bq.get()  # 尝试取出元素，如果队列已空，则线程被阻塞</span><br><span class="line">        print(threading.current_thread().name + &#39;消费者消费[ %s ]元素完成&#39; % t)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bq &#x3D; queue.Queue(maxsize&#x3D;1)  # 容量为1的Queue</span><br><span class="line">threading.Thread(target&#x3D;product, args&#x3D;(bq,)).start()</span><br><span class="line">threading.Thread(target&#x3D;product, args&#x3D;(bq,)).start()</span><br><span class="line">threading.Thread(target&#x3D;product, args&#x3D;(bq,)).start()</span><br><span class="line">threading.Thread(target&#x3D;consume, args&#x3D;(bq,)).start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动三个生产者线程向 Queue 队列中放入元素，启动一个消费者线程从 Queue 队列中取出元素。本程序中 Queue 队列的大小为 1，因此三个生产者线程无法连续放入元素，必须等待消费者线程取出一个元素后，其中的一个生产者线程才能放入一个元素。</p>
+<p>三个生产者线程都想向 Queue 中放入元素，但只要其中一个生产者线程向该队列中放入元素之后，其他生产者线程就必须等待，等待消费者线程取出 Queue 队列中的元素。</p>
+<h2 id="三、Event"><a href="#三、Event" class="headerlink" title="三、Event"></a>三、Event</h2><p>Event 是一种非常简单的线程通信机制，一个线程发出一个 Event，另一个线程可通过该 Event 被触发。</p>
+<p>Event 本身管理一个内部旗标，程序可以通过 Event 的 set() 方法将该旗标设置为 True，也可以调用 clear() 方法将该旗标设置为 False。程序可以调用 wait() 方法来阻塞当前线程，直到 Event 的内部旗标被设置为 True。</p>
+<p>Event 提供了如下方法：</p>
+<pre><code>is_set()：该方法返回 Event 的内部旗标是否为True。
+set()：该方法将会把 Event 的内部旗标设置为 True，并唤醒所有处于等待状态的线程。
+clear()：该方法将 Event 的内部旗标设置为 False，通常接下来会调用 wait() 方法来阻塞当前线程。
+wait(timeout=None)：该方法会阻塞当前线程。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">event &#x3D; threading.Event()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def cal(name):</span><br><span class="line">    # 等待事件，进入等待阻塞状态</span><br><span class="line">    print(&#39;%s 启动&#39; % threading.currentThread().getName())</span><br><span class="line">    print(&#39;%s 准备开始计算状态&#39; % name)</span><br><span class="line">    event.wait()</span><br><span class="line">    # 收到事件后进入运行状态</span><br><span class="line">    print(&#39;%s 收到通知了.&#39; % threading.currentThread().getName())</span><br><span class="line">    print(&#39;%s 正式开始计算.&#39; % name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 创建并启动两条，它们都会wait()处等待</span><br><span class="line">threading.Thread(target&#x3D;cal, args&#x3D;(&#39;甲&#39;)).start()</span><br><span class="line">threading.Thread(target&#x3D;cal, args&#x3D;(&#39;乙&#39;)).start()</span><br><span class="line">time.sleep(2)</span><br><span class="line">print(&#39;---------------------&#39;)</span><br><span class="line">print(&#39;主线程发出事件&#39;) # 发出事件</span><br><span class="line">event.set()</span><br></pre></td></tr></table></figure>
+
+<p>输出：<br>    Thread-1 启动<br>    甲 准备开始计算状态<br>    Thread-2 启动<br>    乙 准备开始计算状态<br>    ——————<br>    主线程发出事件<br>    Thread-1 收到通知了.<br>    Thread-2 收到通知了.<br>    甲 正式开始计算！<br>    乙 正式开始计算！</p>
+<p>以 cal() 函数为 target，创建并启动了两个线程。由于 cal() 函数调用了 Event 的 wait()，因此两个线程执行到 wait() 处都会进入阻塞状态；即使主线程在 time.sleep() 处被阻塞，两个子线程也不会向下执行。</p>
+<p>直到主程序执行到最后一行，程序调用了 Event 的 set() 方法将 Event 的内部旗标设直为 True，并唤醒所有等待的线程，这两个线程才能向下执行。</p>
+<p>以上内容没有使用 Event 的内部旗标，如果结合 Event 的内部旗标，同样可实现前面的 Account 的生产者-消费者效果：存钱线程（生产者）存钱之后，必须等取钱线程（消费者）取钱之后才能继续向下执行。</p>
+<p>Event 实际上优点类似于 Condition 和旗标的结合体，但 Event 本身并不带 Lock 对象，因此如果要实现线程同步，还需要额外的 Lock 对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Account:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    定义账户类</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line">    def __init__(self, accountNo, balance):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        封装账户编号、账户余额两个成员变量</span><br><span class="line">        :param accountNo:</span><br><span class="line">        :param balance:</span><br><span class="line">        :param _flag: 代表是否已经存钱的标识</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        self.accountNo &#x3D; accountNo</span><br><span class="line">        self._balance &#x3D; balance</span><br><span class="line">        self.lock &#x3D; threading.Lock()</span><br><span class="line">        self.event &#x3D; threading.Event()</span><br><span class="line"></span><br><span class="line">    def getBalance(self):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        账户余额不允许随便修改，所以只为self._balance提供getter方法</span><br><span class="line">        :return:</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        return self._balance</span><br><span class="line"></span><br><span class="line">    def draw(self, drawAmount):</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        取钱</span><br><span class="line">        :param drawAmount:</span><br><span class="line">        :return:</span><br><span class="line">        &#39;&#39;&#39;</span><br><span class="line">        self.lock.acquire()  # 加锁</span><br><span class="line">        if self.event.is_set():  # 如果Event内部旗标为True，表明账户中已有人存钱进去</span><br><span class="line">            print(threading.current_thread().name + &#39;取钱：&#39; + str(drawAmount))</span><br><span class="line">            self._balance -&#x3D; drawAmount</span><br><span class="line">            print(&#39;账户余额:&#39; + str(self._balance))</span><br><span class="line">            self.event.clear()  # 将Event内部旗标设为False</span><br><span class="line">            self.lock.release()  # 释放锁</span><br><span class="line">            self.event.wait()  # 阻塞当前线程</span><br><span class="line">        else:</span><br><span class="line">            self.lock.release()  # 释放锁</span><br><span class="line">            self.event.wait()  # 阻塞当前线程</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def desposit(self, depositAmount):</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    存钱</span><br><span class="line">    :param depositAmount:</span><br><span class="line">    :return:</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    self.lock.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()</span><br><span class="line">    if not self.event.is_set:  # 如果Event内部旗标为False，表明账户中还没有人存钱进去</span><br><span class="line">        print(threading.current_thread().name + &#39;存钱：&#39; + str(depositAmount))</span><br><span class="line">        self._balance +&#x3D; depositAmount</span><br><span class="line">        print(&#39;账户余额:&#39; + str(self._balance))</span><br><span class="line">        self.event.set()  # 将Event内部旗标设为True</span><br><span class="line">        self.lock.release()  # 释放锁</span><br><span class="line">        self.event.wait()  # 阻塞当前线程</span><br><span class="line">    else:</span><br><span class="line">        self.lock.release()  # 释放锁</span><br><span class="line">        self.event.wait()  # 阻塞当前线程</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-6-%E6%AD%BB%E9%94%81%E5%92%8C%E6%AD%BB%E9%94%81%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1200,90 +1340,6 @@ with tf.Session() as sess:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-3-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/TensorFlow-3-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">TensorFlow-3.程序结构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-18 21:27:41" itemprop="dateCreated datePublished" datetime="2020-02-18T21:27:41+08:00">2020-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:13:45" itemprop="dateModified" datetime="2020-09-18T21:13:45+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、结构"><a href="#一、结构" class="headerlink" title="一、结构"></a>一、结构</h2><p>TensorFlow程序分为两个独立的部分:<br>    构建任何拟创建神经网络的蓝图，包括计算图的定义及其执行。<br>    图定义和执行的分开设计使得 TensorFlow 能够多平台工作以及并行执行，TensorFlow 也因此更加强大。</p>
-<p>计算图：是包含节点和边的网络。本节定义所有要使用的数据，也就是张量（tensor）对象（常量、变量和占位符），同时定义要执行的所有计算，即运算操作对象（Operation Object，简称 OP）。</p>
-<p>每个节点可以有零个或多个输入，但只有一个输出。网络中的节点表示对象（张量和运算操作），边表示运算操作之间流动的张量。计算图定义神经网络的蓝图，但其中的张量还没有相关的数值。</p>
-<p>为了构建计算图，需要定义所有要执行的常量、变量和运算操作。</p>
-<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><pre><code>通过定义并执行计算图来实现两个向量相加：2-add.ipynb</code></pre>
-<p>计算图的执行：使用会话对象来实现计算图的执行。会话对象封装了评估张量和操作对象的环境。这里真正实现了运算操作并将信息从网络的一层传递到另外一层。不同张量对象的值仅在会话对象中被初始化、访问和保存。在此之前张量对象只被抽象定义，在会话中才被赋予实际的意义。</p>
-<p>注意，使用 TensorBoard 可视化图形是 TensorFlow 最有用的功能之一，特别是在构建复杂的神经网络时。我们构建的计算图可以在图形对象的帮助菜单下进行查看。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1353,7 +1409,7 @@ with tf.Session() as sess:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

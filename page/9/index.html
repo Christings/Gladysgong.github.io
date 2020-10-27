@@ -158,6 +158,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">svn-1-基本命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 10:42:30" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:23:13" itemprop="dateModified" datetime="2020-09-18T16:23:13+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" itemprop="url" rel="index"><span itemprop="name">svn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.帮助文档</p>
+<pre><code>$ svn --help
+$ svn help
+$ svn help ci</code></pre>
+<p>2.将文件checkout到本地</p>
+<pre><code>$ svn checkout PATH
+$ svn checkout http://svn.sogou-inc.com/svn/operation/op-tools/build build
+简写：svn co</code></pre>
+<p>3.往版本库中添加新的文件</p>
+<pre><code>$ svn add file
+$ svn add test.txt
+$ svn add *.txt</code></pre>
+<p>4.将修改文件提交到版本库</p>
+<pre><code>$ svn commit -m &quot;LogMessage&quot; [-N] [--no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)
+$ svn commit -m &quot;add test&quot; test.txt
+简写：svn ci</code></pre>
+<p>5.加锁/解锁</p>
+<pre><code>$ svn lock -m &quot;LockMessage&quot; [--force] PATH
+$ svn lock -m &quot;lock test&quot; test.php
+$ svn unlock PATH</code></pre>
+<p>6.更新版本</p>
+<pre><code>$ svn update -r m PATH
+$ svn update  如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
+$svn update -r 200 test.php (将版本库中的文件test.php还原到版本200)
+$ svn update test.php  (更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)
+简写：svn up</code></pre>
+<p>7.查看文件或者目录状态</p>
+<pre><code>$ svn status path（目录下的文件和子目录的状态，正常状态不显示）
+# 不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
+$ svn status -v path(显示文件和子目录状态)
+# 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。
+# svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。
+简写：svn st</code></pre>
+<p>8.删除文件</p>
+<pre><code>$ svn delete path -m “delete test“
+$ svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”
+
+$ svn delete test.php 
+$ svn ci -m ‘delete test‘
+简写：svn (del, remove, rm)</code></pre>
+<p>9.查看日志</p>
+<pre><code>$ svn log PATH
+$ svn log test.txt # 显示这个文件的所有修改记录，及其版本号的变化</code></pre>
+<p>10.查看文件详细信息</p>
+<pre><code>$ svn info PATH
+$ svn info test.txt</code></pre>
+<p>11.比较差异</p>
+<pre><code>$ svn diff PATH  # 将修改的文件与基础版本比较
+ $ svn diff test.txt
+$ svn diff -r m:n PATH # 对版本m和版本n比较差异
+$ svn diff -r 200:201 test.txt
+简写：svn di</code></pre>
+<p>12.将两个版本之间的差异合并到当前文件</p>
+<pre><code>$ svn merge -r m:n PATH
+$ svn merge -r 200:201 test.txt 将版本200与201之间的差异合并到当前文件，一般需要处理一下</code></pre>
+<p>13.版本库下的文件和目录列表</p>
+<pre><code>$ svn list path # 显示path目录下的所有属于版本库的文件和目录
+简写：svn ls</code></pre>
+<p>14.代码库url变更</p>
+<pre><code>$ svn switch/sw</code></pre>
+<p>15.恢复本地修改</p>
+<pre><code>$ svn revert</code></pre>
+<p>16.解决冲突</p>
+<pre><code>$ svn resolved</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0GitHub%E4%B8%8A%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E9%A1%B9%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1304,130 +1445,6 @@ $ git status</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">数据库基本操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:34:40" itemprop="dateModified" datetime="2020-09-18T21:34:40+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
-insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
-insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
-insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
-
-使用insert,select语句将现有表中的数据添加到已有的新表中
-insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
-insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
-<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
-delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
-<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
-update Students set tel=default where id=5
-update students set age=age+1
-update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
-<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
-1.查询所有数据行和列
-select * from Students
-2.查询部分行列--条件查询
-select * from Student where name=&#39;李三&#39;
-3.在查询中使用as更改列名
-select name as 姓名 from Students where sex=&#39;男&#39;
-4.查询空行
-select name from Student where sex is null
-5.查询排序
-select name from Student where age&gt;25 order by desc
-6.查询返回限制行数
-select top 10 name from Student</code></pre>
-<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
-select * from Student where name like &#39;李%&#39;
-2.使用between在某个范围内进行查询
-select * from Student where age between 20 and 25
-3.使用in在列举数值内进行查询(in后是多个的数据)
-select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
-<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
-select id as 学号，AVG(score) as 平均成绩 from score group by id
-2.用having子句进行分组筛选
-select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
-<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
-<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
-右连：Right Join
-内连：Inner Join
-左连接where只影响右表，右连接where只影响左表
-
-select * from table1 Left Join table2 where table1.id=table2.id
-左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
-
-select * from table1 Right Join table2 where table1.id=table2.id
-右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
-
-select * from table1 Inner Join table2 on table1.id=table2.id
-功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1497,7 +1514,7 @@ select * from table1 Inner Join table2 on table1.id=table2.id
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

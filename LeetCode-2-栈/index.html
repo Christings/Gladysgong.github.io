@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water1.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png">
 <meta property="article:published_time" content="2020-03-28T11:55:16.000Z">
-<meta property="article:modified_time" content="2020-09-03T10:11:49.700Z">
+<meta property="article:modified_time" content="2020-10-21T05:26:51.159Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-03 18:11:49" itemprop="dateModified" datetime="2020-09-03T18:11:49+08:00">2020-09-03</time>
+                <time title="Modified: 2020-10-21 13:26:51" itemprop="dateModified" datetime="2020-10-21T13:26:51+08:00">2020-10-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -338,6 +338,44 @@ left ，right分别代表从左到右移动和从右到左移动的指针。
 
 <p>？？？题解三|位运算:</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png"></p>
+<h3 id="84-柱状图中最大的矩形"><a href="#84-柱状图中最大的矩形" class="headerlink" title="84. 柱状图中最大的矩形"></a>84. 柱状图中最大的矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。
+
+图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。
+
+示例:
+
+输入: [2,1,5,6,2,3]
+输出: 10</code></pre>
+<p>题解一|暴力|超时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def largestRectangleArea(self, heights: List[int]) -&gt; int:</span><br><span class="line">        if not heights:</span><br><span class="line">            return 0</span><br><span class="line">        n&#x3D;len(heights)</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(n):</span><br><span class="line">            tmp&#x3D;heights[i]</span><br><span class="line">            for j in range(i,n):</span><br><span class="line">                tmp&#x3D;min(tmp,heights[j])</span><br><span class="line">                area&#x3D;max(area,tmp*(j-i+1))</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
+<p>题解二|递增栈：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def largestRectangleArea(self, heights: List[int]) -&gt; int:</span><br><span class="line">        if not heights:</span><br><span class="line">            return 0</span><br><span class="line">        n&#x3D;len(heights)</span><br><span class="line">        stack&#x3D;[]</span><br><span class="line">        area,i&#x3D;0,0</span><br><span class="line">        while i &lt; n:</span><br><span class="line">            if not stack or (heights[i] &gt; heights[stack[-1]]):</span><br><span class="line">                stack.append(i)</span><br><span class="line">                i+&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                tmp&#x3D;stack.pop()</span><br><span class="line">                area&#x3D;max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))</span><br><span class="line">        while stack:</span><br><span class="line">            tmp&#x3D;stack.pop()</span><br><span class="line">            area&#x3D;max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
+<h3 id="85-最大矩形"><a href="#85-最大矩形" class="headerlink" title="85. 最大矩形"></a>85. 最大矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/maximal-rectangle/
+
+给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+示例:
+
+输入:
+[
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]
+]
+输出: 6</code></pre>
+<p>题解一|暴力：</p>
+<p>时间复杂度：O（m²n）。<br>空间复杂度：O（mn）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maximalRectangle(self, matrix: List[List[str]]) -&gt; int:</span><br><span class="line">        if not matrix:</span><br><span class="line">            return 0</span><br><span class="line">        m&#x3D;len(matrix)</span><br><span class="line">        n&#x3D;len(matrix[0])</span><br><span class="line">        dp&#x3D;[[0] * n for i in range(m)]</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(m):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                if matrix[i][j]&#x3D;&#x3D;&#39;1&#39;:</span><br><span class="line">                    if n&#x3D;&#x3D;0:</span><br><span class="line">                        dp[i][j]&#x3D;1</span><br><span class="line">                    else:</span><br><span class="line">                        dp[i][j]&#x3D;dp[i][j-1]+1</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j]&#x3D;0   </span><br><span class="line"></span><br><span class="line">                minWidth&#x3D;dp[i][j]</span><br><span class="line">                for k in range(i,-1,-1):</span><br><span class="line">                    height&#x3D;i-k+1</span><br><span class="line">                    minWidth&#x3D;min(minWidth,dp[k][j])</span><br><span class="line">                    area&#x3D;max(area,height*minWidth)</span><br><span class="line">            </span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+
 <h3 id="409-最长回文串"><a href="#409-最长回文串" class="headerlink" title="409.最长回文串"></a>409.最长回文串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindrome/
 
 给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
@@ -543,7 +581,7 @@ default -- 如果指定键的值不存在时，返回该默认值。</code></pre
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">二、栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E6%8E%A5%E9%9B%A8%E6%B0%B4"><span class="nav-number">1.1.</span> <span class="nav-text">42. 接雨水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#58-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">58.最后一个单词的长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">1.3.</span> <span class="nav-text">136.只出现一次的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#137-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-II"><span class="nav-number">1.4.</span> <span class="nav-text">137.只出现一次的数字 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#409-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E4%B8%B2"><span class="nav-number">1.5.</span> <span class="nav-text">409.最长回文串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#836-%E7%9F%A9%E5%BD%A2%E9%87%8D%E5%8F%A0"><span class="nav-number">1.6.</span> <span class="nav-text">836.矩形重叠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1160-%E6%8B%BC%E5%86%99%E5%8D%95%E8%AF%8D"><span class="nav-number">1.7.</span> <span class="nav-text">1160.拼写单词</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">二、栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E6%8E%A5%E9%9B%A8%E6%B0%B4"><span class="nav-number">1.1.</span> <span class="nav-text">42. 接雨水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#58-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">58.最后一个单词的长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">1.3.</span> <span class="nav-text">136.只出现一次的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#137-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-II"><span class="nav-number">1.4.</span> <span class="nav-text">137.只出现一次的数字 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2"><span class="nav-number">1.5.</span> <span class="nav-text">84. 柱状图中最大的矩形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#85-%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2"><span class="nav-number">1.6.</span> <span class="nav-text">85. 最大矩形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#409-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E4%B8%B2"><span class="nav-number">1.7.</span> <span class="nav-text">409.最长回文串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#836-%E7%9F%A9%E5%BD%A2%E9%87%8D%E5%8F%A0"><span class="nav-number">1.8.</span> <span class="nav-text">836.矩形重叠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1160-%E6%8B%BC%E5%86%99%E5%8D%95%E8%AF%8D"><span class="nav-number">1.9.</span> <span class="nav-text">1160.拼写单词</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -557,7 +595,7 @@ default -- 如果指定键的值不存在时，返回该默认值。</code></pre
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
