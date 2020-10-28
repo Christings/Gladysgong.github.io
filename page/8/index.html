@@ -1,1123 +1,2081 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="Up in the wind!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茉莉Python">
+<meta property="og:url" content="http://gongyanli.com/page/8/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="Up in the wind!">
+<meta property="og:locale">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+<link rel="canonical" href="http://gongyanli.com/page/8/">
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                voidqueens@hotmail.com
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
 </script>
 
+  <title>茉莉Python</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-<main class="content">
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/" class="post-title-link" itemprop="url">深入浅出谈Git</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-24 18:56:03" itemprop="dateCreated datePublished" datetime="2018-08-24T18:56:03+08:00">2018-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:26:06" itemprop="dateModified" datetime="2020-09-18T16:26:06+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E8%B0%88Git/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="深入浅出谈Git">
-                            
-                            <span class="card-title">深入浅出谈Git</span>
-                        </div>
-                    </a>
+      
+          <h2 id="一-Git配置"><a href="#一-Git配置" class="headerlink" title="一.Git配置"></a>一.Git配置</h2><pre><code>$ git config --global user.name &quot;Your Name&quot;
+$ git config --global user.email &quot;email@example.com&quot;</code></pre>
+<h2 id="二-Git初始化"><a href="#二-Git初始化" class="headerlink" title="二.Git初始化"></a>二.Git初始化</h2><pre><code>$ git init
+$ git add .
+$ git commit -m &quot;first commit&quot;
+$ git push -u origin master</code></pre>
+<h2 id="三-Git状态"><a href="#三-Git状态" class="headerlink" title="三.Git状态"></a>三.Git状态</h2><pre><code>$ git status
+$ git diff readme.txt # 查看修改内容</code></pre>
+<h2 id="四-Git时光机"><a href="#四-Git时光机" class="headerlink" title="四.Git时光机"></a>四.Git时光机</h2><h3 id="1-版本回退"><a href="#1-版本回退" class="headerlink" title="1.版本回退"></a>1.版本回退</h3><pre><code>$ git log # 查看最近到最远的提交日志
+$ git log --pretty=online # 格式更清晰
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.Git配置$ git config --global user.name &quot;Your Name&quot;
-$ git config --global user.email &quot;email@example.com&qu
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-08-24
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/git/" class="post-category">
-                                    git
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+# 在Git中，HEAD表示当前版本，上一个版本是HEAD^,上上一个版本是HEAD……^^，往上100个版本是HEAD~100
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/git/">
-                            <span class="chip bg-color">git</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/CNN%E5%88%9D%E6%8E%A2/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="CNN初探">
-                            
-                            <span class="card-title">CNN初探</span>
-                        </div>
-                    </a>
+$ git reset --hard HEAD^ # 回退到上一个版本
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                转载地址：http://www.cnblogs.com/fydeblog/p/7450413.html
-前言这篇博客主要讲解卷积神经网络（CNN）的历史、模块、特点和架构等等
-1. CNN历史
-CNN最早可以追溯到1968Hubel和Wie
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-08-16
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+$ git reset --hard 1094a # 1094a刚才的那个版本号，回退到未来的那个版本，前提是你的命令行窗口没有被关掉，版本号可以不写全
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/CNN/">
-                            <span class="chip bg-color">CNN</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="MySql-1-错误记录">
-                            
-                            <span class="card-title">MySql-1-错误记录</span>
-                        </div>
-                    </a>
+# 如果回退到某个版本，关掉了电脑，第二天后悔了，想恢复到新版本怎么办？
+$ git relog # 记录你的每一次命令，此时可以找到你昨天的commit id是1094a
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.MySql server has gone away1.原因Mysql server服务器连接超时，并且关闭了与客户端的连接导致的；
+小结：
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。</code></pre>
+<h3 id="2-工作区（Working-Directory）和暂存区"><a href="#2-工作区（Working-Directory）和暂存区" class="headerlink" title="2.工作区（Working Directory）和暂存区"></a>2.工作区（Working Directory）和暂存区</h3><pre><code>工作区（Working Directory）:learngit
+版本库（Repository）：隐藏目录.git
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git1.png" alt="enter description here"></p>
+<pre><code>把文件往Git版本库里添加的时候，是分两步执行的：
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+
+你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git2.png" alt="enter description here"><br><img src="http://p2lakvkq0.bkt.clouddn.com/git3.png" alt="enter description here"></p>
+<h3 id="3-管理修改"><a href="#3-管理修改" class="headerlink" title="3.管理修改"></a>3.管理修改</h3><pre><code>为什么Git比其他版本控制系统设计得优秀，因为Git跟踪并管理的是修改，而非文件。
+$ git diff HEAD -- readme.txt # 查看工作区和版本库里最新版本区别</code></pre>
+<h3 id="4-撤销修改"><a href="#4-撤销修改" class="headerlink" title="4.撤销修改"></a>4.撤销修改</h3><pre><code>$ git checkout -- readme.txt # 把文件在工作区的修改全部撤销掉
+两种情况：
+readme.txt自修改后还没有被放到暂存区，撤销修改就回到和版本库一模一样的状态；
+readme.txt已经添加到暂存区去，又做了修改，撤销修改就回到添加到暂存区后的状态；
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+# --很重要，如果没有，则变成了切换分支命令
+
+$ git add readme.txt # 已到暂存区，还未提交
+$ git reset HEAD readme.txt # 把暂存区修改撤销掉（unstage），重新放回工作区
+git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。
+
+小结：
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD &lt;file&gt;，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</code></pre>
+<h3 id="5-删除文件"><a href="#5-删除文件" class="headerlink" title="5.删除文件"></a>5.删除文件</h3><pre><code>$ git add test.txt
+$ git commit -m &quot;add&quot;
+$ git rm test.txt # 从版本库中删除文件，再git commit提交
+$ git commit -m &quot;delete&quot;
+$ git checkout -- test.txt # 删除错了，从版本库恢复到误删的文件，恢复到最新版本
+git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+小结：
+命令git rm用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</code></pre>
+<h2 id="五-远程仓库"><a href="#五-远程仓库" class="headerlink" title="五.远程仓库"></a>五.远程仓库</h2><pre><code>本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以需要进行设置：
+1.创建SSH Key
+$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+$ cd ~/.ssh
+私钥：id_rsa
+共约：id_rsa.pub
+2.登录GitHub，将公钥放进配置文件
+为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。</code></pre>
+<h3 id="1-添加远程库"><a href="#1-添加远程库" class="headerlink" title="1.添加远程库"></a>1.添加远程库</h3><pre><code>在github上创建仓库
+$ git remote add origin git@github.com:Gladysgong/learngit.git # 本地仓库与远程库关联，远程库叫做origin
+$ git push -u origin master # 将本地库所有内容推送到远程库上
+把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+小结：
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；</code></pre>
+<h3 id="2-克隆远程库"><a href="#2-克隆远程库" class="headerlink" title="2.克隆远程库"></a>2.克隆远程库</h3><pre><code>$ git clone git@github.com:Gladysgong/gitskills.git
+Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快</code></pre>
+<h2 id="六-分支管理"><a href="#六-分支管理" class="headerlink" title="六.分支管理"></a>六.分支管理</h2><h3 id="1-创建与合并分支"><a href="#1-创建与合并分支" class="headerlink" title="1.创建与合并分支"></a>1.创建与合并分支</h3><pre><code>每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。
+截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。
+HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。</code></pre>
+<hr>
+<pre><code>一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git4.png" alt="enter description here"></p>
+<pre><code>每次提交，master分支都会向前移动一步，这样，随着你不断提交，master分支的线也越来越长</code></pre>
+<hr>
+<pre><code>当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git5.png" alt="enter description here"></p>
+<pre><code>Git创建一个分支很快，因为除了增加一个dev指针，改改HEAD的指向，工作区的文件都没有任何变化！
+不过，从现在开始，对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git6.png" alt="enter description here"></p>
+<pre><code>等我们在dev上的工作完成了，就可以把dev合并到master上。</code></pre>
+<hr>
+<pre><code>Git怎么合并呢？最简单的方法，就是直接把master指向dev的当前提交，就完成了合并：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git7.png" alt="enter description here"></p>
+<pre><code>所以Git合并分支也很快！就改改指针，工作区内容也不变！
+合并完分支后，甚至可以删除dev分支。删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git8.png" alt="enter description here"></p>
+<pre><code>实战：
+$ git checkou -b dev # Switched to a new branch &#39;dev&#39;,-b参数表示创建并切换
+$ git branch dev # 创建分支
+$ git checkout dev # 切换分支
+$ git branch # 查看当前分支
+$ git checkout master # 切换回master分支
+$ git merge dev # 将dev分支的工作成果合并到master分支
+# 注意Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快。
+$ git branch -d dev # 删除dev分支</code></pre>
+<h3 id="2-解决冲突"><a href="#2-解决冲突" class="headerlink" title="2.解决冲突"></a>2.解决冲突</h3><pre><code>master分支和feature1分支各自分别都有新提交，变成了这样：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git9.png" alt="enter description here"></p>
+<pre><code>此时，Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突。
+$ git merge feature1
+Auto-merging readme.txt # 合并失败
+CONFLICT (content): Merge conflict in readme.txt
+Automatic merge failed; fix conflicts and then commit the result.
+$ git status # 可告诉我们冲突的文件
+
+# 修改文件后再提交
+$ git add readme.txt 
+$ git commit -m &quot;conflict fixed&quot;</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git10.png" alt="enter description here"></p>
+<pre><code>$ git log --graph --pretty=online --abbrev-commit
+*   cf810e4 (HEAD -&gt; master) conflict fixed
+|\  
+| * 14096d0 (feature1) AND simple
+* | 5dc6824 &amp; simple
+|/  
+* b17d20e branch test
+* d46f35e (origin/master) remove test.txt
+* b84166e add test.txt
+* 519219b git tracks changes
+* e43a48b understand how stage works
+* 1094adb append GPL
+* e475afc add distributed
+* eaadf4e wrote a readme file
+
+$ git branch -d feature1
+
+小结：
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+用git log --graph命令可以看到分支合并图。</code></pre>
+<h3 id="3-分支管理策略"><a href="#3-分支管理策略" class="headerlink" title="3.分支管理策略"></a>3.分支管理策略</h3><pre><code>合并分支时，如果Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+$ git merge --no-ff -m &quot;merge with no-ff&quot; dev # --no-ff参数表示禁用Fast forward
+# 因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+$ git log --graph --pretty=oneline --abbrev-commit
+*   e1e9c68 (HEAD -&gt; master) merge with no-ff
+|\  
+| * f52c633 (dev) add merge
+|/  
+*   cf810e4 conflict fixed
+...</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git11.png" alt="enter description here"></p>
+<hr>
+<pre><code>master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+所以，团队合作的分支看起来就像这样：</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git12.png" alt="enter description here"></p>
+<pre><code>小结：
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。</code></pre>
+<h3 id="4-bug分支"><a href="#4-bug分支" class="headerlink" title="4.bug分支"></a>4.bug分支</h3><pre><code>每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。
+$ git stash # 存储当前工作现场，等以后恢复工作继续工作
+$ git stash list # 查看存储的工作现场
+$ git stash apply # 恢复，但stash内容并不删除
+$ git stash drop # 删除stash内容
+$ git stash pop # 恢复，同时删除stash内容
+
+# 可以多次stash，然后用git stash list查看，再恢复指定的stash
+$ git stash apply stash@&#123;0&#125; # 恢复指定的stash
+
+小结
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。</code></pre>
+<h3 id="5-feature分支"><a href="#5-feature分支" class="headerlink" title="5.feature分支"></a>5.feature分支</h3><pre><code>添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。
+
+一切顺利的话，feature分支和bug分支是类似的，合并，然后删除。
+就在此时，接到上级命令，因经费不足，新功能必须取消！
+$ git branch -d feature-vulcan # 销毁失败
+# Git友情提醒，feature-vulcan分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用大写的-D参数。
+$ git branch -D feature-vulcan # 强行删除
+# 如果要丢弃一个没有被合并过的分支，可以通过git branch -D &lt;name&gt;强行删除。</code></pre>
+<h3 id="6-多人协作"><a href="#6-多人协作" class="headerlink" title="6.多人协作"></a>6.多人协作</h3><pre><code>当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。
+$ git remote # 查看远程库信息
+$ git remote -v # 线上远程库更详细信息
+
+origin  git@github.com:michaelliao/learngit.git (fetch)
+origin  git@github.com:michaelliao/learngit.git (push)
+显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址。</code></pre>
+<h4 id="6-1-推送分支"><a href="#6-1-推送分支" class="headerlink" title="6.1 推送分支"></a>6.1 推送分支</h4><pre><code>推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：
+
+$ git push origin master
+$ git push origin dev # 推送dev分支
+但是，并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？
+
+master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+总之，就是在Git中，分支是否推送，视你的心情而定！</code></pre>
+<h4 id="6-2-抓取分支"><a href="#6-2-抓取分支" class="headerlink" title="6.2 抓取分支"></a>6.2 抓取分支</h4><pre><code>当其他人从远程库clone时，默认情况下，你的小伙伴只能看到本地的master分支。
+$ git branch 
+* master
+
+如果他要在dev分支上开发，就必须创建远程origin的dev分支到本地
+$ git checkout -b dev origin/dev # 创建本地dev
+$ git push origin dev 
+
+# 但是两人都对同一文件做了修改并推送，此时就会有冲突
+# Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后在本地合并，解决冲突，再推送
+$ git pull # 失败，原因是没有指定本地dev分支与远程origin/dev分支的链接，所以此时需设置dev和origin/dev的链接
+$ git branch --set-upstream-to=origin/dev dev # 设置origin/dev和dev的链接
+$ git pull # 成功
+# 这回git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样。解决后，提交，再push
+$ git push origin dev</code></pre>
+<h4 id="6-3-多人协作工作模式"><a href="#6-3-多人协作工作模式" class="headerlink" title="6.3 多人协作工作模式"></a>6.3 多人协作工作模式</h4><pre><code>首先，可以试图用git push origin &lt;branch-name&gt;推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin &lt;branch-name&gt;推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code></pre>
+<h4 id="6-4-小结"><a href="#6-4-小结" class="headerlink" title="6.4 小结"></a>6.4 小结</h4><pre><code>查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</code></pre>
+<h3 id="7-Rebase-变基"><a href="#7-Rebase-变基" class="headerlink" title="7.Rebase(变基)"></a>7.Rebase(变基)</h3><pre><code>多人在同一个分支上协作时，很容易出现冲突，冲突后再合并会使得分支很乱。
+$ git rebase
+rebase操作的特点：把分叉的提交历史“整理”成一条直线，看上去更直观。缺点是本地的分叉提交已经被修改过了。
+
+小结：
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</code></pre>
+<h2 id="七-标签管理"><a href="#七-标签管理" class="headerlink" title="七.标签管理"></a>七.标签管理</h2><pre><code>发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。
+Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。
+所以，tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。</code></pre>
+<h3 id="1-创建标签"><a href="#1-创建标签" class="headerlink" title="1.创建标签"></a>1.创建标签</h3><pre><code>$ git tag v1.0 # 创建标签
+$ git tag # 查看所有标签
+# 默认标签是打在最新提交的commit上
+
+对过去的commit打标签
+$ git log --pretty=online --abbrev-commit
+$ git tag v0.9 f52c633
+
+# 标签不是按时间顺序列出，而是按字母排序
+$ git show v0.9 # 查看标签信息
+
+$ git tag -a v0.1 -m &quot;version 0.1 released&quot; 1094adb # -a指定标签名，-m指定说明文字
+注意：标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+小结：
+命令git tag &lt;tagname&gt;用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+命令git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;可以指定标签信息；
+命令git tag可以查看所有标签。</code></pre>
+<h3 id="2-操作标签"><a href="#2-操作标签" class="headerlink" title="2.操作标签"></a>2.操作标签</h3><pre><code>$ git tag -d v0.1 # 删除标签
+因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+
+如果要推送某个标签到远程，使用命令git push origin &lt;tagname&gt;：
+$ git push origin v0.1 # 推送标签到远程
+$ git push origin --tags # 一次性推送全部未推送到远程的本地标签
+
+如果标签已推送到远程，删除远程标签麻烦一些，先删除本地，再删除远程
+$ git tag -d v0.9
+$ git push origin :refs/tags/v0.9 # 删除远程
+
+小结：
+命令git push origin &lt;tagname&gt;可以推送一个本地标签；
+命令git push origin --tags可以推送全部未推送过的本地标签；
+命令git tag -d &lt;tagname&gt;可以删除一个本地标签；
+命令git push origin :refs/tags/&lt;tagname&gt;可以删除一个远程标签。</code></pre>
+<h2 id="八-GitHub-Fork"><a href="#八-GitHub-Fork" class="headerlink" title="八.GitHub Fork"></a>八.GitHub Fork</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/git13.png" alt="enter description here">    </p>
+<h2 id="九-码云"><a href="#九-码云" class="headerlink" title="九.码云"></a>九.码云</h2><pre><code> $ git remote add github git@github.com:Gladysgong/learngit.git
+ $ git remote add gitee git@gitee.com:Gladysgong/learngit.git
+ $ git remote -v 
+ # 此时远程的名称不再叫origin，而是github和gitee
+ $ git push github master # 推送到github
+ $ git push gitee master # 推送到gitee</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/git14.png" alt="enter description here"></p>
+<h2 id="十-自定义Git"><a href="#十-自定义Git" class="headerlink" title="十.自定义Git"></a>十.自定义Git</h2><pre><code>$ git config --global color.ui true # 让Git显示颜色</code></pre>
+<h3 id="1-忽略特殊文件"><a href="#1-忽略特殊文件" class="headerlink" title="1.忽略特殊文件"></a>1.忽略特殊文件</h3><pre><code>在Git工作区根目录下创建一个特殊的.gitignore文件
+https://github.com/github/gitignore
+忽略文件原则：
+忽略操作系统自动生成的文件，比如缩略图等；
+忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如Java编译产生的.class文件；
+忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。
+
+.gitignore
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# My configurations:
+db.ini
+deploy_key_rsa
+
+有时候你想添加一个文件到Git，但发现添加不了，原因是这个文件被.gitignore忽略了
+ggit add -f app.class # 强制添加文件
+如果.gitignore写的有问题，需要找出哪个规则写错了
+$ git check-ignore -v App.class # 检查哪个规则有错
+
+小结：
+忽略某些文件时，需要编写.gitignore；
+gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！</code></pre>
+<h3 id="2-配置别名"><a href="#2-配置别名" class="headerlink" title="2.配置别名"></a>2.配置别名</h3><pre><code>$ git config --global alias.st status # 为status设置别名st
+
+命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区。既然是一个unstage操作，就可以配置一个unstage别名：
+$ git config --global alias.unstage &#39;reset HEAD&#39;
+
+配置一个git last，让其显示最后一次提交信息：
+$ git config --global alias.last &#39;log -l&#39;
+
+git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;
+
+配置文件：
+配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。
+$ cat .git/config # 仓库配置文件
+$ cat .gitconfig # 当前用户的Git配置文件</code></pre>
+<h3 id="3-搭建Git服务器"><a href="#3-搭建Git服务器" class="headerlink" title="3.搭建Git服务器"></a>3.搭建Git服务器</h3><pre><code>* 安装git
+$ sudo apt-get install git 
+* 创建一个git用户，用来运行git服务
+$ sudo adduser git
+* 创建证书登录
+收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。
+* 初始化Git仓库
+$ sudo git init --bare sample.git
+$ sudo chown -R git:git sample.git
+* 禁用shell登录
+$ vi /etc/passwd
+git:x:1001:1001:,,,:/home/git:/bin/bash
+改为：
+git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+git用户可以通过ssh使用git，但无法登录git
+* 克隆远程仓库
+$ git clone git@server:/srv/sample.git
+
+管理公钥：
+Gitosis:https://github.com/res0nat0r/gitosis
+管理权限：
+Gitolite:https://github.com/sitaramc/gitolite</code></pre>
+<h2 id="十一-总结"><a href="#十一-总结" class="headerlink" title="十一.总结"></a>十一.总结</h2><pre><code>Git Cheat Sheet --百度网盘pub
+Git官网：http://git-scm.com</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/CNN%E5%88%9D%E6%8E%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/CNN%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">CNN初探</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-16 18:52:43" itemprop="dateCreated datePublished" datetime="2018-08-16T18:52:43+08:00">2018-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:01:21" itemprop="dateModified" datetime="2020-09-18T17:01:21+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转载地址：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/fydeblog/p/7450413.html">http://www.cnblogs.com/fydeblog/p/7450413.html</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇博客主要讲解卷积神经网络（CNN）的历史、模块、特点和架构等等</p>
+<h2 id="1-CNN历史"><a href="#1-CNN历史" class="headerlink" title="1. CNN历史"></a>1. CNN历史</h2><ul>
+<li>CNN最早可以追溯到1968Hubel和Wiesel的论文，这篇论文讲述猫和猴的视觉皮层含有对视野的小区域单独反应的神经元，如果眼睛没有移动，则视觉刺激影响单个神经元的视觉空间区域被称为其感受野（Receptive Field）。相邻细胞具有相似和重叠的感受野。感受野大小和位置在皮层之间系统地变化，形成完整的视觉空间图。这个为CNN的局部感知奠定了一个基础。</li>
+<li>然后是1980年，神经感知机(neocognitron)的提出，标志了第一个初始的卷积神经网络的诞生，也是感受野概念在人工神经网络领域的首次应用，神经认知机将一个视觉模式分解成许多子模式（特征），然后进入分层递阶式相连的特征平面进行处理。</li>
+<li>在然后1988年，时不变神经网络(Shift-invariant neural network)的提出，将卷积神经网络的功能进行了一次提高，使其能够在即使物体有位移或轻微变形的时候，也能完成识别。</li>
+<li>卷积神经网络的前馈架构在神经抽象金字塔（Neural abstraction pyramid）中被横向和反馈连接扩展。所产生的复现卷积网络允许灵活地并入情景信息以迭代地解决局部模糊。与以前的模型相反，产生了最高分辨率的图像输出。</li>
+<li>最后，2005出现了一篇GPU实现CNN的paper，标志了一种实现CNN更有效的方式，之后在2012年ImageNet大赛中CNN由于其高精确度脱颖而出，于是，深度学习正式进入人们的视野。<h2 id="2-CNN基本模块"><a href="#2-CNN基本模块" class="headerlink" title="2 CNN基本模块"></a>2 CNN基本模块</h2>CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积层，池化层、RELU层和全连通层。</li>
+</ul>
+<h3 id="2-1-输入层"><a href="#2-1-输入层" class="headerlink" title="2.1 输入层"></a>2.1 输入层</h3><p>CNN的输入一般是二维向量，可以有高度，比如，RGB图像</p>
+<h3 id="2-2-卷积层"><a href="#2-2-卷积层" class="headerlink" title="2.2 卷积层"></a>2.2 卷积层</h3><p>卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，它们具有小的感受野，延伸到输入容积的整个深度。 在前馈期间，每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层是用来对输入层进行卷积，提取更高层次的特征。</p>
+<p>联想理解：</p>
+<ul>
+<li>可能上面的话语太拗口，这里讲一下卷积的作用，我最早接触卷积是在信号与系统这门课上。在信号与系统中，输入对一个系统的响应是等于输入信号e(x)与系统函数h(x)进行卷积，h(x)可以看作一个滤波器，它会对输入信号进行筛选，选择和它类似的信号，其他则过滤掉，相信学过的人有这个体会哈！</li>
+<li>我们还可以想想数字图像处理（DIP）这门课，我们在提取图像的边缘特征时，用到的一个卷积核，名字叫sobel算子，它与图像进行卷积，就可以得到边缘，这个原因是有sobel算子与图像边缘的结构相似，所以才能提取出来，这个可能更容易理解卷积层的作用吧，但不同的是这里的卷积层参数未知，需要学习才能得到。<h3 id="2-3-池化层"><a href="#2-3-池化层" class="headerlink" title="2.3 池化层"></a>2.3 池化层</h3>池化层又称下采样，它的作用是减小数据处理量同时保留有用信息，它是怎么做到的呢？</li>
+</ul>
+<p>答：通常池化层是每邻域四个像素中的最大值变为一个像素（这就是下一讲要降的max_pooling），为什么可以这么做呢？这是因为卷积已经提取出特征，相邻区域的特征是类似，近乎不变，这是池化只是选出最能表征特征的像素，缩减了数据量，同时保留了特征，何乐而不为呢？池化层的作用可以描述为模糊图像，丢掉了一些不是那么重要的特征.</p>
+<p>图形描述：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1078653/201708/1078653-20170829213953624-1445041755.png"></p>
+<h3 id="2-4-RELU层"><a href="#2-4-RELU层" class="headerlink" title="2.4 RELU层"></a>2.4 RELU层</h3><p>这个RELU我们之前讲过，全名将修正线性单元，是神经元的激活函数，对输入值x的作用是max(0,x)，当然RELU只是一种选择，还有选Leak-Relu等等，一般都是用Relu！</p>
+<h3 id="2-5-全连通层"><a href="#2-5-全连通层" class="headerlink" title="2.5 全连通层"></a>2.5 全连通层</h3><p>这个层就是一个常规的神经网络，它的作用是对经过多次卷积层和多次池化层所得出来的高级特征进行全连接（全连接就是常规神经网络的性质），算出最后的预测值。</p>
+<h3 id="2-6-输出层"><a href="#2-6-输出层" class="headerlink" title="2.6 输出层"></a>2.6 输出层</h3><p>输出层就不用介绍了，就是对结果的预测值，一般会加一个softmax层。</p>
+<h2 id="3-CNN的特点"><a href="#3-CNN的特点" class="headerlink" title="3. CNN的特点"></a>3. CNN的特点</h2><p>这里主要讨论CNN相比与传统的神经网络的不同之处，CNN主要有三大特色，分别是局部感知、权重共享和多卷积核</p>
+<h3 id="3-1-局部感知"><a href="#3-1-局部感知" class="headerlink" title="3.1 局部感知"></a>3.1 局部感知</h3><p>局部感知就是我们上面说的感受野，实际上就是卷积核和图像卷积的时候，每次卷积核所覆盖的像素只是一小部分，是局部特征，所以说是局部感知。CNN是一个从局部到整体的过程（局部到整体的实现是在全连通层），而传统的神经网络是整体的过程。</p>
+<p>图形描述：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1078653/201708/1078653-20170829214448858-1477823922.png"></p>
+<h3 id="3-2-权重共享"><a href="#3-2-权重共享" class="headerlink" title="3.2 权重共享"></a>3.2 权重共享</h3><p>传统的神经网络的参数量是非常巨大的，比如1000X1000像素的图片，映射到和自己相同的大小，需要（1000X1000）的平方，也就是10的12次方，参数量太大了，而CNN除全连接层外，卷积层的参数完全取决于滤波器的设置大小，比如10x10的滤波器，这样只有100个参数，当然滤波器的个数不止一个，也就是下面要说的多卷积核。但与传统的神经网络相比，参数量小，计算量小。整个图片共享一组滤波器的参数。</p>
+<h3 id="3-3-多卷积核"><a href="#3-3-多卷积核" class="headerlink" title="3.3 多卷积核"></a>3.3 多卷积核</h3><p>一种卷积核代表的是一种特征，为获得更多不同的特征集合，卷积层会有多个卷积核，生成不同的特征，这也是为什么卷积后的图片的高，每一个图片代表不同的特征。</p>
+<h2 id="4-CNN实现架构"><a href="#4-CNN实现架构" class="headerlink" title="4. CNN实现架构"></a>4. CNN实现架构</h2><p>这里以LeNet-5(效果和paper)为例，一个典型的用来识别数字的卷积网络，当年美国大多数银行就是用它来识别支票上面的手写数字的。能够达到这种商用的地步，它的准确性可想而知。</p>
+<p>LeNet-5主要有7层（不包括输入和输出），具体框架如图</p>
+<p><img src="https://images2017.cnblogs.com/blog/1078653/201708/1078653-20170829214830265-1332499356.png"></p>
+<p>流程：输入层——&gt;第一层卷积层——&gt;第一层池化层——&gt;第二层卷积层——&gt;第二层池化层——&gt;三层全连通层——&gt;输出层</p>
+<p>详解：输入是一个2维的图片，大小32X32，经过第一层卷积层，得到了C1层的6个28X28的特征映射图，6个说明了第一层卷积层用了6个卷积核。这里卷积后大小变成28X28，这是因为卷积有两种，一种有填充，卷积后与原图像大小一样，另一种不带填充，卷积后结果与原图像相比，小了一些。然后经过第一层池化层，28X28变成了14X14，一般是每邻域四个像素中的最大值变为一个像素，相应图片的长和宽各缩小两倍。然后又经过一个卷积层，变成了C3层的16个10X10的特征映射图，然后又经过一个池化层，得到S4层的16个5X5的特征映射，然后将这16个5X5的特征映射送到3层的常规神经网络，得出最后的结果。</p>
+<p>总结：我们可以这样想，前面的卷积层和池化层是为了提取输入的高级特征，送到全连通层的输入，然后训练出最后的结果。</p>
+<h2 id="5-dropout"><a href="#5-dropout" class="headerlink" title="5.dropout"></a>5.dropout</h2><p>dropout是一种正则化的方法，应用在CNN中，主要解决CNN过拟合的问题。</p>
+<p>怎么理解这个东西呢，首先我们要知道为什么过拟合？这是因为神经网络的神经元过多，参数过多，导致训练集拟合得太好了，为此，我们想dropout(丢掉)一些神经元，让它不产生影响。</p>
+<p>具体做法:在每个隐藏层的输入进行一个概率判决，比如我们设置概率为0.5（通常命名为keep_prob）,根据0.5，我们生成一个跟隐藏层神经元个数的向量，true:false的比例是1：1（因为keep_prob=0.5），与隐藏层的输入进行相乘，那么会有一半隐藏层的神经元被丢掉，不起作用，整个网络变得简单了，就会从过拟合过渡到just right 。这是组合派的说法，andrew也是这么讲的，文末链接中还有一派噪声派的说法，也很有意思，可以看看！</p>
+<p>图形理解（这个keep_prob等于0.4，即2/5）：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1078653/201708/1078653-20170830115048327-2007463236.png"></p>
+<h2 id="6-结尾"><a href="#6-结尾" class="headerlink" title="6.结尾"></a>6.结尾</h2><p>CNN初探到此结束，当然，这是一个非常强大的算法，还需细细思考，体会其中更精华的东西！最后，由于笔者能力有限，如果错误，还请不吝指教！</p>
+<p>在这里说一句，吴恩达的deeplearning.ai正式在网易云上线，全免费，非常值得观看哦！点开<a target="_blank" rel="noopener" href="http://mooc.study.163.com/smartSpec/detail/1001319001.htm">链接</a>即可观看！</p>
+<p>参考</p>
+<p>[1] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Convolutional_neural_network">https://en.wikipedia.org/wiki/Convolutional_neural_network</a></p>
+<p>[2] [<a target="_blank" rel="noopener" href="http://blog.csdn.net/zouxy09/article/details/8781543]">http://blog.csdn.net/zouxy09/article/details/8781543]</a>(<a href="http://blog.csdn.n[3]">http://blog.csdn.n[3]</a> <a target="_blank" rel="noopener" href="http://dataunion.org/11692.htmlet/zouxy09/article/details/8781543">http://dataunion.org/11692.htmlet/zouxy09/article/details/8781543</a>)</p>
+<p>[3] <a target="_blank" rel="noopener" href="http://dataunion.org/11692.html">http://dataunion.org/11692.html</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="http://blog.csdn.net/stdcoutzyx/article/details/49022443">http://blog.csdn.net/stdcoutzyx/article/details/49022443</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/MySql-1-%E9%94%99%E8%AF%AF%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">MySql-1-错误记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-15 13:17:25" itemprop="dateCreated datePublished" datetime="2018-08-15T13:17:25+08:00">2018-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:41:07" itemprop="dateModified" datetime="2020-09-18T21:41:07+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql/" itemprop="url" rel="index"><span itemprop="name">MySql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-MySql-server-has-gone-away"><a href="#一-MySql-server-has-gone-away" class="headerlink" title="一.MySql server has gone away"></a>一.MySql server has gone away</h2><h3 id="1-原因"><a href="#1-原因" class="headerlink" title="1.原因"></a>1.原因</h3><pre><code>Mysql server服务器连接超时，并且关闭了与客户端的连接导致的；
 默认情况下，如果在8小时没有对mysql进行查询请求的话，服务器就会自动断开连接。
 
-发送给服务器的查
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-08-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql/" class="post-category">
-                                    MySql
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+发送给服务器的查询是错误的或者传送的数据太大；</code></pre>
+<h3 id="2-解决方法"><a href="#2-解决方法" class="headerlink" title="2.解决方法"></a>2.解决方法</h3><pre><code>修改全局变量 wait_timeout和interactive_timeout两个变量的值
+$ mysql -u root -p
+$ mysql&gt;show variables like &#39;%timeout&#39;;
+$ mysql&gt;set global wait_timeout = 2880000;
+$ mysql&gt;set global interactive_timeout = 2880000;
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/MySql/">
-                            <span class="chip bg-color">MySql</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="SMTP发送邮件">
-                            
-                            <span class="card-title">SMTP发送邮件</span>
-                        </div>
-                    </a>
+interactive_timeout：交互式客户端连接的超时时间。
+wait_timeout：是非交互式的超时时间。
+client_interactive：运行mysql server 在交互式超时时间interactive_timeout（而不是wait_timeout）时间之后断开连接。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.概述SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮
+修改变量max_allowed_packet的大小
+$ mysql&gt; set global max_allowed_packet = 64M;</code></pre>
+<h2 id="二-’latin-1’-codec-can’t-encode-character"><a href="#二-’latin-1’-codec-can’t-encode-character" class="headerlink" title="二.’latin-1’ codec can’t encode character"></a>二.’latin-1’ codec can’t encode character</h2><h3 id="1-原因-1"><a href="#1-原因-1" class="headerlink" title="1.原因"></a>1.原因</h3><pre><code>pymysql 正常情况下会尝试将所有的内容转为latin1字符集处理</code></pre>
+<h3 id="2-解决方法-1"><a href="#2-解决方法-1" class="headerlink" title="2.解决方法"></a>2.解决方法</h3><pre><code>设置连接和游标的charset为你所希望的编码，如utf8；
+db = pymysql.connect(&quot;localhost&quot;,&quot;root&quot;,&quot;00000000&quot;,&quot;TESTDB&quot; ,use_unicode=True, charset=&quot;utf8&quot;)
+注意：如果charset=&quot;utf-8&quot;也会报错，错误信息为【AttributeError: &#39;NoneType&#39; object has no attribute &#39;encoding&#39;】
+可以看出是编码格式的问题，原来connect中的charset是&quot;utf8&quot;，而不是&quot;utf-8&quot;。同时port的需要number而不是string。</code></pre>
+<h2 id="三-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES"><a href="#三-ERROR-1045-28000-Access-denied-for-user-‘root’-’localhost’-using-password-YES" class="headerlink" title="三.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)"></a>三.ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)</h2><pre><code>mac解决办法：
+$ sudo cd /usr/local/mysql/data
+$ rm -rf ib_logfile0
+$ rm -rf ib_logfile1
+停止mysql服务；
+$ cd /usr/local/mysql/bin/
+$ sudo su
+$ ./mysqld_safe --skip-grant-tables &amp; # 禁止mysql验证功能
+# 回车后mysql会自动重启
+$ ./mysql
+&gt; FLUSH PRIVILEGES; 
+&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;; </code></pre>
+<h2 id="四-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found"><a href="#四-2059-Authentication-plugin-‘caching-sha2-password’-cannot-be-loaded-dlopen-Frameworks-caching-sha2-password-so-2-image-not-found" class="headerlink" title="四.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found"></a>四.2059 - Authentication plugin ‘caching_sha2_password’ cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found</h2><pre><code>mac解决办法：
+$ mysql -u root -p
+&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;新密码&#39;;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="post-title-link" itemprop="url">SMTP发送邮件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-27 14:37:07" itemprop="dateCreated datePublished" datetime="2018-07-27T14:37:07+08:00">2018-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:01:15" itemprop="dateModified" datetime="2020-09-18T14:01:15+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Mail/" itemprop="url" rel="index"><span itemprop="name">Mail</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一.概述"></a>一.概述</h2><pre><code>SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮
 件的规则，由它来控制信件的中转方式。
-python中smtplib对smtp协议进行了简单封装，让我们能
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/Mail/" class="post-category">
-                                    Mail
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+python中smtplib对smtp协议进行了简单封装，让我们能够方便的发送电子邮件，可以发送纯文本邮件、html
+邮件及带附件的邮件。
+python的SMTP支持smtplib和email两个模块，email负责构造邮件，smtplib负责发送邮件。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Mail/">
-                            <span class="chip bg-color">Mail</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Shell-1-问题记录">
-                            
-                            <span class="card-title">Shell-1-问题记录</span>
-                        </div>
-                    </a>
+email:
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、问题：integer expression expected1.错误及原因在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expect
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" class="post-category">
-                                    Shell
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+from emial.mime.text import MIMEText
+msg=MIMEText(&#39;hello&#39;,&#39;plain&#39;,&#39;utf-8&#39;)
+注意：MIMEText对象第一个参数是邮件正文，第二个参数时MIME的subtype，传入&#39;plain&#39;，最终的MIME就是
+&#39;text/plain&#39;，最后用&#39;utf-8&#39;保证多语言兼容性。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Shell/">
-                            <span class="chip bg-color">Shell</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Shell-2-%E5%9F%BA%E7%A1%80/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Shell-2-基础">
-                            
-                            <span class="card-title">Shell-2-基础</span>
-                        </div>
-                    </a>
+smtplib:
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1.变量1) 局部变量 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
-2) 环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-07-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" class="post-category">
-                                    Shell
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+import smtplib
+smtpobj=smtplib.SMTP([host[,port[,local_hostname]]])
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Shell/">
-                            <span class="chip bg-color">Shell</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Mac终端ssh登录Linux提示cannot change locale(UTF_8)">
-                            
-                            <span class="card-title">Mac终端ssh登录Linux提示cannot change locale(UTF_8)</span>
-                        </div>
-                    </a>
+host: SMTP服务器主机,可指定主机的ip地址或者域名,可选参数;
+port: 如果你提供了host参数, 你需要指定SMTP服务使用的端口号，一般情况下SMTP端口号为25;
+local_hostname: 如果SMTP在你的本机上，你只需要指定服务器地址为localhost即可;
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                警告在Mac终端ssh登录远程Linux主机时，总是提示：
--bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directo
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" class="post-category">
-                                    ssh
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+# 发送邮件
+SMTP.sendmail(from_addr,to_addrs,msg[,mail_options,rcpt_options])
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/ssh/">
-                            <span class="chip bg-color">ssh</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Requests%E8%AF%A6%E8%A7%A3/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Request详解">
-                            
-                            <span class="card-title">Request详解</span>
-                        </div>
-                    </a>
+from_addr: 邮件发送者地址；
+to_addrs: 字符串列表，邮件发送地址；
+msg: 发送消息；</code></pre>
+<h2 id="二-代码实现"><a href="#二-代码实现" class="headerlink" title="二.代码实现"></a>二.代码实现</h2><pre><code># -*- coding: UTF-8 -*-
+&#39;&#39;&#39;&#39;
+title:自动发送测试
+author:Lilly
+&#39;&#39;&#39;
+import sys, os, re, urllib, urllib.parse
+import smtplib
+import traceback
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、在Python2中使用urllib和urllib2进行http请求(1) urllib2可以接受一个Request类的实例来设置URL请求的headers。
-(2) urllib仅可以接受URL，这意味着你不可以伪装你的User Age
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/Requests/" class="post-category">
-                                    Requests
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Requests/">
-                            <span class="chip bg-color">Requests</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Mac下ssh免密码登录">
-                            
-                            <span class="card-title">Mac下ssh免密码登录</span>
-                        </div>
-                    </a>
+def sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password):
+    &#39;&#39;&#39;&#39;&#39;
+    @subject:邮件主题
+    @msg:邮件内容
+    @toaddrs:收信人的邮箱地址
+    @fromaddr:发信人的邮箱地址
+    @smtpaddr:smtp服务地址，可以在邮箱看，比如163邮箱为smtp.163.com
+    @password:发信人的邮箱密码
+    &#39;&#39;&#39;
+    mail_msg = MIMEMultipart()
+    if not isinstance(subject, str):
+        subject = str(subject, &#39;utf-8&#39;)
+    mail_msg[&#39;Subject&#39;] = subject
+    mail_msg[&#39;From&#39;] = fromaddr
+    mail_msg[&#39;To&#39;] = &#39;,&#39;.join(toaddrs)
+    mail_msg.attach(MIMEText(msg, &#39;html&#39;, &#39;utf-8&#39;))
+    try:
+        s = smtplib.SMTP()
+        s.connect(smtpaddr)  # 连接smtp服务器
+        s.set_debuglevel(1)  # 打印和SMTP服务交互的所有信息
+        s.login(fromaddr, password)  # 登录邮箱
+        s.sendmail(fromaddr, toaddrs, mail_msg.as_string())  # 发送邮件
+        s.quit()
+    except Exception as e:
+        print(&quot;Error: unable to send email&quot;)
+        print(traceback.format_exc())
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                本地生成公钥和私钥（客户端Mac）$ ssh-keygen -t rsa
+
+if __name__ == &#39;__main__&#39;:
+    fromaddr = &quot;voidqueen@163.com&quot;
+    smtpaddr = &quot;smtp.163.com&quot;
+    toaddrs = [&quot;531404376@qq.com&quot;]
+    subject = &quot;测试邮件&quot;
+    password = &quot;********&quot; # 邮箱客户端授权码
+    msg = &quot;测试测试&quot;
+    sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password)</code></pre>
+<h2 id="三-小结"><a href="#三-小结" class="headerlink" title="三.小结"></a>三.小结</h2><pre><code>构造一个邮件对象就是一个Messag对象；
+如果构造一个MIMEText对象，就表示一个文本邮件对象；
+如果构造一个MIMEImage对象，就表示一个作为附件的图片；
+要把多个对象组合起来，就用MIMEMultipart对象；
+而MIMEBase可以表示任何对象。
+它们的继承关系如下：
+Message
++- MIMEBase
+   +- MIMEMultipart
+   +- MIMENonMultipart
+      +- MIMEMessage
+      +- MIMEText
+      +- MIMEImage</code></pre>
+<h2 id="四-参考文档"><a href="#四-参考文档" class="headerlink" title="四.参考文档"></a>四.参考文档</h2><p><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/email.mime.html">email.mime参考文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000">廖雪峰-SMTP发送邮件</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Shell-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-26 09:54:56" itemprop="dateCreated datePublished" datetime="2018-07-26T09:54:56+08:00">2018-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:19:10" itemprop="dateModified" datetime="2020-09-18T16:19:10+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、问题：integer-expression-expected"><a href="#一、问题：integer-expression-expected" class="headerlink" title="一、问题：integer expression expected"></a>一、问题：integer expression expected</h2><h3 id="1-错误及原因"><a href="#1-错误及原因" class="headerlink" title="1.错误及原因"></a>1.错误及原因</h3><pre><code>在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expected”的错误。这是因为参数-eq，-lt，-gt比较的都是数字和变量，而变量var如果是一个字符串的话，就会出现上述错误了。</code></pre>
+<h3 id="2-解决办法"><a href="#2-解决办法" class="headerlink" title="2.解决办法"></a>2.解决办法</h3><pre><code>此时可以采用一种迂回的办法，即用awk工具对变量进行比较，返回比较结果，再将比较结果与相应的数字量进行比较。
+如：
+[ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq 0]</code></pre>
+<h3 id="3-例子"><a href="#3-例子" class="headerlink" title="3.例子"></a>3.例子</h3><pre><code>if [ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq &quot;0&quot; ];
+    then
+        grep xml request_body_dump.file | grep &quot;&lt;v2:from&gt;$var&lt;/v2:from&gt;&lt;v2:to&gt;zh-CHS&lt;/v2:to&gt;&quot; | head -n 1000 &gt; xml</code></pre>
+<p>-zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 1000 &gt;&gt; xm<br>l-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        else<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>$var<a href="v2:to">v2:to</a>zh-CHS“ | head -n 200 &gt; xml-<br>zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 200 &gt;&gt; xml<br>-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        fi</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-2-%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Shell-2-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shell-2-基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-11 16:43:14" itemprop="dateCreated datePublished" datetime="2018-07-11T16:43:14+08:00">2018-07-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:22:39" itemprop="dateModified" datetime="2020-09-18T16:22:39+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-变量"><a href="#1-变量" class="headerlink" title="1.变量"></a>1.变量</h3><pre><code>1) 局部变量 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
+2) 环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。
+3) shell变量 shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
+
+
+定义变量：不加$符号 
+my_name=&#39;gyl&#39;
+
+使用变量：$
+echo $my_name
+echo $&#123;my_name&#125;
+
+只读变量：不能被改变
+readonly myUrl
+
+删除变量：unset不能删除只读变量
+unset my_book</code></pre>
+<h3 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h3><pre><code>字符串可以用单引号和双引号，也可不用引号，单双引号的区别跟PHP类似。
+
+单引号：&#39;&#39;
+    单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；
+    单引号字串中不能出现单引号（对单引号使用转义符后也不行）；
+str=&#39;this is a string&#39;
+
+双引号：&quot;&quot;
+    双引号里可以有变量
+    双引号里可以出现转义字符
+my_name=&#39;gyl&#39;
+str=&quot;hello,I know you are \&quot;$my_name\&quot;! \n&quot;
+
+拼接字符串：
+echo $greeting $greeting1
+
+获取字符串长度：
+echo $&#123;#str&#125;
+
+提取字符串：
+echo $&#123;str:1:4&#125;
+
+查找子字符串：
+echo `expr index &quot;$string&quot; is` # 反引号，而非单引号</code></pre>
+<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h3><pre><code>bash支持一维数组（不支持多维数组），并且没有限定数组的大小
+下标从0开始，初始时不需要定义数组大小（与PHP类似）
+
+定义数组：
+数组名=(值1 值2 ... 值n)
+array_name=(value0 value1 value2 value3)
+
+读取数组：
+$&#123;数组名[下标]&#125;
+valuen=$&#123;array_name[n]&#125;
+valuen=$&#123;array_name[@]&#125; # @符号可获取数组中的所有元素
+
+获取数组长度：
+length=$&#123;#array_name[@]&#125;
+length=$&#123;#array_name[*]&#125; # 获取数组元素的个数
+lengthn=$&#123;#array_name[n]&#125; # 获取数组单个元素的长度</code></pre>
+<h3 id="4-注释"><a href="#4-注释" class="headerlink" title="4.注释"></a>4.注释</h3><pre><code>#
+
+:&lt;&lt;EOF
+注释内容...
+注释内容...
+注释内容...
+EOF</code></pre>
+<h3 id="5-传递参数"><a href="#5-传递参数" class="headerlink" title="5.传递参数"></a>5.传递参数</h3><pre><code>$0:执行的文件名
+$1:第一个参数
+$2:第二个参数，以此类推
+
+$#    传递到脚本的参数个数
+$*    以一个单字符串显示所有向脚本传递的参数。如&quot;$*&quot;用「&quot;」括起来的情况、以&quot;$1 $2 … $n&quot;的形式输出所有参数。
+$$    脚本运行的当前进程ID号
+$!    后台运行的最后一个进程的ID号
+$@    与$*相同，但是使用时加引号，并在引号中返回每个参数。如&quot;$@&quot;用「&quot;」括起来的情况、以&quot;$1&quot; &quot;$2&quot; … &quot;$n&quot; 的形式输出所有参数。
+$-    显示Shell使用的当前选项，与set命令功能相同。
+$?    显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</code></pre>
+<h3 id="6-基本运算符"><a href="#6-基本运算符" class="headerlink" title="6.基本运算符"></a>6.基本运算符</h3><pre><code>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，如 awk 和 expr，expr 最常用。
+
+表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。
+完整的表达式要被 ` ` 包含，注意这个字符不是常用的单引号，在 Esc 键下边。
+val=`expr 2 + 2`</code></pre>
+<h4 id="6-1-算术运算符"><a href="#6-1-算术运算符" class="headerlink" title="6.1 算术运算符"></a>6.1 算术运算符</h4><pre><code>+ - * / % = == !=
+乘号(*)前边必须加反斜杠(\)才能实现乘法运算；
+在 MAC 中 shell 的 expr 语法是：$((表达式))，此处表达式中的 &quot;*&quot; 不需要转义符号 &quot;\&quot; 。</code></pre>
+<h4 id="6-2-关系运算符"><a href="#6-2-关系运算符" class="headerlink" title="6.2 关系运算符"></a>6.2 关系运算符</h4><pre><code>关系运算符只支持数字，不支持字符串，除非字符串的值是数字。
+
+-eq ：检测两个数是否相等
+-nq ：检测两个数是否不相等
+-gt ：检测左边的数是否大于右边的
+-lt ：检测左边的数是否小于右边的
+-ge ：检测左边的数是否大于等于右边的
+-le ：检测左边的数是否小于等于右边的</code></pre>
+<h4 id="6-3-布尔运算符"><a href="#6-3-布尔运算符" class="headerlink" title="6.3 布尔运算符"></a>6.3 布尔运算符</h4><pre><code>！ ：非运算
+-o ：或运算
+-a ：与运算</code></pre>
+<h4 id="6-4-逻辑运算符"><a href="#6-4-逻辑运算符" class="headerlink" title="6.4 逻辑运算符"></a>6.4 逻辑运算符</h4><pre><code>&amp;&amp; ：逻辑中的AND
+|| ：逻辑中OR    </code></pre>
+<h4 id="6-5-字符串运算"><a href="#6-5-字符串运算" class="headerlink" title="6.5 字符串运算"></a>6.5 字符串运算</h4><pre><code>=
+!=
+-z ：检测字符串长度是否为0，为0返回true
+-n ：检测字符串长度是否为0，不为0返回true
+str：检测字符串是否为空，不为空返回true</code></pre>
+<h4 id="6-6-文件测试运算符"><a href="#6-6-文件测试运算符" class="headerlink" title="6.6 文件测试运算符"></a>6.6 文件测试运算符</h4><pre><code>文件测试运算符用于检测 Unix 文件的各种属性
+
+-b file    检测文件是否是块设备文件，如果是，则返回 true。
+-c file    检测文件是否是字符设备文件，如果是，则返回 true。    
+-d file    检测文件是否是目录，如果是，则返回 true。    
+-f file    检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。    
+-g file    检测文件是否设置了 SGID 位，如果是，则返回 true。    
+-k file    检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。    
+-p file    检测文件是否是有名管道，如果是，则返回 true。    
+-u file    检测文件是否设置了 SUID 位，如果是，则返回 true。    
+-r file    检测文件是否可读，如果是，则返回 true。    
+-w file    检测文件是否可写，如果是，则返回 true。    
+-x file    检测文件是否可执行，如果是，则返回 true。    
+-s file    检测文件是否为空（文件大小是否大于0），不为空返回 true。    
+-e file    检测文件（包括目录）是否存在，如果是，则返回 true。</code></pre>
+<h3 id="7-echo"><a href="#7-echo" class="headerlink" title="7.echo"></a>7.echo</h3><pre><code>echo -e &quot;OK! \n&quot;    # -e开启转义
+echo “it is a test.” &gt; myfile # 结果定向到文件
+echo &#39;$name\&quot;&#39; # 原样输出字符串，不进行转义或取变量（用单引号）
+ehco `data` # 线上命令执行结果，用反引号而不是单引号，此处显示当前日期</code></pre>
+<h3 id="7-printf"><a href="#7-printf" class="headerlink" title="7.printf"></a>7.printf</h3><pre><code>默认 printf 不会像 echo 自动添加换行符，我们可以手动添加 \n
+
+printf &quot;%-10s %-8s %-4s\n&quot; 姓名 性别 体重kg  
+printf &quot;%-10s %-8s %-4.2f\n&quot; 郭芙 女 47.9876 </code></pre>
+<h3 id="8-test"><a href="#8-test" class="headerlink" title="8.test"></a>8.test</h3><pre><code>数值--6.2
+字符--6.5
+文件--6.6</code></pre>
+<h3 id="9-流程控制"><a href="#9-流程控制" class="headerlink" title="9.流程控制"></a>9.流程控制</h3><pre><code>if格式：
+    if condition
+    then
+        command1 
+        command2
+        ...
+        commandN 
+    fi
+    或if [ $(ps -ef | grep -c &quot;ssh&quot;) -gt 1 ]; then echo &quot;true&quot;; fi
+
+if else格式：
+    if condition
+    then
+        command1 
+        command2
+        ...
+        commandN 
+    else
+        command
+    fi
+
+if else-if else 格式：
+    if condition1
+    then
+        command1
+    elif condition2 
+    then 
+        command2
+    else
+        commandN
+    fi
+
+for格式：
+    for var in item1 item2 ... itemN
+    do
+        command1
+        command2
+        ...
+        commandN
+    done
+    或for var in item1 item2 ... itemN; do command1; command2… done;
+
+while格式：
+    while condition
+    do
+        command
+    done
+
+until格式：until循环直到条件为true时停止
+    until condition
+    do
+        command
+    done
+
+case格式：
+    case 值 in
+    模式1)
+        command1
+        command2
+        ...
+        commandN
+        ;;
+    模式2）
+        command1
+        command2
+        ...
+        commandN
+        ;;
+    esac
+
+break和continue：跳出循环和跳出当前循环</code></pre>
+<h3 id="10-函数"><a href="#10-函数" class="headerlink" title="10.函数"></a>10.函数</h3><pre><code>1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。
+2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255）
+
+函数返回值在调用该函数后通过 $? 来获得。
+注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。
+
+函数参数：$1表示第一个参数，以此类推
+函数调用：funWithParam 1 2 3 4 5 34 87
+注意，$10 不能获取第十个参数，获取第十个参数需要$&#123;10&#125;。当n&gt;=10时，需要使用$&#123;n&#125;来获取参数。
+
+$#    传递到脚本的参数个数
+$*    以一个单字符串显示所有向脚本传递的参数
+$$    脚本运行的当前进程ID号
+$!    后台运行的最后一个进程的ID号
+$@    与$*相同，但是使用时加引号，并在引号中返回每个参数。
+$-    显示Shell使用的当前选项，与set命令功能相同。
+$?    显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</code></pre>
+<h3 id="11-输入输出重定向"><a href="#11-输入输出重定向" class="headerlink" title="11.输入输出重定向"></a>11.输入输出重定向</h3><pre><code>注意:文件描述符:
+    0 通常是标准输入（STDIN）
+    1 是标准输出（STDOUT）
+    2 是标准错误输出（STDERR）
+
+command &gt; file    将输出重定向到 file。
+command &lt; file    将输入重定向到 file。
+command &gt;&gt; file    将输出以追加的方式重定向到 file。
+n &gt; file    将文件描述符为 n 的文件重定向到 file。
+n &gt;&gt; file    将文件描述符为 n 的文件以追加的方式重定向到 file。
+n &gt;&amp; m    将输出文件 m 和 n 合并。
+n &lt;&amp; m    将输入文件 m 和 n 合并。
+&lt;&lt; tag    将开始标记 tag 和结束标记 tag 之间的内容作为输入。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/" class="post-title-link" itemprop="url">Mac终端ssh登录Linux提示cannot change locale(UTF_8)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-19 10:15:26" itemprop="dateCreated datePublished" datetime="2018-06-19T10:15:26+08:00">2018-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:33:56" itemprop="dateModified" datetime="2020-09-18T16:33:56+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="警告"><a href="#警告" class="headerlink" title="警告"></a>警告</h2><pre><code>在Mac终端ssh登录远程Linux主机时，总是提示：
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+即使在Linux中添加了export LANG=en_US，报错依旧在。</code></pre>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><pre><code>这个警告是ssh服务器和终端客户程序共同导致吃的。
+本地ssh客户端发动LC_*环境变量给远程sshd服务器，即ssh将尝试在远程服务器上设置和本地系统（我的是high Sierra系统）一样的LC_*环境变量，这样就导致了登录Linux远程服务器出现警告。</code></pre>
+<h2 id="解决方法（3种-）"><a href="#解决方法（3种-）" class="headerlink" title="解决方法（3种 ）"></a>解决方法（3种 ）</h2><p>1.在ssh客户端关闭启动时设置本地环境变量</p>
+<pre><code>终端 &gt; 偏好设置 &gt; 描述文件 &gt; 高级 &gt; 启动时设置locale环境变量（关闭它）
+
+但我用了这个方法还是没有生效，可能哪里配置还得改吧，而且重启机器后这个选项还是开着的，按理说是可以用的。</code></pre>
+<p>2.禁止OpenSSH客户端从OS X/Linux/Unix桌面发送LC_*变量</p>
+<pre><code>$ vi /etc/ssh/ssh_config
+删除或注释以下配置：SendEnv LANG LC_*
+
+# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+# Apple:
+ Host *
+   SendEnv LANG LC_*
+#   AskPassGUI yes
+
+#   ForwardAgent no
+#   ForwardX11 no
+#   RhostsRSAAuthentication no
+#   RSAAuthentication yes
+#   PasswordAuthentication yes
+#   HostbasedAuthentication no
+#   GSSAPIAuthentication no
+#   GSSAPIDelegateCredentials no
+......
+
+我使用这个后成功，感觉这个方法比较合适。</code></pre>
+<p>3.在远程服务器上安装要求的locale</p>
+<pre><code>可以使用localedef安装需要的locale
+或者考虑在本地/远程系统中选择另外的locale
+$ localedef -i en_US -f UTF-8 en.US.UTF-8</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Requests%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Requests%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Request详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-15 17:12:40" itemprop="dateCreated datePublished" datetime="2018-06-15T17:12:40+08:00">2018-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:44:43" itemprop="dateModified" datetime="2020-09-18T13:44:43+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Requests/" itemprop="url" rel="index"><span itemprop="name">Requests</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、在Python2中使用urllib和urllib2进行http请求"><a href="#一、在Python2中使用urllib和urllib2进行http请求" class="headerlink" title="一、在Python2中使用urllib和urllib2进行http请求"></a>一、在Python2中使用urllib和urllib2进行http请求</h2><pre><code>(1) urllib2可以接受一个Request类的实例来设置URL请求的headers。
+(2) urllib仅可以接受URL，这意味着你不可以伪装你的User Agent字符串等。
+(3) urllib 有urlencode,而urllib2没有，这也是为什么总是urllib，urllib2常会一起使用的原因。</code></pre>
+<pre><code>    req=urllib2.Request(url=url,data=postdata,headers=headers)
+    result=urllib2.urlopen(req)</code></pre>
+<h2 id="二、在Python3中使用urllib和http进行http请求"><a href="#二、在Python3中使用urllib和http进行http请求" class="headerlink" title="二、在Python3中使用urllib和http进行http请求"></a>二、在Python3中使用urllib和http进行http请求</h2><pre><code>http包会处理所有客户端--服务器http请求的具体细节，其中：
+    （1）client会处理客户端的部分
+    （2）server会协助你编写Python web服务器程序
+    （3）cookies和cookiejar会处理cookie，cookie可以在请求中存储数据
+
+urllib包是基于http的高层库，它有以下三个主要功能：
+    （1）request处理客户端的请求
+    （2）response处理服务端的响应
+    （3）parse会解析url</code></pre>
+<p>1.get请求</p>
+<pre><code>import urllib.request
+
+f = urllib.request.urlopen(&#39;http://www.webxml.com.cn//webservices/qqOnlineWebService.asmx/qqCheckOnline?qqCode=424662508&#39;)
+result = f.read().decode(&#39;utf-8&#39;)</code></pre>
+<p>2.发送带请求头的get请求</p>
+<pre><code>import urllib.request
+
+req = urllib.request.Request(&#39;http://www.example.com/&#39;)
+req.add_header(&#39;Referer&#39;,&#39;http://www.python.org/&#39;)
+r = urllib.request.urlopen(req)
+result = f.read().decode(&#39;utf-8&#39;)</code></pre>
+<p>3.综合</p>
+<pre><code>import urllib.parse  
+import urllib.request  
+
+url = &#39;http://www.example.com/&#39;  
+user_agent = &#39;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&#39;  
+values = &#123;  
+&#39;act&#39; : &#39;login&#39;,  
+&#39;login[email]&#39; : &#39;&#39;,  
+&#39;login[password]&#39; : &#39;&#39;  
+&#125;  
+headers = &#123; &#39;User-Agent&#39; : user_agent &#125;  
+data = urllib.parse.urlencode(values)  
+
+req = urllib.request.Request(url, data, headers)  
+response = urllib.request.urlopen(req)  
+the_page = response.read()  
+print(the_page.decode(&quot;utf8&quot;)</code></pre>
+<h2 id="三、第三方库Requests"><a href="#三、第三方库Requests" class="headerlink" title="三、第三方库Requests"></a>三、第三方库Requests</h2><pre><code>(1) Requests 使用的是 urllib3，继承了urllib2的所有特性。
+(2) 支持HTTP连接保持和连接池；支持使用cookie保持会话；支持文件上传；支持自动确定响应内容的编码；支持国际化的 URL 和 POST 数据自动编码。</code></pre>
+<p>1.安装</p>
+<pre><code>pip install requests
+pip install --upgrade requests</code></pre>
+<p>2.请求类型</p>
+<pre><code>POST，GET，PUT，DELETE，HEAD 以及 OPTIONS</code></pre>
+<p>3.GET请求</p>
+<pre><code>import requests
+
+# 无参数示例
+r = requests.get(&#39;https://httpbin.org/get&#39;)
+# 有参数示例
+r = requets.get(&#39;http://httpbin.org/get&#39;, params=d)
+
+传递URL参数：
+    在URL中常见?符号，http://httpbin.org/get?key=val 这种带有?传递关键字参数的方式，requests可以通过params实现。
+d = &#123;&#39;k1&#39;:&#39;v1&#39;, &#39;k2&#39;:&#39;v2&#39;, &#39;k3&#39;:None, &#39;k4&#39;:[&#39;v4&#39;,&#39;v5&#39;]&#125;  
+    # 字典中键值为None的键不会被添加到URL中
+    # 多个键值中间用&amp;符号连接
+    # 键值可是列表 例如&#39;k4&#39;
+
+print(r.url) # 执行结果为：http://httpbin.org/get?k1=v1&amp;k2=v2&amp;k4=v4&amp;k4=v5
+print(r.text) # 打印解码后的返回数据</code></pre>
+<p>4.POST请求</p>
+<pre><code>import requests
+
+# 基本样例    
+payload = &#123;&#39;key1&#39;: &#39;value1&#39;, &#39;key2&#39;: &#39;value2&#39;&#125;
+ret = requests.post(&quot;http://httpbin.org/post&quot;, data=payload)
+print(ret.text)
+# 输出结果
+&#123;
+  &quot;args&quot;: &#123;&#125;, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: &#123;&#125;, 
+  &quot;form&quot;: &#123;
+    &quot;key1&quot;: &quot;value1&quot;, 
+    &quot;key2&quot;: &quot;value2&quot;
+  &#125;, 
+  &quot;headers&quot;: &#123;
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Content-Length&quot;: &quot;23&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  &#125;, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;不告诉你这里返回的是你的IP地址&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+&#125;
+
+# 发送请求头和数据
+import requests
+import json
+
+url = &#39;https://api.github.com/some/endpoint&#39;
+payload = &#123;&#39;some&#39;: &#39;data&#39;&#125;
+headers = &#123;&#39;content-type&#39;: &#39;application/json&#39;&#125;
+ret = requests.post(url, data=json.dumps(payload), headers=headers)
+print(ret.text)
+print(ret.cookies)
+# 输出结果
+&#123;&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://developer.github.com/v3&quot;&#125;
+&lt;RequestsCookieJar[]&gt;</code></pre>
+<p>5.响应内容<br>requests模块的返回对象是一个Response对象，可以从这个对象中获取需要的信息。下面 r 代表Response对象。</p>
+<pre><code>r.text        文本响应内容
+r.context     二进制响应内容
+r.json()      JSON响应内容
+r.raw         原始相应内容</code></pre>
+<p>6.响应状态码</p>
+<pre><code>r=requests.get(&#39;http://www.baidu.com&#39;)
+r.status_code</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">Mac下ssh免密码登录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 18:16:42" itemprop="dateCreated datePublished" datetime="2018-06-11T18:16:42+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:34:32" itemprop="dateModified" datetime="2020-09-18T16:34:32+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="本地生成公钥和私钥（客户端Mac）"><a href="#本地生成公钥和私钥（客户端Mac）" class="headerlink" title="本地生成公钥和私钥（客户端Mac）"></a>本地生成公钥和私钥（客户端Mac）</h2><pre><code>$ ssh-keygen -t rsa
 $ cd ~/.ssh
-$ vi id_rsa.pub  # 复制公钥
-远程主机上添加信任的公钥（远程主机Mac或Linux）$ cd ~/.ssh
-$ vi aut
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" class="post-category">
-                                    ssh
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+$ vi id_rsa.pub  # 复制公钥</code></pre>
+<h2 id="远程主机上添加信任的公钥（远程主机Mac或Linux）"><a href="#远程主机上添加信任的公钥（远程主机Mac或Linux）" class="headerlink" title="远程主机上添加信任的公钥（远程主机Mac或Linux）"></a>远程主机上添加信任的公钥（远程主机Mac或Linux）</h2><pre><code>$ cd ~/.ssh
+$ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
+<p>此时，再登录就不需要密码了。</p>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/ssh/">
-                            <span class="chip bg-color">ssh</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="svn-1-基本命令">
-                            
-                            <span class="card-title">svn-1-基本命令</span>
-                        </div>
-                    </a>
+      
+    </div>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1.帮助文档
-$ svn --help
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">svn-1-基本命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 10:42:30" itemprop="dateCreated datePublished" datetime="2018-06-11T10:42:30+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:23:13" itemprop="dateModified" datetime="2020-09-18T16:23:13+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" itemprop="url" rel="index"><span itemprop="name">svn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.帮助文档</p>
+<pre><code>$ svn --help
 $ svn help
-$ svn help ci
-2.将文件checkout到本地
-$ svn checkout PATH
-$ svn checkout http://svn.sogou-inc.co
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-06-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/svn/" class="post-category">
-                                    svn
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+$ svn help ci</code></pre>
+<p>2.将文件checkout到本地</p>
+<pre><code>$ svn checkout PATH
+$ svn checkout http://svn.sogou-inc.com/svn/operation/op-tools/build build
+简写：svn co</code></pre>
+<p>3.往版本库中添加新的文件</p>
+<pre><code>$ svn add file
+$ svn add test.txt
+$ svn add *.txt</code></pre>
+<p>4.将修改文件提交到版本库</p>
+<pre><code>$ svn commit -m &quot;LogMessage&quot; [-N] [--no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)
+$ svn commit -m &quot;add test&quot; test.txt
+简写：svn ci</code></pre>
+<p>5.加锁/解锁</p>
+<pre><code>$ svn lock -m &quot;LockMessage&quot; [--force] PATH
+$ svn lock -m &quot;lock test&quot; test.php
+$ svn unlock PATH</code></pre>
+<p>6.更新版本</p>
+<pre><code>$ svn update -r m PATH
+$ svn update  如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。
+$svn update -r 200 test.php (将版本库中的文件test.php还原到版本200)
+$ svn update test.php  (更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)
+简写：svn up</code></pre>
+<p>7.查看文件或者目录状态</p>
+<pre><code>$ svn status path（目录下的文件和子目录的状态，正常状态不显示）
+# 不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
+$ svn status -v path(显示文件和子目录状态)
+# 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。
+# svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。
+简写：svn st</code></pre>
+<p>8.删除文件</p>
+<pre><code>$ svn delete path -m “delete test“
+$ svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/svn/">
-                            <span class="chip bg-color">svn</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
+$ svn delete test.php 
+$ svn ci -m ‘delete test‘
+简写：svn (del, remove, rm)</code></pre>
+<p>9.查看日志</p>
+<pre><code>$ svn log PATH
+$ svn log test.txt # 显示这个文件的所有修改记录，及其版本号的变化</code></pre>
+<p>10.查看文件详细信息</p>
+<pre><code>$ svn info PATH
+$ svn info test.txt</code></pre>
+<p>11.比较差异</p>
+<pre><code>$ svn diff PATH  # 将修改的文件与基础版本比较
+ $ svn diff test.txt
+$ svn diff -r m:n PATH # 对版本m和版本n比较差异
+$ svn diff -r 200:201 test.txt
+简写：svn di</code></pre>
+<p>12.将两个版本之间的差异合并到当前文件</p>
+<pre><code>$ svn merge -r m:n PATH
+$ svn merge -r 200:201 test.txt 将版本200与201之间的差异合并到当前文件，一般需要处理一下</code></pre>
+<p>13.版本库下的文件和目录列表</p>
+<pre><code>$ svn list path # 显示path目录下的所有属于版本库的文件和目录
+简写：svn ls</code></pre>
+<p>14.代码库url变更</p>
+<pre><code>$ svn switch/sw</code></pre>
+<p>15.恢复本地修改</p>
+<pre><code>$ svn revert</code></pre>
+<p>16.解决冲突</p>
+<pre><code>$ svn resolved</code></pre>
 
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/7/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">8 / 13</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/9/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+      
     </div>
-</div>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
     
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
     
-</style>
-<div class="">
     
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
-
-
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
-
-    <!-- Baidu Analytics -->
-
-    <!-- Baidu Push -->
+          </div>
+          
 
 <script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>

@@ -1,1088 +1,2643 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="Up in the wind!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茉莉Python">
+<meta property="og:url" content="http://gongyanli.com/page/2/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="Up in the wind!">
+<meta property="og:locale">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+<link rel="canonical" href="http://gongyanli.com/page/2/">
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                voidqueens@hotmail.com
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
 </script>
 
+  <title>茉莉Python</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-<main class="content">
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96%E7%B3%BB%E5%88%97/" class="post-title-link" itemprop="url">数据结构与算法-6-动态规划-股票买卖系列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-10 10:41:10" itemprop="dateCreated datePublished" datetime="2020-06-10T10:41:10+08:00">2020-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:03:53" itemprop="dateModified" datetime="2020-08-26T20:03:53+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96%E7%B3%BB%E5%88%97/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="数据结构与算法-6-动态规划-股票买卖系列">
-                            
-                            <span class="card-title">数据结构与算法-6-动态规划-股票买卖系列</span>
-                        </div>
-                    </a>
+      
+          <h2 id="一、股票买卖系列"><a href="#一、股票买卖系列" class="headerlink" title="一、股票买卖系列"></a>一、股票买卖系列</h2><pre><code>for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 择优(选择1，选择2...)</code></pre>
+<p>每天都有三种「选择」：买入、卖出、无操作，我们用 buy, sell, rest 表示这三种选择。</p>
+<p>问题是，并不是每天都可以任意选择这三种选择的，因为 sell 必须在 buy 之后，buy 必须在 sell 之后（第一次除外）。那么 rest 操作还应该分两种状态，一种是 buy 之后的 rest（持有了股票），一种是 sell 之后的 rest（没有持有股票）。而且别忘了，我们还有交易次数 k 的限制，就是说你 buy 还只能在 k &gt; 0 的前提下操作。</p>
+<p>问题的「状态」有三个，第一个是天数，第二个是当天允许交易的最大次数，第三个是当前的持有状态（即之前说的 rest 的状态，我们不妨用 1 表示持有，0 表示没有持有）。</p>
+<p>穷举：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp5.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp5.jpg"></p>
+<p>dp[3][2][1]:今天是第三天，我现在手上持有着股票，至今最多进行 2 次交易。</p>
+<p>dp[2][3][0] 的含义：今天是第二天，我现在手上没有持有股票，至今最多进行 3 次交易。</p>
+<p>最终所求：dp[n - 1][K][0]，即最后一天，最多允许 K 次交易，所能获取的最大利润。</p>
+<p>为什么不是 dp[n - 1][K][1]？因为 [1] 代表手上还持有股票，[0] 表示手上的股票已经卖出去了，很显然后者得到的利润一定大于前者。</p>
+<p>状态转移：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp6.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp6.jpg"></p>
+<p>状态转移方程：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp7.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp7.jpg"></p>
+<p>bad case:</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp8.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp8.jpg"></p>
+<p>总结：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp9.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp9.jpg"></p>
+<h3 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a>121. 买卖股票的最佳时机</h3><pre><code>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、股票买卖系列1234for 状态1 in 状态1的所有取值：    for 状态2 in 状态2的所有取值：        for ...            dp[状态1][状态2][...] &#x3D; 择优(选择1，选择2..
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">数据结构与算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-4-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数据结构与算法-4-二分查找">
-                            
-                            <span class="card-title">数据结构与算法-4-二分查找</span>
-                        </div>
-                    </a>
+注意：你不能在买入股票前卖出股票。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                原文：https://mp.weixin.qq.com/s/M1KfTfNlu4OCK8i9PSAmug
-一、二分查找框架123456789101112131415int binarySearch(int[] nums, int targe
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+示例 1:
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">数据结构与算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-3-BFS%E5%92%8CDFS/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
-                            
-                            <span class="card-title"></span>
-                        </div>
-                    </a>
+输入: [7,1,5,3,6,4]
+输出: 5
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+示例 2:
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-title: 数据结构与算法-3-BFS和DFSdate: 2020-06-05 14:38:46tags: 数据结构与算法categories:        - 数据结构与算法
-一、综述BFS 和 DFS 的最主要的区别是：BFS 找
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Lilly
-                                
-                            </span>
-                        </div>
-                    </div>
+输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。</code></pre>
+<p>题解一|暴力破解：</p>
+<p>时间复杂度:O(n^2)<br>空间复杂度:O(1)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        profit=0
+        for i in range(len(prices)-1):
+            for j in range(i+1,len(prices)):
+                if prices[j]-prices[i] &gt; profit:
+                    profit=prices[j]-prices[i]           
+        return profit</code></pre>
+<p>题解二：</p>
+<p>时间复杂度:O(n)<br>空间复杂度:O(1)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        minPrice=float(&#39;inf&#39;)
+        profit=0
+        for i in range(len(prices)):
+            if prices[i] &lt; minPrice:
+                minPrice=prices[i]
+            elif prices[i]-minPrice &gt; profit :
+                profit=prices[i]-minPrice
+        return profit    </code></pre>
+<p>题解三：</p>
+<p>时间复杂度:O(n)<br>空间复杂度:O(1)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        profit=0
+        tmp=prices[0]
+        for i in range(1,len(prices)):
+            tmp=min(tmp,prices[i])
+            profit=max(profit,prices[i]-tmp)
+        return profit</code></pre>
+<p>题解四|万能公式：</p>
+<p>思路：<br>    K=1</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp10.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp10.jpg"></p>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp=[[0]*2 for i in range(n)]
+        for i in range(n):
+            if i-1==-1:
+                dp[i][0]=0
+                # dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
+                          =max(dp[-1][0],dp[-1][1]+prices[i])
+                          =max(0,-float(&#39;inf&#39;)+prices[i])
+                          =0
+                dp[i][1]=-prices[i]
+                # dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i])
+                          =max(dp[-1][1],dp[-1][0]-prices)
+                          =max(-float(&#39;inf&#39;),0-prices)
+                          =-prices
+                continue
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
+            dp[i][1]=max(dp[i-1][1], -prices[i])
+        # print(dp)
+        return dp[n-1][0] </code></pre>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp_i_0=0  # dp[-1][0]=0
+        dp_i_1=-float(&#39;inf&#39;) # dp[-1][1]=-float(&#39;inf&#39;)
+        for i in range(n):
+            dp_i_0=max(dp_i_0,dp_i_1+prices[i])
+            dp_i_1=max(dp_i_1,-prices[i])
+        return dp_i_0</code></pre>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices: return 0
+        n = len(prices)
+        dp = [[0,0] for _ in range(n)]
+        dp[-1][0] = 0
+        dp[-1][1] = - float(&#39;inf&#39;)
+        dp[0][0] = 0
+        dp[0][1] = - float(&#39;inf&#39;)
+        for i in range(n):
+            dp[i][0] = max(dp[i-1][0],dp[i-1][1]+ prices[i]) 
+            dp[i][1] = max(dp[i-1][1],- prices[i])
+        return dp[-1][0]</code></pre>
+<h3 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a>122. 买卖股票的最佳时机 II</h3><pre><code>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/LeetCode-3-%E6%A0%91-%E4%B8%89-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C%E4%B8%93%E9%A2%98/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="LeetCode-3-树-三-路径总和专题">
-                            
-                            <span class="card-title">LeetCode-3-树-三-路径总和专题</span>
-                        </div>
-                    </a>
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                112.路径总和链接：https://leetcode-cn.com/problems/path-sum/
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+示例 1:
+
+输入: [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+示例 2:
+
+输入: [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。
+     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+示例 3:
+
+输入: [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+
+提示：
+
+1 &lt;= prices.length &lt;= 3 * 10 ^ 4
+0 &lt;= prices[i] &lt;= 10 ^ 4</code></pre>
+<p>思路：<br>    K=+infinity</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp11.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp11.jpg"></p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp=[[0]*2 for i in range(n)]
+        dp[-1][0]=0
+        dp[-1][1]=-float(&#39;inf&#39;)
+        dp[0][0]=0
+        dp[0][1]=-float(&#39;inf&#39;)
+        for i in range(n):
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
+            dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i])
+        return dp[n-1][0]</code></pre>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp_i_0=0
+        dp_i_1=-float(&#39;inf&#39;)
+        for i in range(n):
+            tmp=dp_i_0
+            dp_i_0=max(dp_i_0,dp_i_1+prices[i])
+            dp_i_1=max(dp_i_1,tmp-prices[i])
+        return dp_i_0</code></pre>
+<h3 id="309-最佳买卖股票时机含冷冻期"><a href="#309-最佳买卖股票时机含冷冻期" class="headerlink" title="309. 最佳买卖股票时机含冷冻期"></a>309. 最佳买卖股票时机含冷冻期</h3><pre><code>给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​
+
+设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
+
+你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。
+示例:
+
+输入: [1,2,3,0,2]
+输出: 3 
+解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]</code></pre>
+<p>思路：<br>    K=+infinity with cooldown<br>    每次sell后要等一天才能继续交易；</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp12.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp12.jpg"></p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        n=len(prices)
+        if n == 0 or n==1:
+            return 0
+        dp=[[0]*2 for i in range(n)]
+        dp[-1][0]=0
+        dp[-1][1]=-float(&#39;inf&#39;)
+        dp[-2][0]=0 # 不要这个初始值也可以，前面已经初始化。
+        dp[0][0]=0
+        dp[0][1]=-float(&#39;inf&#39;)
+        for i in range(n):
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
+            dp[i][1]=max(dp[i-1][1],dp[i-2][0]-prices[i])
+        return dp[n-1][0]</code></pre>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices: return 0
+        if len(prices) == 1: return 0
+        n = len(prices)
+        dp = [[0 for i in range(2)] for _ in range(n)]
+        dp[-1][1] = -float(&#39;inf&#39;)
+        dp[-2][1] = -float(&#39;inf&#39;)
+        dp[0][1] = -float(&#39;inf&#39;)
+        for i in range(n):
+            dp[i][0] = max(dp[i-1][0],dp[i-1][1] + prices[i])
+            dp[i][1] = max(dp[i-1][1],dp[i-2][0] - prices[i])
+        return dp[-1][0]</code></pre>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices: return 0
+        if len(prices) == 1: return 0
+        n = len(prices)
+        dp_i_0=0
+        dp_i_1=-float(&#39;inf&#39;)
+        dp_pre_0=0 # 代表dp[i-2][0]
+        for i in range(n):
+            tmp=dp_i_0
+            dp_i_0=max(dp_i_0,dp_i_1+prices[i])
+            dp_i_1=max(dp_i_1,dp_pre_0-prices[i])
+            dp_pre_0=tmp
+        return dp_i_0
+</code></pre>
+<h3 id="714-买卖股票的最佳时机含手续费"><a href="#714-买卖股票的最佳时机含手续费" class="headerlink" title="714. 买卖股票的最佳时机含手续费"></a>714. 买卖股票的最佳时机含手续费</h3><pre><code>给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。
+
+你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
+
+返回获得利润的最大值。
+
+注意：这里的一笔交易指买入持有并卖出股票的整个过程，每笔交易你只需要为支付一次手续费。
+
+示例 1:
+
+输入: prices = [1, 3, 2, 8, 4, 9], fee = 2
+输出: 8
+解释: 能够达到的最大利润:  
+在此处买入 prices[0] = 1
+在此处卖出 prices[3] = 8
+在此处买入 prices[4] = 4
+在此处卖出 prices[5] = 9
+总利润: ((8 - 1) - 2) + ((9 - 4) - 2) = 8.
+注意:
+
+0 &lt; prices.length &lt;= 50000.
+0 &lt; prices[i] &lt; 50000.
+0 &lt;= fee &lt; 50000.</code></pre>
+<p>思路：</p>
+<pre><code>K=+infinity with fee
+每次交易要支付手续费，只要把手续费从利润中减去即可；</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp13.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp13.jpg"></p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp=[[0]*2 for i in range(n)]
+        dp[-1][0]=0
+        dp[-1][1]=-float(&#39;inf&#39;)
+        dp[0][0]=0
+        dp[0][1]=-float(&#39;inf&#39;)
+        for i in range(n):
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
+            dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i]-fee)
+        return dp[n-1][0]</code></pre>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp_i_0=0
+        dp_i_1=-float(&#39;inf&#39;)
+        for i in range(n):
+            tmp=dp_i_0
+            dp_i_0=max(dp_i_0,dp_i_1+prices[i])
+            dp_i_1=max(dp_i_1,tmp-prices[i]-fee)
+        return dp_i_0</code></pre>
+<h3 id="123-买卖股票的最佳时机-III"><a href="#123-买卖股票的最佳时机-III" class="headerlink" title="123. 买卖股票的最佳时机 III"></a>123. 买卖股票的最佳时机 III</h3><pre><code>给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你最多可以完成 两笔 交易。
+
+注意: 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+示例 1:
+
+输入: [3,3,5,0,0,3,1,4]
+输出: 6
+解释: 在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。
+     随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。
+示例 2:
+
+输入: [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。   
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。   
+     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+示例 3:
+
+输入: [7,6,4,3,1] 
+输出: 0 
+解释: 在这个情况下, 没有交易完成, 所以最大利润为 0。</code></pre>
+<p>思路：</p>
+<pre><code>K=2</code></pre>
+<p>k = 2 和前面题目的情况稍微不同，因为上面的情况都和 k 的关系不太大。要么 k 是正无穷，状态转移和 k 没关系了；要么 k = 1，跟 k = 0 这个 base case 挨得近，最后也被消掉了。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp14.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp14.jpg"></p>
+<pre><code>class Solution:
+    def maxProfit(self, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        dp=[[[0]*2 for i in range(3)] for i in range(n)]
+        for k in range(3):
+            dp[0][k][1]=-float(&#39;inf&#39;)
+            dp[-1][k][1]=-float(&#39;inf&#39;)
+        for i in range(n):
+            for k in range(1,3):
+                dp[i][k][0]=max(dp[i-1][k][0],dp[i-1][k][1]+prices[i])
+                dp[i][k][1]=max(dp[i-1][k][1],dp[i-1][k-1][0]-prices[i])
+        return dp[n-1][2][0]</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp15jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp15jpg"></p>
+<h3 id="188-买卖股票的最佳时机-IV"><a href="#188-买卖股票的最佳时机-IV" class="headerlink" title="188. 买卖股票的最佳时机 IV"></a>188. 买卖股票的最佳时机 IV</h3><pre><code>给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。
+
+注意: 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+示例 1:
+
+输入: [2,4,1], k = 2
+输出: 2
+解释: 在第 1 天 (股票价格 = 2) 的时候买入，在第 2 天 (股票价格 = 4) 的时候卖出，这笔交易所能获得利润 = 4-2 = 2 。
+示例 2:
+
+输入: [3,2,6,5,0,3], k = 2
+输出: 7
+解释: 在第 2 天 (股票价格 = 2) 的时候买入，在第 3 天 (股票价格 = 6) 的时候卖出, 这笔交易所能获得利润 = 6-2 = 4 。
+     随后，在第 5 天 (股票价格 = 0) 的时候买入，在第 6 天 (股票价格 = 3) 的时候卖出, 这笔交易所能获得利润 = 3-0 = 3 。</code></pre>
+<p>思路：</p>
+<pre><code>K=any integer</code></pre>
+<p>这题和 k = 2 没啥区别，可以直接套上一题的第一个解法。但是提交之后会出现一个超内存的错误，原来是传入的 k 值可以任意大，导致 dp 数组太大了。现在想想，交易次数 k 最多能有多大呢？</p>
+<p>一次交易由买入和卖出构成，至少需要两天。所以说有效的限制次数 k 应该不超过 n/2，如果超过，就没有约束作用了，相当于 k = +infinity。这种情况是之前解决过的。</p>
+<pre><code>class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -&gt; int:
+        if not prices:
+            return 0
+        n=len(prices)
+        if k &gt;= n//2:
+            res=0
+            for i in range(1,n):
+                if prices[i] &gt; prices[i-1]:
+                    res += prices[i] - prices[i-1]
+            return res
+        else:
+            dp=[[[0]*2 for i in range(k+1)] for i in range(n)]
+            for t in range(k+1):
+                dp[0][t][1]=-float(&#39;inf&#39;)
+                dp[-1][t][1]=-float(&#39;inf&#39;)
+            for i in range(n):
+                for t in range(1,k+1):
+                    dp[i][t][0]=max(dp[i-1][t][0],dp[i-1][t][1]+prices[i])
+                    dp[i][t][1]=max(dp[i-1][t][1],dp[i-1][t-1][0]-prices[i])
+            return dp[n-1][k][0]</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-4-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-4-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">数据结构与算法-4-二分查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-08 11:35:45" itemprop="dateCreated datePublished" datetime="2020-06-08T11:35:45+08:00">2020-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:02:30" itemprop="dateModified" datetime="2020-08-26T20:02:30+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/M1KfTfNlu4OCK8i9PSAmug">https://mp.weixin.qq.com/s/M1KfTfNlu4OCK8i9PSAmug</a></p>
+<h2 id="一、二分查找框架"><a href="#一、二分查找框架" class="headerlink" title="一、二分查找框架"></a>一、二分查找框架</h2><pre><code>int binarySearch(int[] nums, int target) &#123;
+    int left = 0, right = ...;
+
+    while(...) &#123;
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) &#123;
+            ...
+        &#125; else if (nums[mid] &lt; target) &#123;
+            left = ...
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = ...
+        &#125;
+    &#125;
+    return ...;
+&#125;</code></pre>
+<p>技巧：</p>
+<pre><code>不要出现 else，而是把所有情况用 else if 写清楚，这样可以清楚地展现所有细节；
+
+计算 mid 时需要防止溢出，代码中left + (right - left) / 2就和(left + right) / 2的结果相同，但是有效防止了left和right太大直接相加导致溢出。</code></pre>
+<h2 id="二、寻找一个数"><a href="#二、寻找一个数" class="headerlink" title="二、寻找一个数"></a>二、寻找一个数</h2><pre><code>int binarySearch(int[] nums, int target) &#123;
+    int left = 0; 
+    int right = nums.length - 1; // 注意
+
+    while(left &lt;= right) &#123;
+        int mid = left + (right - left) / 2;
+        if(nums[mid] == target)
+            return mid; 
+        else if (nums[mid] &lt; target)
+            left = mid + 1; // 注意
+        else if (nums[mid] &gt; target)
+            right = mid - 1; // 注意
+    &#125;
+    return -1;
+&#125;</code></pre>
+<p>1、为什么while 循环的条件中是 &lt;=，而不是 &lt; ?</p>
+<pre><code>因为初始化right的赋值是nums.length - 1，即最后一个元素的索引，而不是nums.length。</code></pre>
+<h2 id="三、寻找左侧边界的二分搜索"><a href="#三、寻找左侧边界的二分搜索" class="headerlink" title="三、寻找左侧边界的二分搜索"></a>三、寻找左侧边界的二分搜索</h2><pre><code>int left_bound(int[] nums, int target) &#123;
+    if (nums.length == 0) return -1;
+    int left = 0;
+    int right = nums.length; // 注意
+
+    while (left &lt; right) &#123; // 注意
+        int mid = (left + right) / 2;
+        if (nums[mid] == target) &#123;
+            right = mid;
+        &#125; else if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = mid; // 注意
+        &#125;
+    &#125;
+    return left;
+&#125;
+</code></pre>
+<p>1、为什么 while 中是&lt;而不是&lt;=?</p>
+<p>答：用相同的方法分析，因为right = nums.length而不是nums.length - 1。因此每次循环的「搜索区间」是[left, right)左闭右开。</p>
+<p>while(left &lt; right)终止的条件是left == right，此时搜索区间[left, left)为空，所以可以正确终止。</p>
+<p>2、为什么没有返回 -1 的操作？如果nums中不存在target这个值，怎么办？</p>
+<p>改写：</p>
+<pre><code>int left_bound(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1;
+    // 搜索区间为 [left, right]
+    while (left &lt;= right) &#123;
+        int mid = left + (right - left) / 2;
+        if (nums[mid] &lt; target) &#123;
+            // 搜索区间变为 [mid+1, right]
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            // 搜索区间变为 [left, mid-1]
+            right = mid - 1;
+        &#125; else if (nums[mid] == target) &#123;
+            // 收缩右侧边界
+            right = mid - 1;
+        &#125;
+    &#125;
+    // 检查出界情况
+    if (left &gt;= nums.length || nums[left] != target)
+        return -1;
+    return left;
+&#125;</code></pre>
+<h2 id="四、寻找右侧边界的二分查找"><a href="#四、寻找右侧边界的二分查找" class="headerlink" title="四、寻找右侧边界的二分查找"></a>四、寻找右侧边界的二分查找</h2><pre><code>int right_bound(int[] nums, int target) &#123;
+    if (nums.length == 0) return -1;
+    int left = 0, right = nums.length;
+
+    while (left &lt; right) &#123;
+        int mid = (left + right) / 2;
+        if (nums[mid] == target) &#123;
+            left = mid + 1; // 注意
+        &#125; else if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = mid;
+        &#125;
+    &#125;
+    return left - 1; // 注意
+&#125;
+</code></pre>
+<h2 id="五、逻辑统一"><a href="#五、逻辑统一" class="headerlink" title="五、逻辑统一"></a>五、逻辑统一</h2><p>第一个，最基本的二分查找算法：</p>
+<pre><code>因为我们初始化 right = nums.length - 1
+所以决定了我们的「搜索区间」是 [left, right]
+所以决定了 while (left &lt;= right)
+同时也决定了 left = mid+1 和 right = mid-1
+
+因为我们只需找到一个 target 的索引即可
+所以当 nums[mid] == target 时可以立即返回</code></pre>
+<p>第二个，寻找左侧边界的二分查找：</p>
+<pre><code>因为我们初始化 right = nums.length
+所以决定了我们的「搜索区间」是 [left, right)
+所以决定了 while (left &lt; right)
+同时也决定了 left = mid + 1 和 right = mid
+
+因为我们需找到 target 的最左侧索引
+所以当 nums[mid] == target 时不要立即返回
+而要收紧右侧边界以锁定左侧边界</code></pre>
+<p>第三个，寻找右侧边界的二分查找：</p>
+<pre><code>因为我们初始化 right = nums.length
+所以决定了我们的「搜索区间」是 [left, right)
+所以决定了 while (left &lt; right)
+同时也决定了 left = mid + 1 和 right = mid
+
+因为我们需找到 target 的最右侧索引
+所以当 nums[mid] == target 时不要立即返回
+而要收紧左侧边界以锁定右侧边界
+
+又因为收紧左侧边界时必须 left = mid + 1
+所以最后无论返回 left 还是 right，必须减一</code></pre>
+<p>对于寻找左右边界的二分搜索，常见的手法是使用左闭右开的「搜索区间」，我们还根据逻辑将「搜索区间」全都统一成了两端都闭，便于记忆，只要修改两处即可变化出三种写法：</p>
+<pre><code>int binary_search(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1; 
+    while(left &lt;= right) &#123;
+        int mid = left + (right - left) / 2;
+        if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = mid - 1; 
+        &#125; else if(nums[mid] == target) &#123;
+            // 直接返回
+            return mid;
+        &#125;
+    &#125;
+    // 直接返回
+    return -1;
+&#125;
+
+int left_bound(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1;
+    while (left &lt;= right) &#123;
+        int mid = left + (right - left) / 2;
+        if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = mid - 1;
+        &#125; else if (nums[mid] == target) &#123;
+            // 别返回，锁定左侧边界
+            right = mid - 1;
+        &#125;
+    &#125;
+    // 最后要检查 left 越界的情况
+    if (left &gt;= nums.length || nums[left] != target)
+        return -1;
+    return left;
+&#125;
+
+
+int right_bound(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1;
+    while (left &lt;= right) &#123;
+        int mid = left + (right - left) / 2;
+        if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else if (nums[mid] &gt; target) &#123;
+            right = mid - 1;
+        &#125; else if (nums[mid] == target) &#123;
+            // 别返回，锁定右侧边界
+            left = mid + 1;
+        &#125;
+    &#125;
+    // 最后要检查 right 越界的情况
+    if (right &lt; 0 || nums[right] != target)
+        return -1;
+    return right;
+&#125;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-3-BFS%E5%92%8CDFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-3-BFS%E5%92%8CDFS/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-05 14:38:46" itemprop="dateCreated datePublished" datetime="2020-06-05T14:38:46+08:00">2020-06-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:50:31" itemprop="dateModified" datetime="2020-09-18T13:50:31+08:00">2020-09-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>title: 数据结构与算法-3-BFS和DFS<br>date: 2020-06-05 14:38:46<br>tags: 数据结构与算法<br>categories:<br>        - 数据结构与算法</p>
+<h2 id="一、综述"><a href="#一、综述" class="headerlink" title="一、综述"></a>一、综述</h2><pre><code>BFS 和 DFS 的最主要的区别是：BFS 找到的路径一定是最短的，但代价就是空间复杂度比 DFS大很多。</code></pre>
+<h2 id="二、BFS"><a href="#二、BFS" class="headerlink" title="二、BFS"></a>二、BFS</h2><h3 id="1、常见场景"><a href="#1、常见场景" class="headerlink" title="1、常见场景"></a>1、常见场景</h3><pre><code>问题的本质就是让你在一幅「图」中找到从起点start到终点target的最近距离。</code></pre>
+<h3 id="2、框架"><a href="#2、框架" class="headerlink" title="2、框架"></a>2、框架</h3><pre><code>// 计算从起点 start 到终点 target 的最近距离
+int BFS(Node start, Node target) &#123;
+    Queue&lt;Node&gt; q; // 核心数据结构
+    Set&lt;Node&gt; visited; // 避免走回头路
+
+    q.offer(start); // 将起点加入队列
+    visited.add(start);
+    int step = 0; // 记录扩散的步数
+
+    while (q not empty) &#123;
+        int sz = q.size();
+        /* 将当前队列中的所有节点向四周扩散 */
+        for (int i = 0; i &lt; sz; i++) &#123;
+            Node cur = q.poll();
+            /* 划重点：这里判断是否到达终点 */
+            if (cur is target)
+                return step;
+            /* 将 cur 的相邻节点加入队列 */
+            for (Node x : cur.adj())
+                if (x not in visited) &#123;
+                    q.offer(x);
+                    visited.add(x);
+                &#125;
+        &#125;
+        /* 划重点：更新步数在这里 */
+        step++;
+    &#125;
+&#125;</code></pre>
+<p>python模版:</p>
+<pre><code># 计算从起点 start 到终点 target 的最近距离
+from collections import deque
+def BFS(start,target):
+    queue=deque([n]) # 核心数据结构，将起点加入队列
+    visited=set()  # 避免走回头路
+    step=0 # 记录扩散的步数
+    while queue:
+        size=len(queue)
+        # 将当前队列中的所有节点向四周扩散
+        for i in range(size):
+            cur=queue.pop()
+            if cur == target: # 这里判断是否到达终点 
+                return step
+            for j in range(cur.XXX): # 将 cur 的相邻节点加入队列 
+                if j not in visited:
+                    queue.appendleft(j)
+                    visited.add(j)
+        step+=1 # 更新步数在这里
+</code></pre>
+<h3 id="3、例子"><a href="#3、例子" class="headerlink" title="3、例子"></a>3、例子</h3><pre><code>111. 二叉树的最小深度</code></pre>
+<pre><code>from collections import deque
+def minDepth(root):
+    if not root:
+        return 0
+    queue=deque([root])
+    depth=1
+    while queue:
+        size=len(queue)
+        for i in range(size):
+            cur=queue.pop()
+            if not cur.left and not cur.right:
+                return depth
+            if cur.left:
+                queue.appendleft(cur.left)
+            if cur.right:
+                queue.appendleft(cur.right)
+        depth+=1
+    return depth</code></pre>
+<pre><code>279. 完全平方数</code></pre>
+<pre><code>from collections import deque
+class Solution:
+    def numSquares(self, n: int) -&gt; int:
+        if n==0:
+            return 0
+        queue=deque([n])
+        visited=set()
+        step=0
+        while queue:
+            step+=1
+            length=len(queue)
+            for _ in range(length):
+                tmp=queue.pop()
+                for j in range(1,int(tmp**0.5)+1):
+                    node=tmp-j**2
+                    if node==0:
+                        return step
+                    if node not in visited:
+                        queue.appendleft(node)
+                        visited.add(node)
+        return step</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%B8%89-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C%E4%B8%93%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-3-%E6%A0%91-%E4%B8%89-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C%E4%B8%93%E9%A2%98/" class="post-title-link" itemprop="url">LeetCode-3-树-三-路径总和专题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-08 11:41:24" itemprop="dateCreated datePublished" datetime="2020-05-08T11:41:24+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-18 22:32:40" itemprop="dateModified" datetime="2020-08-18T22:32:40+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112.路径总和"></a>112.路径总和</h3><pre><code>链接：https://leetcode-cn.com/problems/path-sum/
 
 给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
 
-说明: 叶子节点是指
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+说明: 叶子节点是指没有子节点的节点。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LeetCode/">
-                            <span class="chip bg-color">LeetCode</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/LeetCode-3-%E6%A0%91-%E4%BA%8C/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="LeetCode-3-树-二">
-                            
-                            <span class="card-title">LeetCode-3-树-二</span>
-                        </div>
-                    </a>
+示例: 
+给定如下二叉树，以及目标和 sum = 22，
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                面试题 04.10. 检查子树链接：https://leetcode-cn.com/problems/check-subtree-lcci/
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \      \
+        7    2      1
+返回 true, 因为存在目标和为 22 的根节点到叶子节点的路径 5-&gt;4-&gt;11-&gt;2。</code></pre>
+<p>题解一|递归:</p>
+<p>时间复杂度：我们访问每个节点一次，时间复杂度为 O(N) ，其中 N 是节点个数。<br>空间复杂度：最坏情况下，整棵树是非平衡的，例如每个节点都只有一个孩子，递归会调用 N 次（树的高度），因此栈的空间开销是 O(N) 。但在最好情况下，树是完全平衡的，高度只有 log(N)，因此在这种情况下空间复杂度只有 O(log(N)) 。</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -&gt; bool:
+        if not root:
+            return False
+        sum-=root.val # 不能交换顺序
+        if not root.left and not root.right:
+            return sum==0
+        return self.hasPathSum(root.left,sum) or self.hasPathSum(root.right,sum)</code></pre>
+<p>题解二|迭代:</p>
+<p>时间复杂度：和递归方法相同是 O(N)。<br>空间复杂度：当树不平衡的最坏情况下是 O(N) 。在最好情况（树是平衡的）下是 O(logN)。</p>
+<pre><code>class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -&gt; bool:
+        if not root:
+            return False
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LeetCode/">
-                            <span class="chip bg-color">LeetCode</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="数据结构与算法-2-Manacher算法">
-                            
-                            <span class="card-title">数据结构与算法-2-Manacher算法</span>
-                        </div>
-                    </a>
+        stack=[(root,sum-root.val)]
+        while stack:
+            node,curr=stack.pop()
+            if not node.left and not node.right and curr==0:
+                return True
+            if node.left: 
+                stack.append((node.left,curr-node.left.val))
+            if node.right:
+                stack.append((node.right,curr-node.right.val))
+        return False</code></pre>
+<h3 id="113-路径总和-II"><a href="#113-路径总和-II" class="headerlink" title="113. 路径总和 II"></a>113. 路径总和 II</h3><pre><code>链接：https://leetcode-cn.com/problems/path-sum-ii/
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                参考：https://segmentfault.com/a/1190000003914228
-一、ManacherManacher用来在字符串中求最长回文串。
-二、代码123456789101112131415161718192021222
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">数据结构与算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="数据结构与算法-1-KMP算法">
-                            
-                            <span class="card-title">数据结构与算法-1-KMP算法</span>
-                        </div>
-                    </a>
+说明: 叶子节点是指没有子节点的节点。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                参考：    http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html    https://www.bilibili.
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+示例:
+给定如下二叉树，以及目标和 sum = 22，
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">数据结构与算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="PyTorch-6-卷积神经网络参数解释">
-                            
-                            <span class="card-title">PyTorch-6-卷积神经网络参数解释</span>
-                        </div>
-                    </a>
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+返回:
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                https://www.cnblogs.com/wanghui-garcia/p/10775859.html
-https://www.cnblogs.com/wanghui-garcia/p/10775859.htmlhttps://blo
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
-                                    PyTorch
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]</code></pre>
+<p>题解一|递归:</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PyTorch/">
-                            <span class="chip bg-color">PyTorch</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="TensorFlow-7-conv2d的padding及参数解释">
-                            
-                            <span class="card-title">TensorFlow-7-conv2d的padding及参数解释</span>
-                        </div>
-                    </a>
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -&gt; List[List[int]]:
+        paths=[]
+        def helper(root,sum,path=[]):
+            if not root:
+                return
+            if not root.left and not root.right and sum-root.val==0:
+                path+=[root.val]
+                paths.append(path)
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                1、padding的方式：
-说明：
-1、摘录自http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" class="post-category">
-                                    TensorFlow
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+            helper(root.left,sum-root.val,path+[root.val])
+            helper(root.right,sum-root.val,path+[root.val])
+        helper(root,sum)
+        return paths</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/TensorFlow/">
-                            <span class="chip bg-color">TensorFlow</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PyTorch-5-transforms/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="PyTorch-5-transforms">
-                            
-                            <span class="card-title">PyTorch-5-transforms</span>
-                        </div>
-                    </a>
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -&gt; List[List[int]]:
+        res=[]
+        def helper(root,sum,path):
+            if not root:
+                return
+            if not root.left and not root.right and sum-root.val==0:
+                path+=[root.val]
+                res.append(path)
+            sum-=root.val
+            helper(root.left,sum,path+[root.val])
+            helper(root.right,sum,path+[root.val])
+        helper(root,sum,[])
+        return res</code></pre>
+<p>?题解二|迭代|超时：</p>
+<pre><code>class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -&gt; List[List[int]]:
+        if not root:
+            return []
+        res=[]
+        stack=[(root,[root.val])]
+        while stack:
+            node,curr=stack.pop()
+            if not node.left and not node.right and sum(curr)==sum:
+                res.append(curr)
+            if node.left:
+                stack.append((root.left,curr+[root.left.val]))
+            if node.right:
+                stack.append((root.right,curr+[root.right.val]))
+        return res</code></pre>
+<h3 id="437-路径总和-III"><a href="#437-路径总和-III" class="headerlink" title="437. 路径总和 III"></a>437. 路径总和 III</h3><pre><code>链接：https://leetcode-cn.com/problems/path-sum-iii/
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                转载于：https://blog.csdn.net/u011995719/article/details/85107009
-本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：https://github.com/tens
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
-                                    PyTorch
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+给定一个二叉树，它的每个结点都存放着一个整数值。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PyTorch/">
-                            <span class="chip bg-color">PyTorch</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
+找出路径和等于给定数值的路径总数。
 
-</main>
+路径不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
 
+二叉树不超过1000个节点，且节点数值范围是 [-1000000,1000000] 的整数。
 
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">2 / 13</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/3/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+示例：
+
+root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+
+      10
+     /  \
+    5   -3
+   / \    \
+  3   2   11
+ / \   \
+3  -2   1
+
+返回 3。和等于 8 的路径有:
+
+1.  5 -&gt; 3
+2.  5 -&gt; 2 -&gt; 1
+3.  -3 -&gt; 11</code></pre>
+<p>题解一|递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -&gt; int:
+        def helper(root,sum):
+            if not root:
+                return 0
+            res=0
+            if sum-root.val == 0:
+                res+=1
+            res+=helper(root.left,sum-root.val)
+            res+=helper(root.right,sum-root.val)
+            return res
+
+        if not root:
+            return 0
+        return helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)</code></pre>
+
+      
     </div>
-</div>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
     
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
     
-</style>
-<div class="">
     
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/">
 
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-3-%E6%A0%91-%E4%BA%8C/" class="post-title-link" itemprop="url">LeetCode-3-树-二</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-08 11:41:24" itemprop="dateCreated datePublished" datetime="2020-05-08T11:41:24+08:00">2020-05-08</time>
             </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-16 15:39:34" itemprop="dateModified" datetime="2020-09-16T15:39:34+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
             </span>
-            
-            <br>
-            
-            <br>
-            
+
+          
+
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="面试题-04-10-检查子树"><a href="#面试题-04-10-检查子树" class="headerlink" title="面试题 04.10. 检查子树"></a>面试题 04.10. 检查子树</h3><pre><code>链接：https://leetcode-cn.com/problems/check-subtree-lcci/
+
+检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。
+
+如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与 T2 完全相同。
+
+示例1:
+
+ 输入：t1 = [1, 2, 3], t2 = [2]
+ 输出：true
+示例2:
+
+ 输入：t1 = [1, null, 2, 4], t2 = [3, 2]
+ 输出：false
+提示：
+
+树的节点数目范围为[0, 20000]。</code></pre>
+<p>题解一|递归：</p>
+<pre><code>一：在 t1 中找到 t2 的起点。先判断 t1 当前节点，如果不对就判断 t1 左子树和 t1 右子树。
+二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。</code></pre>
+<pre><code>class Solution:
+    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
+
+        def helper(t1,t2):
+            if not t2:
+                return True
+            elif not t1 and t2:
+                return False
+            elif t1.val != t2.val:
+                return False
+            else:
+                return helper(t1.left,t2.left) and helper(t1.right,t2.right)
+
+        if not  t1:
+            return False
+        if not t2:
+            return True
+        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</code></pre>
+<pre><code>class Solution:
+    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
+        if not  t1:
+            return False
+        if not t2:
+            return True
+        return self.helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
+
+    def helper(self,t1,t2):
+        if not t2:
+            return True
+        elif not t1 and t2:
+            return False
+        elif t1.val != t2.val:
+            return False
+        else:
+            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
+        if not A or not B:
+            return False
+        return self.helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
+
+    def helper(self,A,B):
+        if not A and B:
+            return False
+        elif not B:
+            return True
+        elif A.val != B.val:
+            return False
+        else:
+            return self.helper(A.left,B.left) and self.helper(A.right,B.right)</code></pre>
+<pre><code>class Solution:
+    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
+        def helper(A,B):
+            if not B:
+                return True
+            if not A or (A.val != B.val):
+                return False
+            return helper(A.left,B.left) and helper(A.right,B.right)
+        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))</code></pre>
+<h3 id="面试题-17-12-BiNode"><a href="#面试题-17-12-BiNode" class="headerlink" title="面试题 17.12. BiNode"></a>面试题 17.12. BiNode</h3><pre><code>链接：https://leetcode-cn.com/problems/binode-lcci/
+
+二叉树数据结构TreeNode可用来表示单向链表（其中left置空，right为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求值的顺序保持不变，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。
+
+返回转换后的单向链表的头节点。
+
+注意：本题相对原题稍作改动
+
+示例：
+
+输入： [4,2,5,1,3,null,6,0]
+输出： [0,null,1,null,2,null,3,null,4,null,5,null,6]
+提示：
+
+节点数量不会超过 100000。</code></pre>
+<p>题解一|迭代|中序遍历：</p>
+<pre><code>root.left=None
+pre.right=root
+pre=root</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
+        head=TreeNode(0)
+        pre=head
+        stack=[]
+        while stack or root:
+            if root:
+                stack.append(root)
+                root=root.left
+            else:
+                root=stack.pop()
+
+                root.left=None
+                pre.right=root
+                pre=root
+
+                root=root.right
+        return head.right</code></pre>
+<p>题解二|递归:</p>
+<pre><code>class Solution:
+    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
+        head=TreeNode(0)
+        self.helper(root,head)
+        return head.right
+
+    def helper(self,root,pre):
+        if root:
+            pre=self.helper(root.left,pre)
+            root.left=None
+            pre.right=root
+            pre=root
+            pre=self.helper(root.right,pre)
+        return pre</code></pre>
+<pre><code>class Solution:
+    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
+        head=TreeNode(0)
+        self.pre=head
+        self.helper(root)
+        return head.right
+
+    def helper(self,root):
+        if not root:
+            return
+        self.helper(root.left)
+
+        root.left=None
+        self.pre.right=root
+        self.pre=root
+
+        self.helper(root.right)</code></pre>
+<h3 id="面试题-04-12-求和路径"><a href="#面试题-04-12-求和路径" class="headerlink" title="面试题 04.12. 求和路径"></a>面试题 04.12. 求和路径</h3><pre><code>链接：https://leetcode-cn.com/problems/paths-with-sum-lcci/
+
+给定一棵二叉树，其中每个节点都含有一个整数数值(该值或正或负)。设计一个算法，打印节点数值总和等于某个给定值的所有路径的数量。注意，路径不一定非得从二叉树的根节点或叶节点开始或结束，但是其方向必须向下(只能从父节点指向子节点方向)。
+
+示例:
+给定如下二叉树，以及目标和 sum = 22，
+
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+返回:
+
+3
+解释：和为 22 的路径有：[5,4,11,2], [5,8,4,5], [4,11,7]
+提示：
+
+节点总数 &lt;= 10000</code></pre>
+<p>题解一|递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -&gt; int:
+        if not root:
+            return 0
+        return self.helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)
+
+    def helper(self,root,sum):
+        count=0
+        if not root:
+            return 0
+        if sum-root.val==0:
+            count+=1
+        count+=self.helper(root.left,sum-root.val)
+        count+=self.helper(root.right,sum-root.val)
+        return count</code></pre>
+<h3 id="面试题54-二叉搜索树的第k大节点"><a href="#面试题54-二叉搜索树的第k大节点" class="headerlink" title="面试题54. 二叉搜索树的第k大节点"></a>面试题54. 二叉搜索树的第k大节点</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+
+给定一棵二叉搜索树，请找出其中第k大的节点。
+
+示例 1:
+
+输入: root = [3,1,4,null,2], k = 1
+   3
+  / \
+ 1   4
+  \
+   2
+输出: 4
+示例 2:
+
+输入: root = [5,3,6,2,4,null,null,1], k = 3
+       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+输出: 4
+
+限制：
+
+1 ≤ k ≤ 二叉搜索树元素个数</code></pre>
+<p>注意：和二叉搜索树的第k小节点的区别。</p>
+<p>题解一|迭代：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
+        if not root:
+            return 0
+        stack=[]
+        while stack or root:
+            if root:
+                stack.append(root)
+                root=root.right
+            else:
+                root=stack.pop()
+                k-=1
+                if k==0:
+                    return root.val
+                root=root.left</code></pre>
+<p>题解二|递归:</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
+        self.k=k
+        self.res=0
+        self.helper(root)
+        return self.res
+    def helper(self,root):
+        if not root:
+            return 0
+        self.helper(root.right)
+        if self.k==0: return # ？？提高性能，提前返回。
+        self.k-=1        
+        if self.k==0:
+            self.res=root.val # 直接return不行，需要存入全局变量中
+        self.helper(root.left)
+        return self.res</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
+        self.k=k
+        self.res=0
+        self.helper(root)
+        return self.res
+    def helper(self,root):
+        if not root or self.k == 0:
+            return 0
+        self.helper(root.right)
+        self.k-=1        
+        if self.k==0:
+            self.res=root.val # 直接return不行，需要存入全局变量中
+        self.helper(root.left)
+        return self.res</code></pre>
+<h3 id="面试题55-I-二叉树的深度"><a href="#面试题55-I-二叉树的深度" class="headerlink" title="面试题55 - I. 二叉树的深度"></a>面试题55 - I. 二叉树的深度</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
+
+输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+例如：
+
+给定二叉树 [3,9,20,null,null,15,7]，
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回它的最大深度 3 。
+
+提示：节点总数 &lt;= 10000</code></pre>
+<p>题解一（递归）：</p>
+<pre><code>class Solution:
+    def maxDepth(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        left=self.maxDepth(root.left)
+        right=self.maxDepth(root.right)
+        return max(left,right)+1</code></pre>
+<p>题解二（迭代）:</p>
+<pre><code>class Solution:
+    def maxDepth(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        stack=[root]
+        depth=0
+        while stack:
+            tmp=[]
+            for i in range(len(stack)):
+                root=stack.pop() 
+                if root.left:
+                    tmp.append(root.left)
+                if root.right:
+                    tmp.append(root.right)
+            stack=tmp
+            depth+=1
+        return depth</code></pre>
+<pre><code>class Solution:
+    def maxDepth(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        stack=[root]
+        depth=0
+        while stack:
+            tmp=[]
+            for root in stack:
+                if root.left:
+                    tmp.append(root.left)
+                if root.right:
+                    tmp.append(root.right)
+            stack=tmp
+            depth+=1
+        return depth</code></pre>
+<h3 id="面试题55-II-平衡二叉树"><a href="#面试题55-II-平衡二叉树" class="headerlink" title="面试题55 - II. 平衡二叉树"></a>面试题55 - II. 平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
+
+输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
+
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回 true 。
+
+示例 2:
+
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+返回 false 。</code></pre>
+<p>限制：1 &lt;= 树的结点个数 &lt;= 10000</p>
+<p>题解一（递归）：</p>
+<pre><code>class Solution:
+    def isBalanced(self, root: TreeNode) -&gt; bool:
+        if not root:
+            return True
+        return abs(self.helper(root.left)-self.helper(root.right))&lt;=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+
+    def helper(self,root):
+        if not root:
+            return 0
+        left=self.helper(root.left)
+        right=self.helper(root.right)
+        return max(left,right)+1</code></pre>
+<h3 id="面试题68-I-二叉搜索树的最近公共祖先"><a href="#面试题68-I-二叉搜索树的最近公共祖先" class="headerlink" title="面试题68 - I. 二叉搜索树的最近公共祖先"></a>面试题68 - I. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+
+给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]
+
+示例 1:
+
+输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+输出: 6 
+解释: 节点 2 和节点 8 的最近公共祖先是 6。
+示例 2:
+
+输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+输出: 2
+解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
 
 
+说明:
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+所有节点的值都是唯一的。
+p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
+<p>最近公共祖先（最近公共节点）:</p>
+<pre><code>根据题目给定的前提：
+
+    所有节点的值都是唯一的。
+    p、q 为不同节点且均存在于给定的二叉搜索树中。
+
+说明有以下几种情况：
+
+    二叉树本身为空，root == null ，return root
+    p.val == q.val ,一个节点也可以是它自己的祖先
+    p.val 和 q.val 都小于 root.val
+    (两个子节点的值都小于根节点的值，说明它们的公共节点只能在二叉树的左子树寻找）
+    p.val 和 q.val 都大于 root.val
+    (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
+    如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
+    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
+<p>题解一（递归）：</p>
+<pre><code>class Solution:
+    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
+        # if not root:
+        #     return
+        if root.val &lt; p.val and root.val &lt; q.val:
+            return self.lowestCommonAncestor(root.right,p,q)
+        elif root.val &gt; p.val and root.val &gt; q.val:
+            return self.lowestCommonAncestor(root.left,p,q)
+        return root</code></pre>
+<p>题解二（后序遍历）：</p>
+<pre><code>class Solution:
+    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
+        if not root or root==p or root==q:
+            return root
+        l=self.lowestCommonAncestor(root.left,p,q)
+        r=self.lowestCommonAncestor(root.right,p,q)
+        if not l:
+            return r
+        elif not r:
+            return l
+        else:
+            return root</code></pre>
+<p>题解三（迭代）：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
+        while root:
+            if root.val &lt; p.val and root.val &lt; q.val:
+                root=root.right
+            elif root.val &gt; p.val and root.val &gt; q.val:
+                root=root.left
+            else:
+                break
+        return root</code></pre>
+<h3 id="面试题68-II-二叉树的最近公共祖先"><a href="#面试题68-II-二叉树的最近公共祖先" class="headerlink" title="面试题68 - II. 二叉树的最近公共祖先"></a>面试题68 - II. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉树:  root = [3,5,1,6,2,0,8,null,null,7,4]
+
+示例 1:
+
+输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+输出: 3
+解释: 节点 5 和节点 1 的最近公共祖先是节点 3。
+示例 2:
+
+输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+输出: 5
+解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
 
 
+说明:
 
+所有节点的值都是唯一的。
+p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
+<p>题解一（后序遍历）：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:
+        if not root or root==p or root==q:
+            return root
+        l=self.lowestCommonAncestor(root.left,p,q)
+        r=self.lowestCommonAncestor(root.right,p,q)
+        if not l:
+            return r
+        elif not r:
+            return l
+        else:
+            return root
+</code></pre>
+<pre><code>class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:
+        if not root or root == p or root == q: return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if not left and not right: return # 1.
+        if not left: return right # 3.
+        if not right: return left # 4.
+        return root # 2. if left and right:</code></pre>
 
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
+      
     </div>
-</footer>
 
-<div class="progress-bar"></div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/">
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数据结构与算法-2-Manacher算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-29 11:49:54 / Modified: 12:17:50" itemprop="dateCreated datePublished" datetime="2020-04-29T11:49:54+08:00">2020-04-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
         </div>
-        <div id="searchResult"></div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000003914228">https://segmentfault.com/a/1190000003914228</a></p>
+<h2 id="一、Manacher"><a href="#一、Manacher" class="headerlink" title="一、Manacher"></a>一、Manacher</h2><pre><code>Manacher用来在字符串中求最长回文串。</code></pre>
+<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><pre><code>def manacher(s):
+    s=&#39;#&#39;+&#39;#&#39;.join(s)+&#39;#&#39;
+
+    RL=[0]*len(s)
+    maxRight=0
+    pos=0
+    maxLen=0
+
+    for i in range(len(s)):
+        if i&lt;MaxRight:
+            RL[i]=min(RL[2*pos-i], MaxRight-i)
+        else:
+            RL[i]=1
+        #尝试扩展，注意处理边界
+        while i-RL[i]&gt;=0 and i+RL[i]&lt;len(s) and s[i-RL[i]]==s[i+RL[i]]:
+            RL[i]+=1
+        #更新MaxRight,pos
+        if RL[i]+i-1&gt;MaxRight:
+            MaxRight=RL[i]+i-1
+            pos=i
+        #更新最长回文串的长度
+        maxLen=max(maxLen, RL[i])
+    return maxLen-1</code></pre>
+
+      
     </div>
-</div>
 
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数据结构与算法-1-KMP算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-27 20:32:17" itemprop="dateCreated datePublished" datetime="2020-04-27T20:32:17+08:00">2020-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-28 12:35:34" itemprop="dateModified" datetime="2020-10-28T12:35:34+08:00">2020-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考：<br>    <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html">http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jb411V78H?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1jb411V78H?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1hW411a7ys?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/dahu-daqing/p/9302668.html">https://www.cnblogs.com/dahu-daqing/p/9302668.html</a></p>
+<h2 id="一、KMP"><a href="#一、KMP" class="headerlink" title="一、KMP"></a>一、KMP</h2><p>KMP算法，又称模式匹配算法，能够在线性时间内判定字符串 T 是否为 S 的子串，并求出字符串 T 在 S 中各次出现的位置。</p>
+<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><pre><code>1、解决奇偶数问题
+    在原字符串的每个相邻两个字符中间插入一个分隔符，同时在首尾也添加分隔符，如何#
+2、字符串观察
+    s:aaaba
+    t:#a#a#a#b#a#
+    回文半径数组：RL
+
+    RL[i]-1等于回文串的长度</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/manacher.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/manacher.jpg"></p>
+<p>时间复杂度：O(m+n)</p>
+<pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @contact: voidqueens@hotmail.com
+# @software: PyCharm
+# @time: 2020/4/26 下午6:50
+# @site: www.gongyanli.com
+# @file: kmp.py
+
+def getNext(p):
+    &#39;&#39;&#39;
+    p为模式串
+    返回next数组，即部分匹配表
+    等同于从模式字符串的第1位(注意，不包括第0位)开始对自身进行匹配运算。
+    :param p:
+    :return:
+    &#39;&#39;&#39;
+    next = [0] * len(p)
+    next[0] = -1
+    i = 0
+    j = -1
+    while i &lt; len(p) - 1:
+        if j == -1 or p[i] == p[j]: # i遍历的是数组下标，j则为next赋值
+            i += 1
+            j += 1
+            next[i] = j
+        else:
+            j = next[j]
+    return next
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+def kmp(s, p):
+    &#39;&#39;&#39;
+    s为主串
+    p为模式串
+    如果t里有p，返回打头下标
+    :param s:
+    :param p:
+    :return:
+    &#39;&#39;&#39;
+    next = getNext(p)
+    i = j = 0
+    while i &lt; len(s) and j &lt; len(p):
+        if j == -1 or s[i] == p[j]: 
+            i += 1
+            j += 1
+        else:
+            j = next[j]
+    if j == len(p):
+        return i - j
+    else:
+        return -1
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
+s = &#39;ababababca&#39;
+p = &#39;abababca&#39;
+print(getNext(p))
+print(kmp(s, p))
+</code></pre>
+<h2 id="三、中心扩散–验证回文串"><a href="#三、中心扩散–验证回文串" class="headerlink" title="三、中心扩散–验证回文串"></a>三、中心扩散–验证回文串</h2><pre><code>中心扩散主要用于验证字符串是否是回文串。
+
+思路：
+
+    每个字母当成回文串的中心
+    考虑两种情况:回文串的长度为奇数或者偶数情况。
+
+缺点：
+    奇数和偶数需要分开讨论
+    没有充分利用前面查找的结果
+    没有思考回文字符本身的特性--对称性</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        n=len(s)
+        self.res=&#39;&#39;
+        def helper(i,j):
+            while i&gt;= 0 and j&lt;n and s[i]==s[j]:
+                i-=1
+                j+=1
+            if len(self.res) &lt; j-i-1:
+                self.res=s[i+1:j]
+                # print(i,self.res)
+
+        for i in range(n):
+            helper(i,i)
+            helper(i,i+1) # 解决case为&quot;cbbd&quot;,即解决回文串为偶数的情况
+        return self.res</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">PyTorch-6-卷积神经网络参数解释</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-17 19:05:50" itemprop="dateCreated datePublished" datetime="2020-04-17T19:05:50+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-30 17:51:43" itemprop="dateModified" datetime="2020-04-30T17:51:43+08:00">2020-04-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Haiqiang1995/article/details/90300686">https://blog.csdn.net/Haiqiang1995/article/details/90300686</a><br><a target="_blank" rel="noopener" href="https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35">https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/r1254/article/details/104888502">https://blog.csdn.net/r1254/article/details/104888502</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dyk4ever/article/details/102841518">https://blog.csdn.net/dyk4ever/article/details/102841518</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44307764/article/details/102353344">https://blog.csdn.net/weixin_44307764/article/details/102353344</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yz2zcx/article/details/100187471/">https://blog.csdn.net/yz2zcx/article/details/100187471/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a2b536945e3c">https://www.jianshu.com/p/a2b536945e3c</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzy2014/article/details/25916235">https://blog.csdn.net/lzy2014/article/details/25916235</a><br><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/373368">https://yq.aliyun.com/articles/373368</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html">https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fzz9/p/8973315.html">https://www.cnblogs.com/fzz9/p/8973315.html</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f9d99f7ad54">https://www.jianshu.com/p/6f9d99f7ad54</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42042680/article/details/80994726">https://blog.csdn.net/weixin_42042680/article/details/80994726</a></p>
+<h3 id="1、卷积运算函数"><a href="#1、卷积运算函数" class="headerlink" title="1、卷积运算函数"></a>1、卷积运算函数</h3><p>torch.nn.Conv2d的功能是：对由多个输入平面组成的输入信号进行二维卷积。</p>
+<pre><code>layer = nn.Conv2d(in_channels=1,out_channels=3,kernel_size=3,stride=1,padding=0)
+
+in_channels:
+    1）输入通道数，对于图片层一般为1（灰度）3（RGB）
+    2）定义一种输入规则，要求上一层的输出必须和这个输入一致，也可以理解为并发in_channels个channel在上一层feature_map(特征映射)上进行卷积运算
+
+out_channels:
+    1)直观理解是输出层通道数，              
+    2)换一种理解是kernels（卷积核）个数，其中，每个卷积核会输出局部特征，比如面部中有头发feature，衣服颜色的feature都是由不同的kernel进行卷积运算得到的。
+
+stride(步长)：控制cross-correlation的步长，可以设为1个int型数或者一个(int, int)型的tuple。
+
+padding(补0)：控制zero-padding的数目。
+
+dilation(扩张)：控制kernel点（卷积核点）的间距; 也被称为 &quot;à trous&quot;算法. 可以在此github地址查看:Dilated convolution animations
+
+groups(卷积核个数)：这个比较好理解，通常来说，卷积个数唯一，但是对某些情况，可以设置范围在1 —— in_channels中数目的卷积核：
+
+输出[b,out_channels,w,h],其中w和h是输出的shape.</code></pre>
+<pre><code>    mylayer=torch.nn.Conv2d(3,2,kernel_size=3,stride=2,padding=0)
+    print(l1.weight.shape)
+    input=torch.rand(1,3,7,7)
+    out=l1.forward(input)
+    print(out.shape)
+-----------------------------------------------
+    torch.Size([2, 3, 3, 3])
+    torch.Size([1, 2, 3, 3])</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">TensorFlow-7-conv2d的padding及参数解释</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-17 15:51:56" itemprop="dateCreated datePublished" datetime="2020-04-17T15:51:56+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:13:58" itemprop="dateModified" datetime="2020-09-18T21:13:58+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、padding的方式："><a href="#1、padding的方式：" class="headerlink" title="1、padding的方式："></a>1、padding的方式：</h3><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg"></p>
+<p>说明：</p>
+<p>1、摘录自<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t">http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t</a></p>
+<p>2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width=13,只允许滑动2次,多余的元素全部丢掉</p>
+<p>3、SAME的方式,采用的是补全的方式,对于上述的情况,允许滑动3次,但是需要补3个元素,左奇右偶,在左边补一个0,右边补2个0</p>
+<p>4、For the SAME padding, the output height and width are computed as:</p>
+<pre><code>out_height = ceil(float(in_height) / float(strides[1]))
+
+out_width = ceil(float(in_width) / float(strides[2]))
+
+For the VALID padding, the output height and width are computed as:
+
+out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))
+
+out_width = ceil(float(in_width - filter_width + 1) / float(strides[2]))</code></pre>
+<h3 id="2、conv2d的参数："><a href="#2、conv2d的参数：" class="headerlink" title="2、conv2d的参数："></a>2、conv2d的参数：</h3><p>1、strides[0] = strides[3] = 1</p>
+<h3 id="3、conv2d的参数解释："><a href="#3、conv2d的参数解释：" class="headerlink" title="3、conv2d的参数解释："></a>3、conv2d的参数解释：</h3><p>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)<br>除去name参数用以指定该操作的name，与方法有关的一共五个参数：</p>
+<p>第一个参数input：指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一</p>
+<p>第二个参数filter：相当于CNN中的卷积核，它要求是一个Tensor，具有[filter_height, filter_width, in_channels, out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同,filter的通道数要求与input的in_channels一致，有一个地方需要注意，第三维in_channels，就是参数input的第四维</p>
+<p>第三个参数strides：卷积时在图像每一维的步长，这是一个一维的向量，长度4，strides[0]=strides[3]=1</p>
+<p>第四个参数padding：string类型的量，只能是”SAME”,”VALID”其中之一，这个值决定了不同的卷积方式（后面会介绍）</p>
+<p>第五个参数：use_cudnn_on_gpu:bool类型，是否使用cudnn加速，默认为true</p>
+<p>结果返回一个Tensor，这个输出，就是我们常说的feature map</p>
+<h3 id="4、conv2d的例子："><a href="#4、conv2d的例子：" class="headerlink" title="4、conv2d的例子："></a>4、conv2d的例子：</h3><p>那么TensorFlow的卷积具体是怎样实现的呢，用一些例子去解释它：</p>
+<p>import tensorflow as tf<br>#case 2<br>input = tf.Variable(tf.random_normal([1,3,3,5]))<br>filter = tf.Variable(tf.random_normal([1,1,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>import tensorflow as tf</p>
+<p>input = tf.Variable(tf.random_normal([1,5,5,5]))<br>filter = tf.Variable(tf.random_normal([3,3,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>说明：</p>
+<p>1、使用VALID方式,feature map的尺寸为<br>out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))=(5-3+1)/1 = 3</p>
+<p>out_width = ceil(float(in_width - filter_width + 1) / float(strides[2])) = (5-3+1)/1 = 3</p>
+<p>所以,feature map的尺寸为3*3</p>
+<p>2、filter的参数个数为3<em>3</em>5<em>1,也即对于输入的每个通道数都对应于一个3</em>3的滤波器,然后共5个通道数,conv2d的过程就是对5个输入进行点击然后求和,得到一张feature map。如果要得到3张feature map,那么应该使用的参数为3<em>3</em>5*3个参数.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-5-transforms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-5-transforms/" class="post-title-link" itemprop="url">PyTorch-5-transforms</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-14 15:27:30 / Modified: 15:28:57" itemprop="dateCreated datePublished" datetime="2020-04-14T15:27:30+08:00">2020-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转载于：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011995719/article/details/85107009">https://blog.csdn.net/u011995719/article/details/85107009</a></p>
+<p>本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：<a target="_blank" rel="noopener" href="https://github.com/tensor-yu/PyTorch_Tutorial">https://github.com/tensor-yu/PyTorch_Tutorial</a></p>
+<p>本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列，没有归纳总结，顺序很乱，这里总结一共有四大类，方便大家索引：</p>
+<p>裁剪——Crop 中心裁剪：transforms.CenterCrop 随机裁剪：transforms.RandomCrop 随机长宽比裁剪：transforms.RandomResizedCrop 上下左右中心裁剪：transforms.FiveCrop 上下左右中心裁剪后翻转，transforms.TenCrop<br>翻转和旋转——Flip and Rotation 依概率p水平翻转：transforms.RandomHorizontalFlip(p=0.5) 依概率p垂直翻转：transforms.RandomVerticalFlip(p=0.5) 随机旋转：transforms.RandomRotation<br>图像变换 resize：transforms.Resize 标准化：transforms.Normalize 转为tensor，并归一化至[0-1]：transforms.ToTensor 填充：transforms.Pad 修改亮度、对比度和饱和度：transforms.ColorJitter 转灰度图：transforms.Grayscale 线性变换：transforms.LinearTransformation() 仿射变换：transforms.RandomAffine 依概率p转为灰度图：transforms.RandomGrayscale 将数据转换为PILImage：transforms.ToPILImage transforms.Lambda：Apply a user-defined lambda as a transform.<br>对transforms操作，使数据增强更灵活 transforms.RandomChoice(transforms)， 从给定的一系列transforms中选一个进行操作 transforms.RandomApply(transforms, p=0.5)，给一个transform加上概率，依概率进行操作 transforms.RandomOrder，将transforms中的操作随机打乱<br>一、 裁剪——Crop<br>1.随机裁剪：transforms.RandomCrop<br>class torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=’constant’) 功能：依据给定的size随机裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，暂不了解。 4. symmetric，暂不了解。</p>
+<p>2.中心裁剪：transforms.CenterCrop<br>class torchvision.transforms.CenterCrop(size) 功能：依据给定的size从中心裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>3.随机长宽比裁剪 transforms.RandomResizedCrop<br>class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=2) 功能：随机大小，随机长宽比裁剪原始图片，最后将图片resize到设定好的size 参数： size- 输出的分辨率 scale- 随机crop的大小区间，如scale=(0.08, 1.0)，表示随机crop出来的图片会在的0.08倍至1倍之间。 ratio- 随机长宽比设置 interpolation- 插值的方法，默认为双线性插值(PIL.Image.BILINEAR)</p>
+<p>4.上下左右中心裁剪：transforms.FiveCrop<br>class torchvision.transforms.FiveCrop(size) 功能：对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>5.上下左右中心裁剪后翻转: transforms.TenCrop<br>class torchvision.transforms.TenCrop(size, vertical_flip=False) 功能：对图片进行上下左右以及中心裁剪，然后全部翻转（水平或者垂直），获得10张图片，返回一个4D-tensor。 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) vertical_flip (bool) - 是否垂直翻转，默认为flase，即默认为水平翻转</p>
+<p>二、翻转和旋转——Flip and Rotation<br>6.依概率p水平翻转transforms.RandomHorizontalFlip<br>class torchvision.transforms.RandomHorizontalFlip(p=0.5) 功能：依据概率p对PIL图片进行水平翻转 参数： p- 概率，默认值为0.5</p>
+<p>7.依概率p垂直翻转transforms.RandomVerticalFlip<br>class torchvision.transforms.RandomVerticalFlip(p=0.5) 功能：依据概率p对PIL图片进行垂直翻转 参数： p- 概率，默认值为0.5</p>
+<p>8.随机旋转：transforms.RandomRotation<br>class torchvision.transforms.RandomRotation(degrees, resample=False, expand=False, center=None) 功能：依degrees随机旋转一定角度 参数： degress- (sequence or float or int) ，若为单个数，如 30，则表示在（-30，+30）之间随机旋转 若为sequence，如(30，60)，则表示在30-60度之间随机旋转 resample- 重采样方法选择，可选 PIL.Image.NEAREST, PIL.Image.BILINEAR, PIL.Image.BICUBIC，默认为最近邻 expand- ? center- 可选为中心旋转还是左上角旋转</p>
+<p>三、图像变换<br>9.resize：transforms.Resize<br>class torchvision.transforms.Resize(size, interpolation=2) 功能：重置图像分辨率 参数： size- If size is an int, if height &gt; width, then image will be rescaled to (size * height / width, size)，所以建议size设定为h*w interpolation- 插值方法选择，默认为PIL.Image.BILINEAR</p>
+<p>10.标准化：transforms.Normalize<br>class torchvision.transforms.Normalize(mean, std) 功能：对数据按通道进行标准化，即先减均值，再除以标准差，注意是 hwc</p>
+<p>11.转为tensor：transforms.ToTensor<br>class torchvision.transforms.ToTensor 功能：将PIL Image或者 ndarray 转换为tensor，并且归一化至[0-1] 注意事项：归一化至[0-1]是直接除以255，若自己的ndarray数据尺度有变化，则需要自行修改。</p>
+<p>12.填充：transforms.Pad<br>class torchvision.transforms.Pad(padding, fill=0, padding_mode=’constant’) 功能：对图像进行填充 参数： padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，？ 4. symmetric，？</p>
+<p>13.修改亮度、对比度和饱和度：transforms.ColorJitter<br>class torchvision.transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0) 功能：修改修改亮度、对比度和饱和度</p>
+<p>14.转灰度图：transforms.Grayscale<br>class torchvision.transforms.Grayscale(num_output_channels=1) 功能：将图片转换为灰度图 参数： num_output_channels- (int) ，当为1时，正常的灰度图，当为3时， 3 channel with r == g == b</p>
+<p>15.线性变换：transforms.LinearTransformation()<br>class torchvision.transforms.LinearTransformation(transformation_matrix) 功能：对矩阵做线性变化，可用于白化处理！ whitening: zero-center the data, compute the data covariance matrix 参数： transformation_matrix (Tensor) – tensor [D x D], D = C x H x W</p>
+<p>16.仿射变换：transforms.RandomAffine<br>class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0) 功能：仿射变换</p>
+<p>17.依概率p转为灰度图：transforms.RandomGrayscale<br>class torchvision.transforms.RandomGrayscale(p=0.1) 功能：依概率p将图片转换为灰度图，若通道数为3，则3 channel with r == g == b</p>
+<p>18.将数据转换为PILImage：transforms.ToPILImage<br>class torchvision.transforms.ToPILImage(mode=None) 功能：将tensor 或者 ndarray的数据转换为 PIL Image 类型数据 参数： mode- 为None时，为1通道， mode=3通道默认转换为RGB，4通道默认转换为RGBA</p>
+<p>19.transforms.Lambda<br>Apply a user-defined lambda as a transform. 暂不了解，待补充。</p>
+<p>四、对transforms操作，使数据增强更灵活<br>PyTorch不仅可设置对图片的操作，还可以对这些操作进行随机选择、组合</p>
+<p>20.transforms.RandomChoice(transforms)<br>功能：从给定的一系列transforms中选一个进行操作，randomly picked from a list</p>
+<p>21.transforms.RandomApply(transforms, p=0.5)<br>功能：给一个transform加上概率，以一定的概率执行该操作</p>
+<p>22.transforms.RandomOrder<br>功能：将transforms中的操作顺序随机打乱</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
 
 <script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>

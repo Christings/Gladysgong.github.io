@@ -1,1134 +1,1796 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="Up in the wind!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茉莉Python">
+<meta property="og:url" content="http://gongyanli.com/page/9/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="Up in the wind!">
+<meta property="og:locale">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+<link rel="canonical" href="http://gongyanli.com/page/9/">
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                voidqueens@hotmail.com
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
 </script>
 
+  <title>茉莉Python</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-<main class="content">
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0GitHub%E4%B8%8A%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0GitHub%E4%B8%8A%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">如何更新GitHub上自己Fork的项目</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-04 09:34:12" itemprop="dateCreated datePublished" datetime="2018-05-04T09:34:12+08:00">2018-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:26:02" itemprop="dateModified" datetime="2020-09-18T16:26:02+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0GitHub%E4%B8%8A%E8%87%AA%E5%B7%B1Fork%E7%9A%84%E9%A1%B9%E7%9B%AE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="如何更新GitHub上自己Fork的项目">
-                            
-                            <span class="card-title">如何更新GitHub上自己Fork的项目</span>
-                        </div>
-                    </a>
+      
+          <p>当我们在GitHub上fork别人的项目后，可以方便我们学习使用，但是当别人更新了源码后，而我们fork的分支却不会一起更新，需要手动更新。<br>以我的账号-Gladysgong为例，fork的项目是<a target="_blank" rel="noopener" href="https://github.com/qq547276542/Agriculture_KnowledgeGraph.git">https://github.com/qq547276542/Agriculture_KnowledgeGraph.git</a></p>
+<h2 id="一、fork项目后clone到本地"><a href="#一、fork项目后clone到本地" class="headerlink" title="一、fork项目后clone到本地"></a>一、fork项目后clone到本地</h2><pre><code>$ git clone https://github.com/qq547276542/Agriculture_KnowledgeGraph.git
+$ cd Agriculture_KnowledgeGraph</code></pre>
+<h2 id="二、增加远程原始的分支到本地"><a href="#二、增加远程原始的分支到本地" class="headerlink" title="二、增加远程原始的分支到本地"></a>二、增加远程原始的分支到本地</h2><pre><code>$ git remote -v
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                当我们在GitHub上fork别人的项目后，可以方便我们学习使用，但是当别人更新了源码后，而我们fork的分支却不会一起更新，需要手动更新。以我的账号-Gladysgong为例，fork的项目是https://github.com/qq54
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-04
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/git/" class="post-category">
-                                    git
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+origin  https://github.com/Gladysgong/Agriculture_KnowledgeGraph.git (fetch)
+origin  https://github.com/Gladysgong/Agriculture_KnowledgeGraph.git (push)
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/git/">
-                            <span class="chip bg-color">git</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Css-Xpath/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Css-Xpath">
-                            
-                            <span class="card-title">Css-Xpath</span>
-                        </div>
-                    </a>
+$ git remote add upstream https://github.com/qq547276542/Agriculture_KnowledgeGraph.git
+$ git remote -v
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                当我们抓取网页源码后，就需要从源码中提取信息，而提取信息的方式有如下几种：
-正则表达式
+origin  https://github.com/Gladysgong/Agriculture_KnowledgeGraph.git (fetch)
+origin  https://github.com/Gladysgong/Agriculture_KnowledgeGraph.git (push)
+upstream        git@github.com:qq547276542/Agriculture_KnowledgeGraph.git (fetch
+upstream        git@github.com:qq547276542/Agriculture_KnowledgeGraph.git (push)</code></pre>
+<h2 id="三、fetch原始分支的新版本到本地"><a href="#三、fetch原始分支的新版本到本地" class="headerlink" title="三、fetch原始分支的新版本到本地"></a>三、fetch原始分支的新版本到本地</h2><pre><code>$ git fetch upstream </code></pre>
+<h2 id="四、合并两个版本的代码"><a href="#四、合并两个版本的代码" class="headerlink" title="四、合并两个版本的代码"></a>四、合并两个版本的代码</h2><pre><code>$ git merge upstream/master</code></pre>
+<h2 id="五、把最新代码提交到GitHub我们自己的账号（Gladysgong）上"><a href="#五、把最新代码提交到GitHub我们自己的账号（Gladysgong）上" class="headerlink" title="五、把最新代码提交到GitHub我们自己的账号（Gladysgong）上"></a>五、把最新代码提交到GitHub我们自己的账号（Gladysgong）上</h2><pre><code>$ git push origin master</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Css-Xpath/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Css-Xpath/" class="post-title-link" itemprop="url">Css-Xpath</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-03 09:39:28" itemprop="dateCreated datePublished" datetime="2018-05-03T09:39:28+08:00">2018-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:28:32" itemprop="dateModified" datetime="2020-09-18T17:28:32+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>当我们抓取网页源码后，就需要从源码中提取信息，而提取信息的方式有如下几种：</p>
+<pre><code>正则表达式
 解析库及解析方法：
         lxml
         Beautiful Soup
         pyquery
         XPath
+        CSS选择器</code></pre>
+<h2 id="用Css进行解析、过滤及存储"><a href="#用Css进行解析、过滤及存储" class="headerlink" title="用Css进行解析、过滤及存储"></a>用Css进行解析、过滤及存储</h2><pre><code>sites = response.css(&#39;#site-list-content &gt; div.site-item &gt; div.title-and-desc&#39;)
+items = []
 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+for site in sites:
+    item = Website()
+    item[&#39;name&#39;] = site.css(&#39;a &gt; div.site-title::text&#39;).extract_first().strip()
+    item[&#39;url&#39;] = site.xpath(&#39;a/@href&#39;).extract_first().strip()
+    item[&#39;description&#39;] = site.css(&#39;div.site-descr::text&#39;).extract_first().strip()
+    items.append(item)
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Xpath/">
-                            <span class="chip bg-color">Xpath</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Hadoop环境配置">
-                            
-                            <span class="card-title">Hadoop环境配置</span>
-                        </div>
-                    </a>
+return items</code></pre>
+<hr>
+<pre><code>words_to_filter = [&#39;politics&#39;, &#39;religion&#39;]
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、使用ifconfig查看当前机器的ip我的三台机器ip如下：
+def process_item(self, item, spider):
+    for word in self.words_to_filter:
+        if word in item[&#39;description&#39;].lower():
+            raise DropItem(&quot;Contains forbidden word: %s&quot; % word)
+    else:
+        return item</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hadoop%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Hadoop环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-02 15:59:08" itemprop="dateCreated datePublished" datetime="2018-05-02T15:59:08+08:00">2018-05-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:42:01" itemprop="dateModified" datetime="2020-09-18T21:42:01+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、使用ifconfig查看当前机器的ip"><a href="#一、使用ifconfig查看当前机器的ip" class="headerlink" title="一、使用ifconfig查看当前机器的ip"></a>一、使用ifconfig查看当前机器的ip</h2><pre><code>我的三台机器ip如下：
 192.168.211.131
 192.168.211.132
-192.168.211.133
-二、修改机器的hostname$ vim /etc/hosts
-192.168
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-05-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                    大数据
-                                </a>
-                                
-                                <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/" class="post-category">
-                                    Hadoop
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+192.168.211.133</code></pre>
+<h2 id="二、修改机器的hostname"><a href="#二、修改机器的hostname" class="headerlink" title="二、修改机器的hostname"></a>二、修改机器的hostname</h2><pre><code>$ vim /etc/hosts
+192.168.211.131        hserver1
+192.168.211.132        hserver2
+192.168.211.133        hserver3
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Hadoop/">
-                            <span class="chip bg-color">Hadoop</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Python中的编码">
-                            
-                            <span class="card-title">Python中的编码</span>
-                        </div>
-                    </a>
+配置完成保存后利用如下命令查看机器之间是否互相ping通
+$ ping -c 3 hserver3</code></pre>
+<h2 id="三、给3台机器生成密钥"><a href="#三、给3台机器生成密钥" class="headerlink" title="三、给3台机器生成密钥"></a>三、给3台机器生成密钥</h2><pre><code>$ ssh-keygen -t rsa -P &#39;&#39;
+在3台机器侠存入相同的文件authorized_keys
+$ touch /root/.ssh/authorized_keys
+将3台机器的公钥均合并到autorized_keys
+最后利用ssh hserver2进行测试</code></pre>
+<h2 id="四、jdk"><a href="#四、jdk" class="headerlink" title="四、jdk"></a>四、jdk</h2><h2 id="五、Hadoop"><a href="#五、Hadoop" class="headerlink" title="五、Hadoop"></a>五、Hadoop</h2><pre><code>1. 传送文件
+$ scp /home/data root@192.168.1.33:/home/new-data
+$ scp -r /home/data root@192.168.1.33:/home/new-data
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、编码起源–从ASCII编码开始计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以一个字节能表示的最大的整数就是255（二进制11111111=十
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-category">
-                                    基础篇
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+2. 新建目录
+$ mkdir /root/hadoop
+$ mkdir /root/hadoop/tmp
+$ mkdir /root/hadoop/var
+$ mkdir /root/hadoop/dfs
+$ mkdir /root/hadoop/dfs/name
+$ mkdir /root/hadoop/dfs/data</code></pre>
+<p>待续</p>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Python/">
-                            <span class="chip bg-color">Python</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Scrapy-CrawlSpider/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Scrapy--CrawlSpider">
-                            
-                            <span class="card-title">Scrapy--CrawlSpider</span>
-                        </div>
-                    </a>
+      
+    </div>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、CrawlSpider爬取规则,不带callback表示向该类url递归爬取
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/" class="post-title-link" itemprop="url">Python中的编码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-25 14:24:03" itemprop="dateCreated datePublished" datetime="2018-04-25T14:24:03+08:00">2018-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:37:51" itemprop="dateModified" datetime="2020-09-18T21:37:51+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、编码起源–从ASCII编码开始"><a href="#一、编码起源–从ASCII编码开始" class="headerlink" title="一、编码起源–从ASCII编码开始"></a>一、编码起源–从ASCII编码开始</h2><p>计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以一个字节能表示的最大的整数就是255（二进制11111111=十进制255）。如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。</p>
+<pre><code>计算机是美国人发明的，最早只有127个字符被编码到计算机中，这个编码就是ASCII编码，包含大小写英文字母、数字以及一些符号。
+大写字母A：65
+小写字母z：122
+
+要处理中文一个字节显然不够了，至少需要2个字节，还不能和ASCII编码冲突，所以中国制定了GB2312编码，来对中文进行编码。
+同理，日本把日文编到Shift_JIS里，韩国把韩文编到Euc-kr里，所有就形成了一个问题，每个国家都有每个国家不同的标准，就会出现冲突。于
+是，在多语言混合的文本中，显示就会有乱码问题。
+于是，Unicode编码出现了，把所有语言统一到一套编码中，这样就解决了冲突问题。</code></pre>
+<h2 id="二、Unicode编码"><a href="#二、Unicode编码" class="headerlink" title="二、Unicode编码"></a>二、Unicode编码</h2><pre><code>Unicode标准在不断发展中，最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语
+言都直接支持Unicode。
+
+ASCII编码和Unicode编码的区别：
+
+    ASCII编码是1个字节，而Unicode编码通常是2个字节。
+
+    字母-A 用ASCII编码是十进制的65，二进制的01000001；
+
+    字符-0 用ASCII编码是十进制的48，二进制的00110000，注意字符&#39;0&#39;和整数0是不同的；
+
+    汉字-中 已经超出了ASCII编码的范围，用Unicode编码是十进制的20013，二进制的01001110 00101101。
+
+    如果把ASCII编码的A用Unicode编码，只需要在前面补0就可以，因此，A的Unicode编码是00000000 01000001。
+
+新的问题又出现了：如果统一成Unicode编码，乱码问题从此消失了。但是，如果你写的文本基本上全部是英文的话，用Unicode编码比ASCII编码
+需要多一倍的存储空间，在存储和传输上就十分不划算。
+
+所以，为了节约存储空间和传输时间，可以把Unicode编码转换为“可变长的编码”，即UTF-8编码。</code></pre>
+<h2 id="三、UTF-8编码"><a href="#三、UTF-8编码" class="headerlink" title="三、UTF-8编码"></a>三、UTF-8编码</h2><p>UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码就能节省空间。</p>
+<pre><code>字符            ASCII        Unicode                    UTF-8
+A            01000001    00000000 01000001        01000001
+中            x            01001110 00101101        11100100 10111000 10101101
+
+从上面可以看出，UTF-8编码有一个额外的好处，就是ASCII编码实际上可以被看成是UTF-8编码的一部分，所以，大量只支持ASCII编码的历史遗留
+软件可以在UTF-8编码下继续工作。</code></pre>
+<h2 id="四、计算机系统通用的字符编码工作方式"><a href="#四、计算机系统通用的字符编码工作方式" class="headerlink" title="四、计算机系统通用的字符编码工作方式"></a>四、计算机系统通用的字符编码工作方式</h2><pre><code>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。
+用记事本编辑的时候，从文件读取的UTF-8字符被转换为Unicode字符到内存里，编辑完成后，保存的时候再把Unicode转换为UTF-8保存到文件。
+浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器，所以你看到很多网页的源码上会有类似
+&lt;meta charset=&quot;UTF-8&quot; /&gt;的信息，表示该网页正是用的UTF-8编码。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/code1.jpg"></p>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/code2.jpg"></p>
+<h2 id="五、Python中的字符串"><a href="#五、Python中的字符串" class="headerlink" title="五、Python中的字符串"></a>五、Python中的字符串</h2><pre><code>在Python3中，字符串以Unicode编码，所以此字符串是支持多语言的。
+单个字符：
+    ord():获取字符的整数表示
+    chr():把编码转换为对应的字符
+
+Python中的字符串类型为str，在内存中以Unicode表示，一个字符对应若干个字节。如果在网络上传输或保存在磁盘中，需要把str变为以字节为单
+位bytes。
+Python对bytes类型的数据用带b前缀的单引号或双引号表示：x=b&#39;abc&#39;
+
+注意区分&#39;ABC&#39;和b&#39;ABC&#39;，前者是str，后者虽然内容显示得和前者一样，但bytes的每个字符都只占用一个字节。</code></pre>
+<h3 id="1-encode-方法"><a href="#1-encode-方法" class="headerlink" title="1.encode()方法"></a>1.encode()方法</h3><pre><code>以Unicode表示的str通过encode()方法可以编码为指定的bytes，如：
+
+&gt;&gt;&gt; &#39;ABC&#39;.encode(&#39;ascii&#39;)
+b&#39;ABC&#39;
+&gt;&gt;&gt; &#39;中文&#39;.encode(&#39;utf-8&#39;)
+b&#39;\xe4\xb8\xad\xe6\x96\x87&#39;
+&gt;&gt;&gt; &#39;中文&#39;.encode(&#39;ascii&#39;)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode characters in position 0-1: ordinal not in range(128)
+
+纯英文的str可以用ASCII编码为bytes，内容是一样的，含有中文的str可以用UTF-8编码为bytes。
+含有中文的str无法用ASCII编码，因为中文编码的范围超过了ASCII编码的范围，Python会报错。
+
+在bytes中，无法显示为ASCII字符的字节，用\x##显示。</code></pre>
+<h3 id="2-decode-方法"><a href="#2-decode-方法" class="headerlink" title="2.decode()方法"></a>2.decode()方法</h3><pre><code>相反，如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes，这时就需要用decode()把bytes变为str。
+
+&gt;&gt;&gt; b&#39;ABC&#39;.decode(&#39;ascii&#39;)
+&#39;ABC&#39;
+&gt;&gt;&gt; b&#39;\xe4\xb8\xad\xe6\x96\x87&#39;.decode(&#39;utf-8&#39;)
+&#39;中文&#39;
+&gt;&gt;&gt; b&#39;\xe4\xb8\xad\xff&#39;.decode(&#39;utf-8&#39;)
+Traceback (most recent call last):
+  ...
+UnicodeDecodeError: &#39;utf-8&#39; codec can&#39;t decode byte 0xff in position 3: invalid start byte
+
+如果bytes中包含无法解码的字节，decode()会报错。但如果bytes中只有一小部分无效字节，可以用errors=&#39;ignore&#39;来忽略错误字节。</code></pre>
+<h3 id="3-小结"><a href="#3-小结" class="headerlink" title="3.小结"></a>3.小结</h3><pre><code>1个中文字符经过UTF-8编码后通常会占用3个字节，而1个英文字符只占用1个字节。
+在操作字符串时，我们经常遇到str和bytes的互相转换。为了避免乱码问题，应当始终坚持使用UTF-8编码对str和bytes进行转换。
+由于Python源代码也是一个文本文件，所以当源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读
+取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：    
+
+    #!/usr/bin/env python3
+    # -*- coding: utf-8 -*-
+第一行注释是为了告诉Linux/OS X系统，这是一个Python可执行程序，Windows系统会忽略这个注释；
+第二行注释是为了告诉Python解释器，按照UTF-8编码读取源代码，否则，你在源代码中写的中文输出可能会有乱码。</code></pre>
+<h2 id="六、中文编码–关于gb2312-gbk-gb18030三者的关系"><a href="#六、中文编码–关于gb2312-gbk-gb18030三者的关系" class="headerlink" title="六、中文编码–关于gb2312,gbk,gb18030三者的关系"></a>六、中文编码–关于gb2312,gbk,gb18030三者的关系</h2><pre><code>GB2312：6763个汉字
+GBK：21003个汉字
+GB18030-2000：27533个汉字
+GB18030-2005：70244个汉字
+
+所以，GBKSS是GB2312的超集，GB18030是GBK的超集。</code></pre>
+<h2 id="七、将UTF-8格式的文件转换成GBK格式的文件"><a href="#七、将UTF-8格式的文件转换成GBK格式的文件" class="headerlink" title="七、将UTF-8格式的文件转换成GBK格式的文件"></a>七、将UTF-8格式的文件转换成GBK格式的文件</h2><pre><code>功能：在函数readFile中以utf-8编码方式读取文件，返回Unicode的结果，最后将Unicode结果以gbk格式写入文件。
+`
+def readFile(filePath,encoding=&quot;utf-8&quot;):
+    with codecs.open(filePath,&quot;r&quot;,encoding) as f:
+        return f.read()
+
+def writeFile(filePath,u,encoding=&quot;gbk&quot;):
+    with codecs.open(filePath,&quot;w&quot;,encoding) as f:
+        f.write(u)
+
+def UTF8_2_GBK(src,dst):
+    content = ReadFile(src,encoding=&quot;utf-8&quot;)
+    WriteFile(dst,content,encoding=&quot;gbk&quot;)
+`</code></pre>
+<h2 id="八、报错"><a href="#八、报错" class="headerlink" title="八、报错"></a>八、报错</h2><pre><code>UnicodeEncodeError: &#39;gbk&#39; codec can&#39;t encode character u&#39;\xa0&#39; in position 4813: illegal multibyte sequence.
+在将Unicode编码成gbk的时候，不能将Unicode u&#39;\xa0&#39;编码成gbk。
+在进行格式转换的时候，如果某些字符不包含在bgk字符集中，就会报错。
+
+`
+# 方案一
+def writeFile(filePath, u, encoding=&#39;gbk&#39;):
+    with codecs.open(filePath, &#39;wb&#39;) as f:
+        f.write(u.encode(encoding, errors=&#39;ignore&#39;)) 
+# ignore表示编码的时候，忽略掉无法编码的字符，解码同理。
+# 执行后发现把utf-8转换成了ansi格式，另外生成文件中每隔一行都有一行空行，所以加上b，使之以二进制流的形式写文件。
+
+# 方案二
+def utf8_2_gbk(src, dst):
+    content = readFile(src, encoding=&#39;utf-8&#39;)
+    writeFile(dst, content, encoding=&#39;gbk18030&#39;)
+`</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Scrapy-CrawlSpider/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Scrapy-CrawlSpider/" class="post-title-link" itemprop="url">Scrapy--CrawlSpider</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-23 15:17:20" itemprop="dateCreated datePublished" datetime="2018-04-23T15:17:20+08:00">2018-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:13:16" itemprop="dateModified" datetime="2020-09-18T17:13:16+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、CrawlSpider"><a href="#一、CrawlSpider" class="headerlink" title="一、CrawlSpider"></a>一、CrawlSpider</h3><pre><code>爬取规则,不带callback表示向该类url递归爬取
 rules = (
-    Rule(SgmlLinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/pa
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-23
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    Rule(SgmlLinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/page/\d&#39;,))),
+    Rule(LinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/page/\d&#39;,))),
+    Rule(SgmlLinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/\d+&#39;,)), callback=&#39;parse_content&#39;),
+    Rule(LinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/\d+&#39;,)), callback=&#39;parse_content&#39;),
+)</code></pre>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="用Python下载巨潮资讯农业上市企业的年报PDF文件(二)">
-                            
-                            <span class="card-title">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</span>
-                        </div>
-                    </a>
+      
+    </div>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：http://gongyanli.com/代码传送门：https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf  
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-前言：之前写过一篇利用文章——Phan
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="使用Flask+Gunicorn+Nginx在Linux进行网站部署">
-                            
-                            <span class="card-title">使用Flask+Gunicorn+Nginx在Linux进行网站部署</span>
-                        </div>
-                    </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：http://gongyanli.com/代码传送门：https://github.com/Gladysgong/flask_scrapy_aiot简书: https://www.jianshu.com/p/7da2e
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" class="post-category">
-                                    网站部署
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/" class="post-title-link" itemprop="url">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>
+        </h2>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Flask/">
-                            <span class="chip bg-color">Flask</span>
-                        </a>
-                        
-                        <a href="/tags/Gunicorn/">
-                            <span class="chip bg-color">Gunicorn</span>
-                        </a>
-                        
-                        <a href="/tags/Nginx/">
-                            <span class="chip bg-color">Nginx</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Hexo-1-问题记录">
-                            
-                            <span class="card-title">Hexo-1-问题记录</span>
-                        </div>
-                    </a>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、分类标签中关于大小写的bug1.描述当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
+              <time title="Created: 2018-04-17 13:30:10" itemprop="dateCreated datePublished" datetime="2018-04-17T13:30:10+08:00">2018-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:07" itemprop="dateModified" datetime="2020-09-18T17:14:07+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf</a>  </p>
+</blockquote>
+<p>前言：之前写过一篇利用文章——<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>，来抓取巨潮资讯企业基本信息的文章，后来我还需要拿这些企业的年报的PDF文件，所以我试过也用也用上面这种思路去抓取，但是太过复杂，需要动态点击的元素太多，实现起来很麻烦。后来仔细看年报这块儿是通过post请求加参数来发送request，所以就很简单了。</p>
+<h2 id="一、思路"><a href="#一、思路" class="headerlink" title="一、思路"></a>一、思路</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo3.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo2.jpg"></p>
+<pre><code>第一张图中我们选中了行业和所需要的年度报告，发送请求后会返回列表，里面有所有农业企业年度报告的链接。
+第二张图中我们看到了请求的url和所需参数，如图示绿色框所示，所以我们只需要构建这样的请求即可。</code></pre>
+<hr>
+<pre><code>query = &#123;
+    &#39;stock&#39;: &#39;&#39;,
+    &#39;searchkey&#39;: &#39;&#39;,
+    # &#39;plate&#39;: PLATE,
+    &#39;plate&#39;: &#39;&#39;,
+    &#39;category&#39;: CATEGORY,
+    &#39;trade&#39;: &#39;农、林、牧、渔业&#39;,
+    &#39;column&#39;: &#39;szse&#39;,
+    &#39;columnTitle&#39;: &#39;历史公告查询&#39;,
+    &#39;pageNum&#39;: page_num,
+    &#39;pageSize&#39;: MAX_PAGESIZE,
+    &#39;tabName&#39;: &#39;fulltext&#39;,
+    &#39;sortName&#39;: &#39;&#39;,
+    &#39;sortType&#39;: &#39;&#39;,
+    &#39;limit&#39;: &#39;&#39;,
+    &#39;showTitle&#39;: &#39;&#39;,
+    &#39;seDate&#39;: START_DATE + &#39;~&#39; + END_DATE,
+&#125;
+r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
+<hr>
+<pre><code>不复杂，把请求的返回内容存入csv文件，最后再通过downloader读取csv文件，最后根据csv中的链接把PDF文件下载下来。</code></pre>
+<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">代码</a>我和**PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)**这篇文章的代码放在一起了，放着cninfo的pdf文件中了，感兴趣自己可以看，可以跑起来的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">使用Flask+Gunicorn+Nginx在Linux进行网站部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:33:57" itemprop="dateCreated datePublished" datetime="2018-04-13T14:33:57+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:46:22" itemprop="dateModified" datetime="2020-09-18T16:46:22+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7da2e5892dd6">https://www.jianshu.com/p/7da2e5892dd6</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79985613">https://blog.csdn.net/u012052168/article/details/79985613</a></p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>这个网站部署属于很心酸的过程，至于如何心酸我必须得说出来，给我自己的时间一个交代。开始我使用Flask+uWsgi+Nginx进行配置的，哪哪儿都配置好了，Nginx欢迎页也可以访问，Flask本身也没问题，但就是uWsgi访问不了。<br>因为哪里配置都没问题，但就是无法访问，我Google、baidu各种查了好久，都解决不了。有说权限问题的，但是我都换到root下了，有说哪里哪里加个plugins的，对于我还是不行。后来我看见有人说，他也遇到这个问题解决不了，后来他就搁置不弄了，过了一星期左右，打开<br>自己就连接上了。于是我想了想，对于这种我该放弃了。<br>网上看了看，说Gunicorn比uWsgi好用，于是我就换成了Gunicorn，然后分分钟成功，可是我却在这上面干耗了一天。<br>顺便提一下，代码中flask_aiot为网站文件，scrapy_aiot是我的爬虫文件，用来抓取网站所用的数据，有兴趣可以看一下，当时写的好像不是很完善，有不对的地方留言告诉就ok，我改。</p>
+<h2 id="二、环境和目录结构"><a href="#二、环境和目录结构" class="headerlink" title="二、环境和目录结构"></a>二、环境和目录结构</h2><pre><code>Centos7
+Python3
+Flask：是一个用Python实现的Web开发的微服务框架
+Guicorn：Web服务器，和UWsgi类似
+Nginx：反向代理</code></pre>
+<hr>
+<pre><code>flask_aiot
+    ├── app
+    ├── config.py
+    ├── manage.py
+    ├── requirements.txt
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        └── share</code></pre>
+<h2 id="三、安装基础环境"><a href="#三、安装基础环境" class="headerlink" title="三、安装基础环境"></a>三、安装基础环境</h2><p>我用的是Python3，而现在Centos下默认的还是Python2，所以我用Anaconda安装了一个Python3，很方便。<br>不同的项目可能会需要不同的依赖包，所以我用了VirtualEnv来管理依赖。</p>
+<pre><code>pip install virtualenv
+创建虚拟环境并激活
+[root@localhost flask_aiot]# source venv/bin/activate</code></pre>
+<h2 id="四、安装Flask"><a href="#四、安装Flask" class="headerlink" title="四、安装Flask"></a>四、安装Flask</h2><pre><code>直接在虚拟环境下安装requirements.txt即可，一次性把依赖都安装齐全。
+(venv) [root@localhost flask_aiot]# pip install -r requirements.txt </code></pre>
+<h2 id="五、项目文件"><a href="#五、项目文件" class="headerlink" title="五、项目文件"></a>五、项目文件</h2><p>在生产环境中，我们的Flask项目是做在包内的，在包外采用Flask Script写一个manage.py文件作为启动文件，这样方便支持各种项目。manage.py文件如下：</p>
+<pre><code>`
+#!/usr/bin/env python
+import os
+
+if os.path.exists(&#39;.env&#39;):
+    print(&#39;Importing environment from .env...&#39;)
+    for line in open(&#39;.env&#39;):
+        var = line.strip().split(&#39;=&#39;)
+        if len(var) == 2:
+            os.environ[var[0]] = var[1]
+
+# from app import create_app, db
+from app import create_app, mongo
+from app.models import User, AllProductPrice, Ny135, Chinacwa, Iot
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+
+app = create_app(os.getenv(&#39;FLASK_CONFIG&#39;) or &#39;default&#39;)
+manager = Manager(app)
+migrate = Migrate(app, mongo)
+
+
+def make_shell_context():
+    return dict(app=app, db=mongo, User=User, AllProductPrice=AllProductPrice,
+                Ny135=Ny135, Chinacwa=Chinacwa, Iot=Iot)
+
+
+manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
+manager.add_command(&#39;db&#39;, MigrateCommand)
+
+
+@manager.command
+def test():
+    &quot;&quot;&quot;Run the unit tests.&quot;&quot;&quot;
+    import unittest
+    tests = unittest.TestLoader().discover(&#39;tests&#39;)
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
+if __name__ == &#39;__main__&#39;:
+    manager.run()
+`</code></pre>
+<p>此时我们可以直接在虚拟环境中运行Flask：</p>
+<pre><code>默认地址和端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver  
+任意地址和8099端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver -h 0.0.0.0 -p 8099
+运行：
+curl i 127.0.0.1:8099  # 看到网站返回的内容</code></pre>
+<h2 id="六、安装Gunicorn"><a href="#六、安装Gunicorn" class="headerlink" title="六、安装Gunicorn"></a>六、安装Gunicorn</h2><p>Flask的生产环境比较成熟的有Gunicorn和uWSGI,无奈我一直配置uWSGI不成功，所以换成了Gunicorn，而且和uWSGI相比起来，Gunicorn的配置真的蛮简单的。</p>
+<pre><code>(venv) [root@localhost flask_aiot]# pip install gunicorn
+运行：
+(venv) [root@localhost flask_aiot]# gunicorn -w 4 -b 127.0.0.1:8001 manage:app
+curl i 127.0.0.1:8001  # 看到网站返回的内容</code></pre>
+<h2 id="七、Nginx"><a href="#七、Nginx" class="headerlink" title="七、Nginx"></a>七、Nginx</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><pre><code>网上好多用yum install nginx来进行安装的，但是目前centos7上已经不支持了，所以我用安装包进行安装的。</code></pre>
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><pre><code>vi /etc/nginx/conf.d/default.conf
+
+default.conf如下：
+server &#123;
+    listen       8099;
+    server_name  10.200.116.13;
+    # server_name  111.203.20.92;
+
+    location / &#123;
+      #  include uwsgi_params;
+      #  uwsgi_pass  127.0.0.1:8001; # 指向uwsgi 所应用的内部地址,所有请求将转发给uwsgi 处理
+      #  uwsgi_param UWSGI_PYHOME /home/lilly/www/flask_scrapy_aiot/flask_aiot/venv; # 指向虚拟环境目录
+      #  uwsgi_param UWSGI_CHDIR  /home/lilly/www/flask_scrapy_aiot/flask_aiot; # 指向网站根目录
+      #  uwsgi_param UWSGI_SCRIPT manage:app; # 指定启动程序
+      #  uwsgi_read_timeout 100;
+        proxy_pass http://localhost:8001;
+        proxy_redirect          off;
+        proxy_set_header        Host                    $host;
+        proxy_set_header        X-Real-IP               $remote_addr;
+        proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwared-Proto        $scheme;
+      #  root   /usr/share/nginx/html;
+      #  index  index.html index.htm;
+    &#125;</code></pre>
+<hr>
+<pre><code>vi /etc/nginx/nginx.conf 
+
+nginx.conf如下：
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+
+http &#123;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;   # 这句话很重要，相当于引入了上面的default.conf配置文件
+&#125;</code></pre>
+<h3 id="3、重启Nginx"><a href="#3、重启Nginx" class="headerlink" title="3、重启Nginx"></a>3、重启Nginx</h3><pre><code>sudo service nginx restart
+sudo systemctl restart  nginx.service
+我用以上方式启动的时候总是提示：Job for nginx.service failed because the control process exited with error code. 
+See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.
+我查看的时候说：nginx: [emerg] open() &quot;/var/run/nginx.pid&quot; failed (13: Permission denied)
+但是我都是用root来启动的了，不应该存在这种问题啊。
+所以我是直接nginx这样启动的，确实nginx是起来了的。</code></pre>
+<h3 id="4、访问网站"><a href="#4、访问网站" class="headerlink" title="4、访问网站"></a>4、访问网站</h3><pre><code>curl i 10.200.116.13：8099  # 返回网站内容</code></pre>
+<h2 id="八、Supervisor"><a href="#八、Supervisor" class="headerlink" title="八、Supervisor"></a>八、Supervisor</h2><p>如果想要当进程意外关闭后能自动重启，应该再配置一个Supervisor来实现。目前Supervisor只支持Python2，我看官方说目前Python3已经在进行中，应该很快就能支持了。我在这个部署里就没做这块了，即使在Python3下面也可以用Supervisor，因为他只是调进程而已，想做的话可以网上找找文档，不难。</p>
+<h2 id="九、后续"><a href="#九、后续" class="headerlink" title="九、后续"></a>九、后续</h2><p>Nginx等一系列部署好后，我打开网站还发现了一个bug，当然这是我程序的问题。bug如下：</p>
+<pre><code>当我10.200.116.13：8099时停留在首页，当我点击网站的某一按钮，跳转到另一个页面，出现404错误，而此时我看网站的url为
+10.200.116.13/show
+这也就意味着网站跳转时没把8099的端口给带上，而我手动在地址栏输入10.200.116.13：8099/show时，页面是能够正常显示的。
+说明8099的端口有些地方是静态的，没有动态更着走。把下面的语句1改为语句2就可以了。</code></pre>
+<hr>
+<pre><code>语句1:&lt;li&gt;&lt;a href=&quot;/show_ny135&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;#&#125;
+
+语句2：&lt;li&gt;&lt;a href=&quot;&#123;&#123; url_for('main.ShowNy135View') &#125;&#125;&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Hexo-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:13:58" itemprop="dateCreated datePublished" datetime="2018-04-13T14:13:58+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:42:58" itemprop="dateModified" datetime="2020-09-18T16:42:58+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、分类标签中关于大小写的bug"><a href="#一、分类标签中关于大小写的bug" class="headerlink" title="一、分类标签中关于大小写的bug"></a>一、分类标签中关于大小写的bug</h2><h3 id="1-描述"><a href="#1-描述" class="headerlink" title="1.描述"></a>1.描述</h3><pre><code>当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
 当我把标签改为scrapy小写，再发布到网上，点击scrapy就不会出现404问题。
-后来发现
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
-                                    工具篇
-                                </a>
-                                
-                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" class="post-category">
-                                    Hexo
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+后来发现原来是git标签生成时忽略了大写，生成的实际标签为scrapy。
+于是我来到我的Github中，找到Gladysgong.github.io/categories/爬虫/这个目录，发现实际生成的也是scrapy，所以
+原因就在这里了。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_bug.jpg"></p>
+<h3 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h3><pre><code>修改文件：
+    cd blog/.deploy_git
+    vi .git/config
+    将ignorecase=true改为ignorecase=false
+删除Gladysgong.github.io中的文件并提交：
+    git rm -rm *
+    git commit -m &quot;clean all files&quot;
+    git push
+Hexo再次生成及部署：
+    cd ..
+    hexo clean
+    hexo g
+    hexo d</code></pre>
+<h2 id="二、分类和标签全部404"><a href="#二、分类和标签全部404" class="headerlink" title="二、分类和标签全部404"></a>二、分类和标签全部404</h2><pre><code>npm install hexo-generator-category --save
+npm install --save hexo-generator-tag --save</code></pre>
+<h2 id="三、themes主题无法备份"><a href="#三、themes主题无法备份" class="headerlink" title="三、themes主题无法备份"></a>三、themes主题无法备份</h2><p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
+<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
+<p>解决：</p>
+<pre><code>$ git rm --cached themes/yilia
+rm &#39;themes/yilia&#39;
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Hexo/">
-                            <span class="chip bg-color">Hexo</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="数据库基本操作">
-                            
-                            <span class="card-title">数据库基本操作</span>
-                        </div>
-                    </a>
+$ git status</code></pre>
+<p>原因：</p>
+<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.增加使用insert插入单行数据
+在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
+
+这个功能的意义：
+
+在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
+
+只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
+
+相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
+
+这里我偷懒直接将子模块删除，将整个仓库进行备份了。
+
+比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:39:42" itemprop="dateModified" datetime="2020-09-18T21:39:42+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
 insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
-insert into Students (name,sex,birth_date) values (&#
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                            <span class="chip bg-color">数据库</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="数据库基本操作">
-                            
-                            <span class="card-title">数据库基本操作</span>
-                        </div>
-                    </a>
+使用insert,select语句将现有表中的数据添加到已有的新表中
+insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
+insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
+<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
+delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
+<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
+update Students set tel=default where id=5
+update students set age=age+1
+update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
+<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
+1.查询所有数据行和列
+select * from Students
+2.查询部分行列--条件查询
+select * from Student where name=&#39;李三&#39;
+3.在查询中使用as更改列名
+select name as 姓名 from Students where sex=&#39;男&#39;
+4.查询空行
+select name from Student where sex is null
+5.查询排序
+select name from Student where age&gt;25 order by desc
+6.查询返回限制行数
+select top 10 name from Student</code></pre>
+<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
+select * from Student where name like &#39;李%&#39;
+2.使用between在某个范围内进行查询
+select * from Student where age between 20 and 25
+3.使用in在列举数值内进行查询(in后是多个的数据)
+select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
+<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
+select id as 学号，AVG(score) as 平均成绩 from score group by id
+2.用having子句进行分组筛选
+select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
+<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
+<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
+右连：Right Join
+内连：Inner Join
+左连接where只影响右表，右连接where只影响左表
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                三、数据库1、数据库引擎
-种类：
+select * from table1 Left Join table2 where table1.id=table2.id
+左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
+
+select * from table1 Right Join table2 where table1.id=table2.id
+右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
+
+select * from table1 Inner Join table2 on table1.id=table2.id
+功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:35:41" itemprop="dateModified" datetime="2020-09-18T21:35:41+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="三、数据库"><a href="#三、数据库" class="headerlink" title="三、数据库"></a>三、数据库</h2><p>1、数据库引擎</p>
+<pre><code>种类：
     innob引擎 
     Memory引擎 
-    Merge引擎
-innob引擎一大特点就是支持外键，内存和空间大 支持事务。
-2、数据库锁
-由于数据库是多用户共享资源，所以需要处理并发问题，而
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    Merge引擎</code></pre>
+<p>innob引擎一大特点就是支持外键，内存和空间大 支持事务。</p>
+<p>2、数据库锁</p>
+<p>由于数据库是多用户共享资源，所以需要处理并发问题，而数据库锁的机制就是为了处理这一问题。</p>
+<p>当出现并发的时候，如果不做控制就会出现各种问题 比如脏数据，修改丢失等。</p>
+<p>所有数据库并发需要事务来控制，事务并发问题需要数据库锁来控制</p>
+<p>事务四个特性：</p>
+<pre><code>持久型 
+原子性 
+一致性 
+隔离性</code></pre>
+<p>数据库锁：</p>
+<pre><code>乐观锁 悲观锁 死锁
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                            <span class="chip bg-color">数据库</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
+活锁 行锁 表锁 页级锁
 
-</main>
+排它锁有称为写锁。共享锁又称为读锁</code></pre>
+<p>3、如何理解ORM？</p>
+<p>对象关系映射（Object Relational Mapping，简称ORM）是通过使用描述对象和数据库之间映射的元数据，将面向对象语言程序中的对象自动持久化到关系数据库中。本质上就是将数据从一种形式转换到另外一种形式。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/orm.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/orm.png"></p>
+<p>作用:</p>
+<pre><code>节省代码书写 保证sql语法的正确性
+一次编写可以适配多个数据库
+防止sql注入
+在数据库表名或字段名发生改变 只需要修改模型类的映射 无需修改数据库操作的代码</code></pre>
+<p>使用orm的方式选择:</p>
+<pre><code>1.先创建模型类 在迁移到数据库中
 
+优点：简单快捷，定义一次模型类即可，不用写sql
+缺点： 
+不能完美的控制创建表的所有细节问题
+表结构发生变化时，也难免发生迁移错误
 
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/8/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">9 / 13</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/10/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+2.先用原生sql创建数据库表，在编写模型类做映射
+
+优点：可以很好的控制数据库表结构的任何细节，避免发生迁移错误
+缺点：可能编写工作多</code></pre>
+<p>4、ORM相关操作<br>5、selected_related和prefetch_related<br>6、Q和F<br>7、queryset常用方法</p>
+<pre><code>使用 connection.queries 可以查看sql语句
+filter 将满足条件的结果返回，返回值为QuerySet对象
+exclude 将满足条件的结果过滤掉,返回值为QuerySet对象
+annotate 给QuerySet中的每一个对象都添加一个查询表达式，（Q,F,聚合函数）的字段
+order_by 安装某个字段进行排序，默认为从小到大排序，如果想要重大到小可以在字段前加“-”,需要注意order_by可以传递多个参数，会按照先后级别进行排序，而且order_by还可以用annotate新增的字段来排序，注意：order_by重复调用会只会保存最后一个。
+values:提取需要哪些字段，默认会把全部都提取出来。返回的结果是QuerySet，但是其中包裹的不是模型，而是字典，如果想要提取关联数据，那么可以通过F表达式来完成。values也可以使用聚合函数
+values_list 提取需要字段，返回QuerySet，其中包裹的元组，如果数据只有一条，则可以使用flat=True进行扁平化处理，直接返回结果
+all 方法：返回全部数据（返回包裹对象的QuerySet）
+select_related : 可以将关联的对象一起查询出来，只能用于外键连接的形式（一对多或者一对一的形式）
+prefetch_related : 使用的时候传入反向引用的时候调用的名称默认为 filed_set，使用这个方式可以用来查询多对一或者多对多的方式，也可以用来查询一对一或者一对多的，但是不推荐。
+defer : 过滤掉不需要的字段，返回值是一个包裹着模型的QuerySet
+only : 提取某些字段，返回一个包裹模型的QuerySet
+get : 直接返回对象，只能返回一条数据，如果返回数据超过一条就会报错，如果没有匹配到任何数据也会报错。
+create : 用于增加一条数据，并且将数据保存在数据库中，相当于先创建数据，然后调用save方法
+get_or_create : 如果给定的条件存在数据就查找返回，如果不存在就创建一个，然后在返回，返回结果是一个元组，元组中两个内容，第一个是模型对象，第二个是bool值，如果没有创建返回False，如果创建了返还True。
+bulk_create ：可以一次性创建多条数据。
+count ：获取满足条件的数据的个数
+first,last 分别返回QuerySet中第一条和最后一条数据
+exists ： 判断数据是否存在，存在返回True，不存在返回False
+distinct : 去重，默认按照全部字段判断。注意如果和order_by同时使用会失效
+update ：更新数据
+delete : 删除数据，需要注意：字段中on_delete的级联删除方式</code></pre>
+<p>8、数据库常用操作：</p>
+<p>user（用户）,group（部门）,role（角色）三个表</p>
+<pre><code>查询年龄大于18的人
+select * from user where age &gt; 18
+
+查询年龄不等于18的人
+select * from user where age !=18
+
+查询 IT部 和 运维部的所有人
+select * from user where group = &#39;IT部&#39; and group =&#39;运维部&#39;
+
+查询 IT部 或 运维部的所有人
+select * from user where group = &#39;IT部&#39; or group =&#39;运维部&#39;
+
+查询角色是 “管理员” 的所有人
+select * from user where role = &#39;管理员&#39;
+
+设计数据库：会议室预定
+
+设计数据库：员工、部门、角色
+
+查询 “IT”部门所有人
+select * from user where group=&#39;IT&#39;
+
+查询 每个部门 的员工数量
+select count(*) from user where group?
+
+查询 每个部门 年龄不等于 18的人
+
+查询部门人数不满 5 的部门？</code></pre>
+<p>9、数据库优化方案</p>
+<pre><code>尽量避免使用select * 能用字段名就用字段名，避免查询无用字段
+
+select count(*)会查全表，尽量避免
+
+建表时字段类型能用varchar/nvarchar就不要用char/nchar
+
+避免频繁的创建和删除临时表，会耗费性能资源，产生大量log
+
+如果使用临时表，在使用的最后一定要显示删除，先trancate table，再drop table
+
+尽量避免大事务操作，提高并发效率
+
+避免向客户端返回大数据量，数据量过大，应考虑需求是否合理
+
+比如你在一个在线网站使用delete和update操作，必然会引发数据库锁</code></pre>
+<p>10、数据库索引以及注意点？<br>11、什么情况下建索引？<br>12、数据库索引种类？<br>13、drop、delete和truncate区别</p>
+<pre><code>drop直接删掉表；
+
+truncate删除的是表中的数据，再插入数据时自增长的数据id又重新从1开始；
+
+delete删除表中数据，可以在后面添加where字句。</code></pre>
+<p>14、数据库中出现乱码？如何解决？<br>15、执行计划和慢日志？</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bluecobra/archive/2012/01/11/2318922.html">https://www.cnblogs.com/bluecobra/archive/2012/01/11/2318922.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZhangQiye1993/article/details/80717606">https://blog.csdn.net/ZhangQiye1993/article/details/80717606</a><br>16、数据库读写分离</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/h18208975507/article/details/99458396">https://blog.csdn.net/h18208975507/article/details/99458396</a></p>
+<p>主从同步使得数据可以从一个数据库服务器复制到其他服务器上，在复制数据时，一个服务器充当主服务器（master），其余的服务器充当从服务器（slave）。因为复制是异步进行的，所以从服务器不需要一直连接着主服务器，从服务器甚至可以通过拨号断断续续地连接主服务器。通过配置文件，可以指定复制所有的数据库，某个数据库，甚至是某个数据库上的某个表。</p>
+<p>主从同步的好处：</p>
+<pre><code>通过增加从服务器来提高数据库的性能，在主服务器上执行写入和更新，在从服务器上向外提供读功能，可以动态地调整从服务器的数量，从而调整整个数据库的性能。
+
+提高数据安全，因为数据已复制到从服务器，从服务器可以终止复制进程，所以，可以在从服务器上备份而不破坏主服务器相应数据
+
+在主服务器上生成实时数据，而在从服务器上分析这些数据，从而提高主服务器的性能</code></pre>
+<p>读写分离的基本原理就是让主数据库处理事务性增,改,删操作(INSERT,UPDATE,DELETE)操作,而从数据库处理SELECT查询操作,数据库复制被用来把事物性操作导致的变更同步到其他从数据库,以SQL为例,主数据库负责写数据,读数据,读库仅负责读数据,每次有写库操作,同步更新到读库,写库就一个,读库可以有多个,采用日志同步的方式实现主库和多个数据库的数据同步</p>
+<p>具体配置如下：<br>1）在配置文件中增加slave数据库的配置</p>
+<p>在Django的配置文件settings.py中,DATABASES中</p>
+<pre><code>DATABASES = &#123;
+    &#39;default&#39;: &#123;
+        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,
+        &#39;HOST&#39;: &#39;127.0.0.1&#39;,  # 主服务器的运行ip
+        &#39;PORT&#39;: 3306,   # 主服务器的运行port
+        &#39;USER&#39;: &#39;django&#39;,  # 主服务器的用户名
+        &#39;PASSWORD&#39;: &#39;django&#39;,  # 主服务器的密码
+        &#39;NAME&#39;: &#39;djangobase&#39;   #  数据表名
+    &#125;,
+    &#39;slave&#39;: &#123;
+        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, 
+        &#39;HOST&#39;: &#39;127.0.0.1&#39;,
+        &#39;PORT&#39;: 8306,
+        &#39;USER&#39;: &#39;django_slave&#39;,
+        &#39;PASSWORD&#39;: &#39;django_slave&#39;,
+        &#39;NAME&#39;: &#39;djangobase_slave&#39;
+    &#125;
+&#125;　　</code></pre>
+<ol start="2">
+<li>创建数据库操作的路由分类</li>
+</ol>
+<p>在项目的utils中创建db_router.py文件,并在该文件中定义一个db类,用来进行读写分离</p>
+<pre><code>class MasterSlaveDBRouter(object):
+    &quot;&quot;&quot;数据库主从读写分离路由&quot;&quot;&quot;
+
+    def db_for_read(self, model, **hints):
+        &quot;&quot;&quot;读数据库&quot;&quot;&quot;
+        return &quot;slave&quot;
+
+    def db_for_write(self, model, **hints):
+        &quot;&quot;&quot;写数据库&quot;&quot;&quot;
+        return &quot;default&quot;
+
+    def allow_relation(self, obj1, obj2, **hints):
+        &quot;&quot;&quot;是否运行关联操作&quot;&quot;&quot;
+        return True　</code></pre>
+<ol start="3">
+<li>配置读写分离路由</li>
+</ol>
+<p>在配置文件setting.py中增加:</p>
+<p>#配置读写分离<br>    DATABASE_ROUTERS = [‘项目名.utils.db_router.MasterSlaveDBRouter’]</p>
+<p>17、用过什么ORM框架？</p>
+<p>使用Python进行MySQL的库主要有三个：<br>Python-MySQL（更熟悉的名字可能是MySQLdb），<br>PyMySQL<br>SQLAlchemy。</p>
+<p>Python-MySQL：<br>资格最老，核心由C语言打造，接口精炼，性能最棒，缺点是环境依赖较多，安装复杂，近两年已停止更新，<br>只支持Python2，不支持Python3</p>
+<p>PyMySQL：<br>为替代Python-MySQL而生，纯python打造，<br>接口与Python-MySQL兼容，安装方便，支持Python3</p>
+<p>SQLAlchemy:<br>是一个ORM框架，它并不提供底层的数据库操作，<br>而是要借助于MySQLdb、PyMySQL等第三方库来完成，目前SQLAlchemy在Web编程领域应用广泛。</p>
+<p>orm种类：Django’s ORM、peewee、SQLAlchemy</p>
+<p>Django’s ORM</p>
+<pre><code>优点：
+    易用，学习曲线短
+    和Django紧密集合，用Django时使用约定俗成的方法去操作数据库
+
+缺点：
+    QuerySet速度不给力，会逼我用Mysqldb来操作原生sql语句。
+    以前写过一篇关于django orm 跟mysqldb性能的对比</code></pre>
+<p>Peewee</p>
+<pre><code>优点：
+    Django式的API，使其易用
+    轻量实现，很容易和任意web框架集成
+
+缺点：
+    不支持自动化 schema 迁移
+    不能像Django那样，使线上的mysql表结构生成结构化的模型。</code></pre>
+<p>SQLAlchemy</p>
+<pre><code>优点：
+    巨牛逼的API，使得代码有健壮性和适应性
+    灵活的设计，使得能轻松写复杂查询
+
+缺点：
+    工作单元概念不常见
+ 重量级 API，导致长学习曲线</code></pre>
+<p>18、ORM缺点和优点？</p>
+<p>ORM（对象映射关系程序）：通过orm将编程语言的对象模型和数据库的关系模型建立映射关系，这样我们在使用编程语言对数据库进行操作的时候可以直接使用编程语言的对象模型进行操作就可以了，而不用直接使用sql语言。</p>
+<p>orm的优点：</p>
+<p>隐藏了数据访问细节，“封闭”的通用数据库交互，ORM的核心。他使得我们的通用数据库交互变得简单易行，并且完全不用考虑该死的SQL语句。快速开发，由此而来。<br>ORM使我们构造固化数据结构变得简单易行。</p>
+<p>缺点：</p>
+<p>无可避免的，自动化意味着映射和关联管理，代价是牺牲性能（早期，这是所有不喜欢ORM人的共同点）。现在的各种ORM框架都在尝试使用各种方法来减轻这块（LazyLoad，Cache），效果还是很显著的。</p>
+<p>ORM 的优点：</p>
+<pre><code>• 数据模型都在一个地方定义，更容易更新和维护，也利于重用代码。
+• ORM 有现成的工具，很多功能都可以自动完成，比如数据消毒、预处理、事务等等。
+• 它迫使你使用 MVC 架构，ORM 就是天然的 Model，最终使代码更清晰。
+• 基于 ORM 的业务代码比较简单，代码量少，语义性好，容易理解。
+• 你不必编写性能不佳的 SQL。</code></pre>
+<p>ORM 的缺点：</p>
+<pre><code>• ORM 库不是轻量级工具，需要花很多精力学习和设置。
+• 对于复杂的查询，ORM 要么是无法表达，要么是性能不如原生的 SQL。
+• ORM 抽象掉了数据库层，开发者无法了解底层的数据库操作，也无法定制一些特殊的 SQL。</code></pre>
+
+      
     </div>
-</div>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
     
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
     
-</style>
-<div class="">
     
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
-
-
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
-
-    <!-- Baidu Analytics -->
-
-    <!-- Baidu Push -->
+          </div>
+          
 
 <script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>

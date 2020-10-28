@@ -1,483 +1,231 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="LeetCode-1-数组, 茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>LeetCode-1-数组 | 茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="一、数组1.两数之和链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;two-sum&#x2F;  给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。  你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。  示例:  给定 nums &#x3D; [2, 7, 11, 15], target &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-1-数组">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="一、数组1.两数之和链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;two-sum&#x2F;  给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。  你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。  示例:  给定 nums &#x3D; [2, 7, 11, 15], target &#x3D;">
+<meta property="og:locale">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/z-word.png">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/z-word1.png">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water3.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/duijiaoxian.png">
+<meta property="article:published_time" content="2019-09-26T04:13:05.000Z">
+<meta property="article:modified_time" content="2020-10-27T13:17:21.526Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/z-word.png">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="canonical" href="http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
 
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
+  <title>LeetCode-1-数组 | 茉莉Python</title>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
 
 
-<div id="mobile-nav" class="side-nav sidenav">
 
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
 
-    
+  <div class="site-meta">
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
 
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">LeetCode-1-数组</h1>
-                </div>
-            </div>
-        </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
+  </div>
 </div>
 
 
 
 
-<main class="post-container content">
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-    #articleContent :focus {
-        outline: none;
-    }
 
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
+          <div class="content post posts-expand">
+            
 
-    .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/">
 
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
 
-    #toc-content {
-        height: calc(100vh - 250px);
-        overflow: auto;
-    }
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-1-数组
+        </h1>
 
-    #toc-content ol {
-        padding-left: 10px;
-    }
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-    #toc-content ol li {
-        padding-left: 10px;
-    }
+              <time title="Created: 2019-09-26 12:13:05" itemprop="dateCreated datePublished" datetime="2019-09-26T12:13:05+08:00">2019-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-27 21:17:21" itemprop="dateModified" datetime="2020-10-27T21:17:21+08:00">2020-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
 
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
+          
 
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-
-        position: absolute;
-        right: 23.5vw;
-        display: block;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/LeetCode/">
-                                <span class="chip bg-color">LeetCode</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                数据结构与算法
-                            </a>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                LeetCode
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2019-09-26
-                </div>
-                
-
-                
-
-                
-
-                
-
-                
-            </div>
         </div>
-        <hr class="clearfix">
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <h2 id="一、数组"><a href="#一、数组" class="headerlink" title="一、数组"></a>一、数组</h2><h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h3><pre><code>链接：https://leetcode-cn.com/problems/two-sum/
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、数组"><a href="#一、数组" class="headerlink" title="一、数组"></a>一、数组</h2><h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h3><pre><code>链接：https://leetcode-cn.com/problems/two-sum/
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
@@ -491,18 +239,37 @@
 所以返回 [0, 1]</code></pre>
 <p>题解一|暴力：</p>
 <p>最简单的思路就是通过两遍循环直接进行暴力破解，时间复杂度O(n^2)，空间复杂度O(1)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">   def twoSum(self,nums,target):</span><br><span class="line">       for i in range(0,len(nums)):</span><br><span class="line">           for j in range(i+1,len(nums)):</span><br><span class="line">               if nums[j]&#x3D;&#x3D;target-nums[i]:</span><br><span class="line">                   return i,j</span><br></pre></td></tr></table></figure>
-
+<pre><code> class Solution:
+    def twoSum(self,nums,target):
+        for i in range(0,len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[j]==target-nums[i]:
+                    return i,j</code></pre>
 <p>题解二|hash：</p>
 <p>接着思考如何进行优化，采用hash记录需要的key，遍历的时候找到需要的值。时间复杂度O(n)，空间复杂度O(n)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">   def twoSum(self,nums,target):</span><br><span class="line">       dicts&#x3D;&#123;&#125;</span><br><span class="line">       for i in range(len(nums)):</span><br><span class="line">           tmp&#x3D;nums[i]</span><br><span class="line">           if target-tmp in dicts:</span><br><span class="line">               return (dicts[target-tmp],i)</span><br><span class="line">           dicts[tmp]&#x3D;i</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">   def twoSum(self,nums,target):</span><br><span class="line">       dicts&#x3D;&#123;&#125;</span><br><span class="line">       for i,num in enumerate(nums):</span><br><span class="line">           if num in dicts:</span><br><span class="line">               return [dicts[num],i]</span><br><span class="line">           else:</span><br><span class="line">               dicts[target-num]&#x3D;i</span><br></pre></td></tr></table></figure>
-
+<pre><code> class Solution:
+    def twoSum(self,nums,target):
+        dicts=&#123;&#125;
+        for i in range(len(nums)):
+            tmp=nums[i]
+            if target-tmp in dicts:
+                return (dicts[target-tmp],i)
+            dicts[tmp]=i</code></pre>
+<pre><code> class Solution:
+    def twoSum(self,nums,target):
+        dicts=&#123;&#125;
+        for i,num in enumerate(nums):
+            if num in dicts:
+                return [dicts[num],i]
+            else:
+                dicts[target-num]=i</code></pre>
 <p>题解三|切片：</p>
 <p>判断target-nums[i]是否在nums[i+1:]中，时间复杂度O(n)，空间复杂度O(1)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">   def twoSum(self,nums,target):</span><br><span class="line">       for i in range(len(nums)):</span><br><span class="line">           if target-nums[i] in nums[i+1:]:</span><br><span class="line">               return [i,nums.index(target-nums[i],i+1)]</span><br></pre></td></tr></table></figure>
-
+<pre><code> class Solution:
+    def twoSum(self,nums,target):
+        for i in range(len(nums)):
+            if target-nums[i] in nums[i+1:]:
+                return [i,nums.index(target-nums[i],i+1)]</code></pre>
 <p>index()方法语法：list.index(x[, start[, end]])<br>参数:<br>    x– 查找的对象。<br>    start– 可选，查找的起始位置。<br>    end– 可选，查找的结束位置。<br>返回值:该方法返回查找对象的索引位置，如果没有找到对象则抛出异常。</p>
 <h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2.两数相加"></a>2.两数相加</h3><pre><code>链接：
 https://leetcode-cn.com/problems/add-two-numbers/
@@ -519,10 +286,65 @@ https://leetcode-cn.com/problems/add-two-numbers/
 输出：7 -&gt; 0 -&gt; 8
 原因：342 + 465 = 807</code></pre>
 <p>题解一：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">class ListNode:</span><br><span class="line">    def __init__(self,x):</span><br><span class="line">        self.val&#x3D;x</span><br><span class="line">        self.next&#x3D;None</span><br><span class="line">class Solution:</span><br><span class="line">    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:</span><br><span class="line">        if l1 is None:</span><br><span class="line">            return l2</span><br><span class="line">        if l2 is None:</span><br><span class="line">            return l1</span><br><span class="line"></span><br><span class="line">        tmp&#x3D;ListNode(0)</span><br><span class="line">        res&#x3D;tmp</span><br><span class="line">        flag&#x3D;0</span><br><span class="line"></span><br><span class="line">        while l1 or l2:</span><br><span class="line">            tmpSum&#x3D;0</span><br><span class="line">            if l1:</span><br><span class="line">                tmpSum&#x3D;l1.val</span><br><span class="line">                l1&#x3D;l1.next</span><br><span class="line">            if l2:</span><br><span class="line">                tmpSum+&#x3D;l2.val</span><br><span class="line">                l2&#x3D;l2.next</span><br><span class="line">            tmpRes&#x3D;(tmpSum+falg)%10</span><br><span class="line">            flag&#x3D;(tmpSum+flag)&#x2F;&#x2F;10</span><br><span class="line"></span><br><span class="line">            res.next&#x3D;ListNode(tmpRes)</span><br><span class="line">            res&#x3D;res.next # res后移</span><br><span class="line"></span><br><span class="line">            # 这个判断是拿来解决此种情况的：</span><br><span class="line">            # 输入：【5】和【5】</span><br><span class="line">            # 输出：【0,1】</span><br><span class="line">            if flag:</span><br><span class="line">                res.next&#x3D;ListNode(1) # 这里创建了节点，但是没有后移</span><br><span class="line"></span><br><span class="line">        res&#x3D;tmp.next # 把链表初始化的0后移</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<pre><code>class ListNode:
+    def __init__(self,x):
+        self.val=x
+        self.next=None
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
+        if l1 is None:
+            return l2
+        if l2 is None:
+            return l1
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:</span><br><span class="line">        res&#x3D;dummy&#x3D;ListNode(-1)</span><br><span class="line">        flag&#x3D;0</span><br><span class="line">        while l1 and l2:</span><br><span class="line">            res.next&#x3D;ListNode(l1.val+l2.val+flag)</span><br><span class="line">            flag&#x3D;res.next.val &#x2F;&#x2F; 10</span><br><span class="line">            res.next.val %&#x3D; 10</span><br><span class="line">            res&#x3D;res.next</span><br><span class="line">            l1&#x3D;l1.next</span><br><span class="line">            l2&#x3D;l2.next</span><br><span class="line">        </span><br><span class="line">        p&#x3D; l1 or l2</span><br><span class="line">        while p:</span><br><span class="line">            res.next&#x3D;ListNode(p.val+flag)</span><br><span class="line">            flag&#x3D;res.next.val &#x2F;&#x2F; 10</span><br><span class="line">            res.next.val %&#x3D; 10</span><br><span class="line">            p&#x3D;p.next</span><br><span class="line">            res&#x3D;res.next</span><br><span class="line">        if flag:</span><br><span class="line">            res.next&#x3D;ListNode(1)</span><br><span class="line">        return dummy.next</span><br></pre></td></tr></table></figure>
+        tmp=ListNode(0)
+        res=tmp
+        flag=0
 
+        while l1 or l2:
+            tmpSum=0
+            if l1:
+                tmpSum=l1.val
+                l1=l1.next
+            if l2:
+                tmpSum+=l2.val
+                l2=l2.next
+            tmpRes=(tmpSum+falg)%10
+            flag=(tmpSum+flag)//10
+
+            res.next=ListNode(tmpRes)
+            res=res.next # res后移
+
+            # 这个判断是拿来解决此种情况的：
+            # 输入：【5】和【5】
+            # 输出：【0,1】
+            if flag:
+                res.next=ListNode(1) # 这里创建了节点，但是没有后移
+
+        res=tmp.next # 把链表初始化的0后移
+        return res</code></pre>
+<pre><code>class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
+        res=dummy=ListNode(-1)
+        flag=0
+        while l1 and l2:
+            res.next=ListNode(l1.val+l2.val+flag)
+            flag=res.next.val // 10
+            res.next.val %= 10
+            res=res.next
+            l1=l1.next
+            l2=l2.next
+
+        p= l1 or l2
+        while p:
+            res.next=ListNode(p.val+flag)
+            flag=res.next.val // 10
+            res.next.val %= 10
+            p=p.next
+            res=res.next
+        if flag:
+            res.next=ListNode(1)
+        return dummy.next</code></pre>
 <h3 id="？？4-寻找两个有序数组的中位数"><a href="#？？4-寻找两个有序数组的中位数" class="headerlink" title="？？4.寻找两个有序数组的中位数"></a>？？4.寻找两个有序数组的中位数</h3><pre><code>链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
 
 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
@@ -573,8 +395,19 @@ E   O E   I I
 E C   I H   N
 T     S     G</code></pre>
 <p>题解一：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/z-word.png"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/z-word1.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def convert(self, s: str, numRows: int) -&gt; str:</span><br><span class="line">        if numRows&lt;2:</span><br><span class="line">            return s</span><br><span class="line">        ans&#x3D;[&#39;&#39; for _ in range(numRows)]</span><br><span class="line">        i,flag&#x3D;0,-1</span><br><span class="line">        for c in s:</span><br><span class="line">            ans[i] +&#x3D; c</span><br><span class="line">            if i&#x3D;&#x3D;0 or i&#x3D;&#x3D;numRows-1:</span><br><span class="line">                flag&#x3D;-flag</span><br><span class="line">            i+&#x3D;flag</span><br><span class="line">        return &#39;&#39;.join(ans)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def convert(self, s: str, numRows: int) -&gt; str:
+        if numRows&lt;2:
+            return s
+        ans=[&#39;&#39; for _ in range(numRows)]
+        i,flag=0,-1
+        for c in s:
+            ans[i] += c
+            if i==0 or i==numRows-1:
+                flag=-flag
+            i+=flag
+        return &#39;&#39;.join(ans)
+</code></pre>
 <h3 id="7-整数反转"><a href="#7-整数反转" class="headerlink" title="7.整数反转"></a>7.整数反转</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-integer/
 
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
@@ -595,9 +428,21 @@ T     S     G</code></pre>
 
 假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−2^31,  2^31 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</code></pre>
 <p>题解一：<br>int型的数值范围是 -2147483648～2147483647， 那么如果我们要翻转 1000000009 这个在范围内的数得到 9000000001，而翻转后的数就超过了范围。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverse(self, x: int) -&gt; int:</span><br><span class="line">        x&#x3D;int(str(x)[::-1]) if x&gt;&#x3D;0 else -int(str((-x)[::-1])) # python3没有数字范围，如果其他语言之间int会造成精度缺失。</span><br><span class="line">        # return x if x&lt;2**31-1 and x&gt;-2**31 else 0</span><br><span class="line">        return x if x&lt;pow(2,31)-1 and x&gt;-pow(2,31) else 0</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def reverse(self, x: int) -&gt; int:
+        x=int(str(x)[::-1]) if x&gt;=0 else -int(str((-x)[::-1])) # python3没有数字范围，如果其他语言之间int会造成精度缺失。
+        # return x if x&lt;2**31-1 and x&gt;-2**31 else 0
+        return x if x&lt;pow(2,31)-1 and x&gt;-pow(2,31) else 0</code></pre>
 <p>题解二：<br>    # /:除法<br>    # //:整除<br>    # %：取模</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverse(self, x):</span><br><span class="line">        flag &#x3D; 1 if x &gt;&#x3D; 0 else -1</span><br><span class="line">        new_x, x &#x3D; 0, abs(x)</span><br><span class="line">        while x:</span><br><span class="line">            new_x &#x3D; 10 * new_x + x % 10</span><br><span class="line">            x &#x2F;&#x2F;&#x3D; 10</span><br><span class="line">        new_x &#x3D; flag * new_x</span><br><span class="line">        return new_x if new_x &lt; 2147483648 and new_x &gt;&#x3D; -2147483648 else 0</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def reverse(self, x):
+        flag = 1 if x &gt;= 0 else -1
+        new_x, x = 0, abs(x)
+        while x:
+            new_x = 10 * new_x + x % 10
+            x //= 10
+        new_x = flag * new_x
+        return new_x if new_x &lt; 2147483648 and new_x &gt;= -2147483648 else 0</code></pre>
 <h3 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8.字符串转换整数(atoi)"></a>8.字符串转换整数(atoi)</h3><pre><code>链接：https://leetcode-cn.com/problems/string-to-integer-atoi/
 
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
@@ -650,12 +495,51 @@ T     S     G</code></pre>
 +：前面一个字符的一个或多个
 \D：一个非数字字符
 *：前面一个字符的0个或多个</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def myAtoi(self, str: str) -&gt; int:</span><br><span class="line">        return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)</span><br><span class="line">        #由于返回的是个列表，解包并且转换成整数</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)
+        #由于返回的是个列表，解包并且转换成整数</code></pre>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        # return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)
+        # print(re.findall(&#39;\d&#39;,str.lstrip())) # [&#39;4&#39;, &#39;2&#39;, &#39;4&#39;, &#39;4&#39;]
+        # print(re.findall(&#39;\d*&#39;,str.lstrip())) # [&#39;4244&#39;, &#39;&#39;]
+        # print(re.findall(&#39;\d+&#39;,str.lstrip())) # [&#39;4244&#39;]
+        # print(re.findall(&#39;^[+-]\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]
+        # print(re.findall(&#39;^[+-]?\d+&#39;,str.lstrip())) # ?代表前面的+-可有可无。
+        # #  re.findall返回的是一个字符串列表，int()数据类型转换不支持列表，用*对列表解包得到字符串。比如[7,8,8]→7,8,8
+        # print(int(*re.findall(&#39;^[+-]\d+&#39;,str.lstrip()))) # -4244
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def myAtoi(self, str: str) -&gt; int:</span><br><span class="line">        # return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)</span><br><span class="line">        # print(re.findall(&#39;\d&#39;,str.lstrip())) # [&#39;4&#39;, &#39;2&#39;, &#39;4&#39;, &#39;4&#39;]</span><br><span class="line">        # print(re.findall(&#39;\d*&#39;,str.lstrip())) # [&#39;4244&#39;, &#39;&#39;]</span><br><span class="line">        # print(re.findall(&#39;\d+&#39;,str.lstrip())) # [&#39;4244&#39;]</span><br><span class="line">        # print(re.findall(&#39;^[+-]\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]</span><br><span class="line">        # print(re.findall(&#39;^[+-]?\d+&#39;,str.lstrip())) # ?代表前面的+-可有可无。</span><br><span class="line">        # #  re.findall返回的是一个字符串列表，int()数据类型转换不支持列表，用*对列表解包得到字符串。比如[7,8,8]→7,8,8</span><br><span class="line">        # print(int(*re.findall(&#39;^[+-]\d+&#39;,str.lstrip()))) # -4244</span><br><span class="line"></span><br><span class="line">        x&#x3D;int(*re.findall(&#39;^[-+]?\d+&#39;,str.lstrip()))</span><br><span class="line">        if x &gt; pow(2,31)-1:</span><br><span class="line">            return pow(2,31)-1</span><br><span class="line">        elif x &lt; pow(-2,31):</span><br><span class="line">            return pow(-2,31)</span><br><span class="line">        else:</span><br><span class="line">            return x</span><br></pre></td></tr></table></figure>
-
+        x=int(*re.findall(&#39;^[-+]?\d+&#39;,str.lstrip()))
+        if x &gt; pow(2,31)-1:
+            return pow(2,31)-1
+        elif x &lt; pow(-2,31):
+            return pow(-2,31)
+        else:
+            return x</code></pre>
 <p>题解二|逐个强行转int：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def myAtoi(self, str: str) -&gt; int:</span><br><span class="line">        str&#x3D;str.lstrip()</span><br><span class="line"></span><br><span class="line">        if len(str)&#x3D;&#x3D;0:</span><br><span class="line">            return 0</span><br><span class="line">        last&#x3D;0</span><br><span class="line">        i&#x3D;1 if str[0]&#x3D;&#x3D;&#39;+&#39; or str[0]&#x3D;&#x3D;&#39;-&#39; else 0</span><br><span class="line">        #循环，直到无法强转成int，跳出循环</span><br><span class="line">        while i&lt;&#x3D;len(str):</span><br><span class="line">            try:</span><br><span class="line">                last&#x3D;int(str[:i+1]) # int[&#39;aa&#39;]会报错，所以走break</span><br><span class="line">                i+&#x3D;1</span><br><span class="line">            except:</span><br><span class="line">                break</span><br><span class="line">        # 判断数字是否超出范围</span><br><span class="line">        if last&lt;-2**31:</span><br><span class="line">            return -2**31</span><br><span class="line">        if last&gt;2**31-1:</span><br><span class="line">            return 2**31-1</span><br><span class="line">        return last</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        str=str.lstrip()
+
+        if len(str)==0:
+            return 0
+        last=0
+        i=1 if str[0]==&#39;+&#39; or str[0]==&#39;-&#39; else 0
+        #循环，直到无法强转成int，跳出循环
+        while i&lt;=len(str):
+            try:
+                last=int(str[:i+1]) # int[&#39;aa&#39;]会报错，所以走break
+                i+=1
+            except:
+                break
+        # 判断数字是否超出范围
+        if last&lt;-2**31:
+            return -2**31
+        if last&gt;2**31-1:
+            return 2**31-1
+        return last
+</code></pre>
 <h3 id="9-回文数"><a href="#9-回文数" class="headerlink" title="9.回文数"></a>9.回文数</h3><pre><code>链接：https://leetcode-cn.com/problems/palindrome-number/
 
 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
@@ -675,9 +559,41 @@ T     S     G</code></pre>
 输出: false
 解释: 从右向左读, 为 01 。因此它不是一个回文数。</code></pre>
 <p>题解一|整数转换为字符串:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isPalindrome(self, x: int) -&gt; bool:</span><br><span class="line">        x&#x3D;str(x)</span><br><span class="line">        if x &#x3D;&#x3D; x[::-1]:</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def isPalindrome(self, x) :</span><br><span class="line">        x&#x3D;str(x)</span><br><span class="line">        return x&#x3D;&#x3D;x[::-1]</span><br><span class="line"></span><br><span class="line"># 整数转字符串，通过下标对比确定该整数是否为回文数</span><br><span class="line">class Solution:</span><br><span class="line">    def isPalindrome(self, x) :</span><br><span class="line">        x&#x3D;str(x)</span><br><span class="line">        for i in range(0,int(len(x)&#x2F;2)):</span><br><span class="line">            if x[i] !&#x3D; x[-i-1]:</span><br><span class="line">                return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def isPalindrome(self, x: int) -&gt; bool:
+        x=str(x)
+        if x == x[::-1]:
+            return True
+        else:
+            return False
+
+class Solution:
+    def isPalindrome(self, x) :
+        x=str(x)
+        return x==x[::-1]
+
+# 整数转字符串，通过下标对比确定该整数是否为回文数
+class Solution:
+    def isPalindrome(self, x) :
+        x=str(x)
+        for i in range(0,int(len(x)/2)):
+            if x[i] != x[-i-1]:
+                return False
+        return True</code></pre>
 <p>题解二（数字反转）:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isPalindrome(self, x) :</span><br><span class="line">        if x&lt;0:</span><br><span class="line">            return False</span><br><span class="line">        m,n&#x3D;x,0</span><br><span class="line"></span><br><span class="line">        while m:</span><br><span class="line">            n&#x3D;n*10+m%10</span><br><span class="line">            m&#x3D;m&#x2F;&#x2F;10</span><br><span class="line">        if x&#x3D;&#x3D;n:</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def isPalindrome(self, x) :
+        if x&lt;0:
+            return False
+        m,n=x,0
+
+        while m:
+            n=n*10+m%10
+            m=m//10
+        if x==n:
+            return True
+        else:
+            return False</code></pre>
 <h3 id="11-盛最多水的容器"><a href="#11-盛最多水的容器" class="headerlink" title="11.盛最多水的容器"></a>11.盛最多水的容器</h3><pre><code>链接：https://leetcode-cn.com/problems/container-with-most-water/
 
 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
@@ -692,15 +608,42 @@ T     S     G</code></pre>
 输出: 49</code></pre>
 <p>思路：<br>    矩阵的面积=矩阵长度 * 矩阵宽度<br>    矩阵长度：两条垂直线的距离<br>    矩阵宽度：两条垂直线中较短一条的长度<br>    面积最大化：两条垂直线的距离越远越好，两条垂直线的最短长度也要越长越好。</p>
 <p>解法一|暴力|超时：<br>    在这种情况下，我们将简单地考虑每对可能出现的线段组合并找出这些情况之下的最大面积。<br>    时间复杂度O(n^2)，计算n(n-1)/2种高度组合的面积，空间复杂度O(1)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">不能通过case:[1,1],结果应该为1.</span><br><span class="line">class Solution:</span><br><span class="line">    def maxArea(self, height: List[int]) -&gt; int:</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(len(height)):</span><br><span class="line">            for j in range(i+1,len(height)):</span><br><span class="line">                # print(&#39;i&#39;,i,height[i])</span><br><span class="line">                # print(&#39;j&#39;,j,height[j])</span><br><span class="line">                area&#x3D;max(area,min(height[i],height[j])*(j-1)) # j-1为矩阵的长度</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxArea(self, height: List[int]) -&gt; int:</span><br><span class="line">        area&#x3D;0</span><br><span class="line">        for i in range(len(height)-1):</span><br><span class="line">            for j in range(i+1,len(height)):</span><br><span class="line">                # print(&#39;i&#39;,i,height[i])</span><br><span class="line">                # print(&#39;j&#39;,j,height[j])</span><br><span class="line">                area&#x3D;max(area,min(height[i],height[j])*(j-i)) # j-i为矩阵的长度</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
-
+<pre><code>不能通过case:[1,1],结果应该为1.
+class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        area=0
+        for i in range(len(height)):
+            for j in range(i+1,len(height)):
+                # print(&#39;i&#39;,i,height[i])
+                # print(&#39;j&#39;,j,height[j])
+                area=max(area,min(height[i],height[j])*(j-1)) # j-1为矩阵的长度</code></pre>
+<pre><code>class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        area=0
+        for i in range(len(height)-1):
+            for j in range(i+1,len(height)):
+                # print(&#39;i&#39;,i,height[i])
+                # print(&#39;j&#39;,j,height[j])
+                area=max(area,min(height[i],height[j])*(j-i)) # j-i为矩阵的长度
+        return area</code></pre>
 <p>解法二|双指针：</p>
 <pre><code>设置两个指针 left 和 right，分别指向数组的最左端和最右端。此时，两条垂直线的距离是最远的，若要下一个矩阵面积比当前面积来得大，必须要把 height[left] 和 height[right] 中较短的垂直线往中间移动，看看是否可以找到更长的垂直线。
 时间复杂度O(n)，空间复杂度O(1)。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def maxArea(self, height: List[int]) -&gt; int:</span><br><span class="line">        left&#x3D;0</span><br><span class="line">        right&#x3D;len(height)-1</span><br><span class="line">        area&#x3D;0</span><br><span class="line"></span><br><span class="line">        while left &lt; right:</span><br><span class="line">            cur&#x3D;min(height[left],height[right]) * (right-left)</span><br><span class="line">            area&#x3D;max(area,cur)</span><br><span class="line"></span><br><span class="line">            if height[left]&lt;height[right]:</span><br><span class="line">                left+&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                right-&#x3D;1</span><br><span class="line">        return area</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def maxArea(self, height: List[int]) -&gt; int:
+        left=0
+        right=len(height)-1
+        area=0
 
+        while left &lt; right:
+            cur=min(height[left],height[right]) * (right-left)
+            area=max(area,cur)
+
+            if height[left]&lt;height[right]:
+                left+=1
+            else:
+                right-=1
+        return area</code></pre>
 <h3 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15.三数之和"></a>15.三数之和</h3><pre><code>链接：https://leetcode-cn.com/problems/3sum/
 
 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
@@ -720,7 +663,37 @@ T     S     G</code></pre>
 铺垫：先将给定 nums 排序，复杂度为 O(nlogn)
 思路：固定 3 个指针中最左（最小）数字的指针 k，双指针 i，j 分设在数组索引 (k, len(nums))两端，通过双指针交替向中间移动，记录对于每个固定指针 k 的所有满足 nums[k] + nums[i] + nums[j] == 0 的 i,j 组合。
 时间复杂度O(n^2)，空间复杂度O(n)。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:</span><br><span class="line">        nums.sort()</span><br><span class="line">        lens&#x3D;len(nums)</span><br><span class="line">        res&#x3D;[]</span><br><span class="line"></span><br><span class="line">        for k in range(lens):</span><br><span class="line">            if k&gt;0 and nums[k]&#x3D;&#x3D;nums[k-1]:</span><br><span class="line">                continue</span><br><span class="line"></span><br><span class="line">            i,j&#x3D;k+1,lens-1</span><br><span class="line">            while i&lt;j:</span><br><span class="line">                sum&#x3D;nums[k]+nums[i]+nums[j]</span><br><span class="line">                if sum&#x3D;&#x3D;0:</span><br><span class="line">                    tmp&#x3D;[nums[k],nums[i],nums[j]]</span><br><span class="line">                    res.append(tmp)</span><br><span class="line"></span><br><span class="line">                    while i&lt;j and nums[i]&#x3D;&#x3D;nums[i+1]:</span><br><span class="line">                        i+&#x3D;1</span><br><span class="line">                    while i&lt;j and nums[j]&#x3D;&#x3D;nums[j-1]:</span><br><span class="line">                        j-&#x3D;1</span><br><span class="line"></span><br><span class="line">                    i+&#x3D;1</span><br><span class="line">                    j-&#x3D;1</span><br><span class="line"></span><br><span class="line">                elif sum&lt;0:</span><br><span class="line">                    i+&#x3D;1</span><br><span class="line">                else:</span><br><span class="line">                    j-&#x3D;1</span><br><span class="line"></span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def threeSum(self, nums: List[int]) -&gt; List[List[int]]:
+        nums.sort()
+        lens=len(nums)
+        res=[]
+
+        for k in range(lens):
+            if k&gt;0 and nums[k]==nums[k-1]:
+                continue
+
+            i,j=k+1,lens-1
+            while i&lt;j:
+                sum=nums[k]+nums[i]+nums[j]
+                if sum==0:
+                    tmp=[nums[k],nums[i],nums[j]]
+                    res.append(tmp)
+
+                    while i&lt;j and nums[i]==nums[i+1]:
+                        i+=1
+                    while i&lt;j and nums[j]==nums[j-1]:
+                        j-=1
+
+                    i+=1
+                    j-=1
+
+                elif sum&lt;0:
+                    i+=1
+                else:
+                    j-=1
+
+        return res</code></pre>
 <h3 id="16-最接近的三数之和"><a href="#16-最接近的三数之和" class="headerlink" title="16.最接近的三数之和"></a>16.最接近的三数之和</h3><pre><code>链接：https://leetcode-cn.com/problems/3sum-closest/
 
 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
@@ -731,7 +704,30 @@ T     S     G</code></pre>
 <p>题解一|排序+双指针：</p>
 <p>思路类似于三数之和，首先将数组进行排序，同时在左右指针运动过程中，记录与 target 绝对值差值最小的三数之和。</p>
 <p>时间复杂度：O(nlogn) + O(n^2) = O(n^2)，空间复杂度O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def threeSumClosest(self, nums: List[int], target: int) -&gt; int:</span><br><span class="line">        nums.sort()</span><br><span class="line">        length&#x3D;len(nums)</span><br><span class="line">        res&#x3D;float(&#39;inf&#39;)</span><br><span class="line">        </span><br><span class="line">        for k in range(length):</span><br><span class="line">            # if k&gt;0 and nums[k]&#x3D;&#x3D;nums[k-1]:</span><br><span class="line">            #    continue</span><br><span class="line">            </span><br><span class="line">            i,j&#x3D;k+1,length-1</span><br><span class="line">            while i&lt;j:</span><br><span class="line">                sum&#x3D;nums[k]+nums[i]+nums[j]</span><br><span class="line">                if sum&#x3D;&#x3D;target:</span><br><span class="line">                    return target</span><br><span class="line">                </span><br><span class="line">                if abs(res-target)&gt;abs(sum-target):</span><br><span class="line">                    res&#x3D;sum</span><br><span class="line">                    </span><br><span class="line">                if sum&lt;target:</span><br><span class="line">                    i+&#x3D;1</span><br><span class="line">                else:</span><br><span class="line">                    j-&#x3D;1</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -&gt; int:
+        nums.sort()
+        length=len(nums)
+        res=float(&#39;inf&#39;)
+
+        for k in range(length):
+            # if k&gt;0 and nums[k]==nums[k-1]:
+            #    continue
+
+            i,j=k+1,length-1
+            while i&lt;j:
+                sum=nums[k]+nums[i]+nums[j]
+                if sum==target:
+                    return target
+
+                if abs(res-target)&gt;abs(sum-target):
+                    res=sum
+
+                if sum&lt;target:
+                    i+=1
+                else:
+                    j-=1
+        return res</code></pre>
 <h3 id="18-四数之和"><a href="#18-四数之和" class="headerlink" title="18.四数之和"></a>18.四数之和</h3><pre><code>链接：https://leetcode-cn.com/problems/4sum/
 
 给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
@@ -753,7 +749,32 @@ T     S     G</code></pre>
 <p>题解一|排序+双指针：</p>
 <p>和三数之和解法类似，先将数组排序固定两个元素，再用两个指针，一个指向头，一个指向尾，看四数之和为多少，太大了右指针左移，太小了左指针右移，因为有可能存在重复的数组，先将结果保存在set中，最后在转为list输出。</p>
 <p>时间复杂度：O(n^3)，空间复杂度O(n)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:</span><br><span class="line">        nums.sort()</span><br><span class="line">        length&#x3D;len(nums)</span><br><span class="line">        res&#x3D;[]</span><br><span class="line">        sets&#x3D;set()</span><br><span class="line">        </span><br><span class="line">        for i in range(length-3):</span><br><span class="line">            for j in range(i+1,length-2):</span><br><span class="line">                left,right&#x3D;j+1,length-1</span><br><span class="line">                </span><br><span class="line">                while left&lt;right:</span><br><span class="line">                    sum&#x3D;nums[i]+nums[j]+nums[left]+nums[right]</span><br><span class="line">                    if sum&#x3D;&#x3D;target:</span><br><span class="line">                        tmp&#x3D;(nums[i],nums[j],nums[left],nums[right])</span><br><span class="line">                        sets.add(tmp) # 去重</span><br><span class="line">                        left+&#x3D;1</span><br><span class="line">                        right-&#x3D;1</span><br><span class="line">                    elif sum&lt;target:</span><br><span class="line">                        left+&#x3D;1</span><br><span class="line">                    else:</span><br><span class="line">                        right-&#x3D;1</span><br><span class="line">                        </span><br><span class="line">        for each in sets:</span><br><span class="line">            res.append(list(each))</span><br><span class="line">        return res </span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]:
+        nums.sort()
+        length=len(nums)
+        res=[]
+        sets=set()
+
+        for i in range(length-3):
+            for j in range(i+1,length-2):
+                left,right=j+1,length-1
+
+                while left&lt;right:
+                    sum=nums[i]+nums[j]+nums[left]+nums[right]
+                    if sum==target:
+                        tmp=(nums[i],nums[j],nums[left],nums[right])
+                        sets.add(tmp) # 去重
+                        left+=1
+                        right-=1
+                    elif sum&lt;target:
+                        left+=1
+                    else:
+                        right-=1
+
+        for each in sets:
+            res.append(list(each))
+        return res </code></pre>
 <h3 id="26-删除排序数组中的重复项"><a href="#26-删除排序数组中的重复项" class="headerlink" title="26.删除排序数组中的重复项"></a>26.删除排序数组中的重复项</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
 
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
@@ -782,15 +803,56 @@ T     S     G</code></pre>
 <pre><code>记录数组中不同数字的数量；
 作为修改数组元素的索引index。</code></pre>
 <p>最终，返回 k+1 即可。<br>时间复杂度O(n),空间复杂福O(1)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicates(self, nums: List[int]) -&gt; int:</span><br><span class="line">        if not nums:</span><br><span class="line">            return 0</span><br><span class="line">        j&#x3D;0</span><br><span class="line">        for i in range(1,len(nums)):</span><br><span class="line">            if nums[i]!&#x3D;nums[j]:</span><br><span class="line">                nums[j+1]&#x3D;nums[i]</span><br><span class="line">                j+&#x3D;1</span><br><span class="line">        return j+1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicates(self, nums: List[int]) -&gt; int:</span><br><span class="line">        index&#x3D;0</span><br><span class="line">        for i in range(1,len(nums)):</span><br><span class="line">            if nums[i] !&#x3D; nums[index]:</span><br><span class="line">                index+&#x3D;1</span><br><span class="line">                nums[index]&#x3D;nums[i]</span><br><span class="line">        return index+1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicates(self, nums: List[int]) -&gt; int:</span><br><span class="line">        if not nums:</span><br><span class="line">            return 0</span><br><span class="line">        slow&#x3D;0</span><br><span class="line">        for fast in range(len(nums)):</span><br><span class="line">            if nums[slow] !&#x3D; nums[fast]:</span><br><span class="line">                slow+&#x3D;1</span><br><span class="line">            nums[slow]&#x3D;nums[fast]</span><br><span class="line">        return slow+1</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicates(self, nums: List[int]) -&gt; int:</span><br><span class="line">        if not nums:</span><br><span class="line">            return 0</span><br><span class="line">        slow&#x3D;0</span><br><span class="line">        for fast in range(len(nums)):</span><br><span class="line">            if nums[fast] &#x3D;&#x3D; nums[slow]:</span><br><span class="line">                fast+&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                slow+&#x3D;1</span><br><span class="line">                nums[slow]&#x3D;nums[fast]</span><br><span class="line">        return slow+1</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeDuplicates(self, nums: List[int]) -&gt; int:</span><br><span class="line">        pre,cur&#x3D;0,1</span><br><span class="line">        while cur&lt;len(nums):</span><br><span class="line">            if nums[pre]&#x3D;&#x3D;nums[cur]:</span><br><span class="line">                nums.pop(cur)</span><br><span class="line">            else:</span><br><span class="line">                pre,cur&#x3D;pre+1,cur+1</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        j=0
+        for i in range(1,len(nums)):
+            if nums[i]!=nums[j]:
+                nums[j+1]=nums[i]
+                j+=1
+        return j+1
+</code></pre>
+<pre><code>class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        index=0
+        for i in range(1,len(nums)):
+            if nums[i] != nums[index]:
+                index+=1
+                nums[index]=nums[i]
+        return index+1
+</code></pre>
+<pre><code>class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        slow=0
+        for fast in range(len(nums)):
+            if nums[slow] != nums[fast]:
+                slow+=1
+            nums[slow]=nums[fast]
+        return slow+1</code></pre>
+<pre><code>class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        slow=0
+        for fast in range(len(nums)):
+            if nums[fast] == nums[slow]:
+                fast+=1
+            else:
+                slow+=1
+                nums[slow]=nums[fast]
+        return slow+1</code></pre>
+<pre><code>class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        pre,cur=0,1
+        while cur&lt;len(nums):
+            if nums[pre]==nums[cur]:
+                nums.pop(cur)
+            else:
+                pre,cur=pre+1,cur+1</code></pre>
 <h3 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27.移除元素"></a>27.移除元素</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-element/
 
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
@@ -817,8 +879,14 @@ T     S     G</code></pre>
 你不需要考虑数组中超出新长度后面的元素。</code></pre>
 <p>题解一|双指针：</p>
 <p>可以保留两个指针 i 和 j，其中 i 是慢指针，j 是快指针。当 nums[j]与val相等时，递增 j以跳过该元素。只要 nums[j] 不等于 val，我们就复制 nums[j]到 nums[i] 并同时递增两个索引。重复这一过程，直到 j 到达数组的末尾，该数组的新长度为 i。<br>时间复杂度O(n),空间复杂度O(1).</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def removeElement(self, nums: List[int], val: int) -&gt; int:</span><br><span class="line">        i&#x3D;0</span><br><span class="line">        for j in range(0,len(nums)):</span><br><span class="line">            if nums[j] !&#x3D; val:</span><br><span class="line">                nums[i]&#x3D;nums[j]</span><br><span class="line">                i+&#x3D;1</span><br><span class="line">        return i</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def removeElement(self, nums: List[int], val: int) -&gt; int:
+        i=0
+        for j in range(0,len(nums)):
+            if nums[j] != val:
+                nums[i]=nums[j]
+                i+=1
+        return i</code></pre>
 <h3 id="29-两数相除"><a href="#29-两数相除" class="headerlink" title="29.两数相除"></a>29.两数相除</h3><pre><code>链接：https://leetcode-cn.com/problems/divide-two-integers/submissions/
 
 给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
@@ -840,16 +908,60 @@ T     S     G</code></pre>
 假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。</code></pre>
 <p>题解一|减法|超时:</p>
 <p>超时：当被除数为2147483648，除数为 1，必然超时。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def divide(self, dividend: int, divisor: int) -&gt; int:</span><br><span class="line">        res&#x3D;0</span><br><span class="line">        flag&#x3D;1 if dividend ^ divisor &gt;&#x3D;0 else -1</span><br><span class="line">        dividend&#x3D;abs(dividend)</span><br><span class="line">        divisor&#x3D;abs(divisor)</span><br><span class="line">        while dividend &gt;&#x3D; divisor:</span><br><span class="line">            res+&#x3D;1</span><br><span class="line">            dividend-&#x3D;divisor</span><br><span class="line">        res&#x3D;res*flag</span><br><span class="line">        return min(max(res,-2**31),2**31-1)</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def divide(self, dividend: int, divisor: int) -&gt; int:
+        res=0
+        flag=1 if dividend ^ divisor &gt;=0 else -1
+        dividend=abs(dividend)
+        divisor=abs(divisor)
+        while dividend &gt;= divisor:
+            res+=1
+            dividend-=divisor
+        res=res*flag
+        return min(max(res,-2**31),2**31-1)</code></pre>
 <p>题解二|增倍除数:</p>
 <pre><code>&lt;&lt; 是左移，末位补0，类比十进制数在末尾添0相当于原数乘以10，x&lt;&lt;1是将x的二进制表示左移一位，相当于原数x乘2。比如整数4在二进制下是100，4&lt;&lt;1左移1位变成1000(二进制)，结果是8。
 
 &gt;&gt;是右移，右移1位相当于除以2。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def divide(self, dividend: int, divisor: int) -&gt; int:</span><br><span class="line">        res&#x3D;0</span><br><span class="line">        flag&#x3D;1 if dividend ^ divisor &gt;&#x3D;0 else -1</span><br><span class="line">        dividend&#x3D;abs(dividend)</span><br><span class="line">        divisor&#x3D;abs(divisor)</span><br><span class="line">        while dividend &gt;&#x3D; divisor:</span><br><span class="line">            tmp,i&#x3D;divisor,1</span><br><span class="line">            while dividend&gt;&#x3D;tmp:</span><br><span class="line">                dividend-&#x3D;tmp</span><br><span class="line">                res+&#x3D;i</span><br><span class="line">                i &lt;&lt;&#x3D;1</span><br><span class="line">                tmp &lt;&lt;&#x3D;1</span><br><span class="line">        res&#x3D;res*flag</span><br><span class="line">        return min(max(res,-2**31),2**31-1)</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def divide(self, dividend: int, divisor: int) -&gt; int:
+        res=0
+        flag=1 if dividend ^ divisor &gt;=0 else -1
+        dividend=abs(dividend)
+        divisor=abs(divisor)
+        while dividend &gt;= divisor:
+            tmp,i=divisor,1
+            while dividend&gt;=tmp:
+                dividend-=tmp
+                res+=i
+                i &lt;&lt;=1
+                tmp &lt;&lt;=1
+        res=res*flag
+        return min(max(res,-2**31),2**31-1)</code></pre>
 <p>题解三（位移）：<br>算法是把除法化归成移位和减法两种运算方法。对于 10 进制数，移位运算就是乘（左移）除（右移）10，而我们都知道计算机中的移位运算是乘（左移）除（右移）2，因为计算机是通过二进制的方法存储数的。这样，类比十进制，二进制的除法（仍以 45/2 为例）可以写作（注意，这里我们并没有用到乘除法）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def divide(self, dividend: int, divisor: int) -&gt; int:</span><br><span class="line">        res&#x3D;0</span><br><span class="line">        flag&#x3D;1 if dividend ^ divisor &gt;&#x3D;0 else -1</span><br><span class="line">        dividend&#x3D;abs(dividend)</span><br><span class="line">        divisor&#x3D;abs(divisor)</span><br><span class="line">        count&#x3D;0</span><br><span class="line"></span><br><span class="line">        # 不断左移，直到大于被除数</span><br><span class="line">        while dividend &gt;&#x3D; divisor:</span><br><span class="line">            count+&#x3D;1</span><br><span class="line">            divisor &lt;&lt;&#x3D;1</span><br><span class="line">        </span><br><span class="line">        while count &gt; 0:</span><br><span class="line">            count -&#x3D;1</span><br><span class="line">            divisor &gt;&gt;&#x3D;1</span><br><span class="line">            res &lt;&lt;&#x3D;1</span><br><span class="line">            if divisor &lt;&#x3D; dividend:</span><br><span class="line">                res+&#x3D;1</span><br><span class="line">                dividend -&#x3D; divisor</span><br><span class="line">        </span><br><span class="line">        res&#x3D;res*flag</span><br><span class="line">        return min(max(res,-2**31),2**31-1)</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def divide(self, dividend: int, divisor: int) -&gt; int:
+        res=0
+        flag=1 if dividend ^ divisor &gt;=0 else -1
+        dividend=abs(dividend)
+        divisor=abs(divisor)
+        count=0
 
+        # 不断左移，直到大于被除数
+        while dividend &gt;= divisor:
+            count+=1
+            divisor &lt;&lt;=1
+
+        while count &gt; 0:
+            count -=1
+            divisor &gt;&gt;=1
+            res &lt;&lt;=1
+            if divisor &lt;= dividend:
+                res+=1
+                dividend -= divisor
+
+        res=res*flag
+        return min(max(res,-2**31),2**31-1)</code></pre>
 <h3 id="31-下一个排列"><a href="#31-下一个排列" class="headerlink" title="31. 下一个排列"></a>31. 下一个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/next-permutation/
 
 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
@@ -867,9 +979,21 @@ T     S     G</code></pre>
 <p>2.第二层遍历nums[(i+1):]，发现第一个大于nums[i]的数nums[j]，交换两数，退出遍历break；</p>
 <p>3.交换了也排好序了，退出第一次层遍历return nums</p>
 <p>这里有个细节：nums本来就是降序，第一次遍历找不到nums[i],那么直接sort()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def nextPermutation(self, nums: List[int]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        for i in range(len(nums)-2,-1,-1):</span><br><span class="line">            if nums[i] &lt; nums[i+1]:</span><br><span class="line">                nums[i+1:]&#x3D;sorted(nums[i+1:])</span><br><span class="line">                for j in range(i+1,len(nums)):</span><br><span class="line">                    if nums[i] &lt; nums[j]:</span><br><span class="line">                        nums[i],nums[j]&#x3D;nums[j],nums[i]</span><br><span class="line">                        # break</span><br><span class="line">                        return</span><br><span class="line"></span><br><span class="line">        nums.sort()</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def nextPermutation(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        for i in range(len(nums)-2,-1,-1):
+            if nums[i] &lt; nums[i+1]:
+                nums[i+1:]=sorted(nums[i+1:])
+                for j in range(i+1,len(nums)):
+                    if nums[i] &lt; nums[j]:
+                        nums[i],nums[j]=nums[j],nums[i]
+                        # break
+                        return
 
-
+        nums.sort()</code></pre>
 <h3 id="36-有效的数独"><a href="#36-有效的数独" class="headerlink" title="36. 有效的数独"></a>36. 有效的数独</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-sudoku/
 
 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
@@ -922,8 +1046,23 @@ T     S     G</code></pre>
 给定数独序列只包含数字 1-9 和字符 &#39;.&#39; 。
 给定数独永远是 9x9 形式的。</code></pre>
 <p>题解一：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def isValidSudoku(self, board: List[List[str]]) -&gt; bool:</span><br><span class="line">        rows&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        columns&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        boxes&#x3D;[&#123;&#125; for i in range(9)]</span><br><span class="line">        for i in range(9):</span><br><span class="line">            for j in range(9):</span><br><span class="line">                char&#x3D;board[i][j]</span><br><span class="line">                if char !&#x3D; &#39;.&#39;:</span><br><span class="line">                    index&#x3D;(i&#x2F;&#x2F;3)*3+j&#x2F;&#x2F;3</span><br><span class="line">                    rows[i][char]&#x3D;rows[i].get(char,0)+1</span><br><span class="line">                    columns[j][char]&#x3D;columns[j].get(char,0)+1</span><br><span class="line">                    boxes[index][char]&#x3D;boxes[index].get(char,0)+1</span><br><span class="line"></span><br><span class="line">                    if rows[i][char]&gt;1 or columns[j][char]&gt;1 or boxes[index][char]&gt;1:</span><br><span class="line">                        return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -&gt; bool:
+        rows=[&#123;&#125; for i in range(9)]
+        columns=[&#123;&#125; for i in range(9)]
+        boxes=[&#123;&#125; for i in range(9)]
+        for i in range(9):
+            for j in range(9):
+                char=board[i][j]
+                if char != &#39;.&#39;:
+                    index=(i//3)*3+j//3
+                    rows[i][char]=rows[i].get(char,0)+1
+                    columns[j][char]=columns[j].get(char,0)+1
+                    boxes[index][char]=boxes[index].get(char,0)+1
 
+                    if rows[i][char]&gt;1 or columns[j][char]&gt;1 or boxes[index][char]&gt;1:
+                        return False
+        return True</code></pre>
 <h3 id="45-跳跃游戏-II"><a href="#45-跳跃游戏-II" class="headerlink" title="45. 跳跃游戏 II"></a>45. 跳跃游戏 II</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game-ii/
 
 给定一个非负整数数组，你最初位于数组的第一个位置。
@@ -950,11 +1089,31 @@ T     S     G</code></pre>
     33. 在新的范围内跳，更新 能跳到最远的距离。
 
 4、记录 跳跃 次数，如果跳到了终点，就得到了结果。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def jump(self, nums: List[int]) -&gt; int:</span><br><span class="line">        ans&#x3D;0</span><br><span class="line">        start&#x3D;0</span><br><span class="line">        end&#x3D;1</span><br><span class="line">        while end&lt;len(nums):</span><br><span class="line">            maxPos&#x3D;0</span><br><span class="line">            for i in range(start,end):</span><br><span class="line">                maxPos&#x3D;max(maxPos,nums[i]+i)</span><br><span class="line">            start&#x3D;end</span><br><span class="line">            end&#x3D;maxPos+1</span><br><span class="line">            ans+&#x3D;1</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        ans=0
+        start=0
+        end=1
+        while end&lt;len(nums):
+            maxPos=0
+            for i in range(start,end):
+                maxPos=max(maxPos,nums[i]+i)
+            start=end
+            end=maxPos+1
+            ans+=1
+        return ans</code></pre>
 <p>优化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def jump(self, nums: List[int]) -&gt; int:</span><br><span class="line">        ans&#x3D;0</span><br><span class="line">        end&#x3D;0</span><br><span class="line">        maxPos&#x3D;0</span><br><span class="line">        for i in range(0,len(nums)-1):</span><br><span class="line">            maxPos&#x3D;max(maxPos,nums[i]+i)</span><br><span class="line">            if i&#x3D;&#x3D;end:</span><br><span class="line">                end&#x3D;maxPos</span><br><span class="line">                ans+&#x3D;1</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        ans=0
+        end=0
+        maxPos=0
+        for i in range(0,len(nums)-1):
+            maxPos=max(maxPos,nums[i]+i)
+            if i==end:
+                end=maxPos
+                ans+=1
+        return ans</code></pre>
 <h3 id="48-旋转图像"><a href="#48-旋转图像" class="headerlink" title="48.旋转图像"></a>48.旋转图像</h3><pre><code>链接：https://leetcode-cn.com/problems/rotate-image/
 
 给定一个 n × n 的二维矩阵表示一个图像。
@@ -1000,8 +1159,20 @@ T     S     G</code></pre>
 <p>题解一|转置+翻转：</p>
 <p>分析：先转置矩阵，然后翻转每一行。这个简单的方法已经能达到最优的时间复杂度O(N^2)。</p>
 <p>时间复杂度：O(N^2)<br>空间复杂度：O(1) 由于旋转操作是 就地 完成的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def rotate(self, matrix: List[List[int]]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify matrix in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        n&#x3D;len(matrix[0]) # 矩阵第一行matrix[0]</span><br><span class="line">        # 矩阵转置</span><br><span class="line">        for i in range(n):</span><br><span class="line">            for j in range(i,n):</span><br><span class="line">                matrix[j][i],matrix[i][j]&#x3D;matrix[i][j],matrix[j][i]</span><br><span class="line">        # 翻转每行</span><br><span class="line">        for i in range(n):</span><br><span class="line">            matrix[i].reverse()</span><br><span class="line">        return matrix</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def rotate(self, matrix: List[List[int]]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify matrix in-place instead.
+        &quot;&quot;&quot;
+        n=len(matrix[0]) # 矩阵第一行matrix[0]
+        # 矩阵转置
+        for i in range(n):
+            for j in range(i,n):
+                matrix[j][i],matrix[i][j]=matrix[i][j],matrix[j][i]
+        # 翻转每行
+        for i in range(n):
+            matrix[i].reverse()
+        return matrix</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-image/solution/xuan-zhuan-tu-xiang-by-leetcode/">https://leetcode-cn.com/problems/rotate-image/solution/xuan-zhuan-tu-xiang-by-leetcode/</a></p>
 <h3 id="49-字母异位词分组"><a href="#49-字母异位词分组" class="headerlink" title="49. 字母异位词分组"></a>49. 字母异位词分组</h3><pre><code>链接：https://leetcode-cn.com/problems/group-anagrams/
 
@@ -1021,8 +1192,18 @@ T     S     G</code></pre>
 所有输入均为小写字母。
 不考虑答案输出的顺序。</code></pre>
 <p>题解一（hash）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def groupAnagrams(self, strs: List[str]) -&gt; List[List[str]]:</span><br><span class="line">        hash&#x3D;&#123;&#125;</span><br><span class="line">        for i in strs:</span><br><span class="line">            tmp&#x3D;tuple(sorted(i))</span><br><span class="line">            if tmp not in hash:</span><br><span class="line">                hash[tmp]&#x3D;[i]</span><br><span class="line">            else:</span><br><span class="line">                hash[tmp].append(i)</span><br><span class="line">        # print(hash)</span><br><span class="line">        res&#x3D;[i for i in hash.values()]</span><br><span class="line">        return res</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def groupAnagrams(self, strs: List[str]) -&gt; List[List[str]]:
+        hash=&#123;&#125;
+        for i in strs:
+            tmp=tuple(sorted(i))
+            if tmp not in hash:
+                hash[tmp]=[i]
+            else:
+                hash[tmp].append(i)
+        # print(hash)
+        res=[i for i in hash.values()]
+        return res</code></pre>
 <p>输出：</p>
 <pre><code>&#123;(&#39;a&#39;, &#39;e&#39;, &#39;t&#39;): [&#39;eat&#39;, &#39;tea&#39;, &#39;ate&#39;], (&#39;a&#39;, &#39;n&#39;, &#39;t&#39;): [&#39;tan&#39;, &#39;nat&#39;], (&#39;a&#39;, &#39;b&#39;, &#39;t&#39;): [&#39;bat&#39;]&#125;</code></pre>
 <h3 id="66-加一"><a href="#66-加一" class="headerlink" title="66. 加一"></a>66. 加一</h3><p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/plus-one/">https://leetcode-cn.com/problems/plus-one/</a></p>
@@ -1045,13 +1226,48 @@ T     S     G</code></pre>
 <p>题解一：</p>
 <p>思路：转换为int进行加1</p>
 <p>题解二：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def plusOne(self, digits: List[int]) -&gt; List[int]:</span><br><span class="line">        for i in range(len(digits)-1,-1,-1):</span><br><span class="line">            digits[i]+&#x3D;1</span><br><span class="line">            digits[i] %&#x3D; 10</span><br><span class="line">            if digits[i] !&#x3D; 0:</span><br><span class="line">                return digits</span><br><span class="line">        </span><br><span class="line">        digits&#x3D;[0]*(len(digits)+1) # 解决case[9],输出[1,0]</span><br><span class="line">        digits[0]&#x3D;1 # 解决case[9],输出[1,0]</span><br><span class="line">        return digits    </span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def plusOne(self, digits: List[int]) -&gt; List[int]:
+        for i in range(len(digits)-1,-1,-1):
+            digits[i]+=1
+            digits[i] %= 10
+            if digits[i] != 0:
+                return digits
 
+        digits=[0]*(len(digits)+1) # 解决case[9],输出[1,0]
+        digits[0]=1 # 解决case[9],输出[1,0]
+        return digits    </code></pre>
 <p>题解三：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def plusOne(self, digits: List[int]) -&gt; List[int]:</span><br><span class="line">        new&#x3D;[]</span><br><span class="line">        while digits and digits[-1] &#x3D;&#x3D; 9:</span><br><span class="line">            digits.pop()</span><br><span class="line">            new.append(0)</span><br><span class="line">        if not digits:</span><br><span class="line">            return [1]+new</span><br><span class="line">        else:</span><br><span class="line">            digits[-1]+&#x3D;1</span><br><span class="line">            return digits+new</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def plusOne(self, digits: List[int]) -&gt; List[int]:
+        new=[]
+        while digits and digits[-1] == 9:
+            digits.pop()
+            new.append(0)
+        if not digits:
+            return [1]+new
+        else:
+            digits[-1]+=1
+            return digits+new</code></pre>
 <p>题解四：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def plusOne(self, digits):</span><br><span class="line">        length&#x3D;len(digits)</span><br><span class="line">        i&#x3D;length-1</span><br><span class="line">        while(i&gt;&#x3D;0):</span><br><span class="line">            if i&#x3D;&#x3D;0:</span><br><span class="line">                if (digits[i]+1)&gt;9:</span><br><span class="line">                    digits[i]&#x3D;0</span><br><span class="line">                    result&#x3D;[1]</span><br><span class="line">                    result.extend(digits)</span><br><span class="line">                    return result</span><br><span class="line">            if (digits[i]+1)&lt;&#x3D;9:</span><br><span class="line">                digits[i]+&#x3D;1</span><br><span class="line">                return digits</span><br><span class="line">            else:</span><br><span class="line">                digits[i]&#x3D;0</span><br><span class="line">                i-&#x3D;1</span><br><span class="line">        return digits</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def plusOne(self, digits):
+        length=len(digits)
+        i=length-1
+        while(i&gt;=0):
+            if i==0:
+                if (digits[i]+1)&gt;9:
+                    digits[i]=0
+                    result=[1]
+                    result.extend(digits)
+                    return result
+            if (digits[i]+1)&lt;=9:
+                digits[i]+=1
+                return digits
+            else:
+                digits[i]=0
+                i-=1
+        return digits</code></pre>
 <h3 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69.x的平方根"></a>69.x的平方根</h3><pre><code>链接：https://leetcode-cn.com/problems/sqrtx/
 
 实现 int sqrt(int x) 函数。
@@ -1074,17 +1290,76 @@ T     S     G</code></pre>
 <p>思路分析：使用二分法搜索平方根的思想很简单，就类似于小时候我们看的电视节目中的“猜价格”游戏，高了就往低了猜，低了就往高了猜，范围越来越小。因此，使用二分法猜算术平方根就很自然。</p>
 <p>一个数的平方根肯定不会超过它自己，不过直觉还告诉我们，一个数的平方根最多不会超过它的一半，例如 8的平方根，8 的一半是 4，4^2=16&gt;8，如果这个数越大越是如此，因此我们要计算一下，这个边界是多少。为此，解如下不等式：(a/2)^2 &gt;= a</p>
 <p>时间复杂度：O(logn)<br>空间复杂度：O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def mySqrt(self, x: int) -&gt; int:</span><br><span class="line">        left&#x3D;0</span><br><span class="line">        right&#x3D;x&#x2F;&#x2F;2+1</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            # mid &#x3D; left + (right - left + 1) &#x2F;&#x2F; 2</span><br><span class="line">            # mid&#x3D;(left+right+1)&gt;&gt;1</span><br><span class="line">            mid&#x3D;(left+right+1)&#x2F;&#x2F;2 # 使用除法的耗时比移位多</span><br><span class="line">            square&#x3D;mid*mid</span><br><span class="line"></span><br><span class="line">            if square&gt;x:</span><br><span class="line">                right&#x3D;mid-1</span><br><span class="line">            else:</span><br><span class="line">                left&#x3D;mid</span><br><span class="line">            </span><br><span class="line">        return left</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def mySqrt(self, x: int) -&gt; int:
+        left=0
+        right=x//2+1
+        while left &lt; right:
+            # mid = left + (right - left + 1) // 2
+            # mid=(left+right+1)&gt;&gt;1
+            mid=(left+right+1)//2 # 使用除法的耗时比移位多
+            square=mid*mid
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 单独照顾0这个特例</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def mySqrt(self, x: int) -&gt; int:</span><br><span class="line">        if x&#x3D;&#x3D;0:</span><br><span class="line">            return 0</span><br><span class="line">        left&#x3D;1</span><br><span class="line">        right&#x3D;x&#x2F;&#x2F;2</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            # mid&#x3D;(left+right+1)&gt;&gt;1</span><br><span class="line">            mid&#x3D;(left+right+1)&#x2F;&#x2F;2 # 使用除法的耗时比移位多</span><br><span class="line">            # 一定取右中位数，如果取左中位数(left+right)&#x2F;&#x2F;2，代码可能会进入死循环</span><br><span class="line">            square&#x3D;mid*mid</span><br><span class="line"></span><br><span class="line">            if square&gt;x:</span><br><span class="line">                right&#x3D;mid-1</span><br><span class="line">            else:</span><br><span class="line">                left&#x3D;mid</span><br><span class="line">            </span><br><span class="line">        return left</span><br></pre></td></tr></table></figure>
+            if square&gt;x:
+                right=mid-1
+            else:
+                left=mid
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line"></span><br><span class="line">    def mySqrt(self, x):</span><br><span class="line">        left &#x3D; 0</span><br><span class="line">        right &#x3D; 999999</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            # 这种取中位数的方法又快又好，是我刚学会的，原因在下面这篇文章的评论区</span><br><span class="line">            # https:&#x2F;&#x2F;www.liwei.party&#x2F;2019&#x2F;06&#x2F;17&#x2F;leetcode-solution-new&#x2F;search-insert-position&#x2F;</span><br><span class="line">            mid &#x3D; (left + right + 1) &gt;&gt; 1</span><br><span class="line">            square &#x3D; mid * mid</span><br><span class="line">            if square &gt; x:</span><br><span class="line">                right &#x3D; mid - 1</span><br><span class="line">            else:</span><br><span class="line">                left &#x3D; mid</span><br><span class="line"></span><br><span class="line">        return left</span><br></pre></td></tr></table></figure>
+        return left</code></pre>
+<pre><code># 单独照顾0这个特例
+
+class Solution:
+    def mySqrt(self, x: int) -&gt; int:
+        if x==0:
+            return 0
+        left=1
+        right=x//2
+        while left &lt; right:
+            # mid=(left+right+1)&gt;&gt;1
+            mid=(left+right+1)//2 # 使用除法的耗时比移位多
+            # 一定取右中位数，如果取左中位数(left+right)//2，代码可能会进入死循环
+            square=mid*mid
+
+            if square&gt;x:
+                right=mid-1
+            else:
+                left=mid
+
+        return left</code></pre>
+<pre><code>class Solution:
+
+    def mySqrt(self, x):
+        left = 0
+        right = 999999
+        while left &lt; right:
+            # 这种取中位数的方法又快又好，是我刚学会的，原因在下面这篇文章的评论区
+            # https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/
+            mid = (left + right + 1) &gt;&gt; 1
+            square = mid * mid
+            if square &gt; x:
+                right = mid - 1
+            else:
+                left = mid
+
+        return left</code></pre>
 <p>?题解二（牛顿法）:</p>
 <p>牛顿法的应用：一个是求方程的根，另一个是求解最优化问题</p>
 <p>使用牛顿法可以得到一个正实数的算术平方根，因为题目中说“结果只保留整数部分”，因此，我们把使用牛顿法得到的浮点数转换为整数即可。</p>
 <p>在迭代过程中，以直线代替曲线，用一阶泰勒展式（即在当前点的切线）代替原曲线，求直线与 xx 轴的交点，重复这个过程直到收敛。<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def mySqrt(self, x: int) -&gt; int:</span><br><span class="line">        if x&lt;0:</span><br><span class="line">            # raise Exception(&#39;不能输入负数)</span><br><span class="line">            return -1</span><br><span class="line">        if x&#x3D;&#x3D;0:</span><br><span class="line">            return 0</span><br><span class="line">        </span><br><span class="line">        cur&#x3D;1</span><br><span class="line">        while True:</span><br><span class="line">            pre&#x3D;cur</span><br><span class="line">            cur&#x3D;(cur+x&#x2F;cur)&#x2F;2</span><br><span class="line">            if abs(cur-pre)&lt; 1e-6:</span><br><span class="line">                return int(cur)</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def mySqrt(self, x: int) -&gt; int:
+        if x&lt;0:
+            # raise Exception(&#39;不能输入负数)
+            return -1
+        if x==0:
+            return 0
 
+        cur=1
+        while True:
+            pre=cur
+            cur=(cur+x/cur)/2
+            if abs(cur-pre)&lt; 1e-6:
+                return int(cur)</code></pre>
 <h3 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73. 矩阵置零"></a>73. 矩阵置零</h3><pre><code>链接：https://leetcode-cn.com/problems/set-matrix-zeroes/
 
 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
@@ -1127,8 +1402,25 @@ T     S     G</code></pre>
 <pre><code>用 O(m+n)额外空间
 两遍扫matrix,第一遍用集合记录哪些行,哪些列有0;第二遍置0</code></pre>
 <p>时间复杂度：O(M*N)<br>空间复杂度：O(M+N)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def setZeroes(self, matrix: List[List[int]]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify matrix in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        m&#x3D;len(matrix)       # 行</span><br><span class="line">        n&#x3D;len(matrix[0])    # 列</span><br><span class="line">        m_zero&#x3D;set()</span><br><span class="line">        n_zero&#x3D;set()</span><br><span class="line">        for i in range(m):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                if matrix[i][j]&#x3D;&#x3D; 0:</span><br><span class="line">                    m_zero.add(i)</span><br><span class="line">                    n_zero.add(j)</span><br><span class="line">        for i in range(m):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                if i in m_zero or j in n_zero: # 不是if 0 in m_zero or 0 in n_zero</span><br><span class="line">                    matrix[i][j]&#x3D;0</span><br><span class="line">        return matrix</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify matrix in-place instead.
+        &quot;&quot;&quot;
+        m=len(matrix)       # 行
+        n=len(matrix[0])    # 列
+        m_zero=set()
+        n_zero=set()
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j]== 0:
+                    m_zero.add(i)
+                    n_zero.add(j)
+        for i in range(m):
+            for j in range(n):
+                if i in m_zero or j in n_zero: # 不是if 0 in m_zero or 0 in n_zero
+                    matrix[i][j]=0
+        return matrix</code></pre>
 <p>题解二：</p>
 <p>分析:</p>
 <pre><code>用matrix第一行和第一列记录该行该列是否有0,作为标志位
@@ -1149,11 +1441,71 @@ T     S     G</code></pre>
 
 时间复杂度：O(M*N)
 空间复杂度：O(1)</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def setZeroes(self, matrix: List[List[int]]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify matrix in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # 输入：[[1,1,1,1],[1,0,1,1],[1,1,1,1]]</span><br><span class="line">        m&#x3D;len(matrix)       # 行的个数</span><br><span class="line">        n&#x3D;len(matrix[0])    # 列的个数</span><br><span class="line">        m0_flag&#x3D;False</span><br><span class="line">        n0_flag&#x3D;False</span><br><span class="line">        </span><br><span class="line">        # 找第一行是否有0</span><br><span class="line">        for j in range(n):</span><br><span class="line">            if matrix[0][j] &#x3D;&#x3D; 0:</span><br><span class="line">                m0_flag&#x3D;True</span><br><span class="line">                break</span><br><span class="line">        # 找第一列是否有0</span><br><span class="line">        for i in range(m):</span><br><span class="line">            if matrix[i][0]&#x3D;&#x3D;0:</span><br><span class="line">                n0_flag&#x3D;True</span><br><span class="line">                break</span><br><span class="line">        # 把第一行或者第一列作为 标志位</span><br><span class="line">        for i in range(1,m):</span><br><span class="line">            for j in range(1,n):</span><br><span class="line">                if matrix[i][j]&#x3D;&#x3D;0:</span><br><span class="line">                    matrix[i][0]&#x3D;matrix[0][j]&#x3D;0</span><br><span class="line">        # print(matrix)</span><br><span class="line">        # [[1, 0, 1, 1], [0, 0, 1, 1], [1, 1, 1, 1]]</span><br><span class="line"></span><br><span class="line">        # 置0</span><br><span class="line">        for i in range(1,m):</span><br><span class="line">            for j in range(1,n):</span><br><span class="line">                if(matrix[i][0]&#x3D;&#x3D;0 or matrix[0][j]&#x3D;&#x3D;0):</span><br><span class="line">                    matrix[i][j]&#x3D;0    </span><br><span class="line">        # print(matrix)  </span><br><span class="line">        # [[1, 0, 1, 1], [0, 0, 0, 0], [1, 0, 1, 1]]</span><br><span class="line">        </span><br><span class="line">        if m0_flag:</span><br><span class="line">            for j in range(n):</span><br><span class="line">                matrix[0][j]&#x3D;0</span><br><span class="line">        if n0_flag:</span><br><span class="line">            for i in range(m):</span><br><span class="line">                matrix[i][0]&#x3D;0</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify matrix in-place instead.
+        &quot;&quot;&quot;
+        # 输入：[[1,1,1,1],[1,0,1,1],[1,1,1,1]]
+        m=len(matrix)       # 行的个数
+        n=len(matrix[0])    # 列的个数
+        m0_flag=False
+        n0_flag=False
 
+        # 找第一行是否有0
+        for j in range(n):
+            if matrix[0][j] == 0:
+                m0_flag=True
+                break
+        # 找第一列是否有0
+        for i in range(m):
+            if matrix[i][0]==0:
+                n0_flag=True
+                break
+        # 把第一行或者第一列作为 标志位
+        for i in range(1,m):
+            for j in range(1,n):
+                if matrix[i][j]==0:
+                    matrix[i][0]=matrix[0][j]=0
+        # print(matrix)
+        # [[1, 0, 1, 1], [0, 0, 1, 1], [1, 1, 1, 1]]
+
+        # 置0
+        for i in range(1,m):
+            for j in range(1,n):
+                if(matrix[i][0]==0 or matrix[0][j]==0):
+                    matrix[i][j]=0    
+        # print(matrix)  
+        # [[1, 0, 1, 1], [0, 0, 0, 0], [1, 0, 1, 1]]
+
+        if m0_flag:
+            for j in range(n):
+                matrix[0][j]=0
+        if n0_flag:
+            for i in range(m):
+                matrix[i][0]=0</code></pre>
 <p>???</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def setZeroes(self, matrix: List[List[int]]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify matrix in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        flag_col &#x3D; False</span><br><span class="line">        row &#x3D; len(matrix)</span><br><span class="line">        col &#x3D; len(matrix[0])</span><br><span class="line">        for i in range(row):</span><br><span class="line">            if matrix[i][0] &#x3D;&#x3D; 0: flag_col &#x3D; True</span><br><span class="line">            for j in range(1,col):</span><br><span class="line">                if matrix[i][j] &#x3D;&#x3D; 0:</span><br><span class="line">                    matrix[i][0] &#x3D; matrix[0][j] &#x3D; 0</span><br><span class="line">        </span><br><span class="line">        for i in range(row - 1, -1, -1):</span><br><span class="line">            for j in range(col - 1, 0, -1):</span><br><span class="line">                if matrix[i][0] &#x3D;&#x3D; 0 or matrix[0][j] &#x3D;&#x3D; 0:</span><br><span class="line">                    matrix[i][j] &#x3D; 0</span><br><span class="line"></span><br><span class="line">            if flag_col &#x3D;&#x3D; True: matrix[i][0] &#x3D; 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify matrix in-place instead.
+        &quot;&quot;&quot;
+        flag_col = False
+        row = len(matrix)
+        col = len(matrix[0])
+        for i in range(row):
+            if matrix[i][0] == 0: flag_col = True
+            for j in range(1,col):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = matrix[0][j] = 0
 
+        for i in range(row - 1, -1, -1):
+            for j in range(col - 1, 0, -1):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+
+            if flag_col == True: matrix[i][0] = 0
+</code></pre>
 <h3 id="88-合并两个有序数组"><a href="#88-合并两个有序数组" class="headerlink" title="88. 合并两个有序数组"></a>88. 合并两个有序数组</h3><pre><code>链接：https://leetcode-cn.com/problems/merge-sorted-array/
 
 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 num1 成为一个有序数组。
@@ -1173,16 +1525,52 @@ nums2 = [2,5,6],       n = 3
 输出: [1,2,2,3,5,6]</code></pre>
 <p>题解一（合并后再排序）：</p>
 <p>时间复杂度 : O((n + m)\log(n + m))<br>空间复杂度 : O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums1 in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        nums1[:]&#x3D;sorted(nums1[:m]+nums2)</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums1 in-place instead.
+        &quot;&quot;&quot;
+        nums1[:]=sorted(nums1[:m]+nums2)</code></pre>
 <p>题解二（双指针 / 从前往后）：</p>
 <p>时间复杂度 : O(n + m)<br>空间复杂度 : O(m)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums1 in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        copy&#x3D;nums1[:m]</span><br><span class="line">        nums1[:]&#x3D;[]</span><br><span class="line">        p1,p2&#x3D;0,0</span><br><span class="line">        while p1&lt;m and p2&lt;n:</span><br><span class="line">            if copy[p1]&lt;nums2[p2]:</span><br><span class="line">                nums1.append(copy[p1])</span><br><span class="line">                p1+&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                nums1.append(nums2[p2])</span><br><span class="line">                p2+&#x3D;1</span><br><span class="line">        if p1&lt;m:</span><br><span class="line">            nums1[p1+p2:]&#x3D;copy[p1:]</span><br><span class="line">        if p2&lt;n:</span><br><span class="line">            nums1[p1+p2:]&#x3D;nums2[p2:]</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums1 in-place instead.
+        &quot;&quot;&quot;
+        copy=nums1[:m]
+        nums1[:]=[]
+        p1,p2=0,0
+        while p1&lt;m and p2&lt;n:
+            if copy[p1]&lt;nums2[p2]:
+                nums1.append(copy[p1])
+                p1+=1
+            else:
+                nums1.append(nums2[p2])
+                p2+=1
+        if p1&lt;m:
+            nums1[p1+p2:]=copy[p1:]
+        if p2&lt;n:
+            nums1[p1+p2:]=nums2[p2:]</code></pre>
 <p>题解三(双指针 / 从后往前)：</p>
 <p>时间复杂度 : O(n + m)<br>空间复杂度 : O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums1 in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        p1&#x3D;m-1</span><br><span class="line">        p2&#x3D;n-1</span><br><span class="line">        p&#x3D;m+n-1</span><br><span class="line">        while p1&gt;&#x3D;0 and p2&gt;&#x3D;0:</span><br><span class="line">            if nums1[p1] &lt; nums2[p2]:</span><br><span class="line">                nums1[p]&#x3D;nums2[p2]</span><br><span class="line">                p2-&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                nums1[p]&#x3D;nums1[p1]</span><br><span class="line">                p1-&#x3D;1</span><br><span class="line">            p-&#x3D;1</span><br><span class="line">        nums1[:p2+1]&#x3D;nums2[:p2+1] # 解决case:[0]，0，[1]，1</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums1 in-place instead.
+        &quot;&quot;&quot;
+        p1=m-1
+        p2=n-1
+        p=m+n-1
+        while p1&gt;=0 and p2&gt;=0:
+            if nums1[p1] &lt; nums2[p2]:
+                nums1[p]=nums2[p2]
+                p2-=1
+            else:
+                nums1[p]=nums1[p1]
+                p1-=1
+            p-=1
+        nums1[:p2+1]=nums2[:p2+1] # 解决case:[0]，0，[1]，1</code></pre>
 <h3 id="167-两数之和-II-输入有序数组"><a href="#167-两数之和-II-输入有序数组" class="headerlink" title="167. 两数之和 II - 输入有序数组"></a>167. 两数之和 II - 输入有序数组</h3><pre><code>链接：https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
 
 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
@@ -1199,12 +1587,27 @@ nums2 = [2,5,6],       n = 3
 输出: [1,2]
 解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。</code></pre>
 <p>题解一|暴力|超时：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        n&#x3D;len(numbers)</span><br><span class="line">        for i in range(n):</span><br><span class="line">            for j in range(i+1,n):</span><br><span class="line">                if numbers[i]+numbers[j]&#x3D;&#x3D;target:</span><br><span class="line">                    return [i+1,j+1]</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:
+        n=len(numbers)
+        for i in range(n):
+            for j in range(i+1,n):
+                if numbers[i]+numbers[j]==target:
+                    return [i+1,j+1]</code></pre>
 <p>题解二|双指针:</p>
 <p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        left&#x3D;0</span><br><span class="line">        right&#x3D;len(numbers)-1</span><br><span class="line">        while left &lt; right:</span><br><span class="line">            if numbers[left]+numbers[right]&#x3D;&#x3D;target:</span><br><span class="line">                return [left+1,right+1]</span><br><span class="line">            elif numbers[left]+numbers[right] &gt; target:</span><br><span class="line">                right-&#x3D;1</span><br><span class="line">            else:</span><br><span class="line">                left+&#x3D;1</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:
+        left=0
+        right=len(numbers)-1
+        while left &lt; right:
+            if numbers[left]+numbers[right]==target:
+                return [left+1,right+1]
+            elif numbers[left]+numbers[right] &gt; target:
+                right-=1
+            else:
+                left+=1
+        return False</code></pre>
 <h3 id="189-旋转数组"><a href="#189-旋转数组" class="headerlink" title="189. 旋转数组"></a>189. 旋转数组</h3><pre><code>链接：https://leetcode-cn.com/problems/rotate-array/
 
 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
@@ -1230,11 +1633,39 @@ nums2 = [2,5,6],       n = 3
 要求使用空间复杂度为 O(1) 的 原地 算法。</code></pre>
 <p>题解一|暴力|超时：</p>
 <p>时间复杂度：O(n^2)<br>空间复杂度：O(1)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def rotate(self, nums: List[int], k: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if not nums:</span><br><span class="line">            return &#39;&#39;</span><br><span class="line">        n&#x3D;len(nums)</span><br><span class="line">        k&#x3D;k%n</span><br><span class="line">        while k!&#x3D;0:</span><br><span class="line">            tmp&#x3D;nums[n-1]</span><br><span class="line">            i&#x3D;n-1</span><br><span class="line">            while i&gt;0:</span><br><span class="line">                nums[i]&#x3D;nums[i-1]</span><br><span class="line">                i-&#x3D;1</span><br><span class="line">            nums[0]&#x3D;tmp</span><br><span class="line">            k-&#x3D;1</span><br><span class="line">        return nums</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def rotate(self, nums: List[int], k: int) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        if not nums:
+            return &#39;&#39;
+        n=len(nums)
+        k=k%n
+        while k!=0:
+            tmp=nums[n-1]
+            i=n-1
+            while i&gt;0:
+                nums[i]=nums[i-1]
+                i-=1
+            nums[0]=tmp
+            k-=1
+        return nums</code></pre>
 <p>题解二|切片：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def rotate(self, nums: List[int], k: int) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        n&#x3D;len(nums)</span><br><span class="line">        if n &lt; 2:</span><br><span class="line">            pass</span><br><span class="line">        else:</span><br><span class="line">            while k&gt;0:</span><br><span class="line">                tmp&#x3D;nums[-1]</span><br><span class="line">                nums[1:n]&#x3D;nums[0:n-1]</span><br><span class="line">                nums[0]&#x3D;tmp</span><br><span class="line">                k-&#x3D;1</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def rotate(self, nums: List[int], k: int) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        n=len(nums)
+        if n &lt; 2:
+            pass
+        else:
+            while k&gt;0:
+                tmp=nums[-1]
+                nums[1:n]=nums[0:n-1]
+                nums[0]=tmp
+                k-=1</code></pre>
 <h3 id="283-移动零"><a href="#283-移动零" class="headerlink" title="283. 移动零"></a>283. 移动零</h3><pre><code>链接：https://leetcode-cn.com/problems/move-zeroes/
 
 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
@@ -1252,10 +1683,32 @@ nums2 = [2,5,6],       n = 3
 
 index记录非0的位置；</code></pre>
 <p>题解一：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def moveZeroes(self, nums: List[int]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        index&#x3D;0</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            if nums[i] !&#x3D; 0:</span><br><span class="line">                nums[index]&#x3D;nums[i]</span><br><span class="line">                index+&#x3D;1</span><br><span class="line">        for i in range(index,len(nums)):</span><br><span class="line">            nums[i]&#x3D;0</span><br><span class="line">        return nums</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def moveZeroes(self, nums: List[int]) -&gt; None:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Do not return anything, modify nums in-place instead.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        index&#x3D;0</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            if nums[i] !&#x3D; 0:</span><br><span class="line">                nums[index]&#x3D;nums[i]</span><br><span class="line">                if i !&#x3D; index:</span><br><span class="line">                    nums[i]&#x3D;0</span><br><span class="line">                index+&#x3D;1</span><br><span class="line">        return nums</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def moveZeroes(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        index=0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[index]=nums[i]
+                index+=1
+        for i in range(index,len(nums)):
+            nums[i]=0
+        return nums</code></pre>
+<pre><code>class Solution:
+    def moveZeroes(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        index=0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[index]=nums[i]
+                if i != index:
+                    nums[i]=0
+                index+=1
+        return nums</code></pre>
 <h3 id="442-数组中重复的数据"><a href="#442-数组中重复的数据" class="headerlink" title="442. 数组中重复的数据"></a>442. 数组中重复的数据</h3><pre><code>链接：https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/
 
 给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
@@ -1273,8 +1726,14 @@ index记录非0的位置；</code></pre>
 [2,3]</code></pre>
 <p>题解一|原地变负：</p>
 <p>注意：1 ≤ a[i] ≤ n，所以变负时才不会越界。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def findDuplicates(self, nums: List[int]) -&gt; List[int]:</span><br><span class="line">        ans&#x3D;[]</span><br><span class="line">        for num in nums:</span><br><span class="line">            if nums[abs(num)-1] &lt; 0:</span><br><span class="line">                ans.append(abs(num))</span><br><span class="line">            nums[abs(num)-1]*&#x3D;-1</span><br><span class="line">        return ans</span><br></pre></td></tr></table></figure>
-
+<pre><code>class Solution:
+    def findDuplicates(self, nums: List[int]) -&gt; List[int]:
+        ans=[]
+        for num in nums:
+            if nums[abs(num)-1] &lt; 0:
+                ans.append(abs(num))
+            nums[abs(num)-1]*=-1
+        return ans</code></pre>
 <h3 id="498-对角线遍历"><a href="#498-对角线遍历" class="headerlink" title="498. 对角线遍历"></a>498. 对角线遍历</h3><pre><code>给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。
 
 示例:
@@ -1308,8 +1767,43 @@ index记录非0的位置；</code></pre>
 
     多少次遍历：矩阵有多少个元素就遍历多少次；
     到什么时候结束：对于最长对角线以上来说，到 m 或者 n 中的某一个到 0 为止；对于最长对角线下面来说，到 m 或者 n 中的某一个到达边界为止。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def findDiagonalOrder(self, matrix: List[List[int]]) -&gt; List[int]:</span><br><span class="line">        if not matrix:</span><br><span class="line">            return []</span><br><span class="line">        size&#x3D;len(matrix)*len(matrix[0])</span><br><span class="line">        index&#x3D;0</span><br><span class="line">        result&#x3D;[0]*size</span><br><span class="line">        maxK&#x3D;len(matrix)+len(matrix[0])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for k in range(maxK):</span><br><span class="line">            m,n&#x3D;0,0</span><br><span class="line">            if k%2&#x3D;&#x3D;0: # 偶数部分</span><br><span class="line">                if k&lt;len(matrix):</span><br><span class="line">                    m&#x3D;k</span><br><span class="line">                    n&#x3D;0</span><br><span class="line">                else:</span><br><span class="line">                    m&#x3D;len(matrix)-1</span><br><span class="line">                    n&#x3D;k-m</span><br><span class="line">                while m&gt;&#x3D;0 and n&lt;len(matrix[0]): # n到达边界为止</span><br><span class="line">                    result[index]&#x3D;matrix[m][n]</span><br><span class="line">                    index+&#x3D;1</span><br><span class="line">                    m-&#x3D;1</span><br><span class="line">                    n+&#x3D;1</span><br><span class="line">            else: # 奇数部分</span><br><span class="line">                if k&lt;len(matrix[0]):</span><br><span class="line">                    m&#x3D;0</span><br><span class="line">                    n&#x3D;k</span><br><span class="line">                else:</span><br><span class="line">                    n&#x3D;len(matrix[0])-1</span><br><span class="line">                    m&#x3D;k-n</span><br><span class="line">                while m&lt;len(matrix) and n&gt;&#x3D;0: # m到达边界为止</span><br><span class="line">                    result[index]&#x3D;matrix[m][n]</span><br><span class="line">                    index+&#x3D;1</span><br><span class="line">                    m+&#x3D;1</span><br><span class="line">                    n-&#x3D;1</span><br><span class="line">        return result</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def findDiagonalOrder(self, matrix: List[List[int]]) -&gt; List[int]:
+        if not matrix:
+            return []
+        size=len(matrix)*len(matrix[0])
+        index=0
+        result=[0]*size
+        maxK=len(matrix)+len(matrix[0])
 
+
+        for k in range(maxK):
+            m,n=0,0
+            if k%2==0: # 偶数部分
+                if k&lt;len(matrix):
+                    m=k
+                    n=0
+                else:
+                    m=len(matrix)-1
+                    n=k-m
+                while m&gt;=0 and n&lt;len(matrix[0]): # n到达边界为止
+                    result[index]=matrix[m][n]
+                    index+=1
+                    m-=1
+                    n+=1
+            else: # 奇数部分
+                if k&lt;len(matrix[0]):
+                    m=0
+                    n=k
+                else:
+                    n=len(matrix[0])-1
+                    m=k-n
+                while m&lt;len(matrix) and n&gt;=0: # m到达边界为止
+                    result[index]=matrix[m][n]
+                    index+=1
+                    m+=1
+                    n-=1
+        return result</code></pre>
 <h3 id="1424-对角线遍历-II"><a href="#1424-对角线遍历-II" class="headerlink" title="1424. 对角线遍历 II"></a>1424. 对角线遍历 II</h3><pre><code>链接：https://leetcode-cn.com/problems/diagonal-traverse-ii/solution/mei-ge-shu-zu-yuan-su-de-wei-zhi-jue-ding-liao-ta-/
 
 给你一个列表 nums ，里面每一个元素都是一个整数列表。请你依照下面各图的规则，按顺序返回 nums 中对角线上的整数。
@@ -1337,572 +1831,165 @@ index记录非0的位置；</code></pre>
 1 &lt;= nums[i].length &lt;= 10^5
 1 &lt;= nums[i][j] &lt;= 10^9
 nums 中最多有 10^5 个数字。</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def findDiagonalOrder(self, nums: List[List[int]]) -&gt; List[int]:</span><br><span class="line">        sub&#x3D;[]</span><br><span class="line">        for i in range(len(nums)):</span><br><span class="line">            for j in range(len(nums[i])):</span><br><span class="line">                if i+j &gt;&#x3D; len(sub):</span><br><span class="line">                    sub.append([])</span><br><span class="line">                sub[i+j].append(nums[i][j])</span><br><span class="line">        result&#x3D;[]</span><br><span class="line">        for i in sub:</span><br><span class="line">            result+&#x3D;i[::-1]</span><br><span class="line">        return result</span><br></pre></td></tr></table></figure>
+<pre><code>class Solution:
+    def findDiagonalOrder(self, nums: List[List[int]]) -&gt; List[int]:
+        sub=[]
+        for i in range(len(nums)):
+            for j in range(len(nums[i])):
+                if i+j &gt;= len(sub):
+                    sub.append([])
+                sub[i+j].append(nums[i][j])
+        result=[]
+        for i in sub:
+            result+=i[::-1]
+        return result</code></pre>
 
-            </div>
-            <hr/>
-
-            
-
-    <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        Author:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Lilly</a>
-                </span>
-            </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        Link:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/">http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        Reprint policy:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    All articles in this blog are used except for special statements
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    reprint polocy. If reproduced, please indicate source
-                    <a href="/about" target="_blank">Lilly</a>
-                    !
-                </span>
-            </div>
-        
     </div>
 
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
-        M.toast({html: toastHTML})
-      });
+    
+    
+    
 
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/" rel="prev" title="线性回归--从0开始实现">
+      <i class="fa fa-chevron-left"></i> 线性回归--从0开始实现
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-3-%E6%A0%91-%E4%B8%80/" rel="next" title="LeetCode-3.树-一">
+      LeetCode-3.树-一 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
       }
-    </script>
-
-
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
-                            
-                                <a href="/tags/LeetCode/">
-                                    <span class="chip bg-color">LeetCode</span>
-                                </a>
-                            
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-<div id="article-share">
-
-    
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="/libs/share/js/social-share.min.js"></script>
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
-            
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
     }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
+  }
 </script>
 
-            
         </div>
-    </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">一、数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.1.</span> <span class="nav-text">1.两数之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="nav-number">1.2.</span> <span class="nav-text">2.两数相加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%9F%EF%BC%9F4-%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">？？4.寻找两个有序数组的中位数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">6.Z字形变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC"><span class="nav-number">1.5.</span> <span class="nav-text">7.整数反转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0-atoi"><span class="nav-number">1.6.</span> <span class="nav-text">8.字符串转换整数(atoi)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%9B%9E%E6%96%87%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">9.回文数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">11.盛最多水的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.9.</span> <span class="nav-text">15.三数之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.10.</span> <span class="nav-text">16.最接近的三数之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.11.</span> <span class="nav-text">18.四数之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9"><span class="nav-number">1.12.</span> <span class="nav-text">26.删除排序数组中的重复项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-number">1.13.</span> <span class="nav-text">27.移除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4"><span class="nav-number">1.14.</span> <span class="nav-text">29.两数相除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97"><span class="nav-number">1.15.</span> <span class="nav-text">31. 下一个排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC"><span class="nav-number">1.16.</span> <span class="nav-text">36. 有效的数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II"><span class="nav-number">1.17.</span> <span class="nav-text">45. 跳跃游戏 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#48-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F"><span class="nav-number">1.18.</span> <span class="nav-text">48.旋转图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#49-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84"><span class="nav-number">1.19.</span> <span class="nav-text">49. 字母异位词分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#66-%E5%8A%A0%E4%B8%80"><span class="nav-number">1.20.</span> <span class="nav-text">66. 加一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#69-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9"><span class="nav-number">1.21.</span> <span class="nav-text">69.x的平方根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#73-%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6"><span class="nav-number">1.22.</span> <span class="nav-text">73. 矩阵置零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.23.</span> <span class="nav-text">88. 合并两个有序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#167-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-II-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.24.</span> <span class="nav-text">167. 两数之和 II - 输入有序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84"><span class="nav-number">1.25.</span> <span class="nav-text">189. 旋转数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#283-%E7%A7%BB%E5%8A%A8%E9%9B%B6"><span class="nav-number">1.26.</span> <span class="nav-text">283. 移动零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#442-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.27.</span> <span class="nav-text">442. 数组中重复的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#498-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86"><span class="nav-number">1.28.</span> <span class="nav-text">498. 对角线遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1424-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86-II"><span class="nav-number">1.29.</span> <span class="nav-text">1424. 对角线遍历 II</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
-            <div class="card">
-                <a href="/LeetCode-3-%E6%A0%91-%E4%B8%80/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="LeetCode-3.树-一">
-                        
-                        <span class="card-title">LeetCode-3.树-一</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-02
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                            
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/LeetCode/">
-                        <span class="chip bg-color">LeetCode</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="线性回归--从0开始实现">
-                        
-                        <span class="card-title">线性回归--从0开始实现</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-09-17
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                            
-                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/" class="post-category">
-                                    gluon
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
-                        <span class="chip bg-color">线性回归</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-    </div>
-</article>
-
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
 </div>
 
 
 
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
-
+      </div>
 
     </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
-        });
+      </div>
+    </main>
 
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
+    <footer class="footer">
+      <div class="footer-inner">
+        
 
         
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
 
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
-
-    
-
-</main>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
 </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+        
 
 
 
@@ -1910,9 +1997,30 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
 
 
 
@@ -1920,90 +2028,17 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
 
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
 
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+  
 
 </body>
-
 </html>

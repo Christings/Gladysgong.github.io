@@ -1,1119 +1,2586 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="Up in the wind!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茉莉Python">
+<meta property="og:url" content="http://gongyanli.com/page/3/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="Up in the wind!">
+<meta property="og:locale">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+<link rel="canonical" href="http://gongyanli.com/page/3/">
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                voidqueens@hotmail.com
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
 </script>
 
+  <title>茉莉Python</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-<main class="content">
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">PyTorch-2-总体结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-14 15:16:47 / Modified: 15:22:16" itemprop="dateCreated datePublished" datetime="2020-04-14T15:16:47+08:00">2020-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="PyTorch-2-总体结构">
-                            
-                            <span class="card-title">PyTorch-2-总体结构</span>
-                        </div>
-                    </a>
+      
+          <p><a target="_blank" rel="noopener" href="https://pytorch-cn.readthedocs.io/zh/latest/">https://pytorch-cn.readthedocs.io/zh/latest/</a></p>
+<p>PyTorch文档中主要包含2个模块，一个是 torch, 一个 torchvision, torch 是主模块, 用来搭建神经网络的, torchvision 是辅模块, 有数据库, 还有一些已经训练好的神经网络等着你直接用, 比如 (VGG, AlexNet, ResNet).</p>
+<pre><code>torch:
+    Tensor
+    Storage
+    nn
+    nn.functional
+    autograd
+    optim
+    nn.init
+    multiprocessing
+    legacy
+    cuda
+    utils.fit
+    utils.data
+    utils.model_zoo
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                https://pytorch-cn.readthedocs.io/zh/latest/
-PyTorch文档中主要包含2个模块，一个是 torch, 一个 torchvision, torch 是主模块, 用来搭建神经网络的, torchv
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
-                                    PyTorch
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+torchvison:
+    datasets
+    models
+    transforms
+    utils</code></pre>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PyTorch/">
-                            <span class="chip bg-color">PyTorch</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="数据结构与算法-11-堆">
-                            
-                            <span class="card-title">数据结构与算法-11-堆</span>
-                        </div>
-                    </a>
+      
+    </div>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                二叉堆二叉堆是一种特殊的二叉树, 它总是保证一棵树的最小元素(最小堆)或者最大元素(最大堆)处于树根上, 常见的应用场景就是用于构建优先队列, 在jdk中Doug Lea所实现的ScheduledThreadPoolExecutor中就用到
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-01
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                            <span class="chip bg-color">数据结构与算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/LeetCode-14-database/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="LeetCode-14-database">
-                            
-                            <span class="card-title">LeetCode-14-database</span>
-                        </div>
-                    </a>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/">
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                十四、database优先顺序：where&gt;group by&gt;having&gt;order by
-182. 查找重复的电子邮箱链接：https://leetcode-cn.com/problems/duplicate-emai
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-29
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LeetCode/">
-                            <span class="chip bg-color">LeetCode</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/LeetCode-13-%E6%95%B0%E5%AD%A6/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="LeetCode-13-数学">
-                            
-                            <span class="card-title">LeetCode-13-数学</span>
-                        </div>
-                    </a>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-11-%E5%A0%86/" class="post-title-link" itemprop="url">数据结构与算法-11-堆</a>
+        </h2>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                十三、数学172. 阶乘后的零链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes/
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-01 15:57:57" itemprop="dateCreated datePublished" datetime="2020-04-01T15:57:57+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:03:45" itemprop="dateModified" datetime="2020-08-26T20:03:45+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>二叉堆是一种特殊的二叉树, 它总是保证一棵树的最小元素(最小堆)或者最大元素(最大堆)处于树根上, 常见的应用场景就是用于构建优先队列, 在jdk中Doug Lea所实现的ScheduledThreadPoolExecutor中就用到了最小堆;</p>
+<h3 id="1、最小堆"><a href="#1、最小堆" class="headerlink" title="1、最小堆"></a>1、最小堆</h3><h4 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h4><pre><code>BinaryHeap() 创建一个新的，空的二叉堆。
+insert(k) 向堆添加一个新项。
+findMin() 返回具有最小键值的项，并将项留在堆中。
+delMin() 返回具有最小键值的项，从堆中删除该项。
+如果堆是空的，isEmpty() 返回 true，否则返回 false。
+size() 返回堆中的项数。
+buildHeap(list) 从键列表构建一个新的堆。</code></pre>
+<p>注意，无论我们向堆中添加项的顺序是什么，每次都删除最小的。</p>
+<h4 id="1-2-实现"><a href="#1-2-实现" class="headerlink" title="1.2 实现"></a>1.2 实现</h4><p>为了使我们的堆有效地工作，我们将利用二叉树的对数性质来表示我们的堆。 为了保证对数性能，我们必须保持树平衡。平衡二叉树在根的左和右子树中具有大致相同数量的节点。 在我们的堆实现中，我们通过创建一个 完整二叉树 来保持树平衡。 一个完整的二叉树是一个树，其中每个层都有其所有的节点，除了树的最底层，从左到右填充，如图。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap1.png"></p>
+<p>完整二叉树的另一个有趣的属性是，我们可以使用单个列表来表示它。 我们不需要使用节点和引用，甚至列表的列表。因为树是完整的，父节点的左子节点（在位置 p 处）是在列表中位置 2p 中找到的节点。 类似地，父节点的右子节点在列表中的位置 2p + 1。为了找到树中任意节点的父节点，我们可以简单地使用Python 的整数除法。 假定节点在列表中的位置 n，则父节点在位置 n/2。如图，请注意父级和子级之间是 2p 和 2p+1 关系。 树的列表表示以及完整的结构属性允许我们仅使用几个简单的数学运算来高效地遍历一个完整的二叉树。 我们将看到，这也是我们的二叉堆的有效实现。</p>
+<p>我们用于堆中存储项的方法依赖于维护堆的排序属性。 堆的排序属性如下：在堆中，对于具有父 p 的每个节点 x，p 中的键小于或等于 x 中的键。 下图展示了具有堆顺序属性的完整二叉树。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap2.png"></p>
+<p>我们将开始实现一个二叉堆的构造函数。由于整个二叉堆可以由单个列表表示，所以构造函数将初始化列表和一个 currentSize 属性来跟踪堆的当前大小。一个空的二叉堆有一个单一的零作为 heapList 的第一个元素，这个零只是放那里，用于以后简单的整数除法。</p>
+<pre><code>class BinHeap:
+    def __init__(self):
+        self.heapList=[0]
+        self.currentSize=0</code></pre>
+<p>将项添加到列表中最简单，最有效的方法是将项附加到列表的末尾。 它维护完整的树属性。但可能违反堆结构属性。可以编写一个方法，通过比较新添加的项与其父项，我们可以重新获得堆结构属性。 如果新添加的项小于其父项，则我们可以将项与其父项交换。 </p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap3.png"></p>
+<p>注意，当我们完成一个项时，我们需要恢复新添加的项和父项之间的堆属性。 我们还需保留任何兄弟节点的堆属性。当然，如果新添加的项非常小，我们可能仍需要将其交换另一上层。事实上，我们可能需要交换到树的顶部。</p>
+<p>percUp 方法，它在树中向上遍历一个新项，因为它需要去维护堆属性。注意，我们可以通过使用简单的整数除法来计算任意节点的父节点。 当前节点的父节点可以通过将当前节点的索引除以 2 来计算。</p>
+<p>插入方法中的大部分工作都是由 percUp 完成的。 一旦一个新项被追加到树上，percUp 接管并正确定位新项。</p>
+<pre><code>def percUp(self,i):
+    while i//2&gt;0:
+        if self.heapList[i] &lt; self.heapList[i//2]:
+            tmp=self.heapList[i//2]
+            self.heapList[i//2]=self.heapList[i]
+            self.heapList[i]=tmp
+        i=i//2
+
+def insert(self,k):
+    self.heapList.append(k)
+    self.currentSize+=1
+    self.percUp(self.currentSize)</code></pre>
+<p>因为堆属性要求树的根是树中的最小项，所以找到最小项很容易。delMin 的难点在根被删除后恢复堆结构和堆顺序属性。 我们可以分两步恢复我们的堆。首先，我们将通过获取列表中的最后一个项并将其移动到根位置来恢复根项，保持我们的堆结构属性。 但是，我们可能已经破坏了我们的二叉堆的堆顺序属性。 第二，我们通过将新的根节点沿着树向下推到其正确位置来恢复堆顺序属性。 下图展示了将新的根节点移动到堆中的正确位置所需的交换序列。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap4.png"></p>
+<p>为了维护堆顺序属性，我们所需要做的是将根节点和最小的子节点交换。在初始交换之后，我们可以将节点和其子节点重复交换，直到节点被交换到正确的位置，使它小于两个子节点。</p>
+<pre><code>def percDown(self, i):
+    while (i * 2) &lt;= self.currentSize:
+        mc = self.minChild(i)
+        if self.heapList[i] &gt; self.heapList[mc]:
+            tmp = self.heapList[i]
+            self.heapList[i] = self.heapList[mc]
+            self.heapList[mc] = tmp
+        i = mc
+
+
+def minChild(self, i):
+    &#39;&#39;&#39;
+    找到最小子节点：
+        如果右子节点不存在，那么最小子节点为左；
+        如果右子节点存在，判断左右的大小后再返回；
+    :param self:
+    :param i:
+    :return:
+    &#39;&#39;&#39;
+    if i * 2 + 1 &gt; self.currentSize:
+        return i * 2
+    else:
+        if self.heapList[i * 2] &lt; self.heapList[i * 2 + 1]:
+            return i * 2
+        else:
+            return i * 2 + 1
+
+
+def delMin(self):
+    retval = self.heapList[1]
+    self.heapList[1] = self.heapList[self.currentSize]
+    self.currentSize -= 1
+    self.heapList.pop()
+    self.percDown(1)
+    return retval</code></pre>
+<p>为了完成我们对二叉堆的讨论，我们将看从一个列表构建整个堆的方法.如图，给定一个列表，通过一次插入一个键轻松地构建一个堆。由于你从一个项的列表开始，该列表是有序的，可以使用二分查找找到正确的位置，以大约 O(logn)O(logn) 操作的成本插入下一个键。 但是，请记住，在列表中间插入项可能需要 O(n)O(n) 操作来移动列表的其余部分，为新项腾出空间。 因此，要在堆中插入 n 个键，将需要总共 O(nlogn)O(nlogn) 操作。 然而，如果我们从整个列表开始，那么我们可以在 O(n)O(n) 操作中构建整个堆。Listing 6 展示了构建整个堆的代码。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png"></p>
+<p>buildHeap 方法在 [9,6,5,2,3] 的初始树中的节点移动到其正确位置时所做的交换。虽然我们从树的中间开始，并以我们的方式回到根节点，percDown 方法确保最大的子节点总是沿着树向下移动。因为堆是一个完整的二叉树，超过中途点的任何节点都将是树叶，因此没有子节点。注意，当i = 1 时，我们从树的根节点向下交换，因此可能需要多次交换。正如你在上图最右边的两个树中可以看到的，首先 9 从根位置移出，但是 9 在树中向下移动一级之后，percDown 检查下一组子树，以确保它被推到下一层。在这种情况下，它与 3 进行第二次交换。现在 9 已经移动到树的最低层，不能进行进一步交换。将上图所示的这一系列交换的列表与树进行比较是有用的。</p>
+<pre><code>def buildHeap(self, alist):
+    i = len(alist) // 2
+    self.currentSize = len(alist)
+    self.heapList = [0] + alist[:]
+    while i &gt; 0:
+        self.percDown(i)
+        i -= 1</code></pre>
+<p>完整代码：</p>
+<pre><code>class BinHeap:
+    def __init__(self):
+        self.heapList = [0]
+        self.currentSize = 0
+
+
+    def percUp(self,i):
+        while i // 2 &gt; 0:
+          if self.heapList[i] &lt; self.heapList[i // 2]:
+             tmp = self.heapList[i // 2]
+             self.heapList[i // 2] = self.heapList[i]
+             self.heapList[i] = tmp
+          i = i // 2
+
+    def insert(self,k):
+      self.heapList.append(k)
+      self.currentSize = self.currentSize + 1
+      self.percUp(self.currentSize)
+
+    def percDown(self,i):
+      while (i * 2) &lt;= self.currentSize:
+          mc = self.minChild(i)
+          if self.heapList[i] &gt; self.heapList[mc]:
+              tmp = self.heapList[i]
+              self.heapList[i] = self.heapList[mc]
+              self.heapList[mc] = tmp
+          i = mc
+
+    def minChild(self,i):
+      if i * 2 + 1 &gt; self.currentSize:
+          return i * 2
+      else:
+          if self.heapList[i*2] &lt; self.heapList[i*2+1]:
+              return i * 2
+          else:
+              return i * 2 + 1
+
+    def delMin(self):
+      retval = self.heapList[1]
+      self.heapList[1] = self.heapList[self.currentSize]
+      self.currentSize = self.currentSize - 1
+      self.heapList.pop()
+      self.percDown(1)
+      return retval
+
+    def buildHeap(self,alist):
+      i = len(alist) // 2
+      self.currentSize = len(alist)
+      self.heapList = [0] + alist[:]
+      while (i &gt; 0):
+          self.percDown(i)
+          i = i - 1
+
+bh = BinHeap()
+bh.buildHeap([9,5,6,2,3])
+
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())</code></pre>
+<p>我们可以在 O(n)中构建堆的断言可能看起来有点神秘，证明超出了范围。 然而，理解的关键是记住 logn 因子是从树的高度派生的。 对于buildHeap 中的大部分工作，树比 logn 短。<br>基于可以从 O(n) 时间构建堆的事实，你可以使用堆对列表在 O(nlogn)时间内排序，作为本章结尾的练习。</p>
+<h3 id="2、最大堆"><a href="#2、最大堆" class="headerlink" title="2、最大堆"></a>2、最大堆</h3><pre><code>class BinHeap:
+    def __init__(self):
+        self.heapList = [0]
+        self.currentSize = 0
+
+    def percUp(self, i):
+        while i // 2 &gt; 0:
+            if self.heapList[i] &gt; self.heapList[i // 2]:
+                tmp = self.heapList[i // 2]
+                self.heapList[i // 2] = self.heapList[i]
+                self.heapList[i] = tmp
+            i = i // 2
+
+    def insert(self, k):
+        self.heapList.append(k)
+        self.currentSize = self.currentSize + 1
+        self.percUp(self.currentSize)
+
+    def percDown(self, i):
+        while (i * 2) &lt;= self.currentSize:
+            mc = self.maxChild(i)
+            if self.heapList[i] &lt; self.heapList[mc]:
+                tmp = self.heapList[i]
+                self.heapList[i] = self.heapList[mc]
+                self.heapList[mc] = tmp
+            i = mc
+
+    def maxChild(self, i):
+        if i * 2 + 1 &gt; self.currentSize:
+            return i * 2
+        else:
+            if self.heapList[i * 2] &lt; self.heapList[i * 2 + 1]:
+                return i * 2 + 1
+            else:
+                return i * 2
+
+    def delMax(self):
+        retval = self.heapList[1]
+        self.heapList[1] = self.heapList[self.currentSize]
+        self.currentSize = self.currentSize - 1
+        self.heapList.pop()
+        self.percDown(1)
+        return retval
+
+    def buildHeap(self, alist):
+        i = len(alist) // 2
+        self.currentSize = len(alist)
+        self.heapList = [0] + alist[:]
+        while (i &gt; 0):
+            self.percDown(i)
+            i = i - 1
+
+
+bh = BinHeap()
+bh.buildHeap([9, 5, 6, 2, 3])
+
+print(bh.heapList)
+print(bh.currentSize)
+print(bh.delMax())
+print(bh.heapList)
+print(bh.delMax())</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-14-database/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-14-database/" class="post-title-link" itemprop="url">LeetCode-14-database</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-29 20:45:14" itemprop="dateCreated datePublished" datetime="2020-03-29T20:45:14+08:00">2020-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-18 22:36:54" itemprop="dateModified" datetime="2020-08-18T22:36:54+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="十四、database"><a href="#十四、database" class="headerlink" title="十四、database"></a>十四、database</h2><pre><code>优先顺序：where&gt;group by&gt;having&gt;order by</code></pre>
+<h3 id="182-查找重复的电子邮箱"><a href="#182-查找重复的电子邮箱" class="headerlink" title="182. 查找重复的电子邮箱"></a>182. 查找重复的电子邮箱</h3><pre><code>链接：https://leetcode-cn.com/problems/duplicate-emails/
+
+SQL架构
+编写一个 SQL 查询，查找 Person 表中所有重复的电子邮箱。
+
+示例：
+
++----+---------+
+| Id | Email   |
++----+---------+
+| 1  | a@b.com |
+| 2  | c@d.com |
+| 3  | a@b.com |
++----+---------+
+根据以上输入，你的查询应返回以下结果：
+
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+说明：所有电子邮箱都是小写字母。</code></pre>
+<pre><code># Write your MySQL query statement below
+# 1.使用group by 和临时表
+select Email from
+(
+select Email, count(Email) as nums 
+from Person
+group by Email
+) as tmp
+where nums&gt;1;
+# 2.使用group by和having条件
+select Email
+from Person
+group by Email
+having count(Email) &gt; 1;
+
+
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-13-%E6%95%B0%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-13-%E6%95%B0%E5%AD%A6/" class="post-title-link" itemprop="url">LeetCode-13-数学</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-29 20:12:16" itemprop="dateCreated datePublished" datetime="2020-03-29T20:12:16+08:00">2020-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-22 19:54:22" itemprop="dateModified" datetime="2020-10-22T19:54:22+08:00">2020-10-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="十三、数学"><a href="#十三、数学" class="headerlink" title="十三、数学"></a>十三、数学</h2><h3 id="172-阶乘后的零"><a href="#172-阶乘后的零" class="headerlink" title="172. 阶乘后的零"></a>172. 阶乘后的零</h3><pre><code>链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes/
 
 给定一个整数 n，返回 n! 结果尾数中零的数量。
 
 示例 1:
 
 输入: 3
-输
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-29
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+输出: 0
+解释: 3! = 6, 尾数中没有零。
+示例 2:
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LeetCode/">
-                            <span class="chip bg-color">LeetCode</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/LeetCode-2-%E6%A0%88/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="LeetCode-2-栈">
-                            
-                            <span class="card-title">LeetCode-2-栈</span>
-                        </div>
-                    </a>
+输入: 5
+输出: 1
+解释: 5! = 120, 尾数中有 1 个零.
+说明: 你算法的时间复杂度应为 O(log n) 。</code></pre>
+<p>题解一：</p>
+<p>如果依靠算出阶乘结果，再计算有多少个0，很容易溢出。</p>
+<p>思路：末尾有多少个0，只需要给当前数乘以一个10，就可以加一个0.</p>
+<p>比如5!，也就是 5 * 4 * 3 * 2 * 1 = 120，我们发现结果会有一个 0，原因就是 2 和 5 相乘构成了一个 10。而对于 10 的话，其实也只有 2 * 5 可以构成，所以我们只需要找有多少对 2/5。</p>
+<p>11! = 11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1 = 11 * (2 * 5) * 9 * (4 * 2) * 7 * (3 * 2) * (1 * 5) * (2 * 2) * 3 * (1 * 2) * 1</p>
+<p>对于含有 2 的因子的话是 1 * 2, 2 * 2, 3 * 2, 4 * 2 …</p>
+<p>对于含有 5 的因子的话是 1 * 5, 2 * 5…</p>
+<p>含有 2 的因子每两个出现一次，含有 5 的因子每 5 个出现一次，所有 2 出现的个数远远多于 5，换言之找到一个 5，一定能找到一个 2 与之配对。所以我们只需要找有多少个 5。</p>
+<p>直接的，我们只需要判断每个累乘的数有多少个 5 的因子即可。</p>
+<pre><code>class Solution:
+    def trailingZeroes(self, n: int) -&gt; int:
+        count=0
+        for i in range(n+1):
+            tmp=i
+            while tmp&gt;0:
+                if tmp%5==0:
+                    count+=1
+                    tmp//=5
+                else:
+                    break
+        return count</code></pre>
+<p>以上算法超时，继续优化。</p>
+<p>对于一个数的阶乘，5 的因子一定是每隔 5 个数出现一次，也就是下边的样子。</p>
+<pre><code>n! = 1 * 2 * 3 * 4 * (1 * 5) * ... * (2 * 5) * ... * (3 * 5) *... * n</code></pre>
+<p>因为每隔 5 个数出现一个 5，所以计算出现了多少个 5，我们只需要用 n/5 就可以算出来。</p>
+<p>但还没有结束，继续分析。</p>
+<pre><code>... * (1 * 5) * ... * (1 * 5 * 5) * ... * (2 * 5 * 5) * ... * (3 * 5 * 5) * ... * n</code></pre>
+<p>每隔 25 个数字，出现的是两个 5，所以除了每隔 5 个数算作一个 5，每隔 25 个数，还需要多算一个 5。</p>
+<p>也就是我们需要再加上 n / 25 个 5。</p>
+<p>同理我们还会发现每隔 5 * 5 * 5 = 125 个数字，会出现 3 个 5，所以我们还需要再加上 n / 125 。</p>
+<p>综上，规律就是每隔 5 个数，出现一个 5，每隔 25 个数，出现 2 个 5，每隔 125 个数，出现 3 个 5，以此类推。</p>
+<p>最终 5 的个数就是 n / 5 + n / 25 + n / 125 …</p>
+<p>写程序的话，如果直接按照上边的式子计算，分母可能会造成溢出。所以算 n / 25 的时候，我们先把 n 更新，n = n / 5，然后再计算 n / 5 即可，后边的同理。</p>
+<pre><code>class Solution:
+    def trailingZeroes(self, n: int) -&gt; int:
+        count=0
+        while n&gt;0:
+            count+=n//5
+            n//=5
+        return count
+</code></pre>
+<h3 id="1447-最简分数"><a href="#1447-最简分数" class="headerlink" title="1447. 最简分数"></a>1447. 最简分数</h3><pre><code>链接：https://leetcode-cn.com/problems/simplified-fractions/
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                二、栈42. 接雨水链接：https://leetcode-cn.com/problems/trapping-rain-water/
+给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于  n 的 最简 分数 。分数可以以 任意 顺序返回。
 
-给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+示例 1：
 
-上
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                    数据结构与算法
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" class="post-category">
-                                    LeetCode
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+输入：n = 2
+输出：[&quot;1/2&quot;]
+解释：&quot;1/2&quot; 是唯一一个分母小于等于 2 的最简分数。
+示例 2：
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LeetCode/">
-                            <span class="chip bg-color">LeetCode</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PyTorch-3-%E5%85%A5%E9%97%A8/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="PyTorch-3.入门">
-                            
-                            <span class="card-title">PyTorch-3.入门</span>
-                        </div>
-                    </a>
+输入：n = 3
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;2/3&quot;]
+示例 3：
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                PyTorch 是一个基于 Python 的科学计算包，主要定位两类人群：
-NumPy 的替代品，可以利用 GPU 的性能进行计算。
-深度学习研究平台拥有足够的灵活性和速度。
-一、张量TensorsTensors 类似于 NumPy 的 n
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
-                                    PyTorch
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+输入：n = 4
+输出：[&quot;1/2&quot;,&quot;1/3&quot;,&quot;1/4&quot;,&quot;2/3&quot;,&quot;3/4&quot;]
+解释：&quot;2/4&quot; 不是最简分数，因为它可以化简为 &quot;1/2&quot; 。
+示例 4：
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PyTorch/">
-                            <span class="chip bg-color">PyTorch</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="PyTorch-1.简介和环境搭建">
-                            
-                            <span class="card-title">PyTorch-1.简介和环境搭建</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、简介PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等应用程序。它主要由Facebook人工智能小组开发，不仅能够实现强大的GPU加速，同时还支持动态神经网络，这一点是现在很多主流框架如TensorFlo
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    机器学习和深度学习
-                                </a>
-                                
-                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
-                                    PyTorch
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PyTorch/">
-                            <span class="chip bg-color">PyTorch</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="python并发-19.垃圾回收机制">
-                            
-                            <span class="card-title">python并发-19.垃圾回收机制</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                我们知道，目前的计算机都采用的是图灵机架构，其本质就是用一条无限长的纸带，对应今天的存储器。随后在工程学的推演中，逐渐出现了寄存器、易失性存储器（内存）以及永久性存储器（硬盘）等产品。由于不同的存储器，其速度越快，单位价格也就越昂贵，因此，
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    Python并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Python%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">Python并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="python并发-18.GIL全局解释器锁">
-                            
-                            <span class="card-title">python并发-18.GIL全局解释器锁</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                GIL，中文译为全局解释器锁。
-123456789101112import timestart &#x3D; time.clock()def count(n):    while n &gt; 0:        n -&#x3D; 1co
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    Python并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Python%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">Python并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="python并发-17.Asyncio并发编程">
-                            
-                            <span class="card-title">python并发-17.Asyncio并发编程</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：
-1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" class="post-category">
-                                    Python并发
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Python%E5%B9%B6%E5%8F%91/">
-                            <span class="chip bg-color">Python并发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
-
-</main>
+输入：n = 1
+输出：[]
 
 
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/2/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">3 / 13</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/4/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+提示：
+
+1 &lt;= n &lt;= 100</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def simplifiedFractions(self, n: int) -&gt; List[str]:
+        def gcd(x,y):
+            while y:
+                x,y=y,x%y
+            return x
+
+        res=[]
+        tmp=set()
+        for i in range(2,n+1):
+            for j in range(1,i):
+                c=gcd(i,j)
+                a,b=j//c,i//c
+                if (a,b) in tmp:
+                    continue
+                tmp.add((a,b))
+                res.append(str(a)+&#39;/&#39;+str(b))
+        return res</code></pre>
+
+      
     </div>
-</div>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
     
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
     
-</style>
-<div class="">
     
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-2-%E6%A0%88/">
 
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-2-%E6%A0%88/" class="post-title-link" itemprop="url">LeetCode-2-栈</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-28 19:55:16" itemprop="dateCreated datePublished" datetime="2020-03-28T19:55:16+08:00">2020-03-28</time>
             </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-21 13:26:51" itemprop="dateModified" datetime="2020-10-21T13:26:51+08:00">2020-10-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
             </span>
-            
-            <br>
-            
-            <br>
-            
+
+          
+
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="二、栈"><a href="#二、栈" class="headerlink" title="二、栈"></a>二、栈</h2><h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a>42. 接雨水</h3><pre><code>链接：https://leetcode-cn.com/problems/trapping-rain-water/
+
+给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water2.png"></p>
+<pre><code>上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 感谢 Marcos 贡献此图。
+
+示例:
+
+输入: [0,1,0,2,1,0,1,3,2,1,2,1]
+输出: 6</code></pre>
+<p>思路： 求出每个柱子上面能够存多少水，然后将每根柱子的存水量相加便能得到总的存水量，为求出每根柱子上能够存多少水，就要求出每根柱子左边最高的和右边最高柱子，然后用两者的最小值减去当前柱子的高度。 例如图中从左到右第三根柱子的高度为0，它左边最高柱子的值为1，右边最高柱子的值为3，因此它的最大存水量为 Min（1，3）-0=1。</p>
+<p>原文讲解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013309870/article/details/70978279">https://blog.csdn.net/u013309870/article/details/70978279</a></p>
+<p>题解一|暴力：<br>利用上面的思路，从左到右遍历每根柱子，遍历的时候求出每根柱子左边最高和右边最高柱子的值，然后利用两者的最小值减去当前柱子的高度就行了。</p>
+<p>时间复杂度O（n^2）,空间复杂度O（1）。</p>
+<p>注意：如果当前柱子大于它左右最大值的任何一个是存不了水的。</p>
+<pre><code>class Solution:
+    def trap(self, height: List[int]) -&gt; int:
+        waters=0
+        length=len(height)
+
+        if height is None or length&lt;2:
+            return 0
+
+        left,right=0,0
+        for i in range(length):
+            left,right=0,0
+            for j in range(i):
+                left=max(left,height[j])
+            for j in range(length-1,i,-1):
+                right=max(right,height[j])
+
+            tmp=min(left,right)
+            if tmp&gt;height[i]:
+                waters+=tmp-height[i]
+            else:
+                waters+=0
+
+        return waters</code></pre>
+<p>题解二|优化：</p>
+<p>题解一时间复杂度为O(n^2)。原因是对于每个元素都要从左到右，和从右到最左遍历其两边最大值，假如使用两个数组 left[ ] , right[ ]来保存每个元素左边最大值，右边最大值的话，这样就不用每次都遍历了，因此时间复杂度可以减少到O(n)，空间复杂度为O(n)，典型的空间换时间算法。</p>
+<pre><code>对于数组[ 5, 2 , 6 , 2 , 4 ]
+它的左数组：[5,5,6,6,6]
+它的右数组：[6,6,6,4,4]</code></pre>
+<p>算法的流程：</p>
+<pre><code>从左到右遍历一次求出每个元素左边的最大值，保存在 left 数组中。 
+从右到左遍历一次求出每个元素右边的最大值，保存在right数。
+最后一次遍历求出每个元素（每根柱子）的存水量。</code></pre>
+<pre><code>class Solution:
+    def trap(self, height: List[int]) -&gt; int:
+        waters=0
+        length=len(height)
+
+        if height is None or length&lt;2:
+            return 0
+        leftLargest,rightLargest=0,0
+        left,right=[0]*length,[0]*length
+
+        for i in range(length):
+            leftLargest=max(leftLargest,height[i])
+            left[i]=leftLargest
+
+        for i in range(length-1,-1,-1):
+            rightLargest=max(rightLargest,height[i])
+            right[i]=rightLargest
+
+        for i in range(length):
+            tmp=min(left[i],right[i])
+            if tmp&gt;height[i]:
+                waters+=tmp-height[i]
+            else:
+                waters+=0
+
+        return waters</code></pre>
+<p>题解三|优化：</p>
+<p>优化题解二，分析上面算法发现其实没有必要使用 left 数组，因为当从左到右遍历求存水量的过程中可以利用一个变量来保存当前元素左边的最大值。</p>
+<pre><code>class Solution:
+    def trap(self, height: List[int]) -&gt; int:
+        waters=0
+        length=len(height)
+
+        if height is None or length&lt;2:
+            return 0
+        leftLargest,rightLargest=0,0
+        right=[0]*length
+
+        for i in range(length-1,-1,-1):
+            rightLargest=max(rightLargest,height[i])
+            right[i]=rightLargest
+
+        for i in range(length):
+            leftLargest=max(leftLargest,height[i])
+            tmp=min(leftLargest,right[i])
+            if tmp&gt;height[i]:
+                waters+=tmp-height[i]
+            else:
+                waters+=0
+
+        return waters</code></pre>
+<p>题解四|双指针：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water1.png" alt="image"></p>
+<pre><code>上面左右两边的黄色块分别表示当前元素左边最大值和右边最大值。
+
+left ，right分别代表从左到右移动和从右到左移动的指针。
+
+如果当前元素的左边最大值比右边最大值小，则left指针向右移动，否则right指针向左移动。
+
+这种左右指针移动的目的是为了保证所求的左右最大值一定是当前元素的左右最大值。</code></pre>
+<pre><code>class Solution:
+    def trap(self, height: List[int]) -&gt; int:
+        waters=0
+        length=len(height)
+
+        if height is None or length&lt;2:
+            return 0
+        leftLargest,rightLargest=0,0
+        left,right=0,length-1
+
+        while left&lt;right:
+            leftLargest=max(leftLargest,height[left])
+            rightLargest=max(rightLargest,height[right])
+
+            if leftLargest &gt; rightLargest:
+                waters+=rightLargest-height[right]
+                right-=1
+            else:
+                waters+=leftLargest-height[left]
+                left+=1
+
+        return waters</code></pre>
+<pre><code>def trap(height):
+    if not height: return 0
+    left = 0
+    right = len(height) - 1
+    res = 0
+    # 记录左右边最大值
+    left_max = height[left]
+    right_max = height[right]
+    while left &lt; right:
+        if height[left] &lt; height[right]:
+            if left_max &gt; height[left]:
+                res += left_max - height[left]
+            else:
+                left_max = height[left]
+            left += 1
+        else:
+            if right_max &gt; height[right]:
+                res += right_max - height[right]
+            else:
+                right_max = height[right]
+            right -= 1
+    return res</code></pre>
+<h3 id="58-最后一个单词的长度"><a href="#58-最后一个单词的长度" class="headerlink" title="58.最后一个单词的长度"></a>58.最后一个单词的长度</h3><pre><code>链接：https://leetcode-cn.com/problems/length-of-last-word/
+
+给定一个仅包含大小写字母和空格 &#39; &#39; 的字符串，返回其最后一个单词的长度。
+
+如果不存在最后一个单词，请返回 0 。
+
+说明：一个单词是指由字母组成，但不包含任何空格的字符串。
+
+示例:
+
+输入: &quot;Hello World&quot;
+输出: 5</code></pre>
+<p>题解一|内置函数:</p>
+<pre><code>class Solution:
+    def lengthOfLastWord(self, s: str) -&gt; int:
+        return len(s.rstrip().split(&#39; &#39;)[-1])</code></pre>
+<p>题解二：<br>思路:<br>    从字符串末尾开始向前遍历，其中主要有两种情况<br>    第一种情况，以字符串”Hello World”为例，从后向前遍历直到遍历到头或者遇到空格为止，即为最后一个单词”World”的长度5<br>    第二种情况，以字符串”Hello World “为例，需要先将末尾的空格过滤掉，再进行第一种情况的操作，即认为最后一个单词为”World”，长度为5<br>    所以完整过程为先从后过滤掉空格找到单词尾部，再从尾部向前遍历，找到单词头部，最后两者相减，即为单词的长度<br>    时间复杂度：O(n)，n为结尾空格和结尾单词总体长度</p>
+<pre><code>class Solution:
+    def lengthOfLastWord(self, s: str) -&gt; int:
+        # return len(s.rstrip().split(&#39; &#39;)[-1])
+        end=len(s)-1
+        while end&gt;=0 and s[end]==&#39; &#39;:
+            end-=1
+        if end &lt; 0: return 0
+        start=end
+        while start &gt;=0 and s[start] !=&#39; &#39;:
+            start-=1
+        return end-start</code></pre>
+<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136.只出现一次的数字"></a>136.只出现一次的数字</h3><pre><code>链接：https://leetcode-cn.com/problems/single-number/
+
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,1]
+输出: 1
+示例 2:
+
+输入: [4,1,2,1,2]
+输出: 4</code></pre>
+<p>题解一|list：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=[]
+        for i in nums:
+            if i not in temp:
+                temp.append(i)
+            else:
+                temp.remove(i)
+        # return temp[0]
+        return temp.pop()</code></pre>
+<p>题解二|hash：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=&#123;&#125;
+        for i in nums:
+            if i not in temp:
+                temp[i]=1
+            else:
+                temp[i]+=1
+        for k,v in temp.items():
+            if v==1:
+                return k</code></pre>
+<p>题解三|位运算：</p>
+<p>异或运算有以下三个性质。</p>
+<pre><code>任何数和 0 做异或运算，结果仍然是原来的数，即 a⊕0=a。
+任何数和其自身做异或运算，结果是 0，即 a⊕a=0。
+异或运算满足交换律和结合律，即 a⊕b⊕a=b⊕a⊕a=b⊕(a⊕a)=b⊕0=b。</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        res=0
+        for i in nums:
+            res^=i
+        return res</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return reduce(lambda x,y:x^y,nums)</code></pre>
+<h3 id="137-只出现一次的数字-II"><a href="#137-只出现一次的数字-II" class="headerlink" title="137.只出现一次的数字 II"></a>137.只出现一次的数字 II</h3><pre><code>链接：https://leetcode-cn.com/problems/single-number-ii/
+
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,3,2]
+输出: 3
+示例 2:
+
+输入: [0,1,0,1,0,1,99]
+输出: 99</code></pre>
+<p>题解一|hash：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        hash=&#123;&#125;
+        for i in nums:
+            if i not in hash:
+                hash[i]=1
+            else:
+                hash[i]+=1
+        for k,v in hash.items():
+            if v!=3:
+                return k</code></pre>
+<p>题解二|数学运算：</p>
+<pre><code>3×(a+b+c)−(a+a+a+b+b+b+c)=2c
+
+时间复杂度：O(N)，遍历输入数组。
+空间复杂度：O(N)，存储 N/3N/3 个元素的集合。</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return (3*sum(set(nums))-sum(nums))//2</code></pre>
+<p>？？？题解三|位运算:</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png"></p>
+<h3 id="84-柱状图中最大的矩形"><a href="#84-柱状图中最大的矩形" class="headerlink" title="84. 柱状图中最大的矩形"></a>84. 柱状图中最大的矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。
+
+图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。
+
+示例:
+
+输入: [2,1,5,6,2,3]
+输出: 10</code></pre>
+<p>题解一|暴力|超时：</p>
+<pre><code>class Solution:
+    def largestRectangleArea(self, heights: List[int]) -&gt; int:
+        if not heights:
+            return 0
+        n=len(heights)
+        area=0
+        for i in range(n):
+            tmp=heights[i]
+            for j in range(i,n):
+                tmp=min(tmp,heights[j])
+                area=max(area,tmp*(j-i+1))
+        return area</code></pre>
+<p>题解二|递增栈：</p>
+<pre><code>class Solution:
+    def largestRectangleArea(self, heights: List[int]) -&gt; int:
+        if not heights:
+            return 0
+        n=len(heights)
+        stack=[]
+        area,i=0,0
+        while i &lt; n:
+            if not stack or (heights[i] &gt; heights[stack[-1]]):
+                stack.append(i)
+                i+=1
+            else:
+                tmp=stack.pop()
+                area=max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))
+        while stack:
+            tmp=stack.pop()
+            area=max(area,heights[tmp]*((i-stack[-1]-1) if stack else i))
+        return area</code></pre>
+<h3 id="85-最大矩形"><a href="#85-最大矩形" class="headerlink" title="85. 最大矩形"></a>85. 最大矩形</h3><pre><code>链接：https://leetcode-cn.com/problems/maximal-rectangle/
+
+给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+示例:
+
+输入:
+[
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],
+  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]
+]
+输出: 6</code></pre>
+<p>题解一|暴力：</p>
+<p>时间复杂度：O（m²n）。<br>空间复杂度：O（mn）。</p>
+<pre><code>class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -&gt; int:
+        if not matrix:
+            return 0
+        m=len(matrix)
+        n=len(matrix[0])
+        dp=[[0] * n for i in range(m)]
+        area=0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j]==&#39;1&#39;:
+                    if n==0:
+                        dp[i][j]=1
+                    else:
+                        dp[i][j]=dp[i][j-1]+1
+                else:
+                    dp[i][j]=0   
+
+                minWidth=dp[i][j]
+                for k in range(i,-1,-1):
+                    height=i-k+1
+                    minWidth=min(minWidth,dp[k][j])
+                    area=max(area,height*minWidth)
+
+        return area</code></pre>
+<h3 id="409-最长回文串"><a href="#409-最长回文串" class="headerlink" title="409.最长回文串"></a>409.最长回文串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindrome/
+
+给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
+
+在构造过程中，请注意区分大小写。比如 &quot;Aa&quot; 不能当做一个回文字符串。
+
+注意:
+假设字符串的长度不会超过 1010。
+
+示例 1:
+
+输入:
+&quot;abccccdd&quot;
+
+输出:
+7
+
+解释:
+我们可以构造的最长的回文串是&quot;dccaccd&quot;, 它的长度是 7。</code></pre>
+<p>题解一|hash：</p>
+<p>时间复杂度：O(N)，其中 N 为字符串 s 的长度。我们需要遍历每个字符一次。</p>
+<p>空间复杂度：O(S)，其中 S 为字符集大小。</p>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; int:
+        if not s:
+            return 0
+        hash=&#123;&#125;
+        sum=0
+        for each in s:
+            if each not in hash:
+                hash[each]=1
+            else:
+                hash[each]+=1
+        for key,value in hash.items():
+            sum+=value//2*2
+            if sum%2==0 and value%2==1:
+                sum+=1
+        return sum</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s):
+        ans = 0
+        count = collections.Counter(s)
+        for v in count.values():
+            ans += v // 2 * 2
+            if ans % 2 == 0 and v % 2 == 1:
+                ans += 1
+        return ans</code></pre>
+<h3 id="836-矩形重叠"><a href="#836-矩形重叠" class="headerlink" title="836.矩形重叠"></a>836.矩形重叠</h3><pre><code>链接：https://leetcode-cn.com/problems/rectangle-overlap/
+
+矩形以列表 [x1, y1, x2, y2] 的形式表示，其中 (x1, y1) 为左下角的坐标，(x2, y2) 是右上角的坐标。
+
+如果相交的面积为正，则称两矩形重叠。需要明确的是，只在角或边接触的两个矩形不构成重叠。
+
+给出两个矩形，判断它们是否重叠并返回结果。
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+示例 1：
+
+输入：rec1 = [0,0,2,2], rec2 = [1,1,3,3]
+输出：true
+示例 2：
+
+输入：rec1 = [0,0,1,1], rec2 = [1,0,2,1]
+输出：false
 
 
+提示：
 
+两个矩形 rec1 和 rec2 都以含有四个整数的列表的形式给出。
+矩形中的所有坐标都处于 -10^9 和 10^9 之间。
+x 轴默认指向右，y 轴默认指向上。
+你可以仅考虑矩形是正放的情况。</code></pre>
+<p>题解一|检查位置：</p>
+<p>思路：如果两个矩形不重叠，那么一个矩形肯定在另一个矩形的四周（即左右上下）</p>
+<pre><code>矩形 rec1 在矩形 rec2 的左侧；
 
+矩形 rec1 在矩形 rec2 的右侧；
 
+矩形 rec1 在矩形 rec2 的上方；
 
+矩形 rec1 在矩形 rec2 的下方。
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
+左侧：rec1[2] &lt;= rec2[0]；
 
+右侧：rec1[0] &gt;= rec2[2]；
 
+上方：rec1[1] &gt;= rec2[3]；
 
+下方：rec1[3] &lt;= rec2[1]。</code></pre>
+<p>时间复杂度：O(1)<br>空间复杂度：O(1)，不需要额外的空间。</p>
+<pre><code>class Solution:
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -&gt; bool:
+        if rec1[0]&gt;=rec2[2] or rec1[1]&gt;=rec2[3]:
+            return False
+        if rec2[0]&gt;=rec1[2] or rec2[1]&gt;=rec1[3]: # 注意是or，不是and。
+            return False
+        return True</code></pre>
+<pre><code>class Solution:
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -&gt; bool:
+        if rec1[2]&lt;=rec2[0] or rec1[3]&lt;=rec2[1] or rec1[0]&gt;=rec2[2] or rec1[1]&gt;=rec2[3]:
+            return False
+        else:
+            return True</code></pre>
+<p>题解二|检查区域：</p>
+<p>思路：如果两个矩形重叠，那么它们重叠的区域一定也是一个矩形，那么这代表了两个矩形与 x 轴平行的边（水平边）投影到 x 轴上时会有交集，与 y 轴平行的边（竖直边）投影到 y 轴上时也会有交集。因此，我们可以将问题看作一维线段是否有交集的问题。</p>
+<p>矩形 rec1 和 rec2 的水平边投影到 x 轴上的线段分别为 (rec1[0], rec1[2]) 和 (rec2[0], rec2[2])。根据数学知识我们可以知道，当 min(rec1[2], rec2[2]) &gt; max(rec1[0], rec2[0]) 时，这两条线段有交集。对于矩形 rec1 和 rec2 的竖直边投影到 yy 轴上的线段，同理可以得到，当 min(rec1[3], rec2[3]) &gt; max(rec1[1], rec2[1]) 时，这两条线段有交集。（画图）</p>
+<p>时间复杂度：O(1)<br>空间复杂度：O(1)，不需要额外的空间。</p>
+<pre><code>class Solution:
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -&gt; bool:
+        def isIntersec(pLeft,pRight,qLeft,qRight):
+            return min(pRight,qRight)&gt;max(pLeft,qLeft)
+        return isIntersec(rec1[0],rec1[2],rec2[0],rec2[2]) and isIntersec(rec1[1],rec1[3],rec2[1],rec2[3])</code></pre>
+<h3 id="1160-拼写单词"><a href="#1160-拼写单词" class="headerlink" title="1160.拼写单词"></a>1160.拼写单词</h3><pre><code>链接：https://leetcode-cn.com/problems/find-words-that-can-be-formed-by-characters/
 
+给你一份『词汇表』（字符串数组） words 和一张『字母表』（字符串） chars。
 
+假如你可以用 chars 中的『字母』（字符）拼写出 words 中的某个『单词』（字符串），那么我们就认为你掌握了这个单词。
 
+注意：
+    每次拼写时，chars 中的每个字母都只能用一次。
+    返回词汇表 words 中你掌握的所有单词的 长度之和。
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
+示例 1：
 
-</div>
+输入：words = [&quot;cat&quot;,&quot;bt&quot;,&quot;hat&quot;,&quot;tree&quot;], chars = &quot;atach&quot;
+输出：6
+解释： 
+可以形成字符串 &quot;cat&quot; 和 &quot;hat&quot;，所以答案是 3 + 3 = 6。
+示例 2：
+
+输入：words = [&quot;hello&quot;,&quot;world&quot;,&quot;leetcode&quot;], chars = &quot;welldonehoneyr&quot;
+输出：10
+解释：
+可以形成字符串 &quot;hello&quot; 和 &quot;world&quot;，所以答案是 5 + 5 = 10。</code></pre>
+<p> <br>    提示：<br>    1 &lt;= words.length &lt;= 1000<br>    1 &lt;= words[i].length, chars.length &lt;= 100<br>    所有字符串中都仅包含小写英文字母</p>
+<p>题解一（hash）：</p>
+<p>思路：对于一个单词 word，只要其中的每个字母的数量都不大于 chars 中对应的字母的数量，那么就可以用 chars 中的字母拼写出 word。所以我们只需要用一个哈希表存储 chars 中每个字母的数量，再用一个哈希表存储 word 中每个字母的数量，最后将这两个哈希表的键值对逐一进行比较即可。</p>
+<p>时间复杂度：O(n)，其中 n 为所有字符串的长度和。我们需要遍历每个字符串，包括 chars 以及数组 words 中的每个单词。</p>
+<p>空间复杂度：O(S)，其中 S 为字符集大小，在本题中 S 的值为 26（所有字符串仅包含小写字母）。程序运行过程中，最多同时存在两个哈希表，使用的空间均不超过字符集大小 S，因此空间复杂度为 O(S)。</p>
+<pre><code>class Solution:
+    def countCharacters(self, words: List[str], chars: str) -&gt; int:
+        from collections import Counter
+        hashChars=&#123;&#125;
+        hashWords=&#123;&#125;
+        hashChars=Counter(chars)
+        res=0
+        # print(hashChars)
+        for word in words:
+            hashWords=Counter(word)
+            # print(hashWords)
+            for key in hashWords:
+                if hashChars[key] &lt; hashWords[key]:
+                    break 
+            else:
+                res+=len(word)
+        return res</code></pre>
+<pre><code>class Solution:
+    def countCharacters(self, words: List[str], chars: str) -&gt; int:
+        res=0
+        hash1=&#123;&#125;
+        for each in chars:
+            if each not in hash1:
+                hash1[each]=1
+            else:
+                hash1[each]+=1
+        for word in words:
+            hash2=&#123;&#125;
+            for w in word:
+                if w not in hash2:
+                    hash2[w]=1
+                else:
+                    hash2[w]+=1
+            for key in hash2:
+                if hash2.get(key,0) &gt; hash1.get(key,0):
+                    break
+            else:
+                res+=len(word)
+        return res</code></pre>
+<p>for-else用法：</p>
+<pre><code>如果for循环正常结束，else中语句执行；
+如果for循环是break退出的，则else中语句不执行；</code></pre>
+<pre><code>for i in range(5):
+    print(i)
+else:
+    print(&#39;hello&#39;)
+
+for i in range(5):
+    print(i)
+    if i==2:
+        break
+else:
+    print(&#39;hello&#39;)
+
+输出：
+0
+1
+2
+3
+4
+hello
+------------
+0
+1
+2</code></pre>
+<p>题解二|hash：</p>
+<pre><code>dict.get(key, default=None)
+key -- 字典中要查找的键。
+default -- 如果指定键的值不存在时，返回该默认值。</code></pre>
+<pre><code>class Solution:
+    def countCharacters(self, words: List[str], chars: str) -&gt; int:
+        res=&#39;&#39;
+        for word in words:
+            hash=&#123;&#125;
+            for i in range(len(chars)):
+                hash[chars[i]]=hash.get(chars[i],0)+1
+            count=0
+            for w in word:
+                if hash.get(w,0)&gt;=1:
+                    hash[w]=hash.get(w,0)-1
+                    count+=1
+                else:
+                    break
+            if count == len(word):
+                res+=word
+        return len(res)</code></pre>
+
+      
     </div>
-</footer>
 
-<div class="progress-bar"></div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-3-%E5%85%A5%E9%97%A8/">
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-3-%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">PyTorch-3.入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-28 20:44:53" itemprop="dateCreated datePublished" datetime="2020-02-28T20:44:53+08:00">2020-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-14 15:22:24" itemprop="dateModified" datetime="2020-04-14T15:22:24+08:00">2020-04-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
         </div>
-        <div id="searchResult"></div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>PyTorch 是一个基于 Python 的科学计算包，主要定位两类人群：</p>
+<pre><code>NumPy 的替代品，可以利用 GPU 的性能进行计算。
+深度学习研究平台拥有足够的灵活性和速度。</code></pre>
+<h2 id="一、张量Tensors"><a href="#一、张量Tensors" class="headerlink" title="一、张量Tensors"></a>一、张量Tensors</h2><p>Tensors 类似于 NumPy 的 ndarrays ，同时 Tensors 可以使用 GPU 进行计算。</p>
+<pre><code>from __future__ import print_function
+import torch
+# x=torch.empty(5,3) # 构造一个5x3矩阵，不初始化
+# x=torch.rand(5,3) # 构造一个随机初始化的矩阵
+# x=torch.zeros(5,3,dtype=torch.long) # 构造一个全0的矩阵，数据类型为long
+x=torch.tensor([5.5,3]) # 构造一个张量，直接使用数据
+print(x)</code></pre>
+<pre><code>x=x.new_ones(5,3,dtype=torch.double) # 创建一个 tensor 基于已经存在的 tensor
+print(x)
+x=torch.randn_like(x,dtype=torch.float) 
+print(x)
+print(x.size()) # 获取x的维度信息</code></pre>
+<p>注意：torch.Size 是一个元组，所以它支持左右的元组操作。</p>
+<pre><code># 加法
+y=torch.rand(5,3)
+print(x+y)
+print(torch.add(x,y)) 
+result=torch.empty(5,3)
+torch.add(x,y,out=result) # 提供一个输出tensor为参数
+print(result)
+y.add_(x) # 加法in-place
+print(x)</code></pre>
+<p>注意：任何使张量会发生变化的操作都有一个前缀 ‘’。例如：x.copy(y), x.t_(), 将会改变 x.</p>
+<pre><code>print(x[:,1]) # 使用标准的Numpy类似的索引操作</code></pre>
+<pre><code># 改变大小：如果你想改变一个 tensor 的大小或者形状，你可以使用 torch.view:
+x=torch.randn(4,4)
+y=x.view(16)
+z=x.view(-1,8) # the size -1 is inferred from other dimensions
+print(x.size(),y.size(),z.size())  </code></pre>
+<pre><code>x=torch.randn(1)
+print(x)
+print(x.item())  # 使用.item() 来获得tensor的value 。</code></pre>
+<h2 id="二、自动微分"><a href="#二、自动微分" class="headerlink" title="二、自动微分"></a>二、自动微分</h2><p>autograd 包是 PyTorch 中所有神经网络的核心。autograd 软件包为 Tensors 上的所有操作提供自动微分。它是一个由运行定义的框架，这意味着以代码运行方式定义你的后向传播，并且每次迭代都可以不同。我们从 tensor 和 gradients举例：</p>
+<h3 id="2-1-Tensor"><a href="#2-1-Tensor" class="headerlink" title="2.1 Tensor"></a>2.1 Tensor</h3><p>torch.Tensor 是包的核心类。如果将其属性 .requires_grad 设置为 True，则会开始跟踪针对 tensor 的所有操作。完成计算后，您可以调用 .backward() 来自动计算所有梯度。该张量的梯度将累积到 .grad 属性中。</p>
+<p>要停止 tensor 历史记录的跟踪，您可以调用 .detach()，它将其与计算历史记录分离，并防止将来的计算被跟踪。</p>
+<p>要停止跟踪历史记录（和使用内存），您还可以将代码块使用 with torch.no_grad(): 包装起来。在评估模型时，这是特别有用，因为模型在训练阶段具有 requires_grad = True 的可训练参数有利于调参，但在评估阶段我们不需要梯度。</p>
+<p>还有一个类对于 autograd 实现非常重要那就是 Function。Tensor 和 Function 互相连接并构建一个非循环图，它保存整个完整的计算过程的历史信息。每个张量都有一个 .grad_fn 属性保存着创建了张量的 Function 的引用，（如果用户自己创建张量，则g rad_fn 是 None ）。</p>
+<p>如果你想计算导数，你可以调用 Tensor.backward()。如果 Tensor 是标量（即它包含一个元素数据），则不需要指定任何参数backward()，但是如果它有更多元素，则需要指定一个gradient 参数来指定张量的形状。</p>
+<pre><code>import torch
+x=torch.ones(2,2,requires_grad=True) # 创建一个张量，设置 requires_grad=True 来跟踪与它相关的计算
+print(x)
+
+y=x+2
+print(y)
+
+print(y.grad_fn) # y 作为操作的结果被创建，所以它有 grad_fn</code></pre>
+<p>输出：</p>
+<pre><code>tensor([[1., 1.],
+        [1., 1.]], requires_grad=True)
+tensor([[3., 3.],
+        [3., 3.]], grad_fn=&lt;AddBackward0&gt;)
+&lt;AddBackward0 object at 0x7f95ccaa0810&gt;</code></pre>
+<pre><code>z=y*y*3
+out=z.mean()
+print(z,out)</code></pre>
+<p>输出：</p>
+<pre><code>tensor([[27., 27.],
+    [27., 27.]], grad_fn=&lt;MulBackward0&gt;) tensor(27., grad_fn=&lt;MeanBackward0&gt;)</code></pre>
+<p>.requires_grad_( … ) 会改变张量的 requires_grad 标记。输入的标记默认为 False ，如果没有提供相应的参数。</p>
+<pre><code>a=torch.randn(2,2)
+a=(a*3)/(a-1)
+print(a.requires_grad)
+a.requires_grad_(True)
+print(a.requires_grad)
+b=(a*a).sum()
+print(b.grad_fn)</code></pre>
+<p>输出：</p>
+<pre><code>False
+True
+&lt;SumBackward0 object at 0x7fe1db427dd8&gt;</code></pre>
+<h3 id="2-2-梯度"><a href="#2-2-梯度" class="headerlink" title="2.2 梯度"></a>2.2 梯度</h3><p>现在后向传播，因为输出包含了一个标量，out.backward() 等同于out.backward(torch.tensor(1.))。</p>
+<pre><code>out.backward()
+# out.backward(retain_graph=True)
+print(x.grad) # 打印梯度 d(out)/dx</code></pre>
+<p>输出：</p>
+<pre><code>tensor([[4.5000, 4.5000],
+    [4.5000, 4.5000]])</code></pre>
+<pre><code>x=torch.randn(3,requires_grad=True)
+y=x*2
+while y.data.norm() &lt; 1000:
+    y=y*2
+print(y)</code></pre>
+<p>在这种情况下，y 不再是一个标量。torch.autograd 不能够直接计算整个雅可比，但是如果我们只想要雅可比向量积，只需要简单的传递向量给 backward 作为参数。</p>
+<pre><code>v = torch.tensor([0.1, 1.0, 0.0001], dtype=torch.float)
+y.backward(v)
+
+print(x.grad)</code></pre>
+<pre><code># 将代码包裹在 with torch.no_grad()，来停止对从跟踪历史中 的 .requires_grad=True 的张量自动求导。
+print(x.requires_grad)
+print((x ** 2).requires_grad)
+
+with torch.no_grad():
+    print((x ** 2).requires_grad)</code></pre>
+<h2 id="三、神经网络"><a href="#三、神经网络" class="headerlink" title="三、神经网络"></a>三、神经网络</h2><p>神经网络可以通过 torch.nn 包来构建。</p>
+<p>现在对于自动梯度(autograd)有一些了解，神经网络是基于自动梯度 (autograd)来定义一些模型。一个 nn.Module 包括层和一个方法 forward(input) 它会返回输出(output)。</p>
+<p>数字图片识别的网络：一个简单的前馈神经网络，它接收输入，让输入一个接着一个的通过一些层，最后给出输出。<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/nn.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/nn.png"></p>
+<p>神经网络训练过程:</p>
+<pre><code>1.定义一个包含可训练参数的神经网络
+
+2.迭代整个输入
+
+3.通过神经网络处理输入
+
+4.计算损失(loss)
+
+5.反向传播梯度到神经网络的参数
+
+6.更新网络的参数，典型的用一个简单的更新方法：weight = weight - learning_rate *gradient</code></pre>
+
+      
     </div>
-</div>
 
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">PyTorch-1.简介和环境搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-28 20:36:09" itemprop="dateCreated datePublished" datetime="2020-02-28T20:36:09+08:00">2020-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-14 15:29:21" itemprop="dateModified" datetime="2020-04-14T15:29:21+08:00">2020-04-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等应用程序。它主要由Facebook人工智能小组开发，不仅能够实现强大的GPU加速，同时还支持动态神经网络，这一点是现在很多主流框架如TensorFlow都不支持的。 </p>
+<p>PyTorch提供了两个高级功能：<br>    1.具有强大的GPU加速的张量计算（如Numpy）<br>    2.包含自动求导系统的深度神经网络 </p>
+<p>除了Facebook之外，Twitter、GMU和Salesforce等机构都采用了PyTorch。</p>
+<p>PyTorch的前身是Torch，Torch是一个有大量机器学习算法支持的科学计算框架，是一个与Numpy类似的张量（Tensor） 操作库，其特点是特别灵活，但因其采用了小众的编程语言是Lua，所以流行度不高，这也就有了PyTorch的出现。所以其实Torch是 PyTorch的前身，它们的底层语言相同，只是使用了不同的上层包装语言。</p>
+<p>TensorFlow和Caffe都是命令式的编程语言，而且是静态的，首先必须构建一个神经网络，然后一次又一次使用相同的结构，如果想要改变网络的结构，就必须从头开始。但是对于PyTorch，通过反向求导技术，可以让你零延迟地任意改变神经网络的行为，而且其实现速度 快。正是这一灵活性是PyTorch对比TensorFlow的最大优势。</p>
+<p>另外，PyTorch的代码对比TensorFlow而言，更加简洁直观，底层代码也更容易看懂，这对于使用它的人来说理解底层肯定是一件令人激动的事。</p>
+<p>所以，总结一下PyTorch的优点： </p>
+<pre><code>支持GPU；
+灵活，支持动态神经网络；
+底层代码易于理解；
+命令式体验；
+自定义扩展；</code></pre>
+<p>当然，现今任何一个深度学习框架都有其缺点，PyTorch也不例外，对比TensorFlow，其全面性处于劣势，目前PyTorch还不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；其次因为这个框 架较新，使得他的社区没有那么强大，在文档方面其C库大多数没有文档。</p>
+<h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><pre><code>安装Anaconda；
+安装PyTorch;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">python并发-19.垃圾回收机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:49:58" itemprop="dateCreated datePublished" datetime="2020-02-27T23:49:58+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:12" itemprop="dateModified" datetime="2020-09-18T14:03:12+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们知道，目前的计算机都采用的是图灵机架构，其本质就是用一条无限长的纸带，对应今天的存储器。随后在工程学的推演中，逐渐出现了寄存器、易失性存储器（内存）以及永久性存储器（硬盘）等产品。由于不同的存储器，其速度越快，单位价格也就越昂贵，因此，妥善利用好每一寸告诉存储器的空间，永远是系统设计的一个核心。</p>
+<p>Python 程序在运行时，需要在内存中开辟出一块空间，用于存放运行时产生的临时变量，计算完成后，再将结果输出到永久性存储器中。但是当数据量过大，或者内存空间管理不善，就很容易出现内存溢出的情况，程序可能会被操作系统终止。</p>
+<p>而对于服务器这种用于永不中断的系统来说，内存管理就显得更为重要了，不然很容易引发内存泄漏。<br>这里的内存泄漏是指程序本身没有设计好，导致程序未能释放已不再使用的内存，或者直接失去了对某段内存的控制，造成了内存的浪费。</p>
+<p>那么，对于不会再用到的内存空间，Python 是通过什么机制来管理的呢？就是引用计数机制。</p>
+<h2 id="一、Python引用计数机制"><a href="#一、Python引用计数机制" class="headerlink" title="一、Python引用计数机制"></a>一、Python引用计数机制</h2><p>Python 中一切皆对象，也就是说，在 Python 中你用到的一切变量，本质上都是类对象。</p>
+<p>那么，如何知道一个对象永远都不能再使用了呢？很简单，就是当这个对象的引用计数值为 0 时，说明这个对象永不再用，自然它就变成了垃圾，需要被回收。</p>
+<pre><code>import os
+import psutil # 获取系统信息
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
 
-    <!-- Baidu Analytics -->
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
 
-    <!-- Baidu Push -->
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+
+
+func()
+showMemoryInfo(&#39;finished&#39;)</code></pre>
+<p>输出：</p>
+<pre><code>initial memory used: 6.3828125 MB
+after a created memory used: 392.92578125 MB
+finished memory used: 10.85546875 MB</code></pre>
+<p>可以看到，当调用函数 func() 且列表 a 被创建之后，内存占用迅速增加到了 392 MB，而在函数调用结束后，内存则返回正常。这是因为，函数内部声明的列表 a 是局部变量，在函数返回后，局部变量的引用会注销掉，此时列表 a 所指代对象的引用计数为 0，Python 便会执行垃圾回收，因此之前占用的大量内存就又回来了。</p>
+<pre><code>import os
+import psutil
+
+
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    global a
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+
+
+func()
+showMemoryInfo(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.37890625 MB
+after a created memory used: 392.74609375 MB
+finished memory used: 392.74609375 MB</code></pre>
+<p>global a 表示将 a 声明为全局变量，则即使函数返回后，列表的引用依然存在，于是 a 对象就不会被当做垃圾回收掉，依然占用大量内存。</p>
+<pre><code>import os
+import psutil
+
+
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+    return a
+
+a = func()
+showMemoryInfo(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.4140625 MB
+after a created memory used: 392.86328125 MB
+finished memory used: 392.86328125 MB
+</code></pre>
+<p>如果把生成的列表返回，然后在主程序中接收，那么引用依然存在，垃圾回收也不会被触发，大量内存仍然被占用着.</p>
+<p>??Python 内部的引用计数机制:</p>
+<pre><code>import sys
+
+a = []
+print(sys.getrefcount(a))  # 两次引用，一次来自 a，一次来自 getrefcount
+
+
+def func(a):
+    # 四次引用，a，python 的函数调用栈，函数参数，和 getrefcount
+    print(sys.getrefcount(a))
+
+
+func(a)
+# 两次引用，一次来自 a，一次来自 getrefcount，函数 func 调用已经不存在
+print(sys.getrefcount(a))
+</code></pre>
+<p>输出：</p>
+<pre><code>2
+4
+2</code></pre>
+<p>注意：sys.getrefcount() 函数用于查看一个变量的引用次数，不过别忘了，getrefcount 本身也会引入一次计数。</p>
+<p>注意：在函数调用发生的时候，会产生额外的两次引用，一次来自函数栈，另一个是函数参数。</p>
+<pre><code>import sys
+a = []
+print(sys.getrefcount(a)) # 两次
+b = a
+print(sys.getrefcount(a)) # 三次
+c = b
+d = b
+e = c
+f = e
+g = d
+print(sys.getrefcount(a)) # 八次
+
+输出：
+2
+3
+8</code></pre>
+<p>分析：</p>
+<p>a、b、c、d、e、f、g 这些变量全部指代的是同一个对象，而 sys.getrefcount() 函数并不是统计一个指针，而是要统计一个对象被引用的次数，所以最后一共会有 8 次引用。</p>
+<p>理解引用这个概念后，引用释放是一种非常自然和清晰的思想。相比 C 语言中需要使用 free 去手动释放内存，Python 的垃圾回收在这里可以说是省心省力了。</p>
+<p>不过，有读者还是会好奇，如果想手动释放内存，应该怎么做呢？方法同样很简单，只需要先调用 del a 来删除一个对象，然后强制调用 gc.collect() 即可手动启动垃圾回收。例如：</p>
+<pre><code>import psutil
+import os
+import gc
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+show_memory_info(&#39;initial&#39;)
+a=[i for i in range(10000000)]
+show_memory_info(&#39;after a created&#39;)
+del a
+gc.collect()
+show_memory_info(&#39;finished&#39;)
+print(a)
+
+输出：
+initial memory used: 6.3984375 MB
+after a created memory used: 392.77734375 MB
+finished memory used: 10.70703125 MB
+Traceback (most recent call last):
+  File &quot;/Users/apple/PycharmProjects/python-learning/test/Account.py&quot;, line 24, in &lt;module&gt;
+    print(a)
+NameError: name &#39;a&#39; is not defined</code></pre>
+<p>问题：引用次数为 0 是垃圾回收启动的充要条件吗？还有没有其他可能性呢？</p>
+<p>引用计数是其中最简单的实现，引用计数并非充要条件，它只能算作充分非必要条件，至于其他的可能性，下面所讲的循环引用正是其中一种。</p>
+<h2 id="二、循环引用"><a href="#二、循环引用" class="headerlink" title="二、循环引用"></a>二、循环引用</h2><p>问题：如果有两个对象，之间互相引用，且不再被别的对象所引用，那么它们应该被垃圾回收吗？</p>
+<pre><code>import psutil
+import os
+import gc
+
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    show_memory_info(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    b = [i for i in range(10000000)]
+    show_memory_info(&#39;after a,b created&#39;)
+    a.append(b)
+    b.append(a)
+
+
+func()
+show_memory_info(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.4375 MB
+after a,b created memory used: 779.69140625 MB
+finished memory used: 779.69140625 MB</code></pre>
+<p>程序中，a 和 b 互相引用，并且作为局部变量在函数 func 调用结束后，a 和 b 这两个指针从程序意义上已经不存在，但从输出结果中看到，依然有内存占用，这是为什么呢？因为互相引用导致它们的引用数都不为 0。</p>
+<p>试想一下，如果这段代码出现在生产环境中，哪怕 a 和 b 一开始占用的空间不是很大，但经过长时间运行后，Python 所占用的内存一定会变得越来越大，最终撑爆服务器，后果不堪设想。</p>
+<p>有读者可能会说，互相引用还是很容易被发现的呀，问题不大。可是，更隐蔽的情况是出现一个引用环，在工程代码比较复杂的情况下，引用环真不一定能被轻易发现。那么应该怎么做呢？</p>
+<p>Python 本身能够处理这种情况，可以通过显式调用 gc.collect() 来启动垃圾回收，例如：</p>
+<pre><code>import psutil
+import os
+import gc
+
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    show_memory_info(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    b = [i for i in range(10000000)]
+    show_memory_info(&#39;after a,b created&#39;)
+    a.append(b)
+    b.append(a)
+
+
+func()
+gc.collect()
+show_memory_info(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.41015625 MB
+after a,b created memory used: 779.81640625 MB
+finished memory used: 11.4375 MB</code></pre>
+<p>事实上，Python 使用标记清除（mark-sweep）算法和分代收集（generational），来启用针对循环引用的自动垃圾回收。</p>
+<p>1、标记清除算法：</p>
+<p>先用图论来理解不可达的概念。对于一个有向图，如果从一个节点出发进行遍历，并标记其经过的所有节点；那么，在遍历结束后，所有没有被标记的节点，我们就称之为不可达节点。显而易见，这些节点的存在是没有任何意义的，自然的，我们就需要对它们进行垃圾回收。</p>
+<p>当然，每次都遍历全图，对于 Python 而言是一种巨大的性能浪费。所以，在 Python 的垃圾回收实现中，标记清除算法使用双向链表维护了一个数据结构，并且只考虑容器类的对象（只有容器类对象才有可能产生循环引用）。</p>
+<p>2、分代收集算法：</p>
+<p>将 Python 中的所有对象分为三代。刚刚创立的对象是第 0 代；经过一次垃圾回收后，依然存在的对象，便会依次从上一代挪到下一代。而每一代启动自动垃圾回收的阈值，则是可以单独指定的。当垃圾回收器中新增对象减去删除对象达到相应的阈值时，就会对这一代对象启动垃圾回收。</p>
+<p>事实上，分代收集基于的思想是，新生的对象更有可能被垃圾回收，而存活更久的对象也有更高的概率继续存活。因此，通过这种做法，可以节约不少计算量，从而提高 Python 的性能。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/" class="post-title-link" itemprop="url">python并发-18.GIL全局解释器锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:30:32" itemprop="dateCreated datePublished" datetime="2020-02-27T23:30:32+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:08" itemprop="dateModified" datetime="2020-09-18T14:03:08+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>GIL，中文译为全局解释器锁。</p>
+<pre><code>import time
+
+start = time.clock()
+
+
+def count(n):
+    while n &gt; 0:
+        n -= 1
+
+
+count(10000)
+print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
+<p>输出：Time used: 0.0006330000000000016</p>
+<p>使用多（适量）线程可以提升程序性能：</p>
+<pre><code>import time
+from threading import Thread
+
+start = time.clock()
+
+
+def count(n):
+    while n &gt; 0:
+        n -= 1
+
+
+t1 = Thread(target=count, args=[10000 // 2])
+t2 = Thread(target=count, args=[10000 // 2])
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
+<p>输出：Time used: 0.0007749999999999979</p>
+<p>从输出结果看，多线程不但没有提高性能，反而降低了。</p>
+<pre><code>如果使用更多线程进行尝试，会发现其运行效率和 2 个线程效率几乎一样（本机器测试使用 4 个线程，其执行效率约为 0.001）。</code></pre>
+<p>事实上，得到这样的结果是肯定的，因为 GIL 限制了 Python 多线程的性能不会像我们预期的那样。</p>
+<p>那么，什么是 GIL 呢？GIL 是最流程的 CPython 解释器（平常称为 Python）中的一个技术术语，中文译为全局解释器锁，其本质上类似操作系统的 Mutex。GIL 的功能是：在 CPython 解释器中执行的每一个 Python 线程，都会先锁住自己，以阻止别的线程执行。</p>
+<p>当然，CPython 不可能容忍一个线程一直独占解释器，它会轮流执行 Python 线程。这样一来，用户看到的就是“伪”并行，即 Python 线程在交替执行，来模拟真正并行的线程。</p>
+<p>有读者可能会问，既然 CPython 能控制线程伪并行，为什么还需要 GIL 呢？其实，这和 CPython 的底层内存管理有关。</p>
+<p>CPython 使用引用计数来管理内容，所有 Python 脚本中创建的实例，都会配备一个引用计数，来记录有多少个指针来指向它。当实例的引用计数的值为 0 时，会自动释放其所占的内存。</p>
+<pre><code>&gt;&gt;&gt; import sys
+&gt;&gt;&gt; a = []
+&gt;&gt;&gt; b = a
+&gt;&gt;&gt; sys.getrefcount(a)
+3</code></pre>
+<p>a 的引用计数值为 3，因为有 a、b 和作为参数传递的 getrefcount 都引用了一个空列表。</p>
+<p>假设有两个 Python 线程同时引用 a，那么双方就都会尝试操作该数据，很有可能造成引用计数的条件竞争，导致引用计数只增加 1（实际应增加 2），这造成的后果是，当第一个线程结束时，会把引用计数减少 1，此时可能已经达到释放内存的条件（引用计数为 0），当第 2 个线程再次视图访问 a 时，就无法找到有效的内存了。</p>
+<p>所以，CPython 引进 GIL，可以最大程度上规避类似内存管理这样复杂的竞争风险问题。</p>
+<h2 id="一、GIL底层实现原理"><a href="#一、GIL底层实现原理" class="headerlink" title="一、GIL底层实现原理"></a>一、GIL底层实现原理</h2><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif"></p>
+<p>GIL 在 Python 程序的工作流程：</p>
+<p>Thread 1、2、3 轮流执行，每一个线程在开始执行时，都会锁住 GIL，以阻止别的线程执行；同样的，每一个线程执行完一段后，会释放 GIL，以允许别的线程开始利用资源。</p>
+<p>为什么 Python 线程会去主动释放 GIL 呢？毕竟，如果仅仅要求 Python 线程在开始执行时锁住 GIL，且永远不去释放 GIL，那别的线程就都没有运行的机会。其实，CPython 中还有另一个机制，叫做间隔式检查（check_interval），意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况，每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。</p>
+<p>注意：不同版本的 Python，其间隔式检查的实现方式并不一样。早期的 Python 是 100 个刻度（大致对应了 1000 个字节码）；而 Python 3 以后，间隔时间大致为 15 毫秒。当然，我们不必细究具体多久会强制释放 GIL，读者只需要明白，CPython 解释器会在一个“合理”的时间范围内释放 GIL 就可以了。</p>
+<p>每一个 Python 线程都是类似这样循环的封装，来看下面这段代码：</p>
+<pre><code>for (;;) &#123;
+    if (--ticker &lt; 0) &#123;
+        ticker = check_interval;   
+        /* Give another thread a chance */
+        PyThread_release_lock(interpreter_lock);
+        /* Other threads may run now */   
+        PyThread_acquire_lock(interpreter_lock, 1);
+    &#125;
+    bytecode = *next_instr++;
+    switch (bytecode) &#123;
+        /* execute the next instruction ... */
+    &#125;
+&#125;</code></pre>
+<p>每个 Python 线程都会先检查 ticker 计数。只有在 ticker 大于 0 的情况下，线程才会去执行自己的代码。</p>
+<h2 id="二、GIL不能绝对保证线程安全"><a href="#二、GIL不能绝对保证线程安全" class="headerlink" title="?二、GIL不能绝对保证线程安全"></a>?二、GIL不能绝对保证线程安全</h2><p>注意：有了 GIL，并不意味着 Python 程序员就不用去考虑线程安全了，因为即便 GIL 仅允许一个 Python 线程执行，但别忘了 Python 还有 check interval 这样的抢占机制。</p>
+<pre><code>import threading
+
+n = 0
+
+def foo():
+    global n
+    n += 1
+
+threads = []
+for i in range(100):
+    t = threading.Thread(target=foo)
+    threads.append(t)
+
+for i in threads:
+    i.start()
+
+for i in threads:
+    i.join()
+print(n)
+</code></pre>
+<p>执行此代码会发现，其大部分时候会打印 100，但有时也会打印 99 或者 98，原因在于 n+=1 这一句代码让线程并不安全。如果去翻译 foo 这个函数的字节码就会发现，它实际上是由下面四行字节码组成：</p>
+<pre><code>&gt;&gt;&gt; import dis
+&gt;&gt;&gt; dis.dis(foo)
+LOAD_GLOBAL              0 (n)
+LOAD_CONST               1 (1)
+INPLACE_ADD
+STORE_GLOBAL             0 (n)</code></pre>
+<p>而这四行字节码中间都是有可能被打断的！所以，千万别以为有了 GIL 程序就不会产生线程问题，我们仍然需要注意线程安全。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">python并发-17.Asyncio并发编程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:06:24" itemprop="dateCreated datePublished" datetime="2020-02-27T23:06:24+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:04" itemprop="dateModified" datetime="2020-09-18T14:03:04+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：</p>
+<p>1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；<br>2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。</p>
+<p>同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；<br>异步：是指不同操作间可以相互交替执行，如果其中地某个操作被堵塞，程序并不会等待，而是会找出可执行的操作继续执行。</p>
+<p>例子（做一份报表，并以邮件的方式提交）：</p>
+<p>同步：应先向软件中输入各项数据，接下来等报表生成，再写邮件提交；<br>异步：向软件中输出各项数据后，会先写邮件，等待报表生成后，暂停写邮件的工作去查看生成的报表，确认无误后在写邮件直到发送完毕。</p>
+<h2 id="一、关于Asyncio"><a href="#一、关于Asyncio" class="headerlink" title="一、关于Asyncio"></a>一、关于Asyncio</h2><p>Asyncio 和其他 Python 程序一样，是单线程的，它只有一个主线程，但可以进行多个不同的任务。这里的任务，指的就是特殊的 future 对象，我们可以把它类比成多线程版本里的多个线程。</p>
+<p>这些不同的任务，被一个叫做事件循环（Event Loop）的对象所控制。<br>所谓事件循环，是指主线程每次将执行序列中的任务清空后，就去事件队列中检查是否有等待执行的任务，如果有则每次取出一个推到执行序列中执行，这个过程是循环往复的。</p>
+<p>为了简化讲解这个问题，可以假设任务只有两个状态：，分别是预备状态和等待状态：</p>
+<pre><code>预备状态是指任务目前空闲，但随时待命准备运行；
+等待状态是指任务已经运行，但正在等待外部的操作完成，比如 I/O 操作。</code></pre>
+<p>在这种情况下，事件循环会维护两个任务列表，分别对应这两种状态，并且选取预备状态的一个任务（具体选取哪个任务，和其等待的时间长短、占用的资源等等相关）使其运行，一直到这个任务把控制权交还给事件循环为止。</p>
+<p>当任务把控制权交还给事件循环对象时，它会根据其是否完成把任务放到预备或等待状态的列表，然后遍历等待状态列表的任务，查看他们是否完成：如果完成，则将其放到预备状态的列表；反之，则继续放在等待状态的列表。而原先在预备状态列表的任务位置仍旧不变，因为它们还未运行。</p>
+<p>这样，当所有任务被重新放置在合适的列表后，新一轮的循环又开始了，事件循环对象继续从预备状态的列表中选取一个任务使其执行…如此周而复始，直到所有任务完成。</p>
+<p>值得一提的是，对于 Asyncio 来说，它的任务在运行时不会被外部的一些因素打断，因此 Asyncio 内的操作不会出现竞争资源（多个线程同时使用同一资源）的情况，也就不需要担心线程安全的问题了。</p>
+<h2 id="二、Asyncio的使用"><a href="#二、Asyncio的使用" class="headerlink" title="二、Asyncio的使用"></a>二、Asyncio的使用</h2><pre><code>import asyncio
+import aiohttp
+import time
+
+
+async def downloadOne(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            print(&#39;Read &#123;&#125; from &#123;&#125;&#39;.format(resp.content_length, url))
+
+
+async def downloadAll(urls):
+    tasks = [asyncio.ensure_future(downloadOne(url)) for url in urls]
+    await asyncio.gather(*tasks)
+
+
+def main():
+    urls = [
+        &#39;http://c.biancheng.net&#39;,
+        &#39;http://c.biancheng.net/c&#39;,
+        &#39;http://c.biancheng.net/python&#39;
+    ]
+    start = time.perf_counter()
+    loop = asyncio.get_event_loop()
+
+    try:
+        loop.run_until_complete(downloadAll(urls))
+    finally:
+        loop.close()
+
+    end = time.perf_counter()
+    print(&#39;Download &#123;&#125; urls in &#123;&#125; seconds&#39;.format(len(urls), end - start))
+
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+<p>输出：</p>
+<pre><code>Read None from http://c.biancheng.net
+Read None from http://c.biancheng.net/c
+Read None from http://c.biancheng.net/python
+Download 3 urls in 0.10918640485033393 seconds</code></pre>
+<p>注意：Async 和 await 关键字是 Asyncio 的最新写法，表示这个语句（函数）是非阻塞的，正好对应前面所讲的事件循环的概念，即如果任务执行的过程需要等待，则将其放入等待状态的列表中，然后继续执行预备状态列表里的任务。</p>
+<pre><code>loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(downloadll(sites))
+    finally:
+        loop.close()</code></pre>
+<p>上述代码表示拿到事件循环对象，并运行 downloadAll() 函数，直到其结束，最后关闭这个事件循环对象。</p>
+<p>注意：如果读者使用 Python 3.7 及以上版本，上述代码可以直接用 asyncio.run(downloadAll(sites)) 来代替。</p>
+<p>至于 Asyncio 版本的函数 downloadAll()，和之前多线程版本有很大的区别：</p>
+<p>1、这里的 asyncio.ensure_future(coro) 表示对输入的协程 coro 创建一个任务，安排它的执行，并返回此任务对象。可以看到，这里对每一个网站的下载，都创建了一个对应的任务。</p>
+<pre><code>注意：Python 3.7+ 版本之后，可以使用 asyncio.create_task(coro) 等效替代 asyncio.ensure_future(coro)。</code></pre>
+<p>2、asyncio.gather() 表示在事件循环对象中运行 aws 序列的所有任务。</p>
+<pre><code>可以看到，其输出结果显示用时只有 0.11s，比之前的多线程版本效率更高，充分体现其优势。</code></pre>
+<p>Asyncio 还有很多其他的用法，可以查看 Python 事件循环官方文档进行了解。</p>
+<h2 id="三、Asyncio的缺陷"><a href="#三、Asyncio的缺陷" class="headerlink" title="三、Asyncio的缺陷"></a>三、Asyncio的缺陷</h2><p>在学习多线程编程中使用的是 requests 库，但本节使用的是 aiohttp 库，原因在于 requests 库并不兼容 Asyncio，而 aiohttp 库兼容。Asyncio 软件库的兼容性问题，在 Python3 的早期一直是个大问题，但是随着技术的发展，这个问题正逐步得到解决。</p>
+<p>使用 Asyncio 时，因为在任务调度方面有了更大的自主权，写代码时就得更加注意，不然很容易出错。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
 
 <script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>

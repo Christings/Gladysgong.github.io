@@ -1,1124 +1,2313 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-Hans">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="茉莉Python">
-    <meta name="description" content="Up in the wind!">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>茉莉Python</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="Up in the wind!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="茉莉Python">
+<meta property="og:url" content="http://gongyanli.com/page/10/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="Up in the wind!">
+<meta property="og:locale">
+<meta property="article:author" content="Lilly">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">茉莉Python</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>Friends</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+<link rel="canonical" href="http://gongyanli.com/page/10/">
 
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">茉莉Python</div>
-        <div class="logo-desc">
-            
-            Up in the wind!
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			Friends
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                voidqueens@hotmail.com
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
 </script>
 
+  <title>茉莉Python</title>
+  
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-<main class="content">
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-    
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="数据库基本操作">
-                            
-                            <span class="card-title">数据库基本操作</span>
-                        </div>
-                    </a>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一.增加使用insert插入单行数据
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:34:40" itemprop="dateModified" datetime="2020-09-18T21:34:40+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
 insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
-insert into Students (name,sex,birth_date) values (&#
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                            <span class="chip bg-color">数据库</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E5%B8%82%E5%9C%BA%E4%B8%8A%E7%88%AC%E8%99%AB%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90%E5%9B%BE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="市场上爬虫产品调研分析图">
-                            
-                            <span class="card-title">市场上爬虫产品调研分析图</span>
-                        </div>
-                    </a>
+使用insert,select语句将现有表中的数据添加到已有的新表中
+insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
+insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
+<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
+delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
+<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
+update Students set tel=default where id=5
+update students set age=age+1
+update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
+<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
+1.查询所有数据行和列
+select * from Students
+2.查询部分行列--条件查询
+select * from Student where name=&#39;李三&#39;
+3.在查询中使用as更改列名
+select name as 姓名 from Students where sex=&#39;男&#39;
+4.查询空行
+select name from Student where sex is null
+5.查询排序
+select name from Student where age&gt;25 order by desc
+6.查询返回限制行数
+select top 10 name from Student</code></pre>
+<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
+select * from Student where name like &#39;李%&#39;
+2.使用between在某个范围内进行查询
+select * from Student where age between 20 and 25
+3.使用in在列举数值内进行查询(in后是多个的数据)
+select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
+<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
+select id as 学号，AVG(score) as 平均成绩 from score group by id
+2.用having子句进行分组筛选
+select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
+<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
+<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
+右连：Right Join
+内连：Inner Join
+左连接where只影响右表，右连接where只影响左表
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
+select * from table1 Left Join table2 where table1.id=table2.id
+左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+select * from table1 Right Join table2 where table1.id=table2.id
+右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/">
-                            <span class="chip bg-color">数据分析和抓取</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Flask+Scrapy+MongoDB开发">
-                            
-                            <span class="card-title">Flask+Scrapy+MongoDB开发</span>
-                        </div>
-                    </a>
+select * from table1 Inner Join table2 on table1.id=table2.id
+功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-代码传送门：https://github.com/Gladysgong/flask_scrapy_aiot  
+      
+    </div>
 
-前言：最近心血来潮，想把以前做的事情总结一下，这个小demo是2017年8月左右写的把，很幼稚也有很多需要改进的地方。如果看
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-04
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Flask/">
-                            <span class="chip bg-color">Flask</span>
-                        </a>
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                        <a href="/tags/MongoDB/">
-                            <span class="chip bg-color">MongoDB</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="利用Scrapy下载世界银行excel文件">
-                            
-                            <span class="card-title">利用Scrapy下载世界银行excel文件</span>
-                        </div>
-                    </a>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%B8%82%E5%9C%BA%E4%B8%8A%E7%88%AC%E8%99%AB%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90%E5%9B%BE/">
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：http://gongyanli.com代码传送门：https://github.com/Gladysgong/wordbank简书: https://www.jianshu.com/p/b8253ad8054eCSD
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="基于关键字在主流搜索引擎中抓取信息">
-                            
-                            <span class="card-title">基于关键字在主流搜索引擎中抓取信息</span>
-                        </div>
-                    </a>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%B8%82%E5%9C%BA%E4%B8%8A%E7%88%AC%E8%99%AB%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90%E5%9B%BE/" class="post-title-link" itemprop="url">市场上爬虫产品调研分析图</a>
+        </h2>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：http://gongyanli.com代码传送门：https://github.com/Gladysgong/seCrawler简书: https://www.jianshu.com/p/4e244563849aCS
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
-                            <span class="chip bg-color">搜索引擎</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="利用Scrapy抓取一带一路战略性支撑平台信息">
-                            
-                            <span class="card-title">利用Scrapy抓取一带一路战略性支撑平台信息</span>
-                        </div>
-                    </a>
+              <time title="Created: 2018-04-08 18:37:30" itemprop="dateCreated datePublished" datetime="2018-04-08T18:37:30+08:00">2018-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:15:43" itemprop="dateModified" datetime="2020-09-18T17:15:43+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+            </span>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：http://gongyanli.com代码传送门：https://github.com/Gladysgong/BeltandRoad简书: https://www.jianshu.com/p/6fe4afa1b98a
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+          
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)">
-                            
-                            <span class="card-title">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</span>
-                        </div>
-                    </a>
+        </div>
+      </header>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-本文首发于我的博客：gongyanli.com代码传送门：https://github.com/Gladysgong/cninfo简书: https://www.jianshu.com/p/b5ef0e7e2b87CSDN: https:
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
-                                    数据分析和抓取
-                                </a>
-                                
-                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
-                                    Scrapy
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Scrapy/">
-                            <span class="chip bg-color">Scrapy</span>
-                        </a>
-                        
-                        <a href="/tags/Selenium/">
-                            <span class="chip bg-color">Selenium</span>
-                        </a>
-                        
-                        <a href="/tags/PhantomJS/">
-                            <span class="chip bg-color">PhantomJS</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/PhantomJS%E5%AE%89%E8%A3%85/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="PhantomJS安装">
-                            
-                            <span class="card-title">PhantomJS安装</span>
-                        </div>
-                    </a>
+      
+          <p><img src="http://p2lakvkq0.bkt.clouddn.com/%E7%88%AC%E8%99%AB%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90.png"></p>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、下载http://phantomjs.org/download.html 
-二、安装解压文件，examlpe中有很多小例子可以试试
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Flask+Scrapy+MongoDB%E5%BC%80%E5%8F%91/" class="post-title-link" itemprop="url">Flask+Scrapy+MongoDB开发</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-04 11:01:32" itemprop="dateCreated datePublished" datetime="2018-04-04T11:01:32+08:00">2018-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:11" itemprop="dateModified" datetime="2020-09-18T17:14:11+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a>  </p>
+</blockquote>
+<p>前言：最近心血来潮，想把以前做的事情总结一下，这个小demo是2017年8月左右写的把，很幼稚也有很多需要改进的地方。如果看了的朋友觉得有<br>帮助的话，github上动动小手指给我个star把，我现在很需要star，你懂得啦，多谢多谢可爱的各位捧场。</p>
+<h2 id="一、总体思路"><a href="#一、总体思路" class="headerlink" title="一、总体思路"></a>一、总体思路</h2><pre><code>1.利用Scrapy抓取一些农业网站的信息，存储进入MongoDB数据库；
+2.利用Flask搭建我们的后端；
+3.读取MongoDB中存储的信息，并展示在前端；</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/flask.jpg">   </p>
+<pre><code>目录结构如下，分为flask_aiot和scrapy_aiot两块，其中flask——aiot中包含前后端代码，而scrapy_aiot中包含爬虫代码。很简单把，
+现在让我们开启这趟Flask+Scrapy+MongoDB之旅把！</code></pre>
+<h2 id="二、scrapy-aiot爬虫模块"><a href="#二、scrapy-aiot爬虫模块" class="headerlink" title="二、scrapy-aiot爬虫模块"></a>二、scrapy-aiot爬虫模块</h2><p>在这个模块中，我抓取了5个网站的信息存储进入MongoDB数据库，数据只要是文章和价格，下面具体来看把。</p>
+<h3 id="1-items定义"><a href="#1-items定义" class="headerlink" title="1.items定义"></a>1.items定义</h3><pre><code># chinacwa——中国智慧农业网
+class ChinacwaItem(scrapy.Item):
+    # 文章标题、关键字、图片地址、摘要、内容地址、内容
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_imageurl = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# iot——国家农业物联网
+class IotItem(scrapy.Item):
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# ny135——中国农业物联网
+class Ny135Item(scrapy.Item):
+    article_id = scrapy.Field()
+    article_title = scrapy.Field()
+    article_keywords = scrapy.Field()
+    article_abstract = scrapy.Field()
+    article_url = scrapy.Field()
+    article_content = scrapy.Field()
+
+# productprice——农产品价格
+class ProductpriceItem(scrapy.Item):
+    product_name = scrapy.Field()
+    product_lowestprice = scrapy.Field()
+    product_averageprice = scrapy.Field()
+    product_highestprice = scrapy.Field()
+    product_specification = scrapy.Field()
+    product_unit = scrapy.Field()
+    product_releasedate = scrapy.Field()
+
+# AProductsPrice——全国农产品价格
+class AllProductsPriceItem(scrapy.Item):
+    product_name = scrapy.Field()
+    product_price = scrapy.Field()
+    product_market = scrapy.Field()
+    product_releasedate = scrapy.Field()</code></pre>
+<h3 id="2-爬虫文件"><a href="#2-爬虫文件" class="headerlink" title="2.爬虫文件"></a>2.爬虫文件</h3><p>主要就是发起请求，然后解析response中的内容。对于这几个网站我都是用的CrawlSpider，因为可以做到整站抓取，很方便。来看看iot.py<br>文件中的内容把。其余四个文件就不一一展示了，可以去github下载来看。<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">传送门</a></p>
+<pre><code># 国家农业物联网
+class IotSpider(CrawlSpider):
+    name = &quot;IotSpider&quot;
+    allowed_domains = [&#39;iot-cn.org&#39;]
+    start_urls = [&#39;http://www.iot-cn.org&#39;]
+    rules = [
+        Rule(LinkExtractor(allow=(&#39;/news/show.php&#39;)),
+             callback=&#39;parse_article&#39;,
+             follow=True)
+    ]
+
+    def parse_article(self, response):
+        item = IotItem()
+        sel = Selector(response)
+        article_title = sel.xpath(&#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/h1[@id=&quot;title&quot;]/text()&#39;).extract()[0]
+        article_keywords = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@class=&quot;keytags&quot;]/a/text()&#39;).extract()
+        article_abstract = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@class=&quot;introduce&quot;]/text()&#39;).extract()[0]
+        article_url = response.url
+        article_content = sel.xpath(
+            &#39;//div[@class=&quot;m&quot;]/div[1]/div[@class=&quot;left_box&quot;]/div[@id=&quot;content&quot;]/div&#39;).xpath(&#39;string(.)&#39;).extract()[0]
+
+        item[&#39;article_title&#39;] = article_title
+        item[&#39;article_keywords&#39;] = article_keywords
+        item[&#39;article_abstract&#39;] = article_abstract
+        item[&#39;article_url&#39;] = article_url
+        item[&#39;article_content&#39;] = article_content
+
+        print(&quot;article_title:&quot;, article_title)
+        print(&quot;article_keywords:&quot;, article_keywords)
+        print(&quot;article_abstract:&quot;, article_abstract)
+        print(&quot;article_url:&quot;, article_url)
+        print(&quot;article_content:&quot;, article_content)
+
+        yield item</code></pre>
+<h3 id="3-数据持久化–MongoDB"><a href="#3-数据持久化–MongoDB" class="headerlink" title="3.数据持久化–MongoDB"></a>3.数据持久化–MongoDB</h3><pre><code># 农业物联网
+class AiotPipeline(object):
+    def __init__(self):
+        self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
+        self.db = self.client[settings[&#39;MONGO_DB&#39;]]
+        # self.coll = self.db[settings[&#39;MONGO_COLL2&#39;]]
+        self.chinacwa = self.db[&#39;chinacwa&#39;]
+        self.iot = self.db[&#39;iot&#39;]
+        self.ny135 = self.db[&#39;ny135&#39;]
+        self.productprice = self.db[&#39;productprice&#39;]
+        self.allproductprice = self.db[&#39;allproductprice&#39;]
+
+    def process_item(self, item, spider):
+        if isinstance(item, ChinacwaItem):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.chinacwa.insert(item)
+                    print(&quot;插入成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;&quot;)
+        elif isinstance(item, IotItem):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.iot.insert(item)
+                    print(&quot;成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;&quot;)
+        elif isinstance(item, Ny135Item):
+            try:
+                if item[&#39;article_title&#39;]:
+                    item = dict(item)
+                    self.ny135.insert(item)
+                    print(&quot;插入&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;ny135存储失败&quot;)
+        elif isinstance(item, ProductpriceItem):
+            try:
+                if item[&quot;product_name&quot;]:
+                    item = dict(item)
+                    self.productprice.insert(item)
+                    print(&quot;农产品价格数据&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;农产品价格数据存储失败&quot;)
+        elif isinstance(item, AllProductsPriceItem):
+            try:
+                if item[&quot;product_name&quot;]:
+                    item = dict(item)
+                    self.allproductprice.insert(item)
+                    print(&quot;全国农产品价格数据&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exceptionn(&quot;全国农产品价格数据存储失败&quot;)</code></pre>
+<h2 id="三、flask-aiot模块"><a href="#三、flask-aiot模块" class="headerlink" title="三、flask_aiot模块"></a>三、flask_aiot模块</h2><pre><code>功能点:登录，注册，数据展示，搜索
+熟悉Flask的朋友可以直接看懂，不熟悉Flask的话就得需要看点儿东西呢，写到这里打算抽时间写一篇如何使用Flask来创建一个web网站的
+的文章，有了这样子的基础后，就能很轻易往下看了。</code></pre>
+<h3 id="1-定义model"><a href="#1-定义model" class="headerlink" title="1.定义model"></a>1.定义model</h3><pre><code>class Chinacwa(mongo.Document):
+    article_id = mongo.IntField(required=True)
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+
+    meta = &#123;
+        &#39;collection&#39;: &#39;chinacwa&#39;,
+        &#39;ordering&#39;: [&#39;-article_id&#39;],
+        &#39;indexes&#39;: [&#39;-article_id&#39;]
+    &#125;
+
+class Iot(mongo.Document):
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+
+    meta = &#123;&#39;collection&#39;: &#39;iot&#39;&#125;
+
+class Ny135(mongo.Document):
+    article_title = mongo.StringField(required=True)
+    article_keywords = mongo.StringField(required=True)
+    article_url = mongo.StringField(required=True)
+    article_abstract = mongo.StringField(required=True)
+    article_content = mongo.StringField(required=True)
+    meta = &#123;&#39;collection&#39;: &#39;ny135&#39;&#125;
+
+class AllProductPrice(mongo.Document):
+    product_name = mongo.StringField(required=True)
+    product_price = mongo.StringField(required=True)
+    product_market = mongo.StringField(required=True)
+    product_releasedate = mongo.StringField(required=True)
+    meta = &#123;&#39;collection&#39;: &#39;allproductprice&#39;&#125;
+
+
+class User(UserMixin, mongo.Document):
+    # uid = mongo.IntField(requires=True)
+    email = mongo.StringField(max_length=255, requires=True)
+    username = mongo.StringField(max_length=255, requires=True)
+    # password = mongo.StringField(requires=True)
+    password_hash = mongo.StringField(requires=True)
+    # confirmed=mongo.BooleanField(default=False)
+    # password_hash = mongo.StringField(requires=True)
+    # meta = &#123;&#39;collection&#39;: &#39;user&#39;&#125;
+
+    @property
+    def password(self):
+        raise AttributeError(&#39;password is not a readable attribute&#39;)
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return &#39;&lt;User %r&gt;&#39; % self.email
+
+    def get_id(self):
+        try:
+            # return unicode(self.username)
+            return self.email
+        except AttributeError:
+            raise NotImplementedError(&#39;No `username` attribute - override `get_id`&#39;)
+
+    def __unicode__(self):
+        return self.email
+
+        # def confirm(self,token):
+        #     s=Serializer(current_app.config[&#39;SECRET_KEY&#39;])
+        #     try:
+        #         data=s.loads(token)
+        #     except:
+        #         return False
+        #     if data.get(&#39;confirm&#39;)!=self.username
+        #         return False
+        #     self.confirmd=True
+
+@login_manager.user_loader
+def load_user(email):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        user = None
+    return user</code></pre>
+<h3 id="2-待续未完"><a href="#2-待续未完" class="headerlink" title="2.待续未完"></a>2.待续未完</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">利用Scrapy下载世界银行excel文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-03 16:36:53" itemprop="dateCreated datePublished" datetime="2018-04-03T16:36:53+08:00">2018-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:47" itemprop="dateModified" datetime="2020-09-18T17:14:47+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/wordbank">https://github.com/Gladysgong/wordbank</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b8253ad8054e">https://www.jianshu.com/p/b8253ad8054e</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79806493">https://blog.csdn.net/u012052168/article/details/79806493</a></p>
+</blockquote>
+<h2 id="一、总体思路"><a href="#一、总体思路" class="headerlink" title="一、总体思路"></a>一、总体思路</h2><pre><code>    我的目标是下载世界银行中各个指标的excel文件，刚好世界银行给我们提供了excel下载页面的url地址，这样子我们只需要构建url地址进行
+请求就好了，还蛮简单的，也不会太大劲。
+    首先我需要把所有指标的地址拿到，于是我找到了这个地址**https://data.worldbank.org/indicator?tab=all**，通过这个地址拿到所
+有指标的href，再进行拼接，最后把拼接的结果进行请求。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/worldbank.jpg"></p>
+<h2 id="二、item模块"><a href="#二、item模块" class="headerlink" title="二、item模块"></a>二、item模块</h2><pre><code>class WorldBankItem(scrapy.Item):
+    indi_url = scrapy.Field()  # 指标(indicator)的url
+    indi_name = scrapy.Field()  # 指标(indicator)的名字</code></pre>
+<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>1.解析url
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]&#39;)
+        indi_url = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/@href&#39;).extract()
+        # indi = re.findall(r&#39;/indicator/.*/?view=chart&#39;, indicators, re.S)
+        indi_name = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/text()&#39;).extract()
+
+        for each in indi_url:
+            each = each[:-10] + &quot;downloadformat=excel&quot;
+            # i.replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;) #使用replace进行替换时总是不成功，有待探索！
+            item[&#39;indi_url&#39;] = each
+            print(&quot;indi_url&quot;, item[&#39;indi_url&#39;])
+            yield item
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + each,
+                                 callback=self.download_excel)
+
+        for each in indi_name:
+            print(&quot;indi_name:&quot;, each)
+            item[&#39;indi_name&#39;] = each
+            # self.filenames = indi_name
+            yield item
+2.下载excel文件并写入
+    def download_excel(self, response):
+        name_temp = response.url.split(&quot;/&quot;)[-1]
+        name = name_temp.split(&quot;?&quot;)[-2]
+        print(&quot;storename:&quot;, name, &#39;-&#39;, response.url)
+        filename = r&quot;D:\workspace\scrapy\worldbank\worldbankexcelfiles\%s.xls&quot; % name
+        resp = requests.get(response.url)
+        output = open(filename, &#39;wb&#39;)
+        output.write(resp.content)
+        output.close()
+        return None</code></pre>
+<h2 id="四、数据持久化"><a href="#四、数据持久化" class="headerlink" title="四、数据持久化"></a>四、数据持久化</h2><pre><code>1.定义mysql类（属于我单独定义的）
+    import pymysql
+    class Mysql:
+        def __init__(self, host, user, pwd, db):
+            self.host = host
+            self.user = user
+            self.pwd = pwd
+            self.db = db
+
+        def __GetConnect(self):
+            if not self.db:
+                raise (NameError, &#39;数据库不存在&#39;)
+            self.conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, database=self.db, charset=&#39;utf8&#39;)
+            cur = self.conn.cursor()
+            if not cur:
+                raise (NameError, &#39;账号或密码错误&#39;)
+            else:
+                return cur
+
+        def ExecQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            resList = cur.fetchall()
+
+            self.conn.close()
+            return resList
+
+        def ExecNoQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            self.conn.commit()
+            self.conn.close()
+2.pipelines
+    from worldbank.db.mysql import Mysql
+    from worldbank.items import WorldBankItem
+
+
+    class WorldbankPipeline(object):
+        def process_item(self, item, spider):
+            if isinstance(item, WorldBankItem):
+                mysql = Mysql(host=&#39;localhost&#39;, user=&#39;root&#39;, pwd=&#39;421498&#39;, db=&#39;saas&#39;)
+                if len(item[&#39;indi_name&#39;]) == 0:
+                    pass
+                else:
+                    newsql = &quot;insert into worldbank_indi(indi_url,indi_name)values(&#39;%s&#39;,&#39;%s&#39;)&quot; % (
+                        item[&#39;indi_url&#39;], item[&#39;indi_name&#39;])
+                    print(newsql)
+                    mysql.ExecNoQuery(newsql.encode(&#39;utf-8&#39;))
+            else:
+                pass
+            return item</code></pre>
+<h2 id="五、设置settings"><a href="#五、设置settings" class="headerlink" title="五、设置settings"></a>五、设置settings</h2><pre><code>ITEM_PIPELINES = &#123;
+       &#39;worldbank.pipelines.WorldbankPipeline&#39;: 300,&#125; # 记得开启此处</code></pre>
+<h2 id="六、bug"><a href="#六、bug" class="headerlink" title="六、bug"></a>六、bug</h2><pre><code>    在爬虫模块parse_urls()中我不光拼接了url地址，我还把指标的url和name放进了item中，因为我这边考虑的，excel文件命名的时候我是
+用的url的一部分命名的，像这样子**EN.ATM.GHGO.KT.CE**，这是属于指标名字的简写，的确我们手工下载数据的时候也是以这个命名。但是像我
+这种对指标不熟悉的人，完全看不出简写的含义，所以我就想把简写以及指标的全名存储进入数据库，以方便对照，所以我用的yield item这样子来
+返回数据。
+    但是实际存储的时候，总是报错**KeyError: &#39;indi_name&#39;**，但是数据也确实存进了数据库，所以我很不理解，这个问题有待于探索，也希
+望知道的朋友可以告知。
+    本来我也试过用Request中meta来传递item，然后一起返回，但是插入数据库的时候，报错主键的值必须唯一。
+    有可能和用的数据库也有关系，用MySQL的数据来存储爬虫数据很不顺手，因为需要自己手工建立数据库和表，或者写代码建立。而MongoDB就很
+方便了，告诉数据库名字和表名，自动就帮我们创建了。</code></pre>
+<h2 id="七、我是二傻"><a href="#七、我是二傻" class="headerlink" title="七、我是二傻"></a>七、我是二傻</h2><pre><code>    原来上面的问题我早就解决了，只是我忘记了，果然好记性不如烂笔头。
+parse_url()换成如下：
+其实是把两个for改成了一个for，但是这样子就需要把list换成str来进行存储，并且存储的时候我遇到了转义字符的问题，报错如下：
+**pymysql.err.ProgrammingError: (1064, &#39;You have an error in your SQL syntax; check the manual that corresponds to 
+your MySQL server version for the right syntax to use near \&#39;Recipe&quot; of Machine Learning&quot;,&quot;https://i.ytimg.com/vi/
+DkgJ_VkU5jM/hqdefault.jpg&quot;,\&#39; at line 4&#39;)**
+改pipelines文件，把字段包裹上pymysql.escape_string(),同时我已经将代码更新，可以自己去看。
+
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]/section[@class=&quot;nav-item&quot;]/ul/li&#39;)
+
+        for i in indicators:
+            temp_url = i.xpath(&#39;a/@href&#39;).extract()  # 得到的结果为list
+            # indi_url = str(temp_url)[:-12] + &quot;downloadformat=excel&quot;
+            indi_url = str(temp_url).replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;)
+            item[&quot;indi_url&quot;] = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            # print(&#39;item[&quot;indi_url&quot;]:&#39;, item[&quot;indi_url&quot;])
+
+            indi_name = i.xpath(&#39;a/text()&#39;).extract()
+            item[&quot;indi_name&quot;] = str(indi_name)
+            # print(&#39;item[&quot;indi_name&quot;]:&#39;, item[&quot;indi_name&quot;])
+            yield item
+
+            url = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + url, callback=self.download_excel)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">基于关键字在主流搜索引擎中抓取信息</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 19:54:52" itemprop="dateCreated datePublished" datetime="2018-03-30T19:54:52+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:15:13" itemprop="dateModified" datetime="2020-09-18T17:15:13+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/seCrawler">https://github.com/Gladysgong/seCrawler</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4e244563849a">https://www.jianshu.com/p/4e244563849a</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79762586">https://blog.csdn.net/u012052168/article/details/79762586</a></p>
+</blockquote>
+<h1 id="seCrawler-Search-Engine-Crawler"><a href="#seCrawler-Search-Engine-Crawler" class="headerlink" title="seCrawler(Search Engine Crawler)"></a>seCrawler(Search Engine Crawler)</h1><p>A scrapy project can crawl search result of Google/Bing/Baidu<br>基于scrapy来做的爬虫项目，可以根据关键字来抓取从百度、bing、google中所搜索到的结果</p>
+<h2 id="1-refer"><a href="#1-refer" class="headerlink" title="1.refer"></a>1.refer</h2><p>copying by <a target="_blank" rel="noopener" href="https://github.com/xtt129/seCrawler">https://github.com/xtt129/seCrawler</a> and rewrite,adding title and abstract.</p>
+<h2 id="prerequisite"><a href="#prerequisite" class="headerlink" title="prerequisite"></a>prerequisite</h2><p>python 3.5 and scrapy is needed.</p>
+<h2 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h2><p>run one command to get 50 pages result from search engine with keyword, the result would be kept in the “urls.txt” under the current directory.</p>
+<p>####Bing<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=bing -a pages=50</code></p>
+<p>####Baidu<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=baidu -a pages=50</code></p>
+<p>####Google<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=google -a pages=50</code></p>
+<h2 id="results"><a href="#results" class="headerlink" title="results"></a>results</h2><p>url,title and abstract will be stored in the urls.txt</p>
+<h2 id="limitation"><a href="#limitation" class="headerlink" title="limitation"></a>limitation</h2><p>The project doesn’t provide any workaround to the anti-spider measure like CAPTCHA, IP ban list, etc. </p>
+<p>But to reduce these measures, we recommand to set <code>DOWNLOAD_DELAY=10</code> in settings.py file to add a temporisation (in second) between the crawl of two pages, see details in <a target="_blank" rel="noopener" href="https://doc.scrapy.org/en/1.2/topics/settings.html#std:setting-DOWNLOAD_DELAY">Scrapy Setting</a>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">利用Scrapy抓取一带一路战略性支撑平台信息</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 18:31:31" itemprop="dateCreated datePublished" datetime="2018-03-30T18:31:31+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:56" itemprop="dateModified" datetime="2020-09-18T17:14:56+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/BeltandRoad">https://github.com/Gladysgong/BeltandRoad</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6fe4afa1b98a">https://www.jianshu.com/p/6fe4afa1b98a</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79761833">https://blog.csdn.net/u012052168/article/details/79761833</a></p>
+</blockquote>
+<pre><code>好久以前做的东西了，网站的数据也很容易拿到，最近想对自己的东西做一个总结，所以就有了这篇文章。    
+我的目标是抓取一带一路战略支撑平台里面一些机构的数据，像联系电话、邮箱等等，简单看看网站的样子把。
+首先获取列表项的所有url，其中包括一项翻页操作，拿到url后访问，获取里面的详细信息，就这么简单。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/beltandroad.jpg"></p>
+<h2 id="一、定义Items"><a href="#一、定义Items" class="headerlink" title="一、定义Items"></a>一、定义Items</h2><pre><code>`class BeltandRoadItem(scrapy.Item):
+# collection = &#39;BeltandRoad&#39;
+
+name = scrapy.Field()  # 机构名称
+intro = scrapy.Field()  # 机构简介
+address = scrapy.Field()  # 机构地址
+tel = scrapy.Field()  # 机构电话
+fax = scrapy.Field()  # 机构传真
+email = scrapy.Field()  # 机构邮箱
+site = scrapy.Field()  # 机构网址`</code></pre>
+<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>爬虫模块中包括翻页操作，并不复杂，就不详细说明。</code></pre>
+<hr>
+<pre><code>`# -*- coding:utf-8 -*-
+from scrapy.spiders import CrawlSpider, Rule
+import scrapy
+from ..items import BeltandRoadItem
+
+# from scrapy.conf import settings
+
+# 一带一路战略支撑平台
+class BeltandRoadSpider(CrawlSpider):
+    name = &quot;BeltandRoadSpider&quot;
+    start_urls = [&#39;http://ydyl.drcnet.com.cn/www/ydyl/channel.aspx?version=YDYL&amp;uid=8011&#39;]
+
+    # 解析url地址
+    def parse(self, response):
+        # urls = response.xpath(&#39;//div[@class=&quot;pub_right&quot;]/ul/li/div[1]/a/@href&#39;).extract()
+        urls = response.xpath(&#39;//ul[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1&quot;]/li/div[1]/a/@href&#39;).extract()
+        # institute_name = response.xpath(&#39;//ul[@class=&quot;left-nav&quot;]/li/h3/a/text()&#39;).extract()
+
+        for url in urls:
+            # url = &quot;http://ydyl.drcnet.com.cn/www/ydyl/&quot; + url
+            # print(&quot;1:&quot;, url)
+            yield scrapy.Request(url=url, callback=self.parse_content)
+
+        next_page = response.xpath(
+            &#39;//div[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1_PageRow&quot;]/input[4]/@onclick&#39;).extract()
+        next_page = str(next_page).split(&quot;\&#39;&quot;)[1]
+        print(&quot;next:&quot;, next_page)
+        if next_page:
+            next_page = &quot;http://ydyl.drcnet.com.cn&quot; + next_page
+            yield scrapy.Request(url=next_page, callback=self.parse)
+
+    # 解析内容
+    def parse_content(self, response):
+        item = BeltandRoadItem()
+        name = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/strong/div/text()&#39;).extract()[0]  # 提取名称
+        content = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/div[@id=&quot;docContent&quot;]/p&#39;).xpath(&#39;string(.)&#39;).extract()  # 提取其他信息
+        content = str(content).split(&#39;\&#39;&#39;)
+        item[&#39;name&#39;] = name
+        for i in range(len(content)):  # 过滤无效信息后，提取有用信息存储到item中
+            if content[i] != &#39;[&#39; and content[i] != &#39;]&#39; and content[i] != &#39;, &#39;:
+                print(&quot;xx:&quot;, content[i])
+                if &quot;简介&quot; in content[i]:
+                    item[&#39;intro&#39;] = content[i]
+                elif &quot;地址&quot; in content[i]:
+                    item[&#39;address&#39;] = content[i]
+                elif &quot;联系电话&quot; in content[i]:
+                    item[&#39;tel&#39;] = content[i]
+                elif &quot;传真&quot; in content[i]:
+                    item[&#39;fax&#39;] = content[i]
+                elif &quot;电子邮箱&quot; in content[i]:
+                    item[&#39;email&#39;] = content[i]
+                elif &quot;网址&quot; in content[i]:
+                    item[&#39;site&#39;] = content[i]
+        yield item
+`</code></pre>
+<h2 id="三、构建pipelines"><a href="#三、构建pipelines" class="headerlink" title="三、构建pipelines"></a>三、构建pipelines</h2><pre><code>主要就是进行数据持久化操作，把数据存入MongoDB数据中。</code></pre>
+<hr>
+<pre><code>`import pymongo
+from scrapy.conf import settings
+from .items import BeltandRoadItem
+
+# 一带一路战略支撑平台
+class BeltandRoadPipeline(object):
+    def __init__(self, mongo_uri, mongo_db, mongo_port):
+        self.mongo_uri = mongo_uri
+        self.mongo_port = mongo_port
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(mongo_uri=crawler.settings.get(&#39;MONGO_URI&#39;),
+                   mongo_port=crawler.settings.get(&#39;MONGO_PORT&#39;),
+                   mongo_db=crawler.settings.get(&#39;MONGO_DB&#39;)
+                   )
+
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri, self.mongo_port)
+        self.db = self.client[self.mongo_db]
+        self.BeltandRoad = self.db[&#39;BeltandRoad&#39;]
+
+    def close_spider(self, spider):
+        self.client.close()
+
+    def process_item(self, item, spider):
+        if isinstance(item, BeltandRoadItem):
+            try:
+                if item[&#39;name&#39;]:
+                    item = dict(item)
+                    # self.db[item.collection].insert(item)  运行这个代码时利用items中collection创建表，会提示插入失败，但是依然会插入到数据库？
+                    self.BeltandRoad.insert(item)
+                    print(&quot;插入成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exception(&quot;插入失败&quot;)`</code></pre>
+<h2 id="四、配置文件settings"><a href="#四、配置文件settings" class="headerlink" title="四、配置文件settings"></a>四、配置文件settings</h2><pre><code># 激活pipelines
+ITEM_PIPELINES = &#123;
+   &#39;BeltandRoad.pipelines.BeltandRoadPipeline&#39;: 300,&#125;
+
+# 数据库配置
+MONGO_URI = &quot;127.0.0.1&quot;  # 主机IP
+MONGO_PORT = 27017  # 端口号
+MONGO_DB = &quot;Belt&quot;  # 数据库名字</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/" class="post-title-link" itemprop="url">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 10:39:34" itemprop="dateCreated datePublished" datetime="2018-03-30T10:39:34+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:29:26" itemprop="dateModified" datetime="2020-09-18T17:29:26+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo">https://github.com/Gladysgong/cninfo</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5ef0e7e2b87">https://www.jianshu.com/p/b5ef0e7e2b87</a><br>CSDN: <a target="_blank" rel="noopener" href="https://mp.csdn.net/mdeditor/79759833">https://mp.csdn.net/mdeditor/79759833</a></p>
+</blockquote>
+<pre><code>    首先说说我的目标把，就是抓取巨潮资讯网上一些上市农业企业的基本信息，主要是对页面的公司概况、高管人员、十大股东这几个板块的信
+息进行抓取，如图。要抓取的上市农业企业的名单已经准备好了，但是同时要拿到的这些农业企业的url地址。本来考虑的是做一个整站提取url，
+但是再想一想，这个网站包含了太多上市公司的信息，即使拿到了，也需要慢慢找。加上我们要抓取的农业企业不多，所以分析页面结果后，手动
+整理他们的url，算是本爬虫的一个缺陷。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo.jpg"></p>
+<pre><code>    巨潮资讯地址：http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
+    上面这个就是公司概况的url地址，而高管人员只需要把brief换成management,十大股东只需要把brief换成shareholders，而后面的后缀
+szmb000998这个是手动整理的，这个szmb没看出什么意思，后面的数字是当前公司的股票代码。
+    经过分析，发现网页是动态加载的，里面的内容都是通过js来控制iframe进行展现的，通过scrapy中response.body获取网页的返回结果中，
+没有完美所需要的内容，所以我们需要用selenium。</code></pre>
+<h2 id="一、PhantomJS–PhantomJS安装验证"><a href="#一、PhantomJS–PhantomJS安装验证" class="headerlink" title="一、PhantomJS–PhantomJS安装验证"></a>一、PhantomJS–<a href="http://gongyanli.com/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/">PhantomJS安装验证</a></h2><pre><code>PhantomJS是一个基于webkit内核的没有界面的浏览器，所以它和chrome、Firefox这些没有什么差别，只是没有界面而已啦，所以并无高深之处。
+关于它的安装及验证非常简单，大家可以参考我的另一篇文章，标题处去点击链接把。</code></pre>
+<h2 id="二、Selenium–Selenium的使用"><a href="#二、Selenium–Selenium的使用" class="headerlink" title="二、Selenium–Selenium的使用"></a>二、Selenium–<a target="_blank" rel="noopener" href="https://cuiqingcai.com/5630.html">Selenium的使用</a></h2><pre><code>Selinium是一个自动化的测试工具，用它可以驱动浏览器执行特定的操作，比如点击按钮，切换到ifame中等操作，同时能够获取到浏览器渲染后的
+源码。所以它对于那些用JavaScript渲染的网页来讲，Selenium是再合适不过了。
+崔庆才的博客中有一篇详细讲解了Selenium的用法，可以参考。</code></pre>
+<h2 id="三、通过Scrapy来使用Selenium"><a href="#三、通过Scrapy来使用Selenium" class="headerlink" title="三、通过Scrapy来使用Selenium"></a>三、通过Scrapy来使用Selenium</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo1.jpg"></p>
+<h3 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1.中间件"></a>1.中间件</h3><pre><code>首先看一下我的工作目录把，没有什么特点，scrapy典型的工作目录，唯一不一样的是middlewares文件夹，里面存放的是我自定义的中间件。通过
+自定义的中间件去把scrapy原本的中间件覆盖，从而用我们自己实现的功能去替换scrapy原有的功能。
+我的中间件代码如下：打开PhantomJS浏览器，请求url地址，睡眠，接着切换iframe，因为我要获取的公司概况信息就在id=&#39;i_nr&#39;的这个ifame
+中，再睡眠，等待浏览器渲染出这个ifame中的内容，然后再body中保存此网页的源码，最后利用HtmlResponse把body传送离开。</code></pre>
+<hr>
+<pre><code>`from selenium import webdriver
+from scrapy.http import HtmlResponse
+import time
+
+class JavaScriptMiddleware(object):
+    def process_request(self, request, spider):
+        if spider.name == &#39;CninfoSpider&#39;:
+            print(&#39;PhantomJS1 is starting...&#39;)
+            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+            driver.get(request.url)
+            time.sleep(1)
+            driver.switch_to.frame(&#39;i_nr&#39;)
+            time.sleep(2)
+            body = driver.page_source
+            print(&quot;访问：&quot;, request.url)
+            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
+        elif spider.name == &#39;CninfoManaSpider&#39;:
+            print(&#39;PhantomJS2 is starting...&#39;)
+            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+            driver.get(request.url)
+            time.sleep(1)
+            driver.switch_to.frame(&#39;i_nr&#39;)
+            time.sleep(2)
+            body = driver.page_source
+            print(&quot;访问：&quot;, request.url)
+            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
+        else:
+            return</code></pre>
+<p>`</p>
+<h3 id="2-数据解析–cninfo-py"><a href="#2-数据解析–cninfo-py" class="headerlink" title="2.数据解析–cninfo.py"></a>2.数据解析–cninfo.py</h3><pre><code>之后，我们就可以回到cninfo.py文件中对内容进行解析了。重写__init__，使用webdriver打开PhantomJS浏览器。重写start_requests方法，
+拼接url，同时可以自定义返回函数parse。</code></pre>
+<hr>
+<pre><code>`# --*-- coding:utf-8 -*-
+import scrapy
+from scrapy import Request
+from scrapy.spiders import Spider
+from selenium import webdriver
+from ..items import AgriBasicItem
+
+# 巨潮资讯网--上市农业企业基本信息
+class CninfoSpider(Spider):
+    name = &#39;CninfoSpider&#39;
+
+    def __init__(self):
+        self.broswer = webdriver.PhantomJS(
+            executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+        self.broswer.set_page_load_timeout(30)
+
+    def closed(self, spider):
+        print(&#39;spider closed!&#39;)
+        self.broswer.close()
+
+    def start_requests(self):
+        myurls = [&#39;szmb000998&#39;, &#39;szsme002041&#39;, &#39;szsme002772&#39;, &#39;szcn300087&#39;, &#39;szcn300189&#39;, &#39;szcn300511&#39;,
+                       &#39;shmb600108&#39;,
+                       &#39;shmb600313&#39;, &#39;shmb600354&#39;, &#39;shmb600359&#39;,
+                       &#39;shmb600371&#39;, &#39;shmb600506&#39;, &#39;shmb600598&#39;, &#39;shmb601118&#39;, &#39;szmb000592&#39;, &#39;szsme002200&#39;,
+                       &#39;szsme002679&#39;,
+                       &#39;shmb600265&#39;, &#39;szmb000735&#39;, &#39;szsme002234&#39;,
+                       &#39;szsme002299&#39;, &#39;szsme002321&#39;, &#39;szsme002458&#39;, &#39;szsme002477&#39;, &#39;szsme002505&#39;, &#39;szsme002714&#39;,
+                       &#39;szsme002746&#39;, &#39;szcn300106&#39;, &#39;szcn300313&#39;, &#39;szcn300498&#39;,
+                       &#39;shmb600965&#39;, &#39;shmb600975&#39;, &#39;szmb000798&#39;, &#39;szsme002086&#39;, &#39;szsme002696&#39;, &#39;szmb200992&#39;,
+                       &#39;szcn300094&#39;,
+                       &#39;shmb600097&#39;, &#39;shmb600257&#39;, &#39;shmb600467&#39;, &#39;szmb000711&#39;, &#39;szmb000713&#39;]
+        start_urls = [
+            (&#39;http://www.cninfo.com.cn/information/companyinfo_n.html?brief?&#39; + each) for each in myurls]
+
+        for url in start_urls:
+            yield Request(url=url, callback=self.parse)
+
+    def parse(self, response):
+        item = AgriBasicItem()
+
+        item[&#39;full_name&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[1]/td[2]/text()&#39;).extract()[0]  # 公司名称
+        item[&#39;en_name&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[2]/td[2]/text()&#39;).extract()[0]  # 英文名称
+        item[&#39;cn_name&#39;] = item[&#39;full_name&#39;]  # 中文名称
+        item[&#39;nation&#39;] = &#39;china&#39;  # 国别
+        item[&#39;address&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[3]/td[2]/text()&#39;).extract()[0]  # 注册地址
+        item[&#39;established_time&#39;] = None  # 成立时间
+        item[&#39;stock_time&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[13]/td[2]/text()&#39;).extract()[0]  # 上市时间
+        # shareholders = scrapy.Field()  # 主要股东
+        item[&#39;industry&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[8]/td[2]/text()&#39;).extract()[
+            0]  # 行业(经营类别)
+        # managers = scrapy.Field()  # 主要管理人员
+        item[&#39;parent_company&#39;] = None  # 母公司
+        item[&#39;subsidiaries&#39;] = None  # 子公司
+        item[&#39;offical_website&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[12]/td[2]/text()&#39;).extract()[0]  # 官网
+        item[&#39;phone&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[10]/td[2]/text()&#39;).extract()[0]  # 公司电话
+        item[&#39;fax&#39;] = response.xpath(
+            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[11]/td[2]/text()&#39;).extract()[0]  # 公司传真
+        item[&#39;Twitter&#39;] = None  # Twitter
+
+        item[&#39;stock_code&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[
+            0]  # 股票代码
+        item[&#39;abbr&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[1]  # 公司简称
+
+        yield item
+
+`</code></pre>
+<h3 id="3-数据持久化–pipelines-py"><a href="#3-数据持久化–pipelines-py" class="headerlink" title="3.数据持久化–pipelines.py"></a>3.数据持久化–pipelines.py</h3><pre><code>把抓取下来的数据存进mongo数据库，实现数据的持久化。setting中数据库配置如下：
+MONGO_HOST = &#39;127.0.0.1&#39; # 主机ip
+MONGO_PORT = 27017    # 端口号
+MONGO_DB = &#39;agriEn&#39;     # 数据库名称</code></pre>
+<hr>
+<pre><code>`import pymongo
+from scrapy.conf import settings
+from .items import AgriBasicItem
+from .items import AgriManaItem
+
+
+class CninfoPipeline(object):
+    def __init__(self):
+        self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
+        self.db = self.client[settings[&#39;MONGO_DB&#39;]]
+        self.cninfo_base = self.db[&#39;cninfo_base&#39;]
+        self.cninfo_mana = self.db[&#39;cninfo_mana&#39;]
+        self.cninfo_share = self.db[&#39;cninfo_share&#39;]
+
+    def process_item(self, item, spider):
+        if isinstance(item, AgriBasicItem):
+            try:
+                if item[&#39;full_name&#39;]:
+                    item = dict(item)
+                    self.cninfo_base.insert(item)
+                    print(&quot;insert baseinfo success ！&quot;)
+                    return item
+
+            except Exception as e:
+                spider.logger.exception(&quot;insert failed&quot;)
+        elif isinstance(item,AgriManaItem):
+            if item[&#39;managers&#39;]:
+                item = dict(item)
+                self.cninfo_mana.insert(item)
+                print(&quot;insert managers success ！&quot;)
+                return item`</code></pre>
+<h3 id="4-配置文件–setting-py"><a href="#4-配置文件–setting-py" class="headerlink" title="4.配置文件–setting.py"></a>4.配置文件–setting.py</h3><pre><code>ROBOTSTXT_OBEY = False
+
+DOWNLOADER_MIDDLEWARES = &#123;
+# 键是中间件类的路径，值是中间的顺序
+&#39;cninfo.middlewares.middleware.JavaScriptMiddleware&#39;: 543,
+# 禁止内置的中间件
+&#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;: None &#125;
+
+# 记得开启pipelines的调用
+ITEM_PIPELINES = &#123;
+&#39;cninfo.pipelines.CninfoPipeline&#39;: 300,&#125;</code></pre>
+<h2 id="四、缺陷"><a href="#四、缺陷" class="headerlink" title="四、缺陷"></a>四、缺陷</h2><pre><code>在这个爬虫中，其实出现了蛮多问题的，有些解决了，有些没有，记录一下，加深印象，还有感觉代码好垃圾。</code></pre>
+<h3 id="1-缺陷1"><a href="#1-缺陷1" class="headerlink" title="1.缺陷1"></a>1.缺陷1</h3><pre><code>上市农业企业的名字，以及名字的url链接手动整理的，因为只有40来个企业，所以才会用这个方法。本来是想通过Scarpy的CrawlSpider抓取，
+抓取时通过Rule来控制所需要的农业企业，但是发现实在没有什么规律，只会把巨潮资讯上所有上市企业的url都获取下来，所以最后手动整理的
+这40多个农业企业，希望日后能找到更简便的办法。</code></pre>
+<h3 id="2-缺陷2"><a href="#2-缺陷2" class="headerlink" title="2.缺陷2"></a>2.缺陷2</h3><pre><code>对于网页中的高管人员信息抓取中，本来是想思考放在一个爬虫中获取到的，但是仔细分析后发现，公司概况和高管人员分别对应着不同的url，
+然后不同的url下再对应中动态加载iframe。url对比如下：
+http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
+http://www.cninfo.com.cn/information/companyinfo_n.html?management?szmb000998
+这样子的话，就涉及到我需要在Selenuim中点击按钮，然后再渲染id=&#39;i_nr&#39;的iframe，而且不同页面中iframe名字都叫i_nr。我试过这个
+办法，但是拿回的源码并不是高管人员页面的源码，依然是公司概况页面的源码，也许是我方法用的不对，有待仔细研究。
+所以我又在cninfo_mana.py中又写了一个爬虫，从而单独来获取高管人员页面的信息。</code></pre>
+<h3 id="3-缺陷3"><a href="#3-缺陷3" class="headerlink" title="3.缺陷3"></a>3.缺陷3</h3><pre><code>对于十大股东页面，按理说我应该在写一个py文件来单独获取它的页面信息，这样子就ok了，实际上我也是这么做的。但是爬虫运行是，却发
+现我拿不到股东的信息，因为我发现当请求http://www.cninfo.com.cn/information/companyinfo_n.html?shareholders?
+szmb000998时，首先切换到id=&#39;i_nr&#39;的iframe中，但是随后股东的详细信息又在一个id=&#39;i_nr&#39;的ifrma中，相当于这里有两个iframe，
+我在中间件试了试两个这样子切换iframe，但是很遗憾我没拿到我想要的东西，源代码还是停留在第一层iframe中，所以最后我放弃了，没有
+拿十大股东的信息，这个问题智能留着我以后解决了。</code></pre>
+<h3 id="4-缺陷4"><a href="#4-缺陷4" class="headerlink" title="4.缺陷4"></a>4.缺陷4</h3><pre><code>self.broswer = webdriver.PhantomJS(
+        executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+这个代码在中间件和爬虫代码中都有，说明两次打开了浏览器，致使性能降低。</code></pre>
+<h2 id="五、其他项目"><a href="#五、其他项目" class="headerlink" title="五、其他项目"></a>五、其他项目</h2><pre><code>    其实我之前还用Selenium写过一个项目，用过抓取FAO的国家分类信息，以前习惯不好，做事不记录，导致做完就忘，只有个模糊的印象。
+今天把之前那个项目找到了，重新运行了一下，但是抓不到东西了，我看看了网站的结构没变，应该是在动态加载方面变化了，等有时间的时候
+看看究竟哪里变了，再把代码优化一下，附上github地址，有兴趣可以参考一下。如果有帮助，给个star把，好不要脸，第一次求star。</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/fao">https://github.com/Gladysgong/fao</a></p>
+<h2 id="六、后续"><a href="#六、后续" class="headerlink" title="六、后续"></a>六、后续</h2><p>后来我又写了一篇文章——<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E5%B9%B4%E6%8A%A5/">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>，有兴趣的可以看看。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PhantomJS%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">PhantomJS安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-29 15:40:06" itemprop="dateCreated datePublished" datetime="2018-03-29T15:40:06+08:00">2018-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:39:17" itemprop="dateModified" datetime="2020-09-18T21:39:17+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/PhantomJS/" itemprop="url" rel="index"><span itemprop="name">PhantomJS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><pre><code>http://phantomjs.org/download.html </code></pre>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><pre><code>解压文件，examlpe中有很多小例子可以试试
 把解压后的bin路径配置到path变量中
-打开cmd，输入phantomjs验证
-三、验证`from s
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-29
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/PhantomJS/" class="post-category">
-                                    PhantomJS
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+打开cmd，输入phantomjs验证</code></pre>
+<h2 id="三、验证"><a href="#三、验证" class="headerlink" title="三、验证"></a>三、验证</h2><pre><code>`from selenium import webdriver
+browser = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
+browser.get(&#39;https://www.baidu.com&#39;)
+print(browser.current_url)`</code></pre>
+<hr>
+<pre><code>输出：https:www.baidu.com
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PhantomJS/">
-                            <span class="chip bg-color">PhantomJS</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Python中的进程与线程">
-                            
-                            <span class="card-title">Python中的进程与线程</span>
-                        </div>
-                    </a>
+成功！</code></pre>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                一、多进程Python中实现多进程有2种方式：
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Python中的进程与线程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-27 14:35:23" itemprop="dateCreated datePublished" datetime="2018-03-27T14:35:23+08:00">2018-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、多进程"><a href="#一、多进程" class="headerlink" title="一、多进程"></a>一、多进程</h2><pre><code>Python中实现多进程有2种方式：
     os模块中的fork()方法
     使用multiprocessing模块
 
 区别：
     fork()仅仅适用于Unix/Linux操作系统，不支持Windows
-    mul
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Lilly
-                                
-                            </span>
-                        </div>
-                    </div>
+    multiprocessing支持跨平台</code></pre>
+<h3 id="1-使用os模块的fork实现多进程"><a href="#1-使用os模块的fork实现多进程" class="headerlink" title="1.使用os模块的fork实现多进程"></a>1.使用os模块的fork实现多进程</h3><pre><code>fork方法来源于Unix/Linux中提供的fork系统调用，此方法很特殊。
+普通方法调用一次，返回一次，fork方法调用一次，返回两次。
+原因：操作系统将当前进程（父进程）复制出一份进程（子进程），两个进程几乎完全相同，于是fork方法分别在父进程和子进程中分别返回。
+子进程中永远返回0，父进程中返回子进程的ID。
 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Python操作文件和目录">
-                            
-                            <span class="card-title">Python操作文件和目录</span>
-                        </div>
-                    </a>
+getpid() -- 获取当前进程的ID
+getppid() -- 获取父进程的ID</code></pre>
+<hr>
+<pre><code>`import os
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;current Process (%s) start ...&#39;,(os.getpid()))
+    pid=os.fork()
+    if pid&lt;0:
+        print(&#39;error in fork&#39;)
+    elif pid==0:
+        print(&#39;I am child process(%s) and my parent process is (%s)&#39;,(os.getpid(),os.getppid()))
+    else:
+        print(&#39;I (%s) created a child process (%s).&#39;,(os.getpid(),pid))`</code></pre>
+<hr>
+<pre><code>输出：
+current Process (%s) start ... 17441
+I (%s) created a child process (%s). (17441, 20736)
+I am child process(%s) and my parent process is (%s) (20736, 17441)</code></pre>
+<h3 id="2-使用multiprocessing模块创建多进程"><a href="#2-使用multiprocessing模块创建多进程" class="headerlink" title="2.使用multiprocessing模块创建多进程"></a>2.使用multiprocessing模块创建多进程</h3><pre><code>multiprocessing模块提供Process类来描述一个进程对象，当创建子进程时，
+只需要传入一个执行函数和函数参数，即可完成Process实例的创建，再用start
+()方法启动进程，用join()方法实现进程间的同步。</code></pre>
+<hr>
+<pre><code>`import os
+from multiprocessing import Process
+# 子进程要执行的代码
+def run_proc(name):
+    print(&#39;Child process %s (%s) Running...&#39;%(name,os.getpid()))
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;Parent Process %s.&#39;%(os.getpid()))
+    for i in range(5):
+        p=Process(target=run_proc,args=(str(i),))
+        print(&#39;Process will start&#39;)
+        p.start()
+    p.join()
+    print(&#39;Process end.&#39;)`</code></pre>
+<hr>
+<pre><code>输出：
+Parent Process 17441.
+Process will start
+Process will start
+Process will start
+Child process 0 (38587) Running...
+Process will start
+Child process 1 (38590) Running...
+Process will start
+Child process 2 (38591) Running...
+Child process 3 (38596) Running...
+Child process 4 (38599) Running...
+Process end.</code></pre>
+<h3 id="3-使用multiprocessing模块的Pool类来代表进程池对象"><a href="#3-使用multiprocessing模块的Pool类来代表进程池对象" class="headerlink" title="3.使用multiprocessing模块的Pool类来代表进程池对象"></a>3.使用multiprocessing模块的Pool类来代表进程池对象</h3><pre><code>如果要启动大量的子进程，使用进程池批量创建子进程的方式更加常见。
+Pool可以提供指定数量的进程供用户调用，默认大小是CPU核数。
+当新请求提交到Pool中时，如果池未满，就会创建新进程来执行该请求；
+但如果池中进程数已达到最大值，请求就会等待，直到池中有进程结束，才会创建新进程来处理。
+注意：Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前须
+调用close()，调用close()后就不能添加新的Process</code></pre>
+<hr>
+<pre><code>`import os,time,random
+from multiprocessing import Pool
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：
-1. os.getcwd() -- 获取当前Python脚本工作的目录路径
+def run_task(name):
+    print(&#39;Task %s (pid=%s) is Running...&#39;%(name,os.getpid()))
+    time.sleep(random.random()*3)
+    print(&#39;Task %s end.&#39;%name)
 
-2. os.listdir() -- 返回指定目录下的所有文件
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                                
-                                <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-category">
-                                    基础篇
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
+if __name__ ==&#39;__main__&#39;:
+    print(&#39;Current Process %s.&#39;%(os.getpid()))
+    p=Pool(processes=3)
+    for i in range(5):
+        p.apply_async(run_task,args=(i,))
+    print(&#39;Waiting for all subprocesses done...&#39;)
+    p.close()
+    p.join()
+    print(&#39;All subprocess done.&#39;)`    </code></pre>
+<hr>
+<pre><code>输出:
+Current Process 17441.
+Task 2 (pid=40820) is Running...
+Task 1 (pid=40819) is Running...
+Task 0 (pid=40818) is Running...
+Waiting for all subprocesses done...
+Task 2 end.
+Task 3 (pid=40820) is Running...
+Task 0 end.
+Task 4 (pid=40818) is Running...
+Task 1 end.
+Task 4 end.
+Task 3 end.
+All subprocess done.</code></pre>
+<h3 id="4-进程间通信"><a href="#4-进程间通信" class="headerlink" title="4.进程间通信"></a>4.进程间通信</h3><pre><code>Python进程通信方式：Queue、Pipe、Value+Array
+区别：Pipe常用于两个进程间通信，Queue用于多个进程间通信
+Queue：put和get</code></pre>
+<h4 id="4-1-Queue"><a href="#4-1-Queue" class="headerlink" title="4.1 Queue"></a>4.1 Queue</h4><hr>
+<pre><code>`# ----Queue----
+import os,time,random
+from multiprocessing import Process,Queue
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Python/">
-                            <span class="chip bg-color">Python</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
+# 写数据进程执行的代码：
+def proc_write(q,urls):
+    print(&#39;Process (%s) is writing...&#39;%os.getpid())
+    for url in urls:
+        q.put(url)
+        print(&#39;Put %s to queue...&#39;%url)
+        time.sleep(random.random())
 
-</main>
+# 读数据进程执行的代码：
+def proc_read(q):
+    print(&#39;Process (%s) is reading...&#39;%os.getpid())
+    while True:
+        url=q.get(True)
+        print(&#39;Get %s from queue.&#39;%url)
 
+if __name__ ==&#39;__main__&#39;:
+    # 父进程创建Queue，并传给各个子进程：
+    q=Queue()
+    proc_writer1=Process(target=proc_write,args=(q,[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;]))
+    proc_writer2=Process(target=proc_write,args=(q,[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;]))
+    proc_reader=Process(target=proc_read,args=(q,))
+    # 启动子进程proc_writer,写入：
+    proc_writer1.start()
+    proc_writer2.start()
+    # 启动子进程proc_reader,读取：
+    proc_reader.start()
+    # 等待proc_writer结束：
+    proc_writer1.join()
+    proc_writer2.join()
+    # proc_reader进程里是死循环，无法等待其结束，只能强行终止：
+    proc_reader.terminate()`</code></pre>
+<hr>
+<pre><code>输出：
+Process (45109) is writing...
+Process (45110) is writing...
+Put url_1 to queue...
+Put url_4 to queue...
+Process (45113) is reading...
+Get url_1 from queue.
+Get url_4 from queue.
+Put url_5 to queue...
+Get url_5 from queue.
+Put url_2 to queue...
+Get url_2 from queue.
+Put url_6 to queue...
+Get url_6 from queue.
+Put url_3 to queue...
+Get url_3 from queue.</code></pre>
+<h4 id="4-2-Pipe"><a href="#4-2-Pipe" class="headerlink" title="4.2 Pipe"></a>4.2 Pipe</h4><pre><code>`# ----Pipe----
+import os,time,random
+import multiprocessing
 
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/9/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">10 / 13</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/11/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+def proc_send(pipe,urls):
+    for url in urls:
+        print(&#39;Process (%s) send: %s&#39;%(os.getpid(),url))
+        pipe.send(url)
+        time.sleep(random.random())
+
+def proc_recv(pipe):
+    while True:
+        print(&#39;Process (%s) recv: %s&#39;%(os.getpid(),pipe.recv()))
+        time.sleep(random.random())
+
+if __name__ ==&#39;__main__&#39;:
+    pipe=multiprocessing.Pipe()
+    p1=multiprocessing.Process(target=proc_send,args=(pipe[0],[&#39;url_&#39;+str(i) for i in range(10) ]))
+    p2=multiprocessing.Process(target=proc_recv,args=(pipe[1],))
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.terminate()`</code></pre>
+<hr>
+<pre><code>输出：
+Process (15338) send: url_0
+Process (15339) recv: url_0
+Process (15338) send: url_1
+Process (15339) recv: url_1
+Process (15338) send: url_2
+Process (15339) recv: url_2
+Process (15338) send: url_3
+Process (15339) recv: url_3
+Process (15338) send: url_4
+Process (15338) send: url_5
+Process (15339) recv: url_4
+Process (15339) recv: url_5
+Process (15338) send: url_6
+Process (15339) recv: url_6
+Process (15338) send: url_7
+Process (15339) recv: url_7
+Process (15338) send: url_8
+Process (15339) recv: url_8
+Process (15338) send: url_9</code></pre>
+<h2 id="二、多线程"><a href="#二、多线程" class="headerlink" title="二、多线程"></a>二、多线程</h2><pre><code>Python中提供2个模块实现多线程：thread和threading
+thread属于低级模块，threading是高级模块，对thread进行了封装
+大多数使用threading模块</code></pre>
+<h3 id="1-用threading模块创建多线程"><a href="#1-用threading模块创建多线程" class="headerlink" title="1.用threading模块创建多线程"></a>1.用threading模块创建多线程</h3><pre><code>两种方式：
+    函数传入并创建Thread实例，调用start方法开始执行
+    直接从threading.Thread继承并创建线程类，重写__init__和run方法</code></pre>
+<h4 id="1-1-函数传入"><a href="#1-1-函数传入" class="headerlink" title="1.1 函数传入"></a>1.1 函数传入</h4><pre><code>`import random 
+import time,threading
+
+# 新线程执行的代码：
+def thread_run(urls):
+    print(&#39;Current %s is running...&#39;%threading.current_thread().name)
+    for url in urls:
+        print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
+        time.sleep(random.random())
+    print(&#39;%s ended.&#39;%threading.current_thread().name)
+
+print(&#39;%s is running...&#39;%threading.current_thread().name)
+t1=threading.Thread(target=thread_run,name=&#39;Thread_1&#39;,args=([&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;],))
+t2=threading.Thread(target=thread_run,name=&#39;Thread_2&#39;,args=([&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;],))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
+<hr>
+<pre><code>输出：
+MainThread is running...
+Current Thread_1 is running...
+Thread_1----&gt;&gt;&gt; url_1
+Current Thread_2 is running...
+Thread_2----&gt;&gt;&gt; url_4
+Thread_2----&gt;&gt;&gt; url_5
+Thread_1----&gt;&gt;&gt; url_2
+Thread_1----&gt;&gt;&gt; url_3
+Thread_2----&gt;&gt;&gt; url_6
+Thread_2 ended.
+Thread_1 ended.
+MainThread ended.</code></pre>
+<h4 id="1-2-直接继承"><a href="#1-2-直接继承" class="headerlink" title="1.2 直接继承"></a>1.2 直接继承</h4><pre><code>`import random 
+import time,threading
+
+class myThread(threading.Thread):
+    def __init__(self,name,urls):
+        threading.Thread.__init__(self,name=name)
+        self.urls=urls
+
+    def run(self):
+        print(&#39;Current %s is running...&#39;%threading.current_thread().name)
+        for url in self.urls:
+            print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
+            time.sleep(random.random())
+        print(&#39;%s ended.&#39;%threading.current_thread().name)   
+
+print(&#39;%s is running...&#39;%threading.current_thread().name)
+t1=myThread(name=&#39;Thread_1&#39;,urls=[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;])
+t2=myThread(name=&#39;Thread_2&#39;,urls=[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;])
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
+<hr>
+<pre><code>输出：
+MainThread is running...
+Current Thread_1 is running...
+Current Thread_2 is running...
+Thread_2----&gt;&gt;&gt; url_4
+Thread_1----&gt;&gt;&gt; url_1
+Thread_1----&gt;&gt;&gt; url_2
+Thread_2----&gt;&gt;&gt; url_5
+Thread_2----&gt;&gt;&gt; url_6
+Thread_1----&gt;&gt;&gt; url_3
+Thread_2 ended.
+Thread_1 ended.
+MainThread ended.</code></pre>
+<h3 id="2-线程同步"><a href="#2-线程同步" class="headerlink" title="2.线程同步"></a>2.线程同步</h3><pre><code>Thread对象的Lock和RLock可实现线程同步，2个对象均有acquire和release方法
+`import random 
+import time,threading
+
+mylock=threading.RLock()
+num=0
+
+class myThread(threading.Thread):
+    def __init__(self,name):
+        threading.Thread.__init__(self,name=name)
+
+    def run(self):
+        global num
+        while True:
+            mylock.acquire()
+            print(&#39;%s locked,Number:%d&#39;%(threading.current_thread().name,num))
+            if num&gt;=4:
+                mylock.release()
+                print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
+                break
+            num+=1
+            print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
+            mylock.release()
+if __name__==&#39;__main__&#39;:
+    t1=myThread(name=&#39;Thread_1&#39;)
+    t2=myThread(name=&#39;Thread_2&#39;)
+    t1.start()
+    t2.start()`</code></pre>
+<hr>
+<pre><code>输出：
+Thread_1 locked,Number:0
+Thread_1 released,Number:1
+Thread_1 locked,Number:1
+Thread_1 released,Number:2
+Thread_1 locked,Number:2
+Thread_1 released,Number:3
+Thread_1 locked,Number:3
+Thread_1 released,Number:4
+Thread_1 locked,Number:4
+Thread_1 released,Number:4
+Thread_2 locked,Number:4
+Thread_2 released,Number:4</code></pre>
+<h2 id="三、协程"><a href="#三、协程" class="headerlink" title="三、协程"></a>三、协程</h2><pre><code>Python中通过yield提供对协程的基本支持，但不完全。
+所以我们用第三方geven库来使用协程。
+spawn用来形成协程，joinall用来添加协程任务。</code></pre>
+<hr>
+<pre><code>`from gevent import monkey
+monkey.patch_all()
+import gevent
+import urllib.request
+
+def run_task(url):
+    print(&#39;Visit --&gt; %s&#39;%url)
+    try:
+        response=urllib.request.urlopen(url)
+        data=response.read()
+        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
+    except Exception as e:
+        print(e)
+
+if __name__==&#39;__main__&#39;:
+    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
+    greenlets=[gevent.spawn(run_task,url) for url in urls]
+    gevent.joinall(greenlets)`</code></pre>
+<hr>
+<pre><code>输出：
+Visit --&gt; https://github.com/
+Visit --&gt; https://www.python.org/
+Visit --&gt; https://www.baidu.com/
+227 bytes received from https://www.baidu.com/.
+52801 bytes received from https://github.com/.
+48922 bytes received from https://www.python.org/.</code></pre>
+<hr>
+<pre><code>`# 提供对pool的支持，当拥有动态数量的greenlets需要进行并发管理
+from gevent import monkey
+monkey.patch_all()
+import gevent
+import urllib.request
+from gevent.pool import Pool
+
+def run_task(url):
+    print(&#39;Visit --&gt; %s&#39;%url)
+    try:
+        response=urllib.request.urlopen(url)
+        data=response.read()
+        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
+    except Exception as e:
+        print(e)
+    print(&#39;url:%s ---&gt;finish&#39;%url)
+
+if __name__==&#39;__main__&#39;:
+    pool=Pool()
+    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
+#     greenlets=[gevent.spawn(run_task,url) for url in urls]
+#     gevent.joinall(greenlets)
+    results=pool.map(run_task,urls)
+    print(results)`</code></pre>
+<hr>
+<pre><code>输出：
+Visit --&gt; https://github.com/
+Visit --&gt; https://www.python.org/
+Visit --&gt; https://www.baidu.com/
+227 bytes received from https://www.baidu.com/.
+url:https://www.baidu.com/ ---&gt;finish
+48922 bytes received from https://www.python.org/.
+url:https://www.python.org/ ---&gt;finish
+52801 bytes received from https://github.com/.
+url:https://github.com/ ---&gt;finish
+[None, None, None]</code></pre>
+<h2 id="四、分布式进程"><a href="#四、分布式进程" class="headerlink" title="四、分布式进程"></a>四、分布式进程</h2><pre><code>写一个服务进程作为调度者，将任务分布到其他多个子进程中，依靠网络通信进行管理。
+步骤：
+    未完--待续</code></pre>
+
+      
     </div>
-</div>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
     
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
     
-</style>
-<div class="">
     
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
 
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2019</span>
-            <a href="/about" target="_blank">Lilly</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
             </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
+                </span>
             </span>
-            
-            <br>
-            
-            <br>
-            
+
+          
+
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+      </header>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
+      
+          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
+<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+2. os.listdir() -- 返回指定目录下的所有文件和目录名
+   os.listdir(&#39;c:\\&#39;)
 
+3. os.remove(filepath) -- 删除一个文件
 
+4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
 
+5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
 
+6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
 
+7. os.path.isabs() -- 判断是否是绝对路径
 
+8. os.path.exists() -- 检验路径是否真的存在
+   os.path.exists(r&#39;d:\python&#39;)
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
+9. os.path.split() -- 分离一个路径的目录名和文件名
+   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
 
+10. os.path.splitext() -- 分离扩展名
+    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
+    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
 
+11. os.path.dirname(filepath) --获取路径名
 
+12. os.path.basename(filepath)-- 获取文件名
 
+13. os.getenv()和os.putenv() -- 读取和设置环境变量
 
+14. os.linesep -- 给出当前平台使用的行终止符
+    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
 
+15. os.system() -- 运行shell命令
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
+16. os.name -- 指示你正在使用的平台
+    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
 
-</div>
+17. os.rename(old， new) -- 重命名文件或目录
+
+18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
+
+19. os.mkdir(“test”) -- 创建单个目录
+
+20. os.stat(file) --获取文件属性
+
+21. os.chmod(file) -- 修改文件权限与时间戳
+
+22. os.exit() -- 终止当前进程
+
+23. os.path.getsize(filename) -- 获取文件大小：
+
+24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
+    olddir和newdir都只能为目录，且newdir必须不存在
+
+25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir和newdir都只能为文件
+    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
+    olddir只能为文件，newfile可以是文件，也可以是目标目录
+
+26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
+
+27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
+
+28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
+
+      
     </div>
-</footer>
 
-<div class="progress-bar"></div>
-
-
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
+
+          </div>
+          
 
 <script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-    
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>
