@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2020-10-28</lastmod>
+  </url>
+  <url>
     <loc>http://gongyanli.com/LeetCode-1-%E6%95%B0%E7%BB%84/</loc>
     <lastmod>2020-10-27</lastmod>
   </url>
@@ -399,10 +403,6 @@
   <url>
     <loc>http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%B8%80/</loc>
     <lastmod>2020-09-13</lastmod>
-  </url>
-  <url>
-    <loc>http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2020-09-01</lastmod>
   </url>
   <url>
     <loc>http://gongyanli.com/LeetCode-10-%E5%9B%BE/</loc>
