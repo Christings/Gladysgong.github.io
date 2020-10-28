@@ -1,1978 +1,1101 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="zh-Hans">
+
+
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Up in the wind!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="茉莉Python">
-<meta property="og:url" content="http://gongyanli.com/page/11/index.html">
-<meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="Up in the wind!">
-<meta property="og:locale">
-<meta property="article:author" content="Lilly">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://gongyanli.com/page/11/">
+    <meta charset="utf-8">
+    <meta name="keywords" content="茉莉Python">
+    <meta name="description" content="Up in the wind!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-Hans'
-  };
-</script>
+    <title>茉莉Python</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
 
-  <title>茉莉Python</title>
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">茉莉Python</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
   
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">茉莉Python</h1>
-      <span class="logo-line-after"><i></i></span>
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
     </a>
-      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
-  </div>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">茉莉Python</div>
+        <div class="logo-desc">
+            
+            Up in the wind!
+            
+        </div>
     </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
           
-
-          <div class="content index posts-expand">
-            
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
           
-            <a href="/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Python中的进程与线程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-27 14:35:23" itemprop="dateCreated datePublished" datetime="2018-03-27T14:35:23+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
-              </span>
-
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
           
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
 
         </div>
-      </header>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
+                
+                voidqueens@hotmail.com
+                
+            </div>
 
-      
-          <h2 id="一、多进程"><a href="#一、多进程" class="headerlink" title="一、多进程"></a>一、多进程</h2><pre><code>Python中实现多进程有2种方式：
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+</script>
+
+
+    </div>
+</div>
+
+
+<main class="content">
+
+    
+
+    
+
+    <!-- 所有文章卡片 -->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Python中的进程与线程">
+                            
+                            <span class="card-title">Python中的进程与线程</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、多进程Python中实现多进程有2种方式：
     os模块中的fork()方法
     使用multiprocessing模块
 
 区别：
     fork()仅仅适用于Unix/Linux操作系统，不支持Windows
-    multiprocessing支持跨平台</code></pre>
-<h3 id="1-使用os模块的fork实现多进程"><a href="#1-使用os模块的fork实现多进程" class="headerlink" title="1.使用os模块的fork实现多进程"></a>1.使用os模块的fork实现多进程</h3><pre><code>fork方法来源于Unix/Linux中提供的fork系统调用，此方法很特殊。
-普通方法调用一次，返回一次，fork方法调用一次，返回两次。
-原因：操作系统将当前进程（父进程）复制出一份进程（子进程），两个进程几乎完全相同，于是fork方法分别在父进程和子进程中分别返回。
-子进程中永远返回0，父进程中返回子进程的ID。
-
-getpid() -- 获取当前进程的ID
-getppid() -- 获取父进程的ID</code></pre>
-<hr>
-<pre><code>`import os
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;current Process (%s) start ...&#39;,(os.getpid()))
-    pid=os.fork()
-    if pid&lt;0:
-        print(&#39;error in fork&#39;)
-    elif pid==0:
-        print(&#39;I am child process(%s) and my parent process is (%s)&#39;,(os.getpid(),os.getppid()))
-    else:
-        print(&#39;I (%s) created a child process (%s).&#39;,(os.getpid(),pid))`</code></pre>
-<hr>
-<pre><code>输出：
-current Process (%s) start ... 17441
-I (%s) created a child process (%s). (17441, 20736)
-I am child process(%s) and my parent process is (%s) (20736, 17441)</code></pre>
-<h3 id="2-使用multiprocessing模块创建多进程"><a href="#2-使用multiprocessing模块创建多进程" class="headerlink" title="2.使用multiprocessing模块创建多进程"></a>2.使用multiprocessing模块创建多进程</h3><pre><code>multiprocessing模块提供Process类来描述一个进程对象，当创建子进程时，
-只需要传入一个执行函数和函数参数，即可完成Process实例的创建，再用start
-()方法启动进程，用join()方法实现进程间的同步。</code></pre>
-<hr>
-<pre><code>`import os
-from multiprocessing import Process
-# 子进程要执行的代码
-def run_proc(name):
-    print(&#39;Child process %s (%s) Running...&#39;%(name,os.getpid()))
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;Parent Process %s.&#39;%(os.getpid()))
-    for i in range(5):
-        p=Process(target=run_proc,args=(str(i),))
-        print(&#39;Process will start&#39;)
-        p.start()
-    p.join()
-    print(&#39;Process end.&#39;)`</code></pre>
-<hr>
-<pre><code>输出：
-Parent Process 17441.
-Process will start
-Process will start
-Process will start
-Child process 0 (38587) Running...
-Process will start
-Child process 1 (38590) Running...
-Process will start
-Child process 2 (38591) Running...
-Child process 3 (38596) Running...
-Child process 4 (38599) Running...
-Process end.</code></pre>
-<h3 id="3-使用multiprocessing模块的Pool类来代表进程池对象"><a href="#3-使用multiprocessing模块的Pool类来代表进程池对象" class="headerlink" title="3.使用multiprocessing模块的Pool类来代表进程池对象"></a>3.使用multiprocessing模块的Pool类来代表进程池对象</h3><pre><code>如果要启动大量的子进程，使用进程池批量创建子进程的方式更加常见。
-Pool可以提供指定数量的进程供用户调用，默认大小是CPU核数。
-当新请求提交到Pool中时，如果池未满，就会创建新进程来执行该请求；
-但如果池中进程数已达到最大值，请求就会等待，直到池中有进程结束，才会创建新进程来处理。
-注意：Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前须
-调用close()，调用close()后就不能添加新的Process</code></pre>
-<hr>
-<pre><code>`import os,time,random
-from multiprocessing import Pool
-
-def run_task(name):
-    print(&#39;Task %s (pid=%s) is Running...&#39;%(name,os.getpid()))
-    time.sleep(random.random()*3)
-    print(&#39;Task %s end.&#39;%name)
-
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;Current Process %s.&#39;%(os.getpid()))
-    p=Pool(processes=3)
-    for i in range(5):
-        p.apply_async(run_task,args=(i,))
-    print(&#39;Waiting for all subprocesses done...&#39;)
-    p.close()
-    p.join()
-    print(&#39;All subprocess done.&#39;)`    </code></pre>
-<hr>
-<pre><code>输出:
-Current Process 17441.
-Task 2 (pid=40820) is Running...
-Task 1 (pid=40819) is Running...
-Task 0 (pid=40818) is Running...
-Waiting for all subprocesses done...
-Task 2 end.
-Task 3 (pid=40820) is Running...
-Task 0 end.
-Task 4 (pid=40818) is Running...
-Task 1 end.
-Task 4 end.
-Task 3 end.
-All subprocess done.</code></pre>
-<h3 id="4-进程间通信"><a href="#4-进程间通信" class="headerlink" title="4.进程间通信"></a>4.进程间通信</h3><pre><code>Python进程通信方式：Queue、Pipe、Value+Array
-区别：Pipe常用于两个进程间通信，Queue用于多个进程间通信
-Queue：put和get</code></pre>
-<h4 id="4-1-Queue"><a href="#4-1-Queue" class="headerlink" title="4.1 Queue"></a>4.1 Queue</h4><hr>
-<pre><code>`# ----Queue----
-import os,time,random
-from multiprocessing import Process,Queue
-
-# 写数据进程执行的代码：
-def proc_write(q,urls):
-    print(&#39;Process (%s) is writing...&#39;%os.getpid())
-    for url in urls:
-        q.put(url)
-        print(&#39;Put %s to queue...&#39;%url)
-        time.sleep(random.random())
-
-# 读数据进程执行的代码：
-def proc_read(q):
-    print(&#39;Process (%s) is reading...&#39;%os.getpid())
-    while True:
-        url=q.get(True)
-        print(&#39;Get %s from queue.&#39;%url)
-
-if __name__ ==&#39;__main__&#39;:
-    # 父进程创建Queue，并传给各个子进程：
-    q=Queue()
-    proc_writer1=Process(target=proc_write,args=(q,[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;]))
-    proc_writer2=Process(target=proc_write,args=(q,[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;]))
-    proc_reader=Process(target=proc_read,args=(q,))
-    # 启动子进程proc_writer,写入：
-    proc_writer1.start()
-    proc_writer2.start()
-    # 启动子进程proc_reader,读取：
-    proc_reader.start()
-    # 等待proc_writer结束：
-    proc_writer1.join()
-    proc_writer2.join()
-    # proc_reader进程里是死循环，无法等待其结束，只能强行终止：
-    proc_reader.terminate()`</code></pre>
-<hr>
-<pre><code>输出：
-Process (45109) is writing...
-Process (45110) is writing...
-Put url_1 to queue...
-Put url_4 to queue...
-Process (45113) is reading...
-Get url_1 from queue.
-Get url_4 from queue.
-Put url_5 to queue...
-Get url_5 from queue.
-Put url_2 to queue...
-Get url_2 from queue.
-Put url_6 to queue...
-Get url_6 from queue.
-Put url_3 to queue...
-Get url_3 from queue.</code></pre>
-<h4 id="4-2-Pipe"><a href="#4-2-Pipe" class="headerlink" title="4.2 Pipe"></a>4.2 Pipe</h4><pre><code>`# ----Pipe----
-import os,time,random
-import multiprocessing
-
-def proc_send(pipe,urls):
-    for url in urls:
-        print(&#39;Process (%s) send: %s&#39;%(os.getpid(),url))
-        pipe.send(url)
-        time.sleep(random.random())
-
-def proc_recv(pipe):
-    while True:
-        print(&#39;Process (%s) recv: %s&#39;%(os.getpid(),pipe.recv()))
-        time.sleep(random.random())
-
-if __name__ ==&#39;__main__&#39;:
-    pipe=multiprocessing.Pipe()
-    p1=multiprocessing.Process(target=proc_send,args=(pipe[0],[&#39;url_&#39;+str(i) for i in range(10) ]))
-    p2=multiprocessing.Process(target=proc_recv,args=(pipe[1],))
-
-    p1.start()
-    p2.start()
-
-    p1.join()
-    p2.terminate()`</code></pre>
-<hr>
-<pre><code>输出：
-Process (15338) send: url_0
-Process (15339) recv: url_0
-Process (15338) send: url_1
-Process (15339) recv: url_1
-Process (15338) send: url_2
-Process (15339) recv: url_2
-Process (15338) send: url_3
-Process (15339) recv: url_3
-Process (15338) send: url_4
-Process (15338) send: url_5
-Process (15339) recv: url_4
-Process (15339) recv: url_5
-Process (15338) send: url_6
-Process (15339) recv: url_6
-Process (15338) send: url_7
-Process (15339) recv: url_7
-Process (15338) send: url_8
-Process (15339) recv: url_8
-Process (15338) send: url_9</code></pre>
-<h2 id="二、多线程"><a href="#二、多线程" class="headerlink" title="二、多线程"></a>二、多线程</h2><pre><code>Python中提供2个模块实现多线程：thread和threading
-thread属于低级模块，threading是高级模块，对thread进行了封装
-大多数使用threading模块</code></pre>
-<h3 id="1-用threading模块创建多线程"><a href="#1-用threading模块创建多线程" class="headerlink" title="1.用threading模块创建多线程"></a>1.用threading模块创建多线程</h3><pre><code>两种方式：
-    函数传入并创建Thread实例，调用start方法开始执行
-    直接从threading.Thread继承并创建线程类，重写__init__和run方法</code></pre>
-<h4 id="1-1-函数传入"><a href="#1-1-函数传入" class="headerlink" title="1.1 函数传入"></a>1.1 函数传入</h4><pre><code>`import random 
-import time,threading
-
-# 新线程执行的代码：
-def thread_run(urls):
-    print(&#39;Current %s is running...&#39;%threading.current_thread().name)
-    for url in urls:
-        print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
-        time.sleep(random.random())
-    print(&#39;%s ended.&#39;%threading.current_thread().name)
-
-print(&#39;%s is running...&#39;%threading.current_thread().name)
-t1=threading.Thread(target=thread_run,name=&#39;Thread_1&#39;,args=([&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;],))
-t2=threading.Thread(target=thread_run,name=&#39;Thread_2&#39;,args=([&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;],))
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
-<hr>
-<pre><code>输出：
-MainThread is running...
-Current Thread_1 is running...
-Thread_1----&gt;&gt;&gt; url_1
-Current Thread_2 is running...
-Thread_2----&gt;&gt;&gt; url_4
-Thread_2----&gt;&gt;&gt; url_5
-Thread_1----&gt;&gt;&gt; url_2
-Thread_1----&gt;&gt;&gt; url_3
-Thread_2----&gt;&gt;&gt; url_6
-Thread_2 ended.
-Thread_1 ended.
-MainThread ended.</code></pre>
-<h4 id="1-2-直接继承"><a href="#1-2-直接继承" class="headerlink" title="1.2 直接继承"></a>1.2 直接继承</h4><pre><code>`import random 
-import time,threading
-
-class myThread(threading.Thread):
-    def __init__(self,name,urls):
-        threading.Thread.__init__(self,name=name)
-        self.urls=urls
-
-    def run(self):
-        print(&#39;Current %s is running...&#39;%threading.current_thread().name)
-        for url in self.urls:
-            print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
-            time.sleep(random.random())
-        print(&#39;%s ended.&#39;%threading.current_thread().name)   
-
-print(&#39;%s is running...&#39;%threading.current_thread().name)
-t1=myThread(name=&#39;Thread_1&#39;,urls=[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;])
-t2=myThread(name=&#39;Thread_2&#39;,urls=[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;])
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
-<hr>
-<pre><code>输出：
-MainThread is running...
-Current Thread_1 is running...
-Current Thread_2 is running...
-Thread_2----&gt;&gt;&gt; url_4
-Thread_1----&gt;&gt;&gt; url_1
-Thread_1----&gt;&gt;&gt; url_2
-Thread_2----&gt;&gt;&gt; url_5
-Thread_2----&gt;&gt;&gt; url_6
-Thread_1----&gt;&gt;&gt; url_3
-Thread_2 ended.
-Thread_1 ended.
-MainThread ended.</code></pre>
-<h3 id="2-线程同步"><a href="#2-线程同步" class="headerlink" title="2.线程同步"></a>2.线程同步</h3><pre><code>Thread对象的Lock和RLock可实现线程同步，2个对象均有acquire和release方法
-`import random 
-import time,threading
-
-mylock=threading.RLock()
-num=0
-
-class myThread(threading.Thread):
-    def __init__(self,name):
-        threading.Thread.__init__(self,name=name)
-
-    def run(self):
-        global num
-        while True:
-            mylock.acquire()
-            print(&#39;%s locked,Number:%d&#39;%(threading.current_thread().name,num))
-            if num&gt;=4:
-                mylock.release()
-                print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
-                break
-            num+=1
-            print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
-            mylock.release()
-if __name__==&#39;__main__&#39;:
-    t1=myThread(name=&#39;Thread_1&#39;)
-    t2=myThread(name=&#39;Thread_2&#39;)
-    t1.start()
-    t2.start()`</code></pre>
-<hr>
-<pre><code>输出：
-Thread_1 locked,Number:0
-Thread_1 released,Number:1
-Thread_1 locked,Number:1
-Thread_1 released,Number:2
-Thread_1 locked,Number:2
-Thread_1 released,Number:3
-Thread_1 locked,Number:3
-Thread_1 released,Number:4
-Thread_1 locked,Number:4
-Thread_1 released,Number:4
-Thread_2 locked,Number:4
-Thread_2 released,Number:4</code></pre>
-<h2 id="三、协程"><a href="#三、协程" class="headerlink" title="三、协程"></a>三、协程</h2><pre><code>Python中通过yield提供对协程的基本支持，但不完全。
-所以我们用第三方geven库来使用协程。
-spawn用来形成协程，joinall用来添加协程任务。</code></pre>
-<hr>
-<pre><code>`from gevent import monkey
-monkey.patch_all()
-import gevent
-import urllib.request
-
-def run_task(url):
-    print(&#39;Visit --&gt; %s&#39;%url)
-    try:
-        response=urllib.request.urlopen(url)
-        data=response.read()
-        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
-    except Exception as e:
-        print(e)
-
-if __name__==&#39;__main__&#39;:
-    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
-    greenlets=[gevent.spawn(run_task,url) for url in urls]
-    gevent.joinall(greenlets)`</code></pre>
-<hr>
-<pre><code>输出：
-Visit --&gt; https://github.com/
-Visit --&gt; https://www.python.org/
-Visit --&gt; https://www.baidu.com/
-227 bytes received from https://www.baidu.com/.
-52801 bytes received from https://github.com/.
-48922 bytes received from https://www.python.org/.</code></pre>
-<hr>
-<pre><code>`# 提供对pool的支持，当拥有动态数量的greenlets需要进行并发管理
-from gevent import monkey
-monkey.patch_all()
-import gevent
-import urllib.request
-from gevent.pool import Pool
-
-def run_task(url):
-    print(&#39;Visit --&gt; %s&#39;%url)
-    try:
-        response=urllib.request.urlopen(url)
-        data=response.read()
-        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
-    except Exception as e:
-        print(e)
-    print(&#39;url:%s ---&gt;finish&#39;%url)
-
-if __name__==&#39;__main__&#39;:
-    pool=Pool()
-    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
-#     greenlets=[gevent.spawn(run_task,url) for url in urls]
-#     gevent.joinall(greenlets)
-    results=pool.map(run_task,urls)
-    print(results)`</code></pre>
-<hr>
-<pre><code>输出：
-Visit --&gt; https://github.com/
-Visit --&gt; https://www.python.org/
-Visit --&gt; https://www.baidu.com/
-227 bytes received from https://www.baidu.com/.
-url:https://www.baidu.com/ ---&gt;finish
-48922 bytes received from https://www.python.org/.
-url:https://www.python.org/ ---&gt;finish
-52801 bytes received from https://github.com/.
-url:https://github.com/ ---&gt;finish
-[None, None, None]</code></pre>
-<h2 id="四、分布式进程"><a href="#四、分布式进程" class="headerlink" title="四、分布式进程"></a>四、分布式进程</h2><pre><code>写一个服务进程作为调度者，将任务分布到其他多个子进程中，依靠网络通信进行管理。
-步骤：
-    未完--待续</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
-<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
-
-2. os.listdir() -- 返回指定目录下的所有文件和目录名
-   os.listdir(&#39;c:\\&#39;)
-
-3. os.remove(filepath) -- 删除一个文件
-
-4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
-
-5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
-
-6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
-
-7. os.path.isabs() -- 判断是否是绝对路径
-
-8. os.path.exists() -- 检验路径是否真的存在
-   os.path.exists(r&#39;d:\python&#39;)
-
-9. os.path.split() -- 分离一个路径的目录名和文件名
-   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
-
-10. os.path.splitext() -- 分离扩展名
-    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
-
-11. os.path.dirname(filepath) --获取路径名
-
-12. os.path.basename(filepath)-- 获取文件名
-
-13. os.getenv()和os.putenv() -- 读取和设置环境变量
-
-14. os.linesep -- 给出当前平台使用的行终止符
-    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
-
-15. os.system() -- 运行shell命令
-
-16. os.name -- 指示你正在使用的平台
-    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
-
-17. os.rename(old， new) -- 重命名文件或目录
-
-18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
-
-19. os.mkdir(“test”) -- 创建单个目录
-
-20. os.stat(file) --获取文件属性
-
-21. os.chmod(file) -- 修改文件权限与时间戳
-
-22. os.exit() -- 终止当前进程
-
-23. os.path.getsize(filename) -- 获取文件大小：
-
-24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
-    olddir和newdir都只能为目录，且newdir必须不存在
-
-25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir和newdir都只能为文件
-    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir只能为文件，newfile可以是文件，也可以是目标目录
-
-26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
-
-27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
-
-28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">MongoDB导入和导出数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-22 13:03:19" itemprop="dateCreated datePublished" datetime="2018-03-22T13:03:19+08:00">2018-03-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 11:18:59" itemprop="dateModified" datetime="2020-09-19T11:18:59+08:00">2020-09-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>MongoDB数据库关于数据导入导出的操作是在cmd下进行的，所以我们首先要打开cmd。</p>
-<h2 id="导出数据"><a href="#导出数据" class="headerlink" title="导出数据"></a>导出数据</h2><pre><code>mongoexport --db 数据库名 --collection 表名 -o 文件名 --type csv/json -f field
-mongoexport --db aiot --collection user   -o e:\data\user1.csv --type csv -f email,username,password</code></pre>
-<h2 id="导出数据-1"><a href="#导出数据-1" class="headerlink" title="导出数据"></a>导出数据</h2><pre><code>mongoexport --db 数据库名 -c 表名 -o 文件名 -f fieldname --headerline --type csv/json -f field
-mongoexport --db aiot -c user -o e:\data\user1.csv --headerline --type csv -f email,username,password</code></pre>
-<h2 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h2><pre><code>mongodump -h dbhost -d dbname -o dbdirectory</code></pre>
-<h2 id="数据库恢复"><a href="#数据库恢复" class="headerlink" title="数据库恢复"></a>数据库恢复</h2><pre><code>mongostore -h dbhost -d dbname --dir dbdirectiry</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%8A%E9%85%8D%E7%BD%AEJupyter-Notebook%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%8A%E9%85%8D%E7%BD%AEJupyter-Notebook%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">如何在Linux上配置Jupyter Notebook进行远程访问</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-13 16:14:44" itemprop="dateCreated datePublished" datetime="2018-03-13T16:14:44+08:00">2018-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:27:05" itemprop="dateModified" datetime="2020-09-18T21:27:05+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Jupyter/" itemprop="url" rel="index"><span itemprop="name">Jupyter</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本机的内存开始不够用了，所以就开始把东西都折腾到服务器了，如何在服务器上安装<br>Anaconda以及创建虚拟环境，我还会再写一篇来进行说明。这篇文章就先说说，安装好<br>虚拟环境后如何进行远程访问。我的虚拟环境用的是Anaconda，所以一般我安装用的conda。</p>
-<h3 id="1、激活虚拟环境"><a href="#1、激活虚拟环境" class="headerlink" title="1、激活虚拟环境"></a>1、激活虚拟环境</h3><pre><code>$ source activate py2</code></pre>
-<h3 id="2、安装ipython、jupyter"><a href="#2、安装ipython、jupyter" class="headerlink" title="2、安装ipython、jupyter"></a>2、安装ipython、jupyter</h3><pre><code>$ pip install ipython
-$ pip install jupyter
-$ conda install ipython
-$ conda install jupyter</code></pre>
-<h3 id="3、生成配置文件"><a href="#3、生成配置文件" class="headerlink" title="3、生成配置文件"></a>3、生成配置文件</h3><pre><code>$ jupyter notebook --generate-config
-Writing default config to: root/.jupyterjupyter_notebook_config.py</code></pre>
-<h3 id="4、生成密码"><a href="#4、生成密码" class="headerlink" title="4、生成密码"></a>4、生成密码</h3><pre><code>$ ipython</code></pre>
-<hr>
-<pre><code>In [1]: from notebook.auth import passwd    
-
-In [2]: passwd()    
-Enter password:     
-Verify password:     
-Out[2]: &#39;sha1:43b95b731276:5d330ee6f6054613b3ab4cc59c5048ff7c70f549&#39; </code></pre>
-<h3 id="4、修改默认配置文件"><a href="#4、修改默认配置文件" class="headerlink" title="4、修改默认配置文件"></a>4、修改默认配置文件</h3><pre><code>$ vi /root/.jupyter/jupyter_notebook_config.py   </code></pre>
-<hr>
-<pre><code>`c.NotebookApp.ip=&#39;*&#39; #设置访问notebook的ip，*表示所有IP，这里设置ip为都可访问  
-c.NotebookApp.password = u&#39;sha1:5df252f58b7f:bf65d53125bb36c085162b3780377f66d73972d1&#39; #填写刚刚生成的密文  
-c.NotebookApp.open_browser = False # 禁止notebook启动时自动打开浏览器(在linux服务器一般都是ssh命令行访问，没有图形界面的。所以，启动也没啥用)  
-c.NotebookApp.port =8889 #指定访问的端口，默认是8888。 `</code></pre>
-<h3 id="5、启动Jupyter-Notebook"><a href="#5、启动Jupyter-Notebook" class="headerlink" title="5、启动Jupyter Notebook"></a>5、启动Jupyter Notebook</h3><pre><code>$ jupyter notebook --allow-root
-生成ip:8889</code></pre>
-<h3 id="6、浏览器打开ip-8889，出现jupyter的界面"><a href="#6、浏览器打开ip-8889，出现jupyter的界面" class="headerlink" title="6、浏览器打开ip:8889，出现jupyter的界面"></a>6、浏览器打开ip:8889，出现jupyter的界面</h3><pre><code>搞定！如何操作不再细说。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Linux-1-%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Linux-1-%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux-1-命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-13 12:21:25" itemprop="dateCreated datePublished" datetime="2018-03-13T12:21:25+08:00">2018-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:15:29" itemprop="dateModified" datetime="2020-09-18T16:15:29+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>总结一下自己工作中常用到的一些Linux命令，首先对自己的知识进行巩固，如果对大家还有一些用处的话，那我将感到不胜荣幸。文章没有系统性的讲解Linux命令，只是我自己常用到的，如果以后有时间的话，可以整理一个系统性的总结。<br>我的Linux系统是centos7，用户有root和lilly，如果后面看到有lilly，这就是我直接代替用户名的地方了，不再一一强调了哈。</p>
-<h3 id="1-切换用户"><a href="#1-切换用户" class="headerlink" title="1.切换用户"></a>1.切换用户</h3><pre><code>su -- 切换到root用户
-su lilly -- 切换到lilly用户</code></pre>
-<h3 id="2-创建用户及密码"><a href="#2-创建用户及密码" class="headerlink" title="2.创建用户及密码"></a>2.创建用户及密码</h3><pre><code>useradd lilly -- 如果只单纯创建用户而没有创建密码，将无法进行登录
-passwd lilly</code></pre>
-<h3 id="3-删除用户"><a href="#3-删除用户" class="headerlink" title="3.删除用户"></a>3.删除用户</h3><pre><code>userdel lilly -- 删除lilly用户
-userdel -r lilly -- 删除lilly用户及home下对应的文件夹</code></pre>
-<h3 id="4-删除文件-文件夹"><a href="#4-删除文件-文件夹" class="headerlink" title="4.删除文件/文件夹"></a>4.删除文件/文件夹</h3><pre><code>rm -r   xxx
-rm -rf  xxx -- 强制删除</code></pre>
-<h3 id="5-解压文件"><a href="#5-解压文件" class="headerlink" title="5.解压文件"></a>5.解压文件</h3><pre><code>tar -xzvf xxx.xxx.tgz</code></pre>
-<h3 id="6-移动文件"><a href="#6-移动文件" class="headerlink" title="6.移动文件"></a>6.移动文件</h3><pre><code>mv xxx /usr/lib -- mv 源文件 目标文件夹</code></pre>
-<h3 id="7-复制文件"><a href="#7-复制文件" class="headerlink" title="7.复制文件"></a>7.复制文件</h3><pre><code>cp xxx.csv /usr/lib -- cp 源文件 目标文件夹</code></pre>
-<h3 id="8-查看IP地址等信息"><a href="#8-查看IP地址等信息" class="headerlink" title="8.查看IP地址等信息"></a>8.查看IP地址等信息</h3><pre><code>ifconfig</code></pre>
-<h3 id="9-查找文件"><a href="#9-查找文件" class="headerlink" title="9.查找文件"></a>9.查找文件</h3><pre><code>find . -name &quot;xxx&quot; -- 当前目录下查找
-find / -name &quot;xxx&quot; -- 全局查找</code></pre>
-<h3 id="10-查看某一文件如python所在目录"><a href="#10-查看某一文件如python所在目录" class="headerlink" title="10.查看某一文件如python所在目录"></a>10.查看某一文件如python所在目录</h3><pre><code>which python</code></pre>
-<h3 id="11-查看内存"><a href="#11-查看内存" class="headerlink" title="11.查看内存"></a>11.查看内存</h3><pre><code>free -m -- 个人觉得这个命令更清晰 
-top</code></pre>
-<h3 id="12-查看磁盘资源"><a href="#12-查看磁盘资源" class="headerlink" title="12.查看磁盘资源"></a>12.查看磁盘资源</h3><pre><code>df -h</code></pre>
-<h3 id="13-杀死进程"><a href="#13-杀死进程" class="headerlink" title="13.杀死进程"></a>13.杀死进程</h3><pre><code>kill -l  --  列出所有信号名称
-kill -s 9 进程号
-kill -9 进程号  --  只有-9才可以无条件终止进程，其他信号都有权利忽略</code></pre>
-<h3 id="14-更改文件属主"><a href="#14-更改文件属主" class="headerlink" title="14.更改文件属主"></a>14.更改文件属主</h3><pre><code>chown lilly test.txt -- 把txt文件的属主更改为lilly用户</code></pre>
-<h3 id="15-修改文件用户组"><a href="#15-修改文件用户组" class="headerlink" title="15.修改文件用户组"></a>15.修改文件用户组</h3><pre><code>chgrp lilly test.txt -- 把txt文件的用户组改为lilly用户</code></pre>
-<h3 id="16-当安装文件提示权限不够时，给文件添加执行权限"><a href="#16-当安装文件提示权限不够时，给文件添加执行权限" class="headerlink" title="16.当安装文件提示权限不够时，给文件添加执行权限"></a>16.当安装文件提示权限不够时，给文件添加执行权限</h3><pre><code>chmod a+x 文件名
-chmod -R 777 12.txt -- 给txt文件赋予权限
-Linux下的文件夹和文件权限建议：
-文件夹        755
-文件          644</code></pre>
-<h3 id="17-解决lilly-is-not-in-the-sudoers-files问题，可以给lilly用户添加sudo权限"><a href="#17-解决lilly-is-not-in-the-sudoers-files问题，可以给lilly用户添加sudo权限" class="headerlink" title="17.解决lilly is not in the sudoers files问题，可以给lilly用户添加sudo权限"></a>17.解决lilly is not in the sudoers files问题，可以给lilly用户添加sudo权限</h3><pre><code>$ su - (使用这个命令，而不是单纯的su，不仅切换到root用户，还可以将环境
-        变量一起带走，像root登录一样)；
-
-$ visudo (无空格)；
-
-在root    ALL=(ALL)  ALL下添加：
-  lilly   ALL=(ALL)  ALL
-
-保存退出</code></pre>
-<h3 id="18-查看文件或目录的属主和组"><a href="#18-查看文件或目录的属主和组" class="headerlink" title="18.查看文件或目录的属主和组"></a>18.查看文件或目录的属主和组</h3><pre><code>ls -al
-ls -l</code></pre>
-<hr>
-<pre><code>总用量 20
--rwxr-xr-x. 1 lilly lilly   73 4月  10 11:52 12.txt
-drwxrwxr-x. 8 lilly lilly  127 4月  10 10:45 app
--rw-rw-r--. 1 lilly lilly  511 4月  10 09:35 config.ini
--rw-rw-r--. 1 lilly lilly  652 4月   8 18:27 config.py
-drwxr-xr-x. 2 root  root    34 4月  10 10:21 logs
--rw-rw-r--. 1 lilly lilly 1120 4月   9 13:59 manage.py
-drwxrwxr-x. 2 lilly lilly   93 4月  10 10:28 __pycache__
--rw-rw-r--. 1 lilly lilly  741 4月   8 18:27 requirements.txt
--rw-rw-r--. 1 lilly lilly    0 4月  10 10:18 uwsgi_supervisor.log
-drwxrwxr-x. 5 lilly lilly   69 4月   9 08:42 venv</code></pre>
-<hr>
-<pre><code>横线代表空许可。r代表只读，w代表写，x代表可执行。注意这里共有10个位置。第一个字符指定了文件类型。在通常意义上，
-一个目录也是一个文件。如果第一个字符是横线，表示是一个非目录的文件。如果是d，表示是一个目录。例如：
-– rw- r– r–
-普通文件 文件主 组用户 其他用户
-
-其中每一位的权限用数字来表示。具体有这些权限：
-r(Read，读取，权限值为4)：对文件而言，具有读取文件内容的权限；对目录来说，具有浏览目 录的权限。
-w(Write,写入，权限值为2)：对文件而言，具有新增、修改文件内容的权限；对目录来说，具有删除、移动目录内文件的权限。
-x(eXecute，执行，权限值为1)：对文件而言，具有执行文件的权限；对目录了来说该用户具有进入目录的权限。</code></pre>
-<h3 id="19-返回网页的内容"><a href="#19-返回网页的内容" class="headerlink" title="19.返回网页的内容"></a>19.返回网页的内容</h3><pre><code>curl i 127.0.0.1:5000</code></pre>
-<h3 id="20-创建软连接"><a href="#20-创建软连接" class="headerlink" title="20.创建软连接"></a>20.创建软连接</h3><pre><code>ln -s 源文件 目标文件</code></pre>
-<h3 id="21-查看网络监听情况"><a href="#21-查看网络监听情况" class="headerlink" title="21.查看网络监听情况"></a>21.查看网络监听情况</h3><pre><code>两者具体区别参考:https://blog.csdn.net/jerrycqu/article/details/50187935
-netstat -apn
-ps -aux</code></pre>
-<h3 id="22-在vi打开文件中查找内容"><a href="#22-在vi打开文件中查找内容" class="headerlink" title="22.在vi打开文件中查找内容"></a>22.在vi打开文件中查找内容</h3><pre><code>/xxx   -- 正向查找
-？xxx  -- 反向查找</code></pre>
-<h3 id="23-在vi打开文件中进行替换"><a href="#23-在vi打开文件中进行替换" class="headerlink" title="23.在vi打开文件中进行替换"></a>23.在vi打开文件中进行替换</h3><pre><code>:s/sky/blue/ --  替换当前行第一个sky为blue
-:s/sky/blue/g --  替换当前行所有sky为blue
-但是我用上面的命令报错：E486: Pattern not found: x
-解决方法：
-:%s/sky/blue/ --  替换当前行第一个sky为blue
-:%s/sky/blue/ge --  替换当前行所有sky为blue</code></pre>
-<h3 id="24-awk–处理文本文件的语言，是一个强大的文本分析工具"><a href="#24-awk–处理文本文件的语言，是一个强大的文本分析工具" class="headerlink" title="24.awk–处理文本文件的语言，是一个强大的文本分析工具"></a>24.awk–处理文本文件的语言，是一个强大的文本分析工具</h3><pre><code>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。
-awk &#39;&#123;[pattern] action&#125;&#39; &#123;filenames&#125;   # 行匹配语句 awk &#39;&#39; 只能用单引号
-awk -F  #-F相当于内置变量FS, 指定分割字符
-
-[lilly@localhost flask_aiot]$ awk &#39;&#123;print $0&#125;&#39; 12.txt 
-//awafnoooooooooooooooooo
-in
-goog
-ligt
-lily
-lily
-skyi
-lily
-skyi
-sky
-sky</code></pre>
-<hr>
-<pre><code>[lilly@localhost flask_aiot]$ awk &#39;&#123;print &quot;hello&quot;&#125;&#39; 12.txt 
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello
-hello</code></pre>
-<hr>
-<pre><code>[lilly@localhost flask_aiot]$ awk &#39;&#123;if(NR&gt;2 &amp;&amp; NR&lt;5) print $1&#125;&#39; 12.txt 
-goog
-ligt</code></pre>
-<hr>
-<pre><code>awk -F &#39;=&#39; &#39;&#123;print &quot;svn&quot; $2 &quot;\t&quot; $1 &quot;\t&quot; $3 &#125;&#39; test  -- 以等号为分隔符，然后过滤出第二部分、第一部分和第三部分</code></pre>
-<h3 id="24-grep–文件内容过滤命令"><a href="#24-grep–文件内容过滤命令" class="headerlink" title="24.grep–文件内容过滤命令"></a>24.grep–文件内容过滤命令</h3><pre><code>grep [-acinv] [--color=auto] &#39;搜寻字符串&#39; filename
-选项与参数：
--a ：将 binary 文件以 text 文件的方式搜寻数据
--c ：计算找到 &#39;搜寻字符串&#39; 的次数
--i ：忽略大小写的不同，所以大小写视为相同
--n ：顺便输出行号
--v ：反向选择，亦即显示出没有 &#39;搜寻字符串&#39; 内容的那一行！
--o ：仅显示匹配到的字符串
---color=auto ：可以将找到的关键词部分加上颜色的显示喔！
-grep http test.txt  --  过滤出文件中含http的行
-grep ^http test.txt  --  过滤出文件中以http字符开头的行
-grep http$ test.txt  --  过滤出文件中以http字符结尾的行
-grep &#39;t[ae]st&#39; test.txt  --  过滤出test,tast,taste
-grep &#39;[^e]st&#39; test.txt  --  过滤出tast,taste,不能过滤出test
-grep -n &#39;[^a-z]oo&#39; test.txt  --  过滤出Foot，而不能过滤出foot </code></pre>
-<h3 id="25-管道符号–"><a href="#25-管道符号–" class="headerlink" title="25.管道符号–|"></a>25.管道符号–|</h3><pre><code>grep sky 12.txt | grep &quot;i&quot;  --  过滤出sky字符串中含有i的内容
-cat 12.txt | grep -n &#39;sky&#39;    --  -n表示找到后输出行号
-grep sky 12.txt  | wc -l    --    统计sky在文件12.txt中出现的次数</code></pre>
-<h3 id="26-按照端口号进行查询，再kill"><a href="#26-按照端口号进行查询，再kill" class="headerlink" title="26.按照端口号进行查询，再kill"></a>26.按照端口号进行查询，再kill</h3><pre><code>lsof -i :8002
-sudo kill -9 2208 2209</code></pre>
-<h3 id="27-文件比较"><a href="#27-文件比较" class="headerlink" title="27.文件比较"></a>27.文件比较</h3><pre><code>diff test test.bak
-vimdiff test test.bak</code></pre>
-<h3 id="28-查看Linux中的命令及帮助文档？待确认用法"><a href="#28-查看Linux中的命令及帮助文档？待确认用法" class="headerlink" title="28.查看Linux中的命令及帮助文档？待确认用法"></a>28.查看Linux中的命令及帮助文档？待确认用法</h3><pre><code>compgen -c
-连按两次tab</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99/" class="post-title-link" itemprop="url">开发人员常用国外网站</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-12 12:55:31" itemprop="dateCreated datePublished" datetime="2018-03-12T12:55:31+08:00">2018-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:16:22" itemprop="dateModified" datetime="2020-09-18T17:16:22+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Site/" itemprop="url" rel="index"><span itemprop="name">Site</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-GitHub"><a href="#1-GitHub" class="headerlink" title="1.GitHub"></a>1.GitHub</h3><pre><code>源代码托管</code></pre>
-<h3 id="2-StackOverflow"><a href="#2-StackOverflow" class="headerlink" title="2.StackOverflow"></a>2.StackOverflow</h3><pre><code>程序设计问答网站</code></pre>
-<h3 id="3-DZone"><a href="#3-DZone" class="headerlink" title="3.DZone"></a>3.DZone</h3><pre><code>IT及编程社区</code></pre>
-<h3 id="4-LeetCode"><a href="#4-LeetCode" class="headerlink" title="4.LeetCode"></a>4.LeetCode</h3><pre><code>面试题</code></pre>
-<h3 id="5-Hacker-News"><a href="#5-Hacker-News" class="headerlink" title="5.Hacker News"></a>5.Hacker News</h3><pre><code>编程资源信息</code></pre>
-<h3 id="6-Medium"><a href="#6-Medium" class="headerlink" title="6.Medium"></a>6.Medium</h3><pre><code>博客</code></pre>
-<h3 id="7-Reddit"><a href="#7-Reddit" class="headerlink" title="7.Reddit"></a>7.Reddit</h3><pre><code>IT社区</code></pre>
-<h3 id="8-CodeProject"><a href="#8-CodeProject" class="headerlink" title="8.CodeProject"></a>8.CodeProject</h3><pre><code>软件开发社区</code></pre>
-<h3 id="9-PineApple"><a href="#9-PineApple" class="headerlink" title="9.PineApple"></a>9.PineApple</h3><pre><code>开发社区</code></pre>
-<h3 id="10-Coursera"><a href="#10-Coursera" class="headerlink" title="10.Coursera"></a>10.Coursera</h3><pre><code>在线课堂</code></pre>
-<h3 id="11-SitePoint"><a href="#11-SitePoint" class="headerlink" title="11.SitePoint"></a>11.SitePoint</h3><pre><code>编程技术</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8t-SNE%E5%AF%B9Word2vec%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8F%AF%E8%A7%86%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%88%A9%E7%94%A8t-SNE%E5%AF%B9Word2vec%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-title-link" itemprop="url">利用t-SNE对Word2vec训练的模型进行可视化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-06 11:27:10" itemprop="dateCreated datePublished" datetime="2018-03-06T11:27:10+08:00">2018-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:36:05" itemprop="dateModified" datetime="2020-09-18T21:36:05+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/t-sne/" itemprop="url" rel="index"><span itemprop="name">t-sne</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>综述:TSNE可以将高维词汇特征向量压缩到2维x,y坐标对及3维向量，这个想法可以让相似词靠的更近，让不相似的词保持最大化距离，所以TSNE在可视化对象之间的相似度上非常有效。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><pre><code>1.清洗数据
+    mul
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                Lilly
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Python操作文件和目录">
+                            
+                            <span class="card-title">Python操作文件和目录</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：
+1. os.getcwd() -- 获取当前Python脚本工作的目录路径
+
+2. os.listdir() -- 返回指定目录下的所有文件
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                                
+                                <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-category">
+                                    基础篇
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Python/">
+                            <span class="chip bg-color">Python</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/mongodb%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="MongoDB导入和导出数据">
+                            
+                            <span class="card-title">MongoDB导入和导出数据</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                MongoDB数据库关于数据导入导出的操作是在cmd下进行的，所以我们首先要打开cmd。
+导出数据mongoexport --db 数据库名 --collection 表名 -o 文件名 --type csv/json -f field
+m
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-22
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/" class="post-category">
+                                    MongoDB
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/MongoDB/">
+                            <span class="chip bg-color">MongoDB</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%A6%82%E4%BD%95%E5%9C%A8Linux%E4%B8%8A%E9%85%8D%E7%BD%AEJupyter-Notebook%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="如何在Linux上配置Jupyter Notebook进行远程访问">
+                            
+                            <span class="card-title">如何在Linux上配置Jupyter Notebook进行远程访问</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本机的内存开始不够用了，所以就开始把东西都折腾到服务器了，如何在服务器上安装Anaconda以及创建虚拟环境，我还会再写一篇来进行说明。这篇文章就先说说，安装好虚拟环境后如何进行远程访问。我的虚拟环境用的是Anaconda，所以一般我安装用
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-13
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Jupyter/" class="post-category">
+                                    Jupyter
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Jupyter/">
+                            <span class="chip bg-color">Jupyter</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Linux-1-%E5%91%BD%E4%BB%A4/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Linux-1-命令">
+                            
+                            <span class="card-title">Linux-1-命令</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                总结一下自己工作中常用到的一些Linux命令，首先对自己的知识进行巩固，如果对大家还有一些用处的话，那我将感到不胜荣幸。文章没有系统性的讲解Linux命令，只是我自己常用到的，如果以后有时间的话，可以整理一个系统性的总结。我的Linux系统
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-13
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Linux/">
+                            <span class="chip bg-color">Linux</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="开发人员常用国外网站">
+                            
+                            <span class="card-title">开发人员常用国外网站</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1.GitHub源代码托管
+2.StackOverflow程序设计问答网站
+3.DZoneIT及编程社区
+4.LeetCode面试题
+5.Hacker News编程资源信息
+6.Medium博客
+7.RedditIT社区
+8.CodePro
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Site/" class="post-category">
+                                    Site
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Site/">
+                            <span class="chip bg-color">Site</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%88%A9%E7%94%A8t-SNE%E5%AF%B9Word2vec%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8F%AF%E8%A7%86%E5%8C%96/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="利用t-SNE对Word2vec训练的模型进行可视化">
+                            
+                            <span class="card-title">利用t-SNE对Word2vec训练的模型进行可视化</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                综述:TSNE可以将高维词汇特征向量压缩到2维x,y坐标对及3维向量，这个想法可以让相似词靠的更近，让不相似的词保持最大化距离，所以TSNE在可视化对象之间的相似度上非常有效。
+步骤1.清洗数据
 2.构建语料
 3.训练Word2vec模型
-4.利用t-SNE可视化最常用词</code></pre>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2>
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/t-sne/" class="post-category">
+                                    t-sne
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/t-sne/">
+                            <span class="chip bg-color">t-sne</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="基于用户的协同过滤算法实现">
+                            
+                            <span class="card-title">基于用户的协同过滤算法实现</span>
+                        </div>
+                    </a>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                一、简单介绍协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。当然，协同过滤中会存在两个问题：1.如何
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">基于用户的协同过滤算法实现</a>
-        </h2>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="该读的书">
+                            
+                            <span class="card-title">该读的书</span>
+                        </div>
+                    </a>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1.神经网络–《Make Your Own Neural Network》
+人工神经网络原理及代码实现，深度学习入门推荐
+2.写给程序员的数据挖掘–实践指南
+给我感觉是一本很小巧的书，但却很有实用价值，里面详细分析了推荐算法，还在看
+3.P
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/book/" class="post-category">
+                                    book
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-              <time title="Created: 2018-02-28 10:43:38" itemprop="dateCreated datePublished" datetime="2018-02-28T10:43:38+08:00">2018-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 22:20:37" itemprop="dateModified" datetime="2020-09-18T22:20:37+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-            </span>
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/book/">
+                            <span class="chip bg-color">book</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E4%BA%94-%E6%8C%96%E6%8E%98%E5%BB%BA%E6%A8%A1-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="五--挖掘建模--Python数据分析与挖掘实战">
+                            
+                            <span class="card-title">五--挖掘建模--Python数据分析与挖掘实战</span>
+                        </div>
+                    </a>
 
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、简单介绍"><a href="#一、简单介绍" class="headerlink" title="一、简单介绍"></a>一、简单介绍</h2><p>协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。<br>当然，协同过滤中会存在两个问题：<br>1.如何确定一个用户和你的爱好兴趣相似？<br>2.如何将你的最近邻的兴趣爱好排序？</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>`import codecs 
-from math import sqrt
-
-users = &#123;&quot;Angelica&quot;: &#123;&quot;Blues Traveler&quot;: 3.5, &quot;Broken Bells&quot;: 2.0,
-                  &quot;Norah Jones&quot;: 4.5, &quot;Phoenix&quot;: 5.0,
-                  &quot;Slightly Stoopid&quot;: 1.5,
-                  &quot;The Strokes&quot;: 2.5, &quot;Vampire Weekend&quot;: 2.0&#125;,
-
-     &quot;Bill&quot;:&#123;&quot;Blues Traveler&quot;: 2.0, &quot;Broken Bells&quot;: 3.5,
-             &quot;Deadmau5&quot;: 4.0, &quot;Phoenix&quot;: 2.0,
-             &quot;Slightly Stoopid&quot;: 3.5, &quot;Vampire Weekend&quot;: 3.0&#125;,
-
-     &quot;Chan&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 1.0,
-              &quot;Deadmau5&quot;: 1.0, &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5,
-              &quot;Slightly Stoopid&quot;: 1.0&#125;,
-
-     &quot;Dan&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Broken Bells&quot;: 4.0,
-             &quot;Deadmau5&quot;: 4.5, &quot;Phoenix&quot;: 3.0,
-             &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
-             &quot;Vampire Weekend&quot;: 2.0&#125;,
-
-     &quot;Hailey&quot;: &#123;&quot;Broken Bells&quot;: 4.0, &quot;Deadmau5&quot;: 1.0,
-                &quot;Norah Jones&quot;: 4.0, &quot;The Strokes&quot;: 4.0,
-                &quot;Vampire Weekend&quot;: 1.0&#125;,
-
-     &quot;Jordyn&quot;:  &#123;&quot;Broken Bells&quot;: 4.5, &quot;Deadmau5&quot;: 4.0,
-                 &quot;Norah Jones&quot;: 5.0, &quot;Phoenix&quot;: 5.0,
-                 &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
-                 &quot;Vampire Weekend&quot;: 4.0&#125;,
-
-     &quot;Sam&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 2.0,
-             &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5.0,
-             &quot;Slightly Stoopid&quot;: 4.0, &quot;The Strokes&quot;: 5.0&#125;,
-
-     &quot;Veronica&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Norah Jones&quot;: 5.0,
-                  &quot;Phoenix&quot;: 4.0, &quot;Slightly Stoopid&quot;: 2.5,
-                  &quot;The Strokes&quot;: 3.0&#125;
-    &#125;
-
-
-
-class recommender:
-
-    def __init__(self, data, k=1, metric=&#39;pearson&#39;, n=5):
-        &quot;&quot;&quot; initialize recommender
-        currently, if data is dictionary the recommender is initialized
-        to it.
-        For all other data types of data, no initialization occurs
-        k is the k value for k nearest neighbor
-        metric is which distance formula to use
-        n is the maximum number of recommendations to make&quot;&quot;&quot;
-        self.k = k
-        self.n = n
-        self.username2id = &#123;&#125;
-        self.userid2name = &#123;&#125;
-        self.productid2name = &#123;&#125;
-        # for some reason I want to save the name of the metric
-        self.metric = metric
-        if self.metric == &#39;pearson&#39;:
-            self.fn = self.pearson
-        #
-        # if data is dictionary set recommender data to it
-        #
-        if type(data).__name__ == &#39;dict&#39;:
-            self.data = data
-
-def convertProductID2name(self, id):
-    &quot;&quot;&quot;Given product id number return product name&quot;&quot;&quot;
-    if id in self.productid2name:
-        return self.productid2name[id]
-    else:
-        return id
-
-
-def userRatings(self, id, n):
-    &quot;&quot;&quot;Return n top ratings for user with id&quot;&quot;&quot;
-    print (&quot;Ratings for &quot; + self.userid2name[id])
-    ratings = self.data[id]
-    print(len(ratings))
-    ratings = list(ratings.items())
-    ratings = [(self.convertProductID2name(k), v)
-               for (k, v) in ratings]
-    # finally sort and return
-    ratings.sort(key=lambda artistTuple: artistTuple[1],
-                 reverse = True)
-    ratings = ratings[:n]
-    for rating in ratings:
-        print(&quot;%s\t%i&quot; % (rating[0], rating[1]))
-
-
-
-
-def loadBookDB(self, path=&#39;&#39;):
-    &quot;&quot;&quot;loads the BX book dataset. Path is where the BX files are
-    located&quot;&quot;&quot;
-    self.data = &#123;&#125;
-    i = 0
-    #
-    # First load book ratings into self.data
-    #
-    f = codecs.open(path + &quot;BX-Book-Ratings.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        user = fields[0].strip(&#39;&quot;&#39;)
-        book = fields[1].strip(&#39;&quot;&#39;)
-        rating = int(fields[2].strip().strip(&#39;&quot;&#39;))
-        if user in self.data:
-            currentRatings = self.data[user]
-        else:
-            currentRatings = &#123;&#125;
-        currentRatings[book] = rating
-        self.data[user] = currentRatings
-    f.close()
-    #
-    # Now load books into self.productid2name
-    # Books contains isbn, title, and author among other fields
-    #
-    f = codecs.open(path + &quot;BX-Books.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        isbn = fields[0].strip(&#39;&quot;&#39;)
-        title = fields[1].strip(&#39;&quot;&#39;)
-        author = fields[2].strip().strip(&#39;&quot;&#39;)
-        title = title + &#39; by &#39; + author
-        self.productid2name[isbn] = title
-    f.close()
-    #
-    #  Now load user info into both self.userid2name and
-    #  self.username2id
-    #
-    f = codecs.open(path + &quot;BX-Users.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #print(line)
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        userid = fields[0].strip(&#39;&quot;&#39;)
-        location = fields[1].strip(&#39;&quot;&#39;)
-        if len(fields) &gt; 3:
-            age = fields[2].strip().strip(&#39;&quot;&#39;)
-        else:
-            age = &#39;NULL&#39;
-        if age != &#39;NULL&#39;:
-            value = location + &#39;  (age: &#39; + age + &#39;)&#39;
-        else:
-            value = location
-        self.userid2name[userid] = value
-        self.username2id[location] = userid
-    f.close()
-    print(i)
-
-
-def pearson(self, rating1, rating2):
-    sum_xy = 0
-    sum_x = 0
-    sum_y = 0
-    sum_x2 = 0
-    sum_y2 = 0
-    n = 0
-    for key in rating1:
-        if key in rating2:
-            n += 1
-            x = rating1[key]
-            y = rating2[key]
-            sum_xy += x * y
-            sum_x += x
-            sum_y += y
-            sum_x2 += pow(x, 2)
-            sum_y2 += pow(y, 2)
-    if n == 0:
-        return 0
-    # now compute denominator
-    denominator = (sqrt(sum_x2 - pow(sum_x, 2) / n)
-                   * sqrt(sum_y2 - pow(sum_y, 2) / n))
-    if denominator == 0:
-        return 0
-    else:
-        return (sum_xy - (sum_x * sum_y) / n) / denominator
-
-
-def computeNearestNeighbor(self, username):
-    &quot;&quot;&quot;creates a sorted list of users based on their distance to
-    username&quot;&quot;&quot;
-    distances = []
-    for instance in self.data:
-        if instance != username:
-            distance = self.fn(self.data[username],
-                               self.data[instance])
-            distances.append((instance, distance))
-    # sort based on distance -- closest first
-    distances.sort(key=lambda artistTuple: artistTuple[1],
-                   reverse=True)
-    return distances
-
-def recommend(self, user):
-   &quot;&quot;&quot;Give list of recommendations&quot;&quot;&quot;
-   recommendations = &#123;&#125;
-   # first get list of users  ordered by nearness
-   nearest = self.computeNearestNeighbor(user)
-   #
-   # now get the ratings for the user
-   #
-   userRatings = self.data[user]
-   #
-   # determine the total distance
-   totalDistance = 0.0
-   for i in range(self.k):
-      totalDistance += nearest[i][1]
-   # now iterate through the k nearest neighbors
-   # accumulating their ratings
-   for i in range(self.k):
-      # compute slice of pie 
-      weight = nearest[i][1] / totalDistance
-      # get the name of the person
-      name = nearest[i][0]
-      # get the ratings for this person
-      neighborRatings = self.data[name]
-      # get the name of the person
-      # now find bands neighbor rated that user didn&#39;t
-      for artist in neighborRatings:
-         if not artist in userRatings:
-            if artist not in recommendations:
-               recommendations[artist] = (neighborRatings[artist]
-                                          * weight)
-            else:
-               recommendations[artist] = (recommendations[artist]
-                                          + neighborRatings[artist]
-                                          * weight)
-   # now make list from dictionary
-   recommendations = list(recommendations.items())
-   recommendations = [(self.convertProductID2name(k), v)
-                      for (k, v) in recommendations]
-   # finally sort and return
-   recommendations.sort(key=lambda artistTuple: artistTuple[1],
-                        reverse = True)
-   # Return the first n items
-   return recommendations[:self.n]</code></pre>
-<p>`</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/" class="post-title-link" itemprop="url">该读的书</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-27 16:44:21" itemprop="dateCreated datePublished" datetime="2018-02-27T16:44:21+08:00">2018-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 11:20:15" itemprop="dateModified" datetime="2020-09-19T11:20:15+08:00">2020-09-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/book/" itemprop="url" rel="index"><span itemprop="name">book</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.神经网络–《Make Your Own Neural Network》</p>
-<pre><code>人工神经网络原理及代码实现，深度学习入门推荐</code></pre>
-<p>2.写给程序员的数据挖掘–实践指南</p>
-<pre><code>给我感觉是一本很小巧的书，但却很有实用价值，里面详细分析了推荐算法，还在看</code></pre>
-<p>3.Python爬虫开发与项目实战–范传辉</p>
-<pre><code>很适合中国读者的一本书，我跳着看的，哈哈</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BA%94-%E6%8C%96%E6%8E%98%E5%BB%BA%E6%A8%A1-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%BA%94-%E6%8C%96%E6%8E%98%E5%BB%BA%E6%A8%A1-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">五--挖掘建模--Python数据分析与挖掘实战</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-26 15:59:19" itemprop="dateCreated datePublished" datetime="2018-02-26T15:59:19+08:00">2018-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:30:39" itemprop="dateModified" datetime="2020-09-18T21:30:39+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98%E3%80%8B/" itemprop="url" rel="index"><span itemprop="name">《Python数据分析挖掘实战》</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <pre><code>分类与预测
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                分类与预测
 聚类分析
 关联规则
 时序模式
-偏差检测</code></pre>
-<h2 id="5-1-分类与预测"><a href="#5-1-分类与预测" class="headerlink" title="5.1 分类与预测"></a>5.1 分类与预测</h2><p>分类与预测是预测问题中的两种类型，分类主要是预测分类标号（离散属性），预测主要是建立连续值函数模型，预测给定自变量对应的因变量的值。</p>
-<h3 id="5-1-1-实现过程"><a href="#5-1-1-实现过程" class="headerlink" title="5.1.1 实现过程"></a>5.1.1 实现过程</h3><p>1.分类<br>分类是构造一个分类模型，输入样本的属性值，输出对应的类别，将每个样本映射到预先定义好的类别。  </p>
-<h2 id="5-2-聚类分析"><a href="#5-2-聚类分析" class="headerlink" title="5.2 聚类分析"></a>5.2 聚类分析</h2><p>与分类不同，聚类分析是在没有给定划分类别的情况下，根据数据相似度进行样本分组的方法。<br>分类模型需要使用有类标记样本构成的训练数据，聚类模型可以建立在无类标记的数据上，是一种无监督的学习算法。<br>聚类的输入是一组未被标记的样本，聚类根据数据自身的距离或相似度将其划分为若干组，划分原则是组内距离最小化，组间（外部）距离最大化。<br>5.2.1 常用聚类分析算法</p>
+偏差检测
+5.1 分类与预测分类与预测是预测问题中的两种类型，分类主要是预测分类标号（离散属性），预测主要是建立连续值函数模型，预测给定自变量对应的因变量的值。
+5.1.1 实现过程1.分类分类是构
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98%E3%80%8B/" class="post-category">
+                                    《Python数据分析挖掘实战》
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-      
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
+
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/10/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">11 / 13</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/12/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
     </div>
+</div>
 
+
+
+
+    <footer class="page-footer bg-color">
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
     }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
     }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Lilly</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Lilly</p>
-  <div class="site-description" itemprop="description">Up in the wind!</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">130</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">44</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">45</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 </div>
 
 
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-      </div>
+    <!-- Baidu Analytics -->
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+    <!-- Baidu Push -->
 
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
-      </div>
-    </main>
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+    
 
-        
+    
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Lilly</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+    
 
-        
+    
 
+    
 
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>

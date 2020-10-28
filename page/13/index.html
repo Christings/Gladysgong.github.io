@@ -1,1820 +1,1148 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="zh-Hans">
+
+
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Up in the wind!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="茉莉Python">
-<meta property="og:url" content="http://gongyanli.com/page/13/index.html">
-<meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="Up in the wind!">
-<meta property="og:locale">
-<meta property="article:author" content="Lilly">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://gongyanli.com/page/13/">
+    <meta charset="utf-8">
+    <meta name="keywords" content="茉莉Python">
+    <meta name="description" content="Up in the wind!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-Hans'
-  };
+    <title>茉莉Python</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">茉莉Python</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">茉莉Python</div>
+        <div class="logo-desc">
+            
+            Up in the wind!
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
+                
+                voidqueens@hotmail.com
+                
+            </div>
+
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
 </script>
 
-  <title>茉莉Python</title>
-  
 
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">茉莉Python</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
 </div>
 
 
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
+<main class="content">
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
+    
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
+    <!-- 所有文章卡片 -->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">PyTorch-4-简单介绍、回归问题优化和手写数字识别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-18 18:02:23" itemprop="dateCreated datePublished" datetime="2018-01-18T18:02:23+08:00">2018-01-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-14 15:26:29" itemprop="dateModified" datetime="2020-04-14T15:26:29+08:00">2020-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：gongyanli.com<br>学习教程：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/machine-learning/torch/">莫烦的PyTorch视频</a></p>
-</blockquote>
-<p>前言：简单介绍了一下PyTorch，然后根据自己学的东西跑了以下两个代码，有时间的时候我会把代码注释加上，希望能够对更多的朋友有用。我学习PyTorch是在莫烦Python上学习的，良心推荐。</p>
-<h2 id="PyTorch是什么？"><a href="#PyTorch是什么？" class="headerlink" title="PyTorch是什么？"></a>PyTorch是什么？</h2><pre><code>PyTorch是一个深度学习框架，和TensorFlow、Caffe等一样。PyTorch的前身是Torch，但Torch使用
-Lua语言写的，而Lua语言本身不流行，所以推广度不高，但是Torch真的是很好用。所以就用python对Torch进行重写，于是就有了今天的PyTorch。</code></pre>
-<h2 id="PyTorch优势"><a href="#PyTorch优势" class="headerlink" title="PyTorch优势"></a>PyTorch优势</h2><pre><code>PyTorch能够在强大的GPU加速基础上实现张量和动态神经网络；
-动态图计算特性：目前市场上支持动态图计算的有PyTorch、DyNet和Chainer，而支持静态图计算的有TensorFlow、MXNet、Theano；
-我们不能单纯的说支持动态计算就绝对的好，但是在很多情况下非常方便有效，所以要具体情况具体分析；
-虽然TensorFlow本身不支持动态计算，但它也能通过某种特定的手段来支持动态计算；
-PyTorch能够和numpy自由转换；
-PyTorch由Facebook开发，与google的TensorFlow相比也拥有很强的实力。</code></pre>
-<h2 id="回归问题优化"><a href="#回归问题优化" class="headerlink" title="回归问题优化"></a>回归问题优化</h2><pre><code>`import torch
-import torch.utils.data as Data
-import torch.nn.functional as F
-from torch.autograd import Variable
-import matplotlib.pyplot as plt
-
-# hyper parameters
-LR = 0.01
-BATCH_SIZE = 32
-EPOCH = 12
-
-x = torch.unsqueeze(torch.linspace(-1, 1, 1000), dim=1)
-y = x.pow(2) + 0.1 * torch.normal(torch.zeros(*x.size()))
-
-# plot dataset
-# plt.scatter(x.numpy(),y.numpy())
-# plt.show()
-
-torch_dataset = Data.TensorDataset(data_tensor=x, target_tensor=y)
-loader = Data.DataLoader(dataset=torch_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
-
-
-# default network
-class Net(torch.nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.hidden = torch.nn.Linear(1, 20)  # hidden layer
-        self.predict = torch.nn.Linear(20, 1)  # output layer
-
-    def forward(self, x):
-        x = F.relu(self.hidden(x))  # activation function for hidden layer
-        x = self.predict(x)  # linear output
-    return x
-
-# different nets
-net_SGD=Net()
-net_Momentum=Net()
-net_RMSprop=Net()
-net_Adam=Net()
-nets=[net_SGD,net_Momentum,net_RMSprop,net_Adam]
-
-opt_SGD=torch.optim.SGD(net_SGD.parameters(),lr=LR)
-opt_Momentum=torch.optim.SGD(net_Momentum.parameters(),lr=LR,momentum=0.8)
-opt_RMSprop=torch.optim.RMSprop(net_RMSprop.parameters(),lr=LR,alpha=0.9)
-opt_Adam=torch.optim.Adam(net_Adam.parameters(),lr=LR,betas=(0.9,0.99))
-optimizer = [opt_SGD,opt_Momentum,opt_RMSprop,opt_Adam]
-
-loss_func=torch.nn.MSELoss()
-losses_his=[[],[],[],[]]  # record loss
-
-for epoch in range(EPOCH):
-    print(epoch)
-    for step,(batch_x,batch_y) in enumerate(loader):
-        b_x=Variable(batch_x)
-        b_y=Variable(batch_y)
-
-        for net,opt,l_his in zip(nets,optimizer,losses_his):
-            output=net(b_x)
-            loss=loss_func(output,b_y)
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-            l_his.append(loss.data[0])
-
-labels = [&#39;SGD&#39;, &#39;Momentum&#39;, &#39;RMSprop&#39;, &#39;Adam&#39;]
-for i, l_his in enumerate(losses_his):
-    plt.plot(l_his, label=labels[i])
-plt.legend(loc=&#39;best&#39;)
-plt.xlabel(&#39;Steps&#39;)
-plt.ylabel(&#39;Loss&#39;)
-plt.ylim((0, 0.2))
-plt.show()</code></pre>
-<p>`<br>结果如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/pytorch2.jpg"></p>
-<h2 id="手写数字识别"><a href="#手写数字识别" class="headerlink" title="手写数字识别"></a>手写数字识别</h2><pre><code>`import torch
-import torch.nn as nn
-from torch.autograd import Variable
-import torch.utils.data as Data
-import torchvision
-import matplotlib.pyplot as plt
-
-# Hyper Parameters
-EPOCH = 1
-BATCH_SIZE = 50
-LR = 0.001
-DOWNLOAD_MNIST = False
-
-train_data = torchvision.datasets.MNIST(
-    root=&#39;./mnist&#39;,
-    train=True,
-    transform=torchvision.transforms.ToTensor(),  # (0,1) (0-255)
-    download=DOWNLOAD_MNIST
-)
-
-# plot one example
-# print(train_data.train_data.size())                 # (60000, 28, 28)
-# print(train_data.train_labels.size())               # (60000)
-# plt.imshow(train_data.train_data[0].numpy(), cmap=&#39;gray&#39;)
-# plt.title(&#39;%i&#39; % train_data.train_labels[0])
-# plt.show()
-
-train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
-
-test_data = torchvision.datasets.MNIST(root=&#39;./mnist&#39;, train=False)
-test_x = Variable(torch.unsqueeze(test_data.test_data, dim=1), volatile=True).type(torch.FloatTensor)[:2000] / 255
-test_y = test_data.test_labels[:2000]
-
-
-class CNN(nn.Module):
-
-def __init__(self):
-    super(CNN, self).__init__()
-    self.conv1 = nn.Sequential(
-        nn.Conv2d(  # (1,28,28)
-            in_channels=1,
-            out_channels=16,
-            kernel_size=5,
-            stride=1,
-            padding=2,  # if stride=1,padding=(kernel_size-1)/2=(5-1)/2=2
-        ),  # -&gt;(16,28,28)
-        nn.ReLU(),  # -&gt;(16,28,28)
-        nn.MaxPool2d(kernel_size=2),  # -&gt;(16,14,14)
-    )
-    self.conv2 = nn.Sequential(  # (16,14,14)
-        nn.Conv2d(16, 32, 5, 1, 2),  # -&gt;(32,14,14)
-        nn.ReLU(),  # -&gt;(32,14,14)
-        nn.MaxPool2d(2)  # -&gt;(32,7,7)
-    )
-    self.out = nn.Linear(32 * 7 * 7, 10)
-
-def forward(self, x):
-    x = self.conv1(x)
-    x = self.conv2(x)  # (batch,32,7,7)
-    x = x.view(x.size(0), -1)  # (batch,32*7*7)
-    output = self.out(x)
-    return output
-
-
-cnn = CNN()
-# print(cnn)
-
-
-optimizer = torch.optim.Adam(cnn.parameters(), lr=LR)
-loss_func = nn.CrossEntropyLoss()
-
-for epoch in range(EPOCH):
-    print(epoch)
-    for step, (x, y) in enumerate(train_loader):
-        b_x = Variable(x)
-        b_y = Variable(y)
-
-        output = cnn(b_x)
-        loss = loss_func(output, b_y)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-        if step % 50 == 0:
-            test_output = cnn(test_x)
-            pred_y = torch.max(test_output, 1)[1].data.squeeze()
-            accuracy = sum(pred_y == test_y) / test_y.size(0)
-            print(&#39;Epoch: &#39;, epoch, &#39;| train loss: %.4f&#39; % loss.data[0], &#39;| test accuracy: %.2f&#39; % accuracy)
-
-# print 10 predictions from test data
-test_output= cnn(test_x[:10])
-pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
-print(pred_y, &#39;prediction number&#39;)
-print(test_y[:10].numpy(), &#39;real number&#39;)</code></pre>
-<p>`<br>结果如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/pytorch1.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-title-link" itemprop="url">知识图谱和搜索引擎</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-16 09:44:52" itemprop="dateCreated datePublished" datetime="2018-01-16T09:44:52+08:00">2018-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:22:20" itemprop="dateModified" datetime="2020-09-18T17:22:20+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客:gongyanli.com</p>
-</blockquote>
-<h2 id="一、搜索引擎"><a href="#一、搜索引擎" class="headerlink" title="一、搜索引擎"></a>一、搜索引擎</h2><h3 id="（一）搜索引擎分类"><a href="#（一）搜索引擎分类" class="headerlink" title="（一）搜索引擎分类"></a>（一）搜索引擎分类</h3><p>1.分类目录</p>
-<pre><code>特征：人工搜集整理，把属于各个类别的高质量网站或网页进行分类，用户通过分级目录来查找高质量的网站
-缺点：人工、扩展性不强、绝大部分网站不能被收录
-代表：Yahoo、hao123</code></pre>
-<p>2.文本检索</p>
-<pre><code>特征:采用信息检索模型（布尔、向量空间或概率模型）计算用户查询关键词和网页文本内容的相关程度，并根据其相关匹配的程度进行排序
-缺点：没有利用网页之间的链接关系，搜索质量不是很好
-代表：AltaVista、Excite</code></pre>
-<p>3.链接分析</p>
-<pre><code>特征：充分利用网页之间的链接关系，并深入挖掘和利用网页链接所代表的含义，网页链接代表着一种推荐关系，通过分析链接可以在海量内容中找出重要的网页，而流行性代表着被推荐次数多的网页，搜索引擎结合网页流行性和内容相似性来改善搜索质量
-缺点：未考虑用户的个性化需求（用户输入的查询请求相同，所有用户都会获得相同的搜索结果）、链接作弊
-代表：Google（PageRank链接分析技术）</code></pre>
-<p>4.用户中心</p>
-<pre><code>特征:理解用户需求为核心（不同用户即使输入同一个查询词，会根据用户的差异性返回不同的结果；即使同一个用户输入相同的查询词，也会因为所在时间和场合不同，产生不同的需求结果）
-代表：Google、百度、搜狗等
-技术：利用用户发送查询词的时间和地理位置信息，利用用户过去发出的查询词及相应的点击记录等历史信息，来试图理解用户某个短小查询词背后所包含的真正需求</code></pre>
-<h3 id="（二）、搜索引擎结构原理"><a href="#（二）、搜索引擎结构原理" class="headerlink" title="（二）、搜索引擎结构原理"></a>（二）、搜索引擎结构原理</h3><p>核心问题</p>
-<pre><code>用户真正的需求是什么？
-哪些信息是和用户需求真正相关的？
-哪些信息是用户可以信赖的？</code></pre>
-<h3 id="（三）、搜索引擎技术分析"><a href="#（三）、搜索引擎技术分析" class="headerlink" title="（三）、搜索引擎技术分析"></a>（三）、搜索引擎技术分析</h3><p>1.全文检索搜索引擎(Full Text Search Engine)</p>
-<pre><code>特征:提取互联网各个网站的信息（网页文字为主），建立数据库，检索与用户查询条件相关匹配的记录，排序后将结果返回给用户
-代表:Google、Yahoo、AltaVista、Teoma、百度、北大天网</code></pre>
-<p>2.目录搜索引擎(Search Index)</p>
-<pre><code>特征：严格讲不算真正的搜索引擎，是依靠目录分类来实现搜索功能
-代表：Yahoo、搜狐、网易、新浪、hao123</code></pre>
-<p>3.元搜索引擎</p>
-<pre><code>特征：搜索引擎在接受用户的查询请求时，同时是多个搜索引擎上搜索，而自己不进行WWW遍历，也不具备索引数据库，汇总这些搜索结果，返回给用户
-代表：搜星搜索（中文元搜索引擎）</code></pre>
-<p>4.其他</p>
-<pre><code>搜索引擎组成：搜索器、索引器、检索器和用户接口
-中文搜索引擎还包括中文信息处理模块，来完成中文的分词处理、码值转换和全角处理等工作
-垂直搜索引擎（主/专题搜索引擎）：对互联网中某类专门的信息进行一次整合，只关注某一领域/地域的信息，将信息存储和索引后，用户就可以只检索这部分的信息
-垂直搜索引擎与通用搜索引擎的区别：通用面向所有用户，垂直只面向某一领域的用户
-
-传统搜索引擎核心技术：分词技术、网络蜘蛛、索引技术和词频指数
-智能搜索引擎核心技术：自动推理技术、本体知识系统、专家系统，智能搜索引擎更看重与其他学科相融合</code></pre>
-<h2 id="二、知识图谱"><a href="#二、知识图谱" class="headerlink" title="二、知识图谱"></a>二、知识图谱</h2><h3 id="（一）、知识图谱应用"><a href="#（一）、知识图谱应用" class="headerlink" title="（一）、知识图谱应用"></a>（一）、知识图谱应用</h3><p>搜索美国总统，分别查看google、百度和Yahoo的搜索结果。<br><img src="http://p2lakvkq0.bkt.clouddn.com/present1.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/present2.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/present3.jpg"><br>从图片可以看出，Google和百度返回了一个准确的结果，而Yahoo则是返回了一堆链接。</p>
-<h3 id="二-、知识图谱构建流程"><a href="#二-、知识图谱构建流程" class="headerlink" title="(二)、知识图谱构建流程"></a>(二)、知识图谱构建流程</h3><p>1.知识获取：已有知识库或者网上爬取半结构数据</p>
-<p>2.知识表示：采用实体-关系-实体的三元组对数据进行表示</p>
-<p>3.知识存储：传统的RDF存储或者图数据库</p>
-<pre><code>RDF存储：斯坦福可视化工具protege手工构建，效率低，中文支持差；
-        使用jena的API来处理RDF的本体数据，半自动构建，可结合virtuoso；
-        stardog；
-图数据：neo4j，提供cypher查询，同时具有可视化的功能</code></pre>
-<p>4.知识可视化：具体应用具体分析</p>
-<h3 id="三-、知识图谱框架"><a href="#三-、知识图谱框架" class="headerlink" title="(三)、知识图谱框架"></a>(三)、知识图谱框架</h3><p>1.传统搜索引擎和知识图谱的变化</p>
-<pre><code>信息抽取目标发生了变化，传统的文本指定抽取(ACE)=&gt;海量数据的发现(KBP);
-从文本分析为核心转变成了知识发现为核心；
-让计算机真正理解用户的查询需求，给出准确答案而不是给出相关的链接序列；</code></pre>
-<p>2.OpenKN–王元卓（原理类似于知识图谱）</p>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/openKN.jpg"></p>
-<p>全生命周期知识处理工作流程：知识获取–知识融合–知识验证–知识计算–知识存储–知识服务与应用</p>
-<ul>
-<li><p>知识库的构建：包括知识获取与知识融合</p>
-<p>  知识获取是从开放网页、在线百科和核心词库等数据中抽取概念、实体、属性和关系；<br>  知识融合的主要目的是实现知识的时序融合和多数据源融合。<br>  知识库构建完成后得到的知识是显式的知识。</p>
-</li>
-</ul>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/openKN1.jpg"></p>
-<ul>
-<li><p>知识计算（属性计算、关系计算、实例计算等）</p>
-<p>  除了显式的知识，通过OpenKN的知识计算功能，还可以进一步获得隐式的或推断的知识。</p>
-</li>
-<li><p>知识验证和处理</p>
-<p>  为了检验显式知识和隐式知识的完备性、相关性和一致性，需要对知识进行校验，主要是专家或特定的知识计算方法检查冗余的、冲突的、矛盾的或不完整的知识。</p>
-</li>
-<li><p>知识存储</p>
-<p>  经过验证的海量知识，在OpenKN里存储在一个图数据库（GDB）及关系数据库中。其中GDB中存储显式知识，关系数据库中存储隐式知识<br><img src="http://p2lakvkq0.bkt.clouddn.com/openKN2.jpg"></p>
-</li>
-</ul>
-<h2 id="三、搜狗立方"><a href="#三、搜狗立方" class="headerlink" title="三、搜狗立方"></a>三、搜狗立方</h2><p>1.搜索结构的变化<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou1.jpg"><br>2.搜狗知立方整体架构</p>
-<pre><code>知立方数据库构建包括：
-    本体构建（各类型实体挖掘、属性名称挖掘、编辑系统）
-    实例构建（纯文本属性、实体抽取、半结构化数据抽取）
-    异构数据整合（实体对齐、属性值决策、关系建立）
-    实体重要度计算
-    推理完善数据</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou2.jpg"><br>3.流行知识库</p>
-<p><a target="_blank" rel="noopener" href="http://www.wolframalpha.com/" title="wolframalpha">wolframalpha</a></p>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou4.jpg"><br>4.实体构建</p>
-<pre><code>各类型实体抽取
-属性抽取</code></pre>
-<p>5.信息抽取系统的建立</p>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou10.jpg"></p>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou11.jpg"></p>
-<p>4.实体对齐<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou6.jpg"><br>5.属性值决策与关系建立<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou7.jpg"><br>6.推理补充与验证<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou8.jpg"><br>7.基于CFG句法分析<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou9.jpg"><br>8.后台检索系统<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou3.jpg"></p>
-<h2 id="四、百度知心"><a href="#四、百度知心" class="headerlink" title="四、百度知心"></a>四、百度知心</h2><h3 id="一-、Konwledge-Mining"><a href="#一-、Konwledge-Mining" class="headerlink" title="(一)、Konwledge Mining"></a>(一)、Konwledge Mining</h3><p>知识挖掘包括：Nameed entity mining(命名实体挖掘)、AVP mining(属性-值对挖掘)、Hyponymy learning(上下位学习)、Related entity mining(相关实体挖掘)<br><img src="http://p2lakvkq0.bkt.clouddn.com/baidu1.jpg"></p>
-<p>1.命名实体挖掘</p>
-<pre><code>  Traditional NE categories(传统命名实体类别)
-        – person, location, organization
-  Many more new categories useful for web applications(更多对web应用程序有用的新类别)
-        - Movie, TV series, music, book, software, computer game
-  More fine-grained taxonomy（更精细的分类）
-        – Organization -&gt; &#123;school, hospital, government, company,…&#125;
-        – Computer game -&gt; &#123;net game, webpage game,…&#125;
-  Characteristics of NEs on the web
-        – New NEs emerge rapidly, especially for software, games, and novels
-        – Names of NEs on the web are informal
-
-
- （1）从查询日志(Query Logs)中学习命名实体(NEs)
-        - 查询日志中包含了大量NE,大约70%的搜索查询包含了NEs
-        - NEs能够被上下文特征（context  features）识别
-        - Bootstrapping approach
-            给出某一分类的种子NEs，从查询中学习种子的上下文特征，然后用已经学习到的上下文特征来提取分类的新种子实体，最后使用扩展的种子集去扩展上下文特征
-        - 优点：覆盖最新出现的命名实体
-        - 缺点：旧的或不受欢迎的命名实体会被忽略</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu2.jpg"></p>
-<pre><code>  （2）从普通文本中学习命名实体
-        - 文字包装器（Text Wrappers）被广泛用于从纯文本中提取NEs
-        - Wrapper example: “电影《[X]》 ”, “影片[X]，导演”
-        – [X] is a placeholder that can be filled with movie names</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu3.jpg"></p>
-<pre><code>  （3）使用url-text混合模式学习命名实体（Learning NEs using Url-text Hybrid Patterns）</code></pre>
-<p>2.属性-值对挖掘（AVP Mining）</p>
-<pre><code>AVP数据来源：
-    - 在线百科--百度百科、Wikipedia、互动百科
-    - 垂直网站--IMDB、douban for videos
-    - 普通网友文档--从结构化、半结构化和非结构化文本中挖掘AVP
-(1) 挖掘在线百科AVP数据</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu4.jpg"></p>
-<pre><code>(2) 挖掘垂直网站AVP数据</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu5.jpg"></p>
-<h3 id="二-、Semantic-Computation"><a href="#二-、Semantic-Computation" class="headerlink" title="(二)、Semantic Computation"></a>(二)、Semantic Computation</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Scrapy-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Scrapy-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" class="post-title-link" itemprop="url">Scrapy——数据持久化存储</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 17:57:03" itemprop="dateCreated datePublished" datetime="2018-01-12T17:57:03+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:13:33" itemprop="dateModified" datetime="2020-09-18T17:13:33+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Scrapy%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/">gongyanli.com</a></p>
-</blockquote>
-<p>前言：本文主要讲解Scrapy的数据持久化，主要包括存储到数据库、json文件以及内置数据存储</p>
-<h2 id="持久化存储——JSON"><a href="#持久化存储——JSON" class="headerlink" title="持久化存储——JSON"></a>持久化存储——JSON</h2><blockquote>
-<p>pipelins.py</p>
-</blockquote>
-<pre><code>`import json
- from scrapy.exceptions import DropItem
- class myPipeline(object):
-     def __init__(self):
-        self.file=open(&#39;test.json&#39;,&#39;wb&#39;)
-
-    def process_item(self,item,spider):
-        if item[&#39;title&#39;]:
-            line=json.dumps(dict(item))+&#39;\n&#39;
-            self.file.write(line)
-            return item
-        else:
-            raise DropItem(&quot;Missing title in %s&quot; % item)`</code></pre>
-<h2 id="持久化存储——MongoDB数据库"><a href="#持久化存储——MongoDB数据库" class="headerlink" title="持久化存储——MongoDB数据库"></a>持久化存储——MongoDB数据库</h2><pre><code>`class myPipeline(object):
- def __init__(self):
-    self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
-    self.db = self.client[settings[&#39;MONGO_DB&#39;]]
-    # self.coll = self.db[settings[&#39;MONGO_COLL2&#39;]]
-    self.chinacwa = self.db[&#39;chinacwa&#39;]
-    self.iot = self.db[&#39;iot&#39;]
-    self.ny135 = self.db[&#39;ny135&#39;]
-    self.productprice = self.db[&#39;productprice&#39;]
-    self.allproductprice = self.db[&#39;allproductprice&#39;]
-
- def process_item(self, item, spider):
-    if isinstance(item, ChinacwaItem):
-        try:
-            if item[&#39;article_title&#39;]:
-                item = dict(item)
-                self.chinacwa.insert(item)
-                print(&quot;插入成功&quot;)
-                return item
-        except Exception as e:
-            spider.logger.exceptionn(&quot;&quot;)`</code></pre>
-<h2 id="持久化存储——内置数据存储"><a href="#持久化存储——内置数据存储" class="headerlink" title="持久化存储——内置数据存储"></a>持久化存储——内置数据存储</h2><p>settings</p>
-<pre><code>1.JSON
-&gt; FEED_FORMAT:json
-&gt; 所用的内置输出类：JsonItemExporter
-
-2.JSON lines
-&gt; FEED_FORMAT:jsonlines
-&gt; 所用的内置输出类：JsonLinesItemExporter
-
-3.CSV
-&gt; FEED_FORMAT:csv
-&gt; 所用的内置输出类：CsvItemExporter
-
-4.XML
-&gt; FEED_FORMAT:xml
-&gt; 所用的内置输出类：XmlItemExporter
-
-5.Pickle
-&gt; FEED_FORMAT:pickle
-&gt; 所用的内置输出类：PickleItemExporter
-
-6.Marshal
-&gt; FEED_FORMAT:marshal
-&gt; 所用的内置输出类：MarshalItemExporter
-
-&gt; 使用方法：
-$ scrapy crawl mySpider -o test.csv</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8A%9F%E8%83%BD-scrapy-shell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8A%9F%E8%83%BD-scrapy-shell/" class="post-title-link" itemprop="url">Scrapy命令行功能--scrapy shell</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 15:36:05" itemprop="dateCreated datePublished" datetime="2018-01-12T15:36:05+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:13:28" itemprop="dateModified" datetime="2020-09-18T17:13:28+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8A%9F%E8%83%BD-scrapy-shell/">gongyanli.com</a></p>
-</blockquote>
-<p>前言:本文主要讲解Scrapy的命令行功能，Scrapy提供了两种类型的命令。</p>
-<pre><code>1.全局命令
-2.项目命令，必须在Scrapy项目中运行</code></pre>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8A%9F%E8%83%BD-scrapy-shell/#more" rel="contents">
-                Read more &raquo;
-              </a>
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="PyTorch-4-简单介绍、回归问题优化和手写数字识别">
+                            
+                            <span class="card-title">PyTorch-4-简单介绍、回归问题优化和手写数字识别</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com学习教程：莫烦的PyTorch视频
+
+前言：简单介绍了一下PyTorch，然后根据自己学的东西跑了以下两个代码，有时间的时候我会把代码注释加上，希望能够对更多的朋友有用。我学习PyTorch是
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="post-category">
+                                    PyTorch
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/PyTorch/">
+                            <span class="chip bg-color">PyTorch</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="知识图谱和搜索引擎">
+                            
+                            <span class="card-title">知识图谱和搜索引擎</span>
+                        </div>
+                    </a>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客:gongyanli.com
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/nltk-2-%E8%AF%AD%E6%96%99%E5%BA%93%E4%BD%BF%E7%94%A8/">
+一、搜索引擎（一）搜索引擎分类1.分类目录
+特征：人工搜集整理，把属于各个类别的高质量网站或网页进行分类，用户通过分级目录来查找高质量的网站
+缺点：人工、扩展性不强、绝大部分网站不能被收录
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-16
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-category">
+                                    知识图谱和搜索引擎
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
+                            <span class="chip bg-color">搜索引擎</span>
+                        </a>
+                        
+                        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                            <span class="chip bg-color">知识图谱</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Scrapy-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Scrapy——数据持久化存储">
+                            
+                            <span class="card-title">Scrapy——数据持久化存储</span>
+                        </div>
+                    </a>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/nltk-2-%E8%AF%AD%E6%96%99%E5%BA%93%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">nltk-2-语料库使用</a>
-        </h2>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+前言：本文主要讲解Scrapy的数据持久化，主要包括存储到数据库、json文件以及内置数据存储
+持久化存储——JSON
+pipelins.py
 
-              <time title="Created: 2018-01-12 11:37:01" itemprop="dateCreated datePublished" datetime="2018-01-12T11:37:01+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:47:29" itemprop="dateModified" datetime="2020-09-18T21:47:29+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/nltk/" itemprop="url" rel="index"><span itemprop="name">nltk</span></a>
-                </span>
-            </span>
+`import json
+ from sc
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
+                                    Scrapy
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-          
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Scrapy/">
+                            <span class="chip bg-color">Scrapy</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Scrapy%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8A%9F%E8%83%BD-scrapy-shell/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Scrapy命令行功能--scrapy shell">
+                            
+                            <span class="card-title">Scrapy命令行功能--scrapy shell</span>
+                        </div>
+                    </a>
 
-        </div>
-      </header>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+前言:本文主要讲解Scrapy的命令行功能，Scrapy提供了两种类型的命令。
+1.全局命令
+2.项目命令，必须在Scrapy项目中运行
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" class="post-category">
+                                    Scrapy
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-      
-          <h2 id="NLTK语料库"><a href="#NLTK语料库" class="headerlink" title="NLTK语料库"></a>NLTK语料库</h2><pre><code>from nltk.corpus import webtext：网络文本语料库，网络和聊天文本
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Scrapy/">
+                            <span class="chip bg-color">Scrapy</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/nltk-2-%E8%AF%AD%E6%96%99%E5%BA%93%E4%BD%BF%E7%94%A8/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="nltk-2-语料库使用">
+                            
+                            <span class="card-title">nltk-2-语料库使用</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                NLTK语料库from nltk.corpus import webtext：网络文本语料库，网络和聊天文本
 
 from nltk.corpus import brown：布朗语料库，按照文本分类好的500个不同来源的文本
 
-from nltk.corpus import reuters：路透社语料库，1万多个新闻文档
+from nl
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/nltk/" class="post-category">
+                                    nltk
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
 
-from nltk.corpus import inaugural：就职演说语料库，55个总统的演说
-
-rom nltk.corpus import gutenberg：大约有36000本免费的电子图书</code></pre>
-<h2 id="语料库通用接口"><a href="#语料库通用接口" class="headerlink" title="语料库通用接口"></a>语料库通用接口</h2><pre><code>fileids()：返回语料库中的文件
-
-categories()：返回语料库中的分类
-
-raw()：返回语料库的原始内容
-
-words()：返回语料库中的词汇
-
-sents()：返回语料库句子
-
-abspath()：指定文件在磁盘上的位置
-
-open()：打开语料库的文件流</code></pre>
-<h1 id="加载自己本地的语料库"><a href="#加载自己本地的语料库" class="headerlink" title="加载自己本地的语料库"></a>加载自己本地的语料库</h1><pre><code>`from nltk.corpus import PlaintextCorpusReader
-corpus_root = &#39;/tmp&#39;
-wordlists = PlaintextCorpusReader(corpus_root, &#39;.*&#39;)
-wordlists.fileids()`</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/jenkins-1-groovy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jenkins-1-groovy/" class="post-title-link" itemprop="url">nltk-1-入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 10:13:56" itemprop="dateCreated datePublished" datetime="2018-01-12T10:13:56+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:48:49" itemprop="dateModified" datetime="2020-09-18T21:48:49+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/jenkins/" itemprop="url" rel="index"><span itemprop="name">jenkins</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>#!groovy<br>def remote = [:]<br>remote.allowAnyHosts = true</p>
-<p>pipeline {<br>    agent {node {label ‘master’}}<br>    environment {<br>        PATH=”/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin”<br>    }<br>    parameters {<br>      string defaultValue: ‘<a target="_blank" rel="noopener" href="http://svn.sogou-inc.com/svn/mobilesearch/web/wap_searchhub/trunk&#39;">http://svn.sogou-inc.com/svn/mobilesearch/web/wap_searchhub/trunk&#39;</a>, description: ‘svn代码’, name: ‘svn’, trim: true<br>      string defaultValue: ‘10.134.30.112’, description: ‘ip地址’, name: ‘ip’, trim: true<br>      string defaultValue: ‘root’, description: ‘用户名’, name: ‘user’, trim: true<br>      string defaultValue: ‘noSafeNoWork@2014’, description: ‘密码’, name: ‘password’, trim: true<br>    }</p>
-<pre><code>stages &#123;
-    stage(&#39;preprocess&#39;) &#123;
-      steps &#123;
-             withCredentials([sshUserPrivateKey(credentialsId: &#39;sh_fugailv&#39;, keyFileVariable: &#39;identity&#39;, passphraseVariable: &#39;&#39;, usernameVariable: &#39;userName&#39;)]) &#123;
-                script &#123;
-                    remote.name = &quot;$&#123;ip&#125;&quot;
-                    remote.host = &quot;$&#123;ip&#125;&quot;
-                    remote.user = userName
-                    remote.password = &quot;$&#123;password&#125;&quot;
-                    remote.svn=&quot;$&#123;svn&#125;&quot;
-                    remote.allowAnyHosts = true
-                &#125;
-
-                sshCommand remote: remote, command: &quot;&quot;&quot;
-                    cd /search/odin/gongyanli/searchhub/pc
-                    sh downData.sh
-                    cd /search/odin/gongyanli/searchhub/pc/web_test
-                    svn sw $&#123;svn&#125; --username &#39;gongyanli&#39; --password &#39;Gyl421498170&#39;
-                    make -j
-                    sh stop.sh
-                    sh start_centos7.sh
-                &quot;&quot;&quot;
-            &#125;
-
-        &#125;
-    &#125; 
-stage(&#39;mem&#39;) &#123;
-      steps &#123;
-             withCredentials([sshUserPrivateKey(credentialsId: &#39;sh_fugailv&#39;, keyFileVariable: &#39;identity&#39;, passphraseVariable: &#39;&#39;, usernameVariable: &#39;userName&#39;)]) &#123;
-      script &#123;
-        remote.name = &quot;$&#123;ip&#125;&quot;
-          remote.host = &quot;$&#123;ip&#125;&quot;
-          remote.user = userName
-        remote.password = &quot;$&#123;password&#125;&quot;
-        remote.svn=&quot;$&#123;svn&#125;&quot;
-        remote.allowAnyHosts = true
-      &#125;
-
-      sshCommand remote: remote, command: &quot;&quot;&quot;
-        cd /search/odin/gongyanli/searchhub/pc
-        sh mem.sh &amp;
-        &quot;&quot;&quot;
-      &#125;
-
-        &#125;
-    &#125; 
-&#125;</code></pre>
-<p>}</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/nltk-1-%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/nltk-1-%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">nltk-1-入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 10:13:56" itemprop="dateCreated datePublished" datetime="2018-01-12T10:13:56+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:47:26" itemprop="dateModified" datetime="2020-09-18T21:47:26+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/nltk/" itemprop="url" rel="index"><span itemprop="name">nltk</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">gongyanli.com</a>  </p>
-<p>参考博客：<a target="_blank" rel="noopener" href="http://www.shareditor.com/blogshow?blogId=65">http://www.shareditor.com/blogshow?blogId=65</a>  </p>
-</blockquote>
-<p>前言：NLTK(Natural Language Toolkit) 是一个用于构建处理人类语言数据的python应用的开源平台。它提供了超过50多个素材库和词库资源的易用接口，其中有很多文本处理库，可以用来给文本分类，符号化，提取词根，贴标签，解析，语义推理，或者打包成工业级的自然语言处理库。本文简单介绍了nltk的安装与使用，希望对小伙伴们有用。</p>
-<h2 id="一、NTLK库安装"><a href="#一、NTLK库安装" class="headerlink" title="一、NTLK库安装"></a>一、NTLK库安装</h2><pre><code>$ pip install nltk</code></pre>
-<h2 id="二、NLTK模块与功能介绍"><a href="#二、NLTK模块与功能介绍" class="headerlink" title="二、NLTK模块与功能介绍"></a>二、NLTK模块与功能介绍</h2><pre><code>语言处理任务            NLTK模块                功能描述
-获取语料库            nltk.corpus            语料库和词典的标准化接口
-字符串处理            nltk.tokenize,        分词、句子分解
-                    nltk.stem            词干化
-搭配研究                nltk.collocations    t-检验、卡方、点互信息
-词性标注                nltk.tag            n-gram、backoff、Brill、HMM、TnT
-分类                    nltk.classify        决策树、最大熵、朴素贝叶斯、EM、K-Means
-                    nltk.cluster        
-分块                    nltk.chunk            正则表达式、n-gram、命名实体
-解析                    nltk.parse            图标、基于特征、一致性、概率性、依赖项
-语义解释                nltk.stem            λ演算、一阶逻辑、模型检验
-                    nltk.inference        
-指标测评                nltk.metrics        精度、召回率、协议系数
-概率与估计            nltk.probalility    频率分布、平滑概率分布
-应用                    nltk.app            图形化的关键词排序、分析器、wordnet查看器
-                    nltk.chat
-语言学领域的工作        nltk.toolbox        处理STL工具箱格式的数据</code></pre>
-<h2 id="三、下载书籍"><a href="#三、下载书籍" class="headerlink" title="三、下载书籍"></a>三、下载书籍</h2><pre><code>$ python
-&gt;&gt;&gt; import nltk
-&gt;&gt;&gt; nltk.download()
-选择语料库--book进行下载
-&gt;&gt;&gt; nltk.book import *
-&gt;&gt;&gt; text1
-&lt;Text: Moby Dick by Herman Melville 1851&gt;</code></pre>
-<h2 id="四、NLTK基本使用"><a href="#四、NLTK基本使用" class="headerlink" title="四、NLTK基本使用"></a>四、NLTK基本使用</h2><pre><code>1.搜索文本
-    &gt;&gt;&gt; text1.concordancd(&quot;next&quot;)
-    &gt; 显示20个包含next的语句上下文
-2.搜索相关词
-    &gt;&gt;&gt; text1.similar(&quot;boat&quot;)
-    &gt;查找出boat的近义词等相关词
-3.查找词在文章中的位置
-    &gt;&gt;&gt; text1.dispersion_plot([&quot;bext&quot;,&quot;city&quot;,&quot;America&quot;])
-    &gt; 如果出现错误，请记得安装matplotlib
-    &gt; pip install matplotlib
-4.词统计
-    len(text1)：返回总字数
-    set(text1)：返回文本的所有词集合
-    len(set(text4))：返回文本总词数
-    text4.count(&quot;is&quot;)：返回“is”这个词出现的总次数
-    FreqDist(text1)：统计文章的词频并按从大到小排序存到一个列表里
-    fdist1 = FreqDist(text1);fdist1.plot(50, cumulative=True)：统计词频，并输出累计图像
-    fdist1.hapaxes()：返回只出现一次的词text4.collocations()：频繁的双联词</code></pre>
-<h2 id="五、NLTK–文本预处理"><a href="#五、NLTK–文本预处理" class="headerlink" title="五、NLTK–文本预处理"></a>五、NLTK–文本预处理</h2><p>1.分词<br>(1)英文分词</p>
-<pre><code>方法1：将文本分割成单词
-split()
-方法2：将文本分割成句子
-from nltk.tokenize import sent_tokenize
-sent=sent_token(text)
-方法3:将文本分割成单词
-from nltk.tokenize import word_tokenize
-word=word_tokenize(text)</code></pre>
-<p>(2)非英文分词</p>
-<pre><code>from nltk.tokenize import sent_tokenize
-sent=sent_token(text,&quot;french&quot;)</code></pre>
-<p>2.词干化处理（stem）</p>
-<p>文档分词后一般要进行词干化处理，词干化处理就是将名词复数变为单数，动词不同时态变为基本时态等。</p>
-<pre><code>from nltk.stem import PorterStemmer
-from nltk.corpus import wordnet as wn
-from nltk import PorterStemmer
-from nltk.stem.lancaster import LancasterStemmer
-
-def stemWords(self,wordsList):
-
-    # 方法1
-    porter=PorterStemmer()
-    result=[porter.stem(w) for w in wordsList]
-    # 方法2
-    stemWords=[]
-    for words in wordsList:
-        stemWords+=[[wn.morphy(w) for w in words]]
-    return stemWords
-    # 方法3--支持非英文词干化提取
-    stemmer=SnowballStemmer(&quot;english&quot;)
-    result=stemmer.stem(&quot;imaging&quot;)
-    # 方法4
-    lancaster_stemmer = LancasterStemmer()
-    lancaster_stemmer.stem(‘saying’)</code></pre>
-<p>3.单词变体还原–将单词还原成一个真实的单词<br>当用PorterStemmer和PorterStemmer对imaging这个单词进行词干化处理时，得到的结果是imag，显然这并不是我们想要的结果，所以这时候就很有必要进行还原。<br>有时候将单词变体还原时，总是得到同样的词，这是因为语言默认部分为名词，要想得到动词，使用pos=”v”</p>
-<pre><code>from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
-print(lemmatizer.lemmatize(&#39;imaging&#39;, pos=&quot;v&quot;))
-
-pos=&quot;v&quot;--动词
-pos=&quot;n&quot;--名词
-pos=&quot;a&quot;--形容词
-pos=&quot;r&quot;--副词</code></pre>
-<p>4.停用词处理（stopwords）</p>
-<pre><code>from nltk.corpus import stopwordds
-stopwordset=stopwords.words(&quot;english&quot;)
-clean_tokens=list()
-for token in tokens:
-    if token not in stopwordset:
-        clean_tokens.append(token)
-# clean_list=[token for tokens in text if token not in stopwordset]</code></pre>
-<p>5.同义词处理</p>
-<pre><code># WordNet是一个为自然语言处理而建立的数据库，包含一些同义词组及简短定义
-from nltk.corpus import wordnet
-# 获取单词的定义和示例
-  syn = wordnet.synsets(&quot;pain&quot;)
-print(syn[0].definition())
-print(syn[0].examples())
-# 获取同义词
-synonyms = []
-for syn in wordnet.synsets(&quot;computer&quot;):
-    for lemma in syn.lemmas():
-        synonyms.append(lemma.name())
-print(synonyms)</code></pre>
-<p>6.反义词处理</p>
-<pre><code>from nltk.corpus import wordnet
-  antonyms = []
-for syn in wordnet.synsets(&quot;small&quot;):
-    for l in syn.lemmas():
-        if l.antonyms():
-            antonyms.append(l.antonyms()[0].name())
-print(antonyms)</code></pre>
-<p>7.词性标注(pos tagger)</p>
-<pre><code>import nltk
-tokens=nltk.pos_tag(tokens) # 进行词性标注
-
-# 查看相关说明文档
-nltk.help.upeen_tagset(&quot;JJ&quot;)
-nltk.help.upeen_tagset(&quot;IN&quot;)
-nltk.help.upeen_tagset(&quot;NNP&quot;)</code></pre>
-<p>8.去掉数字标点和非字母字符</p>
-<pre><code>def CleanLines(self,line):  
-    identify = string.maketrans(&#39;&#39;, &#39;&#39;)  
-    delEStr = string.punctuation +string.digits  #ASCII 标点符号，数字    
-    cleanLine =line.translate(identify,delEStr) #去掉ASCII 标点符号  
-   return cleanLine  </code></pre>
-<p>9.拼写检查</p>
-<pre><code>def WordCheck(self,words):#拼写检查  
-    d = enchant.Dict(&quot;en_US&quot;)  
-    checkedWords=()  
-    for word in words:  
-        if not d.check(word):  
-            d.suggest(word)  
-            word=raw_input()  
-        checkedWords = (checkedWords,&#39;05&#39;)  
-   return checkedWords  </code></pre>
-<h2 id="六、NLTK结合Stanford-NLP工具包进行文本处理"><a href="#六、NLTK结合Stanford-NLP工具包进行文本处理" class="headerlink" title="六、NLTK结合Stanford NLP工具包进行文本处理"></a>六、NLTK结合Stanford NLP工具包进行文本处理</h2><p>待完成</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/" class="post-title-link" itemprop="url">echarts,map,百度地图扩展</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-09 16:02:11" itemprop="dateCreated datePublished" datetime="2018-01-09T16:02:11+08:00">2018-01-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:44:24" itemprop="dateModified" datetime="2020-09-18T21:44:24+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" itemprop="url" rel="index"><span itemprop="name">echarts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://p2lakvkq0.bkt.clouddn.com/echarts01.jpg"></p>
-<blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/">gongyanli.com</a></p>
-<p>github：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/echarts-map">https://github.com/Gladysgong/echarts-map</a></p>
-<p>csdn: <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012052168/article/details/79014246">http://blog.csdn.net/u012052168/article/details/79014246</a></p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/#more" rel="contents">
-                Read more &raquo;
-              </a>
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/nltk/">
+                            <span class="chip bg-color">nltk</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-          <!--/noindex-->
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/jenkins-1-groovy/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="nltk-1-入门">
+                            
+                            <span class="card-title">nltk-1-入门</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                #!groovydef remote = [:]remote.allowAnyHosts = true
+pipeline {    agent {node {label ‘master’}}    environment {        
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/jenkins/" class="post-category">
+                                    jenkins
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/jenkins/">
+                            <span class="chip bg-color">jenkins</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/nltk-1-%E5%85%A5%E9%97%A8/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="nltk-1-入门">
+                            
+                            <span class="card-title">nltk-1-入门</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com  
+参考博客：http://www.shareditor.com/blogshow?blogId=65  
+
+前言：NLTK(Natural Language Toolkit) 是一个用于构
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/nltk/" class="post-category">
+                                    nltk
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/nltk/">
+                            <span class="chip bg-color">nltk</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/echarts-map-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E6%89%A9%E5%B1%95/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="echarts,map,百度地图扩展">
+                            
+                            <span class="card-title">echarts,map,百度地图扩展</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+
+本文首发于我的博客：gongyanli.com
+github：https://github.com/Gladysgong/echarts-map
+csdn: http://blog.csdn.net/u012052168/article
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
+                                </a>
+                                
+                                <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" class="post-category">
+                                    echarts
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/echarts/">
+                            <span class="chip bg-color">echarts</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="echarts echarts-x echarts-gl 制作3D地球">
+                            
+                            <span class="card-title">echarts echarts-x echarts-gl 制作3D地球</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com  
+github：https://github.com/Gladysgong/3D_earth_all
+csdn: http://blog.csdn.net/u012052168/artic
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
+                                    前端
+                                </a>
+                                
+                                <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" class="post-category">
+                                    echarts
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/echarts/">
+                            <span class="chip bg-color">echarts</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Hexo+Github Pages+yilia搭建博客">
+                            
+                            <span class="card-title">Hexo+Github Pages+yilia搭建博客</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.comgithub: https://github.com/Gladysgong/Gladysgong.github.io
+
+一、快速创建个人Github Pages1.什么是Github Page
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" class="post-category">
+                                    工具篇
+                                </a>
+                                
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" class="post-category">
+                                    Hexo
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Hexo/">
+                            <span class="chip bg-color">Hexo</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
+
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/12/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">13 / 13</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a class="right btn-floating btn-large disabled">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/" class="post-title-link" itemprop="url">echarts echarts-x echarts-gl 制作3D地球</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-08 17:04:42" itemprop="dateCreated datePublished" datetime="2018-01-08T17:04:42+08:00">2018-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:44:49" itemprop="dateModified" datetime="2020-09-18T21:44:49+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" itemprop="url" rel="index"><span itemprop="name">echarts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">gongyanli.com</a>  </p>
-<p>github：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/3D_earth_all">https://github.com/Gladysgong/3D_earth_all</a></p>
-<p>csdn: <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012052168/article/details/78459872">http://blog.csdn.net/u012052168/article/details/78459872</a></p>
-</blockquote>
-<p>前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以直接运行，具体情况看我每个里面怎么说的。小伙伴们可以自己先研究一下，等有时候我详细代码注释一下。</p>
-<h3 id="1-worldFlights"><a href="#1-worldFlights" class="headerlink" title="1.worldFlights"></a>1.worldFlights</h3><pre><code>所用框架：philogl
-位置：examples\worldFlights
-说明：philogl (https://github.com/senchalabs/philogl) 官方项目下的一个demo，把全球飞行航线在3d地球上表示出来。</code></pre>
-<h3 id="2-airline-china"><a href="#2-airline-china" class="headerlink" title="2.airline_china"></a>2.airline_china</h3><pre><code>所用框架：philogl
-说明： 一位博主基于philogl官方项目的demo改写而成，把全球的飞行路线改为了中国飞行路线(参照:examples\worldFlights)</code></pre>
-<h3 id="3-3dmap"><a href="#3-3dmap" class="headerlink" title="3.3dmap"></a>3.3dmap</h3><pre><code>所用框架：echart-x
-说明：利用echart-x制作的3d地球，其数据是把根据经纬度的高低来对国家进行分类（高、中、低）</code></pre>
-<h3 id="4-echarts-gl"><a href="#4-echarts-gl" class="headerlink" title="4.echarts-gl"></a>4.echarts-gl</h3><pre><code>说明：echarts-gl官方项目，我使用npm拉取代码后，依然运行有问题，显示不清楚，所以弃用，可能还是我自己哪里有问题，但是没找出来。</code></pre>
-<h3 id="5-echarts3D-globe"><a href="#5-echarts3D-globe" class="headerlink" title="5.echarts3D-globe"></a>5.echarts3D-globe</h3><pre><code>所用框架：echarts-gl
-说明：一位童鞋（不好意思，等我有时间把你的gith补上，么么哒）利用echarts-gl而制作的3d地球，模拟的是网络攻击的数据，但我发现依然使用的是飞行航线的数据，所以这个数据究竟能否反应网络攻击有待证实。</code></pre>
-<h3 id="6-earth"><a href="#6-earth" class="headerlink" title="6.earth"></a>6.earth</h3><pre><code>所用框架：echarts-gl
-说明：基于echarts3D-globe重写了一个适合自己需要的精简的地球</code></pre>
-<h3 id="7-earth-x"><a href="#7-earth-x" class="headerlink" title="7.earth-x"></a>7.earth-x</h3><pre><code>所用框架：echarts-x
-说明：基于3dmap重写了一个适合自身需要的最终地球。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hexo+Github Pages+yilia搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-05 18:06:40" itemprop="dateCreated datePublished" datetime="2018-01-05T18:06:40+08:00">2018-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:42:13" itemprop="dateModified" datetime="2020-09-18T16:42:13+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">gongyanli.com</a><br>github: <a target="_blank" rel="noopener" href="https://github.com/Gladysgong/Gladysgong.github.io">https://github.com/Gladysgong/Gladysgong.github.io</a></p>
-</blockquote>
-<h3 id="一、快速创建个人Github-Pages"><a href="#一、快速创建个人Github-Pages" class="headerlink" title="一、快速创建个人Github Pages"></a>一、快速创建个人Github Pages</h3><h4 id="1-什么是Github-Pages"><a href="#1-什么是Github-Pages" class="headerlink" title="1.什么是Github Pages"></a>1.什么是Github Pages</h4><pre><code>GitHub Pages 本用于介绍托管在GitHub的项目，不过由于他的空间免费稳定，很适合用来搭建一个博客。
-
-每个帐号只能有一个仓库来存放个人主页，而且仓库的名字必须是username/username.github.io，这是特殊的命名约定。你可以通过http://username.github.io 来访问你的个人主页，比如我的就是gladysgong.github.io。
-
-这里特别提醒一下，需要注意的个人主页的网站内容是在master分支下的。</code></pre>
-<h4 id="2-创建自己的Github-Pages"><a href="#2-创建自己的Github-Pages" class="headerlink" title="2.创建自己的Github Pages"></a>2.创建自己的Github Pages</h4><pre><code>新建代码仓库(repository),此处命名格式有限制的，形如username.github.io</code></pre>
-<p><img src="http://img.blog.csdn.net/20180105161022371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20180105161115747?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<pre><code>github page site已经建好，浏览器输入例如http://username.github.io,(该示例界面为空)，可以自己push一个index页面来显示内容，开启你的blog把！</code></pre>
-<p>我的blog是<a href="gladysgong.github.io">gladysgong.github.io</a>,可以打开看一下哟！如果文章对您有帮助，右侧fork进入star我一下，我会美美哒一天。</p>
-<h4 id="3-如何搭建一个独立博客——简明Github-Pages与Hexo教程"><a href="#3-如何搭建一个独立博客——简明Github-Pages与Hexo教程" class="headerlink" title="3.如何搭建一个独立博客——简明Github Pages与Hexo教程"></a>3.如何搭建一个独立博客——简明Github Pages与Hexo教程</h4><h3 id="二、搭建环境"><a href="#二、搭建环境" class="headerlink" title="二、搭建环境"></a>二、搭建环境</h3><p>1.安装<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a><br>2.安装npm<br>3.安装git，如果前面要commit、push，那之前就应该安装<br>4.github账户配置</p>
-<h3 id="三、Hexo安装"><a href="#三、Hexo安装" class="headerlink" title="三、Hexo安装"></a>三、Hexo安装</h3><pre><code>$ cd d:/hexo
-$ npm install hexo-cli -g
-$ hexo init blog
-$ cd blog
-$ npm install
-$ hexo g # 或者hexo generate
-$ hexo s # 或者hexo server，可以在http://localhost:4000/ 查看（hexo s -p 8023端口被占用时）</code></pre>
-<p><img src="http://img.blog.csdn.net/20180105162744799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h3 id="四、Hexo主题切换"><a href="#四、Hexo主题切换" class="headerlink" title="四、Hexo主题切换"></a>四、Hexo主题切换</h3><pre><code>Hexo默认主题是landscape，大家可以切换成为next或者yilia的风格
-1.安装主题
-
-$ hexo clean
-$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</code></pre>
-<p>2.启用主题</p>
-<pre><code>修改Hexo目录下的_config.yml配置文件中的theme属性，将其设置为yilia。</code></pre>
-<p>3.更新主题</p>
-<pre><code>$ cd themes/yilia
-$ git pull
-$ hexo g # 生成
-$ hexo s # 启动本地web服务器</code></pre>
-<p>4.打开<a target="_blank" rel="noopener" href="http://localhost:8023/">http://localhost:8023/</a> ，我们就会看到一个全新的界面。</p>
-<h3 id="五、部署Hexo到Github-Pages"><a href="#五、部署Hexo到Github-Pages" class="headerlink" title="五、部署Hexo到Github Pages"></a>五、部署Hexo到Github Pages</h3><p>1.部署Hexo到Github Pages上的原理</p>
-<pre><code>a.第一步中我们在Github上创建了一个特殊的repo（gladysgong.github.io）一个最大的特点就是master中的html静态文件，可以通过链接http://gladysgong.github.io来直接访问。
-b.Hexo -g 会生成一个静态网站（第一次会生成一个public目录），这个静态文件可以直接访问。
-c.将hexo生成的静态网站，提交(git commit)到github上。</code></pre>
-<p>2.使用hexo deploy部署到github</p>
-<pre><code>在配置文件_config.xml中以下改动：
-deploy:
-  type: git
-  repo: git@github.com:gladysgong/gladysgong.github.io.git
-  branch: master</code></pre>
-<p>3.安装扩展（不安装会出错）</p>
-<pre><code>$ npm install hexo-deployer-git --save</code></pre>
-<p>4.在命令行中执行</p>
-<pre><code>hexo d</code></pre>
-<h3 id="六、申请域名https-sg-godaddy-com-zh"><a href="#六、申请域名https-sg-godaddy-com-zh" class="headerlink" title="六、申请域名https://sg.godaddy.com/zh/"></a>六、申请域名<a target="_blank" rel="noopener" href="https://sg.godaddy.com/zh/">https://sg.godaddy.com/zh/</a></h3><p>可以申请的地方很多，我选择的是<a target="_blank" rel="noopener" href="https://sg.godaddy.com/zh/">goDaddy</a>，注册登录选择域名，支付宝付款，ok。</p>
-<h3 id="七、DNS解析"><a href="#七、DNS解析" class="headerlink" title="七、DNS解析"></a>七、DNS解析</h3><p>1.注册<a target="_blank" rel="noopener" href="https://www.dnspod.cn/">DNSpod</a><br>2.进入域名解析，输入你的域名，添加记录进行配置<br><img src="http://img.blog.csdn.net/20180105165317195?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>3.记录类型</p>
-<pre><code>记录类型A代表指向github pages所提供的ip
-记录类型CNAME代表指向username.github.io
-用A类型的话，当github pages所提供的ip改变的话，你就需要来改变此处的ip，用CNAME则不需要。</code></pre>
-<p>4.创建CNAME</p>
-<pre><code>$ cd source
-$ 创建CNAME
-$ 内容为你的域名（比如我的：gongyanli.com）
-$ commit &amp; push</code></pre>
-<h3 id="八、hexo部署后把原来的仓库覆盖"><a href="#八、hexo部署后把原来的仓库覆盖" class="headerlink" title="八、hexo部署后把原来的仓库覆盖"></a>八、hexo部署后把原来的仓库覆盖</h3><p>1.使用Hexo搭建博客需要区分【博客源代码】和【博客生成代码】</p>
-<pre><code>『博客源代码』：Hexo的源码，包括themes目录（博客模板），source目录(使用MarkDown写的博客)等
-
-『博客生成代码』：执行hexo generate或者hexo server命令生成的代码，是Hexo自动生成的，在public目录里面。
-
-『博客源代码』需要使用Git做版本管理，而『博客生成代码』需要使用Git部署。因此容易混淆。</code></pre>
-<p>2.方法1：使用2个不同的Git仓库分别管理『博客源代码』和『博客生成代码』</p>
-<pre><code>在GitHub新建一个仓库，然后将『博客源代码』同步到新项目。『博客生成代码』仍然由gladysgong/gladysgong.github.io部署。</code></pre>
-<p>3.方法2:使用同一个Git仓库的2个不同的Git分支分别管理『博客源代码』和『博客生成代码』</p>
-<pre><code>修改Hexo的配置文件_config.yml，将『博客生成代码』部署到gladysgong/gladysgong.github.io仓库的develop分支:
-deploy:
-    type: git
-    branch: develop
-    repo: https://github.com/gladysgong/gladysgong.github.com</code></pre>
-<h3 id="九、bug"><a href="#九、bug" class="headerlink" title="九、bug"></a>九、bug</h3><h4 id="1-hexo报错："><a href="#1-hexo报错：" class="headerlink" title="1.hexo报错："></a>1.hexo报错：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 5, column 1: # Site</span><br><span class="line"></span><br><span class="line">YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 13, column 1: # URL</span><br></pre></td></tr></table></figure>
-<pre><code>配置文件：_config.yml  中 # Site #URL 属性设置后面的：需要有空格再填写内容！！！</code></pre>
-<h4 id="2-npm各种提示权限不够，windows下即使开了administrator也提示权限不够"><a href="#2-npm各种提示权限不够，windows下即使开了administrator也提示权限不够" class="headerlink" title="2.npm各种提示权限不够，windows下即使开了administrator也提示权限不够"></a>2.npm各种提示权限不够，windows下即使开了administrator也提示权限不够</h4><pre><code>无奈，卸载npm，用淘宝npm镜像重装一个，安装后一路畅通。
-安装方法：npm install -g cnpm --registry=https://registry.npm.taobao.org
-参考链接：http://npm.taobao.org/
-之后所用命令只需改为cnpm即可</code></pre>
-<h4 id="3-hexo-s运行时默认4000端口被占用"><a href="#3-hexo-s运行时默认4000端口被占用" class="headerlink" title="3.hexo s运行时默认4000端口被占用"></a>3.hexo s运行时默认4000端口被占用</h4><pre><code>尝试过解除端口，无奈我的4000端口被360浏览器占用
-hexo s -p 8022
-重启一个8022或者任意一个没被占用的端口即可</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
     }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
     }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Lilly</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Lilly</p>
-  <div class="site-description" itemprop="description">Up in the wind!</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">130</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">44</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">45</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 </div>
 
 
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-      </div>
+    <!-- Baidu Analytics -->
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+    <!-- Baidu Push -->
 
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
-      </div>
-    </main>
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+    
 
-        
+    
 
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Lilly</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+    
 
-        
+    
 
+    
 
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>

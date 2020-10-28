@@ -1,2463 +1,1019 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="zh-Hans">
+
+
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Up in the wind!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="茉莉Python">
-<meta property="og:url" content="http://gongyanli.com/page/12/index.html">
-<meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="Up in the wind!">
-<meta property="og:locale">
-<meta property="article:author" content="Lilly">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://gongyanli.com/page/12/">
+    <meta charset="utf-8">
+    <meta name="keywords" content="茉莉Python">
+    <meta name="description" content="Up in the wind!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-Hans'
-  };
-</script>
+    <title>茉莉Python</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
 
-  <title>茉莉Python</title>
-  
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 
 
 
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">茉莉Python</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">茉莉Python</span>
+                </a>
+            </div>
             
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%B8%89-%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%B8%89-%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">三--数据探索--Python数据分析与挖掘实战</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-26 15:33:34" itemprop="dateCreated datePublished" datetime="2018-02-26T15:33:34+08:00">2018-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:31:27" itemprop="dateModified" datetime="2020-09-18T21:31:27+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98%E3%80%8B/" itemprop="url" rel="index"><span itemprop="name">《Python数据分析挖掘实战》</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
       
-          <p>问题：</p>
-<pre><code>1、样本数据集的数量和质量是否满足模型构建的要求？
-2、是否出现从未设想过的数据状态？
-3、有没有什么明显的规律和趋势？
-4、各因素之间有什么样的关联性？</code></pre>
-<p>数据探索：通过检验数据集的数据质量、绘制图表、计算某些特征量等手段，对样本数据集的结构和规律进行分析的过程。</p>
-<h2 id="3-1-数据质量分析"><a href="#3-1-数据质量分析" class="headerlink" title="3.1 数据质量分析"></a>3.1 数据质量分析</h2><p>任务：检查原始数据中是否存在脏数据（指不符合要求以及不能直接进行相应分析的数据）。<br>脏数据：缺失值、异常值、不一致的值、重复数据及含有特殊符号（#、￥、*）的数据</p>
-<h3 id="3-1-1-缺失值分析"><a href="#3-1-1-缺失值分析" class="headerlink" title="3.1.1 缺失值分析"></a>3.1.1 缺失值分析</h3><p>缺失值包含：记录的缺失和记录中某个字段信息的缺失。<br>缺失值的处理：删除存在缺失值的记录、对可能值进行插补和不处理</p>
-<h3 id="3-1-2-异常值分析"><a href="#3-1-2-异常值分析" class="headerlink" title="3.1.2 异常值分析"></a>3.1.2 异常值分析</h3><p>异常值分析是检验数据是否有录入错误及含有不合常理的数据。<br>异常值指样本中的个别值，其数据明显偏离其余的观测值。</p>
-<h3 id="3-1-3-一致性分析"><a href="#3-1-3-一致性分析" class="headerlink" title="3.1.3 一致性分析"></a>3.1.3 一致性分析</h3><p>数据一致性指数据的矛盾性、不相容性。</p>
-<h2 id="3-2-数据特征分析"><a href="#3-2-数据特征分析" class="headerlink" title="3.2 数据特征分析"></a>3.2 数据特征分析</h2><h3 id="3-2-1-分布分析"><a href="#3-2-1-分布分析" class="headerlink" title="3.2.1 分布分析"></a>3.2.1 分布分析</h3><p>1.定量数据的分布分析</p>
-<pre><code>步骤：
-求极差；
-决定组距和组数；
-决定分点；
-列出频率分布表；
-绘制频率分布直方图。</code></pre>
-<p>2.定性数据的分布分析</p>
-
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
       
+      <span>Tags</span>
+    </a>
+    
+  </li>
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/" class="post-title-link" itemprop="url">基于知识图谱技术的搜索引擎研发</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-08 13:42:23" itemprop="dateCreated datePublished" datetime="2018-02-08T13:42:23+08:00">2018-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:23:12" itemprop="dateModified" datetime="2020-09-18T17:23:12+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
+  <li class="hide-on-med-and-down nav-item">
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+    <a href="/categories" class="waves-effect waves-light">
       
-          <p>研发基于知识图谱的知识库搜索引擎，该搜索引擎主要包含以下功能模块及研究内容： </p>
-<p>（1）搜索模块：该模块定时的向百度百科，中文本体网等百科类网站执行“网络爬虫”程序，获取百科类网站中的结构化数据。该模块又可以分为网页/数据的爬取解析、清洗、消重（歧）三个小模块。 </p>
-<p>（2）图数据库：该模块运用数据挖据能力将散落在互联网上碎片化的知识整合起来，先以“知识卡片”的形式将与关键词相关的知识体系系统化的归纳在一起，然后以“图谱”的形式将含有语义关系的“知识卡片”连接在一起并存储构建成图数据库。 </p>
-<p>（3）检索模块：以“语义理解”技术为核心，首先对用户输入的搜索信息进行语义分析，试图理解用户的搜索意图，并将分析结果传入检索库，检索模块根据此结果在知识图谱上进行挖掘，主要的过程包含推理（Reasoning或Inference），实体重要性排序，相关实体挖掘三个过程。最后得出的结果展示到客户端。 </p>
-<p>（4）用户交互网站：用户交互网站是用来接纳用户查询，显示查询结果，提供个性化的查询服务的前端显示界面。</p>
-<p>未完待续中。。。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/Awesome-Chinese-NLP">https://github.com/Gladysgong/Awesome-Chinese-NLP</a><br><a target="_blank" rel="noopener" href="http://zake7749.github.io/2016/12/17/how-to-develop-chatbot/">http://zake7749.github.io/2016/12/17/how-to-develop-chatbot/</a></p>
-
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
       
-    </div>
-
+      <span>Categories</span>
+    </a>
     
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+    <a href="/archives" class="waves-effect waves-light">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%96%87%E6%9C%AC%E6%8C%96%E6%8E%98%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%96%87%E6%9C%AC%E6%8C%96%E6%8E%98%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">文本挖掘过程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-01 17:56:31" itemprop="dateCreated datePublished" datetime="2018-02-01T17:56:31+08:00">2018-02-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:25:33" itemprop="dateModified" datetime="2020-09-18T21:25:33+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
-          <h2 id="文本挖掘步骤"><a href="#文本挖掘步骤" class="headerlink" title="文本挖掘步骤"></a>文本挖掘步骤</h2><p>1.读取数据<br>2.分词<br>3.去除停用词<br>4.词性标注<br>5.词干化<br>6.将列表转换为向量<br>7.词语统计<br>8.频数排序<br>9.词语</p>
-
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
       
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
       
+      <span>About</span>
+    </a>
+    
+  </li>
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/" class="post-title-link" itemprop="url">知识图谱与认知智能--肖仰华</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-01 15:03:47" itemprop="dateCreated datePublished" datetime="2018-02-01T15:03:47+08:00">2018-02-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:22:26" itemprop="dateModified" datetime="2020-09-18T17:22:26+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
+  <li class="hide-on-med-and-down nav-item">
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+    <a href="/contact" class="waves-effect waves-light">
       
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/">gongyanli.com</a>  </p>
-</blockquote>
-<p>今天听了肖仰华教授的《知识图谱与认知智能》总结，反正是听君一席话，胜读十年书，特别是去的时候正好碰上肖老师，和知识男神握了个手，然后接下来几天都吃嘛嘛香。</p>
-<p>讲座内容主要围绕知识图谱与认知智能的四大部分：认识、实践、问题和总结</p>
-<p>最后问了肖老师几个问题，我记忆深刻的也就是我所关心的问题咯，其余听过就忘哈哈</p>
-<p>1.构建知识图谱时是否要用到图数据库？</p>
-<pre><code>是否要上图数据库，要具体问题具体分析。如果只是在领域内建立知识图谱，并且实体不多的时候，
-用不着上图数据库。因为图数据库不仅成本高，还很复杂。像分布式图数据库，一般有上百亿个实体，
-这就有上千亿的边，一般只有google这样子的大公司才会做。肖老师知识工厂的数据库用的是mongodb，
-有2000万实体，像这种情况是用不着图数据库的，而且目前做图数据库的人才很匮乏。</code></pre>
-<p>2.从文本中抽取实体关系有没有什么好的方法？</p>
-<pre><code>我们现在有这么多的结构化以及半结构化的数据可以利用，没到非不得已的情况，没必要大量从文本中
-抽取数据。而抽取实体关系的建议是，用知识、深度学习模型或者pattern来做关系抽取，不建议用深度
-学习模型来抽取，因为抽取到的结果是不可解释的，建议是用pattern来抽取，因为抽取到的结果可解释，
-其中肖老师多次提到用关系来做知识抽取，而且未来的后深度学习时代也是靠知识来学习，而不是靠数据，
-这部分我还需要加深理解。毕竟在我的概念里，还不知道如何用知识来做关系抽取？</code></pre>
-<p>有人做通用东西，有人做领域的东西，可能最后的结果就是大家一拍即合，联手，然后推动我们整个人工智能的发展。</p>
-<p>附上PPT，需要的朋友可以去下载看一下。</p>
-<p><a target="_blank" rel="noopener" href="http://download.csdn.net/download/u012052168/10235277">PPT链接</a></p>
-
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
       
-    </div>
-
+      <span>Contact</span>
+    </a>
     
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+    <a href="/friends" class="waves-effect waves-light">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8%E7%BB%93%E5%B7%B4%E8%BF%9B%E8%A1%8C%E5%88%86%E8%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%88%A9%E7%94%A8%E7%BB%93%E5%B7%B4%E8%BF%9B%E8%A1%8C%E5%88%86%E8%AF%8D/" class="post-title-link" itemprop="url">Python--利用结巴进行分词</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-26 18:51:20" itemprop="dateCreated datePublished" datetime="2018-01-26T18:51:20+08:00">2018-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:40:18" itemprop="dateModified" datetime="2020-09-18T21:40:18+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/jieba/" itemprop="url" rel="index"><span itemprop="name">jieba</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
       
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Python-%E5%88%A9%E7%94%A8%E7%BB%93%E5%B7%B4%E8%BF%9B%E8%A1%8C%E5%88%86%E8%AF%8D/">gongyanli.com</a></p>
-</blockquote>
-<p>前言：本文是一些关于jieba分词的简单操作，把文档进行分词后，然后利用wordcloud输出。</p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>pip install jieba</code></pre>
-<h2 id="二、准备数据"><a href="#二、准备数据" class="headerlink" title="二、准备数据"></a>二、准备数据</h2><p>依然是维基百科文章保存为txt，地址<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E9%98%B3%E4%BF%AE">https://zh.wikipedia.org/wiki/%E6%AC%A7%E9%98%B3%E4%BF%AE</a><br>下载文件<a target="_blank" rel="noopener" href="https://s3-us-west-2.amazonaws.com/notion-static/b869cb0c7f4e4c909a069eaebbd2b7ad/simsun.ttf">simsun.ttf</a>，如果没有这个文件，生成的词云将会是乱码，不是中文。因为wordcloud默认字体是英文，不包含中文编码。</p>
-<h2 id="三、分词"><a href="#三、分词" class="headerlink" title="三、分词"></a>三、分词</h2><pre><code>`import jieba  # 导入jieba
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-
-filename = &quot;ouyangxiu.txt&quot;
-with open(filename) as f:
-    mytext = f.read()
-    mytext=&quot; &quot;.join(jieba.cut(mytext))  # 进行jieba分词
-    wordcloud=WordCloud(font_path=&quot;simsun.ttf&quot;).generate(mytext) 
-    # 中文分词后再生成词云，同时注意指定输出字体simsun.ttf
-    plt.imshow(wordcloud,interpolation=&#39;bilinear&#39;)
-    plt.axis(&quot;off&quot;)
-    plt.show()
-# print(mytext)</code></pre>
-<p>`</p>
-<h2 id="四、出图"><a href="#四、出图" class="headerlink" title="四、出图"></a>四、出图</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/ouyangxiu.jpg"></p>
-
-      
-    </div>
-
+      <span>Friends</span>
+    </a>
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
+  </li>
   
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/" class="post-title-link" itemprop="url">利用wordloud制作词云</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-26 17:46:54" itemprop="dateCreated datePublished" datetime="2018-01-26T17:46:54+08:00">2018-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:10:06" itemprop="dateModified" datetime="2020-09-18T17:10:06+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/wordcloud/" itemprop="url" rel="index"><span itemprop="name">wordcloud</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客: <a href="http://gongyanli.com/Python-%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/">gongyanli.com</a><br>词云github: <a target="_blank" rel="noopener" href="https://github.com/amueller/word_cloud">https://github.com/amueller/word_cloud</a><br>词云官方地址: <a target="_blank" rel="noopener" href="https://amueller.github.io/word_cloud/">https://amueller.github.io/word_cloud/</a></p>
-</blockquote>
-<p>前言：第一次使用wordcloud，然后记录了自己的点滴，使用其实很简单。我输出的图形看着不太美观，后续可以深入研究，输出自己想要的形状。</p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>pip install wordcloud</code></pre>
-<h2 id="二、准备数据"><a href="#二、准备数据" class="headerlink" title="二、准备数据"></a>二、准备数据</h2><p>我在维基百科找了一篇文章复制到txt中，文章地址<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Australian_Defence_Force">https://en.wikipedia.org/wiki/Australian_Defence_Force</a></p>
-<h2 id="三、制作词云"><a href="#三、制作词云" class="headerlink" title="三、制作词云"></a>三、制作词云</h2><pre><code>`from wordcloud import WordCloud  # 导入wordcloud
-import matplotlib.pyplot as plt
-
-filename = &quot;australian-defence-force.txt&quot; # 打开txt文件
-with open(filename) as f:
-    mytext = f.read()  # 读取文件
-    wordcloud = WordCloud().generate(mytext)  # 生成词云
-    plt.imshow(wordcloud, interpolation=&#39;bilinear&#39;)  # 利用plt把词云可视化显示
-    plt.axis(&#39;off&#39;)
-    plt.show()
-    # print(mytext)</code></pre>
-<p>`</p>
-<h2 id="四、出图"><a href="#四、出图" class="headerlink" title="四、出图"></a>四、出图</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/wordcloud.jpg"></p>
-<h2 id="五、注意事项"><a href="#五、注意事项" class="headerlink" title="五、注意事项"></a>五、注意事项</h2><p>报错 ImportError: cannot import name WordCloud<br>创建python文件的时候我把文件取名为wordcloud.py，之后导入wordcloud时一直出错，重新取一个名字就ok了。</p>
-<h2 id="六、进阶"><a href="#六、进阶" class="headerlink" title="六、进阶"></a>六、进阶</h2><p>如果想要进阶，可参考此博客<a target="_blank" rel="noopener" href="http://blog.csdn.net/fontthrone/article/details/72775865">Python词云 wordcloud 十五分钟入门与进阶</a>，哈哈，我是还没有时间细看这篇博客了，大致瞟了一眼，觉得不错，空下来细看。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">LDA主题建模</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-26 15:23:34" itemprop="dateCreated datePublished" datetime="2018-01-26T15:23:34+08:00">2018-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:02:03" itemprop="dateModified" datetime="2020-09-18T17:02:03+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/">gongyanli.com</a>  </p>
-</blockquote>
-<p>前言:本文用到的方法叫做主题建模（topic model)或主题抽取(topic extraction)，在机器学习的分类中，它属于非监督学习(unsupervised machine learning)。它是文本挖掘中常用的主题模型，用来从大量文档中提取出最能表达各个主题的一些关键词。<br>主题模型定义(维基百科)：在机器学习和自然语言处理等领域是用来在一系列文档中发现抽象主题的一种统计模型。</p>
-<ul>
-<li><p>主题抽取方法：目前最为流行的是隐含狄利克雷分布(Latent Dirichlet Allocation–LDA)</p>
-</li>
-<li><p>LDA需要人为设定主题的数量，而我们怎么知道一堆文章里究竟有多少个主题呢？</p>
-<p>  如果只需要把文章粗略划分为几个分类，那可以把数字设定小一些；<br>  如果希望能识别出非常细分化的主题，那就增大主题的个数；<br>  如果对于划分的结果不够满意，那可以继续迭代，调整主题数量来进行优化；</p>
-</li>
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
 </ul>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>1.文本分词</p>
-<pre><code>英文：split()都可以
-中文：推荐jieba分词</code></pre>
-<p>2.构建主题模型</p>
-<pre><code>（1）构建词典
-（2）对应text的向量(word2vec1)
- (3) 统计tdidf
-（4）对应的text的向量(word2vec2)
-（5）LDA模型
-（6）LDA特征向量
- 代码中得到的corpus_lda就是每个text的LDA向量，稀疏的，元素值隶属于对应叙述类的权重</code></pre>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>注意：最好在linux下运行，我在windows下运行的时候，出现以下错误：</p>
-<pre><code>ImportError: [joblib] Attempting to do parallel computing without protecting your import on a system that does not suppo
-rt forking. 
-To use parallel-computing in a script, you must protect you main loop using &quot;if __name__ == &#39;__main__&#39;&quot;. 
-Please see the joblib documentation on Parallel for more information</code></pre>
-<p>我在python3下即使加了if <strong>name</strong>==’main’还是错误的，所以我换到了linux下。</p>
-<pre><code>`import jieba
-import pandas as pd
-
-df = pd.read_csv(&quot;datascience.csv&quot;, encoding=&#39;gb18030&#39;)  # 打开文件
 
 
-# print(df.head())  # 默认读取文件的头5行
-# print(df.shape)   # 查看数据的维度
+<div id="mobile-nav" class="side-nav sidenav">
 
-# 使用jieba分词对文件进行分词
-def chinese_word_cut(text):
-    return &quot; &quot;.join(jieba.cut(text))
-
-
-df[&quot;content_cutted&quot;] = df.content.apply(chinese_word_cut)
-# print(df.content_cutted.head()) # 查看文件是否已被正确分词
-
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-
-&#39;&#39;&#39;
-    文本向量化：将文章中的关键词转换为一个个特征，然后统计关键词个数
-&#39;&#39;&#39;
-n_features = 1000  # 只提取1000个最重要的关键词
-tf_vectorizer = CountVectorizer(strip_accents=&#39;unicode&#39;,
-                                max_features=n_features,
-                                stop_words=&#39;english&#39;,
-                                max_df=0.5,
-                                min_df=10)
-tf = tf_vectorizer.fit_transform(df.content_cutted)
-
-from sklearn.decomposition import LatentDirichletAllocation
-
-n_topics = 5  # 设定主题个数
-lda = LatentDirichletAllocation(n_topics=n_topics, max_iter=50, learning_method=&#39;online&#39;, learning_offset=50.,
-                                random_state=0)
-result_topic = lda.fit(tf)
-print(result_topic)
-
-
-# 显示每个主题下的前若干关键词
-def print_top_words(model, feature_names, n_top_words):
-    for topic_idx, topic in enumerate(model.components_):
-        print(&quot;Topic #%d:&quot; % topic_idx)
-        print(&quot; &quot;.join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]))
-        print()
-
-
-n_top_words = 20
-tf_features_names = tf_vectorizer.get_feature_names()
-print_top_words(lda, tf_features_names, n_top_words)
-
-import pyLDAvis.sklearn
-
-# 主题可视化
-vis = pyLDAvis.sklearn.prepare(lda, tf, tf_vectorizer)
-pyLDAvis.show(vis)`</code></pre>
-<h2 id="出图"><a href="#出图" class="headerlink" title="出图"></a>出图</h2><ul>
-<li>左侧圆圈代表不同的主题，圆圈大小代表每个主题分别包含文章的数量</li>
-<li>右侧列出了频率最高的关键词列表，当把鼠标停在主题圆圈上的时候，关键词列表用不同的颜色表明当前关键词占全部文本关键词的比例</li>
-</ul>
-<h1 id="中文停用词"><a href="#中文停用词" class="headerlink" title="中文停用词"></a>中文停用词</h1>
-      
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">茉莉Python</div>
+        <div class="logo-desc">
+            
+            Up in the wind!
+            
+        </div>
     </div>
 
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Pandas-1-%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
           
-            <a href="/Pandas-1-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Pandas-1-基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-24 08:37:53" itemprop="dateCreated datePublished" datetime="2018-01-24T08:37:53+08:00">2018-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:09:19" itemprop="dateModified" datetime="2020-09-18T17:09:19+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Pandas/" itemprop="url" rel="index"><span itemprop="name">Pandas</span></a>
-                </span>
-            </span>
-
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
           
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
 
         </div>
-      </header>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Pandas%E5%AD%A6%E4%B9%A0/">gongyanli.com</a> </p>
-<p>参考视频：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/">莫烦的Pandas视频</a></p>
-</blockquote>
-<p>前言:其实我之前看过pandas的书，但是本着看过就忘记的原则，下次再看见他的时候，反正看着很熟悉，怎么用早就抛到九霄云外了。所以这次网上看了几个简单的小视频，然后总结了以下，虽然没有以前看得那么繁琐，但我一直认为够用就好，不够用的等到用的时候再去查找。</p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>windows：pip install pandas（anaconda下）
-mac:pip install pandas
-linux:pip install pandas</code></pre>
-<h2 id="二、导入"><a href="#二、导入" class="headerlink" title="二、导入"></a>二、导入</h2><pre><code>import pandas as pd
-import numpy as np</code></pre>
-<h2 id="三、Pandas–基本介绍"><a href="#三、Pandas–基本介绍" class="headerlink" title="三、Pandas–基本介绍"></a>三、Pandas–基本介绍</h2><p>Numpy和Pandas区别：</p>
-<pre><code>Numpy：列表形式，没有数值标签，类似于python的列表
-Pandas：字典形式，类似于python的字典</code></pre>
-<p>Series：</p>
-<pre><code>s = pd.Series([1,3,6,np.nan,44,1])
-print(s)
-
-&quot;&quot;&quot;
-0     1.0
-1     3.0
-2     6.0
-3     NaN
-4    44.0
-5     1.0
-dtype: float64
-&quot;&quot;&quot;</code></pre>
-<p>DataFrame:</p>
-<pre><code>dates = pd.date_range(&#39;20160101&#39;,periods=6)
-df = pd.DataFrame(np.random.randn(6,4),index=dates,columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-print(df)
-
-&quot;&quot;&quot;
-                   a         b         c         d
-2016-01-01 -0.253065 -2.071051 -0.640515  0.613663
-2016-01-02 -1.147178  1.532470  0.989255 -0.499761
-2016-01-03  1.221656 -2.390171  1.862914  0.778070
-2016-01-04  1.473877 -0.046419  0.610046  0.204672
-2016-01-05 -1.584752 -0.700592  1.487264 -1.778293
-2016-01-06  0.633675 -1.414157 -0.277066 -0.442545
-&quot;&quot;&quot;
-
-print(df[&#39;b&#39;])
-
-&quot;&quot;&quot;
-2016-01-01   -2.071051
-2016-01-02    1.532470
-2016-01-03   -2.390171
-2016-01-04   -0.046419
-2016-01-05   -0.700592
-2016-01-06   -1.414157
-Freq: D, Name: b, dtype: float64
-&quot;&quot;&quot;
-
-df1 = pd.DataFrame(np.arange(12).reshape((3,4)))
-print(df1)
-
-&quot;&quot;&quot;
-   0  1   2   3
-0  0  1   2   3
-1  4  5   6   7
-2  8  9  10  11
-&quot;&quot;&quot;
-
-df2 = pd.DataFrame(&#123;&#39;A&#39; : 1.,
-                &#39;B&#39; : pd.Timestamp(&#39;20130102&#39;),
-                &#39;C&#39; : pd.Series(1,index=list(range(4)),dtype=&#39;float32&#39;),
-                &#39;D&#39; : np.array([3] * 4,dtype=&#39;int32&#39;),
-                &#39;E&#39; : pd.Categorical([&quot;test&quot;,&quot;train&quot;,&quot;test&quot;,&quot;train&quot;]),
-                &#39;F&#39; : &#39;foo&#39;&#125;)
-
-print(df2)
-
-&quot;&quot;&quot;
-     A          B    C  D      E    F
-0  1.0 2013-01-02  1.0  3   test  foo
-1  1.0 2013-01-02  1.0  3  train  foo
-2  1.0 2013-01-02  1.0  3   test  foo
-3  1.0 2013-01-02  1.0  3  train  foo
-&quot;&quot;&quot;
-
-print(df2.dtypes)
-
-&quot;&quot;&quot;
-df2.dtypes
-A           float64
-B    datetime64[ns]
-C           float32
-D             int32
-E          category
-F            object
-dtype: object
-&quot;&quot;&quot;
-
-print(df2.index)
-
-# Int64Index([0, 1, 2, 3], dtype=&#39;int64&#39;)
-
-print(df2.columns)
-
-# Index([&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;], dtype=&#39;object&#39;)
-
-print(df2.values)
-
-&quot;&quot;&quot;
-array([[1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;test&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;train&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;test&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;train&#39;, &#39;foo&#39;]], dtype=object)
-&quot;&quot;&quot;
-
-print(df2.describe())
-
-&quot;&quot;&quot;
-         A    C    D
-count  4.0  4.0  4.0
-mean   1.0  1.0  3.0
-std    0.0  0.0  0.0
-min    1.0  1.0  3.0
-25%    1.0  1.0  3.0
-50%    1.0  1.0  3.0
-75%    1.0  1.0  3.0
-max    1.0  1.0  3.0
-&quot;&quot;&quot;
-
-print(df2.T)
-
-&quot;&quot;&quot;                   
-0                    1                    2  \
-A                    1                    1                    1   
-B  2013-01-02 00:00:00  2013-01-02 00:00:00  2013-01-02 00:00:00   
-C                    1                    1                    1   
-D                    3                    3                    3   
-E                 test                train                 test   
-F                  foo                  foo                  foo   
-
-                     3  
-A                    1  
-B  2013-01-02 00:00:00  
-C                    1  
-D                    3  
-E                train  
-F                  foo  
-
-&quot;&quot;&quot;
-
-print(df2.sort_index(axis=1, ascending=False))
-
-&quot;&quot;&quot;
-     F      E  D    C          B    A
-0  foo   test  3  1.0 2013-01-02  1.0
-1  foo  train  3  1.0 2013-01-02  1.0
-2  foo   test  3  1.0 2013-01-02  1.0
-3  foo  train  3  1.0 2013-01-02  1.0
-&quot;&quot;&quot;
-
-print(df2.sort_values(by=&#39;B&#39;))
-
-&quot;&quot;&quot;
-     A          B    C  D      E    F
-0  1.0 2013-01-02  1.0  3   test  foo
-1  1.0 2013-01-02  1.0  3  train  foo
-2  1.0 2013-01-02  1.0  3   test  foo
-3  1.0 2013-01-02  1.0  3  train  foo
-&quot;&quot;&quot;</code></pre>
-<h2 id="四、Pandas–选择数据"><a href="#四、Pandas–选择数据" class="headerlink" title="四、Pandas–选择数据"></a>四、Pandas–选择数据</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-01   0   1   2   3
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<p>简单筛选</p>
-<pre><code>print(df[&#39;A&#39;])
-print(df.A)
-
-&quot;&quot;&quot;
-2013-01-01     0
-2013-01-02     4
-2013-01-03     8
-2013-01-04    12
-2013-01-05    16
-2013-01-06    20
-Freq: D, Name: A, dtype: int64
-&quot;&quot;&quot;
-
-print(df[0:3]) # 跨越多行
-
-&quot;&quot;&quot;
-            A  B   C   D
-2013-01-01  0  1   2   3
-2013-01-02  4  5   6   7
-2013-01-03  8  9  10  11
-&quot;&quot;&quot;
-
-print(df[&#39;20130102&#39;:&#39;20130104&#39;]) # 跨越多列
-
-&quot;&quot;&quot;
-A   B   C   D
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-&quot;&quot;&quot;</code></pre>
-<p>标签loc筛选</p>
-<pre><code>print(df.loc[&#39;20130102&#39;])
-&quot;&quot;&quot;
-A    4
-B    5
-C    6
-D    7
-Name: 2013-01-02 00:00:00, dtype: int64
-&quot;&quot;&quot;
-
-print(df.loc[:,[&#39;A&#39;,&#39;B&#39;]]) 
-&quot;&quot;&quot;
-             A   B
-2013-01-01   0   1
-2013-01-02   4   5
-2013-01-03   8   9
-2013-01-04  12  13
-2013-01-05  16  17
-2013-01-06  20  21
-&quot;&quot;&quot;
-
-print(df.loc[&#39;20130102&#39;,[&#39;A&#39;,&#39;B&#39;]])
-&quot;&quot;&quot;
-A    4
-B    5
-Name: 2013-01-02 00:00:00, dtype: int64
-&quot;&quot;&quot;</code></pre>
-<p>序列iloc筛选</p>
-<pre><code>print(df.iloc[3,1])
-# 13
-
-print(df.iloc[3:5,1:3])
-&quot;&quot;&quot;
-             B   C
-2013-01-04  13  14
-2013-01-05  17  18
-&quot;&quot;&quot;
-
-print(df.iloc[[1,3,5],1:3])
-&quot;&quot;&quot;
-             B   C
-2013-01-02   5   6
-2013-01-04  13  14
-2013-01-06  21  22
-
-&quot;&quot;&quot;</code></pre>
-<p>混合ix筛选</p>
-<pre><code>print(df.ix[:3,[&#39;A&#39;,&#39;C&#39;]])
-&quot;&quot;&quot;
-            A   C
-2013-01-01  0   2
-2013-01-02  4   6
-2013-01-03  8  10
-&quot;&quot;&quot;</code></pre>
-<p>判断筛选</p>
-<pre><code>print(df[df.A&gt;8])
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<h2 id="五、Pandas–设置值"><a href="#五、Pandas–设置值" class="headerlink" title="五、Pandas–设置值"></a>五、Pandas–设置值</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-01   0   1   2   3
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<p>根据位置loc和iloc设置值</p>
-<pre><code>df.iloc[2,2] = 1111
-df.loc[&#39;20130101&#39;,&#39;B&#39;] = 2222
-
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0  2222     2   3
-2013-01-02   4     5     6   7
-2013-01-03   8     9  1111  11
-2013-01-04  12    13    14  15
-2013-01-05  16    17    18  19
-2013-01-06  20    21    22  23
-&quot;&quot;&quot;</code></pre>
-<p>根据条件设置值</p>
-<pre><code>df.B[df.A&gt;4] = 0
-&quot;&quot;&quot;
-                A     B     C   D
-2013-01-01   0  2222     2   3
-2013-01-02   4     5     6   7
-2013-01-03   8     0  1111  11
-2013-01-04  12     0    14  15
-2013-01-05  16     0    18  19
-2013-01-06  20     0    22  23 
-&quot;&quot;&quot;</code></pre>
-<p>按行或列设置值</p>
-<pre><code>df[&#39;F&#39;] = np.nan
-&quot;&quot;&quot;
-             A     B     C   D   F
-2013-01-01   0  2222     2   3 NaN
-2013-01-02   4     5     6   7 NaN
-2013-01-03   8     0  1111  11 NaN
-2013-01-04  12     0    14  15 NaN
-2013-01-05  16     0    18  19 NaN
-2013-01-06  20     0    22  23 NaN
-&quot;&quot;&quot;</code></pre>
-<p>添加数据–长度必须对齐</p>
-<pre><code>df[&#39;E&#39;] = pd.Series([1,2,3,4,5,6], index=pd.date_range(&#39;20130101&#39;,periods=6)) 
-&quot;&quot;&quot;
-             A     B     C   D   F  E
-2013-01-01   0  2222     2   3 NaN  1
-2013-01-02   4     5     6   7 NaN  2
-2013-01-03   8     0  1111  11 NaN  3
-2013-01-04  12     0    14  15 NaN  4
-2013-01-05  16     0    18  19 NaN  5
-2013-01-06  20     0    22  23 NaN  6
-&quot;&quot;&quot;</code></pre>
-<h2 id="六、Pandas–处理丢失值"><a href="#六、Pandas–处理丢失值" class="headerlink" title="六、Pandas–处理丢失值"></a>六、Pandas–处理丢失值</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-df.iloc[0,1] = np.nan
-df.iloc[1,2] = np.nan
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0   NaN   2.0   3
-2013-01-02   4   5.0   NaN   7
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.dropna()–删除缺失值所在的行或列</p>
-<pre><code>df.dropna(
-axis=0,     # 0: 对行进行操作; 1: 对列进行操作
-how=&#39;any&#39;   # &#39;any&#39;: 只要存在 NaN 就 drop 掉; &#39;all&#39;: 必须全部是 NaN 才 drop 
-) 
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.fillna()–填充缺失值</p>
-<pre><code>df.fillna(value=0)
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0   0.0   2.0   3
-2013-01-02   4   5.0   0.0   7
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.isnull()–判断缺失值，True为缺失值</p>
-<pre><code>df.isnull() 
-&quot;&quot;&quot;
-                A      B      C      D
-2013-01-01  False   True  False  False
-2013-01-02  False  False   True  False
-2013-01-03  False  False  False  False
-2013-01-04  False  False  False  False
-2013-01-05  False  False  False  False
-2013-01-06  False  False  False  False
-&quot;&quot;&quot;</code></pre>
-<p>检查数据中是否存在NaN,如果存在返回True</p>
-<pre><code>np.any(df.isnull()) == True  
-# True</code></pre>
-<h2 id="六、Pandas–导入导出数据"><a href="#六、Pandas–导入导出数据" class="headerlink" title="六、Pandas–导入导出数据"></a>六、Pandas–导入导出数据</h2><p>pandas可读取格式：csv、excel、json、html、pickle等，详见<a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/io.html">官方文档</a></p>
-<p>读取csv</p>
-<pre><code>#读取csv
-data = pd.read_csv(&#39;student.csv&#39;)
-
-#打印出data
-print(data)</code></pre>
-<p>将资料存取成pickle</p>
-<pre><code>data.to_pickle(&#39;student.pickle&#39;)</code></pre>
-<h2 id="七、Pandas–合并–concat"><a href="#七、Pandas–合并–concat" class="headerlink" title="七、Pandas–合并–concat"></a>七、Pandas–合并–concat</h2><p>axis–合并方向（axis=0是预设值）</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df3 = pd.DataFrame(np.ones((3,4))*2, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-
-#concat纵向合并
-res = pd.concat([df1, df2, df3], axis=0)
-
-#打印结果
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 0  1.0  1.0  1.0  1.0
-# 1  1.0  1.0  1.0  1.0
-# 2  1.0  1.0  1.0  1.0
-# 0  2.0  2.0  2.0  2.0
-# 1  2.0  2.0  2.0  2.0
-# 2  2.0  2.0  2.0  2.0</code></pre>
-<p>ignore_index (重置 index)</p>
-<pre><code>#承上一个例子，并将index_ignore设定为True
-res = pd.concat([df1, df2, df3], axis=0, ignore_index=True)
-
-#打印结果
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-# 6  2.0  2.0  2.0  2.0
-# 7  2.0  2.0  2.0  2.0
-# 8  2.0  2.0  2.0  2.0</code></pre>
-<p>join（合并方式）–join=’outer’是预设值</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;], index=[1,2,3])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;], index=[2,3,4])
-
-#纵向&quot;外&quot;合并df1与df2
-res = pd.concat([df1, df2], axis=0, join=&#39;outer&#39;)
-
-print(res)
-#     a    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN
-# 2  0.0  0.0  0.0  0.0  NaN
-# 3  0.0  0.0  0.0  0.0  NaN
-# 2  NaN  1.0  1.0  1.0  1.0
-# 3  NaN  1.0  1.0  1.0  1.0
-# 4  NaN  1.0  1.0  1.0  1.0
-
-
-#承上一个例子
-#纵向&quot;内&quot;合并df1与df2
-res = pd.concat([df1, df2], axis=0, join=&#39;inner&#39;)
-
-#打印结果
-print(res)
-#     b    c    d
-# 1  0.0  0.0  0.0
-# 2  0.0  0.0  0.0
-# 3  0.0  0.0  0.0
-# 2  1.0  1.0  1.0
-# 3  1.0  1.0  1.0
-# 4  1.0  1.0  1.0
-
-#重置index并打印结果
-res = pd.concat([df1, df2], axis=0, join=&#39;inner&#39;, ignore_index=True)
-print(res)
-#     b    c    d
-# 0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0
-# 2  0.0  0.0  0.0
-# 3  1.0  1.0  1.0
-# 4  1.0  1.0  1.0
-# 5  1.0  1.0  1.0</code></pre>
-<p>join_axes (依照 axes 合并)</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;], index=[1,2,3])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;], index=[2,3,4])
-
-#依照`df1.index`进行横向合并
-res = pd.concat([df1, df2], axis=1, join_axes=[df1.index])
-
-#打印结果
-print(res)
-#     a    b    c    d    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN  NaN  NaN  NaN
-# 2  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 3  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-
-#移除join_axes，并打印结果
-res = pd.concat([df1, df2], axis=1)
-print(res)
-#     a    b    c    d    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN  NaN  NaN  NaN
-# 2  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 3  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 4  NaN  NaN  NaN  NaN  1.0  1.0  1.0  1.0</code></pre>
-<p>append (添加数据)–只有纵向合并，没有横向合并</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df3 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-s1 = pd.Series([1,2,3,4], index=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-
-#将df2合并到df1的下面，以及重置index，并打印出结果
-res = df1.append(df2, ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-
-#合并多个df，将df2与df3合并至df1的下面，以及重置index，并打印出结果
-res = df1.append([df2, df3], ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-# 6  1.0  1.0  1.0  1.0
-# 7  1.0  1.0  1.0  1.0
-# 8  1.0  1.0  1.0  1.0
-
-#合并series，将s1合并至df1，以及重置index，并打印出结果
-res = df1.append(s1, ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  2.0  3.0  4.0</code></pre>
-<h2 id="八、Pandas–合并–-merge"><a href="#八、Pandas–合并–-merge" class="headerlink" title="八、Pandas–合并– merge"></a>八、Pandas–合并– merge</h2><p>用法：主要用于两组有key column的数据，统一索引的数据，通常也被用在Database的处理中。</p>
-<p>依据一组key合并</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;],
-                             &#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;, &#39;A3&#39;],
-                             &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;, &#39;B3&#39;]&#125;)
-right = pd.DataFrame(&#123;&#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;],
-                              &#39;C&#39;: [&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                              &#39;D&#39;: [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;)
-
-print(left)
-#    A   B key
-# 0  A0  B0  K0
-# 1  A1  B1  K1
-# 2  A2  B2  K2
-# 3  A3  B3  K3
-
-print(right)
-#    C   D key
-# 0  C0  D0  K0
-# 1  C1  D1  K1
-# 2  C2  D2  K2
-# 3  C3  D3  K3
-
-#依据key column合并，并打印出
-res = pd.merge(left, right, on=&#39;key&#39;)
-
-print(res)
-     A   B key   C   D
-# 0  A0  B0  K0  C0  D0
-# 1  A1  B1  K1  C1  D1
-# 2  A2  B2  K2  C2  D2
-# 3  A3  B3  K3  C3  D3</code></pre>
-<p>依据两组key合并–合并时有4种方法how = [‘left’, ‘right’, ‘outer’, ‘inner’]，预设值how=’inner’</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;key1&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;],
-                      &#39;key2&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K0&#39;, &#39;K1&#39;],
-                      &#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;, &#39;A3&#39;],
-                      &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;, &#39;B3&#39;]&#125;)
-right = pd.DataFrame(&#123;&#39;key1&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K1&#39;, &#39;K2&#39;],
-                       &#39;key2&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K0&#39;, &#39;K0&#39;],
-                       &#39;C&#39;: [&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                       &#39;D&#39;: [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;)
-
-print(left)
-#    A   B key1 key2
-# 0  A0  B0   K0   K0
-# 1  A1  B1   K0   K1
-# 2  A2  B2   K1   K0
-# 3  A3  B3   K2   K1
-
-print(right)
-#    C   D key1 key2
-# 0  C0  D0   K0   K0
-# 1  C1  D1   K1   K0
-# 2  C2  D2   K1   K0
-# 3  C3  D3   K2   K0
-
-#依据key1与key2 columns进行合并，并打印出四种结果[&#39;left&#39;, &#39;right&#39;, &#39;outer&#39;, &#39;inner&#39;]
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;inner&#39;)
-print(res)
-#    A   B key1 key2   C   D
-# 0  A0  B0   K0   K0  C0  D0
-# 1  A2  B2   K1   K0  C1  D1
-# 2  A2  B2   K1   K0  C2  D2
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;outer&#39;)
-print(res)
-#     A    B key1 key2    C    D
-# 0   A0   B0   K0   K0   C0   D0
-# 1   A1   B1   K0   K1  NaN  NaN
-# 2   A2   B2   K1   K0   C1   D1
-# 3   A2   B2   K1   K0   C2   D2
-# 4   A3   B3   K2   K1  NaN  NaN
-# 5  NaN  NaN   K2   K0   C3   D3
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;left&#39;)
-print(res)
-#    A   B key1 key2    C    D
-# 0  A0  B0   K0   K0   C0   D0
-# 1  A1  B1   K0   K1  NaN  NaN
-# 2  A2  B2   K1   K0   C1   D1
-# 3  A2  B2   K1   K0   C2   D2
-# 4  A3  B3   K2   K1  NaN  NaN
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;right&#39;)
-print(res)
-#     A    B key1 key2   C   D
-# 0   A0   B0   K0   K0  C0  D0
-# 1   A2   B2   K1   K0  C1  D1
-# 2   A2   B2   K1   K0  C2  D2
-# 3  NaN  NaN   K2   K0  C3  D3</code></pre>
-<p>Indicator–indicator=True会将合并的记录放在新的一列。</p>
-<pre><code>#定义资料集并打印出
-df1 = pd.DataFrame(&#123;&#39;col1&#39;:[0,1], &#39;col_left&#39;:[&#39;a&#39;,&#39;b&#39;]&#125;)
-df2 = pd.DataFrame(&#123;&#39;col1&#39;:[1,2,2],&#39;col_right&#39;:[2,2,2]&#125;)
-
-print(df1)
-#   col1 col_left
-# 0     0        a
-# 1     1        b
-
-print(df2)
-#   col1  col_right
-# 0     1          2
-# 1     2          2
-# 2     2          2
-
-# 依据col1进行合并，并启用indicator=True，最后打印出
-res = pd.merge(df1, df2, on=&#39;col1&#39;, how=&#39;outer&#39;, indicator=True)
-print(res)
-#   col1 col_left  col_right      _merge
-# 0   0.0        a        NaN   left_only
-# 1   1.0        b        2.0        both
-# 2   2.0      NaN        2.0  right_only
-# 3   2.0      NaN        2.0  right_only
-
-# 自定indicator column的名称，并打印出
-res = pd.merge(df1, df2, on=&#39;col1&#39;, how=&#39;outer&#39;, indicator=&#39;indicator_column&#39;)
-print(res)
-#   col1 col_left  col_right indicator_column
-# 0   0.0        a        NaN        left_only
-# 1   1.0        b        2.0             both
-# 2   2.0      NaN        2.0       right_only
-# 3   2.0      NaN        2.0       right_only</code></pre>
-<p>依据index合并</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;],
-                     &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;]&#125;,
-                     index=[&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;])
-right = pd.DataFrame(&#123;&#39;C&#39;: [&#39;C0&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                      &#39;D&#39;: [&#39;D0&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;,
-                     index=[&#39;K0&#39;, &#39;K2&#39;, &#39;K3&#39;])
-
-print(left)
-#     A   B
-# K0  A0  B0
-# K1  A1  B1
-# K2  A2  B2
-
-print(right)
-#     C   D
-# K0  C0  D0
-# K2  C2  D2
-# K3  C3  D3
-
-#依据左右资料集的index进行合并，how=&#39;outer&#39;,并打印出
-res = pd.merge(left, right, left_index=True, right_index=True, how=&#39;outer&#39;)
-print(res)
-#      A    B    C    D
-# K0   A0   B0   C0   D0
-# K1   A1   B1  NaN  NaN
-# K2   A2   B2   C2   D2
-# K3  NaN  NaN   C3   D3
-
-#依据左右资料集的index进行合并，how=&#39;inner&#39;,并打印出
-res = pd.merge(left, right, left_index=True, right_index=True, how=&#39;inner&#39;)
-print(res)
-#     A   B   C   D
-# K0  A0  B0  C0  D0
-# K2  A2  B2  C2  D2</code></pre>
-<p>解决overlapping的问题</p>
-<pre><code>#定义资料集
-boys = pd.DataFrame(&#123;&#39;k&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;], &#39;age&#39;: [1, 2, 3]&#125;)
-girls = pd.DataFrame(&#123;&#39;k&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K3&#39;], &#39;age&#39;: [4, 5, 6]&#125;)
-
-#使用suffixes解决overlapping的问题
-res = pd.merge(boys, girls, on=&#39;k&#39;, suffixes=[&#39;_boy&#39;, &#39;_girl&#39;], how=&#39;inner&#39;)
-print(res)
-#    age_boy   k  age_girl
-# 0        1  K0         4
-# 1        1  K0         5</code></pre>
-<h2 id="九、Pandas–plot出图"><a href="#九、Pandas–plot出图" class="headerlink" title="九、Pandas–plot出图"></a>九、Pandas–plot出图</h2><p>导入</p>
-<pre><code>import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt</code></pre>
-<p>Series可视化</p>
-<pre><code># 随机生成1000个数据
-data = pd.Series(np.random.randn(1000),index=np.arange(1000))
-
-# 为了方便观看效果, 我们累加这个数据
-data.cumsum()
-
-# pandas 数据可以直接观看其可视化形式
-data.plot()
-
-plt.show()
-
-可以使用 plt.plot(x=, y=)，把x,y的数据作为参数存进去，但是data本来就是一个数据，所以我们可以直接plot。 </code></pre>
-<p>DataFrame可视化</p>
-<pre><code>data = pd.DataFrame(
-np.random.randn(1000,4),
-index=np.arange(1000),
-columns=list(&quot;ABCD&quot;)
-)
-data.cumsum()
-data.plot()
-plt.show()
-
-常用方法:
-    plot
-    bar
-    hist
-    box
-    kde
-    area
-    scatter
-    hexbin
-
-ax = data.plot.scatter(x=&#39;A&#39;,y=&#39;B&#39;,color=&#39;DarkBlue&#39;,label=&#39;Class1&#39;)
-# 将之下这个 data 画在上一个 ax 上面
-data.plot.scatter(x=&#39;A&#39;,y=&#39;C&#39;,color=&#39;LightGreen&#39;,label=&#39;Class2&#39;,ax=ax)
-plt.show()</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Numpy-1-%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Numpy-1-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Numpy-1-基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-23 17:35:00" itemprop="dateCreated datePublished" datetime="2018-01-23T17:35:00+08:00">2018-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:08:51" itemprop="dateModified" datetime="2020-09-18T17:08:51+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/numpy/" itemprop="url" rel="index"><span itemprop="name">numpy</span></a>
-                </span>
-            </span>
-
-          
-
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
+                
+                voidqueens@hotmail.com
+                
+            </div>
+
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
+            </div>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Numpy%E5%AD%A6%E4%B9%A0/">gongyanli.com</a></p>
-</blockquote>
-<blockquote>
-<p>参考视频：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/">莫烦的numpy视频/</a></p>
-</blockquote>
-<p>前言：和pandas一样，numpy曾经也一起看得，还是忘记了。还是推荐那个视频，短小上手快。我写的东西有时候我会进行更新，所以有些写好的内容，后面也可能会加新内容，所以大家不要见怪啊。因为一般写东西numpy在前pandas在后，但是我好像是反着的，所以这个前言是我后来加的。因为强迫症的我，一篇文章有了前言，就觉得每篇都该有。</p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>windows：pip install numpy(anaconda下)
-mac：pip install numpy
-linux:pip install numpy</code></pre>
-<h2 id="二、导入"><a href="#二、导入" class="headerlink" title="二、导入"></a>二、导入</h2><pre><code>import numpy as np</code></pre>
-<h2 id="三、Numpy属性"><a href="#三、Numpy属性" class="headerlink" title="三、Numpy属性"></a>三、Numpy属性</h2><pre><code>ndim:维度
-shape:行数和列数
-size：元素个数</code></pre>
-<h2 id="四、Numpy–创建array"><a href="#四、Numpy–创建array" class="headerlink" title="四、Numpy–创建array"></a>四、Numpy–创建array</h2><pre><code>array：创建数组
-dtype：指定数据类型
-zeros：创建数据全为0
-ones：创建数据全为1
-empty：创建数据接近0
-arrange：按指定范围创建数据
-linspace：创建线段
-
-a = np.array([2,23,4])  # list 1d
-print(a)
-# [2 23 4]
-
-a = np.array([2,23,4],dtype=np.int)  # np.int32/float/float32
-print(a.dtype)
-# int 64
-
-a = np.array([[2,23,4],[2,32,4]])  # 2d 矩阵 2行3列
-print(a)
-&quot;&quot;&quot;
-[[ 2 23  4]
- [ 2 32  4]]
-&quot;&quot;&quot;
-
-a = np.zeros((3,4)) # 数据全为0，3行4列
-&quot;&quot;&quot;
-array([[ 0.,  0.,  0.,  0.],
-       [ 0.,  0.,  0.,  0.],
-       [ 0.,  0.,  0.,  0.]])
-&quot;&quot;&quot;
-
-
-a = np.ones((3,4),dtype = np.int)   # 数据为1，3行4列
-&quot;&quot;&quot;
-array([[1, 1, 1, 1],
-       [1, 1, 1, 1],
-       [1, 1, 1, 1]])
-&quot;&quot;&quot;
-
-a = np.empty((3,4)) # 数据为empty，3行4列
-&quot;&quot;&quot;
-array([[  0.00000000e+000,   4.94065646e-324,   9.88131292e-324,
-          1.48219694e-323],
-       [  1.97626258e-323,   2.47032823e-323,   2.96439388e-323,
-          3.45845952e-323],
-       [  3.95252517e-323,   4.44659081e-323,   4.94065646e-323,
-          5.43472210e-323]])
-&quot;&quot;&quot;
-
-a = np.arange(10,20,2) # 10-19 的数据，2步长
-&quot;&quot;&quot;
-array([10, 12, 14, 16, 18])
-&quot;&quot;&quot;
-
-a = np.arange(12).reshape((3,4))    # 3行4列，0到11
-&quot;&quot;&quot;
-array([[ 0,  1,  2,  3],
-       [ 4,  5,  6,  7],
-       [ 8,  9, 10, 11]])
-&quot;&quot;&quot;
-
-a = np.linspace(1,10,20)    # 开始端1，结束端10，且分割成20个数据，生成线段
-&quot;&quot;&quot;
-array([  1.        ,   1.47368421,   1.94736842,   2.42105263,
-         2.89473684,   3.36842105,   3.84210526,   4.31578947,
-         4.78947368,   5.26315789,   5.73684211,   6.21052632,
-         6.68421053,   7.15789474,   7.63157895,   8.10526316,
-         8.57894737,   9.05263158,   9.52631579,  10.        ])
-&quot;&quot;&quot;
-
-a = np.linspace(1,10,20).reshape((5,4)) # 更改shape
-&quot;&quot;&quot;
-array([[  1.        ,   1.47368421,   1.94736842,   2.42105263],
-       [  2.89473684,   3.36842105,   3.84210526,   4.31578947],
-       [  4.78947368,   5.26315789,   5.73684211,   6.21052632],
-       [  6.68421053,   7.15789474,   7.63157895,   8.10526316],
-       [  8.57894737,   9.05263158,   9.52631579,  10.        ]])
-&quot;&quot;&quot;</code></pre>
-<h2 id="五、Numpy–基础运算"><a href="#五、Numpy–基础运算" class="headerlink" title="五、Numpy–基础运算"></a>五、Numpy–基础运算</h2><pre><code>a=np.array([10,20,30,40])   # array([10, 20, 30, 40])
-b=np.arange(4)              # array([0, 1, 2, 3])
-
-c=a-b  # array([10, 19, 28, 37])
-c=a+b   # array([10, 21, 32, 43])
-c=a*b   # array([  0,  20,  60, 120])
-c=b**2  # array([0, 1, 4, 9])  # 二次方
-c=10*np.sin(a)  
-# array([-5.44021111,  9.12945251, -9.88031624,  7.4511316 ])
-print(b&lt;3)  
-# array([ True,  True,  True, False], dtype=bool)
-
-a=np.array([[1,1],[0,1]])
-b=np.arange(4).reshape((2,2))
-
-print(a)
-# array([[1, 1],
-#       [0, 1]])
-
-print(b)
-# array([[0, 1],
-#       [2, 3]])
-
-c_dot = np.dot(a,b)
-# array([[2, 4],
-#       [2, 3]])
-
-c_dot_2 = a.dot(b)
-# array([[2, 4],
-#       [2, 3]])
-
-a=np.random.random((2,4))
-print(a)
-# array([[ 0.94692159,  0.20821798,  0.35339414,  0.2805278 ],
-#       [ 0.04836775,  0.04023552,  0.44091941,  0.21665268]])
-
-np.sum(a)   # 4.4043622002745959
-np.min(a)   # 0.23651223533671784
-np.max(a)   # 0.90438450240606416
-
-print(&quot;sum =&quot;,np.sum(a,axis=1))
-# sum = [ 1.96877324  2.43558896]
-
-print(&quot;min =&quot;,np.min(a,axis=0))
-# min = [ 0.23651224  0.41900661  0.36603285  0.46456022]
-
-print(&quot;max =&quot;,np.max(a,axis=1))
-# max = [ 0.84869417  0.9043845 ]
-
-
-
-A = np.arange(2,14).reshape((3,4)) 
-
-# array([[ 2, 3, 4, 5]
-#        [ 6, 7, 8, 9]
-#        [10,11,12,13]])
-
-print(np.argmin(A))    # 0
-print(np.argmax(A))    # 11
-print(np.mean(A))        # 7.5
-print(np.average(A))     # 7.5
-print(A.mean())          # 7.5
-print(A.median())       # 7.5
-print(np.cumsum(A)) 
-
-# [2 5 9 14 20 27 35 44 54 65 77 90]
-print(np.diff(A))    
-
-# [[1 1 1]
-#  [1 1 1]
-#  [1 1 1]]
-print(np.nonzero(A))    
-
-# (array([0,0,0,0,1,1,1,1,2,2,2,2]),array([0,1,2,3,0,1,2,3,0,1,2,3]))
-
-
-A = np.arange(14,2, -1).reshape((3,4)) 
-
-# array([[14, 13, 12, 11],
-#       [10,  9,  8,  7],
-#       [ 6,  5,  4,  3]])
-
-print(np.sort(A))    
-
-# array([[11,12,13,14]
-#        [ 7, 8, 9,10]
-#        [ 3, 4, 5, 6]])
-
-print(np.transpose(A))    
-print(A.T)
-
-# array([[14,10, 6]
-#        [13, 9, 5]
-#        [12, 8, 4]
-#        [11, 7, 3]])
-# array([[14,10, 6]
-#        [13, 9, 5]
-#        [12, 8, 4]
-#        [11, 7, 3]])
-
-print(A)
-# array([[14,13,12,11]
-#        [10, 9, 8, 7]
-#        [ 6, 5, 4, 3]])
-
-print(np.clip(A,5,9))    
-# array([[ 9, 9, 9, 9]
-#        [ 9, 9, 8, 7]
-#        [ 6, 5, 5, 5]])</code></pre>
-<h2 id="六、Numpy–索引"><a href="#六、Numpy–索引" class="headerlink" title="六、Numpy–索引"></a>六、Numpy–索引</h2><pre><code>A = np.arange(3,15)
-
-# array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
-
-print(A[3])    # 6
-
-A = np.arange(3,15).reshape((3,4))
-&quot;&quot;&quot;
-array([[ 3,  4,  5,  6]
-       [ 7,  8,  9, 10]
-       [11, 12, 13, 14]])
-&quot;&quot;&quot;
-
-print(A[2])         
-# [11 12 13 14]
-
-print(A[1][1])      # 8
-print(A[1, 1])      # 8
-print(A[1, 1:3])    # [8 9]
-for row in A:
-    print(row)
-&quot;&quot;&quot;    
-[ 3,  4,  5, 6]
-[ 7,  8,  9, 10]
-[11, 12, 13, 14]
-&quot;&quot;&quot;
-for column in A.T:
-    print(column)
-&quot;&quot;&quot;  
-[ 3,  7,  11]
-[ 4,  8,  12]
-[ 5,  9,  13]
-[ 6, 10,  14]
-&quot;&quot;&quot;
-
-A = np.arange(3,15).reshape((3,4))
-
-print(A.flatten())   
-# array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
-
-for item in A.flat:
-    print(item)
-
-# 3
-# 4
-……
-# 14</code></pre>
-<h2 id="七、Numpy–array合并"><a href="#七、Numpy–array合并" class="headerlink" title="七、Numpy–array合并"></a>七、Numpy–array合并</h2><p>np.vstack()</p>
-<pre><code>A = np.array([1,1,1])
-B = np.array([2,2,2])
-
-print(np.vstack((A,B)))    # vertical stack
-&quot;&quot;&quot;
-[[1,1,1]
- [2,2,2]]
-&quot;&quot;&quot;
-C = np.vstack((A,B))      
-print(A.shape,C.shape)
-
-# (3,) (2,3)</code></pre>
-<p>np.hstack()</p>
-<pre><code>D = np.hstack((A,B))       # horizontal stack
-
-print(D)
-# [1,1,1,2,2,2]
-
-print(A.shape,D.shape)
-# (3,) (6,)</code></pre>
-<p>np.newaxis()<br>    print(A[np.newaxis,:])<br>    # [[1 1 1]]</p>
-<pre><code>print(A[np.newaxis,:].shape)
-# (1,3)
-
-print(A[:,np.newaxis])
-&quot;&quot;&quot;
-[[1]
-[1]
-[1]]
-&quot;&quot;&quot;
-
-print(A[:,np.newaxis].shape)
-# (3,1)
-
-
-A = np.array([1,1,1])[:,np.newaxis]
-B = np.array([2,2,2])[:,np.newaxis]
-
-C = np.vstack((A,B))   # vertical stack
-D = np.hstack((A,B))   # horizontal stack
-
-print(D)
-&quot;&quot;&quot;
-[[1 2]
-[1 2]
-[1 2]]
-&quot;&quot;&quot;
-
-print(A.shape,D.shape)
-# (3,1) (3,2)</code></pre>
-<p>np.concatenate()</p>
-<pre><code>C = np.concatenate((A,B,B,A),axis=0)
-
-print(C)
-&quot;&quot;&quot;
-array([[1],
-       [1],
-       [1],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [2],
-       [1],
-       [1],
-       [1]])
-&quot;&quot;&quot;
-
-D = np.concatenate((A,B,B,A),axis=1)
-
-print(D)
-&quot;&quot;&quot;
-array([[1, 2, 2, 1],
-       [1, 2, 2, 1],
-       [1, 2, 2, 1]])
-&quot;&quot;&quot;</code></pre>
-<h2 id="八、Numpy–array分割"><a href="#八、Numpy–array分割" class="headerlink" title="八、Numpy–array分割"></a>八、Numpy–array分割</h2><pre><code>A = np.arange(12).reshape((3, 4))
-print(A)
-&quot;&quot;&quot;
-array([[ 0,  1,  2,  3],
-    [ 4,  5,  6,  7],
-    [ 8,  9, 10, 11]])
-&quot;&quot;&quot;
-
-print(np.split(A, 2, axis=1)) #从左往右分割，纵向分割
-&quot;&quot;&quot;
-[array([[0, 1],
-        [4, 5],
-        [8, 9]]), array([[ 2,  3],
-        [ 6,  7],
-        [10, 11]])]
-&quot;&quot;&quot;
-
-print(np.split(A, 3, axis=0)) #从上往下分割，横向分割
-
-# [array([[0, 1, 2, 3]]), array([[4, 5, 6, 7]]), array([[ 8,  9, 10, 11]])]
-
-print(np.array_split(A, 3, axis=1)) #不等量分割
-&quot;&quot;&quot;
-[array([[0, 1],
-        [4, 5],
-        [8, 9]]), array([[ 2],
-        [ 6],
-        [10]]), array([[ 3],
-        [ 7],
-        [11]])]
-&quot;&quot;&quot;
-
-print(np.vsplit(A, 3)) #等于 print(np.split(A, 3, axis=0))
-
-# [array([[0, 1, 2, 3]]), array([[4, 5, 6, 7]]), array([[ 8,  9, 10, 11]])]
-
-
-print(np.hsplit(A, 2)) #等于 print(np.split(A, 2, axis=1))
-&quot;&quot;&quot;
-[array([[0, 1],
-       [4, 5],
-       [8, 9]]), array([[ 2,  3],
-        [ 6,  7],
-        [10, 11]])]</code></pre>
-<p>八、Numpy–copy and deep copy</p>
-<pre><code>a = np.arange(4)
-# array([0, 1, 2, 3])
-
-b = a
-c = a
-d = b
-# a、b、c、d中只要任何一个数组的元素发生变化，与之相等的元素会随之变化
-
-b=a.copy()
-# 当a发生变化时，b不会随之发生变化</code></pre>
-
-      
     </div>
+</div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">搜索引擎介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-19 10:58:56" itemprop="dateCreated datePublished" datetime="2018-01-19T10:58:56+08:00">2018-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:23:08" itemprop="dateModified" datetime="2020-09-18T17:23:08+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：gongyanli.com  </p>
-</blockquote>
-<p>前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。</p>
-<h2 id="一、搜索引擎介绍"><a href="#一、搜索引擎介绍" class="headerlink" title="一、搜索引擎介绍"></a>一、搜索引擎介绍</h2><p>搜索引擎工作流程：从互联网抓取网页–创建抓取网页的索引库–从索引库中进行搜索<br>搜索引擎重要组成单元：网页爬行器、索引器、查询器</p>
-<p>1.网页爬行器</p>
-<pre><code>依据url之间的关联性自动爬取整个互联网，并对爬行过的网页进行去重、抓取、搜集</code></pre>
-<p>2.索引器</p>
-<pre><code>当网页被收集回来后，采用索引分析程序进行网页信息的分析，依据一定的相关度算法（如超链接算法）进行大量计算，创建倒排序的索引库。</code></pre>
-<p>3.查询器</p>
-<pre><code>索引库建好后，用户通过提供的搜索界面提交关键词进行搜索，依据特定的排序算法返回搜索结果。</code></pre>
-<h2 id="二、搜索引擎"><a href="#二、搜索引擎" class="headerlink" title="二、搜索引擎"></a>二、搜索引擎</h2><h3 id="（一）、开源搜索引擎开发工具包"><a href="#（一）、开源搜索引擎开发工具包" class="headerlink" title="（一）、开源搜索引擎开发工具包"></a>（一）、开源搜索引擎开发工具包</h3><p>1.Lucene–<a target="_blank" rel="noopener" href="http://lucene.apache.org/">http://lucene.apache.org/ </a></p>
-<pre><code>开源全文搜索引擎，隶属于Apache基金会
-提供了完整的查询引擎和索引引擎，没有中文分词引擎，需要自己去实现
-不是一个具有完整特征的搜索应用程序，而是专注于文本索引和搜索的工具包,不支持实时搜索
-linkedin和twitter有分别对Lucene改进的实时搜素
-语言：Java
-只支持文本文件和少量语种的索引，不具备爬虫功能
-通过接口在其上添加分词器、爬虫器、文本解析器等
-在Lucene基础上加上爬行器和文本解析器形成了LIUS和Nutch等搜索引擎
-
-CLucene:Lucene的C++移植版本，理论上比Lucene快</code></pre>
-<p>2.Sphinx–<a target="_blank" rel="noopener" href="http://sphinxsearch.com/about/sphinx/">http://sphinxsearch.com/about/sphinx/ </a></p>
-<pre><code>开源搜索引擎，主流搜索引擎之一
-语言：C++
-建立索引的事件方面比Lucene快50%，但是索引文件比Lucene要大一倍，因此Sphinx在索引的建立方面是空间换取事件的策略
-在检索速度上，和lucene相差不大，但检索精准度方面Lucene要优于Sphinx
-在加入中文分词引擎难度方面，Lucene要优于Sphinx
-Sphinx支持实时搜索，使用起来比较简单方便</code></pre>
-<p>3.LIUS</p>
-<pre><code>以Lucene为基础的文本索引框架，和Lucene一样，同样可以看作搜索引擎开发工具包。
-新功能：
-借助于开源软件，可以直接对各种不同格式/类型的文档(MS Word、MS Excel、MS PowerPoing、RTF、PDF、XML、HTML、TXT、Open Office及JavaBeans等)进行文本解析与索引，对Java Beans的支持对于进行数据库索引非常有用，在用户进行对象关系映射（如：Hibernate、JDO、TopLink、Torque等）的数据库连接编程时会变得更加精确。
-增加索引更新功能，使针对索引的维护功能进一步完善。
-支持混和索引，可以把同一目录下与某一条件相关的所有内容整合到一起，这种功能对于需要对多种不同格式的文档同时进行索引时非常有用。</code></pre>
-<p>4.Egothor</p>
-<pre><code>开源高性能全文搜索引擎，适用于基于全文搜索功能的搜索应用
-核心算法与Luccene类似
-可把Egothor看作一个用于全文搜索引擎的Java库，能够为具体的应用程序添加全文搜索功能。
-它提供了扩展的Boolean模块，使得它能被作为Boolean模块或者Vector模块使用，并且Egothor具有一些其他搜索引擎所不具有的特有功能：它采用新的动态算法以有效提高索引更新的速度，并且支持平行的查询方式，可有效提高查询效率。在Egothor的发行版中，加入了爬行器、文本解析器等许多增强易用性的应用程序，融入了Golomb、Elias-Gamma等多种高效的压缩方法，支持多种常用文档格式的文本解析，如HTML、PDF、PS、微软Office文档、XLS等，提供了GUI的索引界面及基于Applet或者Web的查询方式。另外，Egothor还能被方便地配置成独立的搜索引擎、元数据搜索器、点对点的HUB等多种且体的应用系统。</code></pre>
-<p>5.Xapian–<a target="_blank" rel="noopener" href="http://xapian.org/">http://xapian.org/ </a></p>
-<pre><code>基于GPL发布的搜索引擎开发库，全文检索程序
-语言：C++
-api和检索原理和lucene在很多方面都很相似，算是填补了lucene在C++中的一个空缺. 
-通过其提供绑定程序包可以使Perl、Python、PHP、Java、Tck、C#、Ruby等语言方便地使用它
-
-Xapian还是一个具有高适应性的工具集，使开发人员能够方便地为他们的应用程序添加高级索引及搜索功能。它支持信息检索的概率模型及丰富的布尔查询操作。Xapian的发布包通常由两部分组成：xapian-core及xapian-bindings，前者是核心主程序，后者是与其他语言进行绑定的程序包。
-
-Xapian为程序开发者提供了丰富的API及文档进行程序的编制，而且还提供了许多编程实例及一个基于Xapian的应用程序Omega，Omega由索引器及基于CGI的前端搜索组成，能够为HTML、PHP、PDF、PostScript、OpenOffice/StarOffice、RTF等多种格式的文档编制索引，通过使用Perl DBI模块甚至能为MySQL、PostgreSQL、SQLite、Sybase、MS SQL、LDAP、ODBC等关系数据库编制索引，并能以CSV或XML格式从前端导出搜索结果，程序开发者可以在此基础上进行扩展。</code></pre>
-<p>6.Compass</p>
-<pre><code>Compass是在Lucene上实现的开源搜索引擎架构，相对比于Lucene而言，提供更加简洁的搜索引擎API
-增加了索引事务处理的支持，使其能够更方便地与数据库等事务处理应用进行整合
-它更新时无需删除原文档，更加简单更加高效。
-资源与搜索引擎之间采用映射机制，此种机制使得那些已经使用了Lucene或者不支持对象及XML的应用程序迁移到Compass上进行开发变得非常容易。
-
-Compass还能与Hibernate、Spring等架构进行集成，因此如果想在Hibernate、Spring项目中加入搜索引擎功能，Compass是个极好的选择。</code></pre>
-<p>7.DataparkSearch–<a target="_blank" rel="noopener" href="http://www.dataparksearch.org/">http://www.dataparksearch.org/ </a></p>
-<pre><code>开源的搜索引擎
-语言：c
-网页排序是采用神经网络模型
-支持HTTP，HTTPS，FTP，NNTP等下载网页
-包括索引引擎，检索引擎和中文分词引擎**(这个也是唯一的一个开源的搜索引擎里有中文分词引擎)**
-能个性化定制搜索结果，拥有完整的日志记录. </code></pre>
-<p>8.Zettair–<a target="_blank" rel="noopener" href="http://www.seg.rmit.edu.au/zettair/about.html">http://www.seg.rmit.edu.au/zettair/about.html </a></p>
-<pre><code>根据Justin Zobel的研究成果为基础的全文检索实验系统
-语言：C 
-Justin Zobel在全文检索领域很有名气，是业界第一个系统提出倒排序索引差分压缩算法的人，倒排列表的压缩大大提高了检索和加载的性能，同时空间膨胀率也缩小到相当优秀的水平
-支持linux，windows，mac os等系统</code></pre>
-<p>9.Indri–<a target="_blank" rel="noopener" href="http://www.lemurproject.org/indri/">http://www.lemurproject.org/indri/ </a></p>
-<pre><code>全文检索引擎系统
-语言：C语言和C++
-特点：跨平台，API接口支持Java，PHP，C++. </code></pre>
-<p>10.Terrier–<a target="_blank" rel="noopener" href="http://terrier.org/">http://terrier.org/ </a></p>
-<pre><code>研发机构：School of Computing Science，Universityof Glasgow
-语言：java
-全文检索系统</code></pre>
-<p>11.Zebra–<a target="_blank" rel="noopener" href="https://www.indexdata.com/zebra">https://www.indexdata.com/zebra </a></p>
-<pre><code>检索程序
-语言：C
-特点是对大数据的支持，支持EMAIL，XML，MARC等格式的数据. </code></pre>
-<p>12.Solr–<a target="_blank" rel="noopener" href="http://lucene.apache.org/solr/">http://lucene.apache.org/solr/ </a></p>
-<pre><code>独立的企业级搜索应用服务器
-语言：java
-提供了类似于Web-service的API接口
-基于Lucene的全文检索服务器，也算是Lucene的一个变种，很多一线互联网公司都在使用Solr，也算是一种成熟的解决方案. </code></pre>
-<p>13.Elasticsearch–<a target="_blank" rel="noopener" href="http://www.elasticsearch.org/">http://www.elasticsearch.org/ </a></p>
-<pre><code>语言：java
-基于Lucene构造的开源，分布式的搜索引擎. 
-设计用于云计算中，能够达到实时搜索，稳定可靠.
-Elasticsearch的数据模型是JSON. </code></pre>
-<p>14.Whoosh–<a target="_blank" rel="noopener" href="https://bitbucket.org/mchaput/whoosh/wiki/Home">https://bitbucket.org/mchaput/whoosh/wiki/Home</a></p>
-<pre><code>开源搜索引擎
-语言：纯python</code></pre>
-<h3 id="（二）、开源Web搜索引擎系统"><a href="#（二）、开源Web搜索引擎系统" class="headerlink" title="（二）、开源Web搜索引擎系统"></a>（二）、开源Web搜索引擎系统</h3><p>1．Nutch–<a target="_blank" rel="noopener" href="http://nutch.apache.org/">http://nutch.apache.org/ </a></p>
-<pre><code>作者：Lucene的作者Doug Cutting
-语言：java
-基于Lucene构建的完整的Web搜索引擎系统，Lucene为Nutch提供了文本索引和搜索的API. 
-包括爬虫crawler，索引引擎，查询引擎
-可以使用Nutch搭建类似Google的完整的搜索引擎系统，进行局域网、互联网的搜索。 </code></pre>
-<p>2．YaCy</p>
-<pre><code>基于P2P(peer-to-peer)的分布式开源Web搜索引擎系统
-语言：Java
-核心是分布在数百台计算机上的被称为YaCy-peer的计算机程序，基于P2P网络构成了YaCy网络，整个网络是一个分散的架构，在其中所有的YaCy-peers都处于对等的地位，没有统一的中心服务器，每个YaCy-peer都能独立的进行互联网的爬行抓取、分析及创建索引库，通过P2P网络与其他YaCy-peers进行共享，并且每个YaCy-peer又都是一个独立的代理服务器，能够对本机用户使用过的网页进行索引，并且采取多机制来保护用户的隐私，同时用户也通过本机运行的Web服务器进行查询及返回查询结果。
-
-主要包括五个部分，除普通搜索引擎所具有的爬行器、索引器、反排序的索引库外，它还包括了一个非常丰富的搜索与管理界面以及用于数据共享的P2P网络。</code></pre>
-<h3 id="（三）、开源桌面搜索引擎系统"><a href="#（三）、开源桌面搜索引擎系统" class="headerlink" title="（三）、开源桌面搜索引擎系统"></a>（三）、开源桌面搜索引擎系统</h3><p>1．Regain</p>
-<pre><code>与Web搜索引擎类似的桌面搜索引擎系统
-不同之处在于regain不是对Internet内容的搜索，而是针对自己的文档或文件的搜索，使用regain可以轻松地在几秒内完成大量数据（许多个G）的搜索。
-采用Lucene的搜索语法，因此支持多种查询方式，支持多索引的搜索及基于文件类型的高级搜索，并且能实现URL重写及文件到HTTP的桥接，并且对中文也提供了较好的支持。
-
-提供两种版本：桌面搜索及服务器搜索。
-桌面搜索提供了对普通桌面计算机的文档与局域网环境下的网页的快速搜索。
-服务器版本主要安装在Web服务器上，为网站及局域网环境下的文件服务器进行搜索。
-
-语言：Java，跨平台安装，能安装于Windows、Linux、Mac OS及Solaris上。
-服务器版本需要JSPs环境及标签库（tag library），因此需要安装一个Tomcat容器。
-桌面版自带了一个小型的Web服务器，安装非常简单。</code></pre>
-<p>2．Zilverline</p>
-<pre><code>以Lucene为基础的桌面搜索引擎，采用了Spring框架
-主要用于个人本地磁盘及局域网内容的搜索，支持多种语言，并且具有自己的中文名字：银钱查打引擎。
-提供丰富的文档格式的索引支持，如微软Office文档、RTF、Java、CHM等，甚至能够为归档文件编制索引进行搜索，如zip、rar及其他归档文件，在索引过程中，Zilverline从zip、rar、chm等归档文件中抽取文件来编制索引。
-可以支持增量索引的方式，只对新文件编制索引，同时也支持定期自动索引，其索引库能被存放于Zilverline能够访问到的地方，甚至是DVD中。
-支持文件路径到URL的映射，这样可以使用户远程搜索本地文件。
-
-提供了个人及研究、商业应用两种许可方式，其发布形式为一个简单的war包，可以从其官方网站下载（http://www.zilverline.org/）。Zilverline的运行环境需要Java环境及Servlet容器，一般使用Tomcat即可。在确保正确安装JDK及Tomcat容器后只需将Zilverline的war包（zilverline-1.5.0.war）拷贝到Tomcat的webapps目录后重启Tomcat容器即可开始使用Zilverline搜索引擎了。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
-
-
-          </div>
-          
 
 <script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Lilly</p>
-  <div class="site-description" itemprop="description">Up in the wind!</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">130</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">44</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">45</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Lilly</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
 
+
+<main class="content">
+
+    
+
+    
+
+    <!-- 所有文章卡片 -->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E4%B8%89-%E6%95%B0%E6%8D%AE%E6%8E%A2%E7%B4%A2-Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="三--数据探索--Python数据分析与挖掘实战">
+                            
+                            <span class="card-title">三--数据探索--Python数据分析与挖掘实战</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                问题：
+1、样本数据集的数量和质量是否满足模型构建的要求？
+2、是否出现从未设想过的数据状态？
+3、有没有什么明显的规律和趋势？
+4、各因素之间有什么样的关联性？
+数据探索：通过检验数据集的数据质量、绘制图表、计算某些特征量等手段，对样本数
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98%E3%80%8B/" class="post-category">
+                                    《Python数据分析挖掘实战》
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%8A%80%E6%9C%AF%E7%9A%84%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%A0%94%E5%8F%91/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="基于知识图谱技术的搜索引擎研发">
+                            
+                            <span class="card-title">基于知识图谱技术的搜索引擎研发</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                研发基于知识图谱的知识库搜索引擎，该搜索引擎主要包含以下功能模块及研究内容： 
+（1）搜索模块：该模块定时的向百度百科，中文本体网等百科类网站执行“网络爬虫”程序，获取百科类网站中的结构化数据。该模块又可以分为网页/数据的爬取解析、清洗、消
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-category">
+                                    知识图谱和搜索引擎
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
+                            <span class="chip bg-color">搜索引擎</span>
+                        </a>
+                        
+                        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                            <span class="chip bg-color">知识图谱</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E6%96%87%E6%9C%AC%E6%8C%96%E6%8E%98%E8%BF%87%E7%A8%8B/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="文本挖掘过程">
+                            
+                            <span class="card-title">文本挖掘过程</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                文本挖掘步骤1.读取数据2.分词3.去除停用词4.词性标注5.词干化6.将列表转换为向量7.词语统计8.频数排序9.词语
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-01
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="知识图谱与认知智能--肖仰华">
+                            
+                            <span class="card-title">知识图谱与认知智能--肖仰华</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com  
+
+今天听了肖仰华教授的《知识图谱与认知智能》总结，反正是听君一席话，胜读十年书，特别是去的时候正好碰上肖老师，和知识男神握了个手，然后接下来几天都吃嘛嘛香。
+讲座内容主要围绕知识图谱与认
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-02-01
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-category">
+                                    知识图谱和搜索引擎
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                            <span class="chip bg-color">知识图谱</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%88%A9%E7%94%A8%E7%BB%93%E5%B7%B4%E8%BF%9B%E8%A1%8C%E5%88%86%E8%AF%8D/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Python--利用结巴进行分词">
+                            
+                            <span class="card-title">Python--利用结巴进行分词</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com
+
+前言：本文是一些关于jieba分词的简单操作，把文档进行分词后，然后利用wordcloud输出。
+一、安装pip install jieba
+二、准备数据依然是维基百科文章保存为txt，地
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/jieba/" class="post-category">
+                                    jieba
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/jieba/">
+                            <span class="chip bg-color">jieba</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="利用wordloud制作词云">
+                            
+                            <span class="card-title">利用wordloud制作词云</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客: gongyanli.com词云github: https://github.com/amueller/word_cloud词云官方地址: https://amueller.github.io/word_cloud/
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/wordcloud/" class="post-category">
+                                    wordcloud
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/wordcloud/">
+                            <span class="chip bg-color">wordcloud</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="LDA主题建模">
+                            
+                            <span class="card-title">LDA主题建模</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com  
+
+前言:本文用到的方法叫做主题建模（topic model)或主题抽取(topic extraction)，在机器学习的分类中，它属于非监督学习(unsupervised machine
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/LDA/">
+                            <span class="chip bg-color">LDA</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Pandas-1-%E5%9F%BA%E7%A1%80/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Pandas-1-基础">
+                            
+                            <span class="card-title">Pandas-1-基础</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com 
+参考视频：莫烦的Pandas视频
+
+前言:其实我之前看过pandas的书，但是本着看过就忘记的原则，下次再看见他的时候，反正看着很熟悉，怎么用早就抛到九霄云外了。所以这次网上看了几个简单的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-24
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Pandas/" class="post-category">
+                                    Pandas
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/Pandas/">
+                            <span class="chip bg-color">Pandas</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/Numpy-1-%E5%9F%BA%E7%A1%80/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Numpy-1-基础">
+                            
+                            <span class="card-title">Numpy-1-基础</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com
+
+
+参考视频：莫烦的numpy视频/
+
+前言：和pandas一样，numpy曾经也一起看得，还是忘记了。还是推荐那个视频，短小上手快。我写的东西有时候我会进行更新，所以有些写好的内容，后面也
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-23
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" class="post-category">
+                                    数据分析和抓取
+                                </a>
+                                
+                                <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/numpy/" class="post-category">
+                                    numpy
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/numpy/">
+                            <span class="chip bg-color">numpy</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="搜索引擎介绍">
+                            
+                            <span class="card-title">搜索引擎介绍</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+本文首发于我的博客：gongyanli.com  
+
+前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。
+一、搜索引擎介绍搜索引擎
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习和深度学习
+                                </a>
+                                
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-category">
+                                    知识图谱和搜索引擎
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
+                            <span class="chip bg-color">搜索引擎</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
+
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/11/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">12 / 13</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/page/13/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
         
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Lilly</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
 
 
 
@@ -2465,30 +1021,9 @@ Elasticsearch的数据模型是JSON. </code></pre>
 
 
 
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
 
 
 
@@ -2496,17 +1031,90 @@ Elasticsearch的数据模型是JSON. </code></pre>
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
 
 
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
 
 
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
+    <!-- Baidu Analytics -->
 
+    <!-- Baidu Push -->
 
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
-  
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
-  
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>
