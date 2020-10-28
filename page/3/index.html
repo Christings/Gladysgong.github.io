@@ -828,6 +828,1396 @@ having count(Email) &gt; 1;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-12-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-12-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetCode-12-字符串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-28 23:45:50" itemprop="dateCreated datePublished" datetime="2020-03-28T23:45:50+08:00">2020-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-28 18:44:57" itemprop="dateModified" datetime="2020-10-28T18:44:57+08:00">2020-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>常用函数：</p>
+<pre><code>bin() # 十进制转二进制
+oct() # 十进制转八进制
+hex() # 十进制转十六进制
+
+chr() # 数字转字符串(ascii)
+ord() # 字符串(ascii)转数字
+
+65--&#39;A&#39;
+97--&#39;a&#39;</code></pre>
+<h2 id="十二、字符串"><a href="#十二、字符串" class="headerlink" title="十二、字符串"></a>十二、字符串</h2><h3 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="?5.最长回文子串"></a>?5.最长回文子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindromic-substring/
+
+给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+
+示例 1：
+
+输入: &quot;babad&quot;
+输出: &quot;bab&quot;
+注意: &quot;aba&quot; 也是一个有效答案。
+示例 2：
+
+输入: &quot;cbbd&quot;
+输出: &quot;bb&quot;</code></pre>
+<p>题解一|暴力破解：<br>    很明显，暴力法将选出所有子字符串可能的开始和结束位置，并检验它是不是回文。<br>    时间复杂度：O(n^2),往往利用python的切片可以很好的缩减复杂度<br>    如果不用切片，还需要遍历一次子字符串，时间复杂度就是O(n^3)<br>    空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if s==s[::-1]:
+            return s
+
+        maxLen=1
+        ans=s[0]
+        for i in range(0,len(s)-1):
+            for j in range(i+1,len(s)):
+                if j-i+1 &gt; maxLen and self.isPalindrome(s[i:j+1]):
+                    maxLen=j-i+1
+                    ans=s[i:j+1]
+        return ans
+
+    def isPalindrome(self, s: str) -&gt; bool:
+        left,right=0,len(s)-1
+        while left&lt;right:
+            while left&lt;len(s) and not s[left].isalnum():
+                left+=1
+            while right &gt;-1 and not s[right].isalnum():
+                right-=1
+            if left&gt;right:
+                return True
+            if s[left].upper() != s[right].upper():
+                return False
+            else:
+                left+=1
+                right-=1
+        return True</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if s==s[::-1]:
+            return s
+
+        maxLen=1
+        ans=s[0]
+        for i in range(0,len(s)-1):
+            for j in range(i+1,len(s)):
+                if j-i+1 &gt; maxLen and s[i:j+1]==s[i:j+1][::-1]: # arr=&#39;abb&#39;,arr[0:1]=&#39;a&#39;,右边是开区间
+                    maxLen=j-i+1
+                    ans=s[i:j+1]
+        return ans</code></pre>
+<p>题解二：</p>
+<pre><code>每个字母当成回文串的中心
+考虑两种情况:回文串的长度为奇数或者偶数情况。</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        n=len(s)
+        self.res=&#39;&#39;
+        def helper(i,j):
+            while i&gt;= 0 and j&lt;n and s[i]==s[j]:
+                i-=1
+                j+=1
+            if len(self.res) &lt; j-i-1:
+                self.res=s[i+1:j]
+                # print(i,self.res)
+
+        for i in range(n):
+            helper(i,i)
+            helper(i,i+1) # 解决case为&quot;cbbd&quot;,即解决回文串为偶数的情况
+        return self.res</code></pre>
+<p>?题解三：</p>
+<pre><code>把每个字母当成回文串的结束</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if not s:
+            return &quot;&quot;
+        max_len = 1
+        n = len(s)
+        start = 0
+        for i in range(1,n):
+            even = s[i-max_len:i+1]
+            odd = s[i - max_len-1:i+1]
+            #print(even,odd)
+            if i - max_len - 1 &gt;= 0 and odd == odd[::-1]:
+                start = i - max_len - 1
+                max_len += 2
+            elif i - max_len &gt;=0 and even == even[::-1]:
+                start = i - max_len
+                max_len += 1
+
+        #print(start,max_len)
+        return s[start: start+max_len]</code></pre>
+<p>?题解四|动态规划：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp.png"></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
+<pre><code>1、定义数组的定义
+    dp[i][j] 表示子串 s[i, j] 是否为回文子串。
+2、找出数组的关系式
+    dp[i][j] = (s[i] == s[j]) and dp[i + 1][j - 1]
+3、找到初始值</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
+<h3 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12.整数转罗马数字"></a>12.整数转罗马数字</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-to-roman/
+
+罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
+
+字符          数值
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
+
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
+
+I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
+C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。
+
+示例 1:
+
+输入: 3
+输出: &quot;III&quot;
+示例 2:
+
+输入: 4
+输出: &quot;IV&quot;
+示例 3:
+
+输入: 9
+输出: &quot;IX&quot;
+示例 4:
+
+输入: 58
+输出: &quot;LVIII&quot;
+解释: L = 50, V = 5, III = 3.
+示例 5:
+
+输入: 1994
+输出: &quot;MCMXCIV&quot;
+解释: M = 1000, CM = 900, XC = 90, IV = 4.</code></pre>
+<p>题解一|贪心算法：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/rome.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/rome.png"></p>
+<pre><code>class Solution:
+    def intToRoman(self, num: int) -&gt; str:
+        # dicts=&#123;&#39;I&#39;:1,&#39;V&#39;:5,&#39;X&#39;:10,&#39;L&#39;:50,&#39;C&#39;:100,&#39;D&#39;:500,&#39;M&#39;:1000&#125;
+
+        dicts=&#123;1:&#39;I&#39;,4:&#39;IV&#39;,5:&#39;V&#39;,9:&#39;IX&#39;,10:&#39;X&#39;,40:&#39;XL&#39;,50:&#39;L&#39;,90:&#39;XC&#39;,100:&#39;C&#39;,400:&#39;CD&#39;,500:&#39;D&#39;,900:&#39;CM&#39;,1000:&#39;M&#39; &#125;
+        ans=&#39;&#39;
+        for key in sorted(dicts.keys())[::-1]:
+            if num==0:
+                break
+            tmp=num//key
+            if tmp==0:
+                continue
+            ans+=dicts[key]*tmp
+            num-=key*tmp
+        return ans</code></pre>
+<h3 id="13-罗马数字转整数"><a href="#13-罗马数字转整数" class="headerlink" title="13.罗马数字转整数"></a>13.罗马数字转整数</h3><pre><code>链接：https://leetcode-cn.com/problems/roman-to-integer/
+
+罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
+
+字符          数值
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II 。
+
+通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：
+
+I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。
+X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 
+C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
+给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。
+
+示例 1:
+
+输入: &quot;III&quot;
+输出: 3
+示例 2:
+
+输入: &quot;IV&quot;
+输出: 4
+示例 3:
+
+输入: &quot;IX&quot;
+输出: 9
+示例 4:
+
+输入: &quot;LVIII&quot;
+输出: 58
+解释: L = 50, V= 5, III = 3.
+示例 5:
+
+输入: &quot;MCMXCIV&quot;
+输出: 1994
+解释: M = 1000, CM = 900, XC = 90, IV = 4.</code></pre>
+<p>题解一|hash：</p>
+<pre><code>首先建立一个HashMap来映射符号和值，然后对字符串从左到右来，如果当前字符代表的值小于其右边，就减去该值；否则就加上该值，以此类推到最右边的数</code></pre>
+<pre><code>class Solution:
+    def romanToInt(self, s: str) -&gt; int:
+        arr=&#123;&#39;I&#39;:1,&#39;V&#39;:5,&#39;X&#39;:10,&#39;L&#39;:50,&#39;C&#39;:100,&#39;D&#39;:500,&#39;M&#39;:1000&#125;
+        ans=0
+        for i in range(len(s)):
+            if i&lt;len(s)-1 and arr[s[i]]&lt;arr[s[i+1]]:
+                ans-=arr[s[i]]
+            else:
+                ans+=arr[s[i]]
+        return ans</code></pre>
+<p>题解二|hash：</p>
+<pre><code>构建一个字典记录所有罗马数字子串，注意长度为2的子串记录的值是（实际值 - 子串内左边罗马数字代表的数值）
+
+然后，遍历整个 s 的时候判断当前位置和前一个位置的两个字符组成的字符串是否在字典内，如果在就记录值，不在就说明当前位置不存在小数字在前面的情况，直接记录当前位置字符对应值
+
+举个例子，遍历经过 IV 的时候先记录 I 的对应值 1，再往前移动一步记录 IV 的值 3，加起来正好是 IV 的真实值 4。max 函数在这里是为了防止遍历第一个字符的时候出现 [-1:0] 的情况，因为s[-1:0]为空。</code></pre>
+<pre><code>class Solution:
+    def romanToInt(self, s: str) -&gt; int:
+        arr=&#123;&#39;I&#39;:1,&#39;IV&#39;:3,&#39;V&#39;:5,&#39;IX&#39;:8,&#39;X&#39;:10,&#39;XL&#39;:30,&#39;L&#39;:50,&#39;XC&#39;:80,&#39;C&#39;:100,&#39;CD&#39;:300,&#39;D&#39;:500,&#39;CM&#39;:800,&#39;M&#39;:1000&#125;
+        return sum(arr.get(s[max(i-1,0):i+1],arr[v]) for i,v in enumerate(s))</code></pre>
+<pre><code>class Solution:
+    def romanToInt(self, s: str) -&gt; int:
+        arr=&#123;&#39;I&#39;:1,&#39;IV&#39;:3,&#39;V&#39;:5,&#39;IX&#39;:8,&#39;X&#39;:10,&#39;XL&#39;:30,&#39;L&#39;:50,&#39;XC&#39;:80,&#39;C&#39;:100,&#39;CD&#39;:300,&#39;D&#39;:500,&#39;CM&#39;:800,&#39;M&#39;:1000&#125;
+        ans=0
+        for i,v in enumerate(s):
+            ans+=arr.get(s[i-1:i+1],arr[v])
+        return ans</code></pre>
+<h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="?14.最长公共前缀"></a>?14.最长公共前缀</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-common-prefix/
+
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 &quot;&quot;。
+
+示例 1:
+
+输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]
+输出: &quot;fl&quot;
+示例 2:
+
+输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]
+输出: &quot;&quot;
+解释: 输入不存在公共前缀。
+说明:
+
+所有输入只包含小写字母 a-z 。</code></pre>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lz_901/article/details/89021210">https://blog.csdn.net/lz_901/article/details/89021210</a><br>题解一(水平扫描)：</p>
+<pre><code>1、先找出 str1 和 str2（注：str1代表第一个字符串，str2代表第二个） 的公共字符串 s1。
+
+2、然后再找出 s1 和 str3 的公共前缀 s2。
+
+3、然后再找出 s2 和 str4 的公共前缀 s3。
+
+4、一直这样遍历重复，用一个变量来保存两个两个字符串之间的公共前缀。</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp1.png"></p>
+<pre><code>class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -&gt; str:
+        # if not strs:
+        #     return &#39;&#39;
+        # res=&#39;&#39;
+        # for i in range(0,len(strs[0])):
+        #     c=strs[0][i]
+        #     for j in range(1,len(strs)):
+        #         if i == len(str[j]) or c != strs[j][i] 
+        #             return res
+        #     res+=c
+        if not strs:
+            return &#39;&#39;
+        prefix=strs[0]
+        for i in range(1,len(strs)):
+            while strs[i].find(prefix) != 0: # 此题是寻找最长公共前缀，所以需要找到开始索引是0.
+                prefix=prefix[0:len(prefix)-1]
+                if prefix==&#39;&#39;:
+                    return &#39;&#39;
+        return prefix</code></pre>
+<p>find()语法：</p>
+<pre><code>str.find(str, beg=0, end=len(string))
+
+参数：
+    str -- 指定检索的字符串
+    beg -- 开始索引，默认为0。
+    end -- 结束索引，默认为字符串的长度。
+
+返回值：
+    如果包含子字符串返回开始的索引值，否则返回-1。</code></pre>
+<p>题解二(水平扫描优化)：</p>
+<pre><code>想象数组的末尾有一个非常短的字符串，使用上述方法仍旧会进行S次比较。
+优化这类情况的方法是水平扫描，从前往后枚举字符串的每一列，先比较每个字符串相同列上的字符（即不同字符串相同下标的字符），然后再进行下一列的比较。
+
+我们不横向一个一个字符串遍历，而是采用纵向的方式。例如对于这个[&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]，我们把它看成一个二维字符数组。
+
+然后纵向遍历，一列一列遍历，只要发现某一列出现不同的字符，就遍历结束，例如上面这个例子中，第三列就出现不同了，所以遍历结束，把前两列返回。</code></pre>
+<pre><code>class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -&gt; str:
+        if(not strs):
+            return &quot;&quot;
+        for i in range(len(strs[0])):
+            c=strs[0][i]
+            for j in range(len(strs)):
+                if i==len(strs[j]) or strs[j][i] != c:
+                    return strs[0][0:i]
+        return strs[0]</code></pre>
+<p>题解三（分治）：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp2.png"></p>
+<p>复杂度：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp3.png"></p>
+<pre><code>class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -&gt; str:
+        def commonPrefix(l, r):
+            &#39;&#39;&#39;
+            治：从首位开始对比
+            :param l:
+            :param r:
+            :return:
+            &#39;&#39;&#39;
+            minlen = min(len(l), len(r))
+            for i in range(minlen):
+                if l[i] != r[i]:
+                    return l[0:i]
+            return l[0:minlen]
+
+        def lcp(strs, l, r):
+            &#39;&#39;&#39;
+            分：分为小问题
+            :param strs:
+            :param l:
+            :param r:
+            :return:
+            &#39;&#39;&#39;
+
+            # 递归弹出
+            if l == r:
+                return strs[l]
+            # 继续分
+            else:
+                mid = (l + r) // 2
+                left = lcp(strs, l, mid)
+                right = lcp(strs, mid + 1, r)
+                return commonPrefix(left, right)
+
+        if not strs:
+            return &#39;&#39;
+        return lcp(strs, 0, len(strs) - 1)</code></pre>
+<p>题解四（zip）：</p>
+<pre><code>class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -&gt; str:
+        # print(strs)
+        # print(*strs)
+        res=&#39;&#39;
+        for i in zip(*strs):
+            # print(i)
+            if len(set(i))==1:
+                res+=i[0]
+            else:
+                break
+        return res
+
+输出：
+[&#39;flower&#39;, &#39;flow&#39;, &#39;flight&#39;]
+flower flow flight
+(&#39;f&#39;, &#39;f&#39;, &#39;f&#39;)
+(&#39;l&#39;, &#39;l&#39;, &#39;l&#39;)
+(&#39;o&#39;, &#39;o&#39;, &#39;i&#39;)</code></pre>
+<p>zip()语法：</p>
+<pre><code>zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表(python2)/对象(python3)。
+
+如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表。
+
+zip 方法在 Python 2 和 Python 3 中的不同：在 Python 3.x 中为了减少内存，zip() 返回的是一个对象。如需展示列表，需手动 list() 转换。在 Python 2.x zip() 返回的是一个列表。
+
+zip([iterable, ...])
+
+参数说明：
+    iterabl -- 一个或多个迭代器;
+返回值:
+返回元组列表/一个对象。</code></pre>
+<p>题解五（max和min）：</p>
+<p>max()和min()在python字符串中是可以比较的，按照ascii值排序，比如abb，aba，abac，最大为abb，最小为aba。</p>
+<pre><code>class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -&gt; str:
+        if not strs:
+            return &#39;&#39;
+        s1=min(strs)
+        s2=max(strs)
+        for i,v in enumerate(s1):
+            if v != s2[i]:
+                return s1[:i]
+        return s1</code></pre>
+<h3 id="28-实现-strStr"><a href="#28-实现-strStr" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><pre><code>链接：https://leetcode-cn.com/problems/implement-strstr/
+
+实现 strStr() 函数。
+
+给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+
+示例 1:
+
+输入: haystack = &quot;hello&quot;, needle = &quot;ll&quot;
+输出: 2
+示例 2:
+
+输入: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;
+输出: -1
+说明:
+
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+
+对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</code></pre>
+<p>题解一(子串逐一比较 - 线性时间复杂度)：</p>
+<p>思路：沿着字符换逐步移动滑动窗口，将窗口内的子串与 needle 字符串比较。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png"></p>
+<p>时间复杂度：O((N - L)L)，其中 N 为 haystack 字符串的长度，L 为 needle 字符串的长度。内循环中比较字符串的复杂度为 L，总共需要比较 (N - L) 次。<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        n,length=len(haystack),len(needle)
+        for i in range(n-length+1):
+            if haystack[i:i+length]==needle:
+                return i
+        return -1</code></pre>
+<p>？？题解二（双指针 - 线性时间复杂度）：</p>
+<p>题解一的缺陷是会将 haystack 所有长度为 L 的子串都与 needle 字符串比较，实际上是不需要这么做的。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png"></p>
+<pre><code>首先，只有子串的第一个字符跟 needle 字符串第一个字符相同的时候才需要比较。
+
+其次，可以一个字符一个字符比较，一旦不匹配了就立刻终止。
+
+比较到最后一位时发现不匹配，这时候开始回溯。需要注意的是，pn 指针是移动到 pn = pn - curr_len + 1 的位置，而 不是 pn = pn - curr_len 的位置。
+
+这时候再比较一次，就找到了完整匹配的子串，直接返回子串的开始位置 pn - L。</code></pre>
+<p>思路：</p>
+<pre><code>移动 pn 指针，直到 pn 所指向位置的字符与 needle 字符串第一个字符相等。
+
+通过 pn，pL，curr_len 计算匹配长度。
+
+如果完全匹配（即 curr_len == L），返回匹配子串的起始坐标（即 pn - L）。
+
+如果不完全匹配，回溯。使 pn = pn - curr_len + 1， pL = 0， curr_len = 0。</code></pre>
+<p>时间复杂度：最坏时间复杂度为 O((N - L)L)，最优时间复杂度为 O(N)。<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        L, n = len(needle), len(haystack)
+        if L == 0:
+            return 0
+
+        pn = 0
+        while pn &lt; n - L + 1:
+            # find the position of the first needle character
+            # in the haystack string
+            while pn &lt; n - L + 1 and haystack[pn] != needle[0]:
+                pn += 1
+
+            # compute the max match string
+            curr_len = pL = 0
+            while pL &lt; L and pn &lt; n and haystack[pn] == needle[pL]:
+                pn += 1
+                pL += 1
+                curr_len += 1
+
+            # if the whole needle string is found,
+            # return its start position
+            if curr_len == L:
+                return pn - L
+
+            # otherwise, backtrack
+            pn = pn - curr_len + 1
+
+        return -1</code></pre>
+<p>？？？题解三（KMP）：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/">https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0">https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0</a></p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        if not needle:
+            return 0
+        next=self.getNext(needle)
+        i=j=0
+        while i&lt;len(haystack) and j&lt;len(needle):
+            if j==-1 or haystack[i]==needle[j]:
+                i+=1
+                j+=1
+            else:
+                j=next[j]
+        if j==len(needle):
+            return i-j
+        else:
+            return -1
+    def getNext(self,needle):
+        next=[0]*len(needle)
+        next[0]=-1
+        print(next)
+        i=0
+        j=-1
+        while i&lt;len(needle)-1:
+            if j==-1 or needle[i]==needle[j]:
+                i+=1
+                j+=1
+                next[i]=j
+            else:
+                j=next[j]
+        return next</code></pre>
+<p>题解四：</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        i=haystack.find(needle)
+        return i</code></pre>
+<h3 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a>20. 有效的括号</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-parentheses/
+
+给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;&#123;&#39;，&#39;&#125;&#39;，&#39;[&#39;，&#39;]&#39; 的字符串，判断字符串是否有效。
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+注意空字符串可被认为是有效字符串。
+
+示例 1:
+
+输入: &quot;()&quot;
+输出: true
+示例 2:
+
+输入: &quot;()[]&#123;&#125;&quot;
+输出: true
+示例 3:
+
+输入: &quot;(]&quot;
+输出: false
+示例 4:
+
+输入: &quot;([)]&quot;
+输出: false
+示例 5:
+
+输入: &quot;&#123;[]&#125;&quot;
+输出: true</code></pre>
+<p>题解一：</p>
+<p>时间复杂度：O(N)。遍历了一遍字符串。<br>空间复杂度：O(N)。最坏情况下，假如输入是 (((((((，栈的大小将是输入字符串的长度。</p>
+<pre><code>class Solution:
+    def isValid(self, s: str) -&gt; bool:
+        dict = &#123;&#39;)&#39;:&#39;(&#39;,&#39;]&#39;:&#39;[&#39;,&#39;&#125;&#39;:&#39;&#123;&#39;&#125;
+        stack=[]
+        for i in s:
+            if stack and i in dict:
+                if stack[-1] == dict[i]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(i)
+        return not stack</code></pre>
+<pre><code>class Solution:
+    def isValid(self, s: str) -&gt; bool:
+        dicts=&#123;&#39;(&#39;:1,&#39;)&#39;:-1,&#39;&#123;&#39;:2,&#39;&#125;&#39;:-2,&#39;[&#39;:3,&#39;]&#39;:-3&#125;
+        list=[]
+        for i in s:
+            if len(list)==0:
+                list.append(i)
+            elif dicts[i]+dicts[list[-1]]==0:
+                del list[-1]
+            else:
+                list.append(i)
+        return len(list)==0</code></pre>
+<h3 id="38-外观数列"><a href="#38-外观数列" class="headerlink" title="38. 外观数列"></a>38. 外观数列</h3><pre><code>链接：https://leetcode-cn.com/problems/count-and-say/
+
+「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：
+
+1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+1 被读作  &quot;one 1&quot;  (&quot;一个一&quot;) , 即 11。
+11 被读作 &quot;two 1s&quot; (&quot;两个一&quot;）, 即 21。
+21 被读作 &quot;one 2&quot;,  &quot;one 1&quot; （&quot;一个二&quot; ,  &quot;一个一&quot;) , 即 1211。
+
+给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。
+
+注意：整数序列中的每一项将表示为一个字符串。
+
+示例 1:
+
+输入: 1
+输出: &quot;1&quot;
+解释：这是一个基本样例。
+示例 2:
+
+输入: 4
+输出: &quot;1211&quot;
+解释：当 n = 3 时，序列是 &quot;21&quot;，其中我们有 &quot;2&quot; 和 &quot;1&quot; 两组，&quot;2&quot; 可以读作 &quot;12&quot;，也就是出现频次 = 1 而 值 = 2；类似 &quot;1&quot; 可以读作 &quot;11&quot;。所以答案是 &quot;12&quot; 和 &quot;11&quot; 组合在一起，也就是 &quot;1211&quot;。</code></pre>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/106149461">https://zhuanlan.zhihu.com/p/106149461</a></p>
+<p>题解一（递归）:</p>
+<pre><code>class Solution:
+    def countAndSay(self, n: int) -&gt; str:
+        # 初始条件
+        if n==1:
+            return &#39;1&#39;
+        print(&#39;调用前：&#39;,n)
+        pre=self.countAndSay(n-1) # 得到上一行的字符串
+        print(&#39;调用后：&#39;,n,pre)
+        res=&#39;&#39;
+        count=1
+        length=len(pre)
+        for i in range(1,length):
+            if pre[i] != pre[i-1]:
+                res+=str(count)+pre[i-1]
+                count=1
+            else:
+                count+=1
+        print(pre[length-1])
+        res+=str(count)+pre[length-1]
+        return res</code></pre>
+<p>输出：</p>
+<pre><code>调用前： 5
+调用前： 4
+调用前： 3
+调用前： 2
+调用后： 2 1
+1
+调用后： 3 11
+1
+调用后： 4 21
+1
+调用后： 5 1211
+1</code></pre>
+<p>题解二（迭代）:</p>
+<pre><code>class Solution:
+    def countAndSay(self, n: int) -&gt; str:
+        res=&#39;1&#39;
+        while n-1&gt;0:
+            tmp=&#39;&#39;
+            pre=res[0]
+            count=0 # count=0
+            for i in range(len(res)): # 从0开始
+                if pre==res[i]:
+                    count+=1
+                else:
+                    tmp+=str(count)+pre
+                    pre=res[i]
+                    count=1
+            tmp+=str(count)+pre
+            res=tmp
+            n-=1
+        return res
+</code></pre>
+<pre><code>class Solution:
+    def countAndSay(self, n: int) -&gt; str:
+        res=&#39;1&#39;
+        for i in range(n-1,0,-1):
+            tmp=&#39;&#39;
+            pre=res[0]
+            count=1 # count=1
+            for j in range(1,len(res)): # 从1开始
+                if pre==res[j]:
+                    count+=1
+                else:
+                    tmp+=str(count)+pre
+                    pre=res[j]
+                    count=1
+            tmp+=str(count)+pre
+            res=tmp
+        return res</code></pre>
+<h3 id="58-最后一个单词的长度"><a href="#58-最后一个单词的长度" class="headerlink" title="58. 最后一个单词的长度"></a>58. 最后一个单词的长度</h3><pre><code>链接：https://leetcode-cn.com/problems/length-of-last-word/
+
+给定一个仅包含大小写字母和空格 &#39; &#39; 的字符串 s，返回其最后一个单词的长度。如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。
+
+如果不存在最后一个单词，请返回 0 。
+
+说明：一个单词是指仅由字母组成、不包含任何空格字符的 最大子字符串。
+
+示例:
+
+输入: &quot;Hello World&quot;
+输出: 5</code></pre>
+<p>题解一（内置函数）:</p>
+<pre><code>class Solution:
+    def lengthOfLastWord(self, s: str) -&gt; int:
+        return len(s.rstrip().split(&#39; &#39;)[-1])</code></pre>
+<p>题解二：</p>
+<pre><code>class Solution:
+    def lengthOfLastWord(self, s: str) -&gt; int:
+        end=len(s)-1
+        while end&gt;=0 and s[end]==&#39; &#39;:
+            end-=1
+        if end &lt; 0: return 0
+        start=end
+        while start &gt;=0 and s[start] !=&#39; &#39;:
+            start-=1
+        return end-start</code></pre>
+<h3 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67. 二进制求和"></a>67. 二进制求和</h3><pre><code>给你两个二进制字符串，返回它们的和（用二进制表示）。
+
+输入为 非空 字符串且只包含数字 1 和 0。
+
+示例 1:
+
+输入: a = &quot;11&quot;, b = &quot;1&quot;
+输出: &quot;100&quot;
+示例 2:
+
+输入: a = &quot;1010&quot;, b = &quot;1011&quot;
+输出: &quot;10101&quot;
+
+
+提示：
+
+每个字符串仅由字符 &#39;0&#39; 或 &#39;1&#39; 组成。
+1 &lt;= a.length, b.length &lt;= 10^4
+字符串如果不是 &quot;0&quot; ，就都不含前导零。</code></pre>
+<p>题解一（内置函数）:</p>
+<p>时间复杂度为 O(N+M)</p>
+<pre><code>class Solution:
+    def addBinary(self, a: str, b: str) -&gt; str:
+        return bin(int(a,2)+int(b,2))[2:]</code></pre>
+<p>题解二(逐位运算)：</p>
+<p>时间复杂度：O(max(N,M))，其中 N 和 M 是输入字符串 a 和 b 的长度。</p>
+<p>空间复杂度：O(max(N,M))，存储求和结果。</p>
+<pre><code>class Solution:
+    def addBinary(self, a: str, b: str) -&gt; str:
+        n=max(len(a),len(b))
+        a,b=a.zfill(n),b.zfill(n)
+        carry=0
+        res=[]
+        for i in range(n-1,-1,-1):
+            if a[i]==&#39;1&#39;:
+                carry+=1
+            if b[i]==&#39;1&#39;:
+                carry+=1
+            if carry%2==1:
+                res.append(&#39;1&#39;)
+            else:
+                res.append(&#39;0&#39;)
+
+            carry//=2
+
+        if carry==1:
+            res.append(&#39;1&#39;)
+        res.reverse()
+        return &#39;&#39;.join(res)</code></pre>
+<p>zfill()方法语法：<br>    str.zfill(width)<br>    参数:<br>        width – 指定字符串的长度。原字符串右对齐，前面填充0。<br>    返回值:<br>        返回指定长度的字符串。</p>
+<p>题解三（位操作）：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bit.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bit.png"></p>
+<p>算法:</p>
+<pre><code>把 a 和 b 转换成整型数字 x 和 y，x 保存结果，y 保存进位。
+
+当进位不为 0：y != 0：
+
+    计算当前 x 和 y 的无进位相加结果：answer = x^y。
+
+    计算当前 x 和 y 的进位：carry = (x &amp; y) &lt;&lt; 1。
+
+    完成本次循环，更新 x = answer，y = carry。
+
+返回 xx 的二进制形式。</code></pre>
+<p>时间复杂度：O(N+M)，其中 N 和 M 是输入字符串 a 和 b 的长度。</p>
+<p>空间复杂度：O(max(N,M))，存储计算结果。</p>
+<pre><code>class Solution:
+    def addBinary(self, a: str, b: str) -&gt; str:
+        x,y=int(a,2),int(b,2)
+        while y:
+            res=x^y
+            carry=(x &amp; y) &lt;&lt; 1
+            x,y=res,carry
+        return bin(x)[2:]
+</code></pre>
+<pre><code>class Solution:
+    def addBinary(self, a, b) -&gt; str:
+        x, y = int(a, 2), int(b, 2)
+        while y:
+            x, y = x ^ y, (x &amp; y) &lt;&lt; 1
+        return bin(x)[2:]
+</code></pre>
+<h3 id="125-验证回文串"><a href="#125-验证回文串" class="headerlink" title="125.验证回文串"></a>125.验证回文串</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-palindrome/
+
+给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+
+说明：本题中，我们将空字符串定义为有效的回文串。
+
+示例 1:
+
+输入: &quot;A man, a plan, a canal: Panama&quot;
+输出: true
+示例 2:
+
+输入: &quot;race a car&quot;
+输出: false</code></pre>
+<p>题解一|双指针：</p>
+<pre><code>class Solution:
+    def isPalindrome(self, s: str) -&gt; bool:
+        left,right=0,len(s)-1
+        while left&lt;right:
+            while left&lt;len(s) and not s[left].isalnum():
+                left+=1
+            while right &gt;-1 and not s[right].isalnum():
+                right-=1
+            if left&gt;right:
+                return True
+            if s[left].upper() != s[right].upper():
+                return False
+            else:
+                left+=1
+                right-=1
+        return True</code></pre>
+<p>isalnum():检测字符串是否由字母和数字组成。</p>
+<p>题解二|正则：</p>
+<pre><code>class Solution:
+    def isPalindrome(self, s: str) -&gt; bool:
+        import re
+        p=&#39;&#39;.join(re.findall(r&#39;[a-zA-Z0-9+]&#39;,s))
+        p=p.lower()
+        return True if p==p[::-1] else False</code></pre>
+<p>题解三|内置函数：</p>
+<pre><code>class Solution:
+    def isPalindrome(self, s: str) -&gt; bool:
+        s = [*filter(str.isalnum, s.lower())]
+        return s == s[::-1]</code></pre>
+<h3 id="168-Excel表列名称"><a href="#168-Excel表列名称" class="headerlink" title="168.Excel表列名称"></a>168.Excel表列名称</h3><pre><code>链接：https://leetcode-cn.com/problems/excel-sheet-column-title/
+
+给定一个正整数，返回它在 Excel 表中相对应的列名称。
+
+例如，
+
+    1 -&gt; A
+    2 -&gt; B
+    3 -&gt; C
+    ...
+    26 -&gt; Z
+    27 -&gt; AA
+    28 -&gt; AB 
+    ...
+
+示例 1:
+
+输入: 1
+输出: &quot;A&quot;
+示例 2:
+
+输入: 28
+输出: &quot;AB&quot;
+示例 3:
+
+输入: 701
+输出: &quot;ZY&quot;</code></pre>
+<p>65–’A’<br>97–’a’</p>
+<p>chr(65)  输出’A’<br>ord(‘A’) 输出65</p>
+<p>divmod() 函数把除数和余数运算结果结合起来，返回一个包含商和余数的元组(a // b, a % b)。</p>
+<p>除留余数法：<br>1、将486由10进制转换为10进制</p>
+<pre><code>486 / 10^0 % 10 = 6
+486 / 10^1 % 10 = 8
+486 / 10^2 % 10 = 4
+
+10 的 3 次幂大于 486 循环结束，可拆解出 10 进制数的个位、十位、百位…，再反向罗列得到 486</code></pre>
+<p>2、将486由10进制转换为2进制</p>
+<pre><code>486 / 2^0 % 10 = 0
+486 / 2^1 % 10 = 1
+486 / 2^2 % 10 = 1
+486 / 2^3 % 10 = 0
+486 / 2^4 % 10 = 0
+486 / 2^5 % 10 = 1
+486 / 2^6 % 10 = 1
+486 / 2^7 % 10 = 1
+486 / 2^8 % 10 = 1
+
+2 的 9 次幂大于 486 循环结束，可拆解出 2 进制数 逻辑上的 个位、十位、百位…，再反向罗列得到 111100110</code></pre>
+<p>3、486 由 10 进制转换为 26 进制</p>
+<pre><code>486 / 26^0 % 10 = 6
+486 / 26^1 % 10 = 1</code></pre>
+<p>10 进制包括数字：0<del>9<br>2 进制包括：0、1<br>26 进制应包括：0</del>25</p>
+<p>题解一|转26进制：</p>
+<pre><code>class Solution:
+    def convertToTitle(self, n: int) -&gt; str:
+        res=&#39;&#39;
+        while n:
+            n,y=divmod(n,26)
+            if y==0:
+                n-=1
+                y=26
+            res=chr(y+64)+res
+        return res</code></pre>
+<pre><code>class Solution:
+    def convertToTitle(self, n: int) -&gt; str:
+        res=&#39;&#39;
+        while n:
+            n-=1 # 26字母中没有任何一个字母是表示0, 所以我们可以从 商 借一个给余数。
+            n,y=divmod(n,26)
+            res=chr(y+65)+res
+        return res</code></pre>
+<p>题解二|递归：</p>
+<pre><code>class Solution:
+    def convertToTitle(self, n: int) -&gt; str:
+        if n==0:
+            return &#39;&#39;
+        else:
+            return self.convertToTitle((n-1)//26) + chr((n-1) % 26 + 65)</code></pre>
+<h3 id="171-Excel表列序号"><a href="#171-Excel表列序号" class="headerlink" title="171.Excel表列序号"></a>171.Excel表列序号</h3><pre><code>链接：https://leetcode-cn.com/problems/excel-sheet-column-number/
+
+给定一个Excel表格中的列名称，返回其相应的列序号。
+
+例如，
+
+    A -&gt; 1
+    B -&gt; 2
+    C -&gt; 3
+    ...
+    Z -&gt; 26
+    AA -&gt; 27
+    AB -&gt; 28 
+    ...
+示例 1:
+
+输入: &quot;A&quot;
+输出: 1
+示例 2:
+
+输入: &quot;AB&quot;
+输出: 28
+示例 3:
+
+输入: &quot;ZY&quot;
+输出: 701</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def titleToNumber(self, s: str) -&gt; int: 
+        res=0
+        for each in s:
+            num=(ord(each)-65)+1
+            res=res*26+num
+        return res</code></pre>
+<h3 id="344-反转字符串"><a href="#344-反转字符串" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-string/
+
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+
+示例 1：
+
+输入：[&quot;h&quot;,&quot;e&quot;,&quot;l&quot;,&quot;l&quot;,&quot;o&quot;]
+输出：[&quot;o&quot;,&quot;l&quot;,&quot;l&quot;,&quot;e&quot;,&quot;h&quot;]
+示例 2：
+
+输入：[&quot;H&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;h&quot;]
+输出：[&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]</code></pre>
+<p>字符串逆序：</p>
+<p>方法一：利用字符串的切片来实现逆序</p>
+<pre><code>def reverse1(str):
+    return str[::-1]</code></pre>
+<p>方法二：将字符串转换为列表后再使用reverse()</p>
+<pre><code>def reverse2(str):
+    str_list=list(str)
+    str_list.reverse()  # 列表翻转
+    return &#39;&#39;.join(str_list) # 将列表转换为字符串
+
+def reverse2(str):
+    str_list=[]
+    for each in str:
+        str_list.append(each)
+    str_list.reverse()
+    return &#39;&#39;.join(str_list)</code></pre>
+<p>方法三：新建列表，从后往前添加元素</p>
+<pre><code>def reverse3(str):
+    str_list=[]
+    for i in range(len(str)-1,-1,-1):
+        str_list.append(str[i])
+    return &#39;&#39;.join(str_list)    </code></pre>
+<p>方法四：递归</p>
+<pre><code>def reverse4(str):
+    if len(str)&lt;=1:
+        return str
+    return str[-1]+reverse4(str[:-1])</code></pre>
+<p>方法五：借助collections模块extendleft()</p>
+<pre><code>import collections
+
+def reverse5(str):
+    deque1 = collections.deque(str)
+    deque2=collections.deque()
+    for char in deque1:
+        deque2.extendleft(char)
+    return &#39;&#39;.join(deque2)</code></pre>
+<p>方法六：swap交换操作，以中间为基准，交换对称位置的字符</p>
+<pre><code>def reverse5(str):
+    str_list = list(str)
+    if len(str_list) == 0 or len(str_list) == 1:
+        return str
+    i = 0
+    length = len(str_list)
+    while i &lt; length / 2:
+        str_list[i], str_list[length - i - 1] = str_list[length - i - 1], str_list[i]
+        i += 1
+    return &#39;&#39;.join(str_list)</code></pre>
+<p>题解一|内置函数：</p>
+<pre><code>class Solution:
+    def reverseString(self, s):
+        s.reverse()</code></pre>
+<p>题解二|递归：</p>
+<p>时间复杂度：O(N)。执行了 N/2 次的交换。<br>空间复杂度：O(N)，递归过程中使用的堆栈空间。</p>
+<pre><code>class Solution:
+    def reverseString(self, s: List[str]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify s in-place instead.
+        &quot;&quot;&quot;
+        def helper(left,right):
+            if left&lt;right:
+                s[left],s[right]=s[right],s[left]
+                helper(left+1,right-1)
+        helper(0,len(s)-1)</code></pre>
+<p>题解三|双指针:</p>
+<p>时间复杂度：O(N)。执行了 N/2 次的交换。<br>空间复杂度：O(1)，只使用了常数级空间。</p>
+<pre><code>class Solution:
+    def reverseString(self, s: List[str]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify s in-place instead.
+        &quot;&quot;&quot;
+        left,right=0,len(s)-1
+        while left&lt;right:
+            s[left],s[right]=s[right],s[left]
+            left+=1
+            right-=1
+        return s</code></pre>
+<h3 id="345-反转字符串中的元音字母"><a href="#345-反转字符串中的元音字母" class="headerlink" title="345. 反转字符串中的元音字母"></a>345. 反转字符串中的元音字母</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-vowels-of-a-string/
+
+编写一个函数，以字符串作为输入，反转该字符串中的元音字母。
+
+示例 1:
+
+输入: &quot;hello&quot;
+输出: &quot;holle&quot;
+示例 2:
+
+输入: &quot;leetcode&quot;
+输出: &quot;leotcede&quot;</code></pre>
+<p>题解一|栈：</p>
+<pre><code>class Solution:
+    def reverseVowels(self, s: str) -&gt; str:
+        stack=[&#39;a&#39;,&#39;e&#39;,&#39;i&#39;,&#39;o&#39;,&#39;u&#39;,&#39;A&#39;,&#39;E&#39;,&#39;I&#39;,&#39;O&#39;,&#39;U&#39;]
+        res=[]
+        tmp=[i for i in s if i in stack]
+        for i in s:
+            if i not in stack:
+                res.append(i)
+            else:
+                res.append(tmp.pop())
+        return &#39;&#39;.join(res)</code></pre>
+<p>题解二|双指针：</p>
+<pre><code>class Solution:
+    def reverseVowels(self, s: str) -&gt; str:
+        if not s or len(s)==1:
+            return s
+        stack=[&#39;a&#39;,&#39;e&#39;,&#39;i&#39;,&#39;o&#39;,&#39;u&#39;,&#39;A&#39;,&#39;E&#39;,&#39;I&#39;,&#39;O&#39;,&#39;U&#39;]
+        s=list(s)
+        left,right=0,len(s)-1
+        while left&lt;right:
+            if s[left] not in stack:
+                left+=1
+            if s[right] not in stack:
+                right-=1
+            if s[left] in stack and s[right] in stack:
+                s[left],s[right]=s[right],s[left]
+                left+=1
+                right-=1
+        return &#39;&#39;.join(s)</code></pre>
+<h3 id="383-赎金信"><a href="#383-赎金信" class="headerlink" title="383. 赎金信"></a>383. 赎金信</h3><pre><code>链接：https://leetcode-cn.com/problems/ransom-note/
+
+给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false。
+
+(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。) 
+
+注意：
+
+你可以假设两个字符串均只含有小写字母。
+
+canConstruct(&quot;a&quot;, &quot;b&quot;) -&gt; false
+canConstruct(&quot;aa&quot;, &quot;ab&quot;) -&gt; false
+canConstruct(&quot;aa&quot;, &quot;aab&quot;) -&gt; true</code></pre>
+<p>题解一|Counter：</p>
+<pre><code>class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -&gt; bool:
+        from collections import Counter
+        r=Counter(ransomNote)
+        m=Counter(magazine)
+        if not r-m:
+            return True
+        else:
+            return False</code></pre>
+<p>题解二|双指针：</p>
+<p>时间复杂度为O(nlog(n)+mlog(m))<br>空间复杂度为O(m + n)</p>
+<pre><code>class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -&gt; bool:
+        ransomNoteList=list(ransomNote)
+        magazineList=list(magazine)
+        ransomNoteList.sort()
+        magazineList.sort()
+        i,j=0,0
+        while i&lt;len(ransomNoteList) and j&lt;len(magazineList):
+            if ransomNoteList[i]&gt;magazineList[j]:
+                j+=1
+            elif ransomNoteList[i] &lt; magazineList[j]:
+                return False
+            else:
+                i+=1
+                j+=1
+        return i==len(ransomNoteList)</code></pre>
+<p>题解三|hash：</p>
+<p>时间复杂度: O(N) - N（遍历magazine） + 1（字典检索为O(1)）<br>空间复杂度: O(N)</p>
+<pre><code>class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -&gt; bool:
+        hash=&#123;&#125;
+        for i in magazine:
+            if i in hash:
+                hash[i]+=1
+            else:
+                hash[i]=1
+        for i in ransomNote:
+            if i in hash and hash[i]&gt;0:
+                hash[i]-=1
+            else:
+                return False
+        return True</code></pre>
+<p>题解四|暴力：</p>
+<p>时间复杂度: O(N^2) - N（遍历ransomNote） * N（replace最糟糕的情况是遍历整个magazine）<br>空间复杂度: O(1)</p>
+<pre><code>class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -&gt; bool:
+        for i in ransomNote:
+            if i in magazine:
+                magazine=magazine.replace(i,&#39;&#39;,1) # 可选字符串, 1代表替换不超过 max 次
+            else:
+                return False
+        return True</code></pre>
+<h3 id="387-字符串中的第一个唯一字符"><a href="#387-字符串中的第一个唯一字符" class="headerlink" title="387. 字符串中的第一个唯一字符"></a>387. 字符串中的第一个唯一字符</h3><pre><code>链接：https://leetcode-cn.com/problems/first-unique-character-in-a-string/
+
+给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+
+案例:
+
+s = &quot;leetcode&quot;
+返回 0.
+
+s = &quot;loveleetcode&quot;,
+返回 2.
+
+
+注意事项：您可以假定该字符串只包含小写字母。</code></pre>
+<p>题解一|切片：</p>
+<pre><code>class Solution:
+    def firstUniqChar(self, s: str) -&gt; int:
+        if len(s)==1:
+            return 0
+        for k in range(len(s)):
+            if (s[k] not in s[k+1:]) and (s[k] not in s[:k]):
+                return k
+        return -1</code></pre>
+<p>题解二|内置函数：</p>
+<p>时间复杂度： O(N)，只遍历了两遍字符串，同时散列表中查找操作是常数时间复杂度的。<br>空间复杂度： O(N)，用到了散列表来存储字符串中每个元素出现的次数。</p>
+<pre><code>class Solution:
+    def firstUniqChar(self, s: str) -&gt; int:
+        from collections import Counter
+        count=Counter(s)
+        for k,v in enumerate(s):
+            if count[v]==1:
+                return k
+        return -1</code></pre>
+<pre><code>import collections
+class Solution:
+    def firstUniqChar(self, s: str) -&gt; int:
+        for i,j in collections.Counter(s).items():
+            if j==1:return s.index(i)
+        return -1</code></pre>
+<p>题解三|find:</p>
+<p>1.证明字母只出现了一次<br>如果一个字符串中的字符在字符串中从左边搜索和从右边搜索得到的index一样，那就证明只有一个了<br>2.循环每次是从第一个开始的，保证了执行的顺序</p>
+<pre><code>class Solution(object):
+    def firstUniqChar(self, s):
+        for i in s:
+            if s.find(i)== s.rfind(i):
+                return s.find(i)
+        return -1</code></pre>
+<h3 id="415-字符串相加"><a href="#415-字符串相加" class="headerlink" title="415. 字符串相加"></a>415. 字符串相加</h3><pre><code>链接：https://leetcode-cn.com/problems/add-strings/
+
+给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
+
+注意：
+
+num1 和num2 的长度都小于 5100.
+num1 和num2 都只包含数字 0-9.
+num1 和num2 都不包含任何前导零。
+你不能使用任何內建 BigInteger 库，也不能直接将输入的字符串转换为整数形式。</code></pre>
+<p>题解一：</p>
+<p>zfill() 方法返回指定长度的字符串，原字符串右对齐，前面填充0。</p>
+<pre><code>class Solution:
+    def addStrings(self, num1: str, num2: str) -&gt; str:
+        n=max(len(num1),len(num2))
+        n1=num1.zfill(n)
+        n2=num2.zfill(n)
+        # print(n1,n2)
+        carry=0
+        res=[]
+        for i in range(n-1,-1,-1):
+            tmp=int(n1[i])+int(n2[i])
+            carry+=tmp
+            res.append(carry%10)
+            carry//=10
+        if carry==1:
+            res.append(1)
+        res.reverse() # res里面的数字是int
+        return &#39;&#39;.join([str(i) for i in res])</code></pre>
+<p>题解二|双指针:</p>
+<p>时间复杂度:O(max(M,N))：其中 M，N 为 2 数字长度，按位遍历一遍数字（以较长的数字为准）；<br>空间复杂度:O(1),指针与变量使用常数大小空间。</p>
+<pre><code>class Solution:
+    def addStrings(self, num1: str, num2: str) -&gt; str:
+        res = &quot;&quot;
+        i, j, carry = len(num1) - 1, len(num2) - 1, 0
+        while i &gt;= 0 or j &gt;= 0:
+            n1 = int(num1[i]) if i &gt;= 0 else 0
+            n2 = int(num2[j]) if j &gt;= 0 else 0
+            tmp = n1 + n2 + carry
+            carry = tmp // 10
+            res = str(tmp % 10) + res
+            i, j = i - 1, j - 1
+        return &quot;1&quot; + res if carry else res</code></pre>
+<h3 id="434-字符串中的单词数"><a href="#434-字符串中的单词数" class="headerlink" title="434. 字符串中的单词数"></a>434. 字符串中的单词数</h3><pre><code>链接：https://leetcode-cn.com/problems/number-of-segments-in-a-string/
+
+统计字符串中的单词个数，这里的单词指的是连续的不是空格的字符。
+
+请注意，你可以假定字符串里不包括任何不可打印的字符。
+
+示例:
+
+输入: &quot;Hello, my name is John&quot;
+输出: 5
+解释: 这里的单词是指连续的不是空格的字符，所以 &quot;Hello,&quot; 算作 1 个单词。</code></pre>
+<p>题解一|split:</p>
+<p>时间复杂度 : O(n)。<br>这里用到的内置函数（无论是 Java 还是 Python）的时间复杂度或为 O(n)，或为 O(1) ，故整个算法可以在线性复杂度内完成。</p>
+<p>空间复杂度 : O(n)。<br>split 函数 (不管哪种语言) 返回长度为 O(n) 的数组/列表，故算法使用线性的额外空间。</p>
+<pre><code>class Solution:
+    def countSegments(self, s: str) -&gt; int:
+        if not s:
+            return 0
+        return len(s.split(&#39; &#39;)) # 这段代码是错误的，并不能解决连续多个空格的case</code></pre>
+<pre><code>class Solution:
+    def countSegments(self, s: str) -&gt; int:
+        return len(s.split())</code></pre>
+<p>区别：</p>
+<pre><code>split()的时候，多个空格当成一个空格；
+split(&#39; &#39;)的时候，多个空格也要分割，会分割出来空。</code></pre>
+<p>题解二：</p>
+<p>时间复杂度 : O(n)，对每个下标进行常数时间的检测。<br>空间复杂度 : O(1)，只使用了额外的几个整数，因此使用的空间为常数。</p>
+<pre><code>class Solution:
+    def countSegments(self, s: str) -&gt; int:
+        count=0
+        for i in range(len(s)):
+            if s[i] != &#39; &#39; and (s[i-1] ==&#39; &#39; or i==0 ):
+                # print(s[i])
+                count+=1
+        return count </code></pre>
+<h3 id="520-检测大写字母"><a href="#520-检测大写字母" class="headerlink" title="520. 检测大写字母"></a>520. 检测大写字母</h3><pre><code>链接：https://leetcode-cn.com/problems/detect-capital/
+
+给定一个单词，你需要判断单词的大写使用是否正确。
+
+我们定义，在以下情况时，单词的大写用法是正确的：
+
+全部字母都是大写，比如&quot;USA&quot;。
+单词中所有字母都不是大写，比如&quot;leetcode&quot;。
+如果单词不只含有一个字母，只有首字母大写， 比如 &quot;Google&quot;。
+否则，我们定义这个单词没有正确使用大写字母。
+
+示例 1:
+
+输入: &quot;USA&quot;
+输出: True
+示例 2:
+
+输入: &quot;FlaG&quot;
+输出: False
+注意: 输入是由大写和小写拉丁字母组成的非空单词。</code></pre>
+<p>题解一|内置函数:</p>
+<pre><code>class Solution:
+    def detectCapitalUse(self, word: str) -&gt; bool:
+        if word.isupper() or word.islower() or word.istitle():
+            return True
+        return False
+
+class Solution:
+    def detectCapitalUse(self, word: str) -&gt; bool:
+        return word.isupper() or word.islower() or word.istitle()
+</code></pre>
+<p>题解二：</p>
+<pre><code>class Solution:
+    def detectCapitalUse(self, word: str) -&gt; bool:
+        c1=0
+        c2=0
+        for i in word:
+            if (i&gt;=&#39;a&#39;):
+                c1+=1
+            else:
+                c2+=1
+        if (c1==len(word)) | (c2==len(word)):
+            return True
+
+        return ((c2==1) &amp; (word[0] &lt; &#39;a&#39; ))</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-2-%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2265,154 +3655,6 @@ STORE_GLOBAL             0 (n)</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">python并发-17.Asyncio并发编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-27 23:06:24" itemprop="dateCreated datePublished" datetime="2020-02-27T23:06:24+08:00">2020-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:04" itemprop="dateModified" datetime="2020-09-18T14:03:04+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：</p>
-<p>1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；<br>2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。</p>
-<p>同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；<br>异步：是指不同操作间可以相互交替执行，如果其中地某个操作被堵塞，程序并不会等待，而是会找出可执行的操作继续执行。</p>
-<p>例子（做一份报表，并以邮件的方式提交）：</p>
-<p>同步：应先向软件中输入各项数据，接下来等报表生成，再写邮件提交；<br>异步：向软件中输出各项数据后，会先写邮件，等待报表生成后，暂停写邮件的工作去查看生成的报表，确认无误后在写邮件直到发送完毕。</p>
-<h2 id="一、关于Asyncio"><a href="#一、关于Asyncio" class="headerlink" title="一、关于Asyncio"></a>一、关于Asyncio</h2><p>Asyncio 和其他 Python 程序一样，是单线程的，它只有一个主线程，但可以进行多个不同的任务。这里的任务，指的就是特殊的 future 对象，我们可以把它类比成多线程版本里的多个线程。</p>
-<p>这些不同的任务，被一个叫做事件循环（Event Loop）的对象所控制。<br>所谓事件循环，是指主线程每次将执行序列中的任务清空后，就去事件队列中检查是否有等待执行的任务，如果有则每次取出一个推到执行序列中执行，这个过程是循环往复的。</p>
-<p>为了简化讲解这个问题，可以假设任务只有两个状态：，分别是预备状态和等待状态：</p>
-<pre><code>预备状态是指任务目前空闲，但随时待命准备运行；
-等待状态是指任务已经运行，但正在等待外部的操作完成，比如 I/O 操作。</code></pre>
-<p>在这种情况下，事件循环会维护两个任务列表，分别对应这两种状态，并且选取预备状态的一个任务（具体选取哪个任务，和其等待的时间长短、占用的资源等等相关）使其运行，一直到这个任务把控制权交还给事件循环为止。</p>
-<p>当任务把控制权交还给事件循环对象时，它会根据其是否完成把任务放到预备或等待状态的列表，然后遍历等待状态列表的任务，查看他们是否完成：如果完成，则将其放到预备状态的列表；反之，则继续放在等待状态的列表。而原先在预备状态列表的任务位置仍旧不变，因为它们还未运行。</p>
-<p>这样，当所有任务被重新放置在合适的列表后，新一轮的循环又开始了，事件循环对象继续从预备状态的列表中选取一个任务使其执行…如此周而复始，直到所有任务完成。</p>
-<p>值得一提的是，对于 Asyncio 来说，它的任务在运行时不会被外部的一些因素打断，因此 Asyncio 内的操作不会出现竞争资源（多个线程同时使用同一资源）的情况，也就不需要担心线程安全的问题了。</p>
-<h2 id="二、Asyncio的使用"><a href="#二、Asyncio的使用" class="headerlink" title="二、Asyncio的使用"></a>二、Asyncio的使用</h2><pre><code>import asyncio
-import aiohttp
-import time
-
-
-async def downloadOne(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            print(&#39;Read &#123;&#125; from &#123;&#125;&#39;.format(resp.content_length, url))
-
-
-async def downloadAll(urls):
-    tasks = [asyncio.ensure_future(downloadOne(url)) for url in urls]
-    await asyncio.gather(*tasks)
-
-
-def main():
-    urls = [
-        &#39;http://c.biancheng.net&#39;,
-        &#39;http://c.biancheng.net/c&#39;,
-        &#39;http://c.biancheng.net/python&#39;
-    ]
-    start = time.perf_counter()
-    loop = asyncio.get_event_loop()
-
-    try:
-        loop.run_until_complete(downloadAll(urls))
-    finally:
-        loop.close()
-
-    end = time.perf_counter()
-    print(&#39;Download &#123;&#125; urls in &#123;&#125; seconds&#39;.format(len(urls), end - start))
-
-
-if __name__ == &#39;__main__&#39;:
-    main()</code></pre>
-<p>输出：</p>
-<pre><code>Read None from http://c.biancheng.net
-Read None from http://c.biancheng.net/c
-Read None from http://c.biancheng.net/python
-Download 3 urls in 0.10918640485033393 seconds</code></pre>
-<p>注意：Async 和 await 关键字是 Asyncio 的最新写法，表示这个语句（函数）是非阻塞的，正好对应前面所讲的事件循环的概念，即如果任务执行的过程需要等待，则将其放入等待状态的列表中，然后继续执行预备状态列表里的任务。</p>
-<pre><code>loop = asyncio.get_event_loop()
-    try:
-        loop.run_until_complete(downloadll(sites))
-    finally:
-        loop.close()</code></pre>
-<p>上述代码表示拿到事件循环对象，并运行 downloadAll() 函数，直到其结束，最后关闭这个事件循环对象。</p>
-<p>注意：如果读者使用 Python 3.7 及以上版本，上述代码可以直接用 asyncio.run(downloadAll(sites)) 来代替。</p>
-<p>至于 Asyncio 版本的函数 downloadAll()，和之前多线程版本有很大的区别：</p>
-<p>1、这里的 asyncio.ensure_future(coro) 表示对输入的协程 coro 创建一个任务，安排它的执行，并返回此任务对象。可以看到，这里对每一个网站的下载，都创建了一个对应的任务。</p>
-<pre><code>注意：Python 3.7+ 版本之后，可以使用 asyncio.create_task(coro) 等效替代 asyncio.ensure_future(coro)。</code></pre>
-<p>2、asyncio.gather() 表示在事件循环对象中运行 aws 序列的所有任务。</p>
-<pre><code>可以看到，其输出结果显示用时只有 0.11s，比之前的多线程版本效率更高，充分体现其优势。</code></pre>
-<p>Asyncio 还有很多其他的用法，可以查看 Python 事件循环官方文档进行了解。</p>
-<h2 id="三、Asyncio的缺陷"><a href="#三、Asyncio的缺陷" class="headerlink" title="三、Asyncio的缺陷"></a>三、Asyncio的缺陷</h2><p>在学习多线程编程中使用的是 requests 库，但本节使用的是 aiohttp 库，原因在于 requests 库并不兼容 Asyncio，而 aiohttp 库兼容。Asyncio 软件库的兼容性问题，在 Python3 的早期一直是个大问题，但是随着技术的发展，这个问题正逐步得到解决。</p>
-<p>使用 Asyncio 时，因为在任务调度方面有了更大的自主权，写代码时就得更加注意，不然很容易出错。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2482,7 +3724,7 @@ Download 3 urls in 0.10918640485033393 seconds</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

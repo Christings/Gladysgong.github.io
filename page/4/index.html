@@ -158,6 +158,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">python并发-17.Asyncio并发编程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:06:24" itemprop="dateCreated datePublished" datetime="2020-02-27T23:06:24+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:04" itemprop="dateModified" datetime="2020-09-18T14:03:04+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多线程和普通的单线程相比，其运行效率会有极大的提高。但多线程也存在一定的局限性：</p>
+<p>1、多线程运行过程中容易被打断，还可能出现多个线程同时竞争同一资源的情况；<br>2、多线程切换本身存在一定的损耗，线程数不能无线增加，因此如果I\O操作非常频繁，多线程很有可能满足不了高效率、高质量的需求。</p>
+<p>同步：是指操作一个接一个地执行，下一个操作必须等上一个操作执行完成之后才能开始执行；<br>异步：是指不同操作间可以相互交替执行，如果其中地某个操作被堵塞，程序并不会等待，而是会找出可执行的操作继续执行。</p>
+<p>例子（做一份报表，并以邮件的方式提交）：</p>
+<p>同步：应先向软件中输入各项数据，接下来等报表生成，再写邮件提交；<br>异步：向软件中输出各项数据后，会先写邮件，等待报表生成后，暂停写邮件的工作去查看生成的报表，确认无误后在写邮件直到发送完毕。</p>
+<h2 id="一、关于Asyncio"><a href="#一、关于Asyncio" class="headerlink" title="一、关于Asyncio"></a>一、关于Asyncio</h2><p>Asyncio 和其他 Python 程序一样，是单线程的，它只有一个主线程，但可以进行多个不同的任务。这里的任务，指的就是特殊的 future 对象，我们可以把它类比成多线程版本里的多个线程。</p>
+<p>这些不同的任务，被一个叫做事件循环（Event Loop）的对象所控制。<br>所谓事件循环，是指主线程每次将执行序列中的任务清空后，就去事件队列中检查是否有等待执行的任务，如果有则每次取出一个推到执行序列中执行，这个过程是循环往复的。</p>
+<p>为了简化讲解这个问题，可以假设任务只有两个状态：，分别是预备状态和等待状态：</p>
+<pre><code>预备状态是指任务目前空闲，但随时待命准备运行；
+等待状态是指任务已经运行，但正在等待外部的操作完成，比如 I/O 操作。</code></pre>
+<p>在这种情况下，事件循环会维护两个任务列表，分别对应这两种状态，并且选取预备状态的一个任务（具体选取哪个任务，和其等待的时间长短、占用的资源等等相关）使其运行，一直到这个任务把控制权交还给事件循环为止。</p>
+<p>当任务把控制权交还给事件循环对象时，它会根据其是否完成把任务放到预备或等待状态的列表，然后遍历等待状态列表的任务，查看他们是否完成：如果完成，则将其放到预备状态的列表；反之，则继续放在等待状态的列表。而原先在预备状态列表的任务位置仍旧不变，因为它们还未运行。</p>
+<p>这样，当所有任务被重新放置在合适的列表后，新一轮的循环又开始了，事件循环对象继续从预备状态的列表中选取一个任务使其执行…如此周而复始，直到所有任务完成。</p>
+<p>值得一提的是，对于 Asyncio 来说，它的任务在运行时不会被外部的一些因素打断，因此 Asyncio 内的操作不会出现竞争资源（多个线程同时使用同一资源）的情况，也就不需要担心线程安全的问题了。</p>
+<h2 id="二、Asyncio的使用"><a href="#二、Asyncio的使用" class="headerlink" title="二、Asyncio的使用"></a>二、Asyncio的使用</h2><pre><code>import asyncio
+import aiohttp
+import time
+
+
+async def downloadOne(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            print(&#39;Read &#123;&#125; from &#123;&#125;&#39;.format(resp.content_length, url))
+
+
+async def downloadAll(urls):
+    tasks = [asyncio.ensure_future(downloadOne(url)) for url in urls]
+    await asyncio.gather(*tasks)
+
+
+def main():
+    urls = [
+        &#39;http://c.biancheng.net&#39;,
+        &#39;http://c.biancheng.net/c&#39;,
+        &#39;http://c.biancheng.net/python&#39;
+    ]
+    start = time.perf_counter()
+    loop = asyncio.get_event_loop()
+
+    try:
+        loop.run_until_complete(downloadAll(urls))
+    finally:
+        loop.close()
+
+    end = time.perf_counter()
+    print(&#39;Download &#123;&#125; urls in &#123;&#125; seconds&#39;.format(len(urls), end - start))
+
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+<p>输出：</p>
+<pre><code>Read None from http://c.biancheng.net
+Read None from http://c.biancheng.net/c
+Read None from http://c.biancheng.net/python
+Download 3 urls in 0.10918640485033393 seconds</code></pre>
+<p>注意：Async 和 await 关键字是 Asyncio 的最新写法，表示这个语句（函数）是非阻塞的，正好对应前面所讲的事件循环的概念，即如果任务执行的过程需要等待，则将其放入等待状态的列表中，然后继续执行预备状态列表里的任务。</p>
+<pre><code>loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(downloadll(sites))
+    finally:
+        loop.close()</code></pre>
+<p>上述代码表示拿到事件循环对象，并运行 downloadAll() 函数，直到其结束，最后关闭这个事件循环对象。</p>
+<p>注意：如果读者使用 Python 3.7 及以上版本，上述代码可以直接用 asyncio.run(downloadAll(sites)) 来代替。</p>
+<p>至于 Asyncio 版本的函数 downloadAll()，和之前多线程版本有很大的区别：</p>
+<p>1、这里的 asyncio.ensure_future(coro) 表示对输入的协程 coro 创建一个任务，安排它的执行，并返回此任务对象。可以看到，这里对每一个网站的下载，都创建了一个对应的任务。</p>
+<pre><code>注意：Python 3.7+ 版本之后，可以使用 asyncio.create_task(coro) 等效替代 asyncio.ensure_future(coro)。</code></pre>
+<p>2、asyncio.gather() 表示在事件循环对象中运行 aws 序列的所有任务。</p>
+<pre><code>可以看到，其输出结果显示用时只有 0.11s，比之前的多线程版本效率更高，充分体现其优势。</code></pre>
+<p>Asyncio 还有很多其他的用法，可以查看 Python 事件循环官方文档进行了解。</p>
+<h2 id="三、Asyncio的缺陷"><a href="#三、Asyncio的缺陷" class="headerlink" title="三、Asyncio的缺陷"></a>三、Asyncio的缺陷</h2><p>在学习多线程编程中使用的是 requests 库，但本节使用的是 aiohttp 库，原因在于 requests 库并不兼容 Asyncio，而 aiohttp 库兼容。Asyncio 软件库的兼容性问题，在 Python3 的早期一直是个大问题，但是随着技术的发展，这个问题正逐步得到解决。</p>
+<p>使用 Asyncio 时，因为在任务调度方面有了更大的自主权，写代码时就得更加注意，不然很容易出错。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-16-Futures%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1543,342 +1691,6 @@ with ThreadPoolExecutor(max_workers=4) as pool:  # 创建包含4个线程的线�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-7-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0-Condition%E3%80%81Queue%E5%92%8CEvent/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-7-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0-Condition%E3%80%81Queue%E5%92%8CEvent/" class="post-title-link" itemprop="url">python并发-7.线程通信的实现(Condition、Queue和Event)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-23 21:58:38" itemprop="dateCreated datePublished" datetime="2020-02-23T21:58:38+08:00">2020-02-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:38" itemprop="dateModified" datetime="2020-09-18T14:03:38+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、Condition"><a href="#一、Condition" class="headerlink" title="一、Condition"></a>一、Condition</h2><p>当线程在系统中运行时，线程的调度具有一定的透明性，通常程序无法准确控制线程的轮换执行，如果有需要，Python 可通过线程通信来保证线程协调运行。</p>
-<p>假设系统中有两个线程，这两个线程分别代表存款者和取钱者，现在假设系统有一种特殊的要求，即要求存款者和取钱者不断地重复存款、取钱的动作，而且要求每当存款者将钱存入指定账户后，取钱者就立即取出该笔钱。不允许存款者连续两次存钱，也不允许取钱者连续两次取钱。</p>
-<p>为了实现这种功能，可以借助于 Condition 对象来保持协调。使用 Condition 可以让那些己经得到 Lock 对象却无法继续执行的线程释放 Lock 对象，Condition 对象也可以唤醒其他处于等待状态的线程。</p>
-<p>将 Condition 对象与 Lock 对象组合使用，可以为每个对象提供多个等待集（wait-set）。因此，Condition 对象总是需要有对应的 Lock 对象。从 Condition 的构造器 <strong>init</strong>(self, lock=None) 可以看出，程序在创建 Condition 时可通过 lock 参数传入要绑定的 Lock 对象；如果不指定 lock 参数，在创建 Condition 时它会自动创建一个与之绑定的 Lock 对象。</p>
-<p>Condition 类提供了如下几个方法：</p>
-<pre><code>acquire([timeout])/release()：调用 Condition 关联的 Lock 的 acquire() 或 release() 方法。
-
-wait([timeout])：导致当前线程进入 Condition 的等待池等待通知并释放锁，直到其他线程调用该 Condition 的 notify() 或 notify_all() 方法来唤醒该线程。在调用该 wait() 方法时可传入一个 timeout 参数，指定该线程最多等待多少秒。
-
-notify()：唤醒在该 Condition 等待池中的单个线程并通知它，收到通知的线程将自动调用 acquire() 方法尝试加锁。如果所有线程都在该 Condition 等待池中等待，则会选择唤醒其中一个线程，选择是任意性的。
-
-notify_all()：唤醒在该 Condition 等待池中等待的所有线程并通知它们。</code></pre>
-<p>Account类：</p>
-<p>通过一个旗标来标识账户中是否已有存款，当旗标为 False 时，表明账户中没有存款，存款者线程可以向下执行，当存款者把钱存入账户中后，将旗标设为 True，并调用 Condition 的 notify() 或 notify_all() 方法来唤醒其他线程。</p>
-<p>当存款者线程进入线程体后，如果旗标为 True，就调用 Condition 的 wait() 方法让该线程等待。当旗标为 True 时，表明账户中已经存入了钱，取钱者线程可以向下执行，当取钱者把钱从账户中取出后，将旗标设为 False，并调用 Condition 的 notify() 或 notify_all() 方法来唤醒其他线程；当取钱者线程进入线程体后，如果旗标为 False，就调用 wait() 方法让该线程等待。</p>
-<pre><code>draw():取钱
-deposit():存钱
-
-这两个方法可能需要并发修改 Account 类的 self.balance 成员变量的值，所以它们都使用 Lock 来控制线程安全。
-除此之外，这两个方法还使用了 Condition 的 wait() 和 notify_all() 来控制线程通信。</code></pre>
-<pre><code>import threading
-
-
-class Account:
-    &#39;&#39;&#39;
-    定义账户类
-    &#39;&#39;&#39;
-
-    def __init__(self, accountNo, balance):
-        &#39;&#39;&#39;
-        封装账户编号、账户余额两个成员变量
-        :param accountNo:
-        :param balance:
-        :param _flag: 代表是否已经存钱的标识
-        &#39;&#39;&#39;
-        self.accountNo = accountNo
-        self._balance = balance
-        self.cond = threading.Condition()
-        self._flag = False
-
-    def getBalance(self):
-        &#39;&#39;&#39;
-        账户余额不允许随便修改，所以只为self._balance提供getter方法
-        :return:
-        &#39;&#39;&#39;
-        return self._balance
-
-    def draw(self, drawAmount):
-        &#39;&#39;&#39;
-        取钱
-        :param drawAmount:
-        :return:
-        &#39;&#39;&#39;
-        self.cond.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()
-        try:
-            if not self._flag:  # 如果self._flag为假，表明账户中还没有人存钱进去，取钱方法阻塞
-                self.cond.wait()
-            else:
-                print(threading.current_thread().name + &#39;取钱：&#39; + str(drawAmount))
-                self._balance -= drawAmount
-                print(&#39;账户余额:&#39; + str(self._balance))
-                self._flag = False  # 将标识账户是否已有存款的旗标设为False
-                self.cond.notify_all()  # 唤醒其他线程
-        finally:
-            self.cond.release()  # 释放锁
-
-    def desposit(self, depositAmount):
-        &#39;&#39;&#39;
-        存钱
-        :param depositAmount:
-        :return:
-        &#39;&#39;&#39;
-        self.cond.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()
-        try:
-            if self._flag:  # 如果self._flag为真，表明账户中已有人存钱进去，存钱方法阻塞
-                self.cond.wait()
-            else:
-                print(threading.current_thread().name + &#39;存钱：&#39; + str(depositAmount))
-                self._balance += depositAmount
-                print(&#39;账户余额:&#39; + str(self._balance))
-                self._flag = True  # 将表示账户是否已有存款的旗标设为True
-                self.cond.notify_all()  # 唤醒其他线程
-        finally:
-            self.cond.release()  # 释放锁
-</code></pre>
-<p>对存款者线程而言，当程序进入 deposit() 方法后，如果 self._flag 为 True，则表明账户中已有存款，程序调用 Condition 的 wait() 方法被阻塞；否则，程序向下执行存款操作，当存款操作执行完成后，系统将 self._flag 设为 True，然后调用 notify_all() 来唤醒其他被阻塞的线程。如果系统中有存款者线程，存款者线程也会被唤醒，但该存款者线程执行到 ① 号代码处时再次进入阻塞状态，只有执行 draw() 方法的取钱者线程才可以向下执行。同理，取钱者线程的运行流程也是如此。</p>
-<p>存款者线程循环 100 次重复存款，而取钱者线程则循环 100 次重复取钱，存款者线程和取钱者线程分别调用 Account 对象的 deposit()、draw() 方法来实现。主程序可以启动任意多个“存款”线程和“取钱”线程，可以看到所有的“取钱”线程必须等“存款”线程存钱后才可以向下执行，而“存款”线程也必须等“取钱”线程取钱后才可以向下执行。主程序代码如下：</p>
-<pre><code>def draw_many(account, drawAmount, max):
-    &#39;&#39;&#39;
-    模拟重复max次取钱操作
-    :param account:
-    :param drawAmount:
-    :return:
-    &#39;&#39;&#39;
-    for i in range(max):
-        account.draw(drawAmount)
-
-
-def deposit_many(account, depositAmout, max):
-    &#39;&#39;&#39;
-    模拟重复max次存款操作
-    :param account:
-    :param depositAmout:
-    :return:
-    &#39;&#39;&#39;
-    for i in range(max):
-        account.deposit(depositAmout)
-
-
-acct = Account(&#39;12345&#39;, 0)  # 创建账户
-threading.Thread(name=&#39;取钱者&#39;, target=draw_many, args=(acct, 800, 100)).start()  # 创建、并启动一个“取钱”线程
-threading.Thread(name=&#39;存款者甲&#39;, target=deposit_many, args=(acct, 800, 100)).start()  # 创建、并启动一个“取钱”线程
-threading.Thread(name=&#39;存款者乙&#39;, target=deposit_many, args=(acct, 800, 100)).start()
-threading.Thread(name=&#39;存款者丙&#39;, target=deposit_many, args=(acct, 800, 100)).start()
-</code></pre>
-<p>只有当取钱者线程取钱后，存款者线程才可以存钱；同理，只有等存款者线程存钱后，取钱者线程才可以取钱。</p>
-<p>程序最后被阻塞无法继续向下执行。这是因为 3 个存款者线程共有 300 次尝试存钱操作，但 1 个取钱者线程只有 100 次尝试取钱操作，所以程序最后被阻塞。</p>
-<p>此处的阻塞并不是死锁，对于这种情况，取钱者线程已经执行结束，而存款者线程只是在等待其他线程来取钱而已，并不是等待其他线程释放同步监视器。不要把死锁和程序阻塞等同起来。</p>
-<h2 id="二、Queue"><a href="#二、Queue" class="headerlink" title="二、Queue"></a>二、Queue</h2><p>queue 模块下提供了几个阻塞队列，这些队列主要用于实现线程通信。在 queue 模块下主要提供了三个类，分别代表三种队列，其主要区别就在于进队列、出队列的不同。</p>
-<p>关于三个队列类介绍如下：</p>
-<p>1、queue.Queue(maxsize=0)：代表 FIFO（先进先出）的常规队列，maxsize 可以限制队列的大小。如果队列的大小达到队列的上限，就会加锁，再次加入元素时就会被阻塞，直到队列中的元素被消费。如果将 maxsize 设置为 0 或负数，则该队列的大小就是无限制的。</p>
-<p>2、queue.LifoQueue(maxsize=0)：代表 LIFO（后进先出）的队列，与 Queue 的区别就是出队列的顺序不同。</p>
-<p>3、PriorityQueue(maxsize=0)：代表优先级队列，优先级最小的元素先出队列。</p>
-<p>三个队列类的属性和方法基本相同， 它们都提供了如下属性和方法：</p>
-<pre><code>Queue.qsize()：返回队列的实际大小，也就是该队列中包含几个元素。
-Queue.empty()：判断队列是否为空。
-Queue.full()：判断队列是否已满。
-Queue.put(item, block=True, timeout=None)：向队列中放入元素。如果队列己满，且 block 参数为 True（阻塞），当前线程被阻塞，timeout 指定阻塞时间，如果将 timeout 设置为 None，则代表一直阻塞，直到该队列的元素被消费；如果队列己满，且 block 参数为 False（不阻塞），则直接引发 queue.FULL 异常。
-Queue.put_nowait(item)：向队列中放入元素，不阻塞。相当于在上一个方法中将 block 参数设置为 False。
-Queue.get(item, block=True, timeout=None)：从队列中取出元素（消费元素）。如果队列已满，且 block 参数为 True（阻塞），当前线程被阻塞，timeout 指定阻塞时间，如果将 timeout 设置为 None，则代表一直阻塞，直到有元素被放入队列中； 如果队列己空，且 block 参数为 False（不阻塞），则直接引发 queue.EMPTY 异常。
-Queue.get_nowait(item)：从队列中取出元素，不阻塞。相当于在上一个方法中将 block 参数设置为 False。</code></pre>
-<pre><code>import threading
-import time
-import queue
-
-
-def product(bq):
-    str_tuple = (&#39;python&#39;, &#39;java&#39;, &#39;c++&#39;)
-    for i in range(99999):
-        print(threading.current_thread().name + &#39;生产者准备生产元组元素&#39;)
-        time.sleep(0.2)
-        bq.put(str_tuple[i % 3])  # 尝试放入元素，如果队列已满，则线程被阻塞
-        print(threading.current_thread().name + &#39;生产者生产元素完成&#39;)
-
-
-def consume(bq):
-    while True:
-        print(threading.current_thread().name + &#39;消费者准备消费元组元素&#39;)
-        time.sleep(0.2)
-        t = bq.get()  # 尝试取出元素，如果队列已空，则线程被阻塞
-        print(threading.current_thread().name + &#39;消费者消费[ %s ]元素完成&#39; % t)
-
-
-bq = queue.Queue(maxsize=1)  # 容量为1的Queue
-threading.Thread(target=product, args=(bq,)).start()
-threading.Thread(target=product, args=(bq,)).start()
-threading.Thread(target=product, args=(bq,)).start()
-threading.Thread(target=consume, args=(bq,)).start()
-</code></pre>
-<p>启动三个生产者线程向 Queue 队列中放入元素，启动一个消费者线程从 Queue 队列中取出元素。本程序中 Queue 队列的大小为 1，因此三个生产者线程无法连续放入元素，必须等待消费者线程取出一个元素后，其中的一个生产者线程才能放入一个元素。</p>
-<p>三个生产者线程都想向 Queue 中放入元素，但只要其中一个生产者线程向该队列中放入元素之后，其他生产者线程就必须等待，等待消费者线程取出 Queue 队列中的元素。</p>
-<h2 id="三、Event"><a href="#三、Event" class="headerlink" title="三、Event"></a>三、Event</h2><p>Event 是一种非常简单的线程通信机制，一个线程发出一个 Event，另一个线程可通过该 Event 被触发。</p>
-<p>Event 本身管理一个内部旗标，程序可以通过 Event 的 set() 方法将该旗标设置为 True，也可以调用 clear() 方法将该旗标设置为 False。程序可以调用 wait() 方法来阻塞当前线程，直到 Event 的内部旗标被设置为 True。</p>
-<p>Event 提供了如下方法：</p>
-<pre><code>is_set()：该方法返回 Event 的内部旗标是否为True。
-set()：该方法将会把 Event 的内部旗标设置为 True，并唤醒所有处于等待状态的线程。
-clear()：该方法将 Event 的内部旗标设置为 False，通常接下来会调用 wait() 方法来阻塞当前线程。
-wait(timeout=None)：该方法会阻塞当前线程。</code></pre>
-<pre><code>import threading
-import time
-
-event = threading.Event()
-
-
-def cal(name):
-    # 等待事件，进入等待阻塞状态
-    print(&#39;%s 启动&#39; % threading.currentThread().getName())
-    print(&#39;%s 准备开始计算状态&#39; % name)
-    event.wait()
-    # 收到事件后进入运行状态
-    print(&#39;%s 收到通知了.&#39; % threading.currentThread().getName())
-    print(&#39;%s 正式开始计算.&#39; % name)
-
-
-# 创建并启动两条，它们都会wait()处等待
-threading.Thread(target=cal, args=(&#39;甲&#39;)).start()
-threading.Thread(target=cal, args=(&#39;乙&#39;)).start()
-time.sleep(2)
-print(&#39;---------------------&#39;)
-print(&#39;主线程发出事件&#39;) # 发出事件
-event.set()</code></pre>
-<p>输出：<br>    Thread-1 启动<br>    甲 准备开始计算状态<br>    Thread-2 启动<br>    乙 准备开始计算状态<br>    ——————<br>    主线程发出事件<br>    Thread-1 收到通知了.<br>    Thread-2 收到通知了.<br>    甲 正式开始计算！<br>    乙 正式开始计算！</p>
-<p>以 cal() 函数为 target，创建并启动了两个线程。由于 cal() 函数调用了 Event 的 wait()，因此两个线程执行到 wait() 处都会进入阻塞状态；即使主线程在 time.sleep() 处被阻塞，两个子线程也不会向下执行。</p>
-<p>直到主程序执行到最后一行，程序调用了 Event 的 set() 方法将 Event 的内部旗标设直为 True，并唤醒所有等待的线程，这两个线程才能向下执行。</p>
-<p>以上内容没有使用 Event 的内部旗标，如果结合 Event 的内部旗标，同样可实现前面的 Account 的生产者-消费者效果：存钱线程（生产者）存钱之后，必须等取钱线程（消费者）取钱之后才能继续向下执行。</p>
-<p>Event 实际上优点类似于 Condition 和旗标的结合体，但 Event 本身并不带 Lock 对象，因此如果要实现线程同步，还需要额外的 Lock 对象。</p>
-<pre><code>import threading
-
-
-class Account:
-    &#39;&#39;&#39;
-    定义账户类
-    &#39;&#39;&#39;
-
-    def __init__(self, accountNo, balance):
-        &#39;&#39;&#39;
-        封装账户编号、账户余额两个成员变量
-        :param accountNo:
-        :param balance:
-        :param _flag: 代表是否已经存钱的标识
-        &#39;&#39;&#39;
-        self.accountNo = accountNo
-        self._balance = balance
-        self.lock = threading.Lock()
-        self.event = threading.Event()
-
-    def getBalance(self):
-        &#39;&#39;&#39;
-        账户余额不允许随便修改，所以只为self._balance提供getter方法
-        :return:
-        &#39;&#39;&#39;
-        return self._balance
-
-    def draw(self, drawAmount):
-        &#39;&#39;&#39;
-        取钱
-        :param drawAmount:
-        :return:
-        &#39;&#39;&#39;
-        self.lock.acquire()  # 加锁
-        if self.event.is_set():  # 如果Event内部旗标为True，表明账户中已有人存钱进去
-            print(threading.current_thread().name + &#39;取钱：&#39; + str(drawAmount))
-            self._balance -= drawAmount
-            print(&#39;账户余额:&#39; + str(self._balance))
-            self.event.clear()  # 将Event内部旗标设为False
-            self.lock.release()  # 释放锁
-            self.event.wait()  # 阻塞当前线程
-        else:
-            self.lock.release()  # 释放锁
-            self.event.wait()  # 阻塞当前线程
-
-
-def desposit(self, depositAmount):
-    &#39;&#39;&#39;
-    存钱
-    :param depositAmount:
-    :return:
-    &#39;&#39;&#39;
-    self.lock.acquire()  # 加锁，相当于调用Condition绑定的Lock的acquire()
-    if not self.event.is_set:  # 如果Event内部旗标为False，表明账户中还没有人存钱进去
-        print(threading.current_thread().name + &#39;存钱：&#39; + str(depositAmount))
-        self._balance += depositAmount
-        print(&#39;账户余额:&#39; + str(self._balance))
-        self.event.set()  # 将Event内部旗标设为True
-        self.lock.release()  # 释放锁
-        self.event.wait()  # 阻塞当前线程
-    else:
-        self.lock.release()  # 释放锁
-        self.event.wait()  # 阻塞当前线程</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1948,7 +1760,7 @@ def desposit(self, depositAmount):
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

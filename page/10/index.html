@@ -158,6 +158,296 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:35:41" itemprop="dateModified" datetime="2020-09-18T21:35:41+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="三、数据库"><a href="#三、数据库" class="headerlink" title="三、数据库"></a>三、数据库</h2><p>1、数据库引擎</p>
+<pre><code>种类：
+    innob引擎 
+    Memory引擎 
+    Merge引擎</code></pre>
+<p>innob引擎一大特点就是支持外键，内存和空间大 支持事务。</p>
+<p>2、数据库锁</p>
+<p>由于数据库是多用户共享资源，所以需要处理并发问题，而数据库锁的机制就是为了处理这一问题。</p>
+<p>当出现并发的时候，如果不做控制就会出现各种问题 比如脏数据，修改丢失等。</p>
+<p>所有数据库并发需要事务来控制，事务并发问题需要数据库锁来控制</p>
+<p>事务四个特性：</p>
+<pre><code>持久型 
+原子性 
+一致性 
+隔离性</code></pre>
+<p>数据库锁：</p>
+<pre><code>乐观锁 悲观锁 死锁
+
+活锁 行锁 表锁 页级锁
+
+排它锁有称为写锁。共享锁又称为读锁</code></pre>
+<p>3、如何理解ORM？</p>
+<p>对象关系映射（Object Relational Mapping，简称ORM）是通过使用描述对象和数据库之间映射的元数据，将面向对象语言程序中的对象自动持久化到关系数据库中。本质上就是将数据从一种形式转换到另外一种形式。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/orm.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/orm.png"></p>
+<p>作用:</p>
+<pre><code>节省代码书写 保证sql语法的正确性
+一次编写可以适配多个数据库
+防止sql注入
+在数据库表名或字段名发生改变 只需要修改模型类的映射 无需修改数据库操作的代码</code></pre>
+<p>使用orm的方式选择:</p>
+<pre><code>1.先创建模型类 在迁移到数据库中
+
+优点：简单快捷，定义一次模型类即可，不用写sql
+缺点： 
+不能完美的控制创建表的所有细节问题
+表结构发生变化时，也难免发生迁移错误
+
+2.先用原生sql创建数据库表，在编写模型类做映射
+
+优点：可以很好的控制数据库表结构的任何细节，避免发生迁移错误
+缺点：可能编写工作多</code></pre>
+<p>4、ORM相关操作<br>5、selected_related和prefetch_related<br>6、Q和F<br>7、queryset常用方法</p>
+<pre><code>使用 connection.queries 可以查看sql语句
+filter 将满足条件的结果返回，返回值为QuerySet对象
+exclude 将满足条件的结果过滤掉,返回值为QuerySet对象
+annotate 给QuerySet中的每一个对象都添加一个查询表达式，（Q,F,聚合函数）的字段
+order_by 安装某个字段进行排序，默认为从小到大排序，如果想要重大到小可以在字段前加“-”,需要注意order_by可以传递多个参数，会按照先后级别进行排序，而且order_by还可以用annotate新增的字段来排序，注意：order_by重复调用会只会保存最后一个。
+values:提取需要哪些字段，默认会把全部都提取出来。返回的结果是QuerySet，但是其中包裹的不是模型，而是字典，如果想要提取关联数据，那么可以通过F表达式来完成。values也可以使用聚合函数
+values_list 提取需要字段，返回QuerySet，其中包裹的元组，如果数据只有一条，则可以使用flat=True进行扁平化处理，直接返回结果
+all 方法：返回全部数据（返回包裹对象的QuerySet）
+select_related : 可以将关联的对象一起查询出来，只能用于外键连接的形式（一对多或者一对一的形式）
+prefetch_related : 使用的时候传入反向引用的时候调用的名称默认为 filed_set，使用这个方式可以用来查询多对一或者多对多的方式，也可以用来查询一对一或者一对多的，但是不推荐。
+defer : 过滤掉不需要的字段，返回值是一个包裹着模型的QuerySet
+only : 提取某些字段，返回一个包裹模型的QuerySet
+get : 直接返回对象，只能返回一条数据，如果返回数据超过一条就会报错，如果没有匹配到任何数据也会报错。
+create : 用于增加一条数据，并且将数据保存在数据库中，相当于先创建数据，然后调用save方法
+get_or_create : 如果给定的条件存在数据就查找返回，如果不存在就创建一个，然后在返回，返回结果是一个元组，元组中两个内容，第一个是模型对象，第二个是bool值，如果没有创建返回False，如果创建了返还True。
+bulk_create ：可以一次性创建多条数据。
+count ：获取满足条件的数据的个数
+first,last 分别返回QuerySet中第一条和最后一条数据
+exists ： 判断数据是否存在，存在返回True，不存在返回False
+distinct : 去重，默认按照全部字段判断。注意如果和order_by同时使用会失效
+update ：更新数据
+delete : 删除数据，需要注意：字段中on_delete的级联删除方式</code></pre>
+<p>8、数据库常用操作：</p>
+<p>user（用户）,group（部门）,role（角色）三个表</p>
+<pre><code>查询年龄大于18的人
+select * from user where age &gt; 18
+
+查询年龄不等于18的人
+select * from user where age !=18
+
+查询 IT部 和 运维部的所有人
+select * from user where group = &#39;IT部&#39; and group =&#39;运维部&#39;
+
+查询 IT部 或 运维部的所有人
+select * from user where group = &#39;IT部&#39; or group =&#39;运维部&#39;
+
+查询角色是 “管理员” 的所有人
+select * from user where role = &#39;管理员&#39;
+
+设计数据库：会议室预定
+
+设计数据库：员工、部门、角色
+
+查询 “IT”部门所有人
+select * from user where group=&#39;IT&#39;
+
+查询 每个部门 的员工数量
+select count(*) from user where group?
+
+查询 每个部门 年龄不等于 18的人
+
+查询部门人数不满 5 的部门？</code></pre>
+<p>9、数据库优化方案</p>
+<pre><code>尽量避免使用select * 能用字段名就用字段名，避免查询无用字段
+
+select count(*)会查全表，尽量避免
+
+建表时字段类型能用varchar/nvarchar就不要用char/nchar
+
+避免频繁的创建和删除临时表，会耗费性能资源，产生大量log
+
+如果使用临时表，在使用的最后一定要显示删除，先trancate table，再drop table
+
+尽量避免大事务操作，提高并发效率
+
+避免向客户端返回大数据量，数据量过大，应考虑需求是否合理
+
+比如你在一个在线网站使用delete和update操作，必然会引发数据库锁</code></pre>
+<p>10、数据库索引以及注意点？<br>11、什么情况下建索引？<br>12、数据库索引种类？<br>13、drop、delete和truncate区别</p>
+<pre><code>drop直接删掉表；
+
+truncate删除的是表中的数据，再插入数据时自增长的数据id又重新从1开始；
+
+delete删除表中数据，可以在后面添加where字句。</code></pre>
+<p>14、数据库中出现乱码？如何解决？<br>15、执行计划和慢日志？</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bluecobra/archive/2012/01/11/2318922.html">https://www.cnblogs.com/bluecobra/archive/2012/01/11/2318922.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZhangQiye1993/article/details/80717606">https://blog.csdn.net/ZhangQiye1993/article/details/80717606</a><br>16、数据库读写分离</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/h18208975507/article/details/99458396">https://blog.csdn.net/h18208975507/article/details/99458396</a></p>
+<p>主从同步使得数据可以从一个数据库服务器复制到其他服务器上，在复制数据时，一个服务器充当主服务器（master），其余的服务器充当从服务器（slave）。因为复制是异步进行的，所以从服务器不需要一直连接着主服务器，从服务器甚至可以通过拨号断断续续地连接主服务器。通过配置文件，可以指定复制所有的数据库，某个数据库，甚至是某个数据库上的某个表。</p>
+<p>主从同步的好处：</p>
+<pre><code>通过增加从服务器来提高数据库的性能，在主服务器上执行写入和更新，在从服务器上向外提供读功能，可以动态地调整从服务器的数量，从而调整整个数据库的性能。
+
+提高数据安全，因为数据已复制到从服务器，从服务器可以终止复制进程，所以，可以在从服务器上备份而不破坏主服务器相应数据
+
+在主服务器上生成实时数据，而在从服务器上分析这些数据，从而提高主服务器的性能</code></pre>
+<p>读写分离的基本原理就是让主数据库处理事务性增,改,删操作(INSERT,UPDATE,DELETE)操作,而从数据库处理SELECT查询操作,数据库复制被用来把事物性操作导致的变更同步到其他从数据库,以SQL为例,主数据库负责写数据,读数据,读库仅负责读数据,每次有写库操作,同步更新到读库,写库就一个,读库可以有多个,采用日志同步的方式实现主库和多个数据库的数据同步</p>
+<p>具体配置如下：<br>1）在配置文件中增加slave数据库的配置</p>
+<p>在Django的配置文件settings.py中,DATABASES中</p>
+<pre><code>DATABASES = &#123;
+    &#39;default&#39;: &#123;
+        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,
+        &#39;HOST&#39;: &#39;127.0.0.1&#39;,  # 主服务器的运行ip
+        &#39;PORT&#39;: 3306,   # 主服务器的运行port
+        &#39;USER&#39;: &#39;django&#39;,  # 主服务器的用户名
+        &#39;PASSWORD&#39;: &#39;django&#39;,  # 主服务器的密码
+        &#39;NAME&#39;: &#39;djangobase&#39;   #  数据表名
+    &#125;,
+    &#39;slave&#39;: &#123;
+        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, 
+        &#39;HOST&#39;: &#39;127.0.0.1&#39;,
+        &#39;PORT&#39;: 8306,
+        &#39;USER&#39;: &#39;django_slave&#39;,
+        &#39;PASSWORD&#39;: &#39;django_slave&#39;,
+        &#39;NAME&#39;: &#39;djangobase_slave&#39;
+    &#125;
+&#125;　　</code></pre>
+<ol start="2">
+<li>创建数据库操作的路由分类</li>
+</ol>
+<p>在项目的utils中创建db_router.py文件,并在该文件中定义一个db类,用来进行读写分离</p>
+<pre><code>class MasterSlaveDBRouter(object):
+    &quot;&quot;&quot;数据库主从读写分离路由&quot;&quot;&quot;
+
+    def db_for_read(self, model, **hints):
+        &quot;&quot;&quot;读数据库&quot;&quot;&quot;
+        return &quot;slave&quot;
+
+    def db_for_write(self, model, **hints):
+        &quot;&quot;&quot;写数据库&quot;&quot;&quot;
+        return &quot;default&quot;
+
+    def allow_relation(self, obj1, obj2, **hints):
+        &quot;&quot;&quot;是否运行关联操作&quot;&quot;&quot;
+        return True　</code></pre>
+<ol start="3">
+<li>配置读写分离路由</li>
+</ol>
+<p>在配置文件setting.py中增加:</p>
+<p>#配置读写分离<br>    DATABASE_ROUTERS = [‘项目名.utils.db_router.MasterSlaveDBRouter’]</p>
+<p>17、用过什么ORM框架？</p>
+<p>使用Python进行MySQL的库主要有三个：<br>Python-MySQL（更熟悉的名字可能是MySQLdb），<br>PyMySQL<br>SQLAlchemy。</p>
+<p>Python-MySQL：<br>资格最老，核心由C语言打造，接口精炼，性能最棒，缺点是环境依赖较多，安装复杂，近两年已停止更新，<br>只支持Python2，不支持Python3</p>
+<p>PyMySQL：<br>为替代Python-MySQL而生，纯python打造，<br>接口与Python-MySQL兼容，安装方便，支持Python3</p>
+<p>SQLAlchemy:<br>是一个ORM框架，它并不提供底层的数据库操作，<br>而是要借助于MySQLdb、PyMySQL等第三方库来完成，目前SQLAlchemy在Web编程领域应用广泛。</p>
+<p>orm种类：Django’s ORM、peewee、SQLAlchemy</p>
+<p>Django’s ORM</p>
+<pre><code>优点：
+    易用，学习曲线短
+    和Django紧密集合，用Django时使用约定俗成的方法去操作数据库
+
+缺点：
+    QuerySet速度不给力，会逼我用Mysqldb来操作原生sql语句。
+    以前写过一篇关于django orm 跟mysqldb性能的对比</code></pre>
+<p>Peewee</p>
+<pre><code>优点：
+    Django式的API，使其易用
+    轻量实现，很容易和任意web框架集成
+
+缺点：
+    不支持自动化 schema 迁移
+    不能像Django那样，使线上的mysql表结构生成结构化的模型。</code></pre>
+<p>SQLAlchemy</p>
+<pre><code>优点：
+    巨牛逼的API，使得代码有健壮性和适应性
+    灵活的设计，使得能轻松写复杂查询
+
+缺点：
+    工作单元概念不常见
+ 重量级 API，导致长学习曲线</code></pre>
+<p>18、ORM缺点和优点？</p>
+<p>ORM（对象映射关系程序）：通过orm将编程语言的对象模型和数据库的关系模型建立映射关系，这样我们在使用编程语言对数据库进行操作的时候可以直接使用编程语言的对象模型进行操作就可以了，而不用直接使用sql语言。</p>
+<p>orm的优点：</p>
+<p>隐藏了数据访问细节，“封闭”的通用数据库交互，ORM的核心。他使得我们的通用数据库交互变得简单易行，并且完全不用考虑该死的SQL语句。快速开发，由此而来。<br>ORM使我们构造固化数据结构变得简单易行。</p>
+<p>缺点：</p>
+<p>无可避免的，自动化意味着映射和关联管理，代价是牺牲性能（早期，这是所有不喜欢ORM人的共同点）。现在的各种ORM框架都在尝试使用各种方法来减轻这块（LazyLoad，Cache），效果还是很显著的。</p>
+<p>ORM 的优点：</p>
+<pre><code>• 数据模型都在一个地方定义，更容易更新和维护，也利于重用代码。
+• ORM 有现成的工具，很多功能都可以自动完成，比如数据消毒、预处理、事务等等。
+• 它迫使你使用 MVC 架构，ORM 就是天然的 Model，最终使代码更清晰。
+• 基于 ORM 的业务代码比较简单，代码量少，语义性好，容易理解。
+• 你不必编写性能不佳的 SQL。</code></pre>
+<p>ORM 的缺点：</p>
+<pre><code>• ORM 库不是轻量级工具，需要花很多精力学习和设置。
+• 对于复杂的查询，ORM 要么是无法表达，要么是性能不如原生的 SQL。
+• ORM 抽象掉了数据库层，开发者无法了解底层的数据库操作，也无法定制一些特殊的 SQL。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1995,151 +2285,6 @@ url:https://github.com/ ---&gt;finish
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Python%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Python操作文件和目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-27 12:42:03" itemprop="dateCreated datePublished" datetime="2018-03-27T12:42:03+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:01:38" itemprop="dateModified" datetime="2020-09-18T14:01:38+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在Python中经常用到os和shutil模块对文件和目录进行操作，下面就对常用方法进行一个整理：</p>
-<pre><code>1. os.getcwd() -- 获取当前Python脚本工作的目录路径
-
-2. os.listdir() -- 返回指定目录下的所有文件和目录名
-   os.listdir(&#39;c:\\&#39;)
-
-3. os.remove(filepath) -- 删除一个文件
-
-4. os.removedirs(r&#39;d:\python&#39;) -- 删除多个空目录
-
-5. os.path.isfile(filepath) -- 检验给出的路径是否是一个文件
-
-6. os.path.iddir(filepath) -- 检验给出的路径是否是一个目录
-
-7. os.path.isabs() -- 判断是否是绝对路径
-
-8. os.path.exists() -- 检验路径是否真的存在
-   os.path.exists(r&#39;d:\python&#39;)
-
-9. os.path.split() -- 分离一个路径的目录名和文件名
-   os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-   结果是一个元组：(&#39;/home/swaroop/byte/code&#39;, &#39;poem.txt&#39;) 
-
-10. os.path.splitext() -- 分离扩展名
-    os.path.split(&#39;/home/swaroop/byte/code/poem.txt&#39;) 
-    结果是一个元组：(&#39;/home/swaroop/byte/code/poem&#39;, &#39;.txt&#39;) 
-
-11. os.path.dirname(filepath) --获取路径名
-
-12. os.path.basename(filepath)-- 获取文件名
-
-13. os.getenv()和os.putenv() -- 读取和设置环境变量
-
-14. os.linesep -- 给出当前平台使用的行终止符
-    Windows使用&#39;\r\n&#39;，Linux使用&#39;\n&#39;而Mac使用&#39;\r&#39;
-
-15. os.system() -- 运行shell命令
-
-16. os.name -- 指示你正在使用的平台
-    对于Windows，它是&#39;nt&#39;，而对于Linux/Unix用户，它是&#39;posix&#39;
-
-17. os.rename(old， new) -- 重命名文件或目录
-
-18. os.makedirs(r“c：\python\test”) -- 创建多级目录：
-
-19. os.mkdir(“test”) -- 创建单个目录
-
-20. os.stat(file) --获取文件属性
-
-21. os.chmod(file) -- 修改文件权限与时间戳
-
-22. os.exit() -- 终止当前进程
-
-23. os.path.getsize(filename) -- 获取文件大小：
-
-24. shutil.copytree(&#39;olddir&#39;,&#39;newdir&#39;) -- 复制文件夹
-    olddir和newdir都只能为目录，且newdir必须不存在
-
-25. shutil.copyfile(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir和newdir都只能为文件
-    shutil.copy(&#39;oldfile&#39;,&#39;newfile&#39;) -- 复制文件
-    olddir只能为文件，newfile可以是文件，也可以是目标目录
-
-26. shutil.move(&#39;oldpos&#39;,&#39;newpos&#39;) -- 移动文件
-
-27. os.rmdir(&#39;dir&#39;) -- 只能是删除空目录
-
-28. shutil.rmtree(&#39;dir&#39;) -- 空目录、有内容目录均可删除</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2209,7 +2354,7 @@ url:https://github.com/ ---&gt;finish
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

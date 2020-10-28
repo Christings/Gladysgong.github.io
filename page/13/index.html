@@ -158,6 +158,209 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" class="post-title-link" itemprop="url">知识图谱和搜索引擎</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-16 09:44:52" itemprop="dateCreated datePublished" datetime="2018-01-16T09:44:52+08:00">2018-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:22:20" itemprop="dateModified" datetime="2020-09-18T17:22:20+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客:gongyanli.com</p>
+</blockquote>
+<h2 id="一、搜索引擎"><a href="#一、搜索引擎" class="headerlink" title="一、搜索引擎"></a>一、搜索引擎</h2><h3 id="（一）搜索引擎分类"><a href="#（一）搜索引擎分类" class="headerlink" title="（一）搜索引擎分类"></a>（一）搜索引擎分类</h3><p>1.分类目录</p>
+<pre><code>特征：人工搜集整理，把属于各个类别的高质量网站或网页进行分类，用户通过分级目录来查找高质量的网站
+缺点：人工、扩展性不强、绝大部分网站不能被收录
+代表：Yahoo、hao123</code></pre>
+<p>2.文本检索</p>
+<pre><code>特征:采用信息检索模型（布尔、向量空间或概率模型）计算用户查询关键词和网页文本内容的相关程度，并根据其相关匹配的程度进行排序
+缺点：没有利用网页之间的链接关系，搜索质量不是很好
+代表：AltaVista、Excite</code></pre>
+<p>3.链接分析</p>
+<pre><code>特征：充分利用网页之间的链接关系，并深入挖掘和利用网页链接所代表的含义，网页链接代表着一种推荐关系，通过分析链接可以在海量内容中找出重要的网页，而流行性代表着被推荐次数多的网页，搜索引擎结合网页流行性和内容相似性来改善搜索质量
+缺点：未考虑用户的个性化需求（用户输入的查询请求相同，所有用户都会获得相同的搜索结果）、链接作弊
+代表：Google（PageRank链接分析技术）</code></pre>
+<p>4.用户中心</p>
+<pre><code>特征:理解用户需求为核心（不同用户即使输入同一个查询词，会根据用户的差异性返回不同的结果；即使同一个用户输入相同的查询词，也会因为所在时间和场合不同，产生不同的需求结果）
+代表：Google、百度、搜狗等
+技术：利用用户发送查询词的时间和地理位置信息，利用用户过去发出的查询词及相应的点击记录等历史信息，来试图理解用户某个短小查询词背后所包含的真正需求</code></pre>
+<h3 id="（二）、搜索引擎结构原理"><a href="#（二）、搜索引擎结构原理" class="headerlink" title="（二）、搜索引擎结构原理"></a>（二）、搜索引擎结构原理</h3><p>核心问题</p>
+<pre><code>用户真正的需求是什么？
+哪些信息是和用户需求真正相关的？
+哪些信息是用户可以信赖的？</code></pre>
+<h3 id="（三）、搜索引擎技术分析"><a href="#（三）、搜索引擎技术分析" class="headerlink" title="（三）、搜索引擎技术分析"></a>（三）、搜索引擎技术分析</h3><p>1.全文检索搜索引擎(Full Text Search Engine)</p>
+<pre><code>特征:提取互联网各个网站的信息（网页文字为主），建立数据库，检索与用户查询条件相关匹配的记录，排序后将结果返回给用户
+代表:Google、Yahoo、AltaVista、Teoma、百度、北大天网</code></pre>
+<p>2.目录搜索引擎(Search Index)</p>
+<pre><code>特征：严格讲不算真正的搜索引擎，是依靠目录分类来实现搜索功能
+代表：Yahoo、搜狐、网易、新浪、hao123</code></pre>
+<p>3.元搜索引擎</p>
+<pre><code>特征：搜索引擎在接受用户的查询请求时，同时是多个搜索引擎上搜索，而自己不进行WWW遍历，也不具备索引数据库，汇总这些搜索结果，返回给用户
+代表：搜星搜索（中文元搜索引擎）</code></pre>
+<p>4.其他</p>
+<pre><code>搜索引擎组成：搜索器、索引器、检索器和用户接口
+中文搜索引擎还包括中文信息处理模块，来完成中文的分词处理、码值转换和全角处理等工作
+垂直搜索引擎（主/专题搜索引擎）：对互联网中某类专门的信息进行一次整合，只关注某一领域/地域的信息，将信息存储和索引后，用户就可以只检索这部分的信息
+垂直搜索引擎与通用搜索引擎的区别：通用面向所有用户，垂直只面向某一领域的用户
+
+传统搜索引擎核心技术：分词技术、网络蜘蛛、索引技术和词频指数
+智能搜索引擎核心技术：自动推理技术、本体知识系统、专家系统，智能搜索引擎更看重与其他学科相融合</code></pre>
+<h2 id="二、知识图谱"><a href="#二、知识图谱" class="headerlink" title="二、知识图谱"></a>二、知识图谱</h2><h3 id="（一）、知识图谱应用"><a href="#（一）、知识图谱应用" class="headerlink" title="（一）、知识图谱应用"></a>（一）、知识图谱应用</h3><p>搜索美国总统，分别查看google、百度和Yahoo的搜索结果。<br><img src="http://p2lakvkq0.bkt.clouddn.com/present1.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/present2.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/present3.jpg"><br>从图片可以看出，Google和百度返回了一个准确的结果，而Yahoo则是返回了一堆链接。</p>
+<h3 id="二-、知识图谱构建流程"><a href="#二-、知识图谱构建流程" class="headerlink" title="(二)、知识图谱构建流程"></a>(二)、知识图谱构建流程</h3><p>1.知识获取：已有知识库或者网上爬取半结构数据</p>
+<p>2.知识表示：采用实体-关系-实体的三元组对数据进行表示</p>
+<p>3.知识存储：传统的RDF存储或者图数据库</p>
+<pre><code>RDF存储：斯坦福可视化工具protege手工构建，效率低，中文支持差；
+        使用jena的API来处理RDF的本体数据，半自动构建，可结合virtuoso；
+        stardog；
+图数据：neo4j，提供cypher查询，同时具有可视化的功能</code></pre>
+<p>4.知识可视化：具体应用具体分析</p>
+<h3 id="三-、知识图谱框架"><a href="#三-、知识图谱框架" class="headerlink" title="(三)、知识图谱框架"></a>(三)、知识图谱框架</h3><p>1.传统搜索引擎和知识图谱的变化</p>
+<pre><code>信息抽取目标发生了变化，传统的文本指定抽取(ACE)=&gt;海量数据的发现(KBP);
+从文本分析为核心转变成了知识发现为核心；
+让计算机真正理解用户的查询需求，给出准确答案而不是给出相关的链接序列；</code></pre>
+<p>2.OpenKN–王元卓（原理类似于知识图谱）</p>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/openKN.jpg"></p>
+<p>全生命周期知识处理工作流程：知识获取–知识融合–知识验证–知识计算–知识存储–知识服务与应用</p>
+<ul>
+<li><p>知识库的构建：包括知识获取与知识融合</p>
+<p>  知识获取是从开放网页、在线百科和核心词库等数据中抽取概念、实体、属性和关系；<br>  知识融合的主要目的是实现知识的时序融合和多数据源融合。<br>  知识库构建完成后得到的知识是显式的知识。</p>
+</li>
+</ul>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/openKN1.jpg"></p>
+<ul>
+<li><p>知识计算（属性计算、关系计算、实例计算等）</p>
+<p>  除了显式的知识，通过OpenKN的知识计算功能，还可以进一步获得隐式的或推断的知识。</p>
+</li>
+<li><p>知识验证和处理</p>
+<p>  为了检验显式知识和隐式知识的完备性、相关性和一致性，需要对知识进行校验，主要是专家或特定的知识计算方法检查冗余的、冲突的、矛盾的或不完整的知识。</p>
+</li>
+<li><p>知识存储</p>
+<p>  经过验证的海量知识，在OpenKN里存储在一个图数据库（GDB）及关系数据库中。其中GDB中存储显式知识，关系数据库中存储隐式知识<br><img src="http://p2lakvkq0.bkt.clouddn.com/openKN2.jpg"></p>
+</li>
+</ul>
+<h2 id="三、搜狗立方"><a href="#三、搜狗立方" class="headerlink" title="三、搜狗立方"></a>三、搜狗立方</h2><p>1.搜索结构的变化<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou1.jpg"><br>2.搜狗知立方整体架构</p>
+<pre><code>知立方数据库构建包括：
+    本体构建（各类型实体挖掘、属性名称挖掘、编辑系统）
+    实例构建（纯文本属性、实体抽取、半结构化数据抽取）
+    异构数据整合（实体对齐、属性值决策、关系建立）
+    实体重要度计算
+    推理完善数据</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou2.jpg"><br>3.流行知识库</p>
+<p><a target="_blank" rel="noopener" href="http://www.wolframalpha.com/" title="wolframalpha">wolframalpha</a></p>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou4.jpg"><br>4.实体构建</p>
+<pre><code>各类型实体抽取
+属性抽取</code></pre>
+<p>5.信息抽取系统的建立</p>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou10.jpg"></p>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/sougou11.jpg"></p>
+<p>4.实体对齐<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou6.jpg"><br>5.属性值决策与关系建立<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou7.jpg"><br>6.推理补充与验证<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou8.jpg"><br>7.基于CFG句法分析<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou9.jpg"><br>8.后台检索系统<br><img src="http://p2lakvkq0.bkt.clouddn.com/sougou3.jpg"></p>
+<h2 id="四、百度知心"><a href="#四、百度知心" class="headerlink" title="四、百度知心"></a>四、百度知心</h2><h3 id="一-、Konwledge-Mining"><a href="#一-、Konwledge-Mining" class="headerlink" title="(一)、Konwledge Mining"></a>(一)、Konwledge Mining</h3><p>知识挖掘包括：Nameed entity mining(命名实体挖掘)、AVP mining(属性-值对挖掘)、Hyponymy learning(上下位学习)、Related entity mining(相关实体挖掘)<br><img src="http://p2lakvkq0.bkt.clouddn.com/baidu1.jpg"></p>
+<p>1.命名实体挖掘</p>
+<pre><code>  Traditional NE categories(传统命名实体类别)
+        – person, location, organization
+  Many more new categories useful for web applications(更多对web应用程序有用的新类别)
+        - Movie, TV series, music, book, software, computer game
+  More fine-grained taxonomy（更精细的分类）
+        – Organization -&gt; &#123;school, hospital, government, company,…&#125;
+        – Computer game -&gt; &#123;net game, webpage game,…&#125;
+  Characteristics of NEs on the web
+        – New NEs emerge rapidly, especially for software, games, and novels
+        – Names of NEs on the web are informal
+
+
+ （1）从查询日志(Query Logs)中学习命名实体(NEs)
+        - 查询日志中包含了大量NE,大约70%的搜索查询包含了NEs
+        - NEs能够被上下文特征（context  features）识别
+        - Bootstrapping approach
+            给出某一分类的种子NEs，从查询中学习种子的上下文特征，然后用已经学习到的上下文特征来提取分类的新种子实体，最后使用扩展的种子集去扩展上下文特征
+        - 优点：覆盖最新出现的命名实体
+        - 缺点：旧的或不受欢迎的命名实体会被忽略</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu2.jpg"></p>
+<pre><code>  （2）从普通文本中学习命名实体
+        - 文字包装器（Text Wrappers）被广泛用于从纯文本中提取NEs
+        - Wrapper example: “电影《[X]》 ”, “影片[X]，导演”
+        – [X] is a placeholder that can be filled with movie names</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu3.jpg"></p>
+<pre><code>  （3）使用url-text混合模式学习命名实体（Learning NEs using Url-text Hybrid Patterns）</code></pre>
+<p>2.属性-值对挖掘（AVP Mining）</p>
+<pre><code>AVP数据来源：
+    - 在线百科--百度百科、Wikipedia、互动百科
+    - 垂直网站--IMDB、douban for videos
+    - 普通网友文档--从结构化、半结构化和非结构化文本中挖掘AVP
+(1) 挖掘在线百科AVP数据</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu4.jpg"></p>
+<pre><code>(2) 挖掘垂直网站AVP数据</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/baidu5.jpg"></p>
+<h3 id="二-、Semantic-Computation"><a href="#二-、Semantic-Computation" class="headerlink" title="(二)、Semantic Computation"></a>(二)、Semantic Computation</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Scrapy-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1258,7 +1461,7 @@ hexo s -p 8022
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
