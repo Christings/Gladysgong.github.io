@@ -859,7 +859,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-28 18:44:57" itemprop="dateModified" datetime="2020-10-28T18:44:57+08:00">2020-10-28</time>
+                <time title="Modified: 2020-10-28 22:56:25" itemprop="dateModified" datetime="2020-10-28T22:56:25+08:00">2020-10-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -993,13 +993,56 @@ ord() # 字符串(ascii)转数字
 
         #print(start,max_len)
         return s[start: start+max_len]</code></pre>
-<p>?题解四|动态规划：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp.png"></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
+<p>题解四|动态规划：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp.png"></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
 <pre><code>1、定义数组的定义
     dp[i][j] 表示子串 s[i, j] 是否为回文子串。
 2、找出数组的关系式
     dp[i][j] = (s[i] == s[j]) and dp[i + 1][j - 1]
-3、找到初始值</code></pre>
+
+    说明：
+
+        「动态规划」事实上是在填一张二维表格，由于构成子串，因此 i 和 j 的关系是 i &lt;= j ，因此，只需要填这张表格对角线以上的部分。
+
+        看到 dp[i + 1][j - 1] 就得考虑边界情况。
+
+    边界条件是：表达式 [i + 1, j - 1] 不构成区间，即长度严格小于 2，即 j - 1 - (i + 1) + 1 &lt; 2 ，整理得 j - i &lt; 3。
+
+    这个结论很显然：j - i &lt; 3 等价于 j - i + 1 &lt; 4，即当子串 s[i..j] 的长度等于 2 或者等于 3 的时候，其实只需要判断一下头尾两个字符是否相等就可以直接下结论了。
+
+        如果子串 s[i + 1..j - 1] 只有 1 个字符，即去掉两头，剩下中间部分只有 11 个字符，显然是回文；
+        如果子串 s[i + 1..j - 1] 为空串，那么子串 s[i, j] 一定是回文子串。
+
+    因此，在 s[i] == s[j] 成立和 j - i &lt; 3 的前提下，直接可以下结论，dp[i][j] = true，否则才执行状态转移。
+
+3、找到初始值
+    初始化的时候，单个字符一定是回文串，因此把对角线先初始化为 true，即 dp[i][i] = true 。
+
+    事实上，初始化的部分都可以省去。因为只有一个字符的时候一定是回文，dp[i][i] 根本不会被其它状态值所参考。
+
+4、考虑输出
+
+    只要一得到 dp[i][j] = true，就记录子串的长度和起始位置，没有必要截取，这是因为截取字符串也要消耗性能，记录此时的回文子串的「起始位置」和「回文长度」即可。</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if not s:
+            return &quot;&quot;
+        max_len = 1
+        n = len(s)
+        start = 0
+        for i in range(1,n):
+            even = s[i-max_len:i+1]
+            odd = s[i - max_len-1:i+1]
+            #print(even,odd)
+            if i - max_len - 1 &gt;= 0 and odd == odd[::-1]:
+                start = i - max_len - 1
+                max_len += 2
+            elif i - max_len &gt;=0 and even == even[::-1]:
+                start = i - max_len
+                max_len += 1
+
+        #print(start,max_len)
+        return s[start: start+max_len]</code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
 <h3 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12.整数转罗马数字"></a>12.整数转罗马数字</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-to-roman/
 
