@@ -859,7 +859,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-29 16:10:02" itemprop="dateModified" datetime="2020-10-29T16:10:02+08:00">2020-10-29</time>
+                <time title="Modified: 2020-10-29 17:37:27" itemprop="dateModified" datetime="2020-10-29T17:37:27+08:00">2020-10-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1185,7 +1185,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
         for i,v in enumerate(s):
             ans+=arr.get(s[i-1:i+1],arr[v])
         return ans</code></pre>
-<h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="?14.最长公共前缀"></a>?14.最长公共前缀</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-common-prefix/
+<h3 id="14-最长公共前缀"><a href="#14-最长公共前缀" class="headerlink" title="14.最长公共前缀"></a>14.最长公共前缀</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-common-prefix/
 
 编写一个函数来查找字符串数组中的最长公共前缀。
 
@@ -1203,7 +1203,8 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 说明:
 
 所有输入只包含小写字母 a-z 。</code></pre>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lz_901/article/details/89021210">https://blog.csdn.net/lz_901/article/details/89021210</a><br>题解一|水平扫描：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lz_901/article/details/89021210">https://blog.csdn.net/lz_901/article/details/89021210</a></p>
+<p>题解一|水平扫描：</p>
 <pre><code>1、先找出 str1 和 str2（注：str1代表第一个字符串，str2代表第二个） 的公共字符串 s1。
 
 2、然后再找出 s1 和 str3 的公共前缀 s2。
@@ -1214,15 +1215,6 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp1.png"></p>
 <pre><code>class Solution:
     def longestCommonPrefix(self, strs: List[str]) -&gt; str:
-        # if not strs:
-        #     return &#39;&#39;
-        # res=&#39;&#39;
-        # for i in range(0,len(strs[0])):
-        #     c=strs[0][i]
-        #     for j in range(1,len(strs)):
-        #         if i == len(str[j]) or c != strs[j][i] 
-        #             return res
-        #     res+=c
         if not strs:
             return &#39;&#39;
         prefix=strs[0]
@@ -1242,7 +1234,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 
 返回值：
     如果包含子字符串返回开始的索引值，否则返回-1。</code></pre>
-<p>题解二(水平扫描优化)：</p>
+<p>题解二|水平扫描优化：</p>
 <pre><code>想象数组的末尾有一个非常短的字符串，使用上述方法仍旧会进行S次比较。
 优化这类情况的方法是水平扫描，从前往后枚举字符串的每一列，先比较每个字符串相同列上的字符（即不同字符串相同下标的字符），然后再进行下一列的比较。
 
@@ -1251,15 +1243,16 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 然后纵向遍历，一列一列遍历，只要发现某一列出现不同的字符，就遍历结束，例如上面这个例子中，第三列就出现不同了，所以遍历结束，把前两列返回。</code></pre>
 <pre><code>class Solution:
     def longestCommonPrefix(self, strs: List[str]) -&gt; str:
-        if(not strs):
-            return &quot;&quot;
+        if not strs:
+            return &#39;&#39;
         for i in range(len(strs[0])):
-            c=strs[0][i]
-            for j in range(len(strs)):
-                if i==len(strs[j]) or strs[j][i] != c:
+            tmp=strs[0][i]
+            for j in range(1,len(strs)):
+                if i==len(strs[j]) or strs[j][i]!=tmp:
                     return strs[0][0:i]
-        return strs[0]</code></pre>
-<p>题解三（分治）：</p>
+        return strs[0]
+</code></pre>
+<p>题解三|分治：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp2.png"></p>
 <p>复杂度：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/lcp3.png"></p>
 <pre><code>class Solution:
@@ -1299,7 +1292,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
         if not strs:
             return &#39;&#39;
         return lcp(strs, 0, len(strs) - 1)</code></pre>
-<p>题解四（zip）：</p>
+<p>题解四|zip：</p>
 <pre><code>class Solution:
     def longestCommonPrefix(self, strs: List[str]) -&gt; str:
         # print(strs)
@@ -1332,7 +1325,7 @@ zip([iterable, ...])
     iterabl -- 一个或多个迭代器;
 返回值:
 返回元组列表/一个对象。</code></pre>
-<p>题解五（max和min）：</p>
+<p>题解五|max和min：</p>
 <p>max()和min()在python字符串中是可以比较的，按照ascii值排序，比如abb，aba，abac，最大为abb，最小为aba。</p>
 <pre><code>class Solution:
     def longestCommonPrefix(self, strs: List[str]) -&gt; str:
