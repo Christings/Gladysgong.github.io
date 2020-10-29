@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bit.png">
 <meta property="article:published_time" content="2020-03-28T15:45:50.000Z">
-<meta property="article:modified_time" content="2020-10-28T14:56:25.945Z">
+<meta property="article:modified_time" content="2020-10-29T08:10:02.035Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-28 22:56:25" itemprop="dateModified" datetime="2020-10-28T22:56:25+08:00">2020-10-28</time>
+                <time title="Modified: 2020-10-29 16:10:02" itemprop="dateModified" datetime="2020-10-29T16:10:02+08:00">2020-10-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -367,24 +367,33 @@ ord() # 字符串(ascii)转数字
     只要一得到 dp[i][j] = true，就记录子串的长度和起始位置，没有必要截取，这是因为截取字符串也要消耗性能，记录此时的回文子串的「起始位置」和「回文长度」即可。</code></pre>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
-        if not s:
-            return &quot;&quot;
-        max_len = 1
-        n = len(s)
-        start = 0
-        for i in range(1,n):
-            even = s[i-max_len:i+1]
-            odd = s[i - max_len-1:i+1]
-            #print(even,odd)
-            if i - max_len - 1 &gt;= 0 and odd == odd[::-1]:
-                start = i - max_len - 1
-                max_len += 2
-            elif i - max_len &gt;=0 and even == even[::-1]:
-                start = i - max_len
-                max_len += 1
+        n=len(s)
+        if n &lt; 2:
+            return s
+        dp=[[False]*n for i in range(n)]
+        res=1
+        start=0
 
-        #print(start,max_len)
-        return s[start: start+max_len]</code></pre>
+        for i in range(n):
+            dp[i][i]=True
+
+        for j in range(1,n):
+            for i in range(0,j):
+                if s[i]==s[j]:
+                    if j-i &lt; 3:
+                        dp[i][j]=True
+                    else:
+                        dp[i][j]=dp[i+1][j-1]
+                else:
+                    dp[i][j]=False
+
+                if dp[i][j]:
+                    cur=j-i+1
+                    if cur&gt;res:
+                        res=cur
+                        start=i
+        return s[start:start+res]
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
 <h3 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12.整数转罗马数字"></a>12.整数转罗马数字</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-to-roman/
 
@@ -536,7 +545,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 说明:
 
 所有输入只包含小写字母 a-z 。</code></pre>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lz_901/article/details/89021210">https://blog.csdn.net/lz_901/article/details/89021210</a><br>题解一(水平扫描)：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lz_901/article/details/89021210">https://blog.csdn.net/lz_901/article/details/89021210</a><br>题解一|水平扫描：</p>
 <pre><code>1、先找出 str1 和 str2（注：str1代表第一个字符串，str2代表第二个） 的公共字符串 s1。
 
 2、然后再找出 s1 和 str3 的公共前缀 s2。
@@ -696,67 +705,60 @@ zip([iterable, ...])
 当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
 
 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</code></pre>
-<p>题解一(子串逐一比较 - 线性时间复杂度)：</p>
+<p>题解一|子串逐一比较|线性时间复杂度：</p>
 <p>思路：沿着字符换逐步移动滑动窗口，将窗口内的子串与 needle 字符串比较。</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png"></p>
 <p>时间复杂度：O((N - L)L)，其中 N 为 haystack 字符串的长度，L 为 needle 字符串的长度。内循环中比较字符串的复杂度为 L，总共需要比较 (N - L) 次。<br>空间复杂度：O(1)</p>
 <pre><code>class Solution:
     def strStr(self, haystack: str, needle: str) -&gt; int:
-        n,length=len(haystack),len(needle)
-        for i in range(n-length+1):
-            if haystack[i:i+length]==needle:
+        n1,n2=len(haystack),len(needle)
+        for i in range(n1-n2+1):
+            if haystack[i:i+n2] == needle:
                 return i
         return -1</code></pre>
-<p>？？题解二（双指针 - 线性时间复杂度）：</p>
+<p>题解二|双指针|线性时间复杂度：</p>
 <p>题解一的缺陷是会将 haystack 所有长度为 L 的子串都与 needle 字符串比较，实际上是不需要这么做的。</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png"></p>
 <pre><code>首先，只有子串的第一个字符跟 needle 字符串第一个字符相同的时候才需要比较。
 
 其次，可以一个字符一个字符比较，一旦不匹配了就立刻终止。
 
-比较到最后一位时发现不匹配，这时候开始回溯。需要注意的是，pn 指针是移动到 pn = pn - curr_len + 1 的位置，而 不是 pn = pn - curr_len 的位置。
+比较到最后一位时发现不匹配，这时候开始回溯。需要注意的是，i 指针是移动到 i = i - index + 1 的位置，而 不是 i = i - index 的位置。
 
-这时候再比较一次，就找到了完整匹配的子串，直接返回子串的开始位置 pn - L。</code></pre>
+这时候再比较一次，就找到了完整匹配的子串，直接返回子串的开始位置 i - n2。</code></pre>
 <p>思路：</p>
-<pre><code>移动 pn 指针，直到 pn 所指向位置的字符与 needle 字符串第一个字符相等。
+<pre><code>移动 i 指针，直到 i 所指向位置的字符与 needle 字符串第一个字符相等。
 
-通过 pn，pL，curr_len 计算匹配长度。
+通过 i，j，index 计算匹配长度。
 
-如果完全匹配（即 curr_len == L），返回匹配子串的起始坐标（即 pn - L）。
+如果完全匹配（即 index == n2），返回匹配子串的起始坐标（即 i - n2）。
 
-如果不完全匹配，回溯。使 pn = pn - curr_len + 1， pL = 0， curr_len = 0。</code></pre>
-<p>时间复杂度：最坏时间复杂度为 O((N - L)L)，最优时间复杂度为 O(N)。<br>空间复杂度：O(1)</p>
+如果不完全匹配，回溯，使 i = i - index + 1， j = 0， index = 0。</code></pre>
+<p>时间复杂度：最坏时间复杂度为 O((n1 - n2)n2)，最优时间复杂度为 O(n2)。<br>空间复杂度：O(1)</p>
 <pre><code>class Solution:
     def strStr(self, haystack: str, needle: str) -&gt; int:
-        L, n = len(needle), len(haystack)
-        if L == 0:
+        n1,n2=len(haystack),len(needle)
+        if not n2:
             return 0
-
-        pn = 0
-        while pn &lt; n - L + 1:
-            # find the position of the first needle character
-            # in the haystack string
-            while pn &lt; n - L + 1 and haystack[pn] != needle[0]:
-                pn += 1
-
-            # compute the max match string
-            curr_len = pL = 0
-            while pL &lt; L and pn &lt; n and haystack[pn] == needle[pL]:
-                pn += 1
-                pL += 1
-                curr_len += 1
-
-            # if the whole needle string is found,
-            # return its start position
-            if curr_len == L:
-                return pn - L
-
-            # otherwise, backtrack
-            pn = pn - curr_len + 1
+        i=0
+        while i&lt;(n1-n2+1):
+            while i&lt;(n1-n2+1) and haystack[i] != needle[0]:
+                i+=1
+            j,index=0,0
+            while i&lt;n1 and j&lt;n2 and haystack[i]==needle[j]:
+                i+=1
+                j+=1
+                index+=1
+            if index==n2:
+                return i-n2
+            i=i-index+1 # 如果使用i=i-index会超时。
 
         return -1</code></pre>
-<p>？？？题解三（KMP）：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/">https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0">https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0</a></p>
+<p>题解三|KMP：</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/">https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0">https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0</a></p>
 <pre><code>class Solution:
     def strStr(self, haystack: str, needle: str) -&gt; int:
         if not needle:
@@ -773,6 +775,7 @@ zip([iterable, ...])
             return i-j
         else:
             return -1
+
     def getNext(self,needle):
         next=[0]*len(needle)
         next[0]=-1
@@ -877,49 +880,33 @@ zip([iterable, ...])
 输出: &quot;1211&quot;
 解释：当 n = 3 时，序列是 &quot;21&quot;，其中我们有 &quot;2&quot; 和 &quot;1&quot; 两组，&quot;2&quot; 可以读作 &quot;12&quot;，也就是出现频次 = 1 而 值 = 2；类似 &quot;1&quot; 可以读作 &quot;11&quot;。所以答案是 &quot;12&quot; 和 &quot;11&quot; 组合在一起，也就是 &quot;1211&quot;。</code></pre>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/106149461">https://zhuanlan.zhihu.com/p/106149461</a></p>
-<p>题解一（递归）:</p>
+<p>题解一|递归:</p>
 <pre><code>class Solution:
     def countAndSay(self, n: int) -&gt; str:
-        # 初始条件
         if n==1:
             return &#39;1&#39;
-        print(&#39;调用前：&#39;,n)
-        pre=self.countAndSay(n-1) # 得到上一行的字符串
-        print(&#39;调用后：&#39;,n,pre)
+        pre=self.countAndSay(n-1)
         res=&#39;&#39;
         count=1
-        length=len(pre)
-        for i in range(1,length):
+        n=len(pre)
+        for i in range(1,n):
             if pre[i] != pre[i-1]:
                 res+=str(count)+pre[i-1]
                 count=1
             else:
                 count+=1
-        print(pre[length-1])
-        res+=str(count)+pre[length-1]
-        return res</code></pre>
-<p>输出：</p>
-<pre><code>调用前： 5
-调用前： 4
-调用前： 3
-调用前： 2
-调用后： 2 1
-1
-调用后： 3 11
-1
-调用后： 4 21
-1
-调用后： 5 1211
-1</code></pre>
-<p>题解二（迭代）:</p>
+        res+=str(count)+pre[n-1]
+        return res
+</code></pre>
+<p>题解二|迭代:</p>
 <pre><code>class Solution:
     def countAndSay(self, n: int) -&gt; str:
         res=&#39;1&#39;
         while n-1&gt;0:
             tmp=&#39;&#39;
-            pre=res[0]
-            count=0 # count=0
-            for i in range(len(res)): # 从0开始
+            count=0 # 计数
+            pre=res[0] # 实际字符
+            for i in range(len(res)):
                 if pre==res[i]:
                     count+=1
                 else:
@@ -936,8 +923,8 @@ zip([iterable, ...])
         res=&#39;1&#39;
         for i in range(n-1,0,-1):
             tmp=&#39;&#39;
-            pre=res[0]
             count=1 # count=1
+            pre=res[0]
             for j in range(1,len(res)): # 从1开始
                 if pre==res[j]:
                     count+=1
@@ -960,7 +947,7 @@ zip([iterable, ...])
 
 输入: &quot;Hello World&quot;
 输出: 5</code></pre>
-<p>题解一（内置函数）:</p>
+<p>题解一|内置函数:</p>
 <pre><code>class Solution:
     def lengthOfLastWord(self, s: str) -&gt; int:
         return len(s.rstrip().split(&#39; &#39;)[-1])</code></pre>
@@ -975,7 +962,9 @@ zip([iterable, ...])
         while start &gt;=0 and s[start] !=&#39; &#39;:
             start-=1
         return end-start</code></pre>
-<h3 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67. 二进制求和"></a>67. 二进制求和</h3><pre><code>给你两个二进制字符串，返回它们的和（用二进制表示）。
+<h3 id="67-二进制求和"><a href="#67-二进制求和" class="headerlink" title="67. 二进制求和"></a>67. 二进制求和</h3><pre><code>链接：https://leetcode-cn.com/problems/add-binary/
+
+给你两个二进制字符串，返回它们的和（用二进制表示）。
 
 输入为 非空 字符串且只包含数字 1 和 0。
 
@@ -994,12 +983,12 @@ zip([iterable, ...])
 每个字符串仅由字符 &#39;0&#39; 或 &#39;1&#39; 组成。
 1 &lt;= a.length, b.length &lt;= 10^4
 字符串如果不是 &quot;0&quot; ，就都不含前导零。</code></pre>
-<p>题解一（内置函数）:</p>
+<p>题解一|内置函数:</p>
 <p>时间复杂度为 O(N+M)</p>
 <pre><code>class Solution:
     def addBinary(self, a: str, b: str) -&gt; str:
         return bin(int(a,2)+int(b,2))[2:]</code></pre>
-<p>题解二(逐位运算)：</p>
+<p>题解二|按位运算：</p>
 <p>时间复杂度：O(max(N,M))，其中 N 和 M 是输入字符串 a 和 b 的长度。</p>
 <p>空间复杂度：O(max(N,M))，存储求和结果。</p>
 <pre><code>class Solution:
@@ -1025,7 +1014,7 @@ zip([iterable, ...])
         res.reverse()
         return &#39;&#39;.join(res)</code></pre>
 <p>zfill()方法语法：<br>    str.zfill(width)<br>    参数:<br>        width – 指定字符串的长度。原字符串右对齐，前面填充0。<br>    返回值:<br>        返回指定长度的字符串。</p>
-<p>题解三（位操作）：</p>
+<p>题解三|位运算：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bit.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bit.png"></p>
 <p>算法:</p>
 <pre><code>把 a 和 b 转换成整型数字 x 和 y，x 保存结果，y 保存进位。
