@@ -158,6 +158,1081 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/" class="post-title-link" itemprop="url">数据结构与算法-9-动态规划-博弈系列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-14 21:51:09" itemprop="dateCreated datePublished" datetime="2020-06-14T21:51:09+08:00">2020-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-30 23:01:36" itemprop="dateModified" datetime="2020-08-30T23:01:36+08:00">2020-08-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>博弈类问题的套路都差不多，其核心思路是在二维 dp 的基础上使用元组分别存储两个人的博弈结果（俩海盗分宝石，俩人拿硬币的问题）。</p>
+<p>「石头游戏」：</p>
+<p>你和你的朋友面前有一排石头堆，用一个数组 piles 表示，piles[i] 表示第 i 堆石子有多少个。你们轮流拿石头，一次拿一堆，但是只能拿走最左边或者最右边的石头堆。所有石头被拿完后，谁拥有的石头多，谁获胜。</p>
+<p>石头的堆数可以是任意正整数，石头的总数也可以是任意正整数，这样就能打破先手必胜的局面了。比如有三堆石头 piles = [1,100,3]，先手不管拿 1 还是 3，能够决定胜负的 100 都会被后手拿走，后手会获胜。</p>
+<p>假设两人都很聪明，请你设计一个算法，返回先手和后手的最后得分（石头总数）之差。比如上面那个例子，先手能获得 4 分，后手会获得 100 分，你的算法应该返回 -96。</p>
+<p>博弈问题的难点在于，两个人要轮流进行选择，而且都贼精明，应该如何编程表示这个过程呢？</p>
+<p>1、定义dp数组的含义</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp16.jpg"></p>
+<p>dp数组解释：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp17.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp17.jpg"></p>
+<p>答案是先手和后手最终分数之差，按照这个定义也就是 dp[0][n−1].fir−dp[0][n−1].sec</p>
+<p>2、状态转移方程</p>
+<p>状态：开始的索引 i，结束的索引 j，当前轮到的人。</p>
+<pre><code>dp[i][j][fir or sec]
+其中：
+0 &lt;= i &lt; piles.length
+i &lt;= j &lt; piles.length</code></pre>
+<p>选择有两个：选择最左边的那堆石头，或者选择最右边的那堆石头</p>
+<p>穷举所有状态：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp18.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp18.jpg"></p>
+<p>状态转移方程：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp19.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp19.jpg"></p>
+<p>base case:<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp20.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp20.jpg"></p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp21.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp21.jpg"></p>
+<p>推算 dp[i][j] 时需要用到 dp[i+1][j] 和 dp[i][j-1]：所以需要斜着遍历数组</p>
+<p>3、实现</p>
+<pre><code>class Solution:
+    def stoneGame(self, piles: List[int]) -&gt; bool:
+        ```
+        返回先手和后手的得分之差
+        ```
+        n=len(piles)
+        dp=[[[0]*2 for i in range(n)] for i in range(n)] # 初始化dp
+
+        # 初始值
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+            dp[i][i][1]=0
+
+        # 斜着遍历数组
+        for t in range(2,n+1):
+            for i in range(n-t+1):
+                j=t+i-1
+
+                # 先手选择最左边或者最右边的分数
+                left=piles[i]+dp[i+1][j][1]
+                right=piles[j]+dp[i][j-1][1]
+
+                # 状态转移
+                if left &gt; right:
+                    dp[i][j][0]=left
+                    dp[i][j][1]=dp[i+1][j][0]
+                else:
+                    dp[i][j][0]=right
+                    dp[i][j][1]=dp[i][j-1][0]
+        res=dp[0][n-1]
+        return res[0] - res[1]</code></pre>
+<pre><code>class Solution:
+    def stoneGame(self, piles: List[int]) -&gt; bool:
+        n=len(piles)
+        dp=[[[0]*2 for i in range(n)] for i in range(n)]
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+            dp[i][i][1]=0
+
+        for i in range(n-1,-1,-1):
+            for j in range(i,n):
+                if i==j:
+                    continue
+
+                left=piles[i]+dp[i+1][j][1]
+                right=piles[j]+dp[i][j-1][1]
+
+                if left &gt;= right:
+                    dp[i][j][0]=left
+                    dp[i][j][1]=dp[i+1][j][0]
+                else:
+                    dp[i][j][0]=right
+                    dp[i][j][1]=dp[i][j-1][0]
+        res=dp[n-1][n-1]
+        return res[0] - res[1]</code></pre>
+<h3 id="877-石子游戏"><a href="#877-石子游戏" class="headerlink" title="877. 石子游戏"></a>877. 石子游戏</h3><pre><code>链接：https://leetcode-cn.com/problems/stone-game/
+
+亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。
+
+游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。
+
+亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。
+
+假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。
+
+示例：
+
+输入：[5,3,4,5]
+输出：true
+解释：
+亚历克斯先开始，只能拿前 5 颗或后 5 颗石子 。
+假设他取了前 5 颗，这一行就变成了 [3,4,5] 。
+如果李拿走前 3 颗，那么剩下的是 [4,5]，亚历克斯拿走后 5 颗赢得 10 分。
+如果李拿走后 5 颗，那么剩下的是 [3,4]，亚历克斯拿走后 4 颗赢得 9 分。
+这表明，取前 5 颗石子对亚历克斯来说是一个胜利的举动，所以我们返回 true 。 
+
+提示：
+
+2 &lt;= piles.length &lt;= 500
+piles.length 是偶数。
+1 &lt;= piles[i] &lt;= 500
+sum(piles) 是奇数。</code></pre>
+<pre><code>class Solution:
+    def stoneGame(self, piles: List[int]) -&gt; bool:
+        n=len(piles)
+        dp=[[[0]*2 for i in range(n)] for i in range(n)]
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+
+        for i in range(n):
+            dp[i][i][0]=piles[i]
+            dp[i][i][1]=0
+
+        for i in range(n-1,-1,-1):
+            for j in range(i,n):
+                if i==j:
+                    continue
+
+                left=piles[i]+dp[i+1][j][1]
+                right=piles[j]+dp[i][j-1][1]
+
+                if left &gt;= right:
+                    dp[i][j][0]=left
+                    dp[i][j][1]=dp[i+1][j][0]
+                else:
+                    dp[i][j][0]=right
+                    dp[i][j][1]=dp[i][j-1][0]
+        res=dp[n-1][n-1]
+        return res[0] &gt; res[1]</code></pre>
+<p>题目有两个条件很重要：一是石头总共有偶数堆，石头的总数是奇数。这两个看似增加游戏公平性的条件，反而使该游戏成为了一个割韭菜游戏。</p>
+<p>先手必胜！</p>
+<pre><code>class Solution:
+    def stoneGame(self, piles: List[int]) -&gt; bool:
+        return True</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-8-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E7%B3%BB%E5%88%97/" class="post-title-link" itemprop="url">数据结构与算法-8-动态规划-背包系列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-11 16:12:15" itemprop="dateCreated datePublished" datetime="2020-06-11T16:12:15+08:00">2020-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-27 18:36:23" itemprop="dateModified" datetime="2020-08-27T18:36:23+08:00">2020-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="原文：https-mp-weixin-qq-com-s-RXfnhSpVBmVneQjDSUSAVQ"><a href="#原文：https-mp-weixin-qq-com-s-RXfnhSpVBmVneQjDSUSAVQ" class="headerlink" title="原文：https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ"></a>原文：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ">https://mp.weixin.qq.com/s/RXfnhSpVBmVneQjDSUSAVQ</a></h2><h2 id="一、背包系列"><a href="#一、背包系列" class="headerlink" title="一、背包系列"></a>一、背包系列</h2><p>1、01背包</p>
+<p>给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？</p>
+<p>举个简单的例子，输入如下：</p>
+<pre><code>N = 3, W = 4
+wt = [2, 1, 3]
+val = [4, 2, 3]</code></pre>
+<p>算法返回 6，选择前两件物品装进背包，总重量 3 小于W，可以获得最大价值 6。</p>
+<p>思考：</p>
+<pre><code>题目中的物品不可以分割，要么装进包里，要么不装，不能说切成两块装一半。</code></pre>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<pre><code>    for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 择优(选择1，选择2...)</code></pre>
+<p>第二步：dp数组的定义</p>
+<p>明确问题有什么「状态」，现在需要用dp数组把状态表示出来。</p>
+<p>「状态」，有两个，也就是说我们需要一个二维dp数组，一维表示可选择的物品，一维表示背包的容量。</p>
+<p>dp[i][w]的定义如下：对于前i个物品，当前背包的容量为w，这种情况下可以装的最大价值是dp[i][w]。</p>
+<p>比如说，如果 dp[3][5] = 6，其含义为：对于给定的一系列物品中，若只对前 3 个物品进行选择，当背包容量为 5 时，最多可以装下的价值为 6。</p>
+<p>bad case：<br>dp[0][..] = dp[..][0] = 0，因为没有物品或者背包没有空间的时候，能装的最大价值就是 0。</p>
+<p>答案就是dp[N][W]</p>
+<pre><code>int dp[N+1][W+1]
+dp[0][..] = 0
+dp[..][0] = 0
+
+for i in [1..N]:
+    for w in [1..W]:
+        dp[i][w] = max(
+            把物品 i 装进背包,
+            不把物品 i 装进背包
+        )
+return dp[N][W]</code></pre>
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>dp[i][w]表示：对于前i个物品，当前背包的容量为w时，这种情况下可以装下的最大价值是dp[i][w]。</p>
+<p>如果你没有把这第i个物品装入背包，那么很显然，最大价值dp[i][w]应该等于dp[i-1][w]。不装的时候，那就继承之前的结果。</p>
+<p>如果你把这第i个物品装入了背包，那么dp[i][w]应该等于dp[i-1][w-wt[i-1]] + val[i-1]。</p>
+<p>ps：</p>
+<pre><code>由于i是从 1 开始的，所以对val和wt的取值是i-1。
+
+dp[i-1][w-wt[i-1]]：你如果想装第i个物品，你怎么计算这时候的最大价值？换句话说，在装第i个物品的前提下，背包能装的最大价值是多少？
+
+寻求剩余重量w-wt[i-1]限制下能装的最大价值，加上第i个物品的价值val[i-1]，这就是装第i个物品的前提下，背包可以装的最大价值。</code></pre>
+<pre><code>for i in [1..N]:
+    for w in [1..W]:
+        dp[i][w] = max(
+            dp[i-1][w],
+            dp[i-1][w - wt[i-1]] + val[i-1]
+        )
+return dp[N][W]</code></pre>
+<p>c++:</p>
+<pre><code>int knapsack(int W, int N, vector&lt;int&gt;&amp; wt, vector&lt;int&gt;&amp; val) &#123;
+    // vector 全填入 0，base case 已初始化
+    vector&lt;vector&lt;int&gt;&gt; dp(N + 1, vector&lt;int&gt;(W + 1, 0));
+    for (int i = 1; i &lt;= N; i++) &#123;
+        for (int w = 1; w &lt;= W; w++) &#123;
+            if (w - wt[i-1] &lt; 0) &#123;
+                // 当前背包容量装不下，只能选择不装入背包
+                dp[i][w] = dp[i - 1][w];
+            &#125; else &#123;
+                // 装入或者不装入背包，择优
+                dp[i][w] = max(dp[i - 1][w - wt[i-1]] + val[i-1], 
+                               dp[i - 1][w]);
+            &#125;
+        &#125;
+    &#125;
+
+    return dp[N][W];
+&#125;</code></pre>
+<p>python:</p>
+<pre><code>def knapsack(W,N,wt,val):
+    dp=[[0]*(W+1) for i in range(N+1)]
+    for i in range(1,N+1):
+        for j in range(1,W+1):
+            if j-wt[i-1] &lt; 0:
+                dp[i][j]=dp[i-1][j]
+            else:
+                dp[i][j]=max(dp[i-1][j-wt[i-1]]+val[i-1],dp[i-1][j])
+    # print(dp)
+    return dp[N][W]</code></pre>
+<p>2、01背包变体</p>
+<h3 id="416-分割等和子集"><a href="#416-分割等和子集" class="headerlink" title="416. 分割等和子集"></a>416. 分割等和子集</h3><pre><code>链接：https://leetcode-cn.com/problems/partition-equal-subset-sum/
+
+给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+注意:
+
+每个数组中的元素不会超过 100
+数组的大小不会超过 200
+示例 1:
+
+输入: [1, 5, 11, 5]
+
+输出: true
+
+解释: 数组可以分割成 [1, 5, 5] 和 [11].
+
+示例 2:
+
+输入: [1, 2, 3, 5]
+
+输出: false
+
+解释: 数组不能分割成两个元素和相等的子集.</code></pre>
+<p>思考：</p>
+<p>给你一个可装载重量为W的背包和N个物品，每个物品有重量和价值两个属性。其中第i个物品的重量为wt[i]，价值为val[i]，现在让你用这个背包装物品，最多能装的价值是多少？</p>
+<p>可以先对集合求和，得出sum，把问题转化为背包问题：给一个可装载重量为sum/2的背包和N个物品，每个物品的重量为nums[i]。现在让你装物品，是否存在一种装法，能够恰好将背包装满？</p>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<p>第二步：dp数组的定义</p>
+<p>dp[i][j] = x表示，对于前i个物品，当前背包的容量为j时，若x为true，则说明可以恰好将背包装满，若x为false，则说明不能恰好将背包装满。</p>
+<p>比如说，如果dp[4][9] = true，其含义为：对于容量为 9 的背包，若只是用前 4 个物品，可以有一种方法把背包恰好装满。</p>
+<p>或者说对于本题，含义是对于给定的集合中，若只对前 4 个数字进行选择，存在一个子集的和可以恰好凑出 9。</p>
+<p>根据这个定义，我们想求的最终答案就是dp[N][sum/2]，base case 就是dp[..][0] = true和dp[0][..] = false，因为背包没有空间的时候，就相当于装满了，而当没有物品可选择的时候，肯定没办法装满背包。</p>
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>根据「选择」对dp[i][j]得到以下状态转移：</p>
+<p>如果不把nums[i]算入子集，或者说你不把这第i个物品装入背包，那么是否能够恰好装满背包，取决于上一个状态dp[i-1][j]，继承之前的结果。</p>
+<p>如果把nums[i]算入子集，或者说你把这第i个物品装入了背包，那么是否能够恰好装满背包，取决于状态dp[i - 1][j-nums[i-1]]。</p>
+<p>首先，由于i是从 1 开始的，而数组索引是从 0 开始的，所以第i个物品的重量应该是nums[i-1]，这一点不要搞混。</p>
+<p>dp[i - 1][j-nums[i-1]]也很好理解：你如果装了第i个物品，就要看背包的剩余重量j - nums[i-1]限制下是否能够被恰好装满。</p>
+<p>换句话说，如果j - nums[i-1]的重量可以被恰好装满，那么只要把第i个物品装进去，也可恰好装满j的重量；否则的话，重量j肯定是装不满的。</p>
+<p>c++:</p>
+<pre><code>bool canPartition(vector&lt;int&gt;&amp; nums) &#123;
+    int sum = 0;
+    for (int num : nums) sum += num;
+    // 和为奇数时，不可能划分成两个和相等的集合
+    if (sum % 2 != 0) return false;
+    int n = nums.size();
+    sum = sum / 2;
+    vector&lt;vector&lt;bool&gt;&gt; 
+        dp(n + 1, vector&lt;bool&gt;(sum + 1, false));
+    // base case
+    for (int i = 0; i &lt;= n; i++)
+        dp[i][0] = true;
+
+    for (int i = 1; i &lt;= n; i++) &#123;
+        for (int j = 1; j &lt;= sum; j++) &#123;
+            if (j - nums[i - 1] &lt; 0) &#123;
+               // 背包容量不足，不能装入第 i 个物品
+                dp[i][j] = dp[i - 1][j]; 
+            &#125; else &#123;
+                // 装入或不装入背包
+                dp[i][j] = dp[i - 1][j] | dp[i - 1][j-nums[i-1]];
+            &#125;
+        &#125;
+    &#125;
+    return dp[n][sum];
+&#125;</code></pre>
+<p>python:</p>
+<pre><code>class Solution:
+    def canPartition(self, nums: List[int]) -&gt; bool:
+        sum=0
+        for i in nums:
+            sum+=i
+        if sum %2 != 0:
+            return False
+        n=len(nums)
+        sum=sum//2
+        dp=[[False]*(sum+1) for i in range(n+1)]
+        # print(dp)
+        for i in range(n+1):
+            dp[i][0]=True
+        for i in range(1,n+1):
+            for j in range(1,sum+1):
+                if j-nums[i-1]&lt;0:
+                    dp[i][j]=dp[i-1][j]
+                else:
+                    dp[i][j]=dp[i-1][j] or dp[i-1][j-nums[i-1]]
+                    # dp[i][j]=dp[i-1][j] | dp[i-1][j-nums[i-1]]
+        return dp[n][sum]</code></pre>
+<p>状态压缩：</p>
+<p>注意: </p>
+<pre><code>dp[i][j]都是通过上一行dp[i-1][..]转移过来的，之前的数据都不会再使用了。
+dp[j]其实就相当于dp[i-1][j]</code></pre>
+<pre><code>bool canPartition(vector&lt;int&gt;&amp; nums) &#123;
+    int sum = 0, n = nums.size();
+    for (int num : nums) sum += num;
+    if (sum % 2 != 0) return false;
+    sum = sum / 2;
+    vector&lt;bool&gt; dp(sum + 1, false);
+    // base case
+    dp[0] = true;
+
+    for (int i = 0; i &lt; n; i++) 
+        for (int j = sum; j &gt;= 0; j--) 
+            if (j - nums[i] &gt;= 0) 
+                dp[j] = dp[j] || dp[j - nums[i]];
+
+    return dp[sum];
+&#125;</code></pre>
+<p>3、完全背包</p>
+<h3 id="518-零钱兑换-II"><a href="#518-零钱兑换-II" class="headerlink" title="518. 零钱兑换 II"></a>518. 零钱兑换 II</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change-2/
+
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。 
+
+示例 1:
+
+输入: amount = 5, coins = [1, 2, 5]
+输出: 4
+解释: 有四种方式可以凑成总金额:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+示例 2:
+
+输入: amount = 3, coins = [2]
+输出: 0
+解释: 只用面额2的硬币不能凑成总金额3。
+示例 3:
+
+输入: amount = 10, coins = [10] 
+输出: 1
+
+
+注意:
+
+你可以假设：
+
+0 &lt;= amount (总金额) &lt;= 5000
+1 &lt;= coin (硬币面额) &lt;= 5000
+硬币种类不超过 500 种
+结果符合 32 位符号整数</code></pre>
+<p>思考：</p>
+<p>有一个背包，最大容量为amount，有一系列物品coins，每个物品的重量为coins[i]，每个物品的数量无限。请问有多少种方法，能够把背包恰好装满？</p>
+<p>和01背包最大的区别就是，每个物品的数量是无限的，这也就是传说中的「完全背包问题」</p>
+<p>第一步：</p>
+<pre><code>状态：「背包的容量」和「可选择的物品」
+选择：「装进背包」或者「不装进背包」</code></pre>
+<pre><code>for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 计算(选择1，选择2...)</code></pre>
+<p>第二步：dp数组的定义</p>
+<p>dp[i][j]的定义如下：</p>
+<p>若只使用前i个物品，当背包容量为j时，有dp[i][j]种方法可以装满背包。<br>即只使用coins中的前i个硬币的面值，若想凑出金额j，有dp[i][j]种凑法。</p>
+<p>base case 为dp[0][..] = 0， dp[..][0] = 1。因为如果不使用任何硬币面值，就无法凑出任何金额；如果凑出的目标金额为 0，那么“无为而治”就是唯一的一种凑法。</p>
+<p>答案就是dp[N][amount]，其中N为coins数组的大小。</p>
+<pre><code>int dp[N+1][amount+1]
+dp[0][..] = 0
+dp[..][0] = 1
+
+for i in [1..N]:
+    for j in [1..amount]:
+        把物品 i 装进背包,
+        不把物品 i 装进背包
+return dp[N][amount]
+</code></pre>
+<p>第三步：根据「选择」，思考状态转移的逻辑</p>
+<p>特殊点：在于物品的数量是无限的</p>
+<p>如果你不把这第i个物品装入背包，也就是说你不使用coins[i]这个面值的硬币，那么凑出面额j的方法数dp[i][j]应该等于dp[i-1][j]，继承之前的结果。</p>
+<p>如果你把这第i个物品装入了背包，也就是说你使用coins[i]这个面值的硬币，那么dp[i][j]应该等于dp[i][j-coins[i-1]]。</p>
+<p>首先由于i是从 1 开始的，所以coins的索引是i-1时表示第i个硬币的面值。</p>
+<p>总结：</p>
+<pre><code>状态：硬币，金额
+选择：当前硬币选或者不选
+
+dp数组含义：dp[i][j]表示前i个硬币可以达到j金额的组合数
+
+状态转移方程：dp[i][j]=dp[i−1][j]+dp[i][j−coins[i−1]]
+
+注意：就是不选和选相加，选时的硬币下标仍为i，因为硬币个数无限，这个硬币上次仍然可以选；
+     完全背包和01背包的唯一不同之处；</code></pre>
+<p>java：</p>
+<pre><code>int change(int amount, int[] coins) &#123;
+    int n = coins.length;
+    int[][] dp = amount int[n + 1][amount + 1];
+    // base case
+    for (int i = 0; i &lt;= n; i++) 
+        dp[i][0] = 1;
+
+    for (int i = 1; i &lt;= n; i++) &#123;
+        for (int j = 1; j &lt;= amount; j++)
+            if (j - coins[i-1] &gt;= 0)
+                dp[i][j] = dp[i - 1][j] 
+                         + dp[i][j - coins[i-1]];
+            else 
+                dp[i][j] = dp[i - 1][j];
+    &#125;
+    return dp[n][amount];
+&#125;
+</code></pre>
+<pre><code>int change(int amount, int[] coins) &#123;
+    int n = coins.length;
+    int[] dp = new int[amount + 1];
+    dp[0] = 1; // base case
+    for (int i = 0; i &lt; n; i++)
+        for (int j = 1; j &lt;= amount; j++)
+            if (j - coins[i] &gt;= 0)
+                dp[j] = dp[j] + dp[j-coins[i]];
+
+    return dp[amount];
+&#125;</code></pre>
+<p>python:</p>
+<pre><code>class Solution:
+    def change(self, amount: int, coins: List[int]) -&gt; int:
+        n=len(coins)
+        dp=[[0]*(amount+1) for i in range(n+1)]
+        for i in range(n+1):
+            dp[i][0]=1
+        for i in range(1,n+1):
+            for j in range(1,amount+1):
+                if j-coins[i-1]&gt;=0:
+                    dp[i][j]=dp[i-1][j]+dp[i][j-coins[i-1]]
+                else:
+                    dp[i][j]=dp[i-1][j]
+        return dp[n][amount]</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-7-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-7-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E7%B3%BB%E5%88%97/" class="post-title-link" itemprop="url">数据结构与算法-7-动态规划-打家劫舍系列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-10 10:46:46" itemprop="dateCreated datePublished" datetime="2020-06-10T10:46:46+08:00">2020-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-27 16:04:27" itemprop="dateModified" datetime="2020-08-27T16:04:27+08:00">2020-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、打家劫舍系列"><a href="#一、打家劫舍系列" class="headerlink" title="一、打家劫舍系列"></a>一、打家劫舍系列</h2><pre><code>解决动态规划问题就是找「状态」和「选择」，仅此而已。
+
+假想你就是这个专业强盗，从左到右走过这一排房子，在每间房子前都有两种选择：抢或者不抢。
+
+「状态」和「选择」：你面前房子的索引就是状态，抢和不抢就是选择。</code></pre>
+<h3 id="198-打家劫舍"><a href="#198-打家劫舍" class="headerlink" title="198.打家劫舍"></a>198.打家劫舍</h3><pre><code>链接：https://leetcode-cn.com/problems/house-robber/
+
+你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+
+给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
+
+示例 1:
+
+输入: [1,2,3,1]
+输出: 4
+解释: 偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
+     偷窃到的最高金额 = 1 + 3 = 4 。
+示例 2:
+
+输入: [2,7,9,3,1]
+输出: 12
+解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
+     偷窃到的最高金额 = 2 + 9 + 1 = 12 。</code></pre>
+<p>题解一|动态规划:</p>
+<pre><code>1、定义数组元素的含义
+    数组nums:各个房间的现金
+    数组flags：记录各个房间有没有被偷，若flag = 0 则没偷， flag = 1 则偷了。
+    数组dp：dp[i]代表前i个房屋偷到的最大现金数
+2、递推方程式
+    1）只考虑前两个房间时，谁大选谁
+    2）考虑第三个房间
+
+        如果偷第三个房间，则意味着第二个房间不偷，也就是第三个房间值 + 第一个房间的宝藏数量；
+        如果不偷第三个房间，则宝藏数量等于前两个房间宝藏数量；
+
+    dp[i]=max(nums[i]+dp[i-2],dp[i-1])
+3、初始值
+第一个房间：
+
+    Condistion 1 ：dp[0] = nums[0] ; flags[0] = 1;
+    Condistion 2 ：dp[0] = 0; flags[0] = 0;
+
+第二个房间：
+
+    Condistion 1 ：when flags[1] = 1; dp[1] = nums[1];
+
+    Condistion 2 ：when flags[1] = 0; dp[1] = dp[0];
+
+    选 Condistion 1 还是 Condistion 2呢？比较 两种情况下dp[1]的大小推广到前i个房间: (i&gt;=2)
+
+    when flags[i] = 1, dp[i] = nums[i] + dp[i-2]
+    when flags[i] = 0; dp[i] = dp[i-1]</code></pre>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        lens=len(nums)
+        if lens==0:
+            return 0
+
+        # flag=lens*[0]
+        dp=lens*[0]
+
+        dp[0]=nums[0]
+        if lens&lt;2:
+            return dp[0]
+        dp[1]=max(nums[0],nums[1])
+        for i in range(2,lens):
+            dp[i]=max(nums[i]+dp[i-2],dp[i-1])
+
+        return dp[lens-1]
+</code></pre>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        if len(nums)==0:
+            return 0
+        if len(nums)&lt;=2:
+            return max(nums)
+        dp=[0]*2
+        dp[0]=nums[0]
+        dp[1]=max(nums[0],nums[1])
+        for i in range(2,len(nums)):
+            dp[i%2]=max(dp[(i-1)%2],dp[(i-2)%2]+nums[i])
+        return max(dp) # return dp[(len(nums)-1)%2]</code></pre>
+<p>题解二|自顶向下|超时:</p>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        return self.dp(nums,0)
+    def dp(self,nums,start):
+        if start &gt;= len(nums):
+            return 0
+        # 不抢，去下家；抢，去下下家
+        res=max(self.dp(nums,start+1),nums[start]+self.dp(nums,start+2))
+        return res</code></pre>
+<p>使用备忘录进行优化：</p>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        # 初始化备忘录
+        self.memo=&#123;&#125;
+        for i in range(len(nums)):
+            self.memo[i]=-1
+
+        return self.dp(nums,0)
+    def dp(self,nums,start):
+        if start &gt;= len(nums):
+            return 0
+        # 避免重复计算
+        if self.memo[start] != -1:
+            return self.memo[start]
+        # 不抢，去下家；抢，去下下家
+        res=max(self.dp(nums,start+1),nums[start]+self.dp(nums,start+2))
+
+        # 记入备忘录
+        self.memo[start]=res
+        return res</code></pre>
+<p>题解三|自顶向下的动态规划:</p>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        if not nums:
+            return 0
+        if n&lt;2:
+            return nums[0]
+        dp=[0]*(n)
+        dp[0]=nums[0]
+        dp[1]=max(nums[0],nums[1])
+        for i in range(2,n):
+            dp[i]=max(dp[i-1],nums[i]+dp[i-2])
+        return dp[n-1]</code></pre>
+<pre><code>int rob(int[] nums) &#123;
+    int n = nums.length;
+    // dp[i] = x 表示：
+    // 从第 i 间房子开始抢劫，最多能抢到的钱为 x
+    // base case: dp[n] = 0
+    int[] dp = new int[n + 2];
+    for (int i = n - 1; i &gt;= 0; i--) &#123;
+        dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2]);
+    &#125;
+    return dp[0];
+&#125;</code></pre>
+<pre><code>int rob(int[] nums) &#123;
+    int n = nums.length;
+    // 记录 dp[i+1] 和 dp[i+2]
+    int dp_i_1 = 0, dp_i_2 = 0;
+    // 记录 dp[i]
+    int dp_i = 0; 
+    for (int i = n - 1; i &gt;= 0; i--) &#123;
+        dp_i = Math.max(dp_i_1, nums[i] + dp_i_2);
+        dp_i_2 = dp_i_1;
+        dp_i_1 = dp_i;
+    &#125;
+    return dp_i;
+&#125;</code></pre>
+<h3 id="213-打家劫舍-II"><a href="#213-打家劫舍-II" class="headerlink" title="213. 打家劫舍 II"></a>213. 打家劫舍 II</h3><pre><code>链接：https://leetcode-cn.com/problems/house-robber-ii/
+
+你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都围成一圈，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+
+给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
+
+示例 1:
+
+输入: [2,3,2]
+输出: 3
+解释: 你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。
+示例 2:
+
+输入: [1,2,3,1]
+输出: 4
+解释: 你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。
+     偷窃到的最高金额 = 1 + 3 = 4 。</code></pre>
+<p>题解一|动态规划：</p>
+<pre><code>思路：
+    在 [0:n-1] 中找到最大值
+    在 [1:n] 中找到最大值</code></pre>
+<pre><code>class Solution:
+    def rob(self, nums: List[int]) -&gt; int:
+        def helper(nums):
+            if not nums:
+                return 0
+            n=len(nums)
+            if n==1:
+                return nums[0]
+            dp=[0]*n
+            dp[0]=nums[0]
+            dp[1]=max(nums[0],nums[1])
+            for i in range(2,n):
+                dp[i]=max(dp[i-2]+nums[i],dp[i-1])
+            return dp[-1]
+        if not nums:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        return max(helper(nums[1:]),helper(nums[:len(nums)-1]))</code></pre>
+<p>题解二：</p>
+<pre><code>首尾房间不能同时被抢，那么只可能有三种不同情况：
+    要么都不被抢；
+    要么第一间房子被抢最后一间不抢；
+    要么最后一间房子被抢第一间不抢。</code></pre>
+<pre><code>public int rob(int[] nums) &#123;
+    int n = nums.length;
+    if (n == 1) return nums[0];
+    return Math.max(robRange(nums, 0, n - 2), 
+                    robRange(nums, 1, n - 1));
+&#125;
+
+// 仅计算闭区间 [start,end] 的最优结果
+int robRange(int[] nums, int start, int end) &#123;
+    int n = nums.length;
+    int dp_i_1 = 0, dp_i_2 = 0;
+    int dp_i = 0;
+    for (int i = end; i &gt;= start; i--) &#123;
+        dp_i = Math.max(dp_i_1, nums[i] + dp_i_2);
+        dp_i_2 = dp_i_1;
+        dp_i_1 = dp_i;
+    &#125;
+    return dp_i;
+&#125;</code></pre>
+<h3 id="337-打家劫舍-III"><a href="#337-打家劫舍-III" class="headerlink" title="337. 打家劫舍 III"></a>337. 打家劫舍 III</h3><pre><code>链接：https://leetcode-cn.com/problems/house-robber-iii/
+
+在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。
+
+计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。
+
+示例 1:
+
+输入: [3,2,3,null,3,null,1]
+
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+
+输出: 7 
+解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.
+示例 2:
+
+输入: [3,4,5,1,3,null,1]
+
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1
+
+输出: 9
+解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9.</code></pre>
+<p>题解一|递归：</p>
+<pre><code>public int rob(TreeNode root) &#123;
+    if (root == null) return 0;
+
+    int money = root.val;
+    if (root.left != null) &#123;
+        money += (rob(root.left.left) + rob(root.left.right));
+    &#125;
+
+    if (root.right != null) &#123;
+        money += (rob(root.right.left) + rob(root.right.right));
+    &#125;
+
+    return Math.max(money, rob(root.left) + rob(root.right));
+&#125;
+</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        money=root.val
+        if root.left:
+            money+=(self.rob(root.left.left)+self.rob(root.left.right))
+        if root.right:
+            money+=(self.rob(root.right.left)+self.rob(root.right.right))
+        return max(money,self.rob(root.left)+self.rob(root.right))</code></pre>
+<p>题解二|memo记忆化递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def rob(self, root: TreeNode) -&gt; int:
+        self.memo=&#123;&#125;
+
+        def helper(root):
+            if not root:
+                return 0
+            if root in self.memo:
+                return self.memo[root]
+            money=root.val
+            if root.left:
+                money+=(helper(root.left.left)+helper(root.left.right))
+            if root.right:
+                money+=(helper(root.right.left)+helper(root.right.right))
+
+            result=max(money,helper(root.left)+helper(root.right))
+            self.memo[root]=result
+            return result
+
+        return helper(root)</code></pre>
+<pre><code>public int rob(TreeNode root) &#123;
+    HashMap&lt;TreeNode, Integer&gt; memo = new HashMap&lt;&gt;();
+    return robInternal(root, memo);
+&#125;
+
+public int robInternal(TreeNode root, HashMap&lt;TreeNode, Integer&gt; memo) &#123;
+    if (root == null) return 0;
+    if (memo.containsKey(root)) return memo.get(root);
+    int money = root.val;
+
+    if (root.left != null) &#123;
+        money += (robInternal(root.left.left, memo) + robInternal(root.left.right, memo));
+    &#125;
+    if (root.right != null) &#123;
+        money += (robInternal(root.right.left, memo) + robInternal(root.right.right, memo));
+    &#125;
+    int result = Math.max(money, robInternal(root.left, memo) + robInternal(root.right, memo));
+    memo.put(root, result);
+    return result;
+&#125;
+</code></pre>
+<p>题解三：</p>
+<p>每个节点可选择偷或者不偷两种状态，根据题目意思，相连节点不能一起偷</p>
+<p>当前节点选择偷时，那么两个孩子节点就不能选择偷了<br>当前节点选择不偷时，两个孩子节点只需要拿最多的钱出来就行(两个孩子节点偷不偷没关系)<br>我们使用一个大小为 2 的数组来表示 int[] res = new int[2] 0 代表不偷，1 代表偷<br>任何一个节点能偷到的最大钱的状态可以定义为</p>
+<p>当前节点选择不偷：当前节点能偷到的最大钱数 = 左孩子能偷到的钱 + 右孩子能偷到的钱<br>当前节点选择偷：当前节点能偷到的最大钱数 = 左孩子选择自己不偷时能得到的钱 + 右孩子选择不偷时能得到的钱 + 当前节点的钱数<br>表示为公式如下</p>
+<pre><code>root[0] = Math.max(rob(root.left)[0], rob(root.left)[1]) + Math.max(rob(root.right)[0], rob(root.right)[1])
+
+root[1] = rob(root.left)[0] + rob(root.right)[0] + root.val;</code></pre>
+<pre><code>public int rob(TreeNode root) &#123;
+    int[] result = robInternal(root);
+    return Math.max(result[0], result[1]);
+&#125;
+
+public int[] robInternal(TreeNode root) &#123;
+    if (root == null) return new int[2];
+    int[] result = new int[2];
+
+    int[] left = robInternal(root.left);
+    int[] right = robInternal(root.right);
+
+    result[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+    result[1] = left[0] + right[0] + root.val;
+
+    return result;</code></pre>
+<hr>
+<pre><code>Map&lt;TreeNode, Integer&gt; memo = new HashMap&lt;&gt;();
+public int rob(TreeNode root) &#123;
+    if (root == null) return 0;
+    // 利用备忘录消除重叠子问题
+    if (memo.containsKey(root)) 
+        return memo.get(root);
+    // 抢，然后去下下家
+    int do_it = root.val
+        + (root.left == null ? 
+            0 : rob(root.left.left) + rob(root.left.right))
+        + (root.right == null ? 
+            0 : rob(root.right.left) + rob(root.right.right));
+    // 不抢，然后去下家
+    int not_do = rob(root.left) + rob(root.right);
+
+    int res = Math.max(do_it, not_do);
+    memo.put(root, res);
+    return res;
+&#125;</code></pre>
+<pre><code>int rob(TreeNode root) &#123;
+    int[] res = dp(root);
+    return Math.max(res[0], res[1]);
+&#125;
+
+/* 返回一个大小为 2 的数组 arr
+arr[0] 表示不抢 root 的话，得到的最大钱数
+arr[1] 表示抢 root 的话，得到的最大钱数 */
+int[] dp(TreeNode root) &#123;
+    if (root == null)
+        return new int[]&#123;0, 0&#125;;
+    int[] left = dp(root.left);
+    int[] right = dp(root.right);
+    // 抢，下家就不能抢了
+    int rob = root.val + left[0] + right[0];
+    // 不抢，下家可抢可不抢，取决于收益大小
+    int not_rob = Math.max(left[0], left[1])
+                + Math.max(right[0], right[1]);
+
+    return new int[]&#123;not_rob, rob&#125;;
+&#125;</code></pre>
+<pre><code>class Solution:
+    def rob(self, root: TreeNode) -&gt; int:
+        res=self.dp(root)
+        return max(res[0],res[1])
+
+    def dp(self,root):
+        if not root:
+            return (0,0)
+        left=self.dp(root.left)
+        right=self.dp(root.right)
+        rob=root.val+left[0]+right[0]
+        not_rob=max(left[0],left[1])+max(right[0],right[1])
+        return (not_rob,rob)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-6-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%82%A1%E7%A5%A8%E4%B9%B0%E5%8D%96%E7%B3%BB%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2151,329 +3226,10 @@ print(kmp(s, p))
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">PyTorch-6-卷积神经网络参数解释</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-17 19:05:50" itemprop="dateCreated datePublished" datetime="2020-04-17T19:05:50+08:00">2020-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-30 17:51:43" itemprop="dateModified" datetime="2020-04-30T17:51:43+08:00">2020-04-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Haiqiang1995/article/details/90300686">https://blog.csdn.net/Haiqiang1995/article/details/90300686</a><br><a target="_blank" rel="noopener" href="https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35">https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/r1254/article/details/104888502">https://blog.csdn.net/r1254/article/details/104888502</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dyk4ever/article/details/102841518">https://blog.csdn.net/dyk4ever/article/details/102841518</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44307764/article/details/102353344">https://blog.csdn.net/weixin_44307764/article/details/102353344</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yz2zcx/article/details/100187471/">https://blog.csdn.net/yz2zcx/article/details/100187471/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a2b536945e3c">https://www.jianshu.com/p/a2b536945e3c</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzy2014/article/details/25916235">https://blog.csdn.net/lzy2014/article/details/25916235</a><br><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/373368">https://yq.aliyun.com/articles/373368</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html">https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fzz9/p/8973315.html">https://www.cnblogs.com/fzz9/p/8973315.html</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f9d99f7ad54">https://www.jianshu.com/p/6f9d99f7ad54</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42042680/article/details/80994726">https://blog.csdn.net/weixin_42042680/article/details/80994726</a></p>
-<h3 id="1、卷积运算函数"><a href="#1、卷积运算函数" class="headerlink" title="1、卷积运算函数"></a>1、卷积运算函数</h3><p>torch.nn.Conv2d的功能是：对由多个输入平面组成的输入信号进行二维卷积。</p>
-<pre><code>layer = nn.Conv2d(in_channels=1,out_channels=3,kernel_size=3,stride=1,padding=0)
-
-in_channels:
-    1）输入通道数，对于图片层一般为1（灰度）3（RGB）
-    2）定义一种输入规则，要求上一层的输出必须和这个输入一致，也可以理解为并发in_channels个channel在上一层feature_map(特征映射)上进行卷积运算
-
-out_channels:
-    1)直观理解是输出层通道数，              
-    2)换一种理解是kernels（卷积核）个数，其中，每个卷积核会输出局部特征，比如面部中有头发feature，衣服颜色的feature都是由不同的kernel进行卷积运算得到的。
-
-stride(步长)：控制cross-correlation的步长，可以设为1个int型数或者一个(int, int)型的tuple。
-
-padding(补0)：控制zero-padding的数目。
-
-dilation(扩张)：控制kernel点（卷积核点）的间距; 也被称为 &quot;à trous&quot;算法. 可以在此github地址查看:Dilated convolution animations
-
-groups(卷积核个数)：这个比较好理解，通常来说，卷积个数唯一，但是对某些情况，可以设置范围在1 —— in_channels中数目的卷积核：
-
-输出[b,out_channels,w,h],其中w和h是输出的shape.</code></pre>
-<pre><code>    mylayer=torch.nn.Conv2d(3,2,kernel_size=3,stride=2,padding=0)
-    print(l1.weight.shape)
-    input=torch.rand(1,3,7,7)
-    out=l1.forward(input)
-    print(out.shape)
------------------------------------------------
-    torch.Size([2, 3, 3, 3])
-    torch.Size([1, 2, 3, 3])</code></pre>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">TensorFlow-7-conv2d的padding及参数解释</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-17 15:51:56" itemprop="dateCreated datePublished" datetime="2020-04-17T15:51:56+08:00">2020-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:13:58" itemprop="dateModified" datetime="2020-09-18T21:13:58+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、padding的方式："><a href="#1、padding的方式：" class="headerlink" title="1、padding的方式："></a>1、padding的方式：</h3><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg"></p>
-<p>说明：</p>
-<p>1、摘录自<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t">http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t</a></p>
-<p>2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width=13,只允许滑动2次,多余的元素全部丢掉</p>
-<p>3、SAME的方式,采用的是补全的方式,对于上述的情况,允许滑动3次,但是需要补3个元素,左奇右偶,在左边补一个0,右边补2个0</p>
-<p>4、For the SAME padding, the output height and width are computed as:</p>
-<pre><code>out_height = ceil(float(in_height) / float(strides[1]))
-
-out_width = ceil(float(in_width) / float(strides[2]))
-
-For the VALID padding, the output height and width are computed as:
-
-out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))
-
-out_width = ceil(float(in_width - filter_width + 1) / float(strides[2]))</code></pre>
-<h3 id="2、conv2d的参数："><a href="#2、conv2d的参数：" class="headerlink" title="2、conv2d的参数："></a>2、conv2d的参数：</h3><p>1、strides[0] = strides[3] = 1</p>
-<h3 id="3、conv2d的参数解释："><a href="#3、conv2d的参数解释：" class="headerlink" title="3、conv2d的参数解释："></a>3、conv2d的参数解释：</h3><p>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)<br>除去name参数用以指定该操作的name，与方法有关的一共五个参数：</p>
-<p>第一个参数input：指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一</p>
-<p>第二个参数filter：相当于CNN中的卷积核，它要求是一个Tensor，具有[filter_height, filter_width, in_channels, out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同,filter的通道数要求与input的in_channels一致，有一个地方需要注意，第三维in_channels，就是参数input的第四维</p>
-<p>第三个参数strides：卷积时在图像每一维的步长，这是一个一维的向量，长度4，strides[0]=strides[3]=1</p>
-<p>第四个参数padding：string类型的量，只能是”SAME”,”VALID”其中之一，这个值决定了不同的卷积方式（后面会介绍）</p>
-<p>第五个参数：use_cudnn_on_gpu:bool类型，是否使用cudnn加速，默认为true</p>
-<p>结果返回一个Tensor，这个输出，就是我们常说的feature map</p>
-<h3 id="4、conv2d的例子："><a href="#4、conv2d的例子：" class="headerlink" title="4、conv2d的例子："></a>4、conv2d的例子：</h3><p>那么TensorFlow的卷积具体是怎样实现的呢，用一些例子去解释它：</p>
-<p>import tensorflow as tf<br>#case 2<br>input = tf.Variable(tf.random_normal([1,3,3,5]))<br>filter = tf.Variable(tf.random_normal([1,1,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
-<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
-<p>import tensorflow as tf</p>
-<p>input = tf.Variable(tf.random_normal([1,5,5,5]))<br>filter = tf.Variable(tf.random_normal([3,3,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
-<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
-<p>说明：</p>
-<p>1、使用VALID方式,feature map的尺寸为<br>out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))=(5-3+1)/1 = 3</p>
-<p>out_width = ceil(float(in_width - filter_width + 1) / float(strides[2])) = (5-3+1)/1 = 3</p>
-<p>所以,feature map的尺寸为3*3</p>
-<p>2、filter的参数个数为3<em>3</em>5<em>1,也即对于输入的每个通道数都对应于一个3</em>3的滤波器,然后共5个通道数,conv2d的过程就是对5个输入进行点击然后求和,得到一张feature map。如果要得到3张feature map,那么应该使用的参数为3<em>3</em>5*3个参数.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-5-transforms/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PyTorch-5-transforms/" class="post-title-link" itemprop="url">PyTorch-5-transforms</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-14 15:27:30 / Modified: 15:28:57" itemprop="dateCreated datePublished" datetime="2020-04-14T15:27:30+08:00">2020-04-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>转载于：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011995719/article/details/85107009">https://blog.csdn.net/u011995719/article/details/85107009</a></p>
-<p>本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：<a target="_blank" rel="noopener" href="https://github.com/tensor-yu/PyTorch_Tutorial">https://github.com/tensor-yu/PyTorch_Tutorial</a></p>
-<p>本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列，没有归纳总结，顺序很乱，这里总结一共有四大类，方便大家索引：</p>
-<p>裁剪——Crop 中心裁剪：transforms.CenterCrop 随机裁剪：transforms.RandomCrop 随机长宽比裁剪：transforms.RandomResizedCrop 上下左右中心裁剪：transforms.FiveCrop 上下左右中心裁剪后翻转，transforms.TenCrop<br>翻转和旋转——Flip and Rotation 依概率p水平翻转：transforms.RandomHorizontalFlip(p=0.5) 依概率p垂直翻转：transforms.RandomVerticalFlip(p=0.5) 随机旋转：transforms.RandomRotation<br>图像变换 resize：transforms.Resize 标准化：transforms.Normalize 转为tensor，并归一化至[0-1]：transforms.ToTensor 填充：transforms.Pad 修改亮度、对比度和饱和度：transforms.ColorJitter 转灰度图：transforms.Grayscale 线性变换：transforms.LinearTransformation() 仿射变换：transforms.RandomAffine 依概率p转为灰度图：transforms.RandomGrayscale 将数据转换为PILImage：transforms.ToPILImage transforms.Lambda：Apply a user-defined lambda as a transform.<br>对transforms操作，使数据增强更灵活 transforms.RandomChoice(transforms)， 从给定的一系列transforms中选一个进行操作 transforms.RandomApply(transforms, p=0.5)，给一个transform加上概率，依概率进行操作 transforms.RandomOrder，将transforms中的操作随机打乱<br>一、 裁剪——Crop<br>1.随机裁剪：transforms.RandomCrop<br>class torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=’constant’) 功能：依据给定的size随机裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，暂不了解。 4. symmetric，暂不了解。</p>
-<p>2.中心裁剪：transforms.CenterCrop<br>class torchvision.transforms.CenterCrop(size) 功能：依据给定的size从中心裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
-<p>3.随机长宽比裁剪 transforms.RandomResizedCrop<br>class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=2) 功能：随机大小，随机长宽比裁剪原始图片，最后将图片resize到设定好的size 参数： size- 输出的分辨率 scale- 随机crop的大小区间，如scale=(0.08, 1.0)，表示随机crop出来的图片会在的0.08倍至1倍之间。 ratio- 随机长宽比设置 interpolation- 插值的方法，默认为双线性插值(PIL.Image.BILINEAR)</p>
-<p>4.上下左右中心裁剪：transforms.FiveCrop<br>class torchvision.transforms.FiveCrop(size) 功能：对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
-<p>5.上下左右中心裁剪后翻转: transforms.TenCrop<br>class torchvision.transforms.TenCrop(size, vertical_flip=False) 功能：对图片进行上下左右以及中心裁剪，然后全部翻转（水平或者垂直），获得10张图片，返回一个4D-tensor。 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) vertical_flip (bool) - 是否垂直翻转，默认为flase，即默认为水平翻转</p>
-<p>二、翻转和旋转——Flip and Rotation<br>6.依概率p水平翻转transforms.RandomHorizontalFlip<br>class torchvision.transforms.RandomHorizontalFlip(p=0.5) 功能：依据概率p对PIL图片进行水平翻转 参数： p- 概率，默认值为0.5</p>
-<p>7.依概率p垂直翻转transforms.RandomVerticalFlip<br>class torchvision.transforms.RandomVerticalFlip(p=0.5) 功能：依据概率p对PIL图片进行垂直翻转 参数： p- 概率，默认值为0.5</p>
-<p>8.随机旋转：transforms.RandomRotation<br>class torchvision.transforms.RandomRotation(degrees, resample=False, expand=False, center=None) 功能：依degrees随机旋转一定角度 参数： degress- (sequence or float or int) ，若为单个数，如 30，则表示在（-30，+30）之间随机旋转 若为sequence，如(30，60)，则表示在30-60度之间随机旋转 resample- 重采样方法选择，可选 PIL.Image.NEAREST, PIL.Image.BILINEAR, PIL.Image.BICUBIC，默认为最近邻 expand- ? center- 可选为中心旋转还是左上角旋转</p>
-<p>三、图像变换<br>9.resize：transforms.Resize<br>class torchvision.transforms.Resize(size, interpolation=2) 功能：重置图像分辨率 参数： size- If size is an int, if height &gt; width, then image will be rescaled to (size * height / width, size)，所以建议size设定为h*w interpolation- 插值方法选择，默认为PIL.Image.BILINEAR</p>
-<p>10.标准化：transforms.Normalize<br>class torchvision.transforms.Normalize(mean, std) 功能：对数据按通道进行标准化，即先减均值，再除以标准差，注意是 hwc</p>
-<p>11.转为tensor：transforms.ToTensor<br>class torchvision.transforms.ToTensor 功能：将PIL Image或者 ndarray 转换为tensor，并且归一化至[0-1] 注意事项：归一化至[0-1]是直接除以255，若自己的ndarray数据尺度有变化，则需要自行修改。</p>
-<p>12.填充：transforms.Pad<br>class torchvision.transforms.Pad(padding, fill=0, padding_mode=’constant’) 功能：对图像进行填充 参数： padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，？ 4. symmetric，？</p>
-<p>13.修改亮度、对比度和饱和度：transforms.ColorJitter<br>class torchvision.transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0) 功能：修改修改亮度、对比度和饱和度</p>
-<p>14.转灰度图：transforms.Grayscale<br>class torchvision.transforms.Grayscale(num_output_channels=1) 功能：将图片转换为灰度图 参数： num_output_channels- (int) ，当为1时，正常的灰度图，当为3时， 3 channel with r == g == b</p>
-<p>15.线性变换：transforms.LinearTransformation()<br>class torchvision.transforms.LinearTransformation(transformation_matrix) 功能：对矩阵做线性变化，可用于白化处理！ whitening: zero-center the data, compute the data covariance matrix 参数： transformation_matrix (Tensor) – tensor [D x D], D = C x H x W</p>
-<p>16.仿射变换：transforms.RandomAffine<br>class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0) 功能：仿射变换</p>
-<p>17.依概率p转为灰度图：transforms.RandomGrayscale<br>class torchvision.transforms.RandomGrayscale(p=0.1) 功能：依概率p将图片转换为灰度图，若通道数为3，则3 channel with r == g == b</p>
-<p>18.将数据转换为PILImage：transforms.ToPILImage<br>class torchvision.transforms.ToPILImage(mode=None) 功能：将tensor 或者 ndarray的数据转换为 PIL Image 类型数据 参数： mode- 为None时，为1通道， mode=3通道默认转换为RGB，4通道默认转换为RGBA</p>
-<p>19.transforms.Lambda<br>Apply a user-defined lambda as a transform. 暂不了解，待补充。</p>
-<p>四、对transforms操作，使数据增强更灵活<br>PyTorch不仅可设置对图片的操作，还可以对这些操作进行随机选择、组合</p>
-<p>20.transforms.RandomChoice(transforms)<br>功能：从给定的一系列transforms中选一个进行操作，randomly picked from a list</p>
-<p>21.transforms.RandomApply(transforms, p=0.5)<br>功能：给一个transform加上概率，以一定的概率执行该操作</p>
-<p>22.transforms.RandomOrder<br>功能：将transforms中的操作顺序随机打乱</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2539,7 +3295,7 @@ out_width = ceil(float(in_width - filter_width + 1) / float(strides[2]))</code><
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

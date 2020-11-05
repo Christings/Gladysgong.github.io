@@ -158,6 +158,399 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/" class="post-title-link" itemprop="url">Mac终端ssh登录Linux提示cannot change locale(UTF_8)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-19 10:15:26" itemprop="dateCreated datePublished" datetime="2018-06-19T10:15:26+08:00">2018-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:33:56" itemprop="dateModified" datetime="2020-09-18T16:33:56+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="警告"><a href="#警告" class="headerlink" title="警告"></a>警告</h2><pre><code>在Mac终端ssh登录远程Linux主机时，总是提示：
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+即使在Linux中添加了export LANG=en_US，报错依旧在。</code></pre>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><pre><code>这个警告是ssh服务器和终端客户程序共同导致吃的。
+本地ssh客户端发动LC_*环境变量给远程sshd服务器，即ssh将尝试在远程服务器上设置和本地系统（我的是high Sierra系统）一样的LC_*环境变量，这样就导致了登录Linux远程服务器出现警告。</code></pre>
+<h2 id="解决方法（3种-）"><a href="#解决方法（3种-）" class="headerlink" title="解决方法（3种 ）"></a>解决方法（3种 ）</h2><p>1.在ssh客户端关闭启动时设置本地环境变量</p>
+<pre><code>终端 &gt; 偏好设置 &gt; 描述文件 &gt; 高级 &gt; 启动时设置locale环境变量（关闭它）
+
+但我用了这个方法还是没有生效，可能哪里配置还得改吧，而且重启机器后这个选项还是开着的，按理说是可以用的。</code></pre>
+<p>2.禁止OpenSSH客户端从OS X/Linux/Unix桌面发送LC_*变量</p>
+<pre><code>$ vi /etc/ssh/ssh_config
+删除或注释以下配置：SendEnv LANG LC_*
+
+# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+# Apple:
+ Host *
+   SendEnv LANG LC_*
+#   AskPassGUI yes
+
+#   ForwardAgent no
+#   ForwardX11 no
+#   RhostsRSAAuthentication no
+#   RSAAuthentication yes
+#   PasswordAuthentication yes
+#   HostbasedAuthentication no
+#   GSSAPIAuthentication no
+#   GSSAPIDelegateCredentials no
+......
+
+我使用这个后成功，感觉这个方法比较合适。</code></pre>
+<p>3.在远程服务器上安装要求的locale</p>
+<pre><code>可以使用localedef安装需要的locale
+或者考虑在本地/远程系统中选择另外的locale
+$ localedef -i en_US -f UTF-8 en.US.UTF-8</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Requests%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Requests%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Request详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-15 17:12:40" itemprop="dateCreated datePublished" datetime="2018-06-15T17:12:40+08:00">2018-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:44:43" itemprop="dateModified" datetime="2020-09-18T13:44:43+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Requests/" itemprop="url" rel="index"><span itemprop="name">Requests</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、在Python2中使用urllib和urllib2进行http请求"><a href="#一、在Python2中使用urllib和urllib2进行http请求" class="headerlink" title="一、在Python2中使用urllib和urllib2进行http请求"></a>一、在Python2中使用urllib和urllib2进行http请求</h2><pre><code>(1) urllib2可以接受一个Request类的实例来设置URL请求的headers。
+(2) urllib仅可以接受URL，这意味着你不可以伪装你的User Agent字符串等。
+(3) urllib 有urlencode,而urllib2没有，这也是为什么总是urllib，urllib2常会一起使用的原因。</code></pre>
+<pre><code>    req=urllib2.Request(url=url,data=postdata,headers=headers)
+    result=urllib2.urlopen(req)</code></pre>
+<h2 id="二、在Python3中使用urllib和http进行http请求"><a href="#二、在Python3中使用urllib和http进行http请求" class="headerlink" title="二、在Python3中使用urllib和http进行http请求"></a>二、在Python3中使用urllib和http进行http请求</h2><pre><code>http包会处理所有客户端--服务器http请求的具体细节，其中：
+    （1）client会处理客户端的部分
+    （2）server会协助你编写Python web服务器程序
+    （3）cookies和cookiejar会处理cookie，cookie可以在请求中存储数据
+
+urllib包是基于http的高层库，它有以下三个主要功能：
+    （1）request处理客户端的请求
+    （2）response处理服务端的响应
+    （3）parse会解析url</code></pre>
+<p>1.get请求</p>
+<pre><code>import urllib.request
+
+f = urllib.request.urlopen(&#39;http://www.webxml.com.cn//webservices/qqOnlineWebService.asmx/qqCheckOnline?qqCode=424662508&#39;)
+result = f.read().decode(&#39;utf-8&#39;)</code></pre>
+<p>2.发送带请求头的get请求</p>
+<pre><code>import urllib.request
+
+req = urllib.request.Request(&#39;http://www.example.com/&#39;)
+req.add_header(&#39;Referer&#39;,&#39;http://www.python.org/&#39;)
+r = urllib.request.urlopen(req)
+result = f.read().decode(&#39;utf-8&#39;)</code></pre>
+<p>3.综合</p>
+<pre><code>import urllib.parse  
+import urllib.request  
+
+url = &#39;http://www.example.com/&#39;  
+user_agent = &#39;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&#39;  
+values = &#123;  
+&#39;act&#39; : &#39;login&#39;,  
+&#39;login[email]&#39; : &#39;&#39;,  
+&#39;login[password]&#39; : &#39;&#39;  
+&#125;  
+headers = &#123; &#39;User-Agent&#39; : user_agent &#125;  
+data = urllib.parse.urlencode(values)  
+
+req = urllib.request.Request(url, data, headers)  
+response = urllib.request.urlopen(req)  
+the_page = response.read()  
+print(the_page.decode(&quot;utf8&quot;)</code></pre>
+<h2 id="三、第三方库Requests"><a href="#三、第三方库Requests" class="headerlink" title="三、第三方库Requests"></a>三、第三方库Requests</h2><pre><code>(1) Requests 使用的是 urllib3，继承了urllib2的所有特性。
+(2) 支持HTTP连接保持和连接池；支持使用cookie保持会话；支持文件上传；支持自动确定响应内容的编码；支持国际化的 URL 和 POST 数据自动编码。</code></pre>
+<p>1.安装</p>
+<pre><code>pip install requests
+pip install --upgrade requests</code></pre>
+<p>2.请求类型</p>
+<pre><code>POST，GET，PUT，DELETE，HEAD 以及 OPTIONS</code></pre>
+<p>3.GET请求</p>
+<pre><code>import requests
+
+# 无参数示例
+r = requests.get(&#39;https://httpbin.org/get&#39;)
+# 有参数示例
+r = requets.get(&#39;http://httpbin.org/get&#39;, params=d)
+
+传递URL参数：
+    在URL中常见?符号，http://httpbin.org/get?key=val 这种带有?传递关键字参数的方式，requests可以通过params实现。
+d = &#123;&#39;k1&#39;:&#39;v1&#39;, &#39;k2&#39;:&#39;v2&#39;, &#39;k3&#39;:None, &#39;k4&#39;:[&#39;v4&#39;,&#39;v5&#39;]&#125;  
+    # 字典中键值为None的键不会被添加到URL中
+    # 多个键值中间用&amp;符号连接
+    # 键值可是列表 例如&#39;k4&#39;
+
+print(r.url) # 执行结果为：http://httpbin.org/get?k1=v1&amp;k2=v2&amp;k4=v4&amp;k4=v5
+print(r.text) # 打印解码后的返回数据</code></pre>
+<p>4.POST请求</p>
+<pre><code>import requests
+
+# 基本样例    
+payload = &#123;&#39;key1&#39;: &#39;value1&#39;, &#39;key2&#39;: &#39;value2&#39;&#125;
+ret = requests.post(&quot;http://httpbin.org/post&quot;, data=payload)
+print(ret.text)
+# 输出结果
+&#123;
+  &quot;args&quot;: &#123;&#125;, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: &#123;&#125;, 
+  &quot;form&quot;: &#123;
+    &quot;key1&quot;: &quot;value1&quot;, 
+    &quot;key2&quot;: &quot;value2&quot;
+  &#125;, 
+  &quot;headers&quot;: &#123;
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Content-Length&quot;: &quot;23&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  &#125;, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;不告诉你这里返回的是你的IP地址&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+&#125;
+
+# 发送请求头和数据
+import requests
+import json
+
+url = &#39;https://api.github.com/some/endpoint&#39;
+payload = &#123;&#39;some&#39;: &#39;data&#39;&#125;
+headers = &#123;&#39;content-type&#39;: &#39;application/json&#39;&#125;
+ret = requests.post(url, data=json.dumps(payload), headers=headers)
+print(ret.text)
+print(ret.cookies)
+# 输出结果
+&#123;&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://developer.github.com/v3&quot;&#125;
+&lt;RequestsCookieJar[]&gt;</code></pre>
+<p>5.响应内容<br>requests模块的返回对象是一个Response对象，可以从这个对象中获取需要的信息。下面 r 代表Response对象。</p>
+<pre><code>r.text        文本响应内容
+r.context     二进制响应内容
+r.json()      JSON响应内容
+r.raw         原始相应内容</code></pre>
+<p>6.响应状态码</p>
+<pre><code>r=requests.get(&#39;http://www.baidu.com&#39;)
+r.status_code</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">Mac下ssh免密码登录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 18:16:42" itemprop="dateCreated datePublished" datetime="2018-06-11T18:16:42+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:34:32" itemprop="dateModified" datetime="2020-09-18T16:34:32+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="本地生成公钥和私钥（客户端Mac）"><a href="#本地生成公钥和私钥（客户端Mac）" class="headerlink" title="本地生成公钥和私钥（客户端Mac）"></a>本地生成公钥和私钥（客户端Mac）</h2><pre><code>$ ssh-keygen -t rsa
+$ cd ~/.ssh
+$ vi id_rsa.pub  # 复制公钥</code></pre>
+<h2 id="远程主机上添加信任的公钥（远程主机Mac或Linux）"><a href="#远程主机上添加信任的公钥（远程主机Mac或Linux）" class="headerlink" title="远程主机上添加信任的公钥（远程主机Mac或Linux）"></a>远程主机上添加信任的公钥（远程主机Mac或Linux）</h2><pre><code>$ cd ~/.ssh
+$ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
+<p>此时，再登录就不需要密码了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/svn-1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -992,492 +1385,10 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">使用Flask+Gunicorn+Nginx在Linux进行网站部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-13 14:33:57" itemprop="dateCreated datePublished" datetime="2018-04-13T14:33:57+08:00">2018-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:46:22" itemprop="dateModified" datetime="2020-09-18T16:46:22+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7da2e5892dd6">https://www.jianshu.com/p/7da2e5892dd6</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79985613">https://blog.csdn.net/u012052168/article/details/79985613</a></p>
-</blockquote>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>这个网站部署属于很心酸的过程，至于如何心酸我必须得说出来，给我自己的时间一个交代。开始我使用Flask+uWsgi+Nginx进行配置的，哪哪儿都配置好了，Nginx欢迎页也可以访问，Flask本身也没问题，但就是uWsgi访问不了。<br>因为哪里配置都没问题，但就是无法访问，我Google、baidu各种查了好久，都解决不了。有说权限问题的，但是我都换到root下了，有说哪里哪里加个plugins的，对于我还是不行。后来我看见有人说，他也遇到这个问题解决不了，后来他就搁置不弄了，过了一星期左右，打开<br>自己就连接上了。于是我想了想，对于这种我该放弃了。<br>网上看了看，说Gunicorn比uWsgi好用，于是我就换成了Gunicorn，然后分分钟成功，可是我却在这上面干耗了一天。<br>顺便提一下，代码中flask_aiot为网站文件，scrapy_aiot是我的爬虫文件，用来抓取网站所用的数据，有兴趣可以看一下，当时写的好像不是很完善，有不对的地方留言告诉就ok，我改。</p>
-<h2 id="二、环境和目录结构"><a href="#二、环境和目录结构" class="headerlink" title="二、环境和目录结构"></a>二、环境和目录结构</h2><pre><code>Centos7
-Python3
-Flask：是一个用Python实现的Web开发的微服务框架
-Guicorn：Web服务器，和UWsgi类似
-Nginx：反向代理</code></pre>
-<hr>
-<pre><code>flask_aiot
-    ├── app
-    ├── config.py
-    ├── manage.py
-    ├── requirements.txt
-    └── venv
-        ├── bin
-        ├── include
-        ├── lib
-        └── share</code></pre>
-<h2 id="三、安装基础环境"><a href="#三、安装基础环境" class="headerlink" title="三、安装基础环境"></a>三、安装基础环境</h2><p>我用的是Python3，而现在Centos下默认的还是Python2，所以我用Anaconda安装了一个Python3，很方便。<br>不同的项目可能会需要不同的依赖包，所以我用了VirtualEnv来管理依赖。</p>
-<pre><code>pip install virtualenv
-创建虚拟环境并激活
-[root@localhost flask_aiot]# source venv/bin/activate</code></pre>
-<h2 id="四、安装Flask"><a href="#四、安装Flask" class="headerlink" title="四、安装Flask"></a>四、安装Flask</h2><pre><code>直接在虚拟环境下安装requirements.txt即可，一次性把依赖都安装齐全。
-(venv) [root@localhost flask_aiot]# pip install -r requirements.txt </code></pre>
-<h2 id="五、项目文件"><a href="#五、项目文件" class="headerlink" title="五、项目文件"></a>五、项目文件</h2><p>在生产环境中，我们的Flask项目是做在包内的，在包外采用Flask Script写一个manage.py文件作为启动文件，这样方便支持各种项目。manage.py文件如下：</p>
-<pre><code>`
-#!/usr/bin/env python
-import os
-
-if os.path.exists(&#39;.env&#39;):
-    print(&#39;Importing environment from .env...&#39;)
-    for line in open(&#39;.env&#39;):
-        var = line.strip().split(&#39;=&#39;)
-        if len(var) == 2:
-            os.environ[var[0]] = var[1]
-
-# from app import create_app, db
-from app import create_app, mongo
-from app.models import User, AllProductPrice, Ny135, Chinacwa, Iot
-from flask_script import Manager, Shell
-from flask_migrate import Migrate, MigrateCommand
-
-
-app = create_app(os.getenv(&#39;FLASK_CONFIG&#39;) or &#39;default&#39;)
-manager = Manager(app)
-migrate = Migrate(app, mongo)
-
-
-def make_shell_context():
-    return dict(app=app, db=mongo, User=User, AllProductPrice=AllProductPrice,
-                Ny135=Ny135, Chinacwa=Chinacwa, Iot=Iot)
-
-
-manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
-manager.add_command(&#39;db&#39;, MigrateCommand)
-
-
-@manager.command
-def test():
-    &quot;&quot;&quot;Run the unit tests.&quot;&quot;&quot;
-    import unittest
-    tests = unittest.TestLoader().discover(&#39;tests&#39;)
-    unittest.TextTestRunner(verbosity=2).run(tests)
-
-
-if __name__ == &#39;__main__&#39;:
-    manager.run()
-`</code></pre>
-<p>此时我们可以直接在虚拟环境中运行Flask：</p>
-<pre><code>默认地址和端口启动：
-(venv) [root@localhost flask_aiot]# python manage.py runserver  
-任意地址和8099端口启动：
-(venv) [root@localhost flask_aiot]# python manage.py runserver -h 0.0.0.0 -p 8099
-运行：
-curl i 127.0.0.1:8099  # 看到网站返回的内容</code></pre>
-<h2 id="六、安装Gunicorn"><a href="#六、安装Gunicorn" class="headerlink" title="六、安装Gunicorn"></a>六、安装Gunicorn</h2><p>Flask的生产环境比较成熟的有Gunicorn和uWSGI,无奈我一直配置uWSGI不成功，所以换成了Gunicorn，而且和uWSGI相比起来，Gunicorn的配置真的蛮简单的。</p>
-<pre><code>(venv) [root@localhost flask_aiot]# pip install gunicorn
-运行：
-(venv) [root@localhost flask_aiot]# gunicorn -w 4 -b 127.0.0.1:8001 manage:app
-curl i 127.0.0.1:8001  # 看到网站返回的内容</code></pre>
-<h2 id="七、Nginx"><a href="#七、Nginx" class="headerlink" title="七、Nginx"></a>七、Nginx</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><pre><code>网上好多用yum install nginx来进行安装的，但是目前centos7上已经不支持了，所以我用安装包进行安装的。</code></pre>
-<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><pre><code>vi /etc/nginx/conf.d/default.conf
-
-default.conf如下：
-server &#123;
-    listen       8099;
-    server_name  10.200.116.13;
-    # server_name  111.203.20.92;
-
-    location / &#123;
-      #  include uwsgi_params;
-      #  uwsgi_pass  127.0.0.1:8001; # 指向uwsgi 所应用的内部地址,所有请求将转发给uwsgi 处理
-      #  uwsgi_param UWSGI_PYHOME /home/lilly/www/flask_scrapy_aiot/flask_aiot/venv; # 指向虚拟环境目录
-      #  uwsgi_param UWSGI_CHDIR  /home/lilly/www/flask_scrapy_aiot/flask_aiot; # 指向网站根目录
-      #  uwsgi_param UWSGI_SCRIPT manage:app; # 指定启动程序
-      #  uwsgi_read_timeout 100;
-        proxy_pass http://localhost:8001;
-        proxy_redirect          off;
-        proxy_set_header        Host                    $host;
-        proxy_set_header        X-Real-IP               $remote_addr;
-        proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwared-Proto        $scheme;
-      #  root   /usr/share/nginx/html;
-      #  index  index.html index.htm;
-    &#125;</code></pre>
-<hr>
-<pre><code>vi /etc/nginx/nginx.conf 
-
-nginx.conf如下：
-user  nginx;
-worker_processes  1;
-
-error_log  /var/log/nginx/error.log warn;
-pid        /var/run/nginx.pid;
-
-
-events &#123;
-    worker_connections  1024;
-&#125;
-
-
-http &#123;
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-
-    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    keepalive_timeout  65;
-
-    #gzip  on;
-
-    include /etc/nginx/conf.d/*.conf;   # 这句话很重要，相当于引入了上面的default.conf配置文件
-&#125;</code></pre>
-<h3 id="3、重启Nginx"><a href="#3、重启Nginx" class="headerlink" title="3、重启Nginx"></a>3、重启Nginx</h3><pre><code>sudo service nginx restart
-sudo systemctl restart  nginx.service
-我用以上方式启动的时候总是提示：Job for nginx.service failed because the control process exited with error code. 
-See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.
-我查看的时候说：nginx: [emerg] open() &quot;/var/run/nginx.pid&quot; failed (13: Permission denied)
-但是我都是用root来启动的了，不应该存在这种问题啊。
-所以我是直接nginx这样启动的，确实nginx是起来了的。</code></pre>
-<h3 id="4、访问网站"><a href="#4、访问网站" class="headerlink" title="4、访问网站"></a>4、访问网站</h3><pre><code>curl i 10.200.116.13：8099  # 返回网站内容</code></pre>
-<h2 id="八、Supervisor"><a href="#八、Supervisor" class="headerlink" title="八、Supervisor"></a>八、Supervisor</h2><p>如果想要当进程意外关闭后能自动重启，应该再配置一个Supervisor来实现。目前Supervisor只支持Python2，我看官方说目前Python3已经在进行中，应该很快就能支持了。我在这个部署里就没做这块了，即使在Python3下面也可以用Supervisor，因为他只是调进程而已，想做的话可以网上找找文档，不难。</p>
-<h2 id="九、后续"><a href="#九、后续" class="headerlink" title="九、后续"></a>九、后续</h2><p>Nginx等一系列部署好后，我打开网站还发现了一个bug，当然这是我程序的问题。bug如下：</p>
-<pre><code>当我10.200.116.13：8099时停留在首页，当我点击网站的某一按钮，跳转到另一个页面，出现404错误，而此时我看网站的url为
-10.200.116.13/show
-这也就意味着网站跳转时没把8099的端口给带上，而我手动在地址栏输入10.200.116.13：8099/show时，页面是能够正常显示的。
-说明8099的端口有些地方是静态的，没有动态更着走。把下面的语句1改为语句2就可以了。</code></pre>
-<hr>
-<pre><code>语句1:&lt;li&gt;&lt;a href=&quot;/show_ny135&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;#&#125;
-
-语句2：&lt;li&gt;&lt;a href=&quot;&#123;&#123; url_for('main.ShowNy135View') &#125;&#125;&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Hexo-1-问题记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-13 14:13:58" itemprop="dateCreated datePublished" datetime="2018-04-13T14:13:58+08:00">2018-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:42:58" itemprop="dateModified" datetime="2020-09-18T16:42:58+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、分类标签中关于大小写的bug"><a href="#一、分类标签中关于大小写的bug" class="headerlink" title="一、分类标签中关于大小写的bug"></a>一、分类标签中关于大小写的bug</h2><h3 id="1-描述"><a href="#1-描述" class="headerlink" title="1.描述"></a>1.描述</h3><pre><code>当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
-当我把标签改为scrapy小写，再发布到网上，点击scrapy就不会出现404问题。
-后来发现原来是git标签生成时忽略了大写，生成的实际标签为scrapy。
-于是我来到我的Github中，找到Gladysgong.github.io/categories/爬虫/这个目录，发现实际生成的也是scrapy，所以
-原因就在这里了。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_bug.jpg"></p>
-<h3 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h3><pre><code>修改文件：
-    cd blog/.deploy_git
-    vi .git/config
-    将ignorecase=true改为ignorecase=false
-删除Gladysgong.github.io中的文件并提交：
-    git rm -rm *
-    git commit -m &quot;clean all files&quot;
-    git push
-Hexo再次生成及部署：
-    cd ..
-    hexo clean
-    hexo g
-    hexo d</code></pre>
-<h2 id="二、分类和标签全部404"><a href="#二、分类和标签全部404" class="headerlink" title="二、分类和标签全部404"></a>二、分类和标签全部404</h2><pre><code>npm install hexo-generator-category --save
-npm install --save hexo-generator-tag --save</code></pre>
-<h2 id="三、themes主题无法备份"><a href="#三、themes主题无法备份" class="headerlink" title="三、themes主题无法备份"></a>三、themes主题无法备份</h2><p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
-<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
-<p>解决：</p>
-<pre><code>$ git rm --cached themes/yilia
-rm &#39;themes/yilia&#39;
-
-$ git status</code></pre>
-<p>原因：</p>
-<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
-
-在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
-
-这个功能的意义：
-
-在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
-
-只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
-
-相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
-
-这里我偷懒直接将子模块删除，将整个仓库进行备份了。
-
-比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:39:42" itemprop="dateModified" datetime="2020-09-18T21:39:42+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
-insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
-insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
-insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
-
-使用insert,select语句将现有表中的数据添加到已有的新表中
-insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
-insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
-<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
-delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
-<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
-update Students set tel=default where id=5
-update students set age=age+1
-update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
-<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
-1.查询所有数据行和列
-select * from Students
-2.查询部分行列--条件查询
-select * from Student where name=&#39;李三&#39;
-3.在查询中使用as更改列名
-select name as 姓名 from Students where sex=&#39;男&#39;
-4.查询空行
-select name from Student where sex is null
-5.查询排序
-select name from Student where age&gt;25 order by desc
-6.查询返回限制行数
-select top 10 name from Student</code></pre>
-<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
-select * from Student where name like &#39;李%&#39;
-2.使用between在某个范围内进行查询
-select * from Student where age between 20 and 25
-3.使用in在列举数值内进行查询(in后是多个的数据)
-select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
-<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
-select id as 学号，AVG(score) as 平均成绩 from score group by id
-2.用having子句进行分组筛选
-select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
-<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
-<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
-右连：Right Join
-内连：Inner Join
-左连接where只影响右表，右连接where只影响左表
-
-select * from table1 Left Join table2 where table1.id=table2.id
-左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
-
-select * from table1 Right Join table2 where table1.id=table2.id
-右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
-
-select * from table1 Inner Join table2 on table1.id=table2.id
-功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1543,7 +1454,7 @@ select * from table1 Inner Join table2 on table1.id=table2.id
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -158,6 +158,922 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Numpy-1-%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Numpy-1-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Numpy-1-基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-23 17:35:00" itemprop="dateCreated datePublished" datetime="2018-01-23T17:35:00+08:00">2018-01-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:08:51" itemprop="dateModified" datetime="2020-09-18T17:08:51+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/numpy/" itemprop="url" rel="index"><span itemprop="name">numpy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/Numpy%E5%AD%A6%E4%B9%A0/">gongyanli.com</a></p>
+</blockquote>
+<blockquote>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/">莫烦的numpy视频/</a></p>
+</blockquote>
+<p>前言：和pandas一样，numpy曾经也一起看得，还是忘记了。还是推荐那个视频，短小上手快。我写的东西有时候我会进行更新，所以有些写好的内容，后面也可能会加新内容，所以大家不要见怪啊。因为一般写东西numpy在前pandas在后，但是我好像是反着的，所以这个前言是我后来加的。因为强迫症的我，一篇文章有了前言，就觉得每篇都该有。</p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>windows：pip install numpy(anaconda下)
+mac：pip install numpy
+linux:pip install numpy</code></pre>
+<h2 id="二、导入"><a href="#二、导入" class="headerlink" title="二、导入"></a>二、导入</h2><pre><code>import numpy as np</code></pre>
+<h2 id="三、Numpy属性"><a href="#三、Numpy属性" class="headerlink" title="三、Numpy属性"></a>三、Numpy属性</h2><pre><code>ndim:维度
+shape:行数和列数
+size：元素个数</code></pre>
+<h2 id="四、Numpy–创建array"><a href="#四、Numpy–创建array" class="headerlink" title="四、Numpy–创建array"></a>四、Numpy–创建array</h2><pre><code>array：创建数组
+dtype：指定数据类型
+zeros：创建数据全为0
+ones：创建数据全为1
+empty：创建数据接近0
+arrange：按指定范围创建数据
+linspace：创建线段
+
+a = np.array([2,23,4])  # list 1d
+print(a)
+# [2 23 4]
+
+a = np.array([2,23,4],dtype=np.int)  # np.int32/float/float32
+print(a.dtype)
+# int 64
+
+a = np.array([[2,23,4],[2,32,4]])  # 2d 矩阵 2行3列
+print(a)
+&quot;&quot;&quot;
+[[ 2 23  4]
+ [ 2 32  4]]
+&quot;&quot;&quot;
+
+a = np.zeros((3,4)) # 数据全为0，3行4列
+&quot;&quot;&quot;
+array([[ 0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.]])
+&quot;&quot;&quot;
+
+
+a = np.ones((3,4),dtype = np.int)   # 数据为1，3行4列
+&quot;&quot;&quot;
+array([[1, 1, 1, 1],
+       [1, 1, 1, 1],
+       [1, 1, 1, 1]])
+&quot;&quot;&quot;
+
+a = np.empty((3,4)) # 数据为empty，3行4列
+&quot;&quot;&quot;
+array([[  0.00000000e+000,   4.94065646e-324,   9.88131292e-324,
+          1.48219694e-323],
+       [  1.97626258e-323,   2.47032823e-323,   2.96439388e-323,
+          3.45845952e-323],
+       [  3.95252517e-323,   4.44659081e-323,   4.94065646e-323,
+          5.43472210e-323]])
+&quot;&quot;&quot;
+
+a = np.arange(10,20,2) # 10-19 的数据，2步长
+&quot;&quot;&quot;
+array([10, 12, 14, 16, 18])
+&quot;&quot;&quot;
+
+a = np.arange(12).reshape((3,4))    # 3行4列，0到11
+&quot;&quot;&quot;
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+&quot;&quot;&quot;
+
+a = np.linspace(1,10,20)    # 开始端1，结束端10，且分割成20个数据，生成线段
+&quot;&quot;&quot;
+array([  1.        ,   1.47368421,   1.94736842,   2.42105263,
+         2.89473684,   3.36842105,   3.84210526,   4.31578947,
+         4.78947368,   5.26315789,   5.73684211,   6.21052632,
+         6.68421053,   7.15789474,   7.63157895,   8.10526316,
+         8.57894737,   9.05263158,   9.52631579,  10.        ])
+&quot;&quot;&quot;
+
+a = np.linspace(1,10,20).reshape((5,4)) # 更改shape
+&quot;&quot;&quot;
+array([[  1.        ,   1.47368421,   1.94736842,   2.42105263],
+       [  2.89473684,   3.36842105,   3.84210526,   4.31578947],
+       [  4.78947368,   5.26315789,   5.73684211,   6.21052632],
+       [  6.68421053,   7.15789474,   7.63157895,   8.10526316],
+       [  8.57894737,   9.05263158,   9.52631579,  10.        ]])
+&quot;&quot;&quot;</code></pre>
+<h2 id="五、Numpy–基础运算"><a href="#五、Numpy–基础运算" class="headerlink" title="五、Numpy–基础运算"></a>五、Numpy–基础运算</h2><pre><code>a=np.array([10,20,30,40])   # array([10, 20, 30, 40])
+b=np.arange(4)              # array([0, 1, 2, 3])
+
+c=a-b  # array([10, 19, 28, 37])
+c=a+b   # array([10, 21, 32, 43])
+c=a*b   # array([  0,  20,  60, 120])
+c=b**2  # array([0, 1, 4, 9])  # 二次方
+c=10*np.sin(a)  
+# array([-5.44021111,  9.12945251, -9.88031624,  7.4511316 ])
+print(b&lt;3)  
+# array([ True,  True,  True, False], dtype=bool)
+
+a=np.array([[1,1],[0,1]])
+b=np.arange(4).reshape((2,2))
+
+print(a)
+# array([[1, 1],
+#       [0, 1]])
+
+print(b)
+# array([[0, 1],
+#       [2, 3]])
+
+c_dot = np.dot(a,b)
+# array([[2, 4],
+#       [2, 3]])
+
+c_dot_2 = a.dot(b)
+# array([[2, 4],
+#       [2, 3]])
+
+a=np.random.random((2,4))
+print(a)
+# array([[ 0.94692159,  0.20821798,  0.35339414,  0.2805278 ],
+#       [ 0.04836775,  0.04023552,  0.44091941,  0.21665268]])
+
+np.sum(a)   # 4.4043622002745959
+np.min(a)   # 0.23651223533671784
+np.max(a)   # 0.90438450240606416
+
+print(&quot;sum =&quot;,np.sum(a,axis=1))
+# sum = [ 1.96877324  2.43558896]
+
+print(&quot;min =&quot;,np.min(a,axis=0))
+# min = [ 0.23651224  0.41900661  0.36603285  0.46456022]
+
+print(&quot;max =&quot;,np.max(a,axis=1))
+# max = [ 0.84869417  0.9043845 ]
+
+
+
+A = np.arange(2,14).reshape((3,4)) 
+
+# array([[ 2, 3, 4, 5]
+#        [ 6, 7, 8, 9]
+#        [10,11,12,13]])
+
+print(np.argmin(A))    # 0
+print(np.argmax(A))    # 11
+print(np.mean(A))        # 7.5
+print(np.average(A))     # 7.5
+print(A.mean())          # 7.5
+print(A.median())       # 7.5
+print(np.cumsum(A)) 
+
+# [2 5 9 14 20 27 35 44 54 65 77 90]
+print(np.diff(A))    
+
+# [[1 1 1]
+#  [1 1 1]
+#  [1 1 1]]
+print(np.nonzero(A))    
+
+# (array([0,0,0,0,1,1,1,1,2,2,2,2]),array([0,1,2,3,0,1,2,3,0,1,2,3]))
+
+
+A = np.arange(14,2, -1).reshape((3,4)) 
+
+# array([[14, 13, 12, 11],
+#       [10,  9,  8,  7],
+#       [ 6,  5,  4,  3]])
+
+print(np.sort(A))    
+
+# array([[11,12,13,14]
+#        [ 7, 8, 9,10]
+#        [ 3, 4, 5, 6]])
+
+print(np.transpose(A))    
+print(A.T)
+
+# array([[14,10, 6]
+#        [13, 9, 5]
+#        [12, 8, 4]
+#        [11, 7, 3]])
+# array([[14,10, 6]
+#        [13, 9, 5]
+#        [12, 8, 4]
+#        [11, 7, 3]])
+
+print(A)
+# array([[14,13,12,11]
+#        [10, 9, 8, 7]
+#        [ 6, 5, 4, 3]])
+
+print(np.clip(A,5,9))    
+# array([[ 9, 9, 9, 9]
+#        [ 9, 9, 8, 7]
+#        [ 6, 5, 5, 5]])</code></pre>
+<h2 id="六、Numpy–索引"><a href="#六、Numpy–索引" class="headerlink" title="六、Numpy–索引"></a>六、Numpy–索引</h2><pre><code>A = np.arange(3,15)
+
+# array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+
+print(A[3])    # 6
+
+A = np.arange(3,15).reshape((3,4))
+&quot;&quot;&quot;
+array([[ 3,  4,  5,  6]
+       [ 7,  8,  9, 10]
+       [11, 12, 13, 14]])
+&quot;&quot;&quot;
+
+print(A[2])         
+# [11 12 13 14]
+
+print(A[1][1])      # 8
+print(A[1, 1])      # 8
+print(A[1, 1:3])    # [8 9]
+for row in A:
+    print(row)
+&quot;&quot;&quot;    
+[ 3,  4,  5, 6]
+[ 7,  8,  9, 10]
+[11, 12, 13, 14]
+&quot;&quot;&quot;
+for column in A.T:
+    print(column)
+&quot;&quot;&quot;  
+[ 3,  7,  11]
+[ 4,  8,  12]
+[ 5,  9,  13]
+[ 6, 10,  14]
+&quot;&quot;&quot;
+
+A = np.arange(3,15).reshape((3,4))
+
+print(A.flatten())   
+# array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
+
+for item in A.flat:
+    print(item)
+
+# 3
+# 4
+……
+# 14</code></pre>
+<h2 id="七、Numpy–array合并"><a href="#七、Numpy–array合并" class="headerlink" title="七、Numpy–array合并"></a>七、Numpy–array合并</h2><p>np.vstack()</p>
+<pre><code>A = np.array([1,1,1])
+B = np.array([2,2,2])
+
+print(np.vstack((A,B)))    # vertical stack
+&quot;&quot;&quot;
+[[1,1,1]
+ [2,2,2]]
+&quot;&quot;&quot;
+C = np.vstack((A,B))      
+print(A.shape,C.shape)
+
+# (3,) (2,3)</code></pre>
+<p>np.hstack()</p>
+<pre><code>D = np.hstack((A,B))       # horizontal stack
+
+print(D)
+# [1,1,1,2,2,2]
+
+print(A.shape,D.shape)
+# (3,) (6,)</code></pre>
+<p>np.newaxis()<br>    print(A[np.newaxis,:])<br>    # [[1 1 1]]</p>
+<pre><code>print(A[np.newaxis,:].shape)
+# (1,3)
+
+print(A[:,np.newaxis])
+&quot;&quot;&quot;
+[[1]
+[1]
+[1]]
+&quot;&quot;&quot;
+
+print(A[:,np.newaxis].shape)
+# (3,1)
+
+
+A = np.array([1,1,1])[:,np.newaxis]
+B = np.array([2,2,2])[:,np.newaxis]
+
+C = np.vstack((A,B))   # vertical stack
+D = np.hstack((A,B))   # horizontal stack
+
+print(D)
+&quot;&quot;&quot;
+[[1 2]
+[1 2]
+[1 2]]
+&quot;&quot;&quot;
+
+print(A.shape,D.shape)
+# (3,1) (3,2)</code></pre>
+<p>np.concatenate()</p>
+<pre><code>C = np.concatenate((A,B,B,A),axis=0)
+
+print(C)
+&quot;&quot;&quot;
+array([[1],
+       [1],
+       [1],
+       [2],
+       [2],
+       [2],
+       [2],
+       [2],
+       [2],
+       [1],
+       [1],
+       [1]])
+&quot;&quot;&quot;
+
+D = np.concatenate((A,B,B,A),axis=1)
+
+print(D)
+&quot;&quot;&quot;
+array([[1, 2, 2, 1],
+       [1, 2, 2, 1],
+       [1, 2, 2, 1]])
+&quot;&quot;&quot;</code></pre>
+<h2 id="八、Numpy–array分割"><a href="#八、Numpy–array分割" class="headerlink" title="八、Numpy–array分割"></a>八、Numpy–array分割</h2><pre><code>A = np.arange(12).reshape((3, 4))
+print(A)
+&quot;&quot;&quot;
+array([[ 0,  1,  2,  3],
+    [ 4,  5,  6,  7],
+    [ 8,  9, 10, 11]])
+&quot;&quot;&quot;
+
+print(np.split(A, 2, axis=1)) #从左往右分割，纵向分割
+&quot;&quot;&quot;
+[array([[0, 1],
+        [4, 5],
+        [8, 9]]), array([[ 2,  3],
+        [ 6,  7],
+        [10, 11]])]
+&quot;&quot;&quot;
+
+print(np.split(A, 3, axis=0)) #从上往下分割，横向分割
+
+# [array([[0, 1, 2, 3]]), array([[4, 5, 6, 7]]), array([[ 8,  9, 10, 11]])]
+
+print(np.array_split(A, 3, axis=1)) #不等量分割
+&quot;&quot;&quot;
+[array([[0, 1],
+        [4, 5],
+        [8, 9]]), array([[ 2],
+        [ 6],
+        [10]]), array([[ 3],
+        [ 7],
+        [11]])]
+&quot;&quot;&quot;
+
+print(np.vsplit(A, 3)) #等于 print(np.split(A, 3, axis=0))
+
+# [array([[0, 1, 2, 3]]), array([[4, 5, 6, 7]]), array([[ 8,  9, 10, 11]])]
+
+
+print(np.hsplit(A, 2)) #等于 print(np.split(A, 2, axis=1))
+&quot;&quot;&quot;
+[array([[0, 1],
+       [4, 5],
+       [8, 9]]), array([[ 2,  3],
+        [ 6,  7],
+        [10, 11]])]</code></pre>
+<p>八、Numpy–copy and deep copy</p>
+<pre><code>a = np.arange(4)
+# array([0, 1, 2, 3])
+
+b = a
+c = a
+d = b
+# a、b、c、d中只要任何一个数组的元素发生变化，与之相等的元素会随之变化
+
+b=a.copy()
+# 当a发生变化时，b不会随之发生变化</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">搜索引擎介绍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-19 10:58:56" itemprop="dateCreated datePublished" datetime="2018-01-19T10:58:56+08:00">2018-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:23:08" itemprop="dateModified" datetime="2020-09-18T17:23:08+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" itemprop="url" rel="index"><span itemprop="name">知识图谱和搜索引擎</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：gongyanli.com  </p>
+</blockquote>
+<p>前言：本文首先简单介绍了搜索引擎的组成单元，然后对比分析了一些目前开源搜索引擎的一些功能特点，然后大家可以根据自己的需要在实际过程中选择对自己有用的搜索引擎。</p>
+<h2 id="一、搜索引擎介绍"><a href="#一、搜索引擎介绍" class="headerlink" title="一、搜索引擎介绍"></a>一、搜索引擎介绍</h2><p>搜索引擎工作流程：从互联网抓取网页–创建抓取网页的索引库–从索引库中进行搜索<br>搜索引擎重要组成单元：网页爬行器、索引器、查询器</p>
+<p>1.网页爬行器</p>
+<pre><code>依据url之间的关联性自动爬取整个互联网，并对爬行过的网页进行去重、抓取、搜集</code></pre>
+<p>2.索引器</p>
+<pre><code>当网页被收集回来后，采用索引分析程序进行网页信息的分析，依据一定的相关度算法（如超链接算法）进行大量计算，创建倒排序的索引库。</code></pre>
+<p>3.查询器</p>
+<pre><code>索引库建好后，用户通过提供的搜索界面提交关键词进行搜索，依据特定的排序算法返回搜索结果。</code></pre>
+<h2 id="二、搜索引擎"><a href="#二、搜索引擎" class="headerlink" title="二、搜索引擎"></a>二、搜索引擎</h2><h3 id="（一）、开源搜索引擎开发工具包"><a href="#（一）、开源搜索引擎开发工具包" class="headerlink" title="（一）、开源搜索引擎开发工具包"></a>（一）、开源搜索引擎开发工具包</h3><p>1.Lucene–<a target="_blank" rel="noopener" href="http://lucene.apache.org/">http://lucene.apache.org/ </a></p>
+<pre><code>开源全文搜索引擎，隶属于Apache基金会
+提供了完整的查询引擎和索引引擎，没有中文分词引擎，需要自己去实现
+不是一个具有完整特征的搜索应用程序，而是专注于文本索引和搜索的工具包,不支持实时搜索
+linkedin和twitter有分别对Lucene改进的实时搜素
+语言：Java
+只支持文本文件和少量语种的索引，不具备爬虫功能
+通过接口在其上添加分词器、爬虫器、文本解析器等
+在Lucene基础上加上爬行器和文本解析器形成了LIUS和Nutch等搜索引擎
+
+CLucene:Lucene的C++移植版本，理论上比Lucene快</code></pre>
+<p>2.Sphinx–<a target="_blank" rel="noopener" href="http://sphinxsearch.com/about/sphinx/">http://sphinxsearch.com/about/sphinx/ </a></p>
+<pre><code>开源搜索引擎，主流搜索引擎之一
+语言：C++
+建立索引的事件方面比Lucene快50%，但是索引文件比Lucene要大一倍，因此Sphinx在索引的建立方面是空间换取事件的策略
+在检索速度上，和lucene相差不大，但检索精准度方面Lucene要优于Sphinx
+在加入中文分词引擎难度方面，Lucene要优于Sphinx
+Sphinx支持实时搜索，使用起来比较简单方便</code></pre>
+<p>3.LIUS</p>
+<pre><code>以Lucene为基础的文本索引框架，和Lucene一样，同样可以看作搜索引擎开发工具包。
+新功能：
+借助于开源软件，可以直接对各种不同格式/类型的文档(MS Word、MS Excel、MS PowerPoing、RTF、PDF、XML、HTML、TXT、Open Office及JavaBeans等)进行文本解析与索引，对Java Beans的支持对于进行数据库索引非常有用，在用户进行对象关系映射（如：Hibernate、JDO、TopLink、Torque等）的数据库连接编程时会变得更加精确。
+增加索引更新功能，使针对索引的维护功能进一步完善。
+支持混和索引，可以把同一目录下与某一条件相关的所有内容整合到一起，这种功能对于需要对多种不同格式的文档同时进行索引时非常有用。</code></pre>
+<p>4.Egothor</p>
+<pre><code>开源高性能全文搜索引擎，适用于基于全文搜索功能的搜索应用
+核心算法与Luccene类似
+可把Egothor看作一个用于全文搜索引擎的Java库，能够为具体的应用程序添加全文搜索功能。
+它提供了扩展的Boolean模块，使得它能被作为Boolean模块或者Vector模块使用，并且Egothor具有一些其他搜索引擎所不具有的特有功能：它采用新的动态算法以有效提高索引更新的速度，并且支持平行的查询方式，可有效提高查询效率。在Egothor的发行版中，加入了爬行器、文本解析器等许多增强易用性的应用程序，融入了Golomb、Elias-Gamma等多种高效的压缩方法，支持多种常用文档格式的文本解析，如HTML、PDF、PS、微软Office文档、XLS等，提供了GUI的索引界面及基于Applet或者Web的查询方式。另外，Egothor还能被方便地配置成独立的搜索引擎、元数据搜索器、点对点的HUB等多种且体的应用系统。</code></pre>
+<p>5.Xapian–<a target="_blank" rel="noopener" href="http://xapian.org/">http://xapian.org/ </a></p>
+<pre><code>基于GPL发布的搜索引擎开发库，全文检索程序
+语言：C++
+api和检索原理和lucene在很多方面都很相似，算是填补了lucene在C++中的一个空缺. 
+通过其提供绑定程序包可以使Perl、Python、PHP、Java、Tck、C#、Ruby等语言方便地使用它
+
+Xapian还是一个具有高适应性的工具集，使开发人员能够方便地为他们的应用程序添加高级索引及搜索功能。它支持信息检索的概率模型及丰富的布尔查询操作。Xapian的发布包通常由两部分组成：xapian-core及xapian-bindings，前者是核心主程序，后者是与其他语言进行绑定的程序包。
+
+Xapian为程序开发者提供了丰富的API及文档进行程序的编制，而且还提供了许多编程实例及一个基于Xapian的应用程序Omega，Omega由索引器及基于CGI的前端搜索组成，能够为HTML、PHP、PDF、PostScript、OpenOffice/StarOffice、RTF等多种格式的文档编制索引，通过使用Perl DBI模块甚至能为MySQL、PostgreSQL、SQLite、Sybase、MS SQL、LDAP、ODBC等关系数据库编制索引，并能以CSV或XML格式从前端导出搜索结果，程序开发者可以在此基础上进行扩展。</code></pre>
+<p>6.Compass</p>
+<pre><code>Compass是在Lucene上实现的开源搜索引擎架构，相对比于Lucene而言，提供更加简洁的搜索引擎API
+增加了索引事务处理的支持，使其能够更方便地与数据库等事务处理应用进行整合
+它更新时无需删除原文档，更加简单更加高效。
+资源与搜索引擎之间采用映射机制，此种机制使得那些已经使用了Lucene或者不支持对象及XML的应用程序迁移到Compass上进行开发变得非常容易。
+
+Compass还能与Hibernate、Spring等架构进行集成，因此如果想在Hibernate、Spring项目中加入搜索引擎功能，Compass是个极好的选择。</code></pre>
+<p>7.DataparkSearch–<a target="_blank" rel="noopener" href="http://www.dataparksearch.org/">http://www.dataparksearch.org/ </a></p>
+<pre><code>开源的搜索引擎
+语言：c
+网页排序是采用神经网络模型
+支持HTTP，HTTPS，FTP，NNTP等下载网页
+包括索引引擎，检索引擎和中文分词引擎**(这个也是唯一的一个开源的搜索引擎里有中文分词引擎)**
+能个性化定制搜索结果，拥有完整的日志记录. </code></pre>
+<p>8.Zettair–<a target="_blank" rel="noopener" href="http://www.seg.rmit.edu.au/zettair/about.html">http://www.seg.rmit.edu.au/zettair/about.html </a></p>
+<pre><code>根据Justin Zobel的研究成果为基础的全文检索实验系统
+语言：C 
+Justin Zobel在全文检索领域很有名气，是业界第一个系统提出倒排序索引差分压缩算法的人，倒排列表的压缩大大提高了检索和加载的性能，同时空间膨胀率也缩小到相当优秀的水平
+支持linux，windows，mac os等系统</code></pre>
+<p>9.Indri–<a target="_blank" rel="noopener" href="http://www.lemurproject.org/indri/">http://www.lemurproject.org/indri/ </a></p>
+<pre><code>全文检索引擎系统
+语言：C语言和C++
+特点：跨平台，API接口支持Java，PHP，C++. </code></pre>
+<p>10.Terrier–<a target="_blank" rel="noopener" href="http://terrier.org/">http://terrier.org/ </a></p>
+<pre><code>研发机构：School of Computing Science，Universityof Glasgow
+语言：java
+全文检索系统</code></pre>
+<p>11.Zebra–<a target="_blank" rel="noopener" href="https://www.indexdata.com/zebra">https://www.indexdata.com/zebra </a></p>
+<pre><code>检索程序
+语言：C
+特点是对大数据的支持，支持EMAIL，XML，MARC等格式的数据. </code></pre>
+<p>12.Solr–<a target="_blank" rel="noopener" href="http://lucene.apache.org/solr/">http://lucene.apache.org/solr/ </a></p>
+<pre><code>独立的企业级搜索应用服务器
+语言：java
+提供了类似于Web-service的API接口
+基于Lucene的全文检索服务器，也算是Lucene的一个变种，很多一线互联网公司都在使用Solr，也算是一种成熟的解决方案. </code></pre>
+<p>13.Elasticsearch–<a target="_blank" rel="noopener" href="http://www.elasticsearch.org/">http://www.elasticsearch.org/ </a></p>
+<pre><code>语言：java
+基于Lucene构造的开源，分布式的搜索引擎. 
+设计用于云计算中，能够达到实时搜索，稳定可靠.
+Elasticsearch的数据模型是JSON. </code></pre>
+<p>14.Whoosh–<a target="_blank" rel="noopener" href="https://bitbucket.org/mchaput/whoosh/wiki/Home">https://bitbucket.org/mchaput/whoosh/wiki/Home</a></p>
+<pre><code>开源搜索引擎
+语言：纯python</code></pre>
+<h3 id="（二）、开源Web搜索引擎系统"><a href="#（二）、开源Web搜索引擎系统" class="headerlink" title="（二）、开源Web搜索引擎系统"></a>（二）、开源Web搜索引擎系统</h3><p>1．Nutch–<a target="_blank" rel="noopener" href="http://nutch.apache.org/">http://nutch.apache.org/ </a></p>
+<pre><code>作者：Lucene的作者Doug Cutting
+语言：java
+基于Lucene构建的完整的Web搜索引擎系统，Lucene为Nutch提供了文本索引和搜索的API. 
+包括爬虫crawler，索引引擎，查询引擎
+可以使用Nutch搭建类似Google的完整的搜索引擎系统，进行局域网、互联网的搜索。 </code></pre>
+<p>2．YaCy</p>
+<pre><code>基于P2P(peer-to-peer)的分布式开源Web搜索引擎系统
+语言：Java
+核心是分布在数百台计算机上的被称为YaCy-peer的计算机程序，基于P2P网络构成了YaCy网络，整个网络是一个分散的架构，在其中所有的YaCy-peers都处于对等的地位，没有统一的中心服务器，每个YaCy-peer都能独立的进行互联网的爬行抓取、分析及创建索引库，通过P2P网络与其他YaCy-peers进行共享，并且每个YaCy-peer又都是一个独立的代理服务器，能够对本机用户使用过的网页进行索引，并且采取多机制来保护用户的隐私，同时用户也通过本机运行的Web服务器进行查询及返回查询结果。
+
+主要包括五个部分，除普通搜索引擎所具有的爬行器、索引器、反排序的索引库外，它还包括了一个非常丰富的搜索与管理界面以及用于数据共享的P2P网络。</code></pre>
+<h3 id="（三）、开源桌面搜索引擎系统"><a href="#（三）、开源桌面搜索引擎系统" class="headerlink" title="（三）、开源桌面搜索引擎系统"></a>（三）、开源桌面搜索引擎系统</h3><p>1．Regain</p>
+<pre><code>与Web搜索引擎类似的桌面搜索引擎系统
+不同之处在于regain不是对Internet内容的搜索，而是针对自己的文档或文件的搜索，使用regain可以轻松地在几秒内完成大量数据（许多个G）的搜索。
+采用Lucene的搜索语法，因此支持多种查询方式，支持多索引的搜索及基于文件类型的高级搜索，并且能实现URL重写及文件到HTTP的桥接，并且对中文也提供了较好的支持。
+
+提供两种版本：桌面搜索及服务器搜索。
+桌面搜索提供了对普通桌面计算机的文档与局域网环境下的网页的快速搜索。
+服务器版本主要安装在Web服务器上，为网站及局域网环境下的文件服务器进行搜索。
+
+语言：Java，跨平台安装，能安装于Windows、Linux、Mac OS及Solaris上。
+服务器版本需要JSPs环境及标签库（tag library），因此需要安装一个Tomcat容器。
+桌面版自带了一个小型的Web服务器，安装非常简单。</code></pre>
+<p>2．Zilverline</p>
+<pre><code>以Lucene为基础的桌面搜索引擎，采用了Spring框架
+主要用于个人本地磁盘及局域网内容的搜索，支持多种语言，并且具有自己的中文名字：银钱查打引擎。
+提供丰富的文档格式的索引支持，如微软Office文档、RTF、Java、CHM等，甚至能够为归档文件编制索引进行搜索，如zip、rar及其他归档文件，在索引过程中，Zilverline从zip、rar、chm等归档文件中抽取文件来编制索引。
+可以支持增量索引的方式，只对新文件编制索引，同时也支持定期自动索引，其索引库能被存放于Zilverline能够访问到的地方，甚至是DVD中。
+支持文件路径到URL的映射，这样可以使用户远程搜索本地文件。
+
+提供了个人及研究、商业应用两种许可方式，其发布形式为一个简单的war包，可以从其官方网站下载（http://www.zilverline.org/）。Zilverline的运行环境需要Java环境及Servlet容器，一般使用Tomcat即可。在确保正确安装JDK及Tomcat容器后只需将Zilverline的war包（zilverline-1.5.0.war）拷贝到Tomcat的webapps目录后重启Tomcat容器即可开始使用Zilverline搜索引擎了。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-4-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E3%80%81%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98%E4%BC%98%E5%8C%96%E5%92%8C%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">PyTorch-4-简单介绍、回归问题优化和手写数字识别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-18 18:02:23" itemprop="dateCreated datePublished" datetime="2018-01-18T18:02:23+08:00">2018-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-14 15:26:29" itemprop="dateModified" datetime="2020-04-14T15:26:29+08:00">2020-04-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：gongyanli.com<br>学习教程：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/machine-learning/torch/">莫烦的PyTorch视频</a></p>
+</blockquote>
+<p>前言：简单介绍了一下PyTorch，然后根据自己学的东西跑了以下两个代码，有时间的时候我会把代码注释加上，希望能够对更多的朋友有用。我学习PyTorch是在莫烦Python上学习的，良心推荐。</p>
+<h2 id="PyTorch是什么？"><a href="#PyTorch是什么？" class="headerlink" title="PyTorch是什么？"></a>PyTorch是什么？</h2><pre><code>PyTorch是一个深度学习框架，和TensorFlow、Caffe等一样。PyTorch的前身是Torch，但Torch使用
+Lua语言写的，而Lua语言本身不流行，所以推广度不高，但是Torch真的是很好用。所以就用python对Torch进行重写，于是就有了今天的PyTorch。</code></pre>
+<h2 id="PyTorch优势"><a href="#PyTorch优势" class="headerlink" title="PyTorch优势"></a>PyTorch优势</h2><pre><code>PyTorch能够在强大的GPU加速基础上实现张量和动态神经网络；
+动态图计算特性：目前市场上支持动态图计算的有PyTorch、DyNet和Chainer，而支持静态图计算的有TensorFlow、MXNet、Theano；
+我们不能单纯的说支持动态计算就绝对的好，但是在很多情况下非常方便有效，所以要具体情况具体分析；
+虽然TensorFlow本身不支持动态计算，但它也能通过某种特定的手段来支持动态计算；
+PyTorch能够和numpy自由转换；
+PyTorch由Facebook开发，与google的TensorFlow相比也拥有很强的实力。</code></pre>
+<h2 id="回归问题优化"><a href="#回归问题优化" class="headerlink" title="回归问题优化"></a>回归问题优化</h2><pre><code>`import torch
+import torch.utils.data as Data
+import torch.nn.functional as F
+from torch.autograd import Variable
+import matplotlib.pyplot as plt
+
+# hyper parameters
+LR = 0.01
+BATCH_SIZE = 32
+EPOCH = 12
+
+x = torch.unsqueeze(torch.linspace(-1, 1, 1000), dim=1)
+y = x.pow(2) + 0.1 * torch.normal(torch.zeros(*x.size()))
+
+# plot dataset
+# plt.scatter(x.numpy(),y.numpy())
+# plt.show()
+
+torch_dataset = Data.TensorDataset(data_tensor=x, target_tensor=y)
+loader = Data.DataLoader(dataset=torch_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
+
+
+# default network
+class Net(torch.nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.hidden = torch.nn.Linear(1, 20)  # hidden layer
+        self.predict = torch.nn.Linear(20, 1)  # output layer
+
+    def forward(self, x):
+        x = F.relu(self.hidden(x))  # activation function for hidden layer
+        x = self.predict(x)  # linear output
+    return x
+
+# different nets
+net_SGD=Net()
+net_Momentum=Net()
+net_RMSprop=Net()
+net_Adam=Net()
+nets=[net_SGD,net_Momentum,net_RMSprop,net_Adam]
+
+opt_SGD=torch.optim.SGD(net_SGD.parameters(),lr=LR)
+opt_Momentum=torch.optim.SGD(net_Momentum.parameters(),lr=LR,momentum=0.8)
+opt_RMSprop=torch.optim.RMSprop(net_RMSprop.parameters(),lr=LR,alpha=0.9)
+opt_Adam=torch.optim.Adam(net_Adam.parameters(),lr=LR,betas=(0.9,0.99))
+optimizer = [opt_SGD,opt_Momentum,opt_RMSprop,opt_Adam]
+
+loss_func=torch.nn.MSELoss()
+losses_his=[[],[],[],[]]  # record loss
+
+for epoch in range(EPOCH):
+    print(epoch)
+    for step,(batch_x,batch_y) in enumerate(loader):
+        b_x=Variable(batch_x)
+        b_y=Variable(batch_y)
+
+        for net,opt,l_his in zip(nets,optimizer,losses_his):
+            output=net(b_x)
+            loss=loss_func(output,b_y)
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+            l_his.append(loss.data[0])
+
+labels = [&#39;SGD&#39;, &#39;Momentum&#39;, &#39;RMSprop&#39;, &#39;Adam&#39;]
+for i, l_his in enumerate(losses_his):
+    plt.plot(l_his, label=labels[i])
+plt.legend(loc=&#39;best&#39;)
+plt.xlabel(&#39;Steps&#39;)
+plt.ylabel(&#39;Loss&#39;)
+plt.ylim((0, 0.2))
+plt.show()</code></pre>
+<p>`<br>结果如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/pytorch2.jpg"></p>
+<h2 id="手写数字识别"><a href="#手写数字识别" class="headerlink" title="手写数字识别"></a>手写数字识别</h2><pre><code>`import torch
+import torch.nn as nn
+from torch.autograd import Variable
+import torch.utils.data as Data
+import torchvision
+import matplotlib.pyplot as plt
+
+# Hyper Parameters
+EPOCH = 1
+BATCH_SIZE = 50
+LR = 0.001
+DOWNLOAD_MNIST = False
+
+train_data = torchvision.datasets.MNIST(
+    root=&#39;./mnist&#39;,
+    train=True,
+    transform=torchvision.transforms.ToTensor(),  # (0,1) (0-255)
+    download=DOWNLOAD_MNIST
+)
+
+# plot one example
+# print(train_data.train_data.size())                 # (60000, 28, 28)
+# print(train_data.train_labels.size())               # (60000)
+# plt.imshow(train_data.train_data[0].numpy(), cmap=&#39;gray&#39;)
+# plt.title(&#39;%i&#39; % train_data.train_labels[0])
+# plt.show()
+
+train_loader = Data.DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
+
+test_data = torchvision.datasets.MNIST(root=&#39;./mnist&#39;, train=False)
+test_x = Variable(torch.unsqueeze(test_data.test_data, dim=1), volatile=True).type(torch.FloatTensor)[:2000] / 255
+test_y = test_data.test_labels[:2000]
+
+
+class CNN(nn.Module):
+
+def __init__(self):
+    super(CNN, self).__init__()
+    self.conv1 = nn.Sequential(
+        nn.Conv2d(  # (1,28,28)
+            in_channels=1,
+            out_channels=16,
+            kernel_size=5,
+            stride=1,
+            padding=2,  # if stride=1,padding=(kernel_size-1)/2=(5-1)/2=2
+        ),  # -&gt;(16,28,28)
+        nn.ReLU(),  # -&gt;(16,28,28)
+        nn.MaxPool2d(kernel_size=2),  # -&gt;(16,14,14)
+    )
+    self.conv2 = nn.Sequential(  # (16,14,14)
+        nn.Conv2d(16, 32, 5, 1, 2),  # -&gt;(32,14,14)
+        nn.ReLU(),  # -&gt;(32,14,14)
+        nn.MaxPool2d(2)  # -&gt;(32,7,7)
+    )
+    self.out = nn.Linear(32 * 7 * 7, 10)
+
+def forward(self, x):
+    x = self.conv1(x)
+    x = self.conv2(x)  # (batch,32,7,7)
+    x = x.view(x.size(0), -1)  # (batch,32*7*7)
+    output = self.out(x)
+    return output
+
+
+cnn = CNN()
+# print(cnn)
+
+
+optimizer = torch.optim.Adam(cnn.parameters(), lr=LR)
+loss_func = nn.CrossEntropyLoss()
+
+for epoch in range(EPOCH):
+    print(epoch)
+    for step, (x, y) in enumerate(train_loader):
+        b_x = Variable(x)
+        b_y = Variable(y)
+
+        output = cnn(b_x)
+        loss = loss_func(output, b_y)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        if step % 50 == 0:
+            test_output = cnn(test_x)
+            pred_y = torch.max(test_output, 1)[1].data.squeeze()
+            accuracy = sum(pred_y == test_y) / test_y.size(0)
+            print(&#39;Epoch: &#39;, epoch, &#39;| train loss: %.4f&#39; % loss.data[0], &#39;| test accuracy: %.2f&#39; % accuracy)
+
+# print 10 predictions from test data
+test_output= cnn(test_x[:10])
+pred_y = torch.max(test_output, 1)[1].data.numpy().squeeze()
+print(pred_y, &#39;prediction number&#39;)
+print(test_y[:10].numpy(), &#39;real number&#39;)</code></pre>
+<p>`<br>结果如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/pytorch1.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1135,267 +2051,10 @@ nltk.help.upeen_tagset(&quot;NNP&quot;)</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/" class="post-title-link" itemprop="url">echarts echarts-x echarts-gl 制作3D地球</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-08 17:04:42" itemprop="dateCreated datePublished" datetime="2018-01-08T17:04:42+08:00">2018-01-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:44:49" itemprop="dateModified" datetime="2020-09-18T21:44:49+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/echarts/" itemprop="url" rel="index"><span itemprop="name">echarts</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/echarts-echarts-x-echarts-gl-%E5%88%B6%E4%BD%9C3D%E5%9C%B0%E7%90%83/">gongyanli.com</a>  </p>
-<p>github：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/3D_earth_all">https://github.com/Gladysgong/3D_earth_all</a></p>
-<p>csdn: <a target="_blank" rel="noopener" href="http://blog.csdn.net/u012052168/article/details/78459872">http://blog.csdn.net/u012052168/article/details/78459872</a></p>
-</blockquote>
-<p>前言：因为要做一个3D地球，之前也没怎么用过echarts，再加上就是个业余前端水平，所以折腾了好久，代码下载下来可以直接运行，具体情况看我每个里面怎么说的。小伙伴们可以自己先研究一下，等有时候我详细代码注释一下。</p>
-<h3 id="1-worldFlights"><a href="#1-worldFlights" class="headerlink" title="1.worldFlights"></a>1.worldFlights</h3><pre><code>所用框架：philogl
-位置：examples\worldFlights
-说明：philogl (https://github.com/senchalabs/philogl) 官方项目下的一个demo，把全球飞行航线在3d地球上表示出来。</code></pre>
-<h3 id="2-airline-china"><a href="#2-airline-china" class="headerlink" title="2.airline_china"></a>2.airline_china</h3><pre><code>所用框架：philogl
-说明： 一位博主基于philogl官方项目的demo改写而成，把全球的飞行路线改为了中国飞行路线(参照:examples\worldFlights)</code></pre>
-<h3 id="3-3dmap"><a href="#3-3dmap" class="headerlink" title="3.3dmap"></a>3.3dmap</h3><pre><code>所用框架：echart-x
-说明：利用echart-x制作的3d地球，其数据是把根据经纬度的高低来对国家进行分类（高、中、低）</code></pre>
-<h3 id="4-echarts-gl"><a href="#4-echarts-gl" class="headerlink" title="4.echarts-gl"></a>4.echarts-gl</h3><pre><code>说明：echarts-gl官方项目，我使用npm拉取代码后，依然运行有问题，显示不清楚，所以弃用，可能还是我自己哪里有问题，但是没找出来。</code></pre>
-<h3 id="5-echarts3D-globe"><a href="#5-echarts3D-globe" class="headerlink" title="5.echarts3D-globe"></a>5.echarts3D-globe</h3><pre><code>所用框架：echarts-gl
-说明：一位童鞋（不好意思，等我有时间把你的gith补上，么么哒）利用echarts-gl而制作的3d地球，模拟的是网络攻击的数据，但我发现依然使用的是飞行航线的数据，所以这个数据究竟能否反应网络攻击有待证实。</code></pre>
-<h3 id="6-earth"><a href="#6-earth" class="headerlink" title="6.earth"></a>6.earth</h3><pre><code>所用框架：echarts-gl
-说明：基于echarts3D-globe重写了一个适合自己需要的精简的地球</code></pre>
-<h3 id="7-earth-x"><a href="#7-earth-x" class="headerlink" title="7.earth-x"></a>7.earth-x</h3><pre><code>所用框架：echarts-x
-说明：基于3dmap重写了一个适合自身需要的最终地球。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hexo+Github Pages+yilia搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-05 18:06:40" itemprop="dateCreated datePublished" datetime="2018-01-05T18:06:40+08:00">2018-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:42:13" itemprop="dateModified" datetime="2020-09-18T16:42:13+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">gongyanli.com</a><br>github: <a target="_blank" rel="noopener" href="https://github.com/Gladysgong/Gladysgong.github.io">https://github.com/Gladysgong/Gladysgong.github.io</a></p>
-</blockquote>
-<h3 id="一、快速创建个人Github-Pages"><a href="#一、快速创建个人Github-Pages" class="headerlink" title="一、快速创建个人Github Pages"></a>一、快速创建个人Github Pages</h3><h4 id="1-什么是Github-Pages"><a href="#1-什么是Github-Pages" class="headerlink" title="1.什么是Github Pages"></a>1.什么是Github Pages</h4><pre><code>GitHub Pages 本用于介绍托管在GitHub的项目，不过由于他的空间免费稳定，很适合用来搭建一个博客。
-
-每个帐号只能有一个仓库来存放个人主页，而且仓库的名字必须是username/username.github.io，这是特殊的命名约定。你可以通过http://username.github.io 来访问你的个人主页，比如我的就是gladysgong.github.io。
-
-这里特别提醒一下，需要注意的个人主页的网站内容是在master分支下的。</code></pre>
-<h4 id="2-创建自己的Github-Pages"><a href="#2-创建自己的Github-Pages" class="headerlink" title="2.创建自己的Github Pages"></a>2.创建自己的Github Pages</h4><pre><code>新建代码仓库(repository),此处命名格式有限制的，形如username.github.io</code></pre>
-<p><img src="http://img.blog.csdn.net/20180105161022371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20180105161115747?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<pre><code>github page site已经建好，浏览器输入例如http://username.github.io,(该示例界面为空)，可以自己push一个index页面来显示内容，开启你的blog把！</code></pre>
-<p>我的blog是<a href="gladysgong.github.io">gladysgong.github.io</a>,可以打开看一下哟！如果文章对您有帮助，右侧fork进入star我一下，我会美美哒一天。</p>
-<h4 id="3-如何搭建一个独立博客——简明Github-Pages与Hexo教程"><a href="#3-如何搭建一个独立博客——简明Github-Pages与Hexo教程" class="headerlink" title="3.如何搭建一个独立博客——简明Github Pages与Hexo教程"></a>3.如何搭建一个独立博客——简明Github Pages与Hexo教程</h4><h3 id="二、搭建环境"><a href="#二、搭建环境" class="headerlink" title="二、搭建环境"></a>二、搭建环境</h3><p>1.安装<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a><br>2.安装npm<br>3.安装git，如果前面要commit、push，那之前就应该安装<br>4.github账户配置</p>
-<h3 id="三、Hexo安装"><a href="#三、Hexo安装" class="headerlink" title="三、Hexo安装"></a>三、Hexo安装</h3><pre><code>$ cd d:/hexo
-$ npm install hexo-cli -g
-$ hexo init blog
-$ cd blog
-$ npm install
-$ hexo g # 或者hexo generate
-$ hexo s # 或者hexo server，可以在http://localhost:4000/ 查看（hexo s -p 8023端口被占用时）</code></pre>
-<p><img src="http://img.blog.csdn.net/20180105162744799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h3 id="四、Hexo主题切换"><a href="#四、Hexo主题切换" class="headerlink" title="四、Hexo主题切换"></a>四、Hexo主题切换</h3><pre><code>Hexo默认主题是landscape，大家可以切换成为next或者yilia的风格
-1.安装主题
-
-$ hexo clean
-$ git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</code></pre>
-<p>2.启用主题</p>
-<pre><code>修改Hexo目录下的_config.yml配置文件中的theme属性，将其设置为yilia。</code></pre>
-<p>3.更新主题</p>
-<pre><code>$ cd themes/yilia
-$ git pull
-$ hexo g # 生成
-$ hexo s # 启动本地web服务器</code></pre>
-<p>4.打开<a target="_blank" rel="noopener" href="http://localhost:8023/">http://localhost:8023/</a> ，我们就会看到一个全新的界面。</p>
-<h3 id="五、部署Hexo到Github-Pages"><a href="#五、部署Hexo到Github-Pages" class="headerlink" title="五、部署Hexo到Github Pages"></a>五、部署Hexo到Github Pages</h3><p>1.部署Hexo到Github Pages上的原理</p>
-<pre><code>a.第一步中我们在Github上创建了一个特殊的repo（gladysgong.github.io）一个最大的特点就是master中的html静态文件，可以通过链接http://gladysgong.github.io来直接访问。
-b.Hexo -g 会生成一个静态网站（第一次会生成一个public目录），这个静态文件可以直接访问。
-c.将hexo生成的静态网站，提交(git commit)到github上。</code></pre>
-<p>2.使用hexo deploy部署到github</p>
-<pre><code>在配置文件_config.xml中以下改动：
-deploy:
-  type: git
-  repo: git@github.com:gladysgong/gladysgong.github.io.git
-  branch: master</code></pre>
-<p>3.安装扩展（不安装会出错）</p>
-<pre><code>$ npm install hexo-deployer-git --save</code></pre>
-<p>4.在命令行中执行</p>
-<pre><code>hexo d</code></pre>
-<h3 id="六、申请域名https-sg-godaddy-com-zh"><a href="#六、申请域名https-sg-godaddy-com-zh" class="headerlink" title="六、申请域名https://sg.godaddy.com/zh/"></a>六、申请域名<a target="_blank" rel="noopener" href="https://sg.godaddy.com/zh/">https://sg.godaddy.com/zh/</a></h3><p>可以申请的地方很多，我选择的是<a target="_blank" rel="noopener" href="https://sg.godaddy.com/zh/">goDaddy</a>，注册登录选择域名，支付宝付款，ok。</p>
-<h3 id="七、DNS解析"><a href="#七、DNS解析" class="headerlink" title="七、DNS解析"></a>七、DNS解析</h3><p>1.注册<a target="_blank" rel="noopener" href="https://www.dnspod.cn/">DNSpod</a><br>2.进入域名解析，输入你的域名，添加记录进行配置<br><img src="http://img.blog.csdn.net/20180105165317195?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjA1MjE2OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>3.记录类型</p>
-<pre><code>记录类型A代表指向github pages所提供的ip
-记录类型CNAME代表指向username.github.io
-用A类型的话，当github pages所提供的ip改变的话，你就需要来改变此处的ip，用CNAME则不需要。</code></pre>
-<p>4.创建CNAME</p>
-<pre><code>$ cd source
-$ 创建CNAME
-$ 内容为你的域名（比如我的：gongyanli.com）
-$ commit &amp; push</code></pre>
-<h3 id="八、hexo部署后把原来的仓库覆盖"><a href="#八、hexo部署后把原来的仓库覆盖" class="headerlink" title="八、hexo部署后把原来的仓库覆盖"></a>八、hexo部署后把原来的仓库覆盖</h3><p>1.使用Hexo搭建博客需要区分【博客源代码】和【博客生成代码】</p>
-<pre><code>『博客源代码』：Hexo的源码，包括themes目录（博客模板），source目录(使用MarkDown写的博客)等
-
-『博客生成代码』：执行hexo generate或者hexo server命令生成的代码，是Hexo自动生成的，在public目录里面。
-
-『博客源代码』需要使用Git做版本管理，而『博客生成代码』需要使用Git部署。因此容易混淆。</code></pre>
-<p>2.方法1：使用2个不同的Git仓库分别管理『博客源代码』和『博客生成代码』</p>
-<pre><code>在GitHub新建一个仓库，然后将『博客源代码』同步到新项目。『博客生成代码』仍然由gladysgong/gladysgong.github.io部署。</code></pre>
-<p>3.方法2:使用同一个Git仓库的2个不同的Git分支分别管理『博客源代码』和『博客生成代码』</p>
-<pre><code>修改Hexo的配置文件_config.yml，将『博客生成代码』部署到gladysgong/gladysgong.github.io仓库的develop分支:
-deploy:
-    type: git
-    branch: develop
-    repo: https://github.com/gladysgong/gladysgong.github.com</code></pre>
-<h3 id="九、bug"><a href="#九、bug" class="headerlink" title="九、bug"></a>九、bug</h3><h4 id="1-hexo报错："><a href="#1-hexo报错：" class="headerlink" title="1.hexo报错："></a>1.hexo报错：</h4><pre><code>YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 5, column 1: # Site
-
-YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 13, column 1: # URL</code></pre>
-<pre><code>配置文件：_config.yml  中 # Site #URL 属性设置后面的：需要有空格再填写内容！！！</code></pre>
-<h4 id="2-npm各种提示权限不够，windows下即使开了administrator也提示权限不够"><a href="#2-npm各种提示权限不够，windows下即使开了administrator也提示权限不够" class="headerlink" title="2.npm各种提示权限不够，windows下即使开了administrator也提示权限不够"></a>2.npm各种提示权限不够，windows下即使开了administrator也提示权限不够</h4><pre><code>无奈，卸载npm，用淘宝npm镜像重装一个，安装后一路畅通。
-安装方法：npm install -g cnpm --registry=https://registry.npm.taobao.org
-参考链接：http://npm.taobao.org/
-之后所用命令只需改为cnpm即可</code></pre>
-<h4 id="3-hexo-s运行时默认4000端口被占用"><a href="#3-hexo-s运行时默认4000端口被占用" class="headerlink" title="3.hexo s运行时默认4000端口被占用"></a>3.hexo s运行时默认4000端口被占用</h4><pre><code>尝试过解除端口，无奈我的4000端口被360浏览器占用
-hexo s -p 8022
-重启一个8022或者任意一个没被占用的端口即可</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1461,7 +2120,7 @@ hexo s -p 8022
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

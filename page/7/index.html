@@ -158,6 +158,4401 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-6-%E8%B4%AA%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-6-%E8%B4%AA%E5%BF%83/" class="post-title-link" itemprop="url">LeetCode-6-贪心</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-31 12:09:27" itemprop="dateCreated datePublished" datetime="2020-01-31T12:09:27+08:00">2020-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 19:54:18" itemprop="dateModified" datetime="2020-08-26T19:54:18+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="六、贪心"><a href="#六、贪心" class="headerlink" title="六、贪心"></a>六、贪心</h2><p>贪心和动态规划一样，考验的是对问题分析的能力，贪心算法解题的关键在于如何找到每次的局部最优解，动态规划则是如何找到状态转移方程。</p>
+<p>什么是贪心算法呢？贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。</p>
+<p>比如说一个算法问题使用暴力解法需要指数级时间，如果能使用动态规划消除重叠子问题，就可以降到多项式级别的时间，如果满足贪心选择性质，那么可以进一步降低时间复杂度，达到线性级别的。</p>
+<p>什么是贪心选择性质呢，简单说就是：每一步都做出一个局部最优的选择，最终的结果就是全局最优。注意哦，这是一种特殊性质，其实只有一小部分问题拥有这个性质。</p>
+<p>问题：Interval Scheduling（区间调度问题）。给你很多形如[start,end]的闭区间，请你设计一个算法，算出这些区间中最多有几个互不相交的区间。</p>
+<p>举个例子，intvs=[[1,3],[2,4],[3,6]]，这些区间最多有两个区间互不相交，即[[1,3],[3,6]]，你的算法应该返回 2。注意边界相同并不算相交。比如你今天有好几个活动，每个活动都可以用区间[start,end]表示开始和结束的时间，请问你今天最多能参加几个活动呢？</p>
+<p>思路：</p>
+<pre><code>1、从区间集合 intvs 中选择一个区间 x，这个 x 是在当前所有区间中结束最早的（end 最小）。
+2、把所有与 x 区间相交的区间从区间集合 intvs 中删除。
+3、重复步骤 1 和 2，直到 intvs 为空为止。之前选出的那些 x 就是最大不相交子集。</code></pre>
+<p>实现：按每个区间的end数值升序排序</p>
+<pre><code>步骤 1：由于我们预先按照end排了序，所以选择 x 是很容易的。关键在于，如何去除与 x 相交的区间，选择下一轮循环的 x 呢？
+
+由于我们事先排了序，不难发现所有与 x 相交的区间必然会与 x 的end相交；如果一个区间不想与 x 的end相交，它的start必须要大于（或等于）x 的end</code></pre>
+<pre><code>def intervalSchedule(intvs):
+    if not intvs:
+        return 0
+    intvs.sort(key=lambda x:x[1]) # 升序排序
+    count=1 # 至少应该有1个区间不相交
+    x_end=intvs[0][1] # 排序后，第一个区间就是x
+    for interval in intvs:
+        start=interval[0]
+        if start &gt;= x_end:
+            count+=1
+            x_end=interval[1] # 更新x
+    return count</code></pre>
+<h3 id="45-跳跃游戏-II"><a href="#45-跳跃游戏-II" class="headerlink" title="45.跳跃游戏 II"></a>45.跳跃游戏 II</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game-ii/
+
+给定一个非负整数数组，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+示例:
+
+输入: [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+说明:
+
+假设你总是可以到达数组的最后一个位置。</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect</a></p>
+<p>问题是：保证你一定可以跳到最后一格，请问你最少要跳多少次，才能跳过去？</p>
+<p>题解一|从右向左搜索：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png"></p>
+<p>时间复杂度为 O(n^2)，空间复杂度为 O(1)</p>
+<pre><code>class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        right=len(nums)-1
+        sum=0
+        while right&gt;0:
+            cur=right-1
+            for i in range(right-2,-1,-1):
+                if (i+nums[i]) &gt;= right:
+                    cur=i
+            right=cur
+            sum+=1
+        return sum</code></pre>
+<p>题解二|自顶向下的动态规划：</p>
+<pre><code>vector&lt;int&gt; memo;
+// 主函数
+int jump(vector&lt;int&gt;&amp; nums) &#123;
+    int n = nums.size();
+    // 备忘录都初始化为 n，相当于 INT_MAX
+    // 因为从 0 调到 n - 1 最多 n - 1 步
+    memo = vector&lt;int&gt;(n, n);
+    return dp(nums, 0);
+&#125;
+
+int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
+    int n = nums.size();
+    // base case
+    if (p &gt;= n - 1) &#123;
+        return 0;
+    &#125;
+    // 子问题已经计算过
+    if (memo[p] != n) &#123;
+        return memo[p];
+    &#125;
+    int steps = nums[p];
+    // 你可以选择跳 1 步，2 步...
+    for (int i = 1; i &lt;= steps; i++) &#123;
+        // 穷举每一个选择
+        // 计算每一个子问题的结果
+        int subProblem = dp(nums, p + i);
+        // 取其中最小的作为最终结果
+        memo[p] = min(memo[p], subProblem + 1);
+    &#125;
+    return memo[p];
+&#125;</code></pre>
+<p>题解三|贪心:</p>
+<p>贪心选择性质，我们不需要「递归地」计算出所有选择的具体结果然后比较求最值，而只需要做出那个最有「潜力」，看起来最优的选择即可。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png"></p>
+<p>时间复杂度是 O(n)，空间复杂度是 O(1)。</p>
+<pre><code>class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        if len(nums)&lt;2:
+            return 0
+        sum,end,maxDistance=0,0,0
+        # end代表能跳到的最远距离，maxDistance代表下一步能跳到的最远距离。
+        for i in range(len(nums)-1):
+            maxDistance=max(maxDistance,i+nums[i])
+            if i==end:
+                end=maxDistance
+                sum+=1
+        return sum</code></pre>
+<h3 id="55-跳跃游戏"><a href="#55-跳跃游戏" class="headerlink" title="55.跳跃游戏"></a>55.跳跃游戏</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game/
+
+给定一个非负整数数组，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个位置。
+
+示例 1:
+
+输入: [2,3,1,1,4]
+输出: true
+解释: 我们可以先跳 1 步，从位置 0 到达 位置 1, 然后再从位置 1 跳 3 步到达最后一个位置。
+示例 2:
+
+输入: [3,2,1,0,4]
+输出: false
+解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def canJump(self, nums: List[int]) -&gt; bool:
+        right=len(nums)-1
+        for i in range(len(nums)-2,-1,-1):
+            if (i+nums[i]) &gt;= right:
+                right=i
+        if right==0:
+            return True
+        return False</code></pre>
+<p>题解二|贪心：</p>
+<p>思考：<br>    通过题目中的跳跃规则，最多能跳多远？如果能够越过最后一格，返回 true，否则返回 false。</p>
+<pre><code>class Solution:
+    def canJump(self, nums: List[int]) -&gt; bool:
+        n=len(nums)
+        maxDistance=0
+        for i in range(n-1):
+            maxDistance=max(maxDistance,i+nums[i])
+            if maxDistance &lt;= i:
+                return False
+        return maxDistance &gt;= n-1</code></pre>
+<pre><code>class Solution:
+    def canJump(self, nums: List[int]) -&gt; bool:
+        if len(nums)&lt;2:
+            return True
+        end,maxDistance=0,0
+        # end代表能跳到的最远距离，maxDistance代表下一步能跳到的最远距离。
+        for i in range(len(nums)-1): # for i in range(len(nums)):
+            maxDistance=max(maxDistance,i+nums[i])
+            if i==end:
+                end=maxDistance
+            if end &gt;= len(nums)-1:
+                return True
+        return False</code></pre>
+<h3 id="135-分发糖果"><a href="#135-分发糖果" class="headerlink" title="135.分发糖果"></a>135.分发糖果</h3><pre><code>链接：https://leetcode-cn.com/problems/candy/
+
+老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。
+
+你需要按照以下要求，帮助老师给这些孩子分发糖果：
+
+每个孩子至少分配到 1 个糖果。
+相邻的孩子中，评分高的孩子必须获得更多的糖果。
+那么这样下来，老师至少需要准备多少颗糖果呢？
+
+示例 1:
+
+输入: [1,0,2]
+输出: 5
+解释: 你可以分别给这三个孩子分发 2、1、2 颗糖果。
+示例 2:
+
+输入: [1,2,2]
+输出: 4
+解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
+     第三个孩子只得到 1 颗糖果，这已满足上述两个条件。</code></pre>
+<p>题解一：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
+<pre><code>class Solution:
+    def candy(self, ratings: List[int]) -&gt; int:
+        left=[1 for _ in range(len(ratings))]
+        right=left[:]
+        for i in range(1,len(ratings)):
+            if ratings[i]&gt;ratings[i-1]:
+                left[i]=left[i-1]+1
+        count=left[-1] # 从右向左遍历时，最后一个元素没有比较大小，所以此处计算count。
+        for i in range(len(ratings)-2,-1,-1):
+            if ratings[i]&gt;ratings[i+1]:
+                right[i]=right[i+1]+1
+            count+=max(left[i],right[i])
+        return count</code></pre>
+<p>题解二：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
+<h3 id="316-去除重复字母"><a href="#316-去除重复字母" class="headerlink" title="316.去除重复字母"></a>316.去除重复字母</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicate-letters/
+
+给定一个仅包含小写字母的字符串，去除字符串中重复的字母，使得每个字母只出现一次。需保证返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
+
+示例 1:
+
+输入: &quot;bcabc&quot;
+输出: &quot;abc&quot;
+示例 2:
+
+输入: &quot;cbacdcbc&quot;
+输出: &quot;acdb&quot;</code></pre>
+<p>名词解释：</p>
+<pre><code>字典序：对于字符而言，按 ascii 码值进行比较，小的排在前，大的排在后。对于字符串，从第 0 位字符开始比较，ascii 码数值小的排在前面，如果相同，就延后一位比较 ascii 码值大小。
+
+子序列：子序列不同于子串，子串要求它们在原串中连续，而子序列则不要求连续。例如acd是abcd的子序列，但不是子串。</code></pre>
+<p>?题解一（递归）：</p>
+<pre><code>class Solution:
+    def removeDuplicateLetters(self, s: str) -&gt; str:
+        for i in sorted(set(s)):
+            tmp=s[s.index(i):]
+            if len(set(tmp)) == len(set(s)):
+                return i+self.removeDuplicateLetters(tmp.replace(i,&#39;&#39;))
+        return &#39;&#39;</code></pre>
+<p>?题解二（迭代）：</p>
+<pre><code>class Solution:
+    def removeDuplicateLetters(self, s: str) -&gt; str:
+        res = &quot;&quot;
+        while s:
+            # 从右往左找，找到最小位置的索引号
+            loc = min(map(s.rindex, s))
+            # 找该索引前面最小的字母
+            a = min(s[:loc + 1])
+            res += a
+            s = s[s.index(a):].replace(a, &quot;&quot;)
+        return res</code></pre>
+<p>题解三(栈):<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
+<pre><code>class Solution:
+    def removeDuplicateLetters(self, s: str) -&gt; str:
+        from collections import Counter
+        count=Counter(s)
+        stack=[]
+        existed=set()
+        for i in s:
+            if i not in existed:
+                while stack and stack[-1]&gt;i and count[stack[-1]]&gt;0:
+                    existed.remove(stack.pop())
+                stack.append(i)
+                existed.add(i)
+            count[i]-=1
+        return &#39;&#39;.join(stack)</code></pre>
+<h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435.无重叠区间"></a>435.无重叠区间</h3><pre><code>链接:https://leetcode-cn.com/problems/non-overlapping-intervals/
+
+给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
+
+注意:
+
+可以认为区间的终点总是大于它的起点。
+区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。
+示例 1:
+
+输入: [ [1,2], [2,3], [3,4], [1,3] ]
+
+输出: 1
+
+解释: 移除 [1,3] 后，剩下的区间没有重叠。
+示例 2:
+
+输入: [ [1,2], [1,2], [1,2] ]
+
+输出: 2
+
+解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。
+示例 3:
+
+输入: [ [1,2], [2,3] ]
+
+输出: 0
+
+解释: 你不需要移除任何区间，因为它们已经是无重叠的了。</code></pre>
+<p>已经会求最多有几个区间不会重叠了，那么剩下的不就是至少需要去除的区间吗？</p>
+<pre><code>def eraseOverlapIntervals(intervals) &#123;
+    n=len(intervals)
+    return n - intervalSchedule(intervals);
+&#125;</code></pre>
+<p>题解一（贪心）:</p>
+<pre><code>先计算能组成不重叠最多区间个数： 
+（1）按区间结尾排序
+（2）每次选择结尾最小，且与前一个区间不重叠</code></pre>
+<pre><code>class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -&gt; int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda x:x[1])
+
+        curr=0
+        count=1
+        for i in range(1,len(intervals)):
+            if intervals[i][0]&gt;=intervals[curr][1]:
+                curr=i
+                count+=1
+        return len(intervals)-count</code></pre>
+<h3 id="452-用最少数量的箭引爆气球"><a href="#452-用最少数量的箭引爆气球" class="headerlink" title="452. 用最少数量的箭引爆气球"></a>452. 用最少数量的箭引爆气球</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/
+
+在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。由于它是水平的，所以y坐标并不重要，因此只要知道开始和结束的x坐标就足够了。开始坐标总是小于结束坐标。平面内最多存在104个气球。
+
+一支弓箭可以沿着x轴从不同点完全垂直地射出。在坐标x处射出一支箭，若有一个气球的直径的开始和结束坐标为 xstart，xend， 且满足  xstart ≤ x ≤ xend，则该气球会被引爆。可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。
+
+Example:
+
+输入:
+[[10,16], [2,8], [1,6], [7,12]]
+
+输出:
+2
+
+解释:
+对于该样例，我们可以在x = 6（射爆[2,8],[1,6]两个气球）和 x = 11（射爆另外两个气球）。</code></pre>
+<p>思考：</p>
+<p>只是有一点不一样，在intervalSchedule算法中，如果两个区间的边界触碰，不算重叠；而按照这道题目的描述，箭头如果碰到气球的边界气球也会爆炸，所以说相当于区间的边界触碰也算重叠。</p>
+<pre><code>class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -&gt; int:
+        if not points:
+            return 0
+        points.sort(key=lambda x:x[1])
+        n=len(points)
+        count=1
+        x_end=points[0][1]
+        for point in points:
+            start=point[0]
+            if start &gt; x_end:
+                count+=1
+                x_end=point[1]
+        return count</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-9-%E5%9B%9E%E6%BA%AF%E6%B3%95/" class="post-title-link" itemprop="url">LeetCode-9-回溯法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-21 17:20:06" itemprop="dateCreated datePublished" datetime="2020-01-21T17:20:06+08:00">2020-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-22 19:04:59" itemprop="dateModified" datetime="2020-10-22T19:04:59+08:00">2020-10-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaomangxie/p/10208441.html">https://www.cnblogs.com/xiaomangxie/p/10208441.html</a><br>参考文章：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/">https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/</a></p>
+<h2 id="九、回溯法"><a href="#九、回溯法" class="headerlink" title="九、回溯法"></a>九、回溯法</h2><p>回溯法（back tracking）（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<p>解决一个回溯问题，实际上就是一个决策树的遍历过程。你只需要思考 3 个问题：</p>
+<pre><code>1、路径：也就是已经做出的选择。
+
+2、选择列表：也就是你当前可以做的选择。
+
+3、结束条件：也就是到达决策树底层，无法再做选择的条件。</code></pre>
+<p>回溯算法的框架: 其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」。</p>
+<pre><code>result = []
+def backtrack(路径, 选择列表):
+    if 满足结束条件:
+        result.add(路径)
+        return
+
+    for 选择 in 选择列表:
+        做选择
+        backtrack(路径, 选择列表)
+        撤销选择</code></pre>
+<pre><code>「路径」，记录你已经做过的选择；
+「选择列表」，表示你当前可以做出的选择；
+「结束条件」就是遍历到树的底层，在这里就是选择列表为空的时候。</code></pre>
+<pre><code>for 选择 in 选择列表:
+    # 做选择
+    将该选择从选择列表移除
+    路径.add(选择)
+    backtrack(路径, 选择列表)
+    # 撤销选择
+    路径.remove(选择)
+    将该选择再加入选择列表</code></pre>
+<h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+示例:
+
+输入：&quot;23&quot;
+输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].
+说明:
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def letterCombinations(self, digits: str) -&gt; List[str]:
+        key_all=&#123;
+            &#39;2&#39;: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;],
+            &#39;3&#39;: [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;],
+            &#39;4&#39;: [&#39;g&#39;, &#39;h&#39;, &#39;i&#39;],
+            &#39;5&#39;: [&#39;j&#39;, &#39;k&#39;, &#39;l&#39;],
+            &#39;6&#39;: [&#39;m&#39;, &#39;n&#39;, &#39;o&#39;],
+            &#39;7&#39;: [&#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;],
+            &#39;8&#39;: [&#39;t&#39;, &#39;u&#39;, &#39;v&#39;],
+            &#39;9&#39;: [&#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
+        &#125;
+        if digits==&#39;&#39;:
+            return &#39;&#39;
+        ans=[&#39;&#39;]
+        for num in digits:
+            ans=[pre+suf for pre in ans for suf in key_all[num]]
+        return ans</code></pre>
+<pre><code>class Solution:
+    def letterCombinations(self, digits):
+        key_all=&#123;
+            &#39;2&#39;: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;],
+            &#39;3&#39;: [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;],
+            &#39;4&#39;: [&#39;g&#39;, &#39;h&#39;, &#39;i&#39;],
+            &#39;5&#39;: [&#39;j&#39;, &#39;k&#39;, &#39;l&#39;],
+            &#39;6&#39;: [&#39;m&#39;, &#39;n&#39;, &#39;o&#39;],
+            &#39;7&#39;: [&#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;],
+            &#39;8&#39;: [&#39;t&#39;, &#39;u&#39;, &#39;v&#39;],
+            &#39;9&#39;: [&#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
+        &#125;
+        if digits==&#39;&#39;:
+            return &#39;&#39;
+        ans=[&#39;&#39;]
+        for num in digits:
+            tmp=[]
+            for pre in ans:
+                for suf in key_all[num]:
+                    tmp.append(pre+suf)
+            ans=tmp[:]
+        return ans</code></pre>
+<p>题解二|回溯：</p>
+<pre><code>class Solution:
+    def letterCombinations(self, digits: str) -&gt; List[str]:
+        if not digits:
+            return []
+        res=[]
+        hash=&#123;
+            1:&#39;&#39;,
+            2:&#39;abc&#39;,
+            3:&#39;def&#39;,
+            4:&#39;ghi&#39;,
+            5:&#39;jkl&#39;,
+            6:&#39;mno&#39;,
+            7:&#39;pqrs&#39;,
+            8:&#39;tuv&#39;,
+            9:&#39;wxyz&#39;
+        &#125;
+
+        def traceback(digits,index,path):
+            if index == len(digits):
+                res.append(&#39;&#39;.join(path))
+                return
+
+            digit=int(digits[index])
+            for i in hash.get(digit,[]):
+                path.append(i)
+                traceback(digits,index+1,path)
+                path.pop()
+        traceback(digits,0,[])
+        return res</code></pre>
+<h3 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h3><pre><code>链接：https://leetcode-cn.com/problems/generate-parentheses/
+
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的 括号组合。
+
+示例：
+
+输入：n = 3
+输出：[
+       &quot;((()))&quot;,
+       &quot;(()())&quot;,
+       &quot;(())()&quot;,
+       &quot;()(())&quot;,
+       &quot;()()()&quot;
+     ]</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]:
+        def generate(A):
+            if len(A) == 2*n:
+                if valid(A):
+                    ans.append(&quot;&quot;.join(A))
+            else:
+                A.append(&#39;(&#39;)
+                generate(A)
+                A.pop()
+                A.append(&#39;)&#39;)
+                generate(A)
+                A.pop()
+
+        def valid(A):
+            bal = 0
+            for c in A:
+                if c == &#39;(&#39;: bal += 1
+                else: bal -= 1
+                if bal &lt; 0: return False
+            return bal == 0
+
+        ans = []
+        generate([])
+        return ans</code></pre>
+<p>题解二|回溯：</p>
+<p>可以只在序列仍然保持有效时才添加 ‘(‘ or ‘)’，而不是像 方法一 那样每次添加。</p>
+<p>我们可以通过跟踪到目前为止放置的左括号和右括号的数目来做到这一点，</p>
+<p>如果左括号数量不大于 n，我们可以放一个左括号。如果右括号数量小于左括号的数量，我们可以放一个右括号。</p>
+<pre><code>class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]:
+
+        def backtrace(S,left,right):
+            if len(S) == 2*n:
+                res.append(&#39;&#39;.join(S))
+                return
+
+            if left &lt; n:
+                S.append(&#39;(&#39;)
+                backtrace(S,left+1,right)
+                S.pop()
+            if right &lt; left:
+                S.append(&#39;)&#39;)
+                backtrace(S,left,right+1)
+                S.pop()
+
+        res = []
+        backtrace([],0,0)
+        return res</code></pre>
+<pre><code>class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]:
+
+        def backtrace(S,index):
+            if len(S) == 2*n:
+                if index == 0:
+                    res.append(&#39;&#39;.join(S))
+                return
+
+            if index &lt; n:
+                S.append(&#39;(&#39;)
+                backtrace(S,index+1)
+                S.pop()
+            if index &gt; 0:
+                S.append(&#39;)&#39;)
+                backtrace(S,index-1)
+                S.pop()
+
+        res = []
+        backtrace([],0)
+        return res</code></pre>
+<p>题解三|递归：</p>
+<pre><code>class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]:
+        res=[]
+        def helper(left,right,n,s):
+            if left==n and right==n:
+                res.append(s)
+                return
+            if left &lt; n:
+                helper(left+1,right,n,s+&#39;(&#39;)
+            if left &gt; right:
+            # if left &gt; right and right &lt; n:
+                helper(left,right+1,n,s+&#39;)&#39;)
+
+        helper(0,0,n,&#39;&#39;)
+        return res</code></pre>
+<h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><pre><code>链接：https://leetcode-cn.com/problems/sudoku-solver/
+
+编写一个程序，通过已填充的空格来解决数独问题。
+
+一个数独的解法需遵循如下规则：
+
+数字 1-9 在每一行只能出现一次。
+数字 1-9 在每一列只能出现一次。
+数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+空白格用 &#39;.&#39; 表示。
+
+一个数独。
+
+答案被标成红色。
+
+Note:
+
+给定的数独序列只包含数字 1-9 和字符 &#39;.&#39; 。
+你可以假设给定的数独只有唯一解。
+给定数独永远是 9x9 形式的。</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def solveSudoku(self, board: List[List[str]]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify board in-place instead.
+        &quot;&quot;&quot;
+        def backtrace(board,i,j):
+            m,n=9,9
+            if j==n: # 走到9越界，进入下一行
+                return backtrace(board,i+1,0)
+            if i==m: # 走到最后一行，找到一个可行解
+                return True
+            if board[i][j] != &#39;.&#39;: # 当前是预设数字，直接跳到下一个
+                return backtrace(board,i,j+1)
+            chars=[str(i) for i in range(1,10)]
+            for char in chars:
+                if not isValid(board,i,j,char): # 遇到不合法的数字，跳过
+                    continue
+
+                board[i][j]=char # 做选择
+                if backtrace(board,i,j+1): # 如果找到一个可行解，立即结束
+                    return True
+                board[i][j]=&#39;.&#39; # 撤销选择
+            return False
+
+        def isValid(board,r,c,char):
+            for i in range(9):
+                # 判断行是否存在重复
+                if board[r][i] == char:
+                    return False
+                # 判断列是否存在重复
+                if board[i][c] == char:
+                    return False
+                # 判断 3 * 3 方框是否存在重复
+                if board[(r//3)*3+i//3][(c//3)*3+i%3] == char:
+                    return False
+            return True
+        backtrace(board,0,0)</code></pre>
+<h3 id="39-组合总和"><a href="#39-组合总和" class="headerlink" title="39. 组合总和"></a>39. 组合总和</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum/
+
+给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的数字可以无限制重复被选取。
+
+说明：
+
+所有数字（包括 target）都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: candidates = [2,3,6,7], target = 7,
+所求解集为:
+[
+  [7],
+  [2,2,3]
+]
+示例 2:
+
+输入: candidates = [2,3,5], target = 8,
+所求解集为:
+[
+  [2,2,2,2],
+  [2,3,3],
+  [3,5]
+]</code></pre>
+<p>题解一|回溯:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/">https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/</a></p>
+<pre><code>class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:
+        size=len(candidates)
+        if size==0:
+            return []
+
+        candidates.sort()
+        res=[]
+        path=[]
+        return self.helper(candidates,0,size,target,res,path)
+    def helper(self,candidates,begin,size,target,res,path):
+        if target==0:
+            res.append(path[:])
+        for i in range(begin,size):
+            residue=target-candidates[i]
+            if residue &lt; 0:
+                break
+            path.append(candidates[i])
+            self.helper(candidates,i,size,residue,res,path)
+            path.pop()
+        return res</code></pre>
+<pre><code>class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(candidates,start,path,target):
+            if target==0:
+                # res.append(path[:])
+                res.append(path+[])
+                return
+
+            for i in range(start,len(candidates)):
+                tmp=target-candidates[i]
+                if tmp &lt; 0:
+                    continue
+                path.append(candidates[i])
+                backtrace(candidates,i,path,tmp) # 注意此处i的取值
+                path.pop()
+
+        backtrace(candidates,0,[],target)
+        return res</code></pre>
+<h3 id="40-组合总和-II"><a href="#40-组合总和-II" class="headerlink" title="40.组合总和 II"></a>40.组合总和 II</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-ii/
+
+给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+说明：
+
+所有数字（包括目标数）都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+所求解集为:
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+示例 2:
+
+输入: candidates = [2,5,2,1,2], target = 5,
+所求解集为:
+[
+  [1,2,2],
+  [5]
+]</code></pre>
+<p>这道题与上一问的区别在于：</p>
+<p>第 39 题：candidates 中的数字可以无限制重复被选取。<br>第 40 题：candidates 中的每个数字在每个组合中只能使用一次。<br>编码的不同在于下一层递归的起始索引不一样。</p>
+<p>第 39 题：还从候选数组的当前索引值开始。<br>第 40 题：从候选数组的当前索引值的下一位开始。<br>相同之处：解集不能包含重复的组合。</p>
+<p>题解一|回溯:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-3/">https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-3/</a></p>
+<pre><code>class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -&gt; List[List[int]]:
+        size=len(candidates)
+        if size==0:
+            return []
+
+        candidates.sort()
+        res=[]
+        path=[]
+        return self.helper(candidates,0,size,target,res,path)
+    def helper(self,candidates,begin,size,target,res,path):
+        if target==0:
+            res.append(path[:])
+        for i in range(begin,size):
+            residue=target-candidates[i]
+            if residue &lt; 0:
+                break
+
+            if i &gt; begin and candidates[i-1] == candidates[i]:
+                continue
+
+            path.append(candidates[i])
+            self.helper(candidates,i+1,size,residue,res,path)
+            path.pop()
+        return res</code></pre>
+<p>去重：无论是求组合/子集/排列，只要原数组中含有重复元素，通用一个去重方法：</p>
+<pre><code>1.先排序，使相同元素相邻；
+2.在backtrack的for循环里：
+    if(i&gt;start &amp;&amp; candidates[i]==candidates[i-1]) continue;</code></pre>
+<pre><code>这个避免重复当思想是在是太重要了。
+这个方法最重要的作用是，可以让同一层级，不出现相同的元素。即
+                  1
+                 / \
+                2   2  这种情况不会发生 但是却允许了不同层级之间的重复即：
+               /     \
+              5       5
+                例2
+                  1
+                 /
+                2      这种情况确是允许的
+               /
+              2  
+
+为何会有这种神奇的效果呢？
+首先 i-1 == i 是用于判定当前元素是否和之前元素相同的语句。这个语句就能砍掉例1。
+可是问题来了，如果把所有当前与之前一个元素相同的都砍掉，那么例二的情况也会消失。 
+因为当第二个2出现的时候，他就和前一个2相同了。
+
+那么如何保留例2呢？
+那么就用i &gt; start 来避免这种情况，你发现例1中的两个2是处在同一个层级上的，
+例2的两个2是处在不同层级上的。
+在一个for循环中，所有被遍历到的数都是属于一个层级的。我们要让一个层级中，
+必须出现且只出现一个2，那么就放过第一个出现重复的2，但不放过后面出现的2。
+第一个出现的2的特点就是 i == start. 第二个出现的2 特点是i &gt; start.
+
+再通俗点，就是有重复元素的话，比如测试用例中的第一个1和第二个1，都会有1,7组成8，这样就产生了重复的list。因为都是从当前数开始遍历，所以加这一层的意思就是过滤掉重复的数，但是第一个1依然能使用第二个1，而第二个1是失去了作用的。
+</code></pre>
+<pre><code>class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -&gt; List[List[int]]:
+        if not candidates:
+            return []
+        candidates.sort()
+        res=[]
+
+        def backtrace(candidates,start,path,target):
+            if target==0:
+                return res.append(path[:])
+            for i in range(start,len(candidates)):
+                tmp=target-candidates[i]
+                if tmp &lt; 0:
+                    continue
+                if i &gt; start and candidates[i] == candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                backtrace(candidates,i+1,path,tmp) # 此处是i+1
+                path.pop()
+
+        backtrace(candidates,0,[],target)
+        return res</code></pre>
+<h3 id="46-全排列"><a href="#46-全排列" class="headerlink" title="46.全排列"></a>46.全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations/
+
+给定一个没有重复数字的序列，返回其所有可能的全排列。
+
+示例:
+
+输入: [1,2,3]
+输出:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]</code></pre>
+<p>题解一|回溯:</p>
+<pre><code>class Solution:
+    def permute(self, nums: List[int]) -&gt; List[List[int]]:
+
+        def backtrack(first=0):
+            if first==lens:
+                output.append(nums[:])
+            for i in range(first,lens):
+                nums[first],nums[i]=nums[i],nums[first]
+                backtrack(first+1) # 注意：不能使用i+1，否则会出现[[1,2,3],[1,3,2],[2,1,3],[3,2,1]]
+                nums[first],nums[i]=nums[i],nums[first]
+
+        lens=len(nums)
+        output=[]
+        backtrack()
+        return output</code></pre>
+<pre><code>class Solution:
+    def permute(self, nums):
+        def backtrack(first=0):
+            # if all integers are used up
+            print(&#39;---------------first&#39;, first)
+            if first == n:
+                output.append(nums[:])
+                print(&#39;output:&#39;,output)
+            for i in range(first, n):
+                # place i-th integer first
+                # in the current permutation
+                print(&#39;i,first:&#39;,i, first)
+                print(nums[i], nums[first])
+                nums[first], nums[i] = nums[i], nums[first]
+                # use next integers to complete the permutations
+                backtrack(first + 1)
+                # backtrack
+                nums[first], nums[i] = nums[i], nums[first]
+                print(&#39;2:i,first:&#39;, i, first)
+                print(&#39;2:&#39;, nums[i], nums[first])
+
+        n = len(nums)
+        output = []
+        backtrack()
+        return output
+
+输出：
+---------------first 0
+i,first: 0 0
+1 1
+---------------first 1
+i,first: 1 1
+2 2
+---------------first 2
+i,first: 2 2
+3 3
+---------------first 3
+output: [[1, 2, 3]]
+2:i,first: 2 2
+2: 3 3
+2:i,first: 1 1
+2: 2 2
+i,first: 2 1
+3 2
+---------------first 2
+i,first: 2 2
+2 2
+---------------first 3
+output: [[1, 2, 3], [1, 3, 2]]
+2:i,first: 2 2
+2: 2 2
+2:i,first: 2 1
+2: 3 2
+2:i,first: 0 0
+2: 1 1
+i,first: 1 0
+2 1
+---------------first 1
+i,first: 1 1
+1 1
+---------------first 2
+i,first: 2 2
+3 3
+---------------first 3
+output: [[1, 2, 3], [1, 3, 2], [2, 1, 3]]
+2:i,first: 2 2
+2: 3 3
+2:i,first: 1 1
+2: 1 1
+i,first: 2 1
+3 1
+---------------first 2
+i,first: 2 2
+1 1
+---------------first 3
+output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1]]
+2:i,first: 2 2
+2: 1 1
+2:i,first: 2 1
+2: 3 1
+2:i,first: 1 0
+2: 2 1
+i,first: 2 0
+3 1
+---------------first 1
+i,first: 1 1
+2 2
+---------------first 2
+i,first: 2 2
+1 1
+---------------first 3
+output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1]]
+2:i,first: 2 2
+2: 1 1
+2:i,first: 1 1
+2: 2 2
+i,first: 2 1
+1 2
+---------------first 2
+i,first: 2 2
+2 2
+---------------first 3
+output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
+2:i,first: 2 2
+2: 2 2
+2:i,first: 2 1
+2: 1 2
+2:i,first: 2 0
+2: 3 1</code></pre>
+<h3 id="47-全排列-II"><a href="#47-全排列-II" class="headerlink" title="47. 全排列 II"></a>47. 全排列 II</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations-ii/
+
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+
+示例:
+
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]</code></pre>
+<p>题解一|回溯：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
+<pre><code>class Solution:
+    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:
+
+        def backtrack(first=0):
+            if first==lens:
+                output.append(nums[:])
+            for i in range(first,lens):
+                if not duplicat(nums,first,i):
+                    continue
+                nums[first],nums[i]=nums[i],nums[first]
+                backtrack(first+1) # 注意：不能使用i+1，否则会出现[[1,2,3],[1,3,2],[2,1,3],[3,2,1]]
+                nums[first],nums[i]=nums[i],nums[first]
+
+        def duplicat(nums,begin,end):
+            i=begin
+            while i&lt;end:
+                if nums[i]==nums[end]:
+                    return False
+                i+=1
+            return True
+
+        lens=len(nums)
+        output=[]
+        backtrack()
+        return output</code></pre>
+<pre><code>class Solution:
+    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:
+
+        def backtrack(first=0):
+            if first==lens:
+                output.append(nums[:])
+            for i in range(first,lens):
+
+                if nums[i] not in nums[first:i]:
+                    nums[first],nums[i]=nums[i],nums[first]
+                    backtrack(first+1)
+                    nums[first],nums[i]=nums[i],nums[first]
+
+        lens=len(nums)
+        output=[]
+        nums.sort()
+        backtrack()
+        return output</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
+<pre><code>class Solution:
+    def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:
+        res=[]
+        def backtrack(first,path,used):
+            if first == len(nums):
+                res.append(path[:])
+                return
+            for i in range(len(nums)):
+                if not used[i]:
+                    if i&gt;0 and nums[i] == nums[i-1] and not used[i-1]:
+                        continue
+                    used[i]=True
+                    path.append(nums[i])
+                    backtrack(first+1,path,used)
+                    used[i]=False
+                    path.pop()
+        nums.sort()
+        used=[False] * len(nums)
+        backtrack(0,[],used)
+        return res</code></pre>
+<h3 id="51-N皇后"><a href="#51-N皇后" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><pre><code>链接：https://leetcode-cn.com/problems/n-queens/
+
+n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+上图为 8 皇后问题的一种解法。
+
+给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。
+
+每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 &#39;Q&#39; 和 &#39;.&#39; 分别代表了皇后和空位。
+
+示例:
+
+输入: 4
+输出: [
+ [&quot;.Q..&quot;,  // 解法 1
+  &quot;...Q&quot;,
+  &quot;Q...&quot;,
+  &quot;..Q.&quot;],
+
+ [&quot;..Q.&quot;,  // 解法 2
+  &quot;Q...&quot;,
+  &quot;...Q&quot;,
+  &quot;.Q..&quot;]
+]
+解释: 4 皇后问题存在两个不同的解法。</code></pre>
+<p>题解一|回溯法:</p>
+<p>问题是十九世纪著名的数学家高斯1850年提出：在8X8格的国际象棋上摆放八个皇后（棋子），使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
+<p>1、判断每次输入的皇后是否在同一行、同一列或者同一斜线上<br>2、核心算法</p>
+<pre><code>class Solution:
+    def solveNQueens(self, n: int) -&gt; List[List[str]]:
+        board,ret=[[&#39;.&#39;]*n for _ in range(n)],[]
+        self.dfs(board,n,0,ret)
+        return ret
+    def dfs(self,board,n,row,ret):
+        if row==n:
+            ret.append([&#39;&#39;.join(i) for i in board])
+            return
+        for i in range(n):
+            if not self.isVaild(row,i,n,board):
+                continue
+            board[row][i]=&#39;Q&#39;
+            self.dfs(board,n,row+1,ret)
+            board[row][i]=&#39;.&#39;
+
+    def isVaild(self,row,col,n,board):
+        for i in range(1, row + 1):
+            # 判断同一列上是否有Q
+            if board[row - i][col] == &#39;Q&#39;:
+                return False
+            # 判断逆对角线是否有Q
+            if col - i &gt;= 0 and board[row - i][col - i] == &#39;Q&#39;:
+                return False
+            # 判断正对角线是否有Q
+            if col + i &lt; n and board[row - i][col + i] == &#39;Q&#39;:
+                return False
+        return True
+</code></pre>
+<h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutation-sequence/
+
+给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
+
+按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+
+&quot;123&quot;
+&quot;132&quot;
+&quot;213&quot;
+&quot;231&quot;
+&quot;312&quot;
+&quot;321&quot;
+给定 n 和 k，返回第 k 个排列。
+
+说明：
+
+给定 n 的范围是 [1, 9]。
+给定 k 的范围是[1,  n!]。
+示例 1:
+
+输入: n = 3, k = 3
+输出: &quot;213&quot;
+示例 2:
+
+输入: n = 4, k = 9
+输出: &quot;2314&quot;</code></pre>
+<p>题解一|回溯|超时：</p>
+<pre><code>class Solution:
+    def getPermutation(self, n: int, k: int) -&gt; str:
+        res=[]
+        used=[False]*n # 使用used去重
+        def backtrace(path,first):
+            if len(path) == n:
+                return res.append(path[:])
+
+            for i in range(1,n+1):
+                if used[i-1]: 
+                    continue
+                used[i-1]=True
+                path.append(i)
+                backtrace(path,i+1)
+                used[i-1]=False
+                path.pop()
+        if not n or not k:
+            return &#39;&#39;
+        backtrace([],1)
+        # print(res)
+        tmp=[str(i) for i in res[k-1]]
+        return &#39;&#39;.join(tmp)</code></pre>
+<p>优化|超时：</p>
+<pre><code>class Solution:
+    def getPermutation(self, n: int, k: int) -&gt; str:
+        res=[]
+        used=[False]*n # 使用used去重
+        def backtrace(path):
+            if len(res) == k:
+                return
+
+            if len(path) == n:
+                return res.append(path[:])
+
+            for i in range(1,n+1):
+                if used[i-1]: 
+                    continue
+                used[i-1]=True
+                path.append(i)
+                backtrace(path)
+                used[i-1]=False
+                path.pop()
+        if not n or not k:
+            return &#39;&#39;
+        backtrace([])
+        tmp=[str(i) for i in res[-1]]
+        return &#39;&#39;.join(tmp)</code></pre>
+<p>???</p>
+<pre><code>class Solution:
+    def getPermutation(self, n: int, k: int) -&gt; str:
+        res=[]
+        def backtrack(k,first):
+            if first == n:
+                return
+            cnt=factorial[n-1-first]
+            for i in range(1,n+1):
+                if used[i]:
+                    continue
+                if cnt &lt; k:
+                    k-=cnt
+                    continue
+                res.append(i)
+                used[i]=True
+                backtrack(k,first+1)
+
+        used=[False] * (n+1) # 使用used去重
+        factorial=[ 1 for _ in range(n+1)]
+        for i in range(2,n+1):
+            factorial[i]=factorial[i-1]*i
+        backtrack(k,0)
+        return &#39;&#39;.join([str(num) for num in res])
+</code></pre>
+<h3 id="77-组合"><a href="#77-组合" class="headerlink" title="77.组合"></a>77.组合</h3><pre><code>链接：https://leetcode-cn.com/problems/combinations/
+
+给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+
+示例:
+
+输入: n = 4, k = 2
+输出:
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def combine(self, n: int, k: int) -&gt; List[List[int]]:
+        if k == 0 or n==0:
+            return []
+
+        res=[]
+        path=[]
+        return self.helper(n,k,res,path,1)
+    def helper(self,n,k,res,path,first=1):
+        if len(path)==k:
+            res.append(path[:])
+        for i in range(first,n+1):
+            path.append(i)
+
+            self.helper(n,k,res,path,i+1) 
+            # self.helper(n,k,res,path,first+1) 
+            # [[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,2],[3,3],[3,4],[4,2],[4,3],[4,4]]
+            path.pop()
+        return res</code></pre>
+<pre><code>class Solution:
+    def combine(self, n: int, k: int) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(path,first):
+            if len(path) == k:
+                return res.append(path[:])
+            for i in range(first,n+1):
+                path.append(i)
+                backtrace(path,i+1)
+                # backtrace(path,first+1)
+                path.pop()
+        if not n or not k:
+            return []
+        backtrace([],1)
+        return res</code></pre>
+<pre><code>class Solution:
+    def combine(self, n: int, k: int) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(path,first):
+            if len(path) == k:
+                return res.append(path[:])
+            for i in range(first,n+1):
+                path.append(i)
+                backtrace(path,i+1) # 输出：[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+                # backtrace(path,i) # 输出：[[1,1],[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,3],[3,4],[4,4]]
+                # backtrace(path,first+1) # 输出：[[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,2],[3,3],[3,4],[4,2],[4,3],[4,4]]
+                # backtrace(path,first) # 输出：[[1,1],[1,2],[1,3],[1,4],[2,1],[2,2],[2,3],[2,4],[3,1],[3,2],[3,3],[3,4],[4,1],[4,2],[4,3],[4,4]]
+                path.pop()
+        if not n or not k:
+            return []
+        backtrace([],1)
+        return res</code></pre>
+<h3 id="78-子集"><a href="#78-子集" class="headerlink" title="78.子集"></a>78.子集</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets/submissions/
+
+给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一|库函数:</p>
+<pre><code>class Solution:
+    def subsets(self, nums: List[int]) -&gt; List[List[int]]:
+        import itertools
+        res=[]
+        for i in range(len(nums)+1):
+            for j in itertools.combinations(nums,i):
+                res.append(j)
+        return res</code></pre>
+<p>题解二|迭代:</p>
+<pre><code>class Solution:
+    def subsets(self, nums: List[int]) -&gt; List[List[int]]:
+        res=[[]]
+        for i in nums:
+            res+=[[i]+j for j in res]
+            # print(res)
+        return res
+</code></pre>
+<p>题解三|回溯:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subsets/solution/hui-su-python-dai-ma-by-liweiwei1419/">https://leetcode-cn.com/problems/subsets/solution/hui-su-python-dai-ma-by-liweiwei1419/</a></p>
+<pre><code>class Solution:
+    def subsets(self, nums: List[int]) -&gt; List[List[int]]:
+        length=len(nums)
+        if length==0:
+            return []
+
+        res=[]
+        path=[]
+        return self.helper(nums,res,path,0)
+
+    def helper(self,nums,res,path,first=1):
+        res.append(path[:])
+        for i in range(first,len(nums)):
+            path.append(nums[i])
+            self.helper(nums,res,path,i+1)
+            path.pop()
+        return res</code></pre>
+<pre><code>class Solution:
+    def subsets(self, nums: List[int]) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(path,first):
+            res.append(path[:])
+            for i in range(first,len(nums)):
+                path.append(nums[i])
+                backtrace(path,i+1)
+                path.pop()
+        backtrace([],0)
+        return res</code></pre>
+<h3 id="90-子集-II"><a href="#90-子集-II" class="headerlink" title="90. 子集 II"></a>90. 子集 II</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets-ii/submissions/
+
+给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+输入: [1,2,2]
+输出:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一|回溯:</p>
+<pre><code>class Solution:
+    def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:
+        length=len(nums)
+        if length==0:
+            return []
+
+        nums.sort() # 一定需要先排序，否则结果中有重复的。
+        res=[]
+        path=[]
+        return self.helper(nums,res,path,0)
+
+    def helper(self,nums,res,path,first=1):
+        res.append(path[:])
+        for i in range(first,len(nums)):
+            if i&gt;first and nums[i]==nums[i-1]:
+                continue
+            path.append(nums[i])
+            self.helper(nums,res,path,i+1)
+            path.pop()
+        return res</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/">https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/</a></p>
+<pre><code>class Solution:
+    def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:
+        res=[]
+        nums.sort()
+        def backtrace(path,first):
+            res.append(path[:]) # ???没有return
+            for i in range(first,len(nums)):
+                if i&gt;first and nums[i]==nums[i-1]: # 滤重
+                    continue
+                path.append(nums[i])
+                backtrace(path,i+1)
+                path.pop()
+        backtrace([],0)
+        return res</code></pre>
+<h3 id="93-复原IP地址"><a href="#93-复原IP地址" class="headerlink" title="93.复原IP地址"></a>93.复原IP地址</h3><pre><code>链接：https://leetcode-cn.com/problems/restore-ip-addresses/
+
+给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
+
+示例:
+
+输入: &quot;25525511135&quot;
+输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]</code></pre>
+<p>注意：<br>    IP的格式,每位是在0~255之间,<br>    不能出现以0开头的两位以上数字,比如012,08…</p>
+<p>题解一|暴力:</p>
+<pre><code>class Solution:
+    def restoreIpAddresses(self, s: str) -&gt; List[str]:
+        n=len(s)
+        res=[]
+
+        def helper(tmp):
+            if tmp==&#39;&#39; or (tmp[0]==&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:
+            # if not tmp or (tmp[0]==&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:
+                return False
+            return True
+
+        for i in range(3):
+            for j in range(i+1,i+4):
+                for k in range(j+1,j+4):
+                    if i&lt;n and j&lt;n and k&lt;n:
+                        tmp1=s[:i+1]
+                        tmp2=s[i+1:j+1]
+                        tmp3=s[j+1:k+1]
+                        tmp4=s[k+1:]
+
+                        if all(map(helper,[tmp1,tmp2,tmp3,tmp4])):
+                            res.append(tmp1+&#39;.&#39;+tmp2+&#39;.&#39;+tmp3+&#39;.&#39;+tmp4)
+        return res</code></pre>
+<p>题解二|回溯:</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/">https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/</a></p>
+<p>思路:</p>
+<pre><code>做第一步时我们有几种 选择 以 &quot;25525511135&quot; 为例：
+
+    选 &quot;2&quot; 作为第一个片段
+    选 &quot;25&quot; 作为第一个片段
+    选 &quot;255&quot; 作为第一个片段
+
+有三种选择，做了选择后，又面临三种选择：再切出一种长度的片段作为第二个片段。
+这会像树一样向下分支，我们用 DFS 去遍历所有选择，并且是回溯，为什么是回溯？
+因为某一步的选择可能来到一个错误的状态，得不到正确的结果，不要往下做了，要撤销最后一个选择，回到选择前的状态，去试另一个选择。
+大概像是：选择、探索、撤销选择的过程。好，我们现在了解了回溯的要点1——选择。</code></pre>
+<p>回溯的要点2——约束:</p>
+<pre><code>约束限制了我们的搜索分支，这道题的约束条件是：
+
+    一个片段的长度是 1~3
+    片段的值范围是 0~255
+    不能是 &quot;0x&quot;、&quot;0xx&quot; 形式（这个是测试用例告诉我们的）
+
+我们要用这些约束在DFS中充分地剪枝，规避掉一些选择，避免去搜索一些不会产生正确答案的分支。</code></pre>
+<p>回溯的要点3——目标:</p>
+<pre><code>我们的目标决定了我们 DFS 什么时候捕捉答案，什么时候砍掉死支，不继续走了返回出来。
+我们目标是生成 4 个有效片段，并且要用光 IP 字符串的字符。
+当遍历的节点满足该条件时，说明已经生成了一个有效组合，推入结果数组。然后回溯，继续探索。
+生成了4个有效片段，但没用光所有字符，不是有效的组合，不继续往下递归，直接返回，提前回溯。</code></pre>
+<p>定义dfs函数:</p>
+<pre><code>dfs函数传什么，用什么代表不同节点的状态？
+选择切出一个长度的片段后，剩余的子串继续递归，可以传子串，也可以传指向起始位置的指针，加上当前已经生成的片段数组，作为状态，传入 dfs 函数。
+dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」。</code></pre>
+<pre><code>class Solution:
+    def restoreIpAddresses(self, s: str) -&gt; List[str]:
+        res=[]
+        def helper(path,first):
+            if len(path)==4 and first==len(s):
+                res.append(&#39;.&#39;.join(path))
+            if len(path)==4 and first &lt; len(s):
+                return
+            for i in range(1,4):
+                if first+i-1 &gt;= len(s):
+                    return
+                if i &gt;= 2 and s[first]==&#39;0&#39;:
+                    return
+                tmp=s[first:first+i]                
+                if i==3 and int(tmp)&gt;255:
+                    return
+                path.append(tmp)
+                helper(path,first+i)
+                path.pop()
+        helper([],0)
+        return res</code></pre>
+<pre><code>class Solution:
+    def restoreIpAddresses(self, s: str) -&gt; List[str]:
+        res=[]
+        def helper(path,first):
+            if len(path)==4 and first==len(s):
+                res.append(&#39;.&#39;.join(path))
+            if len(path)==4 and first &lt; len(s):
+                return
+            for i in range(1,4):
+                if first+i-1 &gt;= len(s):
+                    return
+                if i &gt;= 2 and s[first]==&#39;0&#39;:
+                    return
+                tmp=s[first:first+i]                
+                if i==3 and int(tmp)&gt;255:
+                    return
+                helper(path+[tmp],first+i)
+        helper([],0)
+        return res</code></pre>
+<pre><code>class Solution:
+    def restoreIpAddresses(self, s: str) -&gt; List[str]:
+        def __segment(s,left,right):
+            size=right-left+1
+
+            if size &gt; 1 and s[left]=&#39;0&#39;:
+                return -1
+            res=0
+            for i in range(left,right+1):
+                res=res*10 + ord(s[i])-ord(&#39;0&#39;)
+
+            if res &gt; 255:
+                return -1
+            return res
+
+        def backtrace(split,first,path):
+            if first == len(s):
+                if split == 4:
+                    res.append(&#39;&#39;.join(path))
+                return
+            if len(s) - first</code></pre>
+<h3 id="216-组合总和-III"><a href="#216-组合总和-III" class="headerlink" title="216. 组合总和 III"></a>216. 组合总和 III</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-iii/
+
+找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+
+说明：
+
+所有数字都是正整数。
+解集不能包含重复的组合。 
+示例 1:
+
+输入: k = 3, n = 7
+输出: [[1,2,4]]
+示例 2:
+
+输入: k = 3, n = 9
+输出: [[1,2,6], [1,3,5], [2,3,4]]</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def combinationSum3(self, k: int, n: int) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(path,first,n):
+            if len(path)==k and n==0:
+                return res.append(path[:])
+            for i in range(first,10):
+                tmp=n-i
+                if tmp &lt; 0:
+                    continue
+                path.append(i)
+                backtrace(path,i+1,tmp)
+                path.pop()
+        if not k or not n:
+            return []
+        backtrace([],1,n)
+        return res</code></pre>
+<h3 id="357-计算各个位数不同的数字个数"><a href="#357-计算各个位数不同的数字个数" class="headerlink" title="357. 计算各个位数不同的数字个数"></a>357. 计算各个位数不同的数字个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
+
+给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x &lt; 10n 。
+
+示例:
+
+输入: 2
+输出: 91 
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。</code></pre>
+<p>题解一|动态规划：</p>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        if n==0:
+            return 1
+        dp1=[0]*(n+1)
+        dp2=[0]*(n+1)
+        dp1[1]=10
+        dp2[1]=9
+        for i in range(2,min(11,n+1)):
+            dp2[i]=dp2[i-1]*(10-(i-1))
+            dp1[i]=dp2[i]+dp1[i-1]
+        if n&gt;=11:
+            return dp[10]
+        return dp1[n]</code></pre>
+<p>题解二|数学：</p>
+<p>这是一道数学题，很容易发现规律：</p>
+<p>如果 n = 1，ans = 10；<br>如果 n = 2，考虑两位数都不相同，有 9 * 9 = 81 种情况（第一个数字不能以 0 开头，第二个数字可以有 0），再加上 n = 1 时的情况即可得到 ans = 91；<br>如果 n = 3，考虑三位数都不相同，有 9 * 9 * 8 = 648 种情况（第一个数字不能以 0 开头），再加上 n = 2 时的情况即可得到 ans = 739；<br>以此类推即可。</p>
+<p>因此，我们从 i = 1 开始，每次累加结果，一直计算到 i = n 即可得到答案。注意：当 n &gt; 10 时，与 n = 10 的结果相同。</p>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        def factorial(cnt):  # 从9阶乘cnt次
+            res = 1
+            factor = 9
+            for i in range(cnt):
+                res *= factor
+                factor -= 1
+            return res
+
+        pre = i = 1
+        while i &lt;= n and i &lt;= 10:  # i要&lt;=10
+            pre += 9 * factorial(i-1)  # i位不同的数字与前面结果累加
+            i += 1
+        return pre</code></pre>
+<p>??题解三|回溯：</p>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        used=[False]*10
+        def backtrace(first,used):
+            count=0
+            if first != n:
+                for i in range(10):
+                    if i==0 and n&gt;1 and first==1:
+                        continue
+                    if used[i]:
+                        continue
+                    used[i]=True
+                    count+=backtrace(first+1,used)+1
+                    used[i]=False
+            return count
+        if not n:
+            return 1
+        return backtrace(0,used)</code></pre>
+<h3 id="401-二进制手表"><a href="#401-二进制手表" class="headerlink" title="401. 二进制手表"></a>401. 二进制手表</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-watch/
+
+二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。
+
+每个 LED 代表一个 0 或 1，最低位在右侧。
+
+
+例如，上面的二进制手表读取 “3:25”。
+
+给定一个非负整数 n 代表当前 LED 亮着的数量，返回所有可能的时间。
+
+示例：
+
+输入: n = 1
+返回: [&quot;1:00&quot;, &quot;2:00&quot;, &quot;4:00&quot;, &quot;8:00&quot;, &quot;0:01&quot;, &quot;0:02&quot;, &quot;0:04&quot;, &quot;0:08&quot;, &quot;0:16&quot;, &quot;0:32&quot;]
+
+
+提示：
+
+输出的顺序没有要求。
+小时不会以零开头，比如 “01:00” 是不允许的，应为 “1:00”。
+分钟必须由两位数组成，可能会以零开头，比如 “10:2” 是无效的，应为 “10:02”。
+超过表示范围（小时 0-11，分钟 0-59）的数据将会被舍弃，也就是说不会出现 &quot;13:00&quot;, &quot;0:61&quot; 等时间。</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def readBinaryWatch(self, num: int) -&gt; List[str]:
+        res=[]
+        for i in range(12):
+            for j in range(60):
+                if (bin(i)+bin(j)).count(&#39;1&#39;) == num:
+                    res.append(&#39;%d:%02d&#39;%(i,j))
+        return res     </code></pre>
+<p>扩展：</p>
+<pre><code>%d就是普通的输出了整形数
+%2d是将数字按宽度为2，采用右对齐方式输出，若数据位数不到2位，则左边补空格。
+%02d，和%2d差不多，只不过左边补0
+
+%-2d将数字按宽度为2，采用左对齐方式输出，若数据位数不到2位，则右边补空格
+%.2d 输出整形时最少输出2位，如不够前面以0占位。如输出2时变成02，200时只输出200；输出浮点型时（%.2f）小数点后强制2位输出</code></pre>
+<p>比如：</p>
+<pre><code>num = 1
+print(&quot;%d&quot; % (num))结果为：   （1）
+print(&quot;%2d&quot; % (num))结果为：  （ 1）
+print(&quot;%02d&quot; % (num))结果为： （01）
+print(&quot;%-2d&quot; % (num))结果为： （1 ）
+print(&quot;%.2d&quot; % (num))结果为： （01）
+print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
+<p>题解二|回溯</p>
+<pre><code>class Solution:
+    def readBinaryWatch(self, num: int) -&gt; List[str]:
+
+        def traceback(num,index,status):
+            if num==0:
+                hour=status[0]+2*status[1]+4*status[2]+8*status[3]
+                mintue=status[4]+2*status[5]+4*status[6]+8*status[7]+16*status[8]+32*status[9]
+                if hour&lt;12 and mintue &lt;60:
+                    res.append(&#39;%d:%02d&#39;%(hour,mintue))
+                return
+            for i in range(index,10):
+                status[i]=1
+                traceback(num-1,i+1,status)
+                status[i]=0
+        res=[]
+        traceback(num,0,[0]*10)
+        return res</code></pre>
+<pre><code>    def readBinaryWatch(self, num: int) -&gt; List[str]:
+        &quot;&quot;&quot;
+        思路： 递归回溯法
+        &quot;&quot;&quot;
+        if num &lt; 0:
+            return []
+        # 一共只有10个灯
+        res, hour, minute = [], [1, 2, 4, 8], [1, 2, 4, 8, 16, 32]
+        def traceback(num, index, status):
+            &quot;&quot;&quot;
+            num : 还剩下的可点亮的灯的数量
+            index: 是当前选择点亮哪一个灯
+            status: 记录是哪些位置的灯被点亮了
+
+            &quot;&quot;&quot;
+            if num == 0: # 没有可以点亮的灯了，记录当前结果，并返回
+                h = sum([i*j for i,j in zip(hour, status[:4])])
+                m = sum([i*j for i,j in zip(minute, status[4:])])
+                if h &lt; 12 and m &lt; 60:
+                    res.append(&#39;%d:%02d&#39; % (h, m))
+                return
+            for i in range(index, 10):
+                status[i] = 1 # 做出下一步的选择
+                traceback(num-1, i+1, status) # 在剩下的灯里面去点亮num-1个灯
+                status[i] = 0 # 返回到上一步选择时的状态            
+
+        traceback(num, 0, [0] * 10)
+        return res</code></pre>
+<h3 id="784-字母大小写全排列"><a href="#784-字母大小写全排列" class="headerlink" title="784. 字母大小写全排列"></a>784. 字母大小写全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-case-permutation/
+
+给定一个字符串S，通过将字符串S中的每个字母转变大小写，我们可以获得一个新的字符串。返回所有可能得到的字符串集合。
+
+示例:
+输入: S = &quot;a1b2&quot;
+输出: [&quot;a1b2&quot;, &quot;a1B2&quot;, &quot;A1b2&quot;, &quot;A1B2&quot;]
+
+输入: S = &quot;3z4&quot;
+输出: [&quot;3z4&quot;, &quot;3Z4&quot;]
+
+输入: S = &quot;12345&quot;
+输出: [&quot;12345&quot;]
+注意：
+
+S 的长度不超过12。
+S 仅由数字和字母组成。</code></pre>
+<p>题解一|递归：</p>
+<pre><code>class Solution:
+    def letterCasePermutation(self, S: str) -&gt; List[str]:
+        res=[]
+
+        def dfs(s,tmp):
+            if not s:
+                res.append(&#39;&#39;.join(tmp))
+                return
+            if s[0].isalpha():
+                dfs(s[1:],tmp+[s[0].upper()])
+                dfs(s[1:],tmp+[s[0].lower()])
+            else:
+                dfs(s[1:],tmp+[s[0]])
+        dfs(S,[])
+        return res</code></pre>
+<p>题解二|迭代</p>
+<pre><code>class Solution:
+    def letterCasePermutation(self, S: str) -&gt; List[str]:
+        res=[&#39;&#39;]
+        for i,c in enumerate(S):
+            if c.isdigit():
+                for j,r in enumerate(res):
+                    res[j]=r+c
+            else:
+                tmp=[]
+                for r in res:
+                    tmp.append(r+c.upper())
+                    tmp.append(r+c.lower())
+                res=tmp[:]
+        return res</code></pre>
+<h3 id="剑指-Offer-38-字符串的排列"><a href="#剑指-Offer-38-字符串的排列" class="headerlink" title="剑指 Offer 38. 字符串的排列"></a>剑指 Offer 38. 字符串的排列</h3><pre><code>链接：https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/
+
+输入一个字符串，打印出该字符串中字符的所有排列。
+
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+示例:
+
+输入：s = &quot;abc&quot;
+输出：[&quot;abc&quot;,&quot;acb&quot;,&quot;bac&quot;,&quot;bca&quot;,&quot;cab&quot;,&quot;cba&quot;]
+
+
+限制：
+
+1 &lt;= s 的长度 &lt;= 8</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def permutation(self, s: str) -&gt; List[str]:
+        res=[]
+        c=list(s)
+
+        def backtrace(first):
+            if len(s) == first:  # 不能使用len(s)==len(c)作为结束条件，因为c其实没变。
+                return res.append(&#39;&#39;.join(c))
+            isDup=set()
+            for i in range(first,len(c)):
+                if c[i] in isDup: # 还有一种简单去重方法，直接把res定义为set()
+                    continue
+                isDup.add(c[i])
+                c[first],c[i]=c[i],c[first]
+                backtrace(first+1)
+                c[first],c[i]=c[i],c[first]
+        backtrace(0)
+        return res</code></pre>
+<pre><code>class Solution:
+    def permutation(self, s: str) -&gt; List[str]:
+        res=[]
+        list_s=list(s)
+        list_s.sort()
+        self.sort_s=&#39;&#39;.join(list_s)
+        used=[False]*len(s)        
+
+        def backtrace(path,first):
+            if len(self.sort_s) == len(path): 
+                return res.append(&#39;&#39;.join(path[:]))
+            for i in range(len(self.sort_s)):
+                if used[i]:
+                    continue
+                if i&gt;0 and self.sort_s[i]==self.sort_s[i-1] and used[i-1] == False: # ？？？？
+                    continue
+                used[i]=True
+                path.append(self.sort_s[i])
+                backtrace(path,first+1)
+                path.pop()
+                used[i]=False
+        backtrace([],0)
+        return res</code></pre>
+<h3 id="面试题-08-04-幂集"><a href="#面试题-08-04-幂集" class="headerlink" title="面试题 08.04. 幂集"></a>面试题 08.04. 幂集</h3><pre><code>幂集。编写一种方法，返回某集合的所有子集。集合中不包含重复的元素。
+
+说明：解集不能包含重复的子集。
+
+示例:
+
+ 输入： nums = [1,2,3]
+ 输出：
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def subsets(self, nums: List[int]) -&gt; List[List[int]]:
+        res=[]
+        def backtrace(path,first):
+            res.append(path[:])
+            for i in range(first,len(nums)):
+                path.append(nums[i])
+                backtrace(path,i+1)
+                path.pop()
+        backtrace([],0)
+        return res</code></pre>
+<h3 id="面试题-08-07-无重复字符串的排列组合"><a href="#面试题-08-07-无重复字符串的排列组合" class="headerlink" title="面试题 08.07. 无重复字符串的排列组合"></a>面试题 08.07. 无重复字符串的排列组合</h3><pre><code>无重复字符串的排列组合。编写一种方法，计算某字符串的所有排列组合，字符串每个字符均不相同。
+
+示例1:
+
+ 输入：S = &quot;qwe&quot;
+ 输出：[&quot;qwe&quot;, &quot;qew&quot;, &quot;wqe&quot;, &quot;weq&quot;, &quot;ewq&quot;, &quot;eqw&quot;]
+示例2:
+
+ 输入：S = &quot;ab&quot;
+ 输出：[&quot;ab&quot;, &quot;ba&quot;]
+提示:
+
+字符都是英文字母。
+字符串长度在[1, 9]之间。</code></pre>
+<p>题解一|回溯:</p>
+<pre><code>class Solution:
+    def permutation(self, S: str) -&gt; List[str]:
+        res=[]
+        c=list(S)
+
+        def backtrace(first):
+            if len(S) == first:  # 不能使用len(s)==len(c)作为结束条件，因为c其实没变。
+                return res.append(&#39;&#39;.join(c))
+            for i in range(first,len(c)):
+                c[first],c[i]=c[i],c[first]
+                backtrace(first+1)
+                c[first],c[i]=c[i],c[first]
+        backtrace(0)
+        return res</code></pre>
+<h3 id="面试题-08-09-括号"><a href="#面试题-08-09-括号" class="headerlink" title="面试题 08.09. 括号"></a>面试题 08.09. 括号</h3><pre><code>括号。设计一种算法，打印n对括号的所有合法的（例如，开闭一一对应）组合。
+
+说明：解集不能包含重复的子集。
+
+例如，给出 n = 3，生成结果为：
+
+[
+  &quot;((()))&quot;,
+  &quot;(()())&quot;,
+  &quot;(())()&quot;,
+  &quot;()(())&quot;,
+  &quot;()()()&quot;
+]</code></pre>
+<pre><code>class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]:
+        res=[]
+        def backtrace(path,first):
+            if len(path) == 2*n:
+                if first==0:
+                    res.append(&#39;&#39;.join(path))
+                return
+            if first &lt; n:
+                path.append(&#39;(&#39;)
+                backtrace(path,first+1)
+                path.pop()
+            if first &gt; 0:
+                path.append(&#39;)&#39;)
+                backtrace(path,first-1)
+                path.pop()
+            print(path)
+        backtrace([],0)
+        return res</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-4-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-4-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">LeetCode-4-动态规划</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-19 11:28:41" itemprop="dateCreated datePublished" datetime="2020-01-19T11:28:41+08:00">2020-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-02 11:23:20" itemprop="dateModified" datetime="2020-11-02T11:23:20+08:00">2020-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="四、动态规划"><a href="#四、动态规划" class="headerlink" title="四、动态规划"></a>四、动态规划</h2><p>动态规划三大步骤：</p>
+<p>动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。</p>
+<p>第一步骤：定义数组元素的含义，上面说了，我们会用一个数组，来保存历史数组，假设用一维数组 dp[] 吧。这个时候有一个非常非常重要的点，就是规定你这个数组元素的含义，例如你的 dp[i] 是代表什么意思？</p>
+<p>第二步骤：找出数组元素之间的关系式，我觉得动态规划，还是有一点类似于我们高中学习时的归纳法的，当我们要计算 dp[n] 时，是可以利用 dp[n-1]，dp[n-2]…..dp[1]，来推出 dp[n] 的，也就是可以利用历史数据来推出新的元素值，所以我们要找出数组元素之间的关系式，例如 dp[n] = dp[n-1] + dp[n-2]，这个就是他们的关系式了。而这一步，也是最难的一步，后面我会讲几种类型的题来说。</p>
+<p>第三步骤：找出初始值。学过数学归纳法的都知道，虽然我们知道了数组元素之间的关系式，例如 dp[n] = dp[n-1] + dp[n-2]，我们可以通过 dp[n-1] 和 dp[n-2] 来计算 dp[n]，但是，我们得知道初始值啊，例如一直推下去的话，会由 dp[3] = dp[2] + dp[1]。而 dp[2] 和 dp[1] 是不能再分解的了，所以我们必须要能够直接获得 dp[2] 和 dp[1]的值，而这，就是所谓的初始值。</p>
+<p>由了初始值，并且有了数组元素之间的关系式，那么我们就可以得到 dp[n] 的值了，而 dp[n] 的含义是由你来定义的，你想求什么，就定义它是什么，这样，这道题也就解出来了。</p>
+<p>原文：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/pg-IJ8rA1duIzt5hW1Cycw">https://mp.weixin.qq.com/s/pg-IJ8rA1duIzt5hW1Cycw</a></p>
+<h3 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="?5.最长回文子串"></a>?5.最长回文子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindromic-substring/
+
+给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+
+示例 1：
+
+输入: &quot;babad&quot;
+输出: &quot;bab&quot;
+注意: &quot;aba&quot; 也是一个有效答案。
+示例 2：
+
+输入: &quot;cbbd&quot;
+输出: &quot;bb&quot;</code></pre>
+<p>题解一|暴力破解：<br>    很明显，暴力法将选出所有子字符串可能的开始和结束位置，并检验它是不是回文。<br>    时间复杂度：O(n^2),往往利用python的切片可以很好的缩减复杂度<br>    如果不用切片，还需要遍历一次子字符串，时间复杂度就是O(n^3)<br>    空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if s==s[::-1]:
+            return s
+
+        maxLen=1
+        ans=s[0]
+        for i in range(0,len(s)-1):
+            for j in range(i+1,len(s)):
+                if j-i+1 &gt; maxLen and self.isPalindrome(s[i:j+1]):
+                    maxLen=j-i+1
+                    ans=s[i:j+1]
+        return ans
+
+    def isPalindrome(self, s: str) -&gt; bool:
+        left,right=0,len(s)-1
+        while left&lt;right:
+            while left&lt;len(s) and not s[left].isalnum():
+                left+=1
+            while right &gt;-1 and not s[right].isalnum():
+                right-=1
+            if left&gt;right:
+                return True
+            if s[left].upper() != s[right].upper():
+                return False
+            else:
+                left+=1
+                right-=1
+        return True</code></pre>
+<p>时间复杂度：O(N^3)，这里 N 是字符串的长度，枚举字符串的左边界、右边界，然后继续验证子串是否是回文子串，这三种操作都与 N 相关；<br>空间复杂度：O(1)，只使用到常数个临时变量，与字符串长度无关。</p>
+<pre><code>class Solution:
+    # 暴力匹配（超时）
+    def longestPalindrome(self, s: str) -&gt; str:
+        # 特判
+        size = len(s)
+        if size &lt; 2:
+            return s
+
+        max_len = 1
+        res = s[0]
+
+        # 枚举所有长度大于等于 2 的子串
+        for i in range(size - 1):
+            for j in range(i + 1, size):
+                if j - i + 1 &gt; max_len and self.__valid(s, i, j):
+                    max_len = j - i + 1
+                    res = s[i:j + 1]
+        return res
+
+    def __valid(self, s, left, right):
+        # 验证子串 s[left, right] 是否为回文串
+        while left &lt; right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        return True</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if s==s[::-1]:
+            return s
+
+        maxLen=1
+        ans=s[0]
+        for i in range(0,len(s)-1):
+            for j in range(i+1,len(s)):
+                if j-i+1 &gt; maxLen and s[i:j+1]==s[i:j+1][::-1]: # arr=&#39;abb&#39;,arr[0:1]=&#39;a&#39;,右边是开区间
+                    maxLen=j-i+1
+                    ans=s[i:j+1]
+        return ans</code></pre>
+<p>题解二|每个字母当成回文串的中心：</p>
+<pre><code>考虑两种情况:回文串的长度为奇数或者偶数情况。</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        n=len(s)
+        self.res=&#39;&#39;
+        def helper(i,j):
+            while i&gt;= 0 and j&lt;n and s[i]==s[j]:
+                i-=1
+                j+=1
+            if len(self.res) &lt; j-i-1:
+                self.res=s[i+1:j]
+                # print(i,self.res)
+
+        for i in range(n):
+            helper(i,i)
+            helper(i,i+1) # 解决case为&quot;cbbd&quot;,即解决回文串为偶数的情况
+        return self.res</code></pre>
+<p>题解三|把每个字母当成回文串的结束：</p>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if not s:
+            return &quot;&quot;
+        max_len = 1
+        n = len(s)
+        start = 0
+        for i in range(1,n):
+            even = s[i-max_len:i+1] # 偶数
+            odd = s[i - max_len-1:i+1] # 奇数
+            #print(even,odd)
+            if i - max_len - 1 &gt;= 0 and odd == odd[::-1]:
+                start = i - max_len - 1
+                max_len += 2
+            elif i - max_len &gt;=0 and even == even[::-1]:
+                start = i - max_len
+                max_len += 1
+
+        #print(start,max_len)
+        return s[start: start+max_len]</code></pre>
+<p>题解四|动态规划：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp.png"></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp2.png"></p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp3.png"></p>
+<pre><code>1、定义数组的定义
+    dp[i][j] 表示子串 s[i,j] 是否为回文子串。
+2、找出数组的关系式
+    dp[i][j] = (s[i] == s[j]) and dp[i + 1][j - 1]
+3、找到初始值
+
+    试想如果 dp[l][r]=true，我们要判断 dp[l-1][r+1] 是否为回文。
+    只需要判断字符串在(l-1)和（r+1)两个位置是否为相同的字符，是不是减少了很多重复计算。
+
+    初始状态，l=r 时，此时 dp[l][r]=true
+    状态转移方程，dp[l][r]=true 并且(l-1)和（r+1)两个位置为相同的字符，此时 dp[l-1][r+1]=true。</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if not s or len(s) &lt;2:
+            return s
+
+        length=len(s)
+        start=0
+        end=0
+        count=1
+
+        dp=[[0]* length for i in range(length)]
+        for r in range(1,length):
+            for l in range(0,length):
+                if (s[l]==s[r]) and (r-l&lt;=2 or dp[l+1][r-1]):
+                    dp[l][r]=True
+                    if r-l+1&gt; count:
+                        count=r-l+1
+                        start=l
+                        end=r
+        return s[start:end+1]</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        # 观察是否存在状态，例如 babab,可知aba是回文序列，那么可以看出babab也是回文序列，当b = b的时候
+        # 因此我们可以用二维数组来i,j表示回文串的起始和结尾索引位置。
+        # 状态转移方程dp[i,j] = dp[i+1][j-1] if s[i] == s[j] else False
+        # 接下来看有没有特殊的边界情况存在，我们发现当0&lt;=j-i&lt;3的时候，只要满足s[i] == s[j]，无论里面是什么dp[i,j]都会是回文字串,将这种情况分开讨论，当j-i&gt;=3的时候，进行状态转移
+        # 初始值
+        m = len(s)
+        max_len = 1
+        start_index = 0
+        if m &lt; 2:
+            return s
+        dp = [[False for _ in range(m)] for _ in range(m)]
+        for j in range(1,m):
+            for i in range(0,j):
+                if s[i]  == s[j]:
+                    if j-i &lt; 3:
+                        dp[i][j] = True
+                    else:
+                        dp[i][j] = dp[i+1][j-1]
+                else:
+                    dp[i][j] = False
+                if dp[i][j]:
+                    cur_len = j-i+1
+                    if cur_len &gt; max_len:
+                        max_len = cur_len
+                        start_index = i
+        return s[start_index:start_index+max_len]</code></pre>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if(not s or len(s)==1):
+            return s
+        n=len(s)
+        dp=[[False]*n for _ in range(n)]
+        max_len=1
+        start=0
+        for i in range(n):
+            dp[i][i]=True
+            if(i&lt;n-1 and s[i]==s[i+1]):
+                dp[i][i+1]=True
+                start=i
+                max_len=2
+        for l in range(3,n+1):
+            for i in range(n+1-l):
+                r=i+l-1
+                if(s[i]==s[r] and dp[i+1][r-1]):
+                    dp[i][r]=True
+                    start=i
+                    max_len=l
+        return s[start:start+max_len]
+</code></pre>
+<h3 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53.最大子序和"></a>53.最大子序和</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-subarray/
+
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+示例:
+
+输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+进阶:
+
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-cshi-xian-si-chong-jie-fa-bao-li-f/">https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-cshi-xian-si-chong-jie-fa-bao-li-f/</a><br>题解一：</p>
+<pre><code>遍历整个数组，在数组的每一个位置时，求出一个全局最大值L，代表以当前位置
+为结尾的最大字串，而G是当前位置的L和上一个位置L相比较后，取数值更大的。
+当遍历到i时，以i个为结尾的最大字串就是我们的L。
+
+l：代表以当前位置为结尾的最大字符
+g：当前位置l和上一个位置l取数值最大
+
+数组[-2,1,-3,4,-1,2,1,-5,4]
+位置0：L=-2,G=-2
+位置1：L=1,G=1
+位置2：L=-2，G=1
+位置3：L=4，G=4
+位置4：L=3，G=4
+位置5：L=5，G=5
+位置6：L=6，G=6
+位置7：L=-1，G=6
+位置8：L=4，G=6
+最后，全局最大值G就是我们的结果。</code></pre>
+<pre><code>class Solution:
+    def maxSubArray(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        l=g=-10000000000
+        for n in nums:
+            l=max(n,l+n)
+            g=max(l,g)
+        return g</code></pre>
+<p>题解二：</p>
+<pre><code>class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        for i in range(1,len(nums)):
+            nums[i]=max(nums[i],nums[i]+nums[i-1])
+
+        return max(nums) # 取子序和中最大值</code></pre>
+<p>题解三|动态规划:<br>    1、定义数组元素的含义</p>
+<pre><code>    dp[i]为以num[i]结尾的子段的最大子段和
+    dp[1]为以num[1]结尾的最大子段和
+
+2、寻找递推表达式
+
+    只考虑第一个元素，则最大子段和为其本身 dp[0] = nums[0]
+
+    考虑前两个元素，最大子段和为 nums[0],num[1]以及 nums[0] + num[1] 中最大值 设为dp[1]
+
+    考虑前三个元素，如何求其最大子段和？还是分为两种情况讨论，第三个元素在最后的字串内吗？
+
+    若第三个元素也包含在最后的字串内，则dp[2] = Max(dp[1]+nums[2] , nums[2])
+
+    dp[i]=max(dp[i-1]+num[i],num[i])
+
+3、找出初始值
+
+    dp[0]=num[0]
+    dp[1]=max(dp[0]+num[1],num[1])</code></pre>
+<pre><code>class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        lens=len(nums)
+        if lens==0:
+            return 0
+        dp=lens*[0]
+        dp[0]=nums[0]
+        # dp[1]=max(dp[0]+nums[1],nums[1])
+        res=dp[0]
+        for i in range(1,lens):
+            dp[i]=max(dp[i-1]+nums[i],nums[i])
+            if dp[i]&gt;res:
+                res=dp[i]
+        return res
+
+输入：
+[-2,1,-3,4,-1,2,1,-5,4]
+输出：
+[-2, 1, 0, 0, 0, 0, 0, 0, 0]
+[-2, 1, -2, 0, 0, 0, 0, 0, 0]
+[-2, 1, -2, 4, 0, 0, 0, 0, 0]
+[-2, 1, -2, 4, 3, 0, 0, 0, 0]
+[-2, 1, -2, 4, 3, 5, 0, 0, 0]
+[-2, 1, -2, 4, 3, 5, 6, 0, 0]
+[-2, 1, -2, 4, 3, 5, 6, 1, 0]
+[-2, 1, -2, 4, 3, 5, 6, 1, 5]</code></pre>
+<h3 id="62-不同路径"><a href="#62-不同路径" class="headerlink" title="62.不同路径"></a>62.不同路径</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-paths/
+
+一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+
+机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+
+问总共有多少条不同的路径？</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/unique-path.png" alt="tree1"></p>
+<pre><code>例如，上图是一个7 x 3 的网格。有多少可能的路径？
+
+说明：m 和 n 的值均不超过 100。
+
+示例 1:
+
+输入: m = 3, n = 2
+输出: 3
+解释:
+从左上角开始，总共有 3 条路径可以到达右下角。
+1. 向右 -&gt; 向右 -&gt; 向下
+2. 向右 -&gt; 向下 -&gt; 向右
+3. 向下 -&gt; 向右 -&gt; 向右
+示例 2:
+
+输入: m = 7, n = 3
+输出: 28</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组元素的含义<br>    目的：从左上角到右下角一共有多少种路径<br>    dp[i][j]含义：从左上角走到(i,j)这个位置时，一共有dp[i][j]种路径</p>
+<p>2、找到数组的递推关系式</p>
+<pre><code>如何才能到达 (i, j) 这个位置呢？可以向下走或者向右走，所以有两种方式到达：
+
+    一种是从 (i-1, j) 这个位置走一步到达
+    一种是从(i, j - 1) 这个位置走一步到达
+
+所以：dp[i][j]=dp[i-1][j]+dp[i][j-1]</code></pre>
+<p>3、找到初始值</p>
+<pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了。
+
+图中的最上面一行和左边一列，因此初始值如下：
+
+    dp[0][0….n-1] = 1; // 相当于最上面一行，只能一直往右走
+    dp[0…m-1][0] = 1; // 相当于最左面一列，只能一直往下走</code></pre>
+<p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)，使用dp数组保存结果</p>
+<pre><code>class Solution:
+    def uniquePaths(self, m: int, n: int) -&gt; int:
+        if m&lt;=0 or n&lt;=0:
+            return 0
+        dp=[ n*[_] for _ in range(m)] # 定义二维数组
+        # print(dp)
+        for i in range(m):
+            dp[i][0]=1
+        for j in range(n):
+            dp[0][j]=1
+
+        for i in range(1,m):
+            for j in range(1,n):
+                dp[i][j]=dp[i-1][j]+dp[i][j-1]
+        return dp[m-1][n-1]
+</code></pre>
+<pre><code>class Solution:
+    def uniquePaths(self, m: int, n: int) -&gt; int:
+        if m&lt;=0 or n&lt;=0:
+            return 0
+        dp=[ m*[_] for _ in range(n)]
+        # print(dp)
+        for i in range(n):
+            dp[i][0]=1
+        for j in range(m):
+            dp[0][j]=1
+
+        for i in range(1,n):
+            for j in range(1,m):
+                dp[i][j]=dp[i-1][j]+dp[i][j-1]
+        return dp[n-1][m-1]</code></pre>
+<p>题解二|动态规划优化:</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486303&amp;idx=1&amp;sn=6034d1e6ca24253da64d6c539998f7c6&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486303&amp;idx=1&amp;sn=6034d1e6ca24253da64d6c539998f7c6&amp;scene=21#wechat_redirect</a></p>
+<p>转化成一维，关系式为 dp[i] = dp[i] + dp[i-1]</p>
+<p>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def uniquePaths(self, m: int, n: int) -&gt; int:
+        if m&lt;=0 or n&lt;=0:
+            return 0
+        dp=n*[0] # n是列
+        for i in range(n):
+            dp[i]=1
+
+        for i in range(1,m):
+            dp[0]=1
+            for j in range(1,n):
+                dp[j]=dp[j-1]+dp[j]
+        return dp[n-1]</code></pre>
+<h3 id="63-不同路径-II"><a href="#63-不同路径-II" class="headerlink" title="63.不同路径 II"></a>63.不同路径 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-paths-ii/
+
+一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+
+机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+
+现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+
+如上图
+
+网格中的障碍物和空位置分别用 1 和 0 来表示。
+
+说明：m 和 n 的值均不超过 100。
+
+示例 1:
+
+输入:
+[
+  [0,0,0],
+  [0,1,0],
+  [0,0,0]
+]
+输出: 2
+解释:
+3x3 网格的正中间有一个障碍物。
+从左上角到右下角一共有 2 条不同的路径：
+1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下
+2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组元素的含义<br>    机器人从左上角走到(i, j) 这个位置时，一共有 dp[i][j] 种路径<br>2、找出关系数组元素间的关系式<br>    想象以下，机器人要怎么样才能到达 (i, j)这个位置？由于机器人可以向下走或者向右走，所以有两种方式到达。当遇到障碍时</p>
+<pre><code>一种是从 (i-1, j) 这个位置走一步到达
+
+一种是从(i, j-1) 这个位置走一步到达
+
+因为是计算所有可能的步骤，所以是把所有可能走的路径都加起来，所以关系式是 dp[i][j] = dp[i-1][j] + dp[i][j-1]。（当没有遇到障碍时，就用以上的方式进行）</code></pre>
+<p>3、找出初始值<br>    dp[0][0]=1</p>
+<pre><code>dp[0][i]=dp[0][i-1]; // 相当于最上面一行，机器人只能一直往右走（当没有遇到障碍时）
+dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下走（当没有遇到障碍时）</code></pre>
+<pre><code>class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int:
+        if obstacleGrid is None:
+            return 0
+        if obstacleGrid[0][0]==1 or obstacleGrid[-1][-1] == 1:
+            return 0
+
+        m=len(obstacleGrid)
+        n=len(obstacleGrid[0])
+
+        dp=[n*[0] for _ in range(m)]  # dp=[n*[_] for _ in range(m)]时结果有误
+
+        dp[0][0]=1
+        for i in range(1,m):
+            if obstacleGrid[i][0] !=1:
+                dp[i][0]=dp[i-1][0]
+
+        for i in range(1,n):
+            if obstacleGrid[0][i] !=1:
+                dp[0][i]=dp[0][i-1]
+
+        for i in range(1,m):
+            for j in range(1,n):
+                if obstacleGrid[i][j] != 1:
+                    dp[i][j]=dp[i-1][j]+dp[i][j-1]
+        # print(dp[m-1][n-1])
+        return dp[-1][-1]
+</code></pre>
+<h3 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64.最小路径和"></a>64.最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-path-sum/
+
+给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+
+说明：每次只能向下或者向右移动一步。
+
+示例:
+
+输入:
+[
+  [1,3,1],
+  [1,5,1],
+  [4,2,1]
+]
+输出: 7
+解释: 因为路径 1→3→1→1→1 的总和最小。</code></pre>
+<p>题解一|动态规划：<br>1、定义数组元素的含义<br>    目的是从左上角到右下角，最小路径和是多少。<br>    dp[i][j]含义：当从左上角走到(i,j)位置时，最小路径和为dp[i][j]</p>
+<pre><code>定义二维数据，数组是从下标 0 开始算起的，所以右下角的位置是 (m-1, n - 1)，所以 dp[m-1][n-1] 就是我们所求。</code></pre>
+<p>2、找到数组的递推关系式</p>
+<pre><code>如何才能到达 (i, j) 这个位置？由于可以向下走或者向右走，所以有两种方式到达：
+
+    一种是从 (i-1, j) 这个位置走一步到达
+    一种是从 (i, j-1) 这个位置走一步到达
+
+不过本次计算不是所有可能路径，而是计算哪一个路径和最小。
+
+所以：dp[i][j]=min(dp[i-1][j],dp[i][j-1])+arr[i][j]</code></pre>
+<p>3、找到初始值</p>
+<pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp[0][0….n-1] 和所有的 dp[0….m-1][0]
+
+dp[0][j] = arr[0][j] + dp[0][j-1]; // 相当于最上面一行，只能一直往左走
+dp[i][0] = arr[i][0] + dp[i][0];  // 相当于最左面一列，只能一直往下走</code></pre>
+<p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)</p>
+<pre><code>class Solution:
+    def minPathSum(self, grid: List[List[int]]) -&gt; int:
+        # print(grid)
+        m=len(grid) # 行
+        n=len(grid[0]) # 列
+        if m&lt;=0 or n&lt;=0:
+            return 0
+        dp=[ n*[_] for _ in range(m)]
+        # print(dp)
+        dp[0][0]=grid[0][0] 
+
+        for i in range(1,m):
+            dp[i][0]=dp[i-1][0]+grid[i][0]
+
+        for i in range(1,n):
+            dp[0][i]=dp[0][i-1]+grid[0][i]
+
+        for i in range(1,m):
+            for j in range(1,n):
+                dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
+        # print(dp)
+
+        return dp[m-1][n-1]
+</code></pre>
+<h3 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70.爬楼梯"></a>70.爬楼梯</h3><pre><code>链接：https://leetcode-cn.com/problems/climbing-stairs/
+
+假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+注意：给定 n 是一个正整数。
+
+示例 1：
+
+输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。
+1.  1 阶 + 1 阶
+2.  2 阶
+示例 2：
+
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶</code></pre>
+<p>题解一|递归：</p>
+<pre><code>class Solution:
+    def climbStairs(self, n: int) -&gt; int:
+        if n&lt;=2:
+            return n
+        return self.climbStairs(n-1)+self.climbStairs(n-2)</code></pre>
+<p>题解二|动态规划：<br>1、定义数组元素的含义</p>
+<pre><code>dp[i]含义：跳上第i个台阶总共有dp[i]种跳法；
+dp[n]即为我们所求结果。</code></pre>
+<p>2、找出数组元素间的关系式</p>
+<pre><code>把一个规模比较大的问题分成几个规模比较小的问题，然后由小的问题推导出大的问题。
+到达第 n 级的台阶有两种方式：
+    一种是从第 n-1 级跳上来
+    一种是从第 n-2 级跳上来
+所以：dp[n] = dp[n-1] + dp[n-2]。</code></pre>
+<p>3、找出初始值</p>
+<pre><code>n=1时，dp[1]=dp[0]+dp[-1]，不允许下标为-1，所以dp[1]=1
+n=0时，dp[0]=0
+n=2时，dp[2]=dp[1]+dp[0]=1，所以以上初始值定义不严谨，因为dp[2]=2</code></pre>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def climbStairs(self, n: int) -&gt; int:
+        if n&lt;=2:
+            return n
+        dp=(n+1)*[0] # 注意是n+1
+        dp[1]=1
+        dp[2]=2
+        for i in range(3,n+1):
+            dp[i]=dp[i-1]+dp[i-2]
+        return dp[n] # 返回最后一个数</code></pre>
+<h3 id="72-编辑距离"><a href="#72-编辑距离" class="headerlink" title="72.编辑距离"></a>72.编辑距离</h3><pre><code>链接：https://leetcode-cn.com/problems/edit-distance/
+
+给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。
+
+你可以对一个单词进行如下三种操作：
+
+插入一个字符
+删除一个字符
+替换一个字符
+示例 1:
+
+输入: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;
+输出: 3
+解释: 
+horse -&gt; rorse (将 &#39;h&#39; 替换为 &#39;r&#39;)
+rorse -&gt; rose (删除 &#39;r&#39;)
+rose -&gt; ros (删除 &#39;e&#39;)
+示例 2:
+
+输入: word1 = &quot;intention&quot;, word2 = &quot;execution&quot;
+输出: 5
+解释: 
+intention -&gt; inention (删除 &#39;t&#39;)
+inention -&gt; enention (将 &#39;i&#39; 替换为 &#39;e&#39;)
+enention -&gt; exention (将 &#39;n&#39; 替换为 &#39;x&#39;)
+exention -&gt; exection (将 &#39;n&#39; 替换为 &#39;c&#39;)
+exection -&gt; execution (插入 &#39;u&#39;)</code></pre>
+<p>思路：</p>
+<pre><code>if s1[i] == s2[j]:
+    啥都别做（skip）
+    i, j 同时向前移动
+else:
+    三选一：
+        插入（insert）
+        删除（delete）
+        替换（replace）</code></pre>
+<p>题解一|递归|自顶向下：</p>
+<pre><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        def dp(i,j):
+            if i==-1:
+                return j+1
+            if j==-1:
+                return i+1
+            if word1[i]==word2[j]:
+                return dp(i-1,j-1) # 什么都不做
+            else:
+                return min(
+                    dp(i,j-1)+1, # 插入
+                    dp(i-1,j)+1, # 删除
+                    dp(i-1,j-1)+1 # 替换
+                    )
+        return dp(len(word1)-1,len(word2)-1)</code></pre>
+<p>解释：</p>
+<pre><code>if s1[i] == s2[j]:
+    return dp(i - 1, j - 1)  # 啥都不做
+# 解释：
+# 本来就相等，不需要任何操作
+# s1[0..i] 和 s2[0..j] 的最小编辑距离等于
+# s1[0..i-1] 和 s2[0..j-1] 的最小编辑距离
+# 也就是说 dp(i, j) 等于 dp(i-1, j-1)
+
+dp(i, j - 1) + 1,    # 插入
+# 解释：
+# 我直接在 s1[i] 插入一个和 s2[j] 一样的字符
+# 那么 s2[j] 就被匹配了，前移 j，继续跟 i 对比
+# 别忘了操作数加一
+
+dp(i - 1, j) + 1,    # 删除
+# 解释：
+# 我直接把 s[i] 这个字符删掉
+# 前移 i，继续跟 j 对比
+# 操作数加一
+
+dp(i - 1, j - 1) + 1 # 替换
+# 解释：
+# 我直接把 s1[i] 替换成 s2[j]，这样它俩就匹配了
+# 同时前移 i，j 继续对比
+# 操作数加一</code></pre>
+<p>优化：</p>
+<pre><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        memo=dict()
+
+        def dp(i,j):
+            if (i,j) in memo:
+                return memo[(i,j)]
+            if i==-1:
+                return j+1
+            if j==-1:
+                return i+1
+            if word1[i]==word2[j]:
+                memo[(i,j)] = dp(i-1,j-1) # 什么都不做
+            else:
+                memo[(i,j)]= min(
+                    dp(i,j-1)+1, # 插入
+                    dp(i-1,j)+1, # 删除
+                    dp(i-1,j-1)+1 # 替换
+                    )
+            return memo[(i,j)]
+        return dp(len(word1)-1,len(word2)-1)</code></pre>
+<p>题解二|动态规划：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp4.png"></p>
+<p>思路：</p>
+<pre><code>理解 word1 上的删除等价 word2 上的增加, word1 上的增加等价于 word2 上的删除
+2维的 dp array 中某一点 dp[i][j] 的意义: word1[ : i] 到 word[ : j] 转换所需要的最小的数目
+不太需要关注具体进行了删除、增加还是替换操作，而是专注于 a 状态到 b 状态所需要的步数</code></pre>
+<pre><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        m = len(word1)
+        n = len(word2)
+        dp = [[float(&#39;inf&#39;) for _ in range(n + 1)] for _ in range(m + 1)]
+        # 初始化
+        for i in range(m + 1):
+            dp[i][0] = i
+        for i in range(n + 1):
+            dp[0][i] = i
+        # 状态转移
+        # i , j 代表 word1, word2 对应位置的 index
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                # 如果word1[:i][-1]==word2[:j][-1]
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                # 否则从三种状态中选一个最小的然后 +1
+                else:
+                    dp[i][j] = min(dp[i - 1][j - 1], min(dp[i - 1][j], dp[i][j - 1])) + 1
+        return dp[m][n]</code></pre>
+<p>题解三|动态规划：</p>
+<pre><code>参考：https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486294&amp;idx=1&amp;sn=dd8968700d19ea8b1db29065dc2f7b01&amp;scene=21#wechat_redirect</code></pre>
+<p>1、定义数组元素的含义</p>
+<pre><code>目的：求将 word1 转换成 word2 所使用的最少操作数 。
+
+dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的长度为 j 时，将 word1 转化为 word2 所使用的最少操作次数为 dp[i][j]。</code></pre>
+<p>2、找出关系数组元素间的关系式</p>
+<pre><code>第一种：如果我们 word1[i] 与 word2 [j] 相等，这个时候不需要进行任何操作，所以 dp[i][j] = dp[i-1][j-1]。
+
+第二种：如果我们 word1[i] 与 word2 [j] 不相等，这个时候我们就必须进行调整，而调整的操作有 3 种，我们要选择一种。
+三种操作对应的关系式如下（注意字符串与字符的区别）：
+
+（1）、如果把字符 word1[i] 替换成与 word2[j] 相等，则有 dp[i][j] = dp[i-1][j-1] + 1;
+
+（2）、如果在字符串 word1末尾插入一个与 word2[j] 相等的字符，则有 dp[i][j] = dp[i][j-1] + 1;
+
+（3）、如果把字符 word1[i] 删除，则有 dp[i][j] = dp[i-1][j] + 1;
+
+所以应该选择一种操作，使得 dp[i][j] 的值最小，显然关系式有：dp[i][j] = min(dp[i-1] [j-1]，dp[i][j-1]，dp[i-1][j]) + 1;</code></pre>
+<p>3、找出初始值</p>
+<pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp[0][0….n] 和所有的 dp[0….m][0]。
+
+这个还是非常容易计算的，因为当有一个字符串的长度为 0 时，转化为另外一个字符串，那就只能一直进行插入或者删除操作了。</code></pre>
+<p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)</p>
+<pre><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        m=len(word1)+1
+        n=len(word2)+1
+        dp = [ n*[_] for _ in range(m) ]
+        for i in range(1,m):
+            dp[i][0]=dp[i-1][0]+1
+
+        for i in range(1,n):
+            dp[0][i]=dp[0][i-1]+1
+
+        for i in range(1,m):
+            for j in range(1,n):
+                if word1[i-1]==word2[j-1]:
+                    dp[i][j]=dp[i-1][j-1]
+                else:
+                    dp[i][j]=min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1
+        # print(dp)
+        # print(dp[-1][-1])
+        return dp[m-1][n-1]</code></pre>
+<p>???题解四|动态规划优化：</p>
+<p>定义额外变量 pre = (i-1,j-1) 的值<br>二维的dp[i][j]=min(dp[i-1][j],dp[i-1][j-1],dp[i][j-1])+1<br>转换为一维的dp[i]=min(dp[i-1],pre,dp[i])+1</p>
+<p>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        m=len(word1)+1
+        n=len(word2)+1
+        dp = n*[0]
+
+        for i in range(0,n):
+            dp[i]=i
+
+        for i in range(1,m):
+            tmp=dp[0]
+            dp[0]=i
+            for j in range(1,n):
+                pre=tmp
+                tmp=dp[j]
+                if word1[i-1]==word2[j-1]:
+                    dp[j]=pre
+                else:
+                    dp[j]=min(dp[j-1],pre,dp[j])+1
+        return dp[n-1]</code></pre>
+<h3 id="91-解码方法"><a href="#91-解码方法" class="headerlink" title="91.解码方法"></a>91.解码方法</h3><pre><code>链接：https://leetcode-cn.com/problems/decode-ways/
+
+一条包含字母 A-Z 的消息通过以下方式进行了编码：
+
+&#39;A&#39; -&gt; 1
+&#39;B&#39; -&gt; 2
+...
+&#39;Z&#39; -&gt; 26
+给定一个只包含数字的非空字符串，请计算解码方法的总数。
+
+示例 1:
+
+输入: &quot;12&quot;
+输出: 2
+解释: 它可以解码为 &quot;AB&quot;（1 2）或者 &quot;L&quot;（12）。
+示例 2:
+
+输入: &quot;226&quot;
+输出: 3
+解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</code></pre>
+<p>题解一|动态规划：<br>    此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。</p>
+<pre><code>青蛙跳台阶时，可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式：
+一种是从第 n-1 级跳上来；
+一种是从第 n-2 级跳上来；
+
+解码也同理，最大编码为26，所以第 n 个位置编码的总数也有两种方式：
+一种是从第 n-1 编码位置的总数；
+一种是从第 n-2 编码位置的总数；
+
+1、定义数组元素的含义
+第 i 位置的编码总数有 dp[i] 个
+d[i]代表第i个位置解码方法的总数
+
+2、找出关系数组元素间的关系式
+d[i]=d[i-1]+d[i-2]
+d[i+1]=d[i]+d[i-1]
+
+3、找出初始值
+dp[0]=1
+dp[1]=1
+dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
+
+4、限制条件
+字符串以‘0’开头时返回0
+字符串含有‘00’时返回0
+字符串中s[i]=&#39;0&#39;但是int(s[i-1])&gt;2时返回0
+字符串s[i-1:i]&gt;26时，此时应该分开计算。dp[i]+=dp[i-1]</code></pre>
+<pre><code>class Solution:
+    def numDecodings(self, s: str) -&gt; int:
+
+        if s[0]==&#39;0&#39; or s is None:
+            return 0
+        if len(s)==1:
+            return 1
+        if len(s)==2:
+            return 2
+
+        dp=[0]*(len(s))
+        dp[0]=1
+        dp[1]=1
+        dp[2]=2
+        for i in range(2,len(s)):
+            if s[i] != &#39;0&#39;:
+                print(i)
+                dp[i]+=dp[i-1]
+            if s[i-1] ==&#39;1&#39; and (s[i-1]==&#39;2&#39; or s[i]&lt;=6):
+                dp[i]+=dp[i-2]
+            if s[i]==&#39;0&#39; and s[i-1]==&#39;0&#39;:
+                return 0
+        return dp[-1]
+
+用例‘10’这个例子预期输出应该是1,但是实际输出为2，所以for循环从2开始有问题。
+即使改成如下也有问题：
+        if s==&#39;10&#39; or s==&#39;20&#39;:
+            return 1
+        elif int(s)&gt;26:
+            return 0
+        elif len(s)==2:
+            return 2</code></pre>
+<pre><code>class Solution:
+    def numDecodings(self, s: str) -&gt; int:
+
+        if s[0]==&#39;0&#39; or s is None:
+            return 0
+        if len(s)==1:
+            return 1
+
+        length=len(s)
+        dp=[0]*(length+1)
+        dp[0]=1
+        dp[1]=1
+
+        for i in range(1,len(s)):
+            if s[i] != &#39;0&#39;:
+                dp[i+1]+=dp[i]
+            if s[i-1] ==&#39;1&#39; or (s[i-1]==&#39;2&#39; and int(s[i])&lt;=6):
+                dp[i+1]+=dp[i-1]
+            if s[i]==&#39;0&#39; and s[i-1]==&#39;0&#39;:
+                return 0
+        # print(dp[-1])
+        return dp[length]</code></pre>
+<h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="?95. 不同的二叉搜索树 II"></a>?95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
+
+给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
+
+示例:
+
+输入: 3
+输出:
+[
+  [1,null,3,2],
+  [3,2,null,1],
+  [3,1,null,null,2],
+  [2,1,3],
+  [1,null,2,null,3]
+]
+解释:
+以上的输出对应以下 5 种不同结构的二叉搜索树：
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3</code></pre>
+<p>题解一|递归：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree3.png" alt="tree3"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree4.png" alt="tree4"></p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def generateTrees(self, n: int) -&gt; List[TreeNode]:
+        if n:
+            return self.build(1,n)
+        else:
+            []
+    def build(self,start,end):
+        # 结束条件
+        if start&gt;end:
+            return [None,]
+
+        trees=[]
+        for i in range(start,end+1):
+            leftTrees=self.build(start,i-1)
+            rightTrees=self.build(i+1,end)
+            for l in leftTrees:
+                for r in rightTrees:
+                    currentTree=TreeNode(i)
+                    currentTree.left=l
+                    currentTree.right=r
+                    trees.append(currentTree)
+        # print(trees)
+        return trees</code></pre>
+<h3 id="96-不同的二叉搜索树"><a href="#96-不同的二叉搜索树" class="headerlink" title="96.不同的二叉搜索树"></a>96.不同的二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees/
+
+给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+
+示例:
+
+输入: 3
+输出: 5
+解释:
+给定 n = 3, 一共有 5 种不同结构的二叉搜索树:
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3</code></pre>
+<p>题解一|动态规划:</p>
+<p>二叉树定义：</p>
+<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a><br>方法：</p>
+<pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
+在上述方法中，由于根各自不同，每棵二叉树都保证是独特的。
+
+可见，问题可以分解成规模较小的子问题。因此，我们可以存储并复用子问题的解，而不是递归的（也重复的）解决这些子问题，这就是动态规划法。</code></pre>
+<p>函数定义：</p>
+<pre><code>令G(n)的从1到n可以形成二叉搜索树个数
+令f(i)为以i为根的二叉搜索树的个数
+
+所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree.png" alt="tree"></p>
+<p>1、定义数组元素的含义<br>    G[i]代表二叉搜索树的个数<br>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
+<pre><code>f(i)=G(i-1)+G(n-i)
+G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
+    =G(0)G(n-1)+G(1)G(n-2)+...+G(n-1)G(0)</code></pre>
+<p>3、找出初始值<br>    G[0]=1<br>    G[1]=1<br>    G[2]=2</p>
+<pre><code>class Solution:
+    def numTrees(self, n: int) -&gt; int:
+        dp=[0]*(n+1)
+        dp[0]=1
+        dp[1]=1
+
+        for i in range(2,n+1):
+            for j in range(1,i+1):
+                dp[i]+=dp[j-1]*dp[i-j]
+        # print(dp)
+        return dp[n]</code></pre>
+<h3 id="118-杨辉三角"><a href="#118-杨辉三角" class="headerlink" title="118.杨辉三角"></a>118.杨辉三角</h3><pre><code>链接：https://leetcode-cn.com/problems/pascals-triangle/
+
+给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 5
+输出:
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def generate(self, numRows: int) -&gt; List[List[int]]:
+        triangle=[]
+        for i in range(numRows):
+            row=[None for _ in range(i+1)]
+            row[0],row[-1]=1,1
+            for j in range(1,len(row)-1):
+                row[j]=triangle[i-1][j-1]+triangle[i-1][j]
+            triangle.append(row)
+        return triangle</code></pre>
+<p>题解二|动态规划：</p>
+<pre><code>1、定义数组元素的含义
+    dp存储每个数
+
+2、找出数组之间的的关系式
+    遍历dp，将为0的位置使用动态规划填入，公式：dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
+
+3、找出初始值
+    初始化结果数组，numRows表示结果数组dp的行数，每一行的元素个数等于所处第几行。全部初始化为0；
+    将边界全部初始化为1；</code></pre>
+<p>时间复杂度：O(n^2)，等差数列求和。<br>空间复杂度：O(n^2)，等差数列求和。</p>
+<pre><code>class Solution:
+    def generate(self, numRows: int) -&gt; List[List[int]]:
+        dp=[[0]*i for i in range(1,numRows+1)]
+        for i in range(numRows):
+            dp[i][0]=dp[i][-1]=1
+        for i in range(0,numRows):
+            for j in range(i+1):
+                if dp[i][j]==0:
+                    dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
+        return dp</code></pre>
+<pre><code>class Solution:
+    def generate(self, numRows: int) -&gt; List[List[int]]:
+        dp=[[1]*i for i in range(1,numRows+1)]
+        for i in range(2,numRows):
+            for j in range(1,i):
+                dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
+        return dp</code></pre>
+<h3 id="119-杨辉三角-II"><a href="#119-杨辉三角-II" class="headerlink" title="119. 杨辉三角 II"></a>119. 杨辉三角 II</h3><pre><code>链接：https://leetcode-cn.com/problems/pascals-triangle-ii/
+
+给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 3
+输出: [1,3,3,1]
+进阶：你可以优化你的算法到 O(k) 空间复杂度吗？</code></pre>
+<p>题解一|动态规划：</p>
+<pre><code>class Solution:
+    def getRow(self, rowIndex: int) -&gt; List[int]:
+        dp=[[0]* i for i in range(1,rowIndex+2)] # 从1开始的，所以rowIndex+2
+        for i in range(rowIndex+1):
+            dp[i][0]=dp[i][-1]=1
+        for i in range(rowIndex+1):
+            for j in range(i+1):
+                if dp[i][j]==0:
+                    dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
+        return dp[rowIndex]</code></pre>
+<h3 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="120.三角形最小路径和"></a>120.三角形最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/triangle/
+
+给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
+
+例如，给定三角形：
+
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。
+
+说明：
+
+如果你可以只使用 O(n) 的额外空间（n 为三角形的总行数）来解决这个问题，那么你的算法会很加分。</code></pre>
+<p>题解一|动态规划：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp1.png"></p>
+<p>1、定义数组的含义</p>
+<pre><code>dp[i][j]为最小路径和</code></pre>
+<p>2、找出递推关系式</p>
+<pre><code>从第二行开始，遍历区间[1,n):
+    对每一层的元素进行遍历，遍历区间[0,len(triangle[i])，存在3种情况：
+        首位；
+        末位；
+        其他元素；</code></pre>
+<p>3、找到初始值</p>
+<pre><code>class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -&gt; int:
+        if triangle is None:
+            return 0
+        m=len(triangle)
+        # print(triangle,m,triangle[0]) # m=4,triangle[0]=[2]
+        if m==1:
+            return triangle[0][0]
+        dp=triangle
+        for i in range(1,m):
+            for j in range(len(triangle[i])):
+                if j==0:
+                    dp[i][j]=triangle[i-1][j]+triangle[i][j]
+                elif j== len(triangle[i])-1:
+                    dp[i][j]=triangle[i-1][j-1]+triangle[i][j]
+                else:
+                    dp[i][j]=min(triangle[i-1][j],triangle[i-1][j-1])+triangle[i][j]
+        return min(dp[-1])</code></pre>
+<p>优化一下，空间复杂度变为O(n).</p>
+<pre><code>class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -&gt; int:
+        if triangle is None:
+            return 0
+        m=len(triangle)
+        if m==1:
+            return triangle[0][0]
+        for i in range(1,m):
+            for j in range(len(triangle[i])):
+                if j==0:
+                    triangle[i][j]+=triangle[i-1][j]
+                elif j== len(triangle[i])-1:
+                    triangle[i][j]+=triangle[i-1][j-1]
+                else:
+                    triangle[i][j]+=min(triangle[i-1][j],triangle[i-1][j-1])
+        return min(triangle[-1]) # 返回最后一行的最小值
+</code></pre>
+<h3 id="139-单词拆分"><a href="#139-单词拆分" class="headerlink" title="139.单词拆分"></a>139.单词拆分</h3><pre><code>链接：https://leetcode-cn.com/problems/word-break/
+
+给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
+
+说明：
+
+拆分时可以重复使用字典中的单词。
+你可以假设字典中没有重复的单词。
+示例 1：
+
+输入: s = &quot;leetcode&quot;, wordDict = [&quot;leet&quot;, &quot;code&quot;]
+输出: true
+解释: 返回 true 因为 &quot;leetcode&quot; 可以被拆分成 &quot;leet code&quot;。
+示例 2：
+
+输入: s = &quot;applepenapple&quot;, wordDict = [&quot;apple&quot;, &quot;pen&quot;]
+输出: true
+解释: 返回 true 因为 &quot;applepenapple&quot; 可以被拆分成 &quot;apple pen apple&quot;。
+     注意你可以重复使用字典中的单词。
+示例 3：
+
+输入: s = &quot;catsandog&quot;, wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;, &quot;cat&quot;]
+输出: false</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组的含义</p>
+<pre><code>dp=[False,...,false],长度为n+1，n为字符串长度。
+dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
+<p>2、找出递推关系式</p>
+<pre><code>遍历字符串的所有子串，遍历开始索引i，遍历区间[0,n)：
+    遍历结束索引j，遍历区间[i+1,n+1)：
+        若dp[i]=True且s[i,⋯,j)在wordlist中：dp[j]=True
+
+        解释：dp[i]=True说明s的前i位可以用wordDict表示，则s[i,⋯,j)出现在wordDict中，说明s的前j位可以表示。
+
+返回dp[n]</code></pre>
+<p>3、找到初始值</p>
+<pre><code>初始化dp[0]=True，空字符可以被表示。</code></pre>
+<p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
+        n=len(s)
+        dp=(n+1)*[False]
+        dp[0]=True
+        for i in range(n):
+            for j in range(i+1,n+1):
+                if dp[i] and s[i:j] in wordDict:
+                    dp[j]=True
+        # return dp[n]
+        return dp[-1]</code></pre>
+<p>题解二|DFS|记忆化递归：</p>
+<pre><code>class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
+        memo=[None] * len(s)
+        def dfs(first):
+            if first &gt;= len(s):
+                return True
+            if memo[first] != None:
+                return memo[first]
+
+            for i in range(first,len(s)):
+                if s[first:i+1] in wordDict and dfs(i+1):
+                    memo[first]=True
+                    return True
+            memo[first]=False
+            return False
+
+        return dfs(0)</code></pre>
+<p>??题解三|记忆化回溯）:</p>
+<pre><code>1、使用记忆化函数，保存出现过的backtrack(s)，避免重复计算。
+
+2、定义回溯函数backtrack(s)
+
+    若s长度为0，则返回True，表示已经使用wordDict中的单词分割完。
+    初试化当前字符串是否可以被分割res=False
+    遍历结束索引i，遍历区间[1,n+1)：
+        若s[0,⋯,i−1]在wordDict中：res=backtrack(s[i,...,n-1]) or  res。
+        解释：保存遍历结束索引中，可以使字符串切割完成的情况。
+    返回res
+
+3、返回backtrack(s)</code></pre>
+<pre><code>class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
+        import functools
+        @functools.lru_cache(None)
+        def back_track(s):
+            if (not s):
+                return True
+            res=False
+            for i in range(1,len(s)+1):
+                if(s[:i] in wordDict):
+                    res=back_track(s[i:]) or res
+            return res
+        return back_track(s)</code></pre>
+<p>题解四|BFS|超时：</p>
+<pre><code>import collections
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
+        visited=[False]*len(s)
+        queue=collections.deque()
+        queue.append(0)
+
+        while queue:
+            i=queue.popleft()
+            if visited[i]:
+                continue
+            else:
+                visited[i]=False
+
+            for j in range(i,len(s)):
+                if s[i:j+1] in wordDict:
+                    if j == len(s)-1:
+                        return True
+                    else:
+                        queue.append(j+1)
+        return False</code></pre>
+<h3 id="152-乘积最大的连续子序列"><a href="#152-乘积最大的连续子序列" class="headerlink" title="152.乘积最大的连续子序列"></a>152.乘积最大的连续子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-product-subarray/
+
+给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。
+
+示例 1:
+
+输入: [2,3,-2,4]
+输出: 6
+解释: 子数组 [2,3] 有最大乘积 6。
+示例 2:
+
+输入: [-2,0,-1]
+输出: 0
+解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。</code></pre>
+<p>题解一|动态规划:</p>
+<p>此题类似于52题最大子序和，唯一的区别是：由于存在负数，那么会导致最大的变最小的，最小的变最大的，因此还需要维护当前最小值minTmp，minTmp = min(minTmp * nums[i], nums[i])</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>dp[i]为以num[i]结尾的子段的最大子段乘积
+dp[1]为以num[1]结尾的最大子段乘积</code></pre>
+<p>2、寻找递推表达式</p>
+<pre><code>只考虑第一个元素，则最大子段和为其本身 dp[0] = nums[0]
+
+考虑前两个元素，最大子段和为 nums[0],num[1]以及 nums[0]*num[1] 中最大值 设为dp[1]
+
+考虑前三个元素，如何求其最大子段乘积？还是分为两种情况讨论，第三个元素在最后的字串内吗？
+
+若第三个元素也包含在最后的字串内，则dp[2] = Max(dp[1]*nums[2] , nums[2])
+
+dp[i]=max(dp[i-1]*num[i],num[i])
+由于存在负数：
+dp_[i]=min(dp_[i-1]*num[i],num[i])</code></pre>
+<p>3、找出初始值</p>
+<pre><code>dp[0]=num[0]
+dp[1]=max(dp[0]* num[1],num[1])</code></pre>
+<pre><code>class Solution:
+    def maxProduct(self, nums: List[int]) -&gt; int:
+        lens=len(nums)
+        if lens==0:
+            return 0
+        dp=lens*[0]
+        mindp=lens*[0]
+        dp[0]=nums[0]
+        mindp[0]=nums[0]
+        res=nums[0]
+        for i in range(1,lens):
+            dp[i]=max(dp[i-1]*nums[i],nums[i],mindp[i-1]*nums[i])
+            mindp[i]=min(dp[i-1]*nums[i],nums[i],mindp[i-1]*nums[i])
+            res=max(res,dp[i])
+        return res</code></pre>
+<pre><code>class Solution:
+    def maxProduct(self, nums: List[int]) -&gt; int:
+        lens=len(nums)
+        if lens==0:
+            return 0
+        res=float(&#39;-inf&#39;)
+        maxTmp=1
+        minTmp=1
+        for i in range(lens):
+            if nums[i]&lt;0:
+                maxTmp,minTmp=minTmp,maxTmp
+            maxTmp=max(maxTmp*nums[i],nums[i])
+            minTmp=min(minTmp*nums[i],nums[i])
+
+            res=max(res,maxTmp)
+        return res</code></pre>
+<h3 id="221-最大正方形"><a href="#221-最大正方形" class="headerlink" title="221.最大正方形"></a>221.最大正方形</h3><pre><code>链接：https://leetcode-cn.com/problems/maximal-square/
+
+在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。
+
+示例:
+
+输入: 
+
+1 0 1 0 0
+1 0 1 1 1
+1 1 1 1 1
+1 0 0 1 0
+
+输出: 4</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>dp[i][j]表示以(i,j)为右下角，且只包含1的正方形边长最大值;
+计算出所有 dp(i,j) 的值，那么其中的最大值即为矩阵中只包含 1 的正方形的边长最大值，其平方即为最大正方形的面积。</code></pre>
+<p>2、寻找递推表达式</p>
+<pre><code>如果该位置的值是 0，则 dp(i,j)=0，因为当前位置不可能在由 1 组成的正方形中；
+
+如果该位置的值是 1，则 dp(i,j) 的值由其上方、左方和左上方的三个相邻位置的 dp值决定。具体而言，当前位置的元素值等于三个相邻位置的元素中的最小值加 1，状态转移方程如下：
+
+dp(i,j)=min(dp(i−1,j),dp(i−1,j−1),dp(i,j−1))+1</code></pre>
+<p>3、找出初始值</p>
+<pre><code>if matrix[i][j]==&#39;1&#39;:
+    if i==0 or j==0:
+        dp[i][j]=1</code></pre>
+<pre><code>class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -&gt; int:
+        if len(matrix)==0 or len(matrix[0])==0:
+            return 0
+        maxSide=0
+        rows,columns=len(matrix),len(matrix[0])
+        dp=[[0]*columns for _ in range(rows)]
+        for i in range(rows):
+            for j in range(columns):
+                if matrix[i][j]==&#39;1&#39;:
+                    if i==0 or j==0:
+                        dp[i][j]=1
+                    else:
+                        dp[i][j]=min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])+1
+                    maxSide=max(maxSide,dp[i][j])
+        maxSquare=maxSide*maxSide
+        return maxSquare
+</code></pre>
+<h3 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a>264. 丑数 II</h3><pre><code>链接：https://leetcode-cn.com/problems/ugly-number-ii/
+
+编写一个程序，找出第 n 个丑数。
+
+丑数就是质因数只包含 2, 3, 5 的正整数。
+
+示例:
+
+输入: n = 10
+输出: 12
+解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。
+说明:  
+
+1 是丑数。
+n 不超过1690。</code></pre>
+<p>题解一|动态规划+3个指针:</p>
+<pre><code>class Solution:
+    def nthUglyNumber(self, n: int) -&gt; int:
+        nums=[1]
+        i2=i3=i5=0
+        for i in range(1,n):
+            ugly=min(nums[i2]*2,nums[i3]*3,nums[i5]*5)
+            nums.append(ugly)
+            if ugly == nums[i2]*2:
+                i2+=1
+            if ugly == nums[i3]*3:
+                i3+=1
+            if ugly== nums[i5]*5:
+                i5+=1
+        return nums[n-1]</code></pre>
+<h3 id="279-完全平方数"><a href="#279-完全平方数" class="headerlink" title="279. 完全平方数"></a>279. 完全平方数</h3><pre><code>链接：https://leetcode-cn.com/problems/perfect-squares/
+
+给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+
+示例 1:
+
+输入: n = 12
+输出: 3 
+解释: 12 = 4 + 4 + 4.
+示例 2:
+
+输入: n = 13
+输出: 2
+解释: 13 = 4 + 9.</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>dp[i]表示i最少可以由几个平方数构成</code></pre>
+<p>2、寻找递推表达式</p>
+<pre><code>遍历dp，对于i，遍历区间[2,n+1)：
+    遍历所有平方数小于i的数j，遍历区间[1,int(\sqrt&#123;i&#125;)+1):
+        dp[i]=min(dp[i],dp[i-j*j]+1)
+        始终保存所有可能情况中的最小值
+返回dp[n]</code></pre>
+<p>3、找出初始值<br>    dp=[0,1,2,…,n]，长度为n+1，最多次数就是全由1构成。</p>
+<p>时间复杂度：O(n\sqrt{n})<br>空间复杂度：O(n)</p>
+<pre><code>import math
+class Solution:
+    def numSquares(self, n: int) -&gt; int:
+        dp=[i for i in range(n+1)]
+        for i in range(2,n+1):
+            for j in range(1,int(math.sqrt(i))+1): # 开方也可使用i**0.5
+                dp[i]=min(dp[i],dp[i-j*j]+1)
+        return dp[n]</code></pre>
+<p>题解二|广度优先遍历bfs：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bfs.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bfs.png"></p>
+<p>借助队列实现广度优先遍历（层次遍历）:</p>
+<pre><code>1、初始化队列queue=[n]，访问元组visited=&#123;&#125;，初试化路径长度step=0
+2、特判，若n==0，返回0。
+3、循环条件，队列不为空：
+
+    step+=1，因为循环一次，意味着一层中的节点已经遍历完，所以路径长度需要加一。
+    定义当前层中的节点数length=len(queue)，遍历当前层的所有节点：
+        令tmp为队首元素。
+        遍历所有可能数i的平方数，遍历区间[1,int(\sqrt&#123;tmp&#125;)+1)：
+            定义x=tmp-i^2
+            若x==0，返回当前的路径长度。
+            若x not in visited，表示当前节点未出现过：将该节点入队并在访问数组中加入。
+4、返回step</code></pre>
+<p>时间复杂度：O(n*\sqrt{n})，并不准确<br>空间复杂度：O(n)</p>
+<pre><code>from collections import deque
+class Solution:
+    def numSquares(self, n: int) -&gt; int:
+        if n==0:
+            return 0
+        queue=deque([n])
+        visited=set()
+        step=0
+        while queue:
+            step+=1
+            length=len(queue)
+            for _ in range(length):
+                tmp=queue.pop()
+                for j in range(1,int(tmp**0.5)+1):
+                    node=tmp-j**2
+                    if node==0:
+                        return step
+                    if node not in visited:
+                        queue.appendleft(node)
+                        visited.add(node)
+        return step</code></pre>
+<h3 id="继续理解-300-最长上升子序列"><a href="#继续理解-300-最长上升子序列" class="headerlink" title="继续理解 300. 最长上升子序列"></a>继续理解 300. 最长上升子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-increasing-subsequence/
+
+给定一个无序的整数数组，找到其中最长上升子序列的长度。
+
+示例:
+
+输入: [10,9,2,5,3,7,101,18]
+输出: 4 
+解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
+说明:
+
+可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。
+你算法的时间复杂度应该为 O(n^2) 。
+进阶: 你能将算法的时间复杂度降低到 O(n*logn) 吗?</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>定义 dp[i] 为考虑前 i 个元素，以第 i 个数字结尾的最长上升子序列的长度，注意 nums[i] 必须被选取。</code></pre>
+<p>2、寻找递推表达式</p>
+<pre><code>从小到大计算 dp[] 数组的值，在计算 dp[i] 之前，我们已经计算出 dp[0…i−1] 的值:
+dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
+<p>3、找出初始值<br>    dp[i]=1，1 个字符显然是长度为 1 的上升子序列。</p>
+<p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)<br>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
+<pre><code>class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        dp=[]
+        for i in range(len(nums)):
+            dp.append(1)
+            for j in range(i):
+                if nums[i]&gt;nums[j]:
+                    dp[i]=max(dp[i],dp[j]+1)
+        return max(dp)</code></pre>
+<p>题解二|动态规划+二分查找：</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>tails[k] 的值代表 长度为 k+1 子序列 的尾部元素值。</code></pre>
+<p>2、寻找递推表达式</p>
+<pre><code>设 res 为 tails 当前长度，代表直到当前的最长上升子序列长度。设 j∈[0,res)，考虑每轮遍历 nums[k] 时，通过二分法遍历 [0,res) 列表区间，找出 nums[k]的大小分界点，会出现两种情况：
+
+    区间中存在 tails[i] &gt; nums[k] ： 将第一个满足 tails[i] &gt; nums[k]执行 tails[i] = nums[k] ；因为更小的 nums[k]后更可能接一个比它大的数字。
+
+    区间中不存在 tails[i] &gt; nums[k] ： 意味着 nums[k]可以接在前面所有长度的子序列之后，因此肯定是接到最长的后面（长度为 res），新子序列长度为 res + 1。</code></pre>
+<p>3、找出初始值<br>    tails[i]=0，tails 列表所有值 =0。</p>
+<p>4、返回 res ，即最长上升子子序列长度。</p>
+<p>时间复杂度 O(NlogN) ： 遍历 nums 列表需 O(N)，在每个 nums[i] 二分法需 O(logN)<br>空间复杂度 O(N) ： tails 列表占用线性大小额外空间。</p>
+<pre><code>class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        tails,res=[0]*len(nums),0
+        for num in nums:
+            i,j=0,res
+            while i&lt;j:
+                m=(i+j)//2
+                if tails[m]&lt;num:
+                    i=m+1
+                else:
+                    j=m
+            tails[i]=num
+            if j==res:
+                res+=1
+        return res</code></pre>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
+<h3 id="303-区域和检索-数组不可变"><a href="#303-区域和检索-数组不可变" class="headerlink" title="303. 区域和检索 - 数组不可变"></a>303. 区域和检索 - 数组不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-immutable/
+
+给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
+
+示例：
+
+给定 nums = [-2, 0, 3, -5, 2, -1]，求和函数为 sumRange()
+
+sumRange(0, 2) -&gt; 1
+sumRange(2, 5) -&gt; -1
+sumRange(0, 5) -&gt; -3
+说明:
+
+你可以假设数组不可变。
+会多次调用 sumRange 方法。</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>缺点：每次调用sumRange都要重新进行计算</code></pre>
+<pre><code>class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums=nums
+
+    def sumRange(self, i: int, j: int) -&gt; int:
+        sum=0
+        for each in range(i,j+1):
+            sum+=self.nums[each]
+        return sum
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)</code></pre>
+<p>题解二|缓存+动态规划：</p>
+<pre><code>class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums=nums
+        if not nums:
+            return
+        n=len(nums)
+        self.dp=[0]*(n+1)
+        self.dp[1]=nums[0]
+        for i in range(2,n+1):
+            self.dp[i]=self.dp[i-1]+nums[i-1]
+
+    def sumRange(self, i: int, j: int) -&gt; int:
+        return self.dp[j+1]-self.dp[i]
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)</code></pre>
+<pre><code>class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums=nums
+        if not nums:
+            return
+        n=len(nums)
+        self.dp=[0]*(n+1)
+        for i in range(0,n):
+            self.dp[i+1]=self.dp[i]+nums[i]
+        # print(self.dp)
+
+    def sumRange(self, i: int, j: int) -&gt; int:
+        return self.dp[j+1]-self.dp[i]
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)</code></pre>
+<h3 id="304-二维区域和检索-矩阵不可变"><a href="#304-二维区域和检索-矩阵不可变" class="headerlink" title="304. 二维区域和检索 - 矩阵不可变"></a>304. 二维区域和检索 - 矩阵不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-2d-immutable/
+
+给定一个二维矩阵，计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2)。
+
+Range Sum Query 2D
+上图子矩阵左上角 (row1, col1) = (2, 1) ，右下角(row2, col2) = (4, 3)，该子矩形内元素的总和为 8。
+
+示例:
+
+给定 matrix = [
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5]
+]
+
+sumRegion(2, 1, 4, 3) -&gt; 8
+sumRegion(1, 1, 2, 2) -&gt; 11
+sumRegion(1, 2, 2, 4) -&gt; 12
+说明:
+
+你可以假设矩阵不可变。
+会多次调用 sumRegion 方法。
+你可以假设 row1 ≤ row2 且 col1 ≤ col2。</code></pre>
+<p>题解一|动态规划：</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png"></p>
+<pre><code>sum(abcd)=sum(od)−sum(ob)−sum(oc)+sum(oa)</code></pre>
+<p>1、定义数组的含义</p>
+<pre><code>dp[i][j]表示矩阵左上角到matrix[i][j]的累加和</code></pre>
+<pre><code>class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+
+        if not matrix or not matrix[0]:pass
+        else:
+            row = len(matrix)
+            col = len(matrix[0])
+            self.dp = [[ 0 ] * (col + 1) for _ in range(row + 1)]
+            # 求行的前缀和
+            for i in range(1, row + 1):
+                for j in range(1 ,col + 1):
+                    self.dp[i][j] = self.dp[i][j - 1] + matrix[i - 1][j - 1] 
+            # 求列的前缀和
+            for j in range(1, col + 1):
+                for i in range(1, row + 1):
+                    self.dp[i][j] += self.dp[i - 1][j]
+            # print(self.dp)
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -&gt; int:
+        return self.dp[row2 + 1][col2 + 1] - self.dp[row1][col2 + 1] - self.dp[row2 + 1][col1] + self.dp[row1][col1]
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# param_1 = obj.sumRegion(row1,col1,row2,col2)</code></pre>
+<pre><code>class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+
+        if not matrix or not matrix[0]:pass
+        else:
+            row = len(matrix)
+            col = len(matrix[0])
+            self.dp = [[ 0 ] * (col + 1) for _ in range(row + 1)]
+
+            for i in range(1, row + 1):
+                for j in range(1, col + 1):
+                    self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1]重复计算了, 所以需要减去.
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -&gt; int:
+        return self.dp[row2 + 1][col2 + 1] - self.dp[row1][col2 + 1] - self.dp[row2 + 1][col1] + self.dp[row1][col1]
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# param_1 = obj.sumRegion(row1,col1,row2,col2)</code></pre>
+<h3 id="338-比特位计数"><a href="#338-比特位计数" class="headerlink" title="338. 比特位计数"></a>338. 比特位计数</h3><pre><code>链接：https://leetcode-cn.com/problems/counting-bits/
+
+给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
+
+示例 1:
+
+输入: 2
+输出: [0,1,1]
+示例 2:
+
+输入: 5
+输出: [0,1,1,2,1,2]
+进阶:
+
+给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟扫描做到吗？
+要求算法的空间复杂度为O(n)。
+你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义数组含义</p>
+<pre><code>dp[i]表示数字i计算其二进制数中的 1 的数目。</code></pre>
+<p>2、找出数组递推关系式</p>
+<pre><code>当i为奇数时：
+    奇数一定比前面那个偶数多一个 1，因为多的就是最低位的 1。
+当i为偶数时：
+    二进制是逢2开始进位的，也就是在偶数的时候，一个偶数相当一另一个数成以2得到，在二进制运算中，就是左移一位，也就是在低位多加1个0，故遇到偶数的时候就是dp[i] = dp[i/2]。</code></pre>
+<p>3、找到初始值</p>
+<pre><code>dp[0]=0
+dp[1]=1</code></pre>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def countBits(self, num: int) -&gt; List[int]:
+        if num==0:
+            return [0]
+        dp=[0]*(num+1)
+        dp[0]=0
+        dp[1]=1
+        for i in range(2,num+1):
+            if i%2==0:
+                dp[i]=dp[i//2]
+            else:
+                dp[i]=dp[i-1]+1
+        return dp</code></pre>
+<h3 id="343-整数拆分"><a href="#343-整数拆分" class="headerlink" title="343. 整数拆分"></a>343. 整数拆分</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-break/
+
+给定一个正整数 n，将其拆分为至少两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。
+
+示例 1:
+
+输入: 2
+输出: 1
+解释: 2 = 1 + 1, 1 × 1 = 1。
+示例 2:
+
+输入: 10
+输出: 36
+解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36。
+说明: 你可以假设 n 不小于 2 且不大于 58。</code></pre>
+<p>题解一|动态规划</p>
+<p>1、定义数组</p>
+<pre><code>dp[i]代表i拆分后的最大乘积</code></pre>
+<p>2、递推表达式</p>
+<pre><code>dp[i]=max(dp[i],j*(i-j),j*dp[i-j])
+
+(i - j) * j 代表的是整数 i 拆分成 2 部分, 分别为 (i - j) * j；
+
+j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表在之前的动态规划求得的整数 i - j 的分割最大的乘积</code></pre>
+<p>3、初始值<br>    dp[i]=1，从3开始。</p>
+<pre><code>class Solution:
+    def integerBreak(self, n: int) -&gt; int:
+        dp=[1 for i in range(n+1)]
+        for i in range(3,n+1):
+            for j in range(1,i):
+                dp[i]=max(dp[i],j*(i-j),j*dp[i-j])
+        return dp[n]</code></pre>
+<h3 id="354-俄罗斯套娃信封问题"><a href="#354-俄罗斯套娃信封问题" class="headerlink" title="354. 俄罗斯套娃信封问题"></a>354. 俄罗斯套娃信封问题</h3><pre><code>链接：https://leetcode-cn.com/problems/russian-doll-envelopes/
+
+给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。
+
+请计算最多能有多少个信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。
+
+说明:
+不允许旋转信封。
+
+示例:
+
+输入: envelopes = [[5,4],[6,4],[6,7],[2,3]]
+输出: 3 
+解释: 最多信封的个数为 3, 组合为: [2,3] =&gt; [5,4] =&gt; [6,7]。</code></pre>
+<p>题解一|动态规划|超时</p>
+<pre><code>class Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -&gt; int:
+        if not envelopes:
+            return 0
+        envelopes=sorted(envelopes,key=lambda x:(x[0],-x[1]))
+        dp=[1]*len(envelopes)
+        count=1
+        for i in range(len(envelopes)):
+            for j in range(i):
+                if envelopes[i][1] &gt; envelopes[j][1] and dp[j]+1 &gt; dp[i]:
+                    dp[i]=dp[j]+1
+                count=max(count,dp[i])
+        return count</code></pre>
+<p>稍微修改下，通过：</p>
+<pre><code>class Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -&gt; int:
+        if not envelopes:
+            return 0
+        envelopes=sorted(envelopes,key=lambda x:(x[0],-x[1]))
+        dp=[1]*len(envelopes)
+        for i in range(len(envelopes)):
+            for j in range(i):
+                if envelopes[i][1] &gt; envelopes[j][1] and dp[j]+1 &gt; dp[i]:
+                    dp[i]=max(dp[i],dp[j]+1)
+        return max(dp)</code></pre>
+<h3 id="357-计算各个位数不同的数字个数"><a href="#357-计算各个位数不同的数字个数" class="headerlink" title="357. 计算各个位数不同的数字个数"></a>357. 计算各个位数不同的数字个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
+
+给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x &lt; 10^n 。
+
+示例:
+
+输入: 2
+输出: 91 
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。</code></pre>
+<p>题解一|动态规划:</p>
+<pre><code>数字一共有0~9十个，所以n超过十位一定会重复。
+
+1位 10
+2位 9*9+10 （第一位不能0）
+3位 9*9*8+9*9+10
+4位 9*9*8*7+9*9*8+9*9+10
+...
+i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1] = 9）</code></pre>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        if n==0:
+            return 1
+        dp1=[0]*(n+1)
+        dp2=[0]*(n+1)
+        dp1[1]=10
+        dp2[1]=9
+        for i in range(2,min(11,n+1)):
+            dp2[i]=dp2[i-1]*(10-(i-1))
+            dp1[i]=dp2[i]+dp1[i-1]
+        if n&gt;=11:
+            return dp[10]
+        return dp1[n]</code></pre>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        if n==0:
+            return 1
+        fisrt,second=10,9*9
+        size=min(n,10)
+        for i in range(2,size+1):
+            fisrt+=second
+            second*=(10-i)
+        return fisrt</code></pre>
+<p>??题解二|回溯：</p>
+<pre><code>class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
+        used=[False]*10
+        def backtrace(first,used):
+            count=0
+            if first != n:
+                for i in range(10):
+                    # 剪枝：多位数时，第一个数字不能为0
+                    if i==0 and n&gt;1 and first==1:
+                        continue
+                    if used[i]:
+                        continue
+                    used[i]=True
+                    count+=backtrace(first+1,used)+1
+                    used[i]=False
+            return count
+        if not n:
+            return 1
+        return backtrace(0,used)</code></pre>
+<h3 id="368-最大整除子集"><a href="#368-最大整除子集" class="headerlink" title="368. 最大整除子集"></a>368. 最大整除子集</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-divisible-subset/
+
+给出一个由无重复的正整数组成的集合，找出其中最大的整除子集，子集中任意一对 (Si，Sj) 都要满足：Si % Sj = 0 或 Sj % Si = 0。
+
+如果有多个目标子集，返回其中任何一个均可。
+
+示例 1:
+
+输入: [1,2,3]
+输出: [1,2] (当然, [1,3] 也正确)
+示例 2:
+
+输入: [1,2,4,8]
+输出: [1,2,4,8]</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、sorted()排序；<br>2、dp[i]表示以下标i位置元素结尾得最长序列。<br>3、遍历0-(i-1)，如果nums[i]整除nums[j]，则判断dp[i]和dp[j] + 1哪个大</p>
+<pre><code>class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -&gt; List[int]:
+        if not nums:
+            return []
+        nums=sorted(nums)
+        dp=[[i] for i in nums]
+        res=[]
+        for i in range(0,len(nums)):
+            for j in range(0,i):
+                if nums[i]%nums[j]==0:
+                    if len(dp[i])&lt;len(dp[j]+[nums[i]]):
+                        dp[i]=dp[j]+[nums[i]]
+            if len(dp[i])&gt;len(res):
+                res=dp[i]
+        return res</code></pre>
+<h3 id="392-判断子序列"><a href="#392-判断子序列" class="headerlink" title="392. 判断子序列"></a>392. 判断子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/is-subsequence/
+
+给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
+
+你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 &lt;=100）。
+
+字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，&quot;ace&quot;是&quot;abcde&quot;的一个子序列，而&quot;aec&quot;不是）。
+
+示例 1:
+s = &quot;abc&quot;, t = &quot;ahbgdc&quot;
+
+返回 true.
+
+示例 2:
+s = &quot;axc&quot;, t = &quot;ahbgdc&quot;
+
+返回 false.
+
+后续挑战 :
+
+如果有大量输入的 S，称作S1, S2, ... , Sk 其中 k &gt;= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代码？</code></pre>
+<p>题解一|双指针：</p>
+<pre><code>class Solution:
+    def isSubsequence(self, s: str, t: str) -&gt; bool:
+        p,q=0,0
+        count=0
+        while p&lt;len(s) and q&lt;len(t):
+            if s[p]==t[q]:
+                count+=1
+                p+=1
+            q+=1
+        return p==len(s)</code></pre>
+<p>题解二|二分+哈希：</p>
+<pre><code>class Solution:
+    def isSubsequence(self, s: str, t: str) -&gt; bool:
+        hash=&#123;&#125;
+        for i,word in enumerate(t):
+            if word not in hash:
+                hash[word]=[i] # 注意这里是列表
+            else:
+                hash[word].append(i)
+
+        index = -1
+        for word in s:
+            if word not in hash:
+                return False
+            # 字母s出现的索引 用二分法找到其中大于index的第一个
+            indexes = hash[word]
+            left = 0
+            right = len(indexes)
+            while left &lt; right:
+                mid = left + (right - left) // 2
+                if indexes[mid] &gt; index:
+                    right = mid
+                else:
+                    left = mid + 1
+            if left == len(indexes):
+                return False
+            index = indexes[left]
+
+        return True</code></pre>
+<h3 id="516-最长回文子序列"><a href="#516-最长回文子序列" class="headerlink" title="516. 最长回文子序列"></a>516. 最长回文子序列</h3><pre><code>给定一个字符串 s ，找到其中最长的回文子序列，并返回该序列的长度。可以假设 s 的最大长度为 1000 。
+
+示例 1:
+输入:
+
+&quot;bbbab&quot;
+输出:
+
+4
+一个可能的最长回文子序列为 &quot;bbbb&quot;。
+
+示例 2:
+输入:
+
+&quot;cbbd&quot;
+输出:
+
+2
+一个可能的最长回文子序列为 &quot;bb&quot;。
+
+提示：
+
+1 &lt;= s.length &lt;= 1000
+s 只包含小写英文字母</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、dp 数组的定义是：在子串s[i..j]中，最长回文子序列的长度为dp[i][j]</p>
+<p>2、状态转移方程</p>
+<pre><code>if (s[i] == s[j])
+    // 它俩一定在最长回文子序列中
+    dp[i][j] = dp[i + 1][j - 1] + 2;
+else
+    // s[i+1..j] 和 s[i..j-1] 谁的回文子序列更长？
+    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);</code></pre>
+<p>答案：dp[0][n - 1]，也就是整个s的最长回文子序列的长度。</p>
+<p>3、bad case</p>
+<p>如果只有一个字符，显然最长回文子序列长度是 1，也就是dp[i][j] = 1,(i == j)。</p>
+<p>因为i肯定小于等于j，所以对于那些i &gt; j的位置，根本不存在什么子序列，应该初始化为 0。</p>
+<p>为了保证每次计算dp[i][j]，左、下、左下三个方向的位置已经被计算出来，只能斜着遍历或者反着遍历：</p>
+<pre><code>class Solution:
+    def longestPalindromeSubseq(self, s: str) -&gt; int:
+        n=len(s)
+        dp=[[0]*n for i in range(n)]
+
+        for i in range(n):
+            dp[i][i]=1
+
+        # 反着遍历保证正确的状态转移
+        for i in range(n-1,-1,-1):
+            for j in range(i+1,n):
+                if s[i] == s[j]:
+                    dp[i][j]=dp[i+1][j-1]+2
+                else:
+                    dp[i][j]=max(dp[i+1][j],dp[i][j-1])
+        return dp[0][n-1]
+</code></pre>
+<h3 id="651-4键键盘"><a href="#651-4键键盘" class="headerlink" title="???651.4键键盘"></a>???651.4键键盘</h3><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png"></p>
+<p>如何在 N 次敲击按钮后得到最多的 A？</p>
+<p>对 dp 数组的不同定义需要完全不同的逻辑，从而产生完全不同的解法。</p>
+<p>题解一：</p>
+<p>流程：对于动态规划问题，首先要明白有哪些「状态」，有哪些「选择」。</p>
+<p>有哪些「选择」是很明显的：</p>
+<pre><code>4 种，就是题目中提到的四个按键，分别是A、C-A、C-C、C-V（Ctrl简写为C）。</code></pre>
+<p>有哪些「状态」？或者换句话说，我们需要知道什么信息，才能将原问题分解为规模更小的子问题？</p>
+<p>定义三个状态行不行：</p>
+<pre><code>第一个状态是剩余的按键次数，用n表示；
+第二个状态是当前屏幕上字符 A 的数量，用a_num表示；
+第三个状态是剪切板中字符 A 的数量，用copy表示。</code></pre>
+<p>如此定义「状态」，就可以知道 base case：当剩余次数n为 0 时，a_num就是我们想要的答案。</p>
+<p>结合刚才说的 4 种「选择」，我们可以把这几种选择通过状态转移表示出来：</p>
+<pre><code>dp(n - 1, a_num + 1, copy),    # A
+解释：按下 A 键，屏幕上加一个字符
+同时消耗 1 个操作数
+
+dp(n - 1, a_num + copy, copy), # C-V
+解释：按下 C-V 粘贴，剪切板中的字符加入屏幕
+同时消耗 1 个操作数
+
+dp(n - 2, a_num, a_num)        # C-A C-C
+解释：全选和复制必然是联合使用的，
+剪切板中 A 的数量变为屏幕上 A 的数量
+同时消耗 2 个操作数</code></pre>
+<p>问题的规模n在不断减小，肯定可以到达n = 0的 base case，所以这个思路是正确的：</p>
+<pre><code>def maxA(n):
+    def dp(n,a_num,copy):
+        # 初始值
+        if n&lt;=0:
+            return a_num
+        # 所有选择全部试一遍，选择最大结果
+        return max(
+            dp(n-1,a_num+1,copy),
+            dp(n-1,a_num+copy,copy),
+            dp(n-2,a_num,a_num)
+            )
+    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A</code></pre>
+<p>优化：</p>
+<pre><code>def maxA(n):
+    memo=dict()
+    def dp(n,a_num,copy):
+        # 初始值
+        if n&lt;=0:
+            return a_num
+        # 避免计算重叠子问题
+        if (n,a_num,copy) in demo:
+            return memo[(n,a_num,copy)]
+
+        memo[(n,a_num,copy)]= max(
+            dp(n-1,a_num+1,copy),
+            dp(n-1,a_num+copy,copy),
+            dp(n-2,a_num,a_num)
+            )
+        return memo[(n,a_num,copy)]
+    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A</code></pre>
+<p>可以把这个 dp 函数写成 dp 数组：</p>
+<pre><code>dp[n][a_num][copy] #状态的总数（时空复杂度）就是这个三维数组的体积</code></pre>
+<p>我们知道变量n最多为N，但是a_num和copy最多为多少我们很难计算，复杂度起码也有 O(N^3) 吧。</p>
+<p>题解二：</p>
+<p>「选择」还是那 4 个，但是这次我们只定义一个「状态」，也就是剩余的敲击次数n。</p>
+<p>最优按键序列一定只有两种情况：</p>
+<pre><code>要么一直按A：A,A,…A（当 N 比较小时）。
+
+要么是这么一个形式：A,A,…C-A,C-C,C-V,C-V,…C-V（当 N 比较大时）。</code></pre>
+<p>因为字符数量少（N 比较小）时，C-A C-C C-V这一套操作的代价相对比较高，可能不如一个个按A；而当 N 比较大时，后期C-V的收获肯定很大。这种情况下整个操作序列大致是：开头连按几个A，然后C-A C-C组合再接若干C-V，然后再C-A C-C接着若干C-V，循环下去。</p>
+<p>换句话说，最后一次按键要么是A要么是C-V。明确了这一点，可以通过这两种情况来设计算法：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486045&amp;idx=2&amp;sn=c270733b9ea06403ab9851bbc5d935db&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486045&amp;idx=2&amp;sn=c270733b9ea06403ab9851bbc5d935db&amp;scene=21#wechat_redirect</a></p>
+<h3 id="673-最长递增子序列的个数"><a href="#673-最长递增子序列的个数" class="headerlink" title="673. 最长递增子序列的个数"></a>673. 最长递增子序列的个数</h3><pre><code>链接：https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/
+
+给定一个未排序的整数数组，找到最长递增子序列的个数。
+
+示例 1:
+
+输入: [1,3,5,4,7]
+输出: 2
+解释: 有两个最长递增子序列，分别是 [1, 3, 4, 7] 和[1, 3, 5, 7]。
+示例 2:
+
+输入: [2,2,2,2,2]
+输出: 5
+解释: 最长递增子序列的长度是1，并且存在5个子序列的长度为1，因此输出5。</code></pre>
+<p>题解一|动态规划：</p>
+<pre><code>class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        dp=[1]*len(nums)
+        count=[1]*len(nums)
+        MAX=0
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] &gt; nums[j]:
+                    if dp[j]+1 &gt; dp[i]: # 代表第一次遇到最长子序列
+                        dp[i]=max(dp[i],dp[j]+1)
+                        count[i]=count[j]
+                    elif dp[j]+1 == dp[i]: # 代表已经遇到最长子序列
+                        count[i]+=count[j]
+        MAX = max(dp)
+        res=0
+        for i in range(len(nums)):
+            if dp[i]==MAX:
+                res+=count[i]
+        return res</code></pre>
+<h3 id="674-最长连续递增序列"><a href="#674-最长连续递增序列" class="headerlink" title="674. 最长连续递增序列"></a>674. 最长连续递增序列</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/
+
+给定一个未经排序的整数数组，找到最长且连续的的递增序列，并返回该序列的长度。
+
+示例 1:
+
+输入: [1,3,5,4,7]
+输出: 3
+解释: 最长连续递增序列是 [1,3,5], 长度为3。
+尽管 [1,3,5,7] 也是升序的子序列, 但它不是连续的，因为5和7在原数组里被4隔开。 
+示例 2:
+
+输入: [2,2,2,2,2]
+输出: 1
+解释: 最长连续递增序列是 [2], 长度为1。</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、数组定义：dp[i]代表nums[i]值结尾的最长连续递增序列的长度<br>2、状态转移方程</p>
+<pre><code>nums[i]＞nums[i−1]，i至少可以与i-1形成一个连续递增序列，因为它们俩挨着，并且是递增的，长度上是dp[i-1]+1
+
+nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数要比前一个数小，呈下降的趋势，注意不认为是递增的</code></pre>
+<p>3、初始值dp[i]=1</p>
+<p>时间复杂度：o(n)<br>空间复杂度：o(n)</p>
+<pre><code>class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        dp=[1]*len(nums)
+        for i in range(1,len(nums)):
+                if nums[i] &gt; nums[i-1]:
+                    dp[i]=max(dp[i],dp[i-1]+1)
+        return max(dp)                    </code></pre>
+<p>o(1)</p>
+<pre><code>public int findLengthOfLCIS(int[] nums) &#123;
+        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length;
+        int max = 1;
+        int[] dp = new int[2];
+        dp[0] = 1;
+        for (int i = 1; i ＜ n; i++) &#123;
+            dp[i % 2] = 1;//前一个状态值都会被覆盖，需要重新初始化
+            if (nums[i] ＞ nums[i - 1]) &#123;
+                dp[i % 2] += dp[(i - 1) % 2];//当前状态依赖前一状态，需要再前一状态上累加
+            &#125;
+            max = Math.max(max, dp[i % 2]);
+        &#125;
+        return max;
+    &#125;
+</code></pre>
+<h3 id="746-使用最小花费爬楼梯"><a href="#746-使用最小花费爬楼梯" class="headerlink" title="746. 使用最小花费爬楼梯"></a>746. 使用最小花费爬楼梯</h3><pre><code>链接：https://leetcode-cn.com/problems/min-cost-climbing-stairs/
+
+数组的每个索引作为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。
+
+每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。
+
+您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
+
+示例 1:
+
+输入: cost = [10, 15, 20]
+输出: 15
+解释: 最低花费是从cost[1]开始，然后走两步即可到阶梯顶，一共花费15。
+ 示例 2:
+
+输入: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+输出: 6
+解释: 最低花费方式是从cost[0]开始，逐个经过那些1，跳过cost[3]，一共花费6。
+注意：
+
+cost 的长度将会在 [2, 1000]。
+每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。</code></pre>
+<p>题解一|动态规划：<br>1、定义<br>    dp[i]为踏上第i级台阶的最小花费<br>2、状态转移<br>踏上第i级台阶有两种方法：</p>
+<pre><code>先踏上第i-2级台阶（最小总花费dp[i-2]），再直接迈两步踏上第i级台阶（花费cost[i]），最小总花费dp[i-2] + cost[i]；
+
+先踏上第i-1级台阶（最小总花费dp[i-1]），再迈一步踏上第i级台阶（花费cost[i]），最小总花费dp[i-1] + cost[i]；
+
+则dp[i]是上面这两个最小总花费中的最小值。</code></pre>
+<p>因此状态转移方程是：dp[i] = min(dp[i-2], dp[i-1]) + cost[i]。</p>
+<p>3、初始条件：</p>
+<pre><code>最后一步踏上第0级台阶，最小花费dp[0] = cost[0]。
+
+最后一步踏上第1级台阶有两个选择：
+
+可以分别踏上第0级与第1级台阶，花费cost[0] + cost[1]；
+也可以从地面开始迈两步直接踏上第1级台阶，花费cost[1]。
+最小值dp[1] = min(cost[0] + cost[1], cost[1]) = cost[1]。</code></pre>
+<pre><code>class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -&gt; int:
+        if not cost:
+            return 0
+        dp=[0]*len(cost)
+        dp[0]=cost[0]
+        dp[1]=cost[1]
+        for i in range(2,len(cost)):
+            dp[i]=min(dp[i-1]+cost[i],dp[i-2]+cost[i])
+        return min(dp[-1],dp[-2])</code></pre>
+<h3 id="1025-除数博弈"><a href="#1025-除数博弈" class="headerlink" title="1025. 除数博弈"></a>1025. 除数博弈</h3><pre><code>链接：https://leetcode-cn.com/problems/divisor-game/
+
+爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。
+
+最初，黑板上有一个数字 N 。在每个玩家的回合，玩家需要执行以下操作：
+
+选出任一 x，满足 0 &lt; x &lt; N 且 N % x == 0 。
+用 N - x 替换黑板上的数字 N 。
+如果玩家无法执行这些操作，就会输掉游戏。
+
+只有在爱丽丝在游戏中取得胜利时才返回 True，否则返回 false。假设两个玩家都以最佳状态参与游戏。
+
+示例 1：
+
+输入：2
+输出：true
+解释：爱丽丝选择 1，鲍勃无法进行操作。
+示例 2：
+
+输入：3
+输出：false
+解释：爱丽丝选择 1，鲍勃也选择 1，然后爱丽丝无法进行操作。
+
+
+提示：
+
+1 &lt;= N &lt;= 1000</code></pre>
+<p>题解一|归纳</p>
+<p>思路：最后轮到谁时 N=1，那么谁就是输家。</p>
+<p>假设N为奇数，即 N%2=1:</p>
+<pre><code>那么 N 的约数x一定都是奇数，N-x 一定是偶数；</code></pre>
+<p>假设N为偶数，即 N%2=0:</p>
+<pre><code>那么 N 的约数x可能是奇数，也可能是偶数。x为奇数时，N-x为奇数；x为偶数时，N-x为偶数。</code></pre>
+<p>题目中说“两个玩家都以最佳状态参与游戏”，并且爱丽丝先手，那她一定会努力让自己得胜。</p>
+<p>结论：</p>
+<pre><code>若N是偶数，爱丽丝一定会选x为奇数，让轮到鲍勃的(N-x)为奇数，这样她每次都会轮到偶数直至胜利；
+
+若N是奇数，爱丽丝没得选，只能让鲍勃轮到的（N-x)为偶数，此时主动权就在鲍勃手中，他会让爱丽丝每次轮到奇数，直至鲍勃获胜。</code></pre>
+<pre><code>class Solution:
+    def divisorGame(self, N: int) -&gt; bool:
+        return N%2==0</code></pre>
+<p>题解二|动态规划</p>
+<p>定义：dp[i]为当N=i时，Alice的输赢</p>
+<pre><code>class Solution:
+    def divisorGame(self, N: int) -&gt; bool:
+        if N&lt;=1:
+            return False
+        dp=[False]* (N+1)
+        dp[1]= False
+        dp[2]= True
+        for i in range(3,N+1):
+            for j in range(1,i):
+                if dp[i-j] == False and i%j == 0: # 当dp[i-j]为奇数时，dp[i]为偶数
+                    dp[i]=True
+                    break
+        return dp[N]</code></pre>
+<h3 id="面试题-08-01-三步问题"><a href="#面试题-08-01-三步问题" class="headerlink" title="面试题 08.01. 三步问题"></a>面试题 08.01. 三步问题</h3><pre><code>链接：https://leetcode-cn.com/problems/three-steps-problem-lcci/
+
+三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。实现一种方法，计算小孩有多少种上楼梯的方式。结果可能很大，你需要对结果模1000000007。
+
+示例1:
+
+ 输入：n = 3 
+ 输出：4
+ 说明: 有四种走法
+示例2:
+
+ 输入：n = 5
+ 输出：13
+提示:
+
+n范围在[1, 1000000]之间</code></pre>
+<p>题解一|动态规划</p>
+<pre><code>class Solution:
+    def watiaosToStep(self, n: int) -&gt; int:
+        if n &lt; 3:
+            return n
+        dp=[0]*(n+1)
+        dp[1]=1
+        dp[2]=2
+        dp[3]=4
+        for i in range(4,n+1):
+            dp[i]=(dp[i-1]+dp[i-2]+dp[i-3]) % 1000000007
+        return dp[n]</code></pre>
+<h3 id="面试题-16-17-连续数列"><a href="#面试题-16-17-连续数列" class="headerlink" title="面试题 16.17. 连续数列"></a>面试题 16.17. 连续数列</h3><pre><code>链接：https://leetcode-cn.com/problems/contiguous-sequence-lcci/
+
+给定一个整数数组，找出总和最大的连续数列，并返回总和。
+
+示例：
+
+输入： [-2,1,-3,4,-1,2,1,-5,4]
+输出： 6
+解释： 连续子数组 [4,-1,2,1] 的和最大，为 6。
+进阶：
+
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</code></pre>
+<pre><code>class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        dp=[0]*len(nums)
+        dp[0]=nums[0]
+        dp[1]=max(dp[0]+nums[1],nums[1])
+        for i in range(2,len(nums)):
+            dp[i]=max(dp[i-1]+nums[i],nums[i])
+        return max(dp)</code></pre>
+<h3 id="面试题42-连续子数组的最大和"><a href="#面试题42-连续子数组的最大和" class="headerlink" title="面试题42. 连续子数组的最大和"></a>面试题42. 连续子数组的最大和</h3><pre><code>链接：https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/
+
+输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
+
+要求时间复杂度为O(n)。
+
+示例1:
+
+输入: nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+
+
+提示：
+
+1 &lt;= arr.length &lt;= 10^5
+-100 &lt;= arr[i] &lt;= 100</code></pre>
+<pre><code>class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        dp=[0]*len(nums)
+        dp[0]=nums[0]
+        dp[1]=max(dp[0]+nums[1],nums[1])
+        for i in range(2,len(nums)):
+            dp[i]=max(dp[i-1]+nums[i],nums[i])
+        return max(dp)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-7-%E9%80%92%E5%BD%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2709,7 +7104,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-13 16:31:01" itemprop="dateModified" datetime="2020-09-13T16:31:01+08:00">2020-09-13</time>
+                <time title="Modified: 2020-11-04 15:51:20" itemprop="dateModified" datetime="2020-11-04T15:51:20+08:00">2020-11-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3636,7 +8031,7 @@ class Solution:
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -&gt; TreeNode:
-        if not inorder:
+        if not inorder: # 只能是判断inorder，而不能是preorder
             return
         root=TreeNode(preorder.pop(0))
         i=inorder.index(root.val)
@@ -4252,7 +8647,7 @@ class Solution:
                 return
             l=root.left
             r=root.right
-            while l:
+            while l: # while l and r:也可以
                 l.next=r
                 l=l.right
                 r=r.left
@@ -5051,6 +9446,27 @@ class Solution:
             if not k:
                 return root.val
             root=root.right</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -&gt; int:
+        if not root or not k:
+            return
+        stack=[]
+        while stack or root:
+            if root:
+                stack.append(root)
+                root=root.left
+            else:
+                root=stack.pop()
+                k-=1
+                if not k:
+                    return root.val
+                root=root.right</code></pre>
 <h3 id="235-二叉搜索树的最近公共祖先"><a href="#235-二叉搜索树的最近公共祖先" class="headerlink" title="235. 二叉搜索树的最近公共祖先"></a>235. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/
 lowest-common-ancestor-of-a-binary-search-tree/
 
@@ -6206,7 +10622,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-27 21:17:21" itemprop="dateModified" datetime="2020-10-27T21:17:21+08:00">2020-10-27</time>
+                <time title="Modified: 2020-10-30 10:36:09" itemprop="dateModified" datetime="2020-10-30T10:36:09+08:00">2020-10-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -6970,6 +11386,30 @@ class Solution:
 
         res=res*flag
         return min(max(res,-2**31),2**31-1)</code></pre>
+<p>题解二：</p>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        # return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)
+
+        # print(re.findall(&#39;\d&#39;,str.lstrip())) # [&#39;4&#39;, &#39;2&#39;, &#39;4&#39;, &#39;4&#39;]
+        # print(re.findall(&#39;\d*&#39;,str.lstrip())) # [&#39;4244&#39;, &#39;&#39;]
+        # print(re.findall(&#39;\d+&#39;,str.lstrip())) # [&#39;4244&#39;]
+        # print(re.findall(&#39;^[+-]\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]
+        print(re.findall(&#39;^[+-]?\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]
+        # #  re.findall返回的是一个字符串列表，int()数据类型转换不支持列表，用*对列表解包得到字符串。比如[7,8,8]→7,8,8
+        # print(int(*re.findall(&#39;^[+-]\d+&#39;,str.lstrip()))) # -4244
+
+        x=int(*re.findall(&#39;^[-+]?\d+&#39;,str.lstrip()))
+        if x &gt; pow(2,31)-1:
+            return pow(2,31)-1
+        elif x &lt; pow(-2,31):
+            return pow(-2,31)
+        else:
+            return x</code></pre>
+<p>题解三：</p>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)</code></pre>
 <h3 id="31-下一个排列"><a href="#31-下一个排列" class="headerlink" title="31. 下一个排列"></a>31. 下一个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/next-permutation/
 
 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
@@ -7175,7 +11615,7 @@ class Solution:
         n=len(matrix[0]) # 矩阵第一行matrix[0]
         # 矩阵转置
         for i in range(n):
-            for j in range(i,n):
+            for j in range(i,n): # 注意这里是i，而不是从0开始。
                 matrix[j][i],matrix[i][j]=matrix[i][j],matrix[j][i]
         # 翻转每行
         for i in range(n):
@@ -7239,7 +11679,7 @@ class Solution:
         for i in range(len(digits)-1,-1,-1):
             digits[i]+=1
             digits[i] %= 10
-            if digits[i] != 0:
+            if digits[i] != 0: # 注意这里是digits[i]，而不是digits
                 return digits
 
         digits=[0]*(len(digits)+1) # 解决case[9],输出[1,0]
@@ -7717,6 +12157,107 @@ index记录非0的位置；</code></pre>
                     nums[i]=0
                 index+=1
         return nums</code></pre>
+<h3 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349.两个数组的交集"></a>349.两个数组的交集</h3><pre><code>链接：https://leetcode-cn.com/problems/intersection-of-two-arrays/
+
+给定两个数组，编写一个函数来计算它们的交集。
+
+示例 1：
+
+输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+示例 2：
+
+输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+ 
+
+说明：
+
+输出结果中的每个元素一定是唯一的。
+我们可以不考虑输出结果的顺序。</code></pre>
+<p>题解一|集合：</p>
+<p>集合（set）是一个无序的不重复元素序列，可以使用大括号 { } 或者 set() 函数创建集合。</p>
+<p>注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。</p>
+<pre><code>class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        res=set()
+        for i in nums1:
+            if i in nums2:
+                res.add(i)
+        return list(res)</code></pre>
+<p>题解二：</p>
+<p>时间复杂度：一般情况下是 O(m+n)，最坏情况下是 O(m×n) 。<br>空间复杂度：最坏的情况是 O(m+n)，数组中的所有元素都不同。</p>
+<pre><code>class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        set1=set(num1)
+        set2=set(num2)
+        return list(set1 &amp; set2)</code></pre>
+<h3 id="350-两个数组的交集-II"><a href="#350-两个数组的交集-II" class="headerlink" title="350. 两个数组的交集 II"></a>350. 两个数组的交集 II</h3><pre><code>链接：https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/
+
+给定两个数组，编写一个函数来计算它们的交集。
+
+示例 1：
+
+输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2,2]
+示例 2:
+
+输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[4,9]
+
+说明：
+
+输出结果中每个元素出现的次数，应与元素在两个数组中出现次数的最小值一致。
+我们可以不考虑输出结果的顺序。
+进阶：
+
+如果给定的数组已经排好序呢？你将如何优化你的算法？
+如果 nums1 的大小比 nums2 小很多，哪种方法更优？
+如果 nums2 的元素存储在磁盘上，内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</code></pre>
+<p>题解一|排序：</p>
+<p>时间复杂度：O(mlogm+nlogn)，其中 m 和 n 分别是两个数组的长度。对两个数组进行排序的时间复杂度是 O(mlogm+nlogn)，遍历两个数组的时间复杂度是 O(m+n)，因此总时间复杂度是 O(mlogm+nlogn)。</p>
+<p>空间复杂度：O(min(m,n))，其中 m 和 n 分别是两个数组的长度。为返回值创建一个数组 intersection，其长度为较短的数组的长度。不过在 C++ 中，我们可以直接创建一个 vector，不需要把答案临时存放在一个额外的数组中，所以这种实现的空间复杂度为 O(1)。</p>
+<pre><code>class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        nums1.sort()
+        nums2.sort()
+        index1,index2=0,0
+        intersection=[]
+        while index1&lt;len(nums1) and index2&lt;len(nums2):
+            if nums1[index1] &lt; nums2[index2]:
+                index1+=1
+            elif nums1[index1] &gt; nums2[index2]:
+                index2+=1
+            else:
+                intersection.append(nums1[index1])
+                index1+=1
+                index2+=1
+        return intersection</code></pre>
+<p>题解二|hash：</p>
+<pre><code>class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        hash=&#123;&#125;
+        intersection=[]
+        for i in nums1:
+            hash[i]=hash.get(i,0)+1
+        for i in nums2:
+            if hash.get(i,0)&gt;0:
+                intersection.append(i)
+                hash[i]-=1
+        return intersection</code></pre>
+<pre><code>class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        hash=&#123;&#125;
+        intersection=[]
+        for i in nums1:
+            hash[i]=hash.get(i,0)+1
+        for i in nums2:
+            if hash.get(i,0)&gt;0:
+                intersection.append(i)
+                hash[i]-=1
+                if hash[i]==0: # 动态减少空间，以免hash表越来越大。
+                    hash.pop(i)
+        return intersection</code></pre>
 <h3 id="442-数组中重复的数据"><a href="#442-数组中重复的数据" class="headerlink" title="442. 数组中重复的数据"></a>442. 数组中重复的数据</h3><pre><code>链接：https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/
 
 给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
@@ -7812,6 +12353,26 @@ index记录非0的位置；</code></pre>
                     m+=1
                     n-=1
         return result</code></pre>
+<h3 id="867-转置矩阵"><a href="#867-转置矩阵" class="headerlink" title="867. 转置矩阵"></a>867. 转置矩阵</h3><pre><code>链接：https://leetcode-cn.com/problems/transpose-matrix/
+
+给定一个矩阵 A， 返回 A 的转置矩阵。
+
+矩阵的转置是指将矩阵的主对角线翻转，交换矩阵的行索引与列索引。
+
+示例 1：
+
+输入：[[1,2,3],[4,5,6],[7,8,9]]
+输出：[[1,4,7],[2,5,8],[3,6,9]]
+示例 2：
+
+输入：[[1,2,3],[4,5,6]]
+输出：[[1,4],[2,5],[3,6]]
+
+
+提示：
+
+1 &lt;= A.length &lt;= 1000
+1 &lt;= A[0].length &lt;= 1000</code></pre>
 <h3 id="1424-对角线遍历-II"><a href="#1424-对角线遍历-II" class="headerlink" title="1424. 对角线遍历 II"></a>1424. 对角线遍历 II</h3><pre><code>链接：https://leetcode-cn.com/problems/diagonal-traverse-ii/solution/mei-ge-shu-zu-yuan-su-de-wei-zhi-jue-ding-liao-ta-/
 
 给你一个列表 nums ，里面每一个元素都是一个整数列表。请你依照下面各图的规则，按顺序返回 nums 中对角线上的整数。
@@ -8418,376 +12979,10 @@ texlive-full的安装包有点大，约1G多。</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">matplotlib-1-问题记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-09-02 13:29:05" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:07:42" itemprop="dateModified" datetime="2020-09-18T17:07:42+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、问题：matplotlib无法显示中文的问题"><a href="#一、问题：matplotlib无法显示中文的问题" class="headerlink" title="一、问题：matplotlib无法显示中文的问题"></a>一、问题：matplotlib无法显示中文的问题</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
-<h3 id="1、下载SimHei-ttf字体"><a href="#1、下载SimHei-ttf字体" class="headerlink" title="1、下载SimHei.ttf字体"></a>1、下载SimHei.ttf字体</h3><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
-<h3 id="2、解决办法"><a href="#2、解决办法" class="headerlink" title="2、解决办法"></a>2、解决办法</h3><pre><code>1.找到Matplotlib路径
-$ python
-&gt; import matplotlib
-&gt; print(matplotlib.matplotlib_fname()) # 获得matplotlib包所在文件夹路径
-/anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/matplotlibrc
-
-2.将下载的ttf文件拷贝到此目录下
-$ cd /anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/
-$ cd fonts/ttf
-$ cp ttf文件 . # 拷贝下载的ttf文件到此目录
-
-3. 删除字体缓存文件
-$ rm -rf ~/.matplotlib/*.cache
-
-4. 字体参数设置
-$ cd /anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data
-$ vi matplotlibrc
-font.family         : sans-serif 
-font.sans-serif     : SimHei
-axes.unicode_minus  : False # use unicode for the minus symbol
-# 意思是知道字库族为 sans-serif，同时添加“SimHei”即宋体到字库族列表中，同时将找到axes.unicode_minus，将True改为False，作用就是解决负号’-‘显示为方块的问题
-
-5. 字体显示
-有中文出现的情况，需要 u&#39;内容&#39;，比如 plt.xlabel(u&#39;横坐标&#39;)
-同时还需在开头添加代码行：#coding:utf-8
-
-注意：
-但是我走到这一步后运行，字体显示仍未小框框。提示：
-【UserWarning: findfont: Font family [‘sans-serifs’] not found. Falling back to Bitstream Vera Sans】
-说明还是没有找到字体，所以我进一步进行配置。
-
-6.配置fontList.json
-# 在ttflist文件添加&quot;SimHei&quot;字体集
-
-$ cd /Users/apple/.matplotlib
-$ vi fontList.json</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/matplotlib_fonts.png"><br>    图片红框中的ttf文件是我后加的，说明之前这个ttf文件不在其中，所以自然找不到这个字体。<br>    根据自己的位置在文件中添加自己的ttf文件<br>    添加如下配置（参考文件中的配置）：</p>
-<pre><code>&#123;
-  &quot;fname&quot;: &quot;/anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/SimHei.ttf&quot;,
-  &quot;name&quot;: &quot;SimHei&quot;,
-  &quot;style&quot;: &quot;normal&quot;,
-  &quot;variant&quot;: &quot;normal&quot;,
-  &quot;weight&quot;: 400,
-  &quot;stretch&quot;: &quot;normal&quot;,
-  &quot;size&quot;: &quot;scalable&quot;,
-  &quot;_class&quot;: &quot;FontEntry&quot;
-&#125;,
-
-之后重启项目，matplotlib即可显示中文字体了。</code></pre>
-<h2 id="二、查看matplotlib支持的字体集"><a href="#二、查看matplotlib支持的字体集" class="headerlink" title="二、查看matplotlib支持的字体集"></a>二、查看matplotlib支持的字体集</h2><pre><code>$ python 
-&gt; import matplotlib
-&gt; xxx=sorted(f.name for f in matplotlib.font_manager.fontManager.ttflist)
-&gt; for i in xxx:
-          print(i)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Django-2-ModelForm%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Django-2-ModelForm%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Django-2-ModelForm详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-31 12:41:10" itemprop="dateCreated datePublished" datetime="2018-08-31T12:41:10+08:00">2018-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 13:42:46" itemprop="dateModified" datetime="2020-09-18T13:42:46+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一.前言"></a>一.前言</h2><pre><code>ModelForm：功能是将Model和Form组合起来</code></pre>
-<h2 id="二-ModelForm"><a href="#二-ModelForm" class="headerlink" title="二.ModelForm"></a>二.ModelForm</h2><pre><code>from django.forms import ModelForm # 导入ModelForm
-from django.forms import fields
-from .models import Book
-
-class BookModelForm(forms.ModelForm):
-class Meta:
-     # 可以在这里单独定义字段的具体类型和属性，同Form;
-     # 如果定义的字段在model中存在，则会覆盖；
-     name=fields.CharField(required=True)
-
-    model = Book
-
-    # fields控制在前端显示的字段
-    fields = [&#39;name&#39;, &#39;authors&#39;, &#39;publish_date&#39;]
-    fields=&#39;__all__&#39;
-
-    # labels控制在前端是否显示标题
-     labels=&#123;
-             &#39;name&#39;: &#39;用户名&#39;,   # &#39;name&#39;:&#39;&#39; 
-         &#39;authors&#39;: &#39;作者&#39;,
-         &#39;publish_date&#39;: &#39;日期&#39;,
-     &#125;
-
-    widgets = &#123;
-        &#39;name&#39;: forms.TextInput(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;&#125;),
-        &#39;authors&#39;: forms.Select(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;&#125;),
-        &#39;publish_date&#39;: forms.DateInput(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;,
-                                               &#39;placeholder&#39;: &quot;YYYY-MM-DD&quot;&#125;)
-    &#125;
-
-
-
-
- 说明：
-
-    model: 对应的数据库model
-
-    fields: 选择字段列表；’all’是选择所有字段
-
-    exclude: 排除字段列表
-
-    widgets: 插件字典
-
-    labels: 前端显示字段名
-
-    help_texts：帮助提示信息
-
-    error_messages: 自定义错误提示
-
-    localized_fields: 本地化，如：根据不同时区显示数据</code></pre>
-<h2 id="三-View"><a href="#三-View" class="headerlink" title="三.View"></a>三.View</h2><pre><code>class Index(TemplateView):
-  template_name = &quot;index.html&quot;
-
-  def get(self, request, *args, **kwargs):
-      form = BookModelForm()    
-      return self.render_to_response(context=&#123;&quot;form&quot;: form&#125;)
-
-  def post(self,request):
-
-      form = BookModelForm()
-
-      # obj=model.Book.objects.get(id=1)
-      #form=BookModelForm(request.POST,instance=obj)
-
-     if form.is_valid():
-         form.save()
-         return redirect(&quot;home&quot;)
-
-            # obj = form.save(commit=False)
-            # obj.save()      # 保存单表信息
-            # obj.save_m2m()  # 保存关联多对多信息
-     return self.render_to_response(context=&#123;&quot;form&quot;: form&#125;)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/iTerm2-sshpass-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/iTerm2-sshpass-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/" class="post-title-link" itemprop="url">iTerm2+sshpass:Mac下使用iTerm2免密连接远程主机</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-08-31 11:37:49" itemprop="dateCreated datePublished" datetime="2018-08-31T11:37:49+08:00">2018-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:29:24" itemprop="dateModified" datetime="2020-09-18T16:29:24+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-安装iTerm2"><a href="#一-安装iTerm2" class="headerlink" title="一.安装iTerm2"></a>一.安装iTerm2</h2><pre><code>不再介绍</code></pre>
-<h2 id="二-安装sshpass"><a href="#二-安装sshpass" class="headerlink" title="二.安装sshpass"></a>二.安装sshpass</h2><pre><code>使用brew进行安装
-$ brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
-$ sshpass -h # 验证是否安装成功</code></pre>
-<h2 id="三-设置免密"><a href="#三-设置免密" class="headerlink" title="三.设置免密"></a>三.设置免密</h2><pre><code>关键是Command模式格式：
-/usr/local/bin/sshpass -p (密码) ssh -p (端口) (登录)@(服务器IP或者域名)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -8853,7 +13048,7 @@ $ sshpass -h # 验证是否安装成功</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

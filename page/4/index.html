@@ -158,6 +158,598 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">PyTorch-1.简介和环境搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-28 20:36:09" itemprop="dateCreated datePublished" datetime="2020-02-28T20:36:09+08:00">2020-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-14 15:29:21" itemprop="dateModified" datetime="2020-04-14T15:29:21+08:00">2020-04-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等应用程序。它主要由Facebook人工智能小组开发，不仅能够实现强大的GPU加速，同时还支持动态神经网络，这一点是现在很多主流框架如TensorFlow都不支持的。 </p>
+<p>PyTorch提供了两个高级功能：<br>    1.具有强大的GPU加速的张量计算（如Numpy）<br>    2.包含自动求导系统的深度神经网络 </p>
+<p>除了Facebook之外，Twitter、GMU和Salesforce等机构都采用了PyTorch。</p>
+<p>PyTorch的前身是Torch，Torch是一个有大量机器学习算法支持的科学计算框架，是一个与Numpy类似的张量（Tensor） 操作库，其特点是特别灵活，但因其采用了小众的编程语言是Lua，所以流行度不高，这也就有了PyTorch的出现。所以其实Torch是 PyTorch的前身，它们的底层语言相同，只是使用了不同的上层包装语言。</p>
+<p>TensorFlow和Caffe都是命令式的编程语言，而且是静态的，首先必须构建一个神经网络，然后一次又一次使用相同的结构，如果想要改变网络的结构，就必须从头开始。但是对于PyTorch，通过反向求导技术，可以让你零延迟地任意改变神经网络的行为，而且其实现速度 快。正是这一灵活性是PyTorch对比TensorFlow的最大优势。</p>
+<p>另外，PyTorch的代码对比TensorFlow而言，更加简洁直观，底层代码也更容易看懂，这对于使用它的人来说理解底层肯定是一件令人激动的事。</p>
+<p>所以，总结一下PyTorch的优点： </p>
+<pre><code>支持GPU；
+灵活，支持动态神经网络；
+底层代码易于理解；
+命令式体验；
+自定义扩展；</code></pre>
+<p>当然，现今任何一个深度学习框架都有其缺点，PyTorch也不例外，对比TensorFlow，其全面性处于劣势，目前PyTorch还不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；其次因为这个框 架较新，使得他的社区没有那么强大，在文档方面其C库大多数没有文档。</p>
+<h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><pre><code>安装Anaconda；
+安装PyTorch;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">python并发-19.垃圾回收机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:49:58" itemprop="dateCreated datePublished" datetime="2020-02-27T23:49:58+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:12" itemprop="dateModified" datetime="2020-09-18T14:03:12+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们知道，目前的计算机都采用的是图灵机架构，其本质就是用一条无限长的纸带，对应今天的存储器。随后在工程学的推演中，逐渐出现了寄存器、易失性存储器（内存）以及永久性存储器（硬盘）等产品。由于不同的存储器，其速度越快，单位价格也就越昂贵，因此，妥善利用好每一寸告诉存储器的空间，永远是系统设计的一个核心。</p>
+<p>Python 程序在运行时，需要在内存中开辟出一块空间，用于存放运行时产生的临时变量，计算完成后，再将结果输出到永久性存储器中。但是当数据量过大，或者内存空间管理不善，就很容易出现内存溢出的情况，程序可能会被操作系统终止。</p>
+<p>而对于服务器这种用于永不中断的系统来说，内存管理就显得更为重要了，不然很容易引发内存泄漏。<br>这里的内存泄漏是指程序本身没有设计好，导致程序未能释放已不再使用的内存，或者直接失去了对某段内存的控制，造成了内存的浪费。</p>
+<p>那么，对于不会再用到的内存空间，Python 是通过什么机制来管理的呢？就是引用计数机制。</p>
+<h2 id="一、Python引用计数机制"><a href="#一、Python引用计数机制" class="headerlink" title="一、Python引用计数机制"></a>一、Python引用计数机制</h2><p>Python 中一切皆对象，也就是说，在 Python 中你用到的一切变量，本质上都是类对象。</p>
+<p>那么，如何知道一个对象永远都不能再使用了呢？很简单，就是当这个对象的引用计数值为 0 时，说明这个对象永不再用，自然它就变成了垃圾，需要被回收。</p>
+<pre><code>import os
+import psutil # 获取系统信息
+
+
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+
+
+func()
+showMemoryInfo(&#39;finished&#39;)</code></pre>
+<p>输出：</p>
+<pre><code>initial memory used: 6.3828125 MB
+after a created memory used: 392.92578125 MB
+finished memory used: 10.85546875 MB</code></pre>
+<p>可以看到，当调用函数 func() 且列表 a 被创建之后，内存占用迅速增加到了 392 MB，而在函数调用结束后，内存则返回正常。这是因为，函数内部声明的列表 a 是局部变量，在函数返回后，局部变量的引用会注销掉，此时列表 a 所指代对象的引用计数为 0，Python 便会执行垃圾回收，因此之前占用的大量内存就又回来了。</p>
+<pre><code>import os
+import psutil
+
+
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    global a
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+
+
+func()
+showMemoryInfo(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.37890625 MB
+after a created memory used: 392.74609375 MB
+finished memory used: 392.74609375 MB</code></pre>
+<p>global a 表示将 a 声明为全局变量，则即使函数返回后，列表的引用依然存在，于是 a 对象就不会被当做垃圾回收掉，依然占用大量内存。</p>
+<pre><code>import os
+import psutil
+
+
+def showMemoryInfo(hint):
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    showMemoryInfo(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    showMemoryInfo(&#39;after a created&#39;)
+    return a
+
+a = func()
+showMemoryInfo(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.4140625 MB
+after a created memory used: 392.86328125 MB
+finished memory used: 392.86328125 MB
+</code></pre>
+<p>如果把生成的列表返回，然后在主程序中接收，那么引用依然存在，垃圾回收也不会被触发，大量内存仍然被占用着.</p>
+<p>??Python 内部的引用计数机制:</p>
+<pre><code>import sys
+
+a = []
+print(sys.getrefcount(a))  # 两次引用，一次来自 a，一次来自 getrefcount
+
+
+def func(a):
+    # 四次引用，a，python 的函数调用栈，函数参数，和 getrefcount
+    print(sys.getrefcount(a))
+
+
+func(a)
+# 两次引用，一次来自 a，一次来自 getrefcount，函数 func 调用已经不存在
+print(sys.getrefcount(a))
+</code></pre>
+<p>输出：</p>
+<pre><code>2
+4
+2</code></pre>
+<p>注意：sys.getrefcount() 函数用于查看一个变量的引用次数，不过别忘了，getrefcount 本身也会引入一次计数。</p>
+<p>注意：在函数调用发生的时候，会产生额外的两次引用，一次来自函数栈，另一个是函数参数。</p>
+<pre><code>import sys
+a = []
+print(sys.getrefcount(a)) # 两次
+b = a
+print(sys.getrefcount(a)) # 三次
+c = b
+d = b
+e = c
+f = e
+g = d
+print(sys.getrefcount(a)) # 八次
+
+输出：
+2
+3
+8</code></pre>
+<p>分析：</p>
+<p>a、b、c、d、e、f、g 这些变量全部指代的是同一个对象，而 sys.getrefcount() 函数并不是统计一个指针，而是要统计一个对象被引用的次数，所以最后一共会有 8 次引用。</p>
+<p>理解引用这个概念后，引用释放是一种非常自然和清晰的思想。相比 C 语言中需要使用 free 去手动释放内存，Python 的垃圾回收在这里可以说是省心省力了。</p>
+<p>不过，有读者还是会好奇，如果想手动释放内存，应该怎么做呢？方法同样很简单，只需要先调用 del a 来删除一个对象，然后强制调用 gc.collect() 即可手动启动垃圾回收。例如：</p>
+<pre><code>import psutil
+import os
+import gc
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+show_memory_info(&#39;initial&#39;)
+a=[i for i in range(10000000)]
+show_memory_info(&#39;after a created&#39;)
+del a
+gc.collect()
+show_memory_info(&#39;finished&#39;)
+print(a)
+
+输出：
+initial memory used: 6.3984375 MB
+after a created memory used: 392.77734375 MB
+finished memory used: 10.70703125 MB
+Traceback (most recent call last):
+  File &quot;/Users/apple/PycharmProjects/python-learning/test/Account.py&quot;, line 24, in &lt;module&gt;
+    print(a)
+NameError: name &#39;a&#39; is not defined</code></pre>
+<p>问题：引用次数为 0 是垃圾回收启动的充要条件吗？还有没有其他可能性呢？</p>
+<p>引用计数是其中最简单的实现，引用计数并非充要条件，它只能算作充分非必要条件，至于其他的可能性，下面所讲的循环引用正是其中一种。</p>
+<h2 id="二、循环引用"><a href="#二、循环引用" class="headerlink" title="二、循环引用"></a>二、循环引用</h2><p>问题：如果有两个对象，之间互相引用，且不再被别的对象所引用，那么它们应该被垃圾回收吗？</p>
+<pre><code>import psutil
+import os
+import gc
+
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    show_memory_info(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    b = [i for i in range(10000000)]
+    show_memory_info(&#39;after a,b created&#39;)
+    a.append(b)
+    b.append(a)
+
+
+func()
+show_memory_info(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.4375 MB
+after a,b created memory used: 779.69140625 MB
+finished memory used: 779.69140625 MB</code></pre>
+<p>程序中，a 和 b 互相引用，并且作为局部变量在函数 func 调用结束后，a 和 b 这两个指针从程序意义上已经不存在，但从输出结果中看到，依然有内存占用，这是为什么呢？因为互相引用导致它们的引用数都不为 0。</p>
+<p>试想一下，如果这段代码出现在生产环境中，哪怕 a 和 b 一开始占用的空间不是很大，但经过长时间运行后，Python 所占用的内存一定会变得越来越大，最终撑爆服务器，后果不堪设想。</p>
+<p>有读者可能会说，互相引用还是很容易被发现的呀，问题不大。可是，更隐蔽的情况是出现一个引用环，在工程代码比较复杂的情况下，引用环真不一定能被轻易发现。那么应该怎么做呢？</p>
+<p>Python 本身能够处理这种情况，可以通过显式调用 gc.collect() 来启动垃圾回收，例如：</p>
+<pre><code>import psutil
+import os
+import gc
+
+
+def show_memory_info(hint):
+    &#39;&#39;&#39;
+    显示当前 python 程序占用的内存大小
+    :param hint:
+    :return:
+    &#39;&#39;&#39;
+    pid = os.getpid()
+    p = psutil.Process(pid)
+
+    info = p.memory_full_info()
+    memory = info.uss / 1024. / 1024
+    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
+
+
+def func():
+    show_memory_info(&#39;initial&#39;)
+    a = [i for i in range(10000000)]
+    b = [i for i in range(10000000)]
+    show_memory_info(&#39;after a,b created&#39;)
+    a.append(b)
+    b.append(a)
+
+
+func()
+gc.collect()
+show_memory_info(&#39;finished&#39;)
+
+输出：
+initial memory used: 6.41015625 MB
+after a,b created memory used: 779.81640625 MB
+finished memory used: 11.4375 MB</code></pre>
+<p>事实上，Python 使用标记清除（mark-sweep）算法和分代收集（generational），来启用针对循环引用的自动垃圾回收。</p>
+<p>1、标记清除算法：</p>
+<p>先用图论来理解不可达的概念。对于一个有向图，如果从一个节点出发进行遍历，并标记其经过的所有节点；那么，在遍历结束后，所有没有被标记的节点，我们就称之为不可达节点。显而易见，这些节点的存在是没有任何意义的，自然的，我们就需要对它们进行垃圾回收。</p>
+<p>当然，每次都遍历全图，对于 Python 而言是一种巨大的性能浪费。所以，在 Python 的垃圾回收实现中，标记清除算法使用双向链表维护了一个数据结构，并且只考虑容器类的对象（只有容器类对象才有可能产生循环引用）。</p>
+<p>2、分代收集算法：</p>
+<p>将 Python 中的所有对象分为三代。刚刚创立的对象是第 0 代；经过一次垃圾回收后，依然存在的对象，便会依次从上一代挪到下一代。而每一代启动自动垃圾回收的阈值，则是可以单独指定的。当垃圾回收器中新增对象减去删除对象达到相应的阈值时，就会对这一代对象启动垃圾回收。</p>
+<p>事实上，分代收集基于的思想是，新生的对象更有可能被垃圾回收，而存活更久的对象也有更高的概率继续存活。因此，通过这种做法，可以节约不少计算量，从而提高 Python 的性能。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/" class="post-title-link" itemprop="url">python并发-18.GIL全局解释器锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 23:30:32" itemprop="dateCreated datePublished" datetime="2020-02-27T23:30:32+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:08" itemprop="dateModified" datetime="2020-09-18T14:03:08+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>GIL，中文译为全局解释器锁。</p>
+<pre><code>import time
+
+start = time.clock()
+
+
+def count(n):
+    while n &gt; 0:
+        n -= 1
+
+
+count(10000)
+print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
+<p>输出：Time used: 0.0006330000000000016</p>
+<p>使用多（适量）线程可以提升程序性能：</p>
+<pre><code>import time
+from threading import Thread
+
+start = time.clock()
+
+
+def count(n):
+    while n &gt; 0:
+        n -= 1
+
+
+t1 = Thread(target=count, args=[10000 // 2])
+t2 = Thread(target=count, args=[10000 // 2])
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
+<p>输出：Time used: 0.0007749999999999979</p>
+<p>从输出结果看，多线程不但没有提高性能，反而降低了。</p>
+<pre><code>如果使用更多线程进行尝试，会发现其运行效率和 2 个线程效率几乎一样（本机器测试使用 4 个线程，其执行效率约为 0.001）。</code></pre>
+<p>事实上，得到这样的结果是肯定的，因为 GIL 限制了 Python 多线程的性能不会像我们预期的那样。</p>
+<p>那么，什么是 GIL 呢？GIL 是最流程的 CPython 解释器（平常称为 Python）中的一个技术术语，中文译为全局解释器锁，其本质上类似操作系统的 Mutex。GIL 的功能是：在 CPython 解释器中执行的每一个 Python 线程，都会先锁住自己，以阻止别的线程执行。</p>
+<p>当然，CPython 不可能容忍一个线程一直独占解释器，它会轮流执行 Python 线程。这样一来，用户看到的就是“伪”并行，即 Python 线程在交替执行，来模拟真正并行的线程。</p>
+<p>有读者可能会问，既然 CPython 能控制线程伪并行，为什么还需要 GIL 呢？其实，这和 CPython 的底层内存管理有关。</p>
+<p>CPython 使用引用计数来管理内容，所有 Python 脚本中创建的实例，都会配备一个引用计数，来记录有多少个指针来指向它。当实例的引用计数的值为 0 时，会自动释放其所占的内存。</p>
+<pre><code>&gt;&gt;&gt; import sys
+&gt;&gt;&gt; a = []
+&gt;&gt;&gt; b = a
+&gt;&gt;&gt; sys.getrefcount(a)
+3</code></pre>
+<p>a 的引用计数值为 3，因为有 a、b 和作为参数传递的 getrefcount 都引用了一个空列表。</p>
+<p>假设有两个 Python 线程同时引用 a，那么双方就都会尝试操作该数据，很有可能造成引用计数的条件竞争，导致引用计数只增加 1（实际应增加 2），这造成的后果是，当第一个线程结束时，会把引用计数减少 1，此时可能已经达到释放内存的条件（引用计数为 0），当第 2 个线程再次视图访问 a 时，就无法找到有效的内存了。</p>
+<p>所以，CPython 引进 GIL，可以最大程度上规避类似内存管理这样复杂的竞争风险问题。</p>
+<h2 id="一、GIL底层实现原理"><a href="#一、GIL底层实现原理" class="headerlink" title="一、GIL底层实现原理"></a>一、GIL底层实现原理</h2><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif"></p>
+<p>GIL 在 Python 程序的工作流程：</p>
+<p>Thread 1、2、3 轮流执行，每一个线程在开始执行时，都会锁住 GIL，以阻止别的线程执行；同样的，每一个线程执行完一段后，会释放 GIL，以允许别的线程开始利用资源。</p>
+<p>为什么 Python 线程会去主动释放 GIL 呢？毕竟，如果仅仅要求 Python 线程在开始执行时锁住 GIL，且永远不去释放 GIL，那别的线程就都没有运行的机会。其实，CPython 中还有另一个机制，叫做间隔式检查（check_interval），意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况，每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。</p>
+<p>注意：不同版本的 Python，其间隔式检查的实现方式并不一样。早期的 Python 是 100 个刻度（大致对应了 1000 个字节码）；而 Python 3 以后，间隔时间大致为 15 毫秒。当然，我们不必细究具体多久会强制释放 GIL，读者只需要明白，CPython 解释器会在一个“合理”的时间范围内释放 GIL 就可以了。</p>
+<p>每一个 Python 线程都是类似这样循环的封装，来看下面这段代码：</p>
+<pre><code>for (;;) &#123;
+    if (--ticker &lt; 0) &#123;
+        ticker = check_interval;   
+        /* Give another thread a chance */
+        PyThread_release_lock(interpreter_lock);
+        /* Other threads may run now */   
+        PyThread_acquire_lock(interpreter_lock, 1);
+    &#125;
+    bytecode = *next_instr++;
+    switch (bytecode) &#123;
+        /* execute the next instruction ... */
+    &#125;
+&#125;</code></pre>
+<p>每个 Python 线程都会先检查 ticker 计数。只有在 ticker 大于 0 的情况下，线程才会去执行自己的代码。</p>
+<h2 id="二、GIL不能绝对保证线程安全"><a href="#二、GIL不能绝对保证线程安全" class="headerlink" title="?二、GIL不能绝对保证线程安全"></a>?二、GIL不能绝对保证线程安全</h2><p>注意：有了 GIL，并不意味着 Python 程序员就不用去考虑线程安全了，因为即便 GIL 仅允许一个 Python 线程执行，但别忘了 Python 还有 check interval 这样的抢占机制。</p>
+<pre><code>import threading
+
+n = 0
+
+def foo():
+    global n
+    n += 1
+
+threads = []
+for i in range(100):
+    t = threading.Thread(target=foo)
+    threads.append(t)
+
+for i in threads:
+    i.start()
+
+for i in threads:
+    i.join()
+print(n)
+</code></pre>
+<p>执行此代码会发现，其大部分时候会打印 100，但有时也会打印 99 或者 98，原因在于 n+=1 这一句代码让线程并不安全。如果去翻译 foo 这个函数的字节码就会发现，它实际上是由下面四行字节码组成：</p>
+<pre><code>&gt;&gt;&gt; import dis
+&gt;&gt;&gt; dis.dis(foo)
+LOAD_GLOBAL              0 (n)
+LOAD_CONST               1 (1)
+INPLACE_ADD
+STORE_GLOBAL             0 (n)</code></pre>
+<p>而这四行字节码中间都是有可能被打断的！所以，千万别以为有了 GIL 程序就不会产生线程问题，我们仍然需要注意线程安全。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-17-Asyncio%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1274,427 +1866,10 @@ thread.start()
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-10-%E5%AE%9A%E6%97%B6%E5%99%A8Timer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-10-%E5%AE%9A%E6%97%B6%E5%99%A8Timer/" class="post-title-link" itemprop="url">python并发-10.定时器Timer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-26 14:50:58" itemprop="dateCreated datePublished" datetime="2020-02-26T14:50:58+08:00">2020-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:02:37" itemprop="dateModified" datetime="2020-09-18T14:02:37+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Thread 类有一个 Timer子类，该子类可用于控制指定函数在特定时间内执行一次。</p>
-<pre><code>from threading import Timer
-
-def hi():
-    print(&#39;hi&#39;)
-
-t=Timer(10,hi) # 10秒后执行hi()
-t.start()</code></pre>
-<p>注意：Timer 只能控制函数在指定时间内执行一次，如果要使用 Timer 控制函数多次重复执行，则需要再执行下一次调度。</p>
-<pre><code>from threading import Timer
-import time
-# 定义总共输出几次的计数器
-count = 0
-def print_time():
-    print(&quot;当前时间：%s&quot; % time.ctime())
-    global t, count
-    count += 1
-    # 如果count小于10，开始下一次调度
-    if count &lt; 10:
-        t = Timer(1, print_time)
-        t.start()
-
-t = Timer(1, print_time)
-t.start()</code></pre>
-<p>如果要取消 Timer 的调度，则可调用 Timer 对象的 cancel() 函数</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-9-%E7%BA%BF%E7%A8%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-local/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-9-%E7%BA%BF%E7%A8%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-local/" class="post-title-link" itemprop="url">python并发-9.线程局部变量-local()</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-26 14:25:43" itemprop="dateCreated datePublished" datetime="2020-02-26T14:25:43+08:00">2020-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:04:18" itemprop="dateModified" datetime="2020-09-18T14:04:18+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>当多线程操作同一公有资源时，如果涉及到修改该资源的操作，为了避免数据不同步可能导致的错误，需要使用互斥锁机制。</p>
-<p>除非必须将多线程使用的资源设置为公共资源，Python的 threading 模块还提供了一种可彻底避免数据不同步问题的方法，即 local() 函数。</p>
-<p>使用 local() 函数创建的变量，可以被各个线程调用，但和公共资源不同，各个线程在使用 local() 函数创建的变量时，都会在该线程自己的内存空间中拷贝一份。这意味着，local() 函数创建的变量看似全局变量（可以被各个线程调用），但各线程调用的都是该变量的副本（各调用各的，之间并无关系）。</p>
-<p>使用 threading 模块中的 local() 函数，可以为各个线程创建完全属于它们自己的变量（又称线程局部变量）。正是由于各个线程操作的是属于自己的变量，该资源属于各个线程的私有资源，因此可以从根本上杜绝发生数据同步问题。</p>
-<pre><code>import threading
-
-local = threading.local()  # 创建全局ThreadLocal对象
-
-
-def process():
-    res = local.resource  # 3.获取当前线程关联的resource:
-    print(res + &#39;123456&#39;)
-
-
-def process_thread(res):
-    local.resource = res  # 1.为当前线程绑定ThreadLocal的resource:
-    process()  # 2.线程的调用函数不需要传递res了，可以通过全局变量local访问
-
-
-t1 = threading.Thread(target=process_thread, args=(&#39;t1线程&#39;,))
-t2 = threading.Thread(target=process_thread, args=(&#39;t2线程&#39;,))
-t1.start()
-t2.start()
-</code></pre>
-<ol>
-<li><p>首先，在全局作用于范围内，调用 local() 函数会生成一个 ThreadLocal 对象（有关该类型，初学者不用关心），由此生成的 local 变量即为公共资源，它可以在程序的任意线程中被调用。</p>
-</li>
-<li><p>随后，我们创建了 2 个子线程 t1 和 t2，它们都负责执行 proess_thread() 函数，该函数中，我们在全局 local 变量的基础上，定义了一个 resource 变量，该变量即为线程局部变量，即哪个线程调用该函数，都会将 resource 变量拷贝一份并存储在自己的存储空间中。因此，t1 和 t2 线程会各自拥有一份 resource 变量的副本。</p>
-<p> 注意，虽然变量名相同，但是值不同，t1 线程传递的 res 参数为 “t1线程”，而 t2 线程传递的 res 参数值为 “t2线程”。</p>
-</li>
-</ol>
-<ol start="3">
-<li>但各个线程拷贝 resource 变量完成后，随即执行 process() 函数，在该函数中，我们可以使用 ThreadLocal 类型的 local 全局变量，调用各个线程自己的 resource 变量。<br>需要说明的一点是，该程序中，只用 ThreadLocal 类型的对象 local 创建了一个 resource 变量，根据实际场景需要，我们完全可以创建任意个线程局部变量。</li>
-</ol>
-<p>local() 函数的好处：</p>
-<pre><code>各个线程操作的都是自己的私有资源，不会涉及到数据同步问题；
-由于 local() 函数的返回值位于全局作用域，无论在程序什么位置，都可以随时调用，很方便。</code></pre>
-<p>总结:</p>
-<pre><code>无论是使用线程局部变量，还是使用互斥锁机制，其根本目的是为了解决多线程访问公共资源时可能发生的数据同步问题。互斥锁机制实现的出发点是，在各线程仍使用公共资源的前提下，想办法控制各个线程对该资源的同时访问；而线程局部变量则另辟蹊径，直接令多线程操作各自的私有资源，从根本上杜绝了同时访问所带来的数据同步问题。
-
-需要说明的一点是，线程局部变量的解决方案，并不能完全替代互斥锁同步机制。同步机制是为了同步多个线程对公共资源的并发访问，是多个线程之间进行通信的有效方式；而线程局部变量则从根本上避免了多个钱程之间对共享资源（变量）的竞争。
-
-那么，这两种解决方案该如何选择呢？简单来说，如果多线程之间需要共享资源（如多人操作同一银行账户的例子），就使用互斥锁同步机制；反之，如果仅是为了解决多线程之间的共享资源冲突，则推荐使用线程局部变量。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-8-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-8-%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">python并发-8.线程池</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-25 22:47:40" itemprop="dateCreated datePublished" datetime="2020-02-25T22:47:40+08:00">2020-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:42" itemprop="dateModified" datetime="2020-09-18T14:03:42+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>系统启动一个新线程的成本是比较高的，因为它涉及与操作系统的交互。在这种情形下，使用线程池可以很好地提升性能，尤其是当程序中需要创建大量生存期很短暂的线程时，更应该考虑使用线程池。</p>
-<p>线程池在系统启动时即创建大量空闲的线程，程序只要将一个函数提交给线程池，线程池就会启动一个空闲的线程来执行它。当该函数执行结束后，该线程并不会死亡，而是再次返回到线程池中变成空闲状态，等待执行下一个函数。</p>
-<p>此外，使用线程池可以有效地控制系统中并发线程的数量。当系统中包含有大量的并发线程时，会导致系统性能急剧下降，甚至导致 Python 解释器崩溃，而线程池的最大线程数参数可以控制系统中并发线程的数量不超过此数。</p>
-<h2 id="一、进程池的使用"><a href="#一、进程池的使用" class="headerlink" title="一、进程池的使用"></a>一、进程池的使用</h2><p>线程池基类是 concurrent.futures 模块中的 Executor<br>Executor 两个子类:</p>
-<pre><code>ThreadPoolExecutor：用于创建线程池
-ProcessPoolExecutor：用于创建进程池</code></pre>
-<p>如果使用线程池/进程池来管理并发编程，那么只要将相应的 task 函数提交给线程池/进程池，剩下的事情就由线程池/进程池来搞定。</p>
-<p>Exectuor 提供的常用方法：</p>
-<pre><code>submit(fn, *args, **kwargs)：将 fn 函数提交给线程池。*args 代表传给 fn 函数的参数，**kwargs 代表以关键字参数的形式为 fn 函数传入参数。
-
-map(func, *iterables, timeout=None, chunksize=1)：该函数类似于全局函数 map(func, *iterables)，只是该函数将会启动多个线程，以异步方式立即对 iterables 执行 map 处理。
-
-shutdown(wait=True)：关闭线程池。</code></pre>
-<p>程序将 task 函数提交（submit）给线程池后，submit 方法会返回一个 Future 对象，Future 类主要用于获取线程任务函数的返回值。由于线程任务会在新线程中以异步方式执行，因此，线程执行的函数相当于一个“将来完成”的任务，所以 Python 使用 Future 来代表。</p>
-<p>实际上，在 Java 的多线程编程中同样有 Future，此处的 Future 与 Java 的 Future 大同小异。</p>
-<p>Future 提供了如下方法：</p>
-<pre><code>cancel()：取消该 Future 代表的线程任务。如果该任务正在执行，不可取消，则该方法返回 False；否则，程序会取消该任务，并返回 True。
-cancelled()：返回 Future 代表的线程任务是否被成功取消。
-running()：如果该 Future 代表的线程任务正在执行、不可被取消，该方法返回 True。
-done()：如果该 Funture 代表的线程任务被成功取消或执行完成，则该方法返回 True。
-result(timeout=None)：获取该 Future 代表的线程任务最后返回的结果。如果 Future 代表的线程任务还未完成，该方法将会阻塞当前线程，其中 timeout 参数指定最多阻塞多少秒。
-exception(timeout=None)：获取该 Future 代表的线程任务所引发的异常。如果该任务成功完成，没有异常，则该方法返回 None。
-add_done_callback(fn)：为该 Future 代表的线程任务注册一个“回调函数”，当该任务成功完成时，程序会自动触发该 fn 函数。</code></pre>
-<p>在用完一个线程池后，应该调用该线程池的 shutdown() 方法，该方法将启动线程池的关闭序列。调用 shutdown() 方法后的线程池不再接收新任务，但会将以前所有的已提交任务执行完成。当线程池中的所有任务都执行完成后，该线程池中的所有线程都会死亡。</p>
-<p>使用线程池来执行线程任务的步骤如下：</p>
-<pre><code>调用 ThreadPoolExecutor 类的构造器创建一个线程池。
-定义一个普通函数作为线程任务。
-调用 ThreadPoolExecutor 对象的 submit() 方法来提交线程任务。
-当不想提交任何任务时，调用 ThreadPoolExecutor 对象的 shutdown() 方法来关闭线程池。</code></pre>
-<pre><code>from concurrent.futures import ThreadPoolExecutor
-import threading
-import time
-
-
-def action(max):
-    &#39;&#39;&#39;
-    准备作为线程任务的函数
-    :param max:
-    :return:
-    &#39;&#39;&#39;
-    sum = 0
-    for i in range(max):
-        print(threading.current_thread().name + &#39; &#39; + str(i))
-        sum += i
-    return sum
-
-
-pool = ThreadPoolExecutor(max_workers=2)  # 创建包含2个线程的线程池
-future1 = pool.submit(action, 50)  # 向线程池提交一个task, 50会作为action()函数的参数
-future2 = pool.submit(action, 100)
-print(future1.done())  # 判断future1代表的任务是否结束
-time.sleep(3)
-print(future2.done())  # 判断future2代表的任务是否结束
-print(future1.result())  # 查看future1代表的任务返回的结果
-print(future2.result())  # 查看future2代表的任务返回的结果
-pool.shutdown()</code></pre>
-<p>当程序把 action() 函数提交给线程池时，submit() 方法会返回该任务所对应的 Future 对象，程序立即判断 futurel 的 done() 方法，该方法将会返回 False（表明此时该任务还未完成）。接下来主程序暂停 3 秒，然后判断 future2 的 done() 方法，如果此时该任务已经完成，那么该方法将会返回 True。</p>
-<p>当程序使用 Future 的 result() 方法来获取结果时，该方法会阻塞当前线程，如果没有指定 timeout 参数，当前线程将一直处于阻塞状态，直到 Future 代表的任务返回。</p>
-<h2 id="二、获取执行结果"><a href="#二、获取执行结果" class="headerlink" title=" 二、获取执行结果"></a> 二、获取执行结果</h2><p>程序调用了 Future 的 result() 方法来获取线程任务的运回值，但该方法会阻塞当前主线程，只有等到钱程任务完成后，result() 方法的阻塞才会被解除。</p>
-<p>如果程序不希望直接调用 result() 方法阻塞线程，则可通过 Future 的 add_done_callback() 方法来添加回调函数，该回调函数形如 fn(future)。当线程任务完成后，程序会自动触发该回调函数，并将对应的 Future 对象作为参数传给该回调函数。</p>
-<pre><code>from concurrent.futures import ThreadPoolExecutor
-import threading
-import time
-
-
-def action(max):
-    &#39;&#39;&#39;
-    准备作为线程任务的函数
-    :param max:
-    :return:
-    &#39;&#39;&#39;
-    sum = 0
-    for i in range(max):
-        print(threading.current_thread().name + &#39; &#39; + str(i))
-        sum += i
-    return sum
-
-
-with ThreadPoolExecutor(max_workers=2) as pool:  # 创建包含2个线程的线程池
-    future1 = pool.submit(action, 50)  # 向线程池提交一个task, 50会作为action()函数的参数
-    future2 = pool.submit(action, 100)
-
-
-    def getResult(future):
-        print(future.result())
-
-
-    future1.add_done_callback(getResult)
-    future2.add_done_callback(getResult)
-    print(&#39;---------------------------&#39;)</code></pre>
-<p>future1、future2 添加了同一个回调函数，该回调函数会在线程任务结束时获取其返回值。</p>
-<p>由于程序并未直接调用 future1、future2 的 result() 方法，因此主线程不会被阻塞，可以立即看到输出主线程打印出的横线。接下来将会看到两个新线程并发执行，当线程任务执行完成后，get_result() 函数被触发，输出线程任务的返回值。</p>
-<p>由于线程池实现了上下文管理协议（Context Manage Protocol），因此程序可以使用 with 语句来管理线程池，这样即可避免手动关闭线程池。</p>
-<p>Exectuor 还提供了一个 map(func, *iterables, timeout=None, chunksize=1) 方法，该方法的功能类似于全局函数 map()，区别在于线程池的 map() 方法会为 iterables 的每个元素启动一个线程，以并发方式来执行 func 函数。这种方式相当于启动 len(iterables) 个线程，井收集每个线程的执行结果。</p>
-<pre><code>from concurrent.futures import ThreadPoolExecutor
-import threading
-import time
-
-
-def action(max):
-    &#39;&#39;&#39;
-    准备作为线程任务的函数
-    :param max:
-    :return:
-    &#39;&#39;&#39;
-    sum = 0
-    for i in range(max):
-        print(threading.current_thread().name + &#39; &#39; + str(i))
-        sum += i
-    return sum
-
-
-with ThreadPoolExecutor(max_workers=4) as pool:  # 创建包含4个线程的线程池
-    results=pool.map(action,(50,100,150)) # 元组有3个元素，因此程序启动3条线程来执行action函数
-    print(&#39;----------------------------&#39;)
-    for i in results:
-        print(i)</code></pre>
-<p>map() 方法的返回值将会收集每个线程任务的返回结果。<br>虽然程序会以并发方式来执行 action() 函数，但最后收集的 action() 函数的执行结果，依然与传入参数的结果保持一致。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1760,7 +1935,7 @@ with ThreadPoolExecutor(max_workers=4) as pool:  # 创建包含4个线程的线�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -158,6 +158,488 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">使用Flask+Gunicorn+Nginx在Linux进行网站部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:33:57" itemprop="dateCreated datePublished" datetime="2018-04-13T14:33:57+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:46:22" itemprop="dateModified" datetime="2020-09-18T16:46:22+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">网站部署</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/flask_scrapy_aiot">https://github.com/Gladysgong/flask_scrapy_aiot</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7da2e5892dd6">https://www.jianshu.com/p/7da2e5892dd6</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79985613">https://blog.csdn.net/u012052168/article/details/79985613</a></p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>这个网站部署属于很心酸的过程，至于如何心酸我必须得说出来，给我自己的时间一个交代。开始我使用Flask+uWsgi+Nginx进行配置的，哪哪儿都配置好了，Nginx欢迎页也可以访问，Flask本身也没问题，但就是uWsgi访问不了。<br>因为哪里配置都没问题，但就是无法访问，我Google、baidu各种查了好久，都解决不了。有说权限问题的，但是我都换到root下了，有说哪里哪里加个plugins的，对于我还是不行。后来我看见有人说，他也遇到这个问题解决不了，后来他就搁置不弄了，过了一星期左右，打开<br>自己就连接上了。于是我想了想，对于这种我该放弃了。<br>网上看了看，说Gunicorn比uWsgi好用，于是我就换成了Gunicorn，然后分分钟成功，可是我却在这上面干耗了一天。<br>顺便提一下，代码中flask_aiot为网站文件，scrapy_aiot是我的爬虫文件，用来抓取网站所用的数据，有兴趣可以看一下，当时写的好像不是很完善，有不对的地方留言告诉就ok，我改。</p>
+<h2 id="二、环境和目录结构"><a href="#二、环境和目录结构" class="headerlink" title="二、环境和目录结构"></a>二、环境和目录结构</h2><pre><code>Centos7
+Python3
+Flask：是一个用Python实现的Web开发的微服务框架
+Guicorn：Web服务器，和UWsgi类似
+Nginx：反向代理</code></pre>
+<hr>
+<pre><code>flask_aiot
+    ├── app
+    ├── config.py
+    ├── manage.py
+    ├── requirements.txt
+    └── venv
+        ├── bin
+        ├── include
+        ├── lib
+        └── share</code></pre>
+<h2 id="三、安装基础环境"><a href="#三、安装基础环境" class="headerlink" title="三、安装基础环境"></a>三、安装基础环境</h2><p>我用的是Python3，而现在Centos下默认的还是Python2，所以我用Anaconda安装了一个Python3，很方便。<br>不同的项目可能会需要不同的依赖包，所以我用了VirtualEnv来管理依赖。</p>
+<pre><code>pip install virtualenv
+创建虚拟环境并激活
+[root@localhost flask_aiot]# source venv/bin/activate</code></pre>
+<h2 id="四、安装Flask"><a href="#四、安装Flask" class="headerlink" title="四、安装Flask"></a>四、安装Flask</h2><pre><code>直接在虚拟环境下安装requirements.txt即可，一次性把依赖都安装齐全。
+(venv) [root@localhost flask_aiot]# pip install -r requirements.txt </code></pre>
+<h2 id="五、项目文件"><a href="#五、项目文件" class="headerlink" title="五、项目文件"></a>五、项目文件</h2><p>在生产环境中，我们的Flask项目是做在包内的，在包外采用Flask Script写一个manage.py文件作为启动文件，这样方便支持各种项目。manage.py文件如下：</p>
+<pre><code>`
+#!/usr/bin/env python
+import os
+
+if os.path.exists(&#39;.env&#39;):
+    print(&#39;Importing environment from .env...&#39;)
+    for line in open(&#39;.env&#39;):
+        var = line.strip().split(&#39;=&#39;)
+        if len(var) == 2:
+            os.environ[var[0]] = var[1]
+
+# from app import create_app, db
+from app import create_app, mongo
+from app.models import User, AllProductPrice, Ny135, Chinacwa, Iot
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+
+app = create_app(os.getenv(&#39;FLASK_CONFIG&#39;) or &#39;default&#39;)
+manager = Manager(app)
+migrate = Migrate(app, mongo)
+
+
+def make_shell_context():
+    return dict(app=app, db=mongo, User=User, AllProductPrice=AllProductPrice,
+                Ny135=Ny135, Chinacwa=Chinacwa, Iot=Iot)
+
+
+manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
+manager.add_command(&#39;db&#39;, MigrateCommand)
+
+
+@manager.command
+def test():
+    &quot;&quot;&quot;Run the unit tests.&quot;&quot;&quot;
+    import unittest
+    tests = unittest.TestLoader().discover(&#39;tests&#39;)
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
+if __name__ == &#39;__main__&#39;:
+    manager.run()
+`</code></pre>
+<p>此时我们可以直接在虚拟环境中运行Flask：</p>
+<pre><code>默认地址和端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver  
+任意地址和8099端口启动：
+(venv) [root@localhost flask_aiot]# python manage.py runserver -h 0.0.0.0 -p 8099
+运行：
+curl i 127.0.0.1:8099  # 看到网站返回的内容</code></pre>
+<h2 id="六、安装Gunicorn"><a href="#六、安装Gunicorn" class="headerlink" title="六、安装Gunicorn"></a>六、安装Gunicorn</h2><p>Flask的生产环境比较成熟的有Gunicorn和uWSGI,无奈我一直配置uWSGI不成功，所以换成了Gunicorn，而且和uWSGI相比起来，Gunicorn的配置真的蛮简单的。</p>
+<pre><code>(venv) [root@localhost flask_aiot]# pip install gunicorn
+运行：
+(venv) [root@localhost flask_aiot]# gunicorn -w 4 -b 127.0.0.1:8001 manage:app
+curl i 127.0.0.1:8001  # 看到网站返回的内容</code></pre>
+<h2 id="七、Nginx"><a href="#七、Nginx" class="headerlink" title="七、Nginx"></a>七、Nginx</h2><h3 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h3><pre><code>网上好多用yum install nginx来进行安装的，但是目前centos7上已经不支持了，所以我用安装包进行安装的。</code></pre>
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><pre><code>vi /etc/nginx/conf.d/default.conf
+
+default.conf如下：
+server &#123;
+    listen       8099;
+    server_name  10.200.116.13;
+    # server_name  111.203.20.92;
+
+    location / &#123;
+      #  include uwsgi_params;
+      #  uwsgi_pass  127.0.0.1:8001; # 指向uwsgi 所应用的内部地址,所有请求将转发给uwsgi 处理
+      #  uwsgi_param UWSGI_PYHOME /home/lilly/www/flask_scrapy_aiot/flask_aiot/venv; # 指向虚拟环境目录
+      #  uwsgi_param UWSGI_CHDIR  /home/lilly/www/flask_scrapy_aiot/flask_aiot; # 指向网站根目录
+      #  uwsgi_param UWSGI_SCRIPT manage:app; # 指定启动程序
+      #  uwsgi_read_timeout 100;
+        proxy_pass http://localhost:8001;
+        proxy_redirect          off;
+        proxy_set_header        Host                    $host;
+        proxy_set_header        X-Real-IP               $remote_addr;
+        proxy_set_header        X-Forwarded-For         $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwared-Proto        $scheme;
+      #  root   /usr/share/nginx/html;
+      #  index  index.html index.htm;
+    &#125;</code></pre>
+<hr>
+<pre><code>vi /etc/nginx/nginx.conf 
+
+nginx.conf如下：
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+
+http &#123;
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;   # 这句话很重要，相当于引入了上面的default.conf配置文件
+&#125;</code></pre>
+<h3 id="3、重启Nginx"><a href="#3、重启Nginx" class="headerlink" title="3、重启Nginx"></a>3、重启Nginx</h3><pre><code>sudo service nginx restart
+sudo systemctl restart  nginx.service
+我用以上方式启动的时候总是提示：Job for nginx.service failed because the control process exited with error code. 
+See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.
+我查看的时候说：nginx: [emerg] open() &quot;/var/run/nginx.pid&quot; failed (13: Permission denied)
+但是我都是用root来启动的了，不应该存在这种问题啊。
+所以我是直接nginx这样启动的，确实nginx是起来了的。</code></pre>
+<h3 id="4、访问网站"><a href="#4、访问网站" class="headerlink" title="4、访问网站"></a>4、访问网站</h3><pre><code>curl i 10.200.116.13：8099  # 返回网站内容</code></pre>
+<h2 id="八、Supervisor"><a href="#八、Supervisor" class="headerlink" title="八、Supervisor"></a>八、Supervisor</h2><p>如果想要当进程意外关闭后能自动重启，应该再配置一个Supervisor来实现。目前Supervisor只支持Python2，我看官方说目前Python3已经在进行中，应该很快就能支持了。我在这个部署里就没做这块了，即使在Python3下面也可以用Supervisor，因为他只是调进程而已，想做的话可以网上找找文档，不难。</p>
+<h2 id="九、后续"><a href="#九、后续" class="headerlink" title="九、后续"></a>九、后续</h2><p>Nginx等一系列部署好后，我打开网站还发现了一个bug，当然这是我程序的问题。bug如下：</p>
+<pre><code>当我10.200.116.13：8099时停留在首页，当我点击网站的某一按钮，跳转到另一个页面，出现404错误，而此时我看网站的url为
+10.200.116.13/show
+这也就意味着网站跳转时没把8099的端口给带上，而我手动在地址栏输入10.200.116.13：8099/show时，页面是能够正常显示的。
+说明8099的端口有些地方是静态的，没有动态更着走。把下面的语句1改为语句2就可以了。</code></pre>
+<hr>
+<pre><code>语句1:&lt;li&gt;&lt;a href=&quot;/show_ny135&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;#&#125;
+
+语句2：&lt;li&gt;&lt;a href=&quot;&#123;&#123; url_for('main.ShowNy135View') &#125;&#125;&quot; class=&quot;hvr-sweep-to-bottom&quot;&gt;中国农业物联网&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hexo-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Hexo-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-13 14:13:58" itemprop="dateCreated datePublished" datetime="2018-04-13T14:13:58+08:00">2018-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:42:58" itemprop="dateModified" datetime="2020-09-18T16:42:58+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、分类标签中关于大小写的bug"><a href="#一、分类标签中关于大小写的bug" class="headerlink" title="一、分类标签中关于大小写的bug"></a>一、分类标签中关于大小写的bug</h2><h3 id="1-描述"><a href="#1-描述" class="headerlink" title="1.描述"></a>1.描述</h3><pre><code>当我的分类标签写的是Scrapy时，打开我的博客找到Scrapy标签，点击Scrapy却出现404页面。
+当我把标签改为scrapy小写，再发布到网上，点击scrapy就不会出现404问题。
+后来发现原来是git标签生成时忽略了大写，生成的实际标签为scrapy。
+于是我来到我的Github中，找到Gladysgong.github.io/categories/爬虫/这个目录，发现实际生成的也是scrapy，所以
+原因就在这里了。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_bug.jpg"></p>
+<h3 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h3><pre><code>修改文件：
+    cd blog/.deploy_git
+    vi .git/config
+    将ignorecase=true改为ignorecase=false
+删除Gladysgong.github.io中的文件并提交：
+    git rm -rm *
+    git commit -m &quot;clean all files&quot;
+    git push
+Hexo再次生成及部署：
+    cd ..
+    hexo clean
+    hexo g
+    hexo d</code></pre>
+<h2 id="二、分类和标签全部404"><a href="#二、分类和标签全部404" class="headerlink" title="二、分类和标签全部404"></a>二、分类和标签全部404</h2><pre><code>npm install hexo-generator-category --save
+npm install --save hexo-generator-tag --save</code></pre>
+<h2 id="三、themes主题无法备份"><a href="#三、themes主题无法备份" class="headerlink" title="三、themes主题无法备份"></a>三、themes主题无法备份</h2><p>参考博客：<a href>https://hoxis.coding.me/hexo-backup-theme-dir.html</a></p>
+<p>在写Hexo博客时，因为遇到电脑迁移问题，所以对Hexo博客做了备份，但是发现themes主题没有进行备份，如图：<br><img src="http://p2lakvkq0.bkt.clouddn.com/hexo_themes.jpg"></p>
+<p>解决：</p>
+<pre><code>$ git rm --cached themes/yilia
+rm &#39;themes/yilia&#39;
+
+$ git status</code></pre>
+<p>原因：</p>
+<pre><code>这是因为用到了 git 的子模块（git submodule）功能（你在你的 git 项目里 clone 的别人的项目）。
+
+在你的主项目的 git 库里，子模块只是一个 HEAD 指针，指向子模块的 commit。
+
+这个功能的意义：
+
+在这里，如果你需要修改 next 主题（可能需要很多文件），又想保证能够随时更新最新版本，其实用子模块功能是很方便的。
+
+只需要 clone 下来新建一个 branch，用来自己用，每次官方更新 pull 到另一个分支，merge 一下就行。
+
+相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
+
+这里我偷懒直接将子模块删除，将整个仓库进行备份了。
+
+比较优雅的做法可以参考：https://github.com/iissnan/hexo-theme-next/issues/328</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E5%BA%93-1-%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">数据库基本操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-10 13:26:07" itemprop="dateCreated datePublished" datetime="2018-04-10T13:26:07+08:00">2018-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:39:42" itemprop="dateModified" datetime="2020-09-18T21:39:42+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一-增加"><a href="#一-增加" class="headerlink" title="一.增加"></a>一.增加</h3><pre><code>使用insert插入单行数据
+insert [into] &lt;表名&gt; [列名] values &lt;列值&gt;
+insert into Students (name,sex,birth_date) values (&#39;李三&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+insert into Students values (&#39;李四&#39;,&#39;男&#39;,&#39;1990/6/15&#39;)
+
+使用insert,select语句将现有表中的数据添加到已有的新表中
+insert into &lt;已有的新表&gt; &lt;列名&gt; select &lt;原表列名&gt; from &lt;原表名&gt;
+insert into addressList (&#39;姓名&#39;,&#39;地址&#39;,&#39;电子邮件&#39;) select name,address,email from Students</code></pre>
+<h3 id="二-删除–使用delete删除数据库中某些数据"><a href="#二-删除–使用delete删除数据库中某些数据" class="headerlink" title="二.删除–使用delete删除数据库中某些数据"></a>二.删除–使用delete删除数据库中某些数据</h3><pre><code>delete from &lt;表名&gt; [where &lt;删除条件&gt;]
+delete from where name=&#39;李三&#39;  -- 删除整行而不是某个单一字段</code></pre>
+<h3 id="三-改–使用update更新数据库中数据"><a href="#三-改–使用update更新数据库中数据" class="headerlink" title="三.改–使用update更新数据库中数据"></a>三.改–使用update更新数据库中数据</h3><pre><code>update &lt;表名&gt; set &lt;列名=更新值&gt; [where &lt;更新条件&gt;]
+update Students set tel=default where id=5
+update students set age=age+1
+update students set name=&quot;张伟鹏&quot;, age=19 where tel=&quot;13288097888&quot;</code></pre>
+<h3 id="四-查"><a href="#四-查" class="headerlink" title="四.查"></a>四.查</h3><h4 id="4-1-普通查询"><a href="#4-1-普通查询" class="headerlink" title="4.1 普通查询"></a>4.1 普通查询</h4><pre><code>select &lt;列名&gt; from &lt;表名&gt; [where &lt;查询条件表达试&gt;] [order by&lt;排序的列名&gt;[asc或desc]]
+1.查询所有数据行和列
+select * from Students
+2.查询部分行列--条件查询
+select * from Student where name=&#39;李三&#39;
+3.在查询中使用as更改列名
+select name as 姓名 from Students where sex=&#39;男&#39;
+4.查询空行
+select name from Student where sex is null
+5.查询排序
+select name from Student where age&gt;25 order by desc
+6.查询返回限制行数
+select top 10 name from Student</code></pre>
+<h4 id="4-2-模糊查询"><a href="#4-2-模糊查询" class="headerlink" title="4.2 模糊查询"></a>4.2 模糊查询</h4><pre><code>1.使用like进行模糊查询
+select * from Student where name like &#39;李%&#39;
+2.使用between在某个范围内进行查询
+select * from Student where age between 20 and 25
+3.使用in在列举数值内进行查询(in后是多个的数据)
+select name from Student where address in (&#39;北京&#39;，&#39;上海&#39;,&#39;深圳&#39;)</code></pre>
+<h4 id="4-3-分组查询"><a href="#4-3-分组查询" class="headerlink" title="4.3 分组查询"></a>4.3 分组查询</h4><pre><code>1.使用group by进行分组查询
+select id as 学号，AVG(score) as 平均成绩 from score group by id
+2.用having子句进行分组筛选
+select id as 学号，AVG(score) as 平均成绩 from score group by id having count(score)&gt;1</code></pre>
+<h4 id="4-4-多表内联接查询"><a href="#4-4-多表内联接查询" class="headerlink" title="4.4 多表内联接查询"></a>4.4 多表内联接查询</h4><pre><code>select Students.name,score.mark from Students,score where Students.name=score.name</code></pre>
+<h3 id="五-数据库表的连接"><a href="#五-数据库表的连接" class="headerlink" title="五.数据库表的连接"></a>五.数据库表的连接</h3><pre><code>左连：Left Join
+右连：Right Join
+内连：Inner Join
+左连接where只影响右表，右连接where只影响左表
+
+select * from table1 Left Join table2 where table1.id=table2.id
+左连接后的检索结果是显示tbl1的所有数据和tbl2中满足where 条件的数据。
+
+select * from table1 Right Join table2 where table1.id=table2.id
+右连接后的检索结果是tbl2的所有数据和tbl1中满足where 条件的数据。
+
+select * from table1 Inner Join table2 on table1.id=table2.id
+功能和 select * from tbl1,tbl2 where tbl1.id=tbl2.id相同。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E5%BA%93-2-%E4%B8%AD%E7%BA%A7%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1464,831 +1946,10 @@ MONGO_DB = &quot;Belt&quot;  # 数据库名字</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/" class="post-title-link" itemprop="url">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-30 10:39:34" itemprop="dateCreated datePublished" datetime="2018-03-30T10:39:34+08:00">2018-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:29:26" itemprop="dateModified" datetime="2020-09-18T17:29:26+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo">https://github.com/Gladysgong/cninfo</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5ef0e7e2b87">https://www.jianshu.com/p/b5ef0e7e2b87</a><br>CSDN: <a target="_blank" rel="noopener" href="https://mp.csdn.net/mdeditor/79759833">https://mp.csdn.net/mdeditor/79759833</a></p>
-</blockquote>
-<pre><code>    首先说说我的目标把，就是抓取巨潮资讯网上一些上市农业企业的基本信息，主要是对页面的公司概况、高管人员、十大股东这几个板块的信
-息进行抓取，如图。要抓取的上市农业企业的名单已经准备好了，但是同时要拿到的这些农业企业的url地址。本来考虑的是做一个整站提取url，
-但是再想一想，这个网站包含了太多上市公司的信息，即使拿到了，也需要慢慢找。加上我们要抓取的农业企业不多，所以分析页面结果后，手动
-整理他们的url，算是本爬虫的一个缺陷。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo.jpg"></p>
-<pre><code>    巨潮资讯地址：http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
-    上面这个就是公司概况的url地址，而高管人员只需要把brief换成management,十大股东只需要把brief换成shareholders，而后面的后缀
-szmb000998这个是手动整理的，这个szmb没看出什么意思，后面的数字是当前公司的股票代码。
-    经过分析，发现网页是动态加载的，里面的内容都是通过js来控制iframe进行展现的，通过scrapy中response.body获取网页的返回结果中，
-没有完美所需要的内容，所以我们需要用selenium。</code></pre>
-<h2 id="一、PhantomJS–PhantomJS安装验证"><a href="#一、PhantomJS–PhantomJS安装验证" class="headerlink" title="一、PhantomJS–PhantomJS安装验证"></a>一、PhantomJS–<a href="http://gongyanli.com/Python3%E7%88%AC%E8%99%AB-PhantomJS%E5%AE%89%E8%A3%85/">PhantomJS安装验证</a></h2><pre><code>PhantomJS是一个基于webkit内核的没有界面的浏览器，所以它和chrome、Firefox这些没有什么差别，只是没有界面而已啦，所以并无高深之处。
-关于它的安装及验证非常简单，大家可以参考我的另一篇文章，标题处去点击链接把。</code></pre>
-<h2 id="二、Selenium–Selenium的使用"><a href="#二、Selenium–Selenium的使用" class="headerlink" title="二、Selenium–Selenium的使用"></a>二、Selenium–<a target="_blank" rel="noopener" href="https://cuiqingcai.com/5630.html">Selenium的使用</a></h2><pre><code>Selinium是一个自动化的测试工具，用它可以驱动浏览器执行特定的操作，比如点击按钮，切换到ifame中等操作，同时能够获取到浏览器渲染后的
-源码。所以它对于那些用JavaScript渲染的网页来讲，Selenium是再合适不过了。
-崔庆才的博客中有一篇详细讲解了Selenium的用法，可以参考。</code></pre>
-<h2 id="三、通过Scrapy来使用Selenium"><a href="#三、通过Scrapy来使用Selenium" class="headerlink" title="三、通过Scrapy来使用Selenium"></a>三、通过Scrapy来使用Selenium</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo1.jpg"></p>
-<h3 id="1-中间件"><a href="#1-中间件" class="headerlink" title="1.中间件"></a>1.中间件</h3><pre><code>首先看一下我的工作目录把，没有什么特点，scrapy典型的工作目录，唯一不一样的是middlewares文件夹，里面存放的是我自定义的中间件。通过
-自定义的中间件去把scrapy原本的中间件覆盖，从而用我们自己实现的功能去替换scrapy原有的功能。
-我的中间件代码如下：打开PhantomJS浏览器，请求url地址，睡眠，接着切换iframe，因为我要获取的公司概况信息就在id=&#39;i_nr&#39;的这个ifame
-中，再睡眠，等待浏览器渲染出这个ifame中的内容，然后再body中保存此网页的源码，最后利用HtmlResponse把body传送离开。</code></pre>
-<hr>
-<pre><code>`from selenium import webdriver
-from scrapy.http import HtmlResponse
-import time
-
-class JavaScriptMiddleware(object):
-    def process_request(self, request, spider):
-        if spider.name == &#39;CninfoSpider&#39;:
-            print(&#39;PhantomJS1 is starting...&#39;)
-            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
-            driver.get(request.url)
-            time.sleep(1)
-            driver.switch_to.frame(&#39;i_nr&#39;)
-            time.sleep(2)
-            body = driver.page_source
-            print(&quot;访问：&quot;, request.url)
-            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
-        elif spider.name == &#39;CninfoManaSpider&#39;:
-            print(&#39;PhantomJS2 is starting...&#39;)
-            driver = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
-            driver.get(request.url)
-            time.sleep(1)
-            driver.switch_to.frame(&#39;i_nr&#39;)
-            time.sleep(2)
-            body = driver.page_source
-            print(&quot;访问：&quot;, request.url)
-            return HtmlResponse(driver.current_url, body=body, encoding=&#39;utf-8&#39;)
-        else:
-            return</code></pre>
-<p>`</p>
-<h3 id="2-数据解析–cninfo-py"><a href="#2-数据解析–cninfo-py" class="headerlink" title="2.数据解析–cninfo.py"></a>2.数据解析–cninfo.py</h3><pre><code>之后，我们就可以回到cninfo.py文件中对内容进行解析了。重写__init__，使用webdriver打开PhantomJS浏览器。重写start_requests方法，
-拼接url，同时可以自定义返回函数parse。</code></pre>
-<hr>
-<pre><code>`# --*-- coding:utf-8 -*-
-import scrapy
-from scrapy import Request
-from scrapy.spiders import Spider
-from selenium import webdriver
-from ..items import AgriBasicItem
-
-# 巨潮资讯网--上市农业企业基本信息
-class CninfoSpider(Spider):
-    name = &#39;CninfoSpider&#39;
-
-    def __init__(self):
-        self.broswer = webdriver.PhantomJS(
-            executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
-        self.broswer.set_page_load_timeout(30)
-
-    def closed(self, spider):
-        print(&#39;spider closed!&#39;)
-        self.broswer.close()
-
-    def start_requests(self):
-        myurls = [&#39;szmb000998&#39;, &#39;szsme002041&#39;, &#39;szsme002772&#39;, &#39;szcn300087&#39;, &#39;szcn300189&#39;, &#39;szcn300511&#39;,
-                       &#39;shmb600108&#39;,
-                       &#39;shmb600313&#39;, &#39;shmb600354&#39;, &#39;shmb600359&#39;,
-                       &#39;shmb600371&#39;, &#39;shmb600506&#39;, &#39;shmb600598&#39;, &#39;shmb601118&#39;, &#39;szmb000592&#39;, &#39;szsme002200&#39;,
-                       &#39;szsme002679&#39;,
-                       &#39;shmb600265&#39;, &#39;szmb000735&#39;, &#39;szsme002234&#39;,
-                       &#39;szsme002299&#39;, &#39;szsme002321&#39;, &#39;szsme002458&#39;, &#39;szsme002477&#39;, &#39;szsme002505&#39;, &#39;szsme002714&#39;,
-                       &#39;szsme002746&#39;, &#39;szcn300106&#39;, &#39;szcn300313&#39;, &#39;szcn300498&#39;,
-                       &#39;shmb600965&#39;, &#39;shmb600975&#39;, &#39;szmb000798&#39;, &#39;szsme002086&#39;, &#39;szsme002696&#39;, &#39;szmb200992&#39;,
-                       &#39;szcn300094&#39;,
-                       &#39;shmb600097&#39;, &#39;shmb600257&#39;, &#39;shmb600467&#39;, &#39;szmb000711&#39;, &#39;szmb000713&#39;]
-        start_urls = [
-            (&#39;http://www.cninfo.com.cn/information/companyinfo_n.html?brief?&#39; + each) for each in myurls]
-
-        for url in start_urls:
-            yield Request(url=url, callback=self.parse)
-
-    def parse(self, response):
-        item = AgriBasicItem()
-
-        item[&#39;full_name&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[1]/td[2]/text()&#39;).extract()[0]  # 公司名称
-        item[&#39;en_name&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[2]/td[2]/text()&#39;).extract()[0]  # 英文名称
-        item[&#39;cn_name&#39;] = item[&#39;full_name&#39;]  # 中文名称
-        item[&#39;nation&#39;] = &#39;china&#39;  # 国别
-        item[&#39;address&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[3]/td[2]/text()&#39;).extract()[0]  # 注册地址
-        item[&#39;established_time&#39;] = None  # 成立时间
-        item[&#39;stock_time&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[13]/td[2]/text()&#39;).extract()[0]  # 上市时间
-        # shareholders = scrapy.Field()  # 主要股东
-        item[&#39;industry&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[8]/td[2]/text()&#39;).extract()[
-            0]  # 行业(经营类别)
-        # managers = scrapy.Field()  # 主要管理人员
-        item[&#39;parent_company&#39;] = None  # 母公司
-        item[&#39;subsidiaries&#39;] = None  # 子公司
-        item[&#39;offical_website&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[12]/td[2]/text()&#39;).extract()[0]  # 官网
-        item[&#39;phone&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[10]/td[2]/text()&#39;).extract()[0]  # 公司电话
-        item[&#39;fax&#39;] = response.xpath(
-            &#39;//div[@class=&quot;clear2&quot;]/div[@class=&quot;zx_left&quot;]/div[2]/table/tbody/tr[11]/td[2]/text()&#39;).extract()[0]  # 公司传真
-        item[&#39;Twitter&#39;] = None  # Twitter
-
-        item[&#39;stock_code&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[
-            0]  # 股票代码
-        item[&#39;abbr&#39;] = response.xpath(&#39;//div[@class=&quot;zx_info&quot;]/form/table/tbody/tr/td[1]/text()&#39;).extract()[1]  # 公司简称
-
-        yield item
-
-`</code></pre>
-<h3 id="3-数据持久化–pipelines-py"><a href="#3-数据持久化–pipelines-py" class="headerlink" title="3.数据持久化–pipelines.py"></a>3.数据持久化–pipelines.py</h3><pre><code>把抓取下来的数据存进mongo数据库，实现数据的持久化。setting中数据库配置如下：
-MONGO_HOST = &#39;127.0.0.1&#39; # 主机ip
-MONGO_PORT = 27017    # 端口号
-MONGO_DB = &#39;agriEn&#39;     # 数据库名称</code></pre>
-<hr>
-<pre><code>`import pymongo
-from scrapy.conf import settings
-from .items import AgriBasicItem
-from .items import AgriManaItem
-
-
-class CninfoPipeline(object):
-    def __init__(self):
-        self.client = pymongo.MongoClient(host=settings[&#39;MONGO_HOST&#39;], port=settings[&#39;MONGO_PORT&#39;])
-        self.db = self.client[settings[&#39;MONGO_DB&#39;]]
-        self.cninfo_base = self.db[&#39;cninfo_base&#39;]
-        self.cninfo_mana = self.db[&#39;cninfo_mana&#39;]
-        self.cninfo_share = self.db[&#39;cninfo_share&#39;]
-
-    def process_item(self, item, spider):
-        if isinstance(item, AgriBasicItem):
-            try:
-                if item[&#39;full_name&#39;]:
-                    item = dict(item)
-                    self.cninfo_base.insert(item)
-                    print(&quot;insert baseinfo success ！&quot;)
-                    return item
-
-            except Exception as e:
-                spider.logger.exception(&quot;insert failed&quot;)
-        elif isinstance(item,AgriManaItem):
-            if item[&#39;managers&#39;]:
-                item = dict(item)
-                self.cninfo_mana.insert(item)
-                print(&quot;insert managers success ！&quot;)
-                return item`</code></pre>
-<h3 id="4-配置文件–setting-py"><a href="#4-配置文件–setting-py" class="headerlink" title="4.配置文件–setting.py"></a>4.配置文件–setting.py</h3><pre><code>ROBOTSTXT_OBEY = False
-
-DOWNLOADER_MIDDLEWARES = &#123;
-# 键是中间件类的路径，值是中间的顺序
-&#39;cninfo.middlewares.middleware.JavaScriptMiddleware&#39;: 543,
-# 禁止内置的中间件
-&#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;: None &#125;
-
-# 记得开启pipelines的调用
-ITEM_PIPELINES = &#123;
-&#39;cninfo.pipelines.CninfoPipeline&#39;: 300,&#125;</code></pre>
-<h2 id="四、缺陷"><a href="#四、缺陷" class="headerlink" title="四、缺陷"></a>四、缺陷</h2><pre><code>在这个爬虫中，其实出现了蛮多问题的，有些解决了，有些没有，记录一下，加深印象，还有感觉代码好垃圾。</code></pre>
-<h3 id="1-缺陷1"><a href="#1-缺陷1" class="headerlink" title="1.缺陷1"></a>1.缺陷1</h3><pre><code>上市农业企业的名字，以及名字的url链接手动整理的，因为只有40来个企业，所以才会用这个方法。本来是想通过Scarpy的CrawlSpider抓取，
-抓取时通过Rule来控制所需要的农业企业，但是发现实在没有什么规律，只会把巨潮资讯上所有上市企业的url都获取下来，所以最后手动整理的
-这40多个农业企业，希望日后能找到更简便的办法。</code></pre>
-<h3 id="2-缺陷2"><a href="#2-缺陷2" class="headerlink" title="2.缺陷2"></a>2.缺陷2</h3><pre><code>对于网页中的高管人员信息抓取中，本来是想思考放在一个爬虫中获取到的，但是仔细分析后发现，公司概况和高管人员分别对应着不同的url，
-然后不同的url下再对应中动态加载iframe。url对比如下：
-http://www.cninfo.com.cn/information/companyinfo_n.html?brief?szmb000998
-http://www.cninfo.com.cn/information/companyinfo_n.html?management?szmb000998
-这样子的话，就涉及到我需要在Selenuim中点击按钮，然后再渲染id=&#39;i_nr&#39;的iframe，而且不同页面中iframe名字都叫i_nr。我试过这个
-办法，但是拿回的源码并不是高管人员页面的源码，依然是公司概况页面的源码，也许是我方法用的不对，有待仔细研究。
-所以我又在cninfo_mana.py中又写了一个爬虫，从而单独来获取高管人员页面的信息。</code></pre>
-<h3 id="3-缺陷3"><a href="#3-缺陷3" class="headerlink" title="3.缺陷3"></a>3.缺陷3</h3><pre><code>对于十大股东页面，按理说我应该在写一个py文件来单独获取它的页面信息，这样子就ok了，实际上我也是这么做的。但是爬虫运行是，却发
-现我拿不到股东的信息，因为我发现当请求http://www.cninfo.com.cn/information/companyinfo_n.html?shareholders?
-szmb000998时，首先切换到id=&#39;i_nr&#39;的iframe中，但是随后股东的详细信息又在一个id=&#39;i_nr&#39;的ifrma中，相当于这里有两个iframe，
-我在中间件试了试两个这样子切换iframe，但是很遗憾我没拿到我想要的东西，源代码还是停留在第一层iframe中，所以最后我放弃了，没有
-拿十大股东的信息，这个问题智能留着我以后解决了。</code></pre>
-<h3 id="4-缺陷4"><a href="#4-缺陷4" class="headerlink" title="4.缺陷4"></a>4.缺陷4</h3><pre><code>self.broswer = webdriver.PhantomJS(
-        executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
-这个代码在中间件和爬虫代码中都有，说明两次打开了浏览器，致使性能降低。</code></pre>
-<h2 id="五、其他项目"><a href="#五、其他项目" class="headerlink" title="五、其他项目"></a>五、其他项目</h2><pre><code>    其实我之前还用Selenium写过一个项目，用过抓取FAO的国家分类信息，以前习惯不好，做事不记录，导致做完就忘，只有个模糊的印象。
-今天把之前那个项目找到了，重新运行了一下，但是抓不到东西了，我看看了网站的结构没变，应该是在动态加载方面变化了，等有时间的时候
-看看究竟哪里变了，再把代码优化一下，附上github地址，有兴趣可以参考一下。如果有帮助，给个star把，好不要脸，第一次求star。</code></pre>
-<p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/fao">https://github.com/Gladysgong/fao</a></p>
-<h2 id="六、后续"><a href="#六、后续" class="headerlink" title="六、后续"></a>六、后续</h2><p>后来我又写了一篇文章——<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E5%B9%B4%E6%8A%A5/">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>，有兴趣的可以看看。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PhantomJS%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">PhantomJS安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-29 15:40:06" itemprop="dateCreated datePublished" datetime="2018-03-29T15:40:06+08:00">2018-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:39:17" itemprop="dateModified" datetime="2020-09-18T21:39:17+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/PhantomJS/" itemprop="url" rel="index"><span itemprop="name">PhantomJS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><pre><code>http://phantomjs.org/download.html </code></pre>
-<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><pre><code>解压文件，examlpe中有很多小例子可以试试
-把解压后的bin路径配置到path变量中
-打开cmd，输入phantomjs验证</code></pre>
-<h2 id="三、验证"><a href="#三、验证" class="headerlink" title="三、验证"></a>三、验证</h2><pre><code>`from selenium import webdriver
-browser = webdriver.PhantomJS(executable_path=r&#39;E:\Program Files\phantomjs-2.1.1-windows\bin\phantomjs.exe&#39;)
-browser.get(&#39;https://www.baidu.com&#39;)
-print(browser.current_url)`</code></pre>
-<hr>
-<pre><code>输出：https:www.baidu.com
-
-成功！</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Python%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Python中的进程与线程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-27 14:35:23" itemprop="dateCreated datePublished" datetime="2018-03-27T14:35:23+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-05-27 21:27:25" itemprop="dateModified" datetime="2018-05-27T21:27:25+08:00">2018-05-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、多进程"><a href="#一、多进程" class="headerlink" title="一、多进程"></a>一、多进程</h2><pre><code>Python中实现多进程有2种方式：
-    os模块中的fork()方法
-    使用multiprocessing模块
-
-区别：
-    fork()仅仅适用于Unix/Linux操作系统，不支持Windows
-    multiprocessing支持跨平台</code></pre>
-<h3 id="1-使用os模块的fork实现多进程"><a href="#1-使用os模块的fork实现多进程" class="headerlink" title="1.使用os模块的fork实现多进程"></a>1.使用os模块的fork实现多进程</h3><pre><code>fork方法来源于Unix/Linux中提供的fork系统调用，此方法很特殊。
-普通方法调用一次，返回一次，fork方法调用一次，返回两次。
-原因：操作系统将当前进程（父进程）复制出一份进程（子进程），两个进程几乎完全相同，于是fork方法分别在父进程和子进程中分别返回。
-子进程中永远返回0，父进程中返回子进程的ID。
-
-getpid() -- 获取当前进程的ID
-getppid() -- 获取父进程的ID</code></pre>
-<hr>
-<pre><code>`import os
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;current Process (%s) start ...&#39;,(os.getpid()))
-    pid=os.fork()
-    if pid&lt;0:
-        print(&#39;error in fork&#39;)
-    elif pid==0:
-        print(&#39;I am child process(%s) and my parent process is (%s)&#39;,(os.getpid(),os.getppid()))
-    else:
-        print(&#39;I (%s) created a child process (%s).&#39;,(os.getpid(),pid))`</code></pre>
-<hr>
-<pre><code>输出：
-current Process (%s) start ... 17441
-I (%s) created a child process (%s). (17441, 20736)
-I am child process(%s) and my parent process is (%s) (20736, 17441)</code></pre>
-<h3 id="2-使用multiprocessing模块创建多进程"><a href="#2-使用multiprocessing模块创建多进程" class="headerlink" title="2.使用multiprocessing模块创建多进程"></a>2.使用multiprocessing模块创建多进程</h3><pre><code>multiprocessing模块提供Process类来描述一个进程对象，当创建子进程时，
-只需要传入一个执行函数和函数参数，即可完成Process实例的创建，再用start
-()方法启动进程，用join()方法实现进程间的同步。</code></pre>
-<hr>
-<pre><code>`import os
-from multiprocessing import Process
-# 子进程要执行的代码
-def run_proc(name):
-    print(&#39;Child process %s (%s) Running...&#39;%(name,os.getpid()))
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;Parent Process %s.&#39;%(os.getpid()))
-    for i in range(5):
-        p=Process(target=run_proc,args=(str(i),))
-        print(&#39;Process will start&#39;)
-        p.start()
-    p.join()
-    print(&#39;Process end.&#39;)`</code></pre>
-<hr>
-<pre><code>输出：
-Parent Process 17441.
-Process will start
-Process will start
-Process will start
-Child process 0 (38587) Running...
-Process will start
-Child process 1 (38590) Running...
-Process will start
-Child process 2 (38591) Running...
-Child process 3 (38596) Running...
-Child process 4 (38599) Running...
-Process end.</code></pre>
-<h3 id="3-使用multiprocessing模块的Pool类来代表进程池对象"><a href="#3-使用multiprocessing模块的Pool类来代表进程池对象" class="headerlink" title="3.使用multiprocessing模块的Pool类来代表进程池对象"></a>3.使用multiprocessing模块的Pool类来代表进程池对象</h3><pre><code>如果要启动大量的子进程，使用进程池批量创建子进程的方式更加常见。
-Pool可以提供指定数量的进程供用户调用，默认大小是CPU核数。
-当新请求提交到Pool中时，如果池未满，就会创建新进程来执行该请求；
-但如果池中进程数已达到最大值，请求就会等待，直到池中有进程结束，才会创建新进程来处理。
-注意：Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前须
-调用close()，调用close()后就不能添加新的Process</code></pre>
-<hr>
-<pre><code>`import os,time,random
-from multiprocessing import Pool
-
-def run_task(name):
-    print(&#39;Task %s (pid=%s) is Running...&#39;%(name,os.getpid()))
-    time.sleep(random.random()*3)
-    print(&#39;Task %s end.&#39;%name)
-
-if __name__ ==&#39;__main__&#39;:
-    print(&#39;Current Process %s.&#39;%(os.getpid()))
-    p=Pool(processes=3)
-    for i in range(5):
-        p.apply_async(run_task,args=(i,))
-    print(&#39;Waiting for all subprocesses done...&#39;)
-    p.close()
-    p.join()
-    print(&#39;All subprocess done.&#39;)`    </code></pre>
-<hr>
-<pre><code>输出:
-Current Process 17441.
-Task 2 (pid=40820) is Running...
-Task 1 (pid=40819) is Running...
-Task 0 (pid=40818) is Running...
-Waiting for all subprocesses done...
-Task 2 end.
-Task 3 (pid=40820) is Running...
-Task 0 end.
-Task 4 (pid=40818) is Running...
-Task 1 end.
-Task 4 end.
-Task 3 end.
-All subprocess done.</code></pre>
-<h3 id="4-进程间通信"><a href="#4-进程间通信" class="headerlink" title="4.进程间通信"></a>4.进程间通信</h3><pre><code>Python进程通信方式：Queue、Pipe、Value+Array
-区别：Pipe常用于两个进程间通信，Queue用于多个进程间通信
-Queue：put和get</code></pre>
-<h4 id="4-1-Queue"><a href="#4-1-Queue" class="headerlink" title="4.1 Queue"></a>4.1 Queue</h4><hr>
-<pre><code>`# ----Queue----
-import os,time,random
-from multiprocessing import Process,Queue
-
-# 写数据进程执行的代码：
-def proc_write(q,urls):
-    print(&#39;Process (%s) is writing...&#39;%os.getpid())
-    for url in urls:
-        q.put(url)
-        print(&#39;Put %s to queue...&#39;%url)
-        time.sleep(random.random())
-
-# 读数据进程执行的代码：
-def proc_read(q):
-    print(&#39;Process (%s) is reading...&#39;%os.getpid())
-    while True:
-        url=q.get(True)
-        print(&#39;Get %s from queue.&#39;%url)
-
-if __name__ ==&#39;__main__&#39;:
-    # 父进程创建Queue，并传给各个子进程：
-    q=Queue()
-    proc_writer1=Process(target=proc_write,args=(q,[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;]))
-    proc_writer2=Process(target=proc_write,args=(q,[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;]))
-    proc_reader=Process(target=proc_read,args=(q,))
-    # 启动子进程proc_writer,写入：
-    proc_writer1.start()
-    proc_writer2.start()
-    # 启动子进程proc_reader,读取：
-    proc_reader.start()
-    # 等待proc_writer结束：
-    proc_writer1.join()
-    proc_writer2.join()
-    # proc_reader进程里是死循环，无法等待其结束，只能强行终止：
-    proc_reader.terminate()`</code></pre>
-<hr>
-<pre><code>输出：
-Process (45109) is writing...
-Process (45110) is writing...
-Put url_1 to queue...
-Put url_4 to queue...
-Process (45113) is reading...
-Get url_1 from queue.
-Get url_4 from queue.
-Put url_5 to queue...
-Get url_5 from queue.
-Put url_2 to queue...
-Get url_2 from queue.
-Put url_6 to queue...
-Get url_6 from queue.
-Put url_3 to queue...
-Get url_3 from queue.</code></pre>
-<h4 id="4-2-Pipe"><a href="#4-2-Pipe" class="headerlink" title="4.2 Pipe"></a>4.2 Pipe</h4><pre><code>`# ----Pipe----
-import os,time,random
-import multiprocessing
-
-def proc_send(pipe,urls):
-    for url in urls:
-        print(&#39;Process (%s) send: %s&#39;%(os.getpid(),url))
-        pipe.send(url)
-        time.sleep(random.random())
-
-def proc_recv(pipe):
-    while True:
-        print(&#39;Process (%s) recv: %s&#39;%(os.getpid(),pipe.recv()))
-        time.sleep(random.random())
-
-if __name__ ==&#39;__main__&#39;:
-    pipe=multiprocessing.Pipe()
-    p1=multiprocessing.Process(target=proc_send,args=(pipe[0],[&#39;url_&#39;+str(i) for i in range(10) ]))
-    p2=multiprocessing.Process(target=proc_recv,args=(pipe[1],))
-
-    p1.start()
-    p2.start()
-
-    p1.join()
-    p2.terminate()`</code></pre>
-<hr>
-<pre><code>输出：
-Process (15338) send: url_0
-Process (15339) recv: url_0
-Process (15338) send: url_1
-Process (15339) recv: url_1
-Process (15338) send: url_2
-Process (15339) recv: url_2
-Process (15338) send: url_3
-Process (15339) recv: url_3
-Process (15338) send: url_4
-Process (15338) send: url_5
-Process (15339) recv: url_4
-Process (15339) recv: url_5
-Process (15338) send: url_6
-Process (15339) recv: url_6
-Process (15338) send: url_7
-Process (15339) recv: url_7
-Process (15338) send: url_8
-Process (15339) recv: url_8
-Process (15338) send: url_9</code></pre>
-<h2 id="二、多线程"><a href="#二、多线程" class="headerlink" title="二、多线程"></a>二、多线程</h2><pre><code>Python中提供2个模块实现多线程：thread和threading
-thread属于低级模块，threading是高级模块，对thread进行了封装
-大多数使用threading模块</code></pre>
-<h3 id="1-用threading模块创建多线程"><a href="#1-用threading模块创建多线程" class="headerlink" title="1.用threading模块创建多线程"></a>1.用threading模块创建多线程</h3><pre><code>两种方式：
-    函数传入并创建Thread实例，调用start方法开始执行
-    直接从threading.Thread继承并创建线程类，重写__init__和run方法</code></pre>
-<h4 id="1-1-函数传入"><a href="#1-1-函数传入" class="headerlink" title="1.1 函数传入"></a>1.1 函数传入</h4><pre><code>`import random 
-import time,threading
-
-# 新线程执行的代码：
-def thread_run(urls):
-    print(&#39;Current %s is running...&#39;%threading.current_thread().name)
-    for url in urls:
-        print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
-        time.sleep(random.random())
-    print(&#39;%s ended.&#39;%threading.current_thread().name)
-
-print(&#39;%s is running...&#39;%threading.current_thread().name)
-t1=threading.Thread(target=thread_run,name=&#39;Thread_1&#39;,args=([&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;],))
-t2=threading.Thread(target=thread_run,name=&#39;Thread_2&#39;,args=([&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;],))
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
-<hr>
-<pre><code>输出：
-MainThread is running...
-Current Thread_1 is running...
-Thread_1----&gt;&gt;&gt; url_1
-Current Thread_2 is running...
-Thread_2----&gt;&gt;&gt; url_4
-Thread_2----&gt;&gt;&gt; url_5
-Thread_1----&gt;&gt;&gt; url_2
-Thread_1----&gt;&gt;&gt; url_3
-Thread_2----&gt;&gt;&gt; url_6
-Thread_2 ended.
-Thread_1 ended.
-MainThread ended.</code></pre>
-<h4 id="1-2-直接继承"><a href="#1-2-直接继承" class="headerlink" title="1.2 直接继承"></a>1.2 直接继承</h4><pre><code>`import random 
-import time,threading
-
-class myThread(threading.Thread):
-    def __init__(self,name,urls):
-        threading.Thread.__init__(self,name=name)
-        self.urls=urls
-
-    def run(self):
-        print(&#39;Current %s is running...&#39;%threading.current_thread().name)
-        for url in self.urls:
-            print(&#39;%s----&gt;&gt;&gt; %s&#39;%(threading.current_thread().name,url))
-            time.sleep(random.random())
-        print(&#39;%s ended.&#39;%threading.current_thread().name)   
-
-print(&#39;%s is running...&#39;%threading.current_thread().name)
-t1=myThread(name=&#39;Thread_1&#39;,urls=[&#39;url_1&#39;,&#39;url_2&#39;,&#39;url_3&#39;])
-t2=myThread(name=&#39;Thread_2&#39;,urls=[&#39;url_4&#39;,&#39;url_5&#39;,&#39;url_6&#39;])
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-print(&#39;%s ended.&#39;%threading.current_thread().name)`</code></pre>
-<hr>
-<pre><code>输出：
-MainThread is running...
-Current Thread_1 is running...
-Current Thread_2 is running...
-Thread_2----&gt;&gt;&gt; url_4
-Thread_1----&gt;&gt;&gt; url_1
-Thread_1----&gt;&gt;&gt; url_2
-Thread_2----&gt;&gt;&gt; url_5
-Thread_2----&gt;&gt;&gt; url_6
-Thread_1----&gt;&gt;&gt; url_3
-Thread_2 ended.
-Thread_1 ended.
-MainThread ended.</code></pre>
-<h3 id="2-线程同步"><a href="#2-线程同步" class="headerlink" title="2.线程同步"></a>2.线程同步</h3><pre><code>Thread对象的Lock和RLock可实现线程同步，2个对象均有acquire和release方法
-`import random 
-import time,threading
-
-mylock=threading.RLock()
-num=0
-
-class myThread(threading.Thread):
-    def __init__(self,name):
-        threading.Thread.__init__(self,name=name)
-
-    def run(self):
-        global num
-        while True:
-            mylock.acquire()
-            print(&#39;%s locked,Number:%d&#39;%(threading.current_thread().name,num))
-            if num&gt;=4:
-                mylock.release()
-                print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
-                break
-            num+=1
-            print(&#39;%s released,Number:%d&#39;%(threading.current_thread().name,num))
-            mylock.release()
-if __name__==&#39;__main__&#39;:
-    t1=myThread(name=&#39;Thread_1&#39;)
-    t2=myThread(name=&#39;Thread_2&#39;)
-    t1.start()
-    t2.start()`</code></pre>
-<hr>
-<pre><code>输出：
-Thread_1 locked,Number:0
-Thread_1 released,Number:1
-Thread_1 locked,Number:1
-Thread_1 released,Number:2
-Thread_1 locked,Number:2
-Thread_1 released,Number:3
-Thread_1 locked,Number:3
-Thread_1 released,Number:4
-Thread_1 locked,Number:4
-Thread_1 released,Number:4
-Thread_2 locked,Number:4
-Thread_2 released,Number:4</code></pre>
-<h2 id="三、协程"><a href="#三、协程" class="headerlink" title="三、协程"></a>三、协程</h2><pre><code>Python中通过yield提供对协程的基本支持，但不完全。
-所以我们用第三方geven库来使用协程。
-spawn用来形成协程，joinall用来添加协程任务。</code></pre>
-<hr>
-<pre><code>`from gevent import monkey
-monkey.patch_all()
-import gevent
-import urllib.request
-
-def run_task(url):
-    print(&#39;Visit --&gt; %s&#39;%url)
-    try:
-        response=urllib.request.urlopen(url)
-        data=response.read()
-        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
-    except Exception as e:
-        print(e)
-
-if __name__==&#39;__main__&#39;:
-    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
-    greenlets=[gevent.spawn(run_task,url) for url in urls]
-    gevent.joinall(greenlets)`</code></pre>
-<hr>
-<pre><code>输出：
-Visit --&gt; https://github.com/
-Visit --&gt; https://www.python.org/
-Visit --&gt; https://www.baidu.com/
-227 bytes received from https://www.baidu.com/.
-52801 bytes received from https://github.com/.
-48922 bytes received from https://www.python.org/.</code></pre>
-<hr>
-<pre><code>`# 提供对pool的支持，当拥有动态数量的greenlets需要进行并发管理
-from gevent import monkey
-monkey.patch_all()
-import gevent
-import urllib.request
-from gevent.pool import Pool
-
-def run_task(url):
-    print(&#39;Visit --&gt; %s&#39;%url)
-    try:
-        response=urllib.request.urlopen(url)
-        data=response.read()
-        print(&#39;%d bytes received from %s.&#39;%((len(data)),url))
-    except Exception as e:
-        print(e)
-    print(&#39;url:%s ---&gt;finish&#39;%url)
-
-if __name__==&#39;__main__&#39;:
-    pool=Pool()
-    urls=[&#39;https://github.com/&#39;,&#39;https://www.python.org/&#39;,&#39;https://www.baidu.com/&#39;]
-#     greenlets=[gevent.spawn(run_task,url) for url in urls]
-#     gevent.joinall(greenlets)
-    results=pool.map(run_task,urls)
-    print(results)`</code></pre>
-<hr>
-<pre><code>输出：
-Visit --&gt; https://github.com/
-Visit --&gt; https://www.python.org/
-Visit --&gt; https://www.baidu.com/
-227 bytes received from https://www.baidu.com/.
-url:https://www.baidu.com/ ---&gt;finish
-48922 bytes received from https://www.python.org/.
-url:https://www.python.org/ ---&gt;finish
-52801 bytes received from https://github.com/.
-url:https://github.com/ ---&gt;finish
-[None, None, None]</code></pre>
-<h2 id="四、分布式进程"><a href="#四、分布式进程" class="headerlink" title="四、分布式进程"></a>四、分布式进程</h2><pre><code>写一个服务进程作为调度者，将任务分布到其他多个子进程中，依靠网络通信进行管理。
-步骤：
-    未完--待续</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2354,7 +2015,7 @@ url:https://github.com/ ---&gt;finish
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

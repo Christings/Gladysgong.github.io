@@ -158,6 +158,372 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Mac-Matplotlib%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">matplotlib-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-02 13:29:05" itemprop="dateCreated datePublished" datetime="2018-09-02T13:29:05+08:00">2018-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:07:42" itemprop="dateModified" datetime="2020-09-18T17:07:42+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Matplotlib/" itemprop="url" rel="index"><span itemprop="name">Matplotlib</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、问题：matplotlib无法显示中文的问题"><a href="#一、问题：matplotlib无法显示中文的问题" class="headerlink" title="一、问题：matplotlib无法显示中文的问题"></a>一、问题：matplotlib无法显示中文的问题</h2><pre><code>网上找了好多种方法，显示中文的时候还是小框框，在我的Mac上就是不行。这是在我的Mac上可行的办法，希望对你也有用。</code></pre>
+<h3 id="1、下载SimHei-ttf字体"><a href="#1、下载SimHei-ttf字体" class="headerlink" title="1、下载SimHei.ttf字体"></a>1、下载SimHei.ttf字体</h3><pre><code>http://www.fontpalace.com/font-details/SimHei/</code></pre>
+<h3 id="2、解决办法"><a href="#2、解决办法" class="headerlink" title="2、解决办法"></a>2、解决办法</h3><pre><code>1.找到Matplotlib路径
+$ python
+&gt; import matplotlib
+&gt; print(matplotlib.matplotlib_fname()) # 获得matplotlib包所在文件夹路径
+/anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/matplotlibrc
+
+2.将下载的ttf文件拷贝到此目录下
+$ cd /anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/
+$ cd fonts/ttf
+$ cp ttf文件 . # 拷贝下载的ttf文件到此目录
+
+3. 删除字体缓存文件
+$ rm -rf ~/.matplotlib/*.cache
+
+4. 字体参数设置
+$ cd /anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data
+$ vi matplotlibrc
+font.family         : sans-serif 
+font.sans-serif     : SimHei
+axes.unicode_minus  : False # use unicode for the minus symbol
+# 意思是知道字库族为 sans-serif，同时添加“SimHei”即宋体到字库族列表中，同时将找到axes.unicode_minus，将True改为False，作用就是解决负号’-‘显示为方块的问题
+
+5. 字体显示
+有中文出现的情况，需要 u&#39;内容&#39;，比如 plt.xlabel(u&#39;横坐标&#39;)
+同时还需在开头添加代码行：#coding:utf-8
+
+注意：
+但是我走到这一步后运行，字体显示仍未小框框。提示：
+【UserWarning: findfont: Font family [‘sans-serifs’] not found. Falling back to Bitstream Vera Sans】
+说明还是没有找到字体，所以我进一步进行配置。
+
+6.配置fontList.json
+# 在ttflist文件添加&quot;SimHei&quot;字体集
+
+$ cd /Users/apple/.matplotlib
+$ vi fontList.json</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/matplotlib_fonts.png"><br>    图片红框中的ttf文件是我后加的，说明之前这个ttf文件不在其中，所以自然找不到这个字体。<br>    根据自己的位置在文件中添加自己的ttf文件<br>    添加如下配置（参考文件中的配置）：</p>
+<pre><code>&#123;
+  &quot;fname&quot;: &quot;/anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/SimHei.ttf&quot;,
+  &quot;name&quot;: &quot;SimHei&quot;,
+  &quot;style&quot;: &quot;normal&quot;,
+  &quot;variant&quot;: &quot;normal&quot;,
+  &quot;weight&quot;: 400,
+  &quot;stretch&quot;: &quot;normal&quot;,
+  &quot;size&quot;: &quot;scalable&quot;,
+  &quot;_class&quot;: &quot;FontEntry&quot;
+&#125;,
+
+之后重启项目，matplotlib即可显示中文字体了。</code></pre>
+<h2 id="二、查看matplotlib支持的字体集"><a href="#二、查看matplotlib支持的字体集" class="headerlink" title="二、查看matplotlib支持的字体集"></a>二、查看matplotlib支持的字体集</h2><pre><code>$ python 
+&gt; import matplotlib
+&gt; xxx=sorted(f.name for f in matplotlib.font_manager.fontManager.ttflist)
+&gt; for i in xxx:
+          print(i)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Django-2-ModelForm%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Django-2-ModelForm%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Django-2-ModelForm详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-31 12:41:10" itemprop="dateCreated datePublished" datetime="2018-08-31T12:41:10+08:00">2018-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 13:42:46" itemprop="dateModified" datetime="2020-09-18T13:42:46+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一.前言"></a>一.前言</h2><pre><code>ModelForm：功能是将Model和Form组合起来</code></pre>
+<h2 id="二-ModelForm"><a href="#二-ModelForm" class="headerlink" title="二.ModelForm"></a>二.ModelForm</h2><pre><code>from django.forms import ModelForm # 导入ModelForm
+from django.forms import fields
+from .models import Book
+
+class BookModelForm(forms.ModelForm):
+class Meta:
+     # 可以在这里单独定义字段的具体类型和属性，同Form;
+     # 如果定义的字段在model中存在，则会覆盖；
+     name=fields.CharField(required=True)
+
+    model = Book
+
+    # fields控制在前端显示的字段
+    fields = [&#39;name&#39;, &#39;authors&#39;, &#39;publish_date&#39;]
+    fields=&#39;__all__&#39;
+
+    # labels控制在前端是否显示标题
+     labels=&#123;
+             &#39;name&#39;: &#39;用户名&#39;,   # &#39;name&#39;:&#39;&#39; 
+         &#39;authors&#39;: &#39;作者&#39;,
+         &#39;publish_date&#39;: &#39;日期&#39;,
+     &#125;
+
+    widgets = &#123;
+        &#39;name&#39;: forms.TextInput(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;&#125;),
+        &#39;authors&#39;: forms.Select(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;&#125;),
+        &#39;publish_date&#39;: forms.DateInput(attrs=&#123;&#39;class&#39;: &quot;form-control&quot;,
+                                               &#39;placeholder&#39;: &quot;YYYY-MM-DD&quot;&#125;)
+    &#125;
+
+
+
+
+ 说明：
+
+    model: 对应的数据库model
+
+    fields: 选择字段列表；’all’是选择所有字段
+
+    exclude: 排除字段列表
+
+    widgets: 插件字典
+
+    labels: 前端显示字段名
+
+    help_texts：帮助提示信息
+
+    error_messages: 自定义错误提示
+
+    localized_fields: 本地化，如：根据不同时区显示数据</code></pre>
+<h2 id="三-View"><a href="#三-View" class="headerlink" title="三.View"></a>三.View</h2><pre><code>class Index(TemplateView):
+  template_name = &quot;index.html&quot;
+
+  def get(self, request, *args, **kwargs):
+      form = BookModelForm()    
+      return self.render_to_response(context=&#123;&quot;form&quot;: form&#125;)
+
+  def post(self,request):
+
+      form = BookModelForm()
+
+      # obj=model.Book.objects.get(id=1)
+      #form=BookModelForm(request.POST,instance=obj)
+
+     if form.is_valid():
+         form.save()
+         return redirect(&quot;home&quot;)
+
+            # obj = form.save(commit=False)
+            # obj.save()      # 保存单表信息
+            # obj.save_m2m()  # 保存关联多对多信息
+     return self.render_to_response(context=&#123;&quot;form&quot;: form&#125;)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/iTerm2-sshpass-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iTerm2-sshpass-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E5%85%8D%E5%AF%86%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/" class="post-title-link" itemprop="url">iTerm2+sshpass:Mac下使用iTerm2免密连接远程主机</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-31 11:37:49" itemprop="dateCreated datePublished" datetime="2018-08-31T11:37:49+08:00">2018-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:29:24" itemprop="dateModified" datetime="2020-09-18T16:29:24+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-安装iTerm2"><a href="#一-安装iTerm2" class="headerlink" title="一.安装iTerm2"></a>一.安装iTerm2</h2><pre><code>不再介绍</code></pre>
+<h2 id="二-安装sshpass"><a href="#二-安装sshpass" class="headerlink" title="二.安装sshpass"></a>二.安装sshpass</h2><pre><code>使用brew进行安装
+$ brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+$ sshpass -h # 验证是否安装成功</code></pre>
+<h2 id="三-设置免密"><a href="#三-设置免密" class="headerlink" title="三.设置免密"></a>三.设置免密</h2><pre><code>关键是Command模式格式：
+/usr/local/bin/sshpass -p (密码) ssh -p (端口) (登录)@(服务器IP或者域名)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8B%E4%BD%BF%E7%94%A8iTerm2%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1454,403 +1820,10 @@ n &lt;&amp; m    将输入文件 m 和 n 合并。
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/" class="post-title-link" itemprop="url">Mac终端ssh登录Linux提示cannot change locale(UTF_8)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-19 10:15:26" itemprop="dateCreated datePublished" datetime="2018-06-19T10:15:26+08:00">2018-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:33:56" itemprop="dateModified" datetime="2020-09-18T16:33:56+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="警告"><a href="#警告" class="headerlink" title="警告"></a>警告</h2><pre><code>在Mac终端ssh登录远程Linux主机时，总是提示：
--bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
-即使在Linux中添加了export LANG=en_US，报错依旧在。</code></pre>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><pre><code>这个警告是ssh服务器和终端客户程序共同导致吃的。
-本地ssh客户端发动LC_*环境变量给远程sshd服务器，即ssh将尝试在远程服务器上设置和本地系统（我的是high Sierra系统）一样的LC_*环境变量，这样就导致了登录Linux远程服务器出现警告。</code></pre>
-<h2 id="解决方法（3种-）"><a href="#解决方法（3种-）" class="headerlink" title="解决方法（3种 ）"></a>解决方法（3种 ）</h2><p>1.在ssh客户端关闭启动时设置本地环境变量</p>
-<pre><code>终端 &gt; 偏好设置 &gt; 描述文件 &gt; 高级 &gt; 启动时设置locale环境变量（关闭它）
-
-但我用了这个方法还是没有生效，可能哪里配置还得改吧，而且重启机器后这个选项还是开着的，按理说是可以用的。</code></pre>
-<p>2.禁止OpenSSH客户端从OS X/Linux/Unix桌面发送LC_*变量</p>
-<pre><code>$ vi /etc/ssh/ssh_config
-删除或注释以下配置：SendEnv LANG LC_*
-
-# Site-wide defaults for some commonly used options.  For a comprehensive
-# list of available options, their meanings and defaults, please see the
-# ssh_config(5) man page.
-
-# Apple:
- Host *
-   SendEnv LANG LC_*
-#   AskPassGUI yes
-
-#   ForwardAgent no
-#   ForwardX11 no
-#   RhostsRSAAuthentication no
-#   RSAAuthentication yes
-#   PasswordAuthentication yes
-#   HostbasedAuthentication no
-#   GSSAPIAuthentication no
-#   GSSAPIDelegateCredentials no
-......
-
-我使用这个后成功，感觉这个方法比较合适。</code></pre>
-<p>3.在远程服务器上安装要求的locale</p>
-<pre><code>可以使用localedef安装需要的locale
-或者考虑在本地/远程系统中选择另外的locale
-$ localedef -i en_US -f UTF-8 en.US.UTF-8</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Requests%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Requests%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Request详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-15 17:12:40" itemprop="dateCreated datePublished" datetime="2018-06-15T17:12:40+08:00">2018-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 13:44:43" itemprop="dateModified" datetime="2020-09-18T13:44:43+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Requests/" itemprop="url" rel="index"><span itemprop="name">Requests</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、在Python2中使用urllib和urllib2进行http请求"><a href="#一、在Python2中使用urllib和urllib2进行http请求" class="headerlink" title="一、在Python2中使用urllib和urllib2进行http请求"></a>一、在Python2中使用urllib和urllib2进行http请求</h2><pre><code>(1) urllib2可以接受一个Request类的实例来设置URL请求的headers。
-(2) urllib仅可以接受URL，这意味着你不可以伪装你的User Agent字符串等。
-(3) urllib 有urlencode,而urllib2没有，这也是为什么总是urllib，urllib2常会一起使用的原因。</code></pre>
-<pre><code>    req=urllib2.Request(url=url,data=postdata,headers=headers)
-    result=urllib2.urlopen(req)</code></pre>
-<h2 id="二、在Python3中使用urllib和http进行http请求"><a href="#二、在Python3中使用urllib和http进行http请求" class="headerlink" title="二、在Python3中使用urllib和http进行http请求"></a>二、在Python3中使用urllib和http进行http请求</h2><pre><code>http包会处理所有客户端--服务器http请求的具体细节，其中：
-    （1）client会处理客户端的部分
-    （2）server会协助你编写Python web服务器程序
-    （3）cookies和cookiejar会处理cookie，cookie可以在请求中存储数据
-
-urllib包是基于http的高层库，它有以下三个主要功能：
-    （1）request处理客户端的请求
-    （2）response处理服务端的响应
-    （3）parse会解析url</code></pre>
-<p>1.get请求</p>
-<pre><code>import urllib.request
-
-f = urllib.request.urlopen(&#39;http://www.webxml.com.cn//webservices/qqOnlineWebService.asmx/qqCheckOnline?qqCode=424662508&#39;)
-result = f.read().decode(&#39;utf-8&#39;)</code></pre>
-<p>2.发送带请求头的get请求</p>
-<pre><code>import urllib.request
-
-req = urllib.request.Request(&#39;http://www.example.com/&#39;)
-req.add_header(&#39;Referer&#39;,&#39;http://www.python.org/&#39;)
-r = urllib.request.urlopen(req)
-result = f.read().decode(&#39;utf-8&#39;)</code></pre>
-<p>3.综合</p>
-<pre><code>import urllib.parse  
-import urllib.request  
-
-url = &#39;http://www.example.com/&#39;  
-user_agent = &#39;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&#39;  
-values = &#123;  
-&#39;act&#39; : &#39;login&#39;,  
-&#39;login[email]&#39; : &#39;&#39;,  
-&#39;login[password]&#39; : &#39;&#39;  
-&#125;  
-headers = &#123; &#39;User-Agent&#39; : user_agent &#125;  
-data = urllib.parse.urlencode(values)  
-
-req = urllib.request.Request(url, data, headers)  
-response = urllib.request.urlopen(req)  
-the_page = response.read()  
-print(the_page.decode(&quot;utf8&quot;)</code></pre>
-<h2 id="三、第三方库Requests"><a href="#三、第三方库Requests" class="headerlink" title="三、第三方库Requests"></a>三、第三方库Requests</h2><pre><code>(1) Requests 使用的是 urllib3，继承了urllib2的所有特性。
-(2) 支持HTTP连接保持和连接池；支持使用cookie保持会话；支持文件上传；支持自动确定响应内容的编码；支持国际化的 URL 和 POST 数据自动编码。</code></pre>
-<p>1.安装</p>
-<pre><code>pip install requests
-pip install --upgrade requests</code></pre>
-<p>2.请求类型</p>
-<pre><code>POST，GET，PUT，DELETE，HEAD 以及 OPTIONS</code></pre>
-<p>3.GET请求</p>
-<pre><code>import requests
-
-# 无参数示例
-r = requests.get(&#39;https://httpbin.org/get&#39;)
-# 有参数示例
-r = requets.get(&#39;http://httpbin.org/get&#39;, params=d)
-
-传递URL参数：
-    在URL中常见?符号，http://httpbin.org/get?key=val 这种带有?传递关键字参数的方式，requests可以通过params实现。
-d = &#123;&#39;k1&#39;:&#39;v1&#39;, &#39;k2&#39;:&#39;v2&#39;, &#39;k3&#39;:None, &#39;k4&#39;:[&#39;v4&#39;,&#39;v5&#39;]&#125;  
-    # 字典中键值为None的键不会被添加到URL中
-    # 多个键值中间用&amp;符号连接
-    # 键值可是列表 例如&#39;k4&#39;
-
-print(r.url) # 执行结果为：http://httpbin.org/get?k1=v1&amp;k2=v2&amp;k4=v4&amp;k4=v5
-print(r.text) # 打印解码后的返回数据</code></pre>
-<p>4.POST请求</p>
-<pre><code>import requests
-
-# 基本样例    
-payload = &#123;&#39;key1&#39;: &#39;value1&#39;, &#39;key2&#39;: &#39;value2&#39;&#125;
-ret = requests.post(&quot;http://httpbin.org/post&quot;, data=payload)
-print(ret.text)
-# 输出结果
-&#123;
-  &quot;args&quot;: &#123;&#125;, 
-  &quot;data&quot;: &quot;&quot;, 
-  &quot;files&quot;: &#123;&#125;, 
-  &quot;form&quot;: &#123;
-    &quot;key1&quot;: &quot;value1&quot;, 
-    &quot;key2&quot;: &quot;value2&quot;
-  &#125;, 
-  &quot;headers&quot;: &#123;
-    &quot;Accept&quot;: &quot;*/*&quot;, 
-    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
-    &quot;Connection&quot;: &quot;close&quot;, 
-    &quot;Content-Length&quot;: &quot;23&quot;, 
-    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
-    &quot;Host&quot;: &quot;httpbin.org&quot;, 
-    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
-  &#125;, 
-  &quot;json&quot;: null, 
-  &quot;origin&quot;: &quot;不告诉你这里返回的是你的IP地址&quot;, 
-  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
-&#125;
-
-# 发送请求头和数据
-import requests
-import json
-
-url = &#39;https://api.github.com/some/endpoint&#39;
-payload = &#123;&#39;some&#39;: &#39;data&#39;&#125;
-headers = &#123;&#39;content-type&#39;: &#39;application/json&#39;&#125;
-ret = requests.post(url, data=json.dumps(payload), headers=headers)
-print(ret.text)
-print(ret.cookies)
-# 输出结果
-&#123;&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://developer.github.com/v3&quot;&#125;
-&lt;RequestsCookieJar[]&gt;</code></pre>
-<p>5.响应内容<br>requests模块的返回对象是一个Response对象，可以从这个对象中获取需要的信息。下面 r 代表Response对象。</p>
-<pre><code>r.text        文本响应内容
-r.context     二进制响应内容
-r.json()      JSON响应内容
-r.raw         原始相应内容</code></pre>
-<p>6.响应状态码</p>
-<pre><code>r=requests.get(&#39;http://www.baidu.com&#39;)
-r.status_code</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Mac%E4%B8%8Bssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">Mac下ssh免密码登录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-11 18:16:42" itemprop="dateCreated datePublished" datetime="2018-06-11T18:16:42+08:00">2018-06-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:34:32" itemprop="dateModified" datetime="2020-09-18T16:34:32+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="本地生成公钥和私钥（客户端Mac）"><a href="#本地生成公钥和私钥（客户端Mac）" class="headerlink" title="本地生成公钥和私钥（客户端Mac）"></a>本地生成公钥和私钥（客户端Mac）</h2><pre><code>$ ssh-keygen -t rsa
-$ cd ~/.ssh
-$ vi id_rsa.pub  # 复制公钥</code></pre>
-<h2 id="远程主机上添加信任的公钥（远程主机Mac或Linux）"><a href="#远程主机上添加信任的公钥（远程主机Mac或Linux）" class="headerlink" title="远程主机上添加信任的公钥（远程主机Mac或Linux）"></a>远程主机上添加信任的公钥（远程主机Mac或Linux）</h2><pre><code>$ cd ~/.ssh
-$ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
-<p>此时，再登录就不需要密码了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1916,7 +1889,7 @@ $ vi authorized_keys # 将刚才复制的公钥拷贝进去</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

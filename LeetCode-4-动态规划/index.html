@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png">
 <meta property="article:published_time" content="2020-01-19T03:28:41.000Z">
-<meta property="article:modified_time" content="2020-10-26T12:53:38.490Z">
+<meta property="article:modified_time" content="2020-11-02T03:23:20.686Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-26 20:53:38" itemprop="dateModified" datetime="2020-10-26T20:53:38+08:00">2020-10-26</time>
+                <time title="Modified: 2020-11-02 11:23:20" itemprop="dateModified" datetime="2020-11-02T11:23:20+08:00">2020-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1255,6 +1255,13 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(i+1):
                 if dp[i][j]==0:
                     dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
+        return dp</code></pre>
+<pre><code>class Solution:
+    def generate(self, numRows: int) -&gt; List[List[int]]:
+        dp=[[1]*i for i in range(1,numRows+1)]
+        for i in range(2,numRows):
+            for j in range(1,i):
+                dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
         return dp</code></pre>
 <h3 id="119-杨辉三角-II"><a href="#119-杨辉三角-II" class="headerlink" title="119. 杨辉三角 II"></a>119. 杨辉三角 II</h3><pre><code>链接：https://leetcode-cn.com/problems/pascals-triangle-ii/
 
@@ -2633,7 +2640,7 @@ n范围在[1, 1000000]之间</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

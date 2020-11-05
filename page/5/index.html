@@ -158,6 +158,423 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-10-%E5%AE%9A%E6%97%B6%E5%99%A8Timer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-10-%E5%AE%9A%E6%97%B6%E5%99%A8Timer/" class="post-title-link" itemprop="url">python并发-10.定时器Timer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 14:50:58" itemprop="dateCreated datePublished" datetime="2020-02-26T14:50:58+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:02:37" itemprop="dateModified" datetime="2020-09-18T14:02:37+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Thread 类有一个 Timer子类，该子类可用于控制指定函数在特定时间内执行一次。</p>
+<pre><code>from threading import Timer
+
+def hi():
+    print(&#39;hi&#39;)
+
+t=Timer(10,hi) # 10秒后执行hi()
+t.start()</code></pre>
+<p>注意：Timer 只能控制函数在指定时间内执行一次，如果要使用 Timer 控制函数多次重复执行，则需要再执行下一次调度。</p>
+<pre><code>from threading import Timer
+import time
+# 定义总共输出几次的计数器
+count = 0
+def print_time():
+    print(&quot;当前时间：%s&quot; % time.ctime())
+    global t, count
+    count += 1
+    # 如果count小于10，开始下一次调度
+    if count &lt; 10:
+        t = Timer(1, print_time)
+        t.start()
+
+t = Timer(1, print_time)
+t.start()</code></pre>
+<p>如果要取消 Timer 的调度，则可调用 Timer 对象的 cancel() 函数</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-9-%E7%BA%BF%E7%A8%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-local/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-9-%E7%BA%BF%E7%A8%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-local/" class="post-title-link" itemprop="url">python并发-9.线程局部变量-local()</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 14:25:43" itemprop="dateCreated datePublished" datetime="2020-02-26T14:25:43+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:04:18" itemprop="dateModified" datetime="2020-09-18T14:04:18+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>当多线程操作同一公有资源时，如果涉及到修改该资源的操作，为了避免数据不同步可能导致的错误，需要使用互斥锁机制。</p>
+<p>除非必须将多线程使用的资源设置为公共资源，Python的 threading 模块还提供了一种可彻底避免数据不同步问题的方法，即 local() 函数。</p>
+<p>使用 local() 函数创建的变量，可以被各个线程调用，但和公共资源不同，各个线程在使用 local() 函数创建的变量时，都会在该线程自己的内存空间中拷贝一份。这意味着，local() 函数创建的变量看似全局变量（可以被各个线程调用），但各线程调用的都是该变量的副本（各调用各的，之间并无关系）。</p>
+<p>使用 threading 模块中的 local() 函数，可以为各个线程创建完全属于它们自己的变量（又称线程局部变量）。正是由于各个线程操作的是属于自己的变量，该资源属于各个线程的私有资源，因此可以从根本上杜绝发生数据同步问题。</p>
+<pre><code>import threading
+
+local = threading.local()  # 创建全局ThreadLocal对象
+
+
+def process():
+    res = local.resource  # 3.获取当前线程关联的resource:
+    print(res + &#39;123456&#39;)
+
+
+def process_thread(res):
+    local.resource = res  # 1.为当前线程绑定ThreadLocal的resource:
+    process()  # 2.线程的调用函数不需要传递res了，可以通过全局变量local访问
+
+
+t1 = threading.Thread(target=process_thread, args=(&#39;t1线程&#39;,))
+t2 = threading.Thread(target=process_thread, args=(&#39;t2线程&#39;,))
+t1.start()
+t2.start()
+</code></pre>
+<ol>
+<li><p>首先，在全局作用于范围内，调用 local() 函数会生成一个 ThreadLocal 对象（有关该类型，初学者不用关心），由此生成的 local 变量即为公共资源，它可以在程序的任意线程中被调用。</p>
+</li>
+<li><p>随后，我们创建了 2 个子线程 t1 和 t2，它们都负责执行 proess_thread() 函数，该函数中，我们在全局 local 变量的基础上，定义了一个 resource 变量，该变量即为线程局部变量，即哪个线程调用该函数，都会将 resource 变量拷贝一份并存储在自己的存储空间中。因此，t1 和 t2 线程会各自拥有一份 resource 变量的副本。</p>
+<p> 注意，虽然变量名相同，但是值不同，t1 线程传递的 res 参数为 “t1线程”，而 t2 线程传递的 res 参数值为 “t2线程”。</p>
+</li>
+</ol>
+<ol start="3">
+<li>但各个线程拷贝 resource 变量完成后，随即执行 process() 函数，在该函数中，我们可以使用 ThreadLocal 类型的 local 全局变量，调用各个线程自己的 resource 变量。<br>需要说明的一点是，该程序中，只用 ThreadLocal 类型的对象 local 创建了一个 resource 变量，根据实际场景需要，我们完全可以创建任意个线程局部变量。</li>
+</ol>
+<p>local() 函数的好处：</p>
+<pre><code>各个线程操作的都是自己的私有资源，不会涉及到数据同步问题；
+由于 local() 函数的返回值位于全局作用域，无论在程序什么位置，都可以随时调用，很方便。</code></pre>
+<p>总结:</p>
+<pre><code>无论是使用线程局部变量，还是使用互斥锁机制，其根本目的是为了解决多线程访问公共资源时可能发生的数据同步问题。互斥锁机制实现的出发点是，在各线程仍使用公共资源的前提下，想办法控制各个线程对该资源的同时访问；而线程局部变量则另辟蹊径，直接令多线程操作各自的私有资源，从根本上杜绝了同时访问所带来的数据同步问题。
+
+需要说明的一点是，线程局部变量的解决方案，并不能完全替代互斥锁同步机制。同步机制是为了同步多个线程对公共资源的并发访问，是多个线程之间进行通信的有效方式；而线程局部变量则从根本上避免了多个钱程之间对共享资源（变量）的竞争。
+
+那么，这两种解决方案该如何选择呢？简单来说，如果多线程之间需要共享资源（如多人操作同一银行账户的例子），就使用互斥锁同步机制；反之，如果仅是为了解决多线程之间的共享资源冲突，则推荐使用线程局部变量。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-8-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-8-%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">python并发-8.线程池</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-25 22:47:40" itemprop="dateCreated datePublished" datetime="2020-02-25T22:47:40+08:00">2020-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:03:42" itemprop="dateModified" datetime="2020-09-18T14:03:42+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>系统启动一个新线程的成本是比较高的，因为它涉及与操作系统的交互。在这种情形下，使用线程池可以很好地提升性能，尤其是当程序中需要创建大量生存期很短暂的线程时，更应该考虑使用线程池。</p>
+<p>线程池在系统启动时即创建大量空闲的线程，程序只要将一个函数提交给线程池，线程池就会启动一个空闲的线程来执行它。当该函数执行结束后，该线程并不会死亡，而是再次返回到线程池中变成空闲状态，等待执行下一个函数。</p>
+<p>此外，使用线程池可以有效地控制系统中并发线程的数量。当系统中包含有大量的并发线程时，会导致系统性能急剧下降，甚至导致 Python 解释器崩溃，而线程池的最大线程数参数可以控制系统中并发线程的数量不超过此数。</p>
+<h2 id="一、进程池的使用"><a href="#一、进程池的使用" class="headerlink" title="一、进程池的使用"></a>一、进程池的使用</h2><p>线程池基类是 concurrent.futures 模块中的 Executor<br>Executor 两个子类:</p>
+<pre><code>ThreadPoolExecutor：用于创建线程池
+ProcessPoolExecutor：用于创建进程池</code></pre>
+<p>如果使用线程池/进程池来管理并发编程，那么只要将相应的 task 函数提交给线程池/进程池，剩下的事情就由线程池/进程池来搞定。</p>
+<p>Exectuor 提供的常用方法：</p>
+<pre><code>submit(fn, *args, **kwargs)：将 fn 函数提交给线程池。*args 代表传给 fn 函数的参数，**kwargs 代表以关键字参数的形式为 fn 函数传入参数。
+
+map(func, *iterables, timeout=None, chunksize=1)：该函数类似于全局函数 map(func, *iterables)，只是该函数将会启动多个线程，以异步方式立即对 iterables 执行 map 处理。
+
+shutdown(wait=True)：关闭线程池。</code></pre>
+<p>程序将 task 函数提交（submit）给线程池后，submit 方法会返回一个 Future 对象，Future 类主要用于获取线程任务函数的返回值。由于线程任务会在新线程中以异步方式执行，因此，线程执行的函数相当于一个“将来完成”的任务，所以 Python 使用 Future 来代表。</p>
+<p>实际上，在 Java 的多线程编程中同样有 Future，此处的 Future 与 Java 的 Future 大同小异。</p>
+<p>Future 提供了如下方法：</p>
+<pre><code>cancel()：取消该 Future 代表的线程任务。如果该任务正在执行，不可取消，则该方法返回 False；否则，程序会取消该任务，并返回 True。
+cancelled()：返回 Future 代表的线程任务是否被成功取消。
+running()：如果该 Future 代表的线程任务正在执行、不可被取消，该方法返回 True。
+done()：如果该 Funture 代表的线程任务被成功取消或执行完成，则该方法返回 True。
+result(timeout=None)：获取该 Future 代表的线程任务最后返回的结果。如果 Future 代表的线程任务还未完成，该方法将会阻塞当前线程，其中 timeout 参数指定最多阻塞多少秒。
+exception(timeout=None)：获取该 Future 代表的线程任务所引发的异常。如果该任务成功完成，没有异常，则该方法返回 None。
+add_done_callback(fn)：为该 Future 代表的线程任务注册一个“回调函数”，当该任务成功完成时，程序会自动触发该 fn 函数。</code></pre>
+<p>在用完一个线程池后，应该调用该线程池的 shutdown() 方法，该方法将启动线程池的关闭序列。调用 shutdown() 方法后的线程池不再接收新任务，但会将以前所有的已提交任务执行完成。当线程池中的所有任务都执行完成后，该线程池中的所有线程都会死亡。</p>
+<p>使用线程池来执行线程任务的步骤如下：</p>
+<pre><code>调用 ThreadPoolExecutor 类的构造器创建一个线程池。
+定义一个普通函数作为线程任务。
+调用 ThreadPoolExecutor 对象的 submit() 方法来提交线程任务。
+当不想提交任何任务时，调用 ThreadPoolExecutor 对象的 shutdown() 方法来关闭线程池。</code></pre>
+<pre><code>from concurrent.futures import ThreadPoolExecutor
+import threading
+import time
+
+
+def action(max):
+    &#39;&#39;&#39;
+    准备作为线程任务的函数
+    :param max:
+    :return:
+    &#39;&#39;&#39;
+    sum = 0
+    for i in range(max):
+        print(threading.current_thread().name + &#39; &#39; + str(i))
+        sum += i
+    return sum
+
+
+pool = ThreadPoolExecutor(max_workers=2)  # 创建包含2个线程的线程池
+future1 = pool.submit(action, 50)  # 向线程池提交一个task, 50会作为action()函数的参数
+future2 = pool.submit(action, 100)
+print(future1.done())  # 判断future1代表的任务是否结束
+time.sleep(3)
+print(future2.done())  # 判断future2代表的任务是否结束
+print(future1.result())  # 查看future1代表的任务返回的结果
+print(future2.result())  # 查看future2代表的任务返回的结果
+pool.shutdown()</code></pre>
+<p>当程序把 action() 函数提交给线程池时，submit() 方法会返回该任务所对应的 Future 对象，程序立即判断 futurel 的 done() 方法，该方法将会返回 False（表明此时该任务还未完成）。接下来主程序暂停 3 秒，然后判断 future2 的 done() 方法，如果此时该任务已经完成，那么该方法将会返回 True。</p>
+<p>当程序使用 Future 的 result() 方法来获取结果时，该方法会阻塞当前线程，如果没有指定 timeout 参数，当前线程将一直处于阻塞状态，直到 Future 代表的任务返回。</p>
+<h2 id="二、获取执行结果"><a href="#二、获取执行结果" class="headerlink" title=" 二、获取执行结果"></a> 二、获取执行结果</h2><p>程序调用了 Future 的 result() 方法来获取线程任务的运回值，但该方法会阻塞当前主线程，只有等到钱程任务完成后，result() 方法的阻塞才会被解除。</p>
+<p>如果程序不希望直接调用 result() 方法阻塞线程，则可通过 Future 的 add_done_callback() 方法来添加回调函数，该回调函数形如 fn(future)。当线程任务完成后，程序会自动触发该回调函数，并将对应的 Future 对象作为参数传给该回调函数。</p>
+<pre><code>from concurrent.futures import ThreadPoolExecutor
+import threading
+import time
+
+
+def action(max):
+    &#39;&#39;&#39;
+    准备作为线程任务的函数
+    :param max:
+    :return:
+    &#39;&#39;&#39;
+    sum = 0
+    for i in range(max):
+        print(threading.current_thread().name + &#39; &#39; + str(i))
+        sum += i
+    return sum
+
+
+with ThreadPoolExecutor(max_workers=2) as pool:  # 创建包含2个线程的线程池
+    future1 = pool.submit(action, 50)  # 向线程池提交一个task, 50会作为action()函数的参数
+    future2 = pool.submit(action, 100)
+
+
+    def getResult(future):
+        print(future.result())
+
+
+    future1.add_done_callback(getResult)
+    future2.add_done_callback(getResult)
+    print(&#39;---------------------------&#39;)</code></pre>
+<p>future1、future2 添加了同一个回调函数，该回调函数会在线程任务结束时获取其返回值。</p>
+<p>由于程序并未直接调用 future1、future2 的 result() 方法，因此主线程不会被阻塞，可以立即看到输出主线程打印出的横线。接下来将会看到两个新线程并发执行，当线程任务执行完成后，get_result() 函数被触发，输出线程任务的返回值。</p>
+<p>由于线程池实现了上下文管理协议（Context Manage Protocol），因此程序可以使用 with 语句来管理线程池，这样即可避免手动关闭线程池。</p>
+<p>Exectuor 还提供了一个 map(func, *iterables, timeout=None, chunksize=1) 方法，该方法的功能类似于全局函数 map()，区别在于线程池的 map() 方法会为 iterables 的每个元素启动一个线程，以并发方式来执行 func 函数。这种方式相当于启动 len(iterables) 个线程，井收集每个线程的执行结果。</p>
+<pre><code>from concurrent.futures import ThreadPoolExecutor
+import threading
+import time
+
+
+def action(max):
+    &#39;&#39;&#39;
+    准备作为线程任务的函数
+    :param max:
+    :return:
+    &#39;&#39;&#39;
+    sum = 0
+    for i in range(max):
+        print(threading.current_thread().name + &#39; &#39; + str(i))
+        sum += i
+    return sum
+
+
+with ThreadPoolExecutor(max_workers=4) as pool:  # 创建包含4个线程的线程池
+    results=pool.map(action,(50,100,150)) # 元组有3个元素，因此程序启动3条线程来执行action函数
+    print(&#39;----------------------------&#39;)
+    for i in results:
+        print(i)</code></pre>
+<p>map() 方法的返回值将会收集每个线程任务的返回结果。<br>虽然程序会以并发方式来执行 action() 函数，但最后收集的 action() 函数的执行结果，依然与传入参数的结果保持一致。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-7-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0-Condition%E3%80%81Queue%E5%92%8CEvent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1617,420 +2034,10 @@ class Solution:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-6-TensorBoard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/TensorFlow-6-TensorBoard/" class="post-title-link" itemprop="url">TensorFlow-6.TensorBoard</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-18 23:40:54" itemprop="dateCreated datePublished" datetime="2020-02-18T23:40:54+08:00">2020-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:13:55" itemprop="dateModified" datetime="2020-09-18T21:13:55+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>TensorFlow 使用 TensorBoard 来提供计算图形的图形图像。这使得理解、调试和优化复杂的神经网络程序变得很方便。TensorBoard 也可以提供有关网络执行的量化指标。它读取 TensorFlow 事件文件，其中包含运行 TensorFlow 会话期间生成的摘要数据。</p>
-<h2 id="一、步骤"><a href="#一、步骤" class="headerlink" title="一、步骤"></a>一、步骤</h2><pre><code>确定想要的 OP 摘要
-loss=tf...
-
-tf.summary.scalar(&#39;loss&#39;,loss)
-
-tf.summary.histogram 可视化梯度、权重或特定层的输出分布</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-5-%E7%9F%A9%E9%98%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/TensorFlow-5-%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">TensorFlow-5.矩阵</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-18 23:19:19" itemprop="dateCreated datePublished" datetime="2020-02-18T23:19:19+08:00">2020-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:13:51" itemprop="dateModified" datetime="2020-09-18T21:13:51+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>代码：4-matrix.ipynb</p>
-<p>矩阵运算，例如执行乘法、加法和减法，是任何神经网络中信号传播的重要操作。通常在计算中需要随机矩阵、零矩阵、一矩阵或者单位矩阵。</p>
-<p>所有加法、减、除、乘（按元素相乘）、取余等矩阵的算术运算都要求两个张量矩阵是相同的数据类型，否则就会产生错误。</p>
-<p>可以使用 tf.cast() 将张量从一种数据类型转换为另一种数据类型。</p>
-<p>如果在整数张量之间进行除法，最好使用 tf.truediv(a，b)，因为它首先将整数张量转换为浮点类，然后再执行按位相除。</p>
-<pre><code>import tensorflow as tf
-
-m1=tf.eye(5)
-m2=tf.Variable(tf.eye(10))
-m3=tf.Variable(tf.random.normal([5,10]))
-m4=tf.matmul(m3,m2)
-m5=tf.Variable(tf.random.uniform([5,10],0,2,dtype=tf.int32))
-m6=tf.cast(m5,dtype=tf.float32)
-m7=tf.add(m1,tf.ones(5))
-m8=m1-tf.ones(5)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-4-%E5%B8%B8%E9%87%8F%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E5%8D%A0%E4%BD%8D%E7%AC%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/TensorFlow-4-%E5%B8%B8%E9%87%8F%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E5%8D%A0%E4%BD%8D%E7%AC%A6/" class="post-title-link" itemprop="url">TensorFlow-4.常量、变量和占位符</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-18 21:42:33" itemprop="dateCreated datePublished" datetime="2020-02-18T21:42:33+08:00">2020-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:16:27" itemprop="dateModified" datetime="2020-09-18T21:16:27+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>文档：<a target="_blank" rel="noopener" href="https://www.tensorflow.org/api_docs/python/">https://www.tensorflow.org/api_docs/python/</a><br>代码：3-var.ipynb</p>
-<p>张量，可理解为一个 n 维矩阵，所有类型的数据，包括标量、矢量和矩阵等都是特殊类型的张量。</p>
-<p>TensorFlow 支持以下三种类型的张量：</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tensor.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tensor.png"></p>
-<p>1、常量：常量是其值不能改变的张量。</p>
-<p>2、变量：当一个量在会话中的值需要更新时，使用变量来表示。例如，在神经网络中，权重需要在训练期间更新，可以通过将权重声明为变量来实现。变量在使用前需要被显示初始化。另外需要注意的是，常量存储在计算图的定义中，每次加载图时都会加载相关变量。换句话说，它们是占用内存的。另一方面，变量又是分开存储的。它们可以存储在参数服务器上。</p>
-<p>3、占位符：用于将值输入 TensorFlow 图中。它们可以和 feed_dict 一起使用来输入数据。在训练神经网络时，它们通常用于提供新的训练样本。在会话中运行计算图时，可以为占位符赋值。这样在构建一个计算图时不需要真正地输入数据。需要注意的是，占位符不包含任何数据，因此不需要初始化它们。</p>
-<h2 id="一、常量"><a href="#一、常量" class="headerlink" title="一、常量"></a>一、常量</h2><pre><code>import tensorflow as tf
-
-t1=tf.constant(4)
-t2=tf.constant([1,2,3])
-
-# tf.zeros([M,N],tf.dtype)
-# 创建一个形如 [M，N] 的零元素矩阵，数据类型（dtype）可以是 int32、float32 等
-t3=tf.zeros([2,3],tf.int32)
-
-t4=tf.zeros_like(t2)
-t5=tf.ones_like(t2)
-
-# 创建一个所有元素都设为 1 的张量
-# tf.ones([M,N],tf.dtype)
-t6=tf.ones([2,3],tf.int32)
-
-# 在一定范围内生成一个从初值到终值等差排布的序列：tf.linspace(start,stop,num)
-# 相应的值为 (stop-start)/(num-1)
-t7=tf.linspace(2.0,5.0,5)
-
-# 从开始（默认值=0）生成一个数字序列，增量为 delta（默认值=1），直到终值（但不包括终值）：tf.range(start,limit,delta)
-t8=tf.range(10)
-
-
-
-# TensorFlow 允许创建具有不同分布的随机张量：
-# 1.使用以下语句创建一个具有一定均值（默认值=0.0）和标准差（默认值=1.0）、形状为 [M，N] 的正态分布随机数组：
-# t9=tf.random_normal([2,3],mead=2.0,stddev=4.0,seed=12)
-t9=tf.random.normal([2,3],mean=2.0,stddev=4.0,seed=12) # 2.0语法
-
-# 参数:
-# shape: 一维的张量，也是输出的张量。
-# mean: 正态分布的均值。
-# stddev: 正态分布的标准差。
-# dtype: 输出的类型。
-# seed: 一个整数，当设置之后，每次生成的随机数都一样。
-# name: 操作的名字。
-# tf.random.normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None)
-
-# 2.创建一个具有一定均值（默认值=0.0）和标准差（默认值=1.0）、形状为 [M，N] 的截尾正态分布随机数组:
-t10=tf.random.truncated_normal([1,5],stddev=2,seed=12)
-
-# 3.要在种子的 [minval（default=0），maxval] 范围内创建形状为 [M，N] 的给定伽马分布随机数组:
-t11=tf.random.uniform([2,3],maxval=4,seed=12)
-
-# 4.要将给定的张量随机裁剪为指定的大小:
-# t12=tf.random_crop(t11,[2,5],seed=12) # ??? 随机从张量 t11 中裁剪出一个大小为 [2，5] 的张量
-t13=tf.random.shuffle(t11) # 以随机的顺序来呈现训练样本
-
-
-# 5.随机生成的张量受初始种子值的影响。要在多次运行或会话中获得相同的随机数，应该将种子设置为一个常数值。当使用大量的随机张量时，可以使用 tf.set_random_seed() 来为所有随机产生的张量设置种子
-t14=tf.compat.v1.set_random_seed(54) # 种子只能有整数值。</code></pre>
-<pre><code>tf.Tensor(4, shape=(), dtype=int32)
-tf.Tensor([1 2 3], shape=(3,), dtype=int32)
-tf.Tensor(
-[[0 0 0]
- [0 0 0]], shape=(2, 3), dtype=int32)
-tf.Tensor([0 0 0], shape=(3,), dtype=int32)
-tf.Tensor([1 1 1], shape=(3,), dtype=int32)
-tf.Tensor(
-[[1 1 1]
- [1 1 1]], shape=(2, 3), dtype=int32)
-tf.Tensor([2.   2.75 3.5  4.25 5.  ], shape=(5,), dtype=float32)
-tf.Tensor([0 1 2 3 4 5 6 7 8 9], shape=(10,), dtype=int32)
-tf.Tensor(
-[[-2.2231169 -0.7829838 -2.3765397]
- [-2.0533948  5.207492   4.025979 ]], shape=(2, 3), dtype=float32)
-tf.Tensor([[-1.9783968   0.05632517 -3.7346437  -0.21532871 -1.6093115 ]], shape=(1, 5), dtype=float32)
-tf.Tensor(
-[[0.94491434 2.346364   0.2467246 ]
- [2.254159   3.8856897  0.30119896]], shape=(2, 3), dtype=float32)
-tf.Tensor(
-[[2.254159   3.8856897  0.30119896]
- [0.94491434 2.346364   0.2467246 ]], shape=(2, 3), dtype=float32)
-None</code></pre>
-<h2 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h2><pre><code>通过使用变量类来创建。变量的定义还包括应该初始化的常量/随机值。</code></pre>
-<pre><code>ta=tf.random.uniform([50,50],0,10,seed=0)
-tb=tf.Variable(ta)
-tc=tf.Variable(ta)
-
-# 注意：变量通常在神经网络中表示权重和偏置。
-# 权重变量使用正态分布随机初始化，均值为 0，标准差为 2，权重大小为 100×100。偏置由 100 个元素组成，每个元素初始化为 0。
-weights=tf.Variable(tf.random.normal([100,100],stddev=2))
-bias=tf.Variable(tf.zeros([100]),name=&#39;biases&#39;)
-
-# 指定一个变量来初始化另一个变量
-weight2=tf.Variable(weights.initialized_value(),name=&#39;w2&#39;)
-
-# 变量的定义将指定变量如何被初始化，但是必须显式初始化所有的声明变量。
-inital_op=tf.compat.v1.global_variables_initializer()
-
-# 每个变量也可以在运行图中单独使用 tf.Variable.initializer 来初始化
-bias.initializer
-
-# 保存变量：使用 Saver 类来保存变量，定义一个 Saver 操作对象
-# saver=tf.compat.v1.train.Saver() ???</code></pre>
-<h2 id="三、占位符"><a href="#三、占位符" class="headerlink" title="三、占位符"></a>三、占位符</h2><pre><code>作用：用于将数据提供给计算图。
-tf.placeholder(dtype,shape=None,name=None)
-dtype 定占位符的数据类型，并且必须在声明占位符时指定。</code></pre>
-<p>注意，与 Python/Numpy 序列不同，TensorFlow 序列不可迭代。<br>for i in tf.range(10) # error</p>
-<h2 id="四、追加"><a href="#四、追加" class="headerlink" title="四、追加"></a>四、追加</h2><h2 id="TensorFlow基础架构"><a href="#TensorFlow基础架构" class="headerlink" title="TensorFlow基础架构"></a>TensorFlow基础架构</h2><h3 id="Session–会话控制"><a href="#Session–会话控制" class="headerlink" title="Session–会话控制"></a>Session–会话控制</h3><p>Session 是 TensorFlow 为了控制,和输出文件的执行的语句.<br>运行 session.run() 可以获得你的运算结果, 或者是你所要运算的部分.</p>
-<pre><code>`# method 1
-sess = tf.Session()
-result = sess.run(product)
-print(result)
-sess.close()
-
-# method 2
-with tf.Session() as sess:
-    result2 = sess.run(product)
-    print(result2)`</code></pre>
-<h3 id="Variable–变量"><a href="#Variable–变量" class="headerlink" title="Variable–变量"></a>Variable–变量</h3><p>在 Tensorflow 中，定义了某字符串是变量，它才是变量，这一点是与 Python 所不同的。</p>
-<p>定义语法： state = tf.Variable()</p>
-<pre><code>`import tensorflow as tf
-
-state = tf.Variable(0, name=&#39;counter&#39;)
-
-# 定义常量 one
-one = tf.constant(1)
-
-# 定义加法步骤 (注: 此步并没有直接计算)
-new_value = tf.add(state, one)
-
-# 将 State 更新成 new_value
-update = tf.assign(state, new_value)
-# 如果定义 Variable, 就一定要 initialize
-init = tf.global_variables_initializer()
-
-# 使用 Session
-with tf.Session() as sess:
-    sess.run(init)
-    for _ in range(3):
-        sess.run(update)
-        print(sess.run(state))`</code></pre>
-<p>注意：直接 print(state) 不起作用！！</p>
-<p>一定要把 sess 的指针指向 state 再进行 print 才能得到想要的结果！</p>
-<h3 id="Placeholder–传入值"><a href="#Placeholder–传入值" class="headerlink" title="Placeholder–传入值"></a>Placeholder–传入值</h3><p>placeholder 是 Tensorflow 中的占位符，暂时储存变量.</p>
-<p>Tensorflow 如果想要从外部传入data, 那就需要用到 tf.placeholder(), 然后以这种形式传输数据 sess.run(***, feed_dict={input: **}).</p>
-<pre><code>`import tensorflow as tf
-
-#在 Tensorflow 中需要定义 placeholder 的 type ，一般为 float32 形式
-input1 = tf.placeholder(tf.float32)
-input2 = tf.placeholder(tf.float32)
-
-# mul = multiply 是将input1和input2 做乘法运算，并输出为 output 
-ouput = tf.multiply(input1, input2)
-with tf.Session() as sess:
-    print(sess.run(ouput, feed_dict=&#123;input1: [7.], input2: [2.]&#125;))
-# [ 14.]`</code></pre>
-<h3 id="激励函数–Activation-Function"><a href="#激励函数–Activation-Function" class="headerlink" title="激励函数–Activation Function"></a>激励函数–Activation Function</h3><p>神经网络两三层–任意激励函数均可<br>卷积神经网络–推荐激励函数Relu<br>循环神经网络–添加激励函数tanh</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2096,7 +2103,7 @@ with tf.Session() as sess:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

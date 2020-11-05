@@ -158,6 +158,325 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-6-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">PyTorch-6-卷积神经网络参数解释</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-17 19:05:50" itemprop="dateCreated datePublished" datetime="2020-04-17T19:05:50+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-30 17:51:43" itemprop="dateModified" datetime="2020-04-30T17:51:43+08:00">2020-04-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghui-garcia/p/10775859.html">https://www.cnblogs.com/wanghui-garcia/p/10775859.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Haiqiang1995/article/details/90300686">https://blog.csdn.net/Haiqiang1995/article/details/90300686</a><br><a target="_blank" rel="noopener" href="https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35">https://medium.com/@pkqiang49/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-cnn-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86-%E7%8B%AC%E7%89%B9%E4%BB%B7%E5%80%BC-%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8-6047fb2add35</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/r1254/article/details/104888502">https://blog.csdn.net/r1254/article/details/104888502</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dyk4ever/article/details/102841518">https://blog.csdn.net/dyk4ever/article/details/102841518</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44307764/article/details/102353344">https://blog.csdn.net/weixin_44307764/article/details/102353344</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yz2zcx/article/details/100187471/">https://blog.csdn.net/yz2zcx/article/details/100187471/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a2b536945e3c">https://www.jianshu.com/p/a2b536945e3c</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzy2014/article/details/25916235">https://blog.csdn.net/lzy2014/article/details/25916235</a><br><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/373368">https://yq.aliyun.com/articles/373368</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html">https://www.cnblogs.com/luxiaoxun/archive/2012/11/10/2764056.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fzz9/p/8973315.html">https://www.cnblogs.com/fzz9/p/8973315.html</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f9d99f7ad54">https://www.jianshu.com/p/6f9d99f7ad54</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42042680/article/details/80994726">https://blog.csdn.net/weixin_42042680/article/details/80994726</a></p>
+<h3 id="1、卷积运算函数"><a href="#1、卷积运算函数" class="headerlink" title="1、卷积运算函数"></a>1、卷积运算函数</h3><p>torch.nn.Conv2d的功能是：对由多个输入平面组成的输入信号进行二维卷积。</p>
+<pre><code>layer = nn.Conv2d(in_channels=1,out_channels=3,kernel_size=3,stride=1,padding=0)
+
+in_channels:
+    1）输入通道数，对于图片层一般为1（灰度）3（RGB）
+    2）定义一种输入规则，要求上一层的输出必须和这个输入一致，也可以理解为并发in_channels个channel在上一层feature_map(特征映射)上进行卷积运算
+
+out_channels:
+    1)直观理解是输出层通道数，              
+    2)换一种理解是kernels（卷积核）个数，其中，每个卷积核会输出局部特征，比如面部中有头发feature，衣服颜色的feature都是由不同的kernel进行卷积运算得到的。
+
+stride(步长)：控制cross-correlation的步长，可以设为1个int型数或者一个(int, int)型的tuple。
+
+padding(补0)：控制zero-padding的数目。
+
+dilation(扩张)：控制kernel点（卷积核点）的间距; 也被称为 &quot;à trous&quot;算法. 可以在此github地址查看:Dilated convolution animations
+
+groups(卷积核个数)：这个比较好理解，通常来说，卷积个数唯一，但是对某些情况，可以设置范围在1 —— in_channels中数目的卷积核：
+
+输出[b,out_channels,w,h],其中w和h是输出的shape.</code></pre>
+<pre><code>    mylayer=torch.nn.Conv2d(3,2,kernel_size=3,stride=2,padding=0)
+    print(l1.weight.shape)
+    input=torch.rand(1,3,7,7)
+    out=l1.forward(input)
+    print(out.shape)
+-----------------------------------------------
+    torch.Size([2, 3, 3, 3])
+    torch.Size([1, 2, 3, 3])</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/cnn1.gif"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/TensorFlow-7-conv2d%E7%9A%84padding%E5%8F%8A%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A/" class="post-title-link" itemprop="url">TensorFlow-7-conv2d的padding及参数解释</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-17 15:51:56" itemprop="dateCreated datePublished" datetime="2020-04-17T15:51:56+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 21:13:58" itemprop="dateModified" datetime="2020-09-18T21:13:58+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、padding的方式："><a href="#1、padding的方式：" class="headerlink" title="1、padding的方式："></a>1、padding的方式：</h3><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/padding.jpeg"></p>
+<p>说明：</p>
+<p>1、摘录自<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t">http://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t</a></p>
+<p>2、不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width=13,只允许滑动2次,多余的元素全部丢掉</p>
+<p>3、SAME的方式,采用的是补全的方式,对于上述的情况,允许滑动3次,但是需要补3个元素,左奇右偶,在左边补一个0,右边补2个0</p>
+<p>4、For the SAME padding, the output height and width are computed as:</p>
+<pre><code>out_height = ceil(float(in_height) / float(strides[1]))
+
+out_width = ceil(float(in_width) / float(strides[2]))
+
+For the VALID padding, the output height and width are computed as:
+
+out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))
+
+out_width = ceil(float(in_width - filter_width + 1) / float(strides[2]))</code></pre>
+<h3 id="2、conv2d的参数："><a href="#2、conv2d的参数：" class="headerlink" title="2、conv2d的参数："></a>2、conv2d的参数：</h3><p>1、strides[0] = strides[3] = 1</p>
+<h3 id="3、conv2d的参数解释："><a href="#3、conv2d的参数解释：" class="headerlink" title="3、conv2d的参数解释："></a>3、conv2d的参数解释：</h3><p>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)<br>除去name参数用以指定该操作的name，与方法有关的一共五个参数：</p>
+<p>第一个参数input：指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一</p>
+<p>第二个参数filter：相当于CNN中的卷积核，它要求是一个Tensor，具有[filter_height, filter_width, in_channels, out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同,filter的通道数要求与input的in_channels一致，有一个地方需要注意，第三维in_channels，就是参数input的第四维</p>
+<p>第三个参数strides：卷积时在图像每一维的步长，这是一个一维的向量，长度4，strides[0]=strides[3]=1</p>
+<p>第四个参数padding：string类型的量，只能是”SAME”,”VALID”其中之一，这个值决定了不同的卷积方式（后面会介绍）</p>
+<p>第五个参数：use_cudnn_on_gpu:bool类型，是否使用cudnn加速，默认为true</p>
+<p>结果返回一个Tensor，这个输出，就是我们常说的feature map</p>
+<h3 id="4、conv2d的例子："><a href="#4、conv2d的例子：" class="headerlink" title="4、conv2d的例子："></a>4、conv2d的例子：</h3><p>那么TensorFlow的卷积具体是怎样实现的呢，用一些例子去解释它：</p>
+<p>import tensorflow as tf<br>#case 2<br>input = tf.Variable(tf.random_normal([1,3,3,5]))<br>filter = tf.Variable(tf.random_normal([1,1,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>import tensorflow as tf</p>
+<p>input = tf.Variable(tf.random_normal([1,5,5,5]))<br>filter = tf.Variable(tf.random_normal([3,3,5,1]))<br>op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding=’VALID’)</p>
+<p>with tf.Session() as sess:<br>sess.run(tf.initialize_all_variables())<br>res = (sess.run(op))<br>print (res.shape)</p>
+<p>说明：</p>
+<p>1、使用VALID方式,feature map的尺寸为<br>out_height = ceil(float(in_height - filter_height + 1) / float(strides[1]))=(5-3+1)/1 = 3</p>
+<p>out_width = ceil(float(in_width - filter_width + 1) / float(strides[2])) = (5-3+1)/1 = 3</p>
+<p>所以,feature map的尺寸为3*3</p>
+<p>2、filter的参数个数为3<em>3</em>5<em>1,也即对于输入的每个通道数都对应于一个3</em>3的滤波器,然后共5个通道数,conv2d的过程就是对5个输入进行点击然后求和,得到一张feature map。如果要得到3张feature map,那么应该使用的参数为3<em>3</em>5*3个参数.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-5-transforms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PyTorch-5-transforms/" class="post-title-link" itemprop="url">PyTorch-5-transforms</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-14 15:27:30 / Modified: 15:28:57" itemprop="dateCreated datePublished" datetime="2020-04-14T15:27:30+08:00">2020-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转载于：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011995719/article/details/85107009">https://blog.csdn.net/u011995719/article/details/85107009</a></p>
+<p>本文截取自《PyTorch 模型训练实用教程》，获取全文pdf请点击：<a target="_blank" rel="noopener" href="https://github.com/tensor-yu/PyTorch_Tutorial">https://github.com/tensor-yu/PyTorch_Tutorial</a></p>
+<p>本文对transforms.py中的各个预处理方法进行介绍和总结。主要从官方文档中总结而来，官方文档只是将方法陈列，没有归纳总结，顺序很乱，这里总结一共有四大类，方便大家索引：</p>
+<p>裁剪——Crop 中心裁剪：transforms.CenterCrop 随机裁剪：transforms.RandomCrop 随机长宽比裁剪：transforms.RandomResizedCrop 上下左右中心裁剪：transforms.FiveCrop 上下左右中心裁剪后翻转，transforms.TenCrop<br>翻转和旋转——Flip and Rotation 依概率p水平翻转：transforms.RandomHorizontalFlip(p=0.5) 依概率p垂直翻转：transforms.RandomVerticalFlip(p=0.5) 随机旋转：transforms.RandomRotation<br>图像变换 resize：transforms.Resize 标准化：transforms.Normalize 转为tensor，并归一化至[0-1]：transforms.ToTensor 填充：transforms.Pad 修改亮度、对比度和饱和度：transforms.ColorJitter 转灰度图：transforms.Grayscale 线性变换：transforms.LinearTransformation() 仿射变换：transforms.RandomAffine 依概率p转为灰度图：transforms.RandomGrayscale 将数据转换为PILImage：transforms.ToPILImage transforms.Lambda：Apply a user-defined lambda as a transform.<br>对transforms操作，使数据增强更灵活 transforms.RandomChoice(transforms)， 从给定的一系列transforms中选一个进行操作 transforms.RandomApply(transforms, p=0.5)，给一个transform加上概率，依概率进行操作 transforms.RandomOrder，将transforms中的操作随机打乱<br>一、 裁剪——Crop<br>1.随机裁剪：transforms.RandomCrop<br>class torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode=’constant’) 功能：依据给定的size随机裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，暂不了解。 4. symmetric，暂不了解。</p>
+<p>2.中心裁剪：transforms.CenterCrop<br>class torchvision.transforms.CenterCrop(size) 功能：依据给定的size从中心裁剪 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>3.随机长宽比裁剪 transforms.RandomResizedCrop<br>class torchvision.transforms.RandomResizedCrop(size, scale=(0.08, 1.0), ratio=(0.75, 1.3333333333333333), interpolation=2) 功能：随机大小，随机长宽比裁剪原始图片，最后将图片resize到设定好的size 参数： size- 输出的分辨率 scale- 随机crop的大小区间，如scale=(0.08, 1.0)，表示随机crop出来的图片会在的0.08倍至1倍之间。 ratio- 随机长宽比设置 interpolation- 插值的方法，默认为双线性插值(PIL.Image.BILINEAR)</p>
+<p>4.上下左右中心裁剪：transforms.FiveCrop<br>class torchvision.transforms.FiveCrop(size) 功能：对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size)</p>
+<p>5.上下左右中心裁剪后翻转: transforms.TenCrop<br>class torchvision.transforms.TenCrop(size, vertical_flip=False) 功能：对图片进行上下左右以及中心裁剪，然后全部翻转（水平或者垂直），获得10张图片，返回一个4D-tensor。 参数： size- (sequence or int)，若为sequence,则为(h,w)，若为int，则(size,size) vertical_flip (bool) - 是否垂直翻转，默认为flase，即默认为水平翻转</p>
+<p>二、翻转和旋转——Flip and Rotation<br>6.依概率p水平翻转transforms.RandomHorizontalFlip<br>class torchvision.transforms.RandomHorizontalFlip(p=0.5) 功能：依据概率p对PIL图片进行水平翻转 参数： p- 概率，默认值为0.5</p>
+<p>7.依概率p垂直翻转transforms.RandomVerticalFlip<br>class torchvision.transforms.RandomVerticalFlip(p=0.5) 功能：依据概率p对PIL图片进行垂直翻转 参数： p- 概率，默认值为0.5</p>
+<p>8.随机旋转：transforms.RandomRotation<br>class torchvision.transforms.RandomRotation(degrees, resample=False, expand=False, center=None) 功能：依degrees随机旋转一定角度 参数： degress- (sequence or float or int) ，若为单个数，如 30，则表示在（-30，+30）之间随机旋转 若为sequence，如(30，60)，则表示在30-60度之间随机旋转 resample- 重采样方法选择，可选 PIL.Image.NEAREST, PIL.Image.BILINEAR, PIL.Image.BICUBIC，默认为最近邻 expand- ? center- 可选为中心旋转还是左上角旋转</p>
+<p>三、图像变换<br>9.resize：transforms.Resize<br>class torchvision.transforms.Resize(size, interpolation=2) 功能：重置图像分辨率 参数： size- If size is an int, if height &gt; width, then image will be rescaled to (size * height / width, size)，所以建议size设定为h*w interpolation- 插值方法选择，默认为PIL.Image.BILINEAR</p>
+<p>10.标准化：transforms.Normalize<br>class torchvision.transforms.Normalize(mean, std) 功能：对数据按通道进行标准化，即先减均值，再除以标准差，注意是 hwc</p>
+<p>11.转为tensor：transforms.ToTensor<br>class torchvision.transforms.ToTensor 功能：将PIL Image或者 ndarray 转换为tensor，并且归一化至[0-1] 注意事项：归一化至[0-1]是直接除以255，若自己的ndarray数据尺度有变化，则需要自行修改。</p>
+<p>12.填充：transforms.Pad<br>class torchvision.transforms.Pad(padding, fill=0, padding_mode=’constant’) 功能：对图像进行填充 参数： padding-(sequence or int, optional)，此参数是设置填充多少个pixel。 当为int时，图像上下左右均填充int个，例如padding=4，则上下左右均填充4个pixel，若为3232，则会变成4040。 当为sequence时，若有2个数，则第一个数表示左右扩充多少，第二个数表示上下的。当有4个数时，则为左，上，右，下。 fill- (int or tuple) 填充的值是什么（仅当填充模式为constant时有用）。int时，各通道均填充该值，当长度为3的tuple时，表示RGB通道需要填充的值。 padding_mode- 填充模式，这里提供了4种填充模式，1.constant，常量。2.edge 按照图片边缘的像素值来填充。3.reflect，？ 4. symmetric，？</p>
+<p>13.修改亮度、对比度和饱和度：transforms.ColorJitter<br>class torchvision.transforms.ColorJitter(brightness=0, contrast=0, saturation=0, hue=0) 功能：修改修改亮度、对比度和饱和度</p>
+<p>14.转灰度图：transforms.Grayscale<br>class torchvision.transforms.Grayscale(num_output_channels=1) 功能：将图片转换为灰度图 参数： num_output_channels- (int) ，当为1时，正常的灰度图，当为3时， 3 channel with r == g == b</p>
+<p>15.线性变换：transforms.LinearTransformation()<br>class torchvision.transforms.LinearTransformation(transformation_matrix) 功能：对矩阵做线性变化，可用于白化处理！ whitening: zero-center the data, compute the data covariance matrix 参数： transformation_matrix (Tensor) – tensor [D x D], D = C x H x W</p>
+<p>16.仿射变换：transforms.RandomAffine<br>class torchvision.transforms.RandomAffine(degrees, translate=None, scale=None, shear=None, resample=False, fillcolor=0) 功能：仿射变换</p>
+<p>17.依概率p转为灰度图：transforms.RandomGrayscale<br>class torchvision.transforms.RandomGrayscale(p=0.1) 功能：依概率p将图片转换为灰度图，若通道数为3，则3 channel with r == g == b</p>
+<p>18.将数据转换为PILImage：transforms.ToPILImage<br>class torchvision.transforms.ToPILImage(mode=None) 功能：将tensor 或者 ndarray的数据转换为 PIL Image 类型数据 参数： mode- 为None时，为1通道， mode=3通道默认转换为RGB，4通道默认转换为RGBA</p>
+<p>19.transforms.Lambda<br>Apply a user-defined lambda as a transform. 暂不了解，待补充。</p>
+<p>四、对transforms操作，使数据增强更灵活<br>PyTorch不仅可设置对图片的操作，还可以对这些操作进行随机选择、组合</p>
+<p>20.transforms.RandomChoice(transforms)<br>功能：从给定的一系列transforms中选一个进行操作，randomly picked from a list</p>
+<p>21.transforms.RandomApply(transforms, p=0.5)<br>功能：给一个transform加上概率，以一定的概率执行该操作</p>
+<p>22.transforms.RandomOrder<br>功能：将transforms中的操作顺序随机打乱</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-2-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -680,7 +999,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-22 19:54:22" itemprop="dateModified" datetime="2020-10-22T19:54:22+08:00">2020-10-22</time>
+                <time title="Modified: 2020-11-01 23:00:27" itemprop="dateModified" datetime="2020-11-01T23:00:27+08:00">2020-11-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -763,6 +1082,203 @@ having count(Email) &gt; 1;
             n//=5
         return count
 </code></pre>
+<h3 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a>204. 计数质数</h3><pre><code>统计所有小于非负整数 n 的质数的数量。
+
+示例 1：
+
+输入：n = 10
+输出：4
+解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+示例 2：
+
+输入：n = 0
+输出：0
+示例 3：
+
+输入：n = 1
+输出：0
+
+
+提示：
+
+0 &lt;= n &lt;= 5 * 106</code></pre>
+<p>题解一|暴力|超时：</p>
+<p>注意：题意是小于，而不是小于等于。</p>
+<pre><code>class Solution:
+    def countPrimes(self, n: int) -&gt; int:
+        if n&lt;2:
+            return 0
+        count=0
+        for i in range(2,n):
+            flag=True
+            for j in range(2,i):
+                if j!=i and i%j==0: # if i%j==0:
+                    flag=False
+                    break
+            if flag:
+                count+=1
+        return count</code></pre>
+<p> 题解二|暴力优化：</p>
+<pre><code>class Solution:
+   def countPrimes(self, n: int) -&gt; int:
+       if n&lt;3:
+           return 0
+       count=1
+       for i in range(3,n):
+           if i%2 == 0: # 排除偶数，使用if i^1==0:有可以
+               continue
+           flag=True
+           for j in range(3,int(i**0.5)+1,2): # 因为排除偶数，加2会更快。
+               if i%j==0:
+                   flag=False
+                   break
+           if flag:
+               count+=1
+       return count</code></pre>
+<p>题解三|厄拉多塞筛法:</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/solution/ji-shu-zhi-shu-bao-li-fa-ji-you-hua-shai-fa-ji-you/">https://leetcode-cn.com/problems/count-primes/solution/ji-shu-zhi-shu-bao-li-fa-ji-you-hua-shai-fa-ji-you/</a></p>
+<p>思路：</p>
+<pre><code>选中数字2，并排除2的倍数；
+选中数字3，并排除3的倍数；
+选中数字5，并排除5的倍数；
+...</code></pre>
+<pre><code>class Solution:
+    def countPrimes(self, n: int) -&gt; int:
+        count=0
+        sign=[True]*n
+        for i in range(2,n):
+            if sign[i]:
+                count+=1
+                for j in range(i+i,n,i):
+                    sign[j]=False
+        return count</code></pre>
+<h3 id="326-3的幂"><a href="#326-3的幂" class="headerlink" title="326. 3的幂"></a>326. 3的幂</h3><pre><code>链接：https://leetcode-cn.com/problems/power-of-three/
+
+给定一个整数，写一个函数来判断它是否是 3 的幂次方。
+
+示例 1:
+
+输入: 27
+输出: true
+示例 2:
+
+输入: 0
+输出: false
+示例 3:
+
+输入: 9
+输出: true
+示例 4:
+
+输入: 45
+输出: false
+进阶：
+你能不使用循环或者递归来完成本题吗？</code></pre>
+<p>题解一|循环：</p>
+<p>时间复杂度：O(logb(n))，我们的例子中是 O(logn)，除数是用对数表示的。<br>空间复杂度：O(1)，没有使用额外的空间。</p>
+<pre><code>class Solution:
+    def isPowerOfThree(self, n: int) -&gt; bool:
+        if n&lt;1: # 不加这里，会在0里面陷入死循环
+            return 0
+        while n%3==0:
+            n//=3
+        return n==1</code></pre>
+<p>题解二|递归：</p>
+<pre><code>class Solution:
+    def isPowerOfThree(self, n: int) -&gt; bool:
+        if n==1:
+            return True
+        if n&lt;=0 or n%3!=0:
+            return False
+        n=n//3
+        return self.isPowerOfThree(n)</code></pre>
+<p>题解三|换底公式：</p>
+<pre><code>class Solution:
+    import math
+    def isPowerOfThree(self, n: int) -&gt; bool:
+        if n&lt;1:
+            return False
+        res=math.log10(n)/math.log10(3) # 不能使用math.log()，会有小数
+        return True if res-int(res)==0 else False
+        # return (math.log10(n) / math.log10(3))%1 == 0</code></pre>
+<h3 id="412-Fizz-Buzz"><a href="#412-Fizz-Buzz" class="headerlink" title="412. Fizz Buzz"></a>412. Fizz Buzz</h3><pre><code>链接：https://leetcode-cn.com/problems/fizz-buzz/
+
+写一个程序，输出从 1 到 n 数字的字符串表示。
+
+1. 如果 n 是3的倍数，输出“Fizz”；
+
+2. 如果 n 是5的倍数，输出“Buzz”；
+
+3.如果 n 同时是3和5的倍数，输出 “FizzBuzz”。
+
+示例：
+
+n = 15,
+
+返回:
+[
+    &quot;1&quot;,
+    &quot;2&quot;,
+    &quot;Fizz&quot;,
+    &quot;4&quot;,
+    &quot;Buzz&quot;,
+    &quot;Fizz&quot;,
+    &quot;7&quot;,
+    &quot;8&quot;,
+    &quot;Fizz&quot;,
+    &quot;Buzz&quot;,
+    &quot;11&quot;,
+    &quot;Fizz&quot;,
+    &quot;13&quot;,
+    &quot;14&quot;,
+    &quot;FizzBuzz&quot;
+]</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def fizzBuzz(self, n: int) -&gt; List[str]:
+        res=[]
+        for i in range(1,n+1):
+            if i%3==0 and i%5==0:
+                res.append(&#39;FizzBuzz&#39;)
+            elif i%3==0:
+                res.append(&#39;Fizz&#39;)
+            elif i%5==0:
+                res.append(&#39;Buzz&#39;)
+            else:
+                res.append(str(i))
+        return res</code></pre>
+<p>题解二|递归：</p>
+<pre><code>class Solution:
+    def __init__(self):
+        self.res=[]
+
+    def fizzBuzz(self, n: int) -&gt; List[str]:
+        if not n:
+            self.res.reverse()
+            return self.res
+        if n%3==0 and n%5==0:
+            self.res.append(&#39;FizzBuzz&#39;)
+        elif n%3==0:
+            self.res.append(&#39;Fizz&#39;)
+        elif n%5==0:
+            self.res.append(&#39;Buzz&#39;)
+        else:
+            self.res.append(str(n))
+        return self.fizzBuzz(n-1)</code></pre>
+<p>题解三|hash：</p>
+<pre><code>class Solution:
+    def fizzBuzz(self, n: int) -&gt; List[str]:
+        hash=&#123;3:&#39;Fizz&#39;,5:&#39;Buzz&#39;&#125;
+        res=[]
+        for i in range(1,n+1):
+            tmp=&#39;&#39;
+            for key in hash.keys():
+                if i%key==0:
+                    tmp+=hash[key]
+            if not tmp:
+                tmp=str(i)
+            res.append(tmp)
+        return res</code></pre>
 <h3 id="1447-最简分数"><a href="#1447-最简分数" class="headerlink" title="1447. 最简分数"></a>1447. 最简分数</h3><pre><code>链接：https://leetcode-cn.com/problems/simplified-fractions/
 
 给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于  n 的 最简 分数 。分数可以以 任意 顺序返回。
@@ -859,7 +1375,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-29 17:37:27" itemprop="dateModified" datetime="2020-10-29T17:37:27+08:00">2020-10-29</time>
+                <time title="Modified: 2020-10-29 19:29:02" itemprop="dateModified" datetime="2020-10-29T19:29:02+08:00">2020-10-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -896,7 +1412,7 @@ ord() # 字符串(ascii)转数字
 
 65--&#39;A&#39;
 97--&#39;a&#39;</code></pre>
-<h2 id="十二、字符串"><a href="#十二、字符串" class="headerlink" title="十二、字符串"></a>十二、字符串</h2><h3 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="?5.最长回文子串"></a>?5.最长回文子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindromic-substring/
+<h2 id="十二、字符串"><a href="#十二、字符串" class="headerlink" title="十二、字符串"></a>十二、字符串</h2><h3 id="5-最长回文子串"><a href="#5-最长回文子串" class="headerlink" title="5.最长回文子串"></a>5.最长回文子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-palindromic-substring/
 
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
@@ -1053,7 +1569,112 @@ ord() # 字符串(ascii)转数字
         return s[start:start+res]
 </code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
-<h3 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12.整数转罗马数字"></a>12.整数转罗马数字</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-to-roman/
+<h3 id="7-整数反转"><a href="#7-整数反转" class="headerlink" title="7. 整数反转"></a>7. 整数反转</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-integer/
+
+给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+
+示例 1:
+
+输入: 123
+输出: 321
+ 示例 2:
+
+输入: -123
+输出: -321
+示例 3:
+
+输入: 120
+输出: 21
+注意:
+
+假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回0</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def reverse(self, x: int) -&gt; int:
+        flag=1 if x&gt;0 else -1
+        new=abs(x)
+        res=0
+        while new:
+            res=res*10 + new%10
+            new//=10
+        if res&gt;pow(-2,31) and res&lt;pow(2,31)-1:
+            return flag*res
+        else:
+            return 0</code></pre>
+<p>题解二：</p>
+<pre><code>class Solution:
+    def reverse(self, x: int) -&gt; int:
+        x=int(str(x)[::-1]) if x&gt;=0 else -int(str(-x)[::-1])
+        return x if x&lt;pow(2,31)-1 and x&gt;-pow(2,31) else 0</code></pre>
+<h3 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8. 字符串转换整数 (atoi)"></a>8. 字符串转换整数 (atoi)</h3><p>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/string-to-integer-atoi/">https://leetcode-cn.com/problems/string-to-integer-atoi/</a></p>
+<pre><code>请你来实现一个 atoi 函数，使其能将字符串转换成整数。
+
+首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。接下来的转化规则如下：
+
+如果第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字字符组合起来，形成一个有符号整数。
+假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成一个整数。
+该字符串在有效的整数部分之后也可能会存在多余的字符，那么这些字符可以被忽略，它们对函数不应该造成影响。
+注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换，即无法进行有效转换。
+
+在任何情况下，若函数不能进行有效的转换时，请返回 0 。
+
+提示：
+
+本题中的空白字符只包括空格字符 &#39; &#39; 。
+假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。
+
+
+示例 1:
+
+输入: &quot;42&quot;
+输出: 42
+示例 2:
+
+输入: &quot;   -42&quot;
+输出: -42
+解释: 第一个非空白字符为 &#39;-&#39;, 它是一个负号。
+     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。
+示例 3:
+
+输入: &quot;4193 with words&quot;
+输出: 4193
+解释: 转换截止于数字 &#39;3&#39; ，因为它的下一个字符不为数字。
+示例 4:
+
+输入: &quot;words and 987&quot;
+输出: 0
+解释: 第一个非空字符是 &#39;w&#39;, 但它不是数字或正、负号。
+     因此无法执行有效的转换。
+示例 5:
+
+输入: &quot;-91283472332&quot;
+输出: -2147483648
+解释: 数字 &quot;-91283472332&quot; 超过 32 位有符号整数范围。 
+     因此返回 INT_MIN (−231) 。</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def myAtoi(self, str: str) -&gt; int:
+        str=str.lstrip()
+
+        if len(str)==0:
+            return 0
+        last=0
+        i=1 if str[0]==&#39;+&#39; or str[0]==&#39;-&#39; else 0
+        #循环，直到无法强转成int，跳出循环
+        while i&lt;=len(str):
+            try:
+                last=int(str[:i+1]) # int[&#39;aa&#39;]会报错，所以走break
+                print(last)
+                i+=1
+            except:
+                break
+        # 判断数字是否超出范围
+        if last&lt;-2**31:
+            return -2**31
+        if last&gt;2**31-1:
+            return 2**31-1
+        return last</code></pre>
+<h3 id="12-转罗马数字"><a href="#12-转罗马数字" class="headerlink" title="12.转罗马数字"></a>12.转罗马数字</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-to-roman/
 
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 
@@ -1853,6 +2474,62 @@ zip([iterable, ...])
             num=(ord(each)-65)+1
             res=res*26+num
         return res</code></pre>
+<h3 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242. 有效的字母异位词"></a>242. 有效的字母异位词</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-anagram/
+
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+示例 1:
+
+输入: s = &quot;anagram&quot;, t = &quot;nagaram&quot;
+输出: true
+示例 2:
+
+输入: s = &quot;rat&quot;, t = &quot;car&quot;
+输出: false
+说明:
+你可以假设字符串只包含小写字母。
+
+进阶:
+如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？</code></pre>
+<p>题解一|排序：</p>
+<pre><code>class Solution:
+    def isAnagram(self, s: str, t: str) -&gt; bool:
+        if len(s) != len(t):
+            return False
+        if sorted(s) != sorted(t):
+            return False
+        return True</code></pre>
+<p>题解二|hash：</p>
+<pre><code>class Solution:
+    def isAnagram(self, s: str, t: str) -&gt; bool:
+        if len(s) != len(t):
+            return False
+        hash=&#123;&#125;
+        for i in range(len(s)):
+            hash[s[i]]=hash.get(s[i],0)+1
+            hash[t[i]]=hash.get(t[i],0)-1
+        for k,v in hash.items():
+            if v != 0:
+                return False
+        return True</code></pre>
+<p>题解三|hash:</p>
+<pre><code>class Solution(object):
+    def isAnagram(self, s, t):
+        if len(s) != len(t):
+            return False
+        dicts = collections.defaultdict(int)
+        for i in range(len(s)):
+            dicts[s[i]] = dicts[s[i]] + 1
+            dicts[t[i]] = dicts[t[i]] - 1
+        for val in dicts.values():
+            if val != 0:
+                return False
+        return True</code></pre>
+<p>题解四|内置函数：</p>
+<pre><code>import collections
+class Solution:
+    def isAnagram(self, s: str, t: str) -&gt; bool:
+        return collections.Counter(s) == collections.Counter(t)</code></pre>
 <h3 id="344-反转字符串"><a href="#344-反转字符串" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-string/
 
 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
@@ -3088,602 +3765,10 @@ with torch.no_grad():
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PyTorch-1-%E7%AE%80%E4%BB%8B%E5%92%8C%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">PyTorch-1.简介和环境搭建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-28 20:36:09" itemprop="dateCreated datePublished" datetime="2020-02-28T20:36:09+08:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-14 15:29:21" itemprop="dateModified" datetime="2020-04-14T15:29:21+08:00">2020-04-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" itemprop="url" rel="index"><span itemprop="name">PyTorch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>PyTorch是一个基于Torch的Python开源机器学习库，用于自然语言处理等应用程序。它主要由Facebook人工智能小组开发，不仅能够实现强大的GPU加速，同时还支持动态神经网络，这一点是现在很多主流框架如TensorFlow都不支持的。 </p>
-<p>PyTorch提供了两个高级功能：<br>    1.具有强大的GPU加速的张量计算（如Numpy）<br>    2.包含自动求导系统的深度神经网络 </p>
-<p>除了Facebook之外，Twitter、GMU和Salesforce等机构都采用了PyTorch。</p>
-<p>PyTorch的前身是Torch，Torch是一个有大量机器学习算法支持的科学计算框架，是一个与Numpy类似的张量（Tensor） 操作库，其特点是特别灵活，但因其采用了小众的编程语言是Lua，所以流行度不高，这也就有了PyTorch的出现。所以其实Torch是 PyTorch的前身，它们的底层语言相同，只是使用了不同的上层包装语言。</p>
-<p>TensorFlow和Caffe都是命令式的编程语言，而且是静态的，首先必须构建一个神经网络，然后一次又一次使用相同的结构，如果想要改变网络的结构，就必须从头开始。但是对于PyTorch，通过反向求导技术，可以让你零延迟地任意改变神经网络的行为，而且其实现速度 快。正是这一灵活性是PyTorch对比TensorFlow的最大优势。</p>
-<p>另外，PyTorch的代码对比TensorFlow而言，更加简洁直观，底层代码也更容易看懂，这对于使用它的人来说理解底层肯定是一件令人激动的事。</p>
-<p>所以，总结一下PyTorch的优点： </p>
-<pre><code>支持GPU；
-灵活，支持动态神经网络；
-底层代码易于理解；
-命令式体验；
-自定义扩展；</code></pre>
-<p>当然，现今任何一个深度学习框架都有其缺点，PyTorch也不例外，对比TensorFlow，其全面性处于劣势，目前PyTorch还不支持快速傅里叶、沿维翻转张量和检查无穷与非数值张量；针对移动端、嵌入式部署以及高性能服务器端的部署其性能表现有待提升；其次因为这个框 架较新，使得他的社区没有那么强大，在文档方面其C库大多数没有文档。</p>
-<h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><pre><code>安装Anaconda；
-安装PyTorch;</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-19-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">python并发-19.垃圾回收机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-27 23:49:58" itemprop="dateCreated datePublished" datetime="2020-02-27T23:49:58+08:00">2020-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:12" itemprop="dateModified" datetime="2020-09-18T14:03:12+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们知道，目前的计算机都采用的是图灵机架构，其本质就是用一条无限长的纸带，对应今天的存储器。随后在工程学的推演中，逐渐出现了寄存器、易失性存储器（内存）以及永久性存储器（硬盘）等产品。由于不同的存储器，其速度越快，单位价格也就越昂贵，因此，妥善利用好每一寸告诉存储器的空间，永远是系统设计的一个核心。</p>
-<p>Python 程序在运行时，需要在内存中开辟出一块空间，用于存放运行时产生的临时变量，计算完成后，再将结果输出到永久性存储器中。但是当数据量过大，或者内存空间管理不善，就很容易出现内存溢出的情况，程序可能会被操作系统终止。</p>
-<p>而对于服务器这种用于永不中断的系统来说，内存管理就显得更为重要了，不然很容易引发内存泄漏。<br>这里的内存泄漏是指程序本身没有设计好，导致程序未能释放已不再使用的内存，或者直接失去了对某段内存的控制，造成了内存的浪费。</p>
-<p>那么，对于不会再用到的内存空间，Python 是通过什么机制来管理的呢？就是引用计数机制。</p>
-<h2 id="一、Python引用计数机制"><a href="#一、Python引用计数机制" class="headerlink" title="一、Python引用计数机制"></a>一、Python引用计数机制</h2><p>Python 中一切皆对象，也就是说，在 Python 中你用到的一切变量，本质上都是类对象。</p>
-<p>那么，如何知道一个对象永远都不能再使用了呢？很简单，就是当这个对象的引用计数值为 0 时，说明这个对象永不再用，自然它就变成了垃圾，需要被回收。</p>
-<pre><code>import os
-import psutil # 获取系统信息
-
-
-def showMemoryInfo(hint):
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-
-def func():
-    showMemoryInfo(&#39;initial&#39;)
-    a = [i for i in range(10000000)]
-    showMemoryInfo(&#39;after a created&#39;)
-
-
-func()
-showMemoryInfo(&#39;finished&#39;)</code></pre>
-<p>输出：</p>
-<pre><code>initial memory used: 6.3828125 MB
-after a created memory used: 392.92578125 MB
-finished memory used: 10.85546875 MB</code></pre>
-<p>可以看到，当调用函数 func() 且列表 a 被创建之后，内存占用迅速增加到了 392 MB，而在函数调用结束后，内存则返回正常。这是因为，函数内部声明的列表 a 是局部变量，在函数返回后，局部变量的引用会注销掉，此时列表 a 所指代对象的引用计数为 0，Python 便会执行垃圾回收，因此之前占用的大量内存就又回来了。</p>
-<pre><code>import os
-import psutil
-
-
-def showMemoryInfo(hint):
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-
-def func():
-    showMemoryInfo(&#39;initial&#39;)
-    global a
-    a = [i for i in range(10000000)]
-    showMemoryInfo(&#39;after a created&#39;)
-
-
-func()
-showMemoryInfo(&#39;finished&#39;)
-
-输出：
-initial memory used: 6.37890625 MB
-after a created memory used: 392.74609375 MB
-finished memory used: 392.74609375 MB</code></pre>
-<p>global a 表示将 a 声明为全局变量，则即使函数返回后，列表的引用依然存在，于是 a 对象就不会被当做垃圾回收掉，依然占用大量内存。</p>
-<pre><code>import os
-import psutil
-
-
-def showMemoryInfo(hint):
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-
-def func():
-    showMemoryInfo(&#39;initial&#39;)
-    a = [i for i in range(10000000)]
-    showMemoryInfo(&#39;after a created&#39;)
-    return a
-
-a = func()
-showMemoryInfo(&#39;finished&#39;)
-
-输出：
-initial memory used: 6.4140625 MB
-after a created memory used: 392.86328125 MB
-finished memory used: 392.86328125 MB
-</code></pre>
-<p>如果把生成的列表返回，然后在主程序中接收，那么引用依然存在，垃圾回收也不会被触发，大量内存仍然被占用着.</p>
-<p>??Python 内部的引用计数机制:</p>
-<pre><code>import sys
-
-a = []
-print(sys.getrefcount(a))  # 两次引用，一次来自 a，一次来自 getrefcount
-
-
-def func(a):
-    # 四次引用，a，python 的函数调用栈，函数参数，和 getrefcount
-    print(sys.getrefcount(a))
-
-
-func(a)
-# 两次引用，一次来自 a，一次来自 getrefcount，函数 func 调用已经不存在
-print(sys.getrefcount(a))
-</code></pre>
-<p>输出：</p>
-<pre><code>2
-4
-2</code></pre>
-<p>注意：sys.getrefcount() 函数用于查看一个变量的引用次数，不过别忘了，getrefcount 本身也会引入一次计数。</p>
-<p>注意：在函数调用发生的时候，会产生额外的两次引用，一次来自函数栈，另一个是函数参数。</p>
-<pre><code>import sys
-a = []
-print(sys.getrefcount(a)) # 两次
-b = a
-print(sys.getrefcount(a)) # 三次
-c = b
-d = b
-e = c
-f = e
-g = d
-print(sys.getrefcount(a)) # 八次
-
-输出：
-2
-3
-8</code></pre>
-<p>分析：</p>
-<p>a、b、c、d、e、f、g 这些变量全部指代的是同一个对象，而 sys.getrefcount() 函数并不是统计一个指针，而是要统计一个对象被引用的次数，所以最后一共会有 8 次引用。</p>
-<p>理解引用这个概念后，引用释放是一种非常自然和清晰的思想。相比 C 语言中需要使用 free 去手动释放内存，Python 的垃圾回收在这里可以说是省心省力了。</p>
-<p>不过，有读者还是会好奇，如果想手动释放内存，应该怎么做呢？方法同样很简单，只需要先调用 del a 来删除一个对象，然后强制调用 gc.collect() 即可手动启动垃圾回收。例如：</p>
-<pre><code>import psutil
-import os
-import gc
-
-def show_memory_info(hint):
-    &#39;&#39;&#39;
-    显示当前 python 程序占用的内存大小
-    :param hint:
-    :return:
-    &#39;&#39;&#39;
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-show_memory_info(&#39;initial&#39;)
-a=[i for i in range(10000000)]
-show_memory_info(&#39;after a created&#39;)
-del a
-gc.collect()
-show_memory_info(&#39;finished&#39;)
-print(a)
-
-输出：
-initial memory used: 6.3984375 MB
-after a created memory used: 392.77734375 MB
-finished memory used: 10.70703125 MB
-Traceback (most recent call last):
-  File &quot;/Users/apple/PycharmProjects/python-learning/test/Account.py&quot;, line 24, in &lt;module&gt;
-    print(a)
-NameError: name &#39;a&#39; is not defined</code></pre>
-<p>问题：引用次数为 0 是垃圾回收启动的充要条件吗？还有没有其他可能性呢？</p>
-<p>引用计数是其中最简单的实现，引用计数并非充要条件，它只能算作充分非必要条件，至于其他的可能性，下面所讲的循环引用正是其中一种。</p>
-<h2 id="二、循环引用"><a href="#二、循环引用" class="headerlink" title="二、循环引用"></a>二、循环引用</h2><p>问题：如果有两个对象，之间互相引用，且不再被别的对象所引用，那么它们应该被垃圾回收吗？</p>
-<pre><code>import psutil
-import os
-import gc
-
-
-def show_memory_info(hint):
-    &#39;&#39;&#39;
-    显示当前 python 程序占用的内存大小
-    :param hint:
-    :return:
-    &#39;&#39;&#39;
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-
-def func():
-    show_memory_info(&#39;initial&#39;)
-    a = [i for i in range(10000000)]
-    b = [i for i in range(10000000)]
-    show_memory_info(&#39;after a,b created&#39;)
-    a.append(b)
-    b.append(a)
-
-
-func()
-show_memory_info(&#39;finished&#39;)
-
-输出：
-initial memory used: 6.4375 MB
-after a,b created memory used: 779.69140625 MB
-finished memory used: 779.69140625 MB</code></pre>
-<p>程序中，a 和 b 互相引用，并且作为局部变量在函数 func 调用结束后，a 和 b 这两个指针从程序意义上已经不存在，但从输出结果中看到，依然有内存占用，这是为什么呢？因为互相引用导致它们的引用数都不为 0。</p>
-<p>试想一下，如果这段代码出现在生产环境中，哪怕 a 和 b 一开始占用的空间不是很大，但经过长时间运行后，Python 所占用的内存一定会变得越来越大，最终撑爆服务器，后果不堪设想。</p>
-<p>有读者可能会说，互相引用还是很容易被发现的呀，问题不大。可是，更隐蔽的情况是出现一个引用环，在工程代码比较复杂的情况下，引用环真不一定能被轻易发现。那么应该怎么做呢？</p>
-<p>Python 本身能够处理这种情况，可以通过显式调用 gc.collect() 来启动垃圾回收，例如：</p>
-<pre><code>import psutil
-import os
-import gc
-
-
-def show_memory_info(hint):
-    &#39;&#39;&#39;
-    显示当前 python 程序占用的内存大小
-    :param hint:
-    :return:
-    &#39;&#39;&#39;
-    pid = os.getpid()
-    p = psutil.Process(pid)
-
-    info = p.memory_full_info()
-    memory = info.uss / 1024. / 1024
-    print(&#39;&#123;&#125; memory used: &#123;&#125; MB&#39;.format(hint, memory))
-
-
-def func():
-    show_memory_info(&#39;initial&#39;)
-    a = [i for i in range(10000000)]
-    b = [i for i in range(10000000)]
-    show_memory_info(&#39;after a,b created&#39;)
-    a.append(b)
-    b.append(a)
-
-
-func()
-gc.collect()
-show_memory_info(&#39;finished&#39;)
-
-输出：
-initial memory used: 6.41015625 MB
-after a,b created memory used: 779.81640625 MB
-finished memory used: 11.4375 MB</code></pre>
-<p>事实上，Python 使用标记清除（mark-sweep）算法和分代收集（generational），来启用针对循环引用的自动垃圾回收。</p>
-<p>1、标记清除算法：</p>
-<p>先用图论来理解不可达的概念。对于一个有向图，如果从一个节点出发进行遍历，并标记其经过的所有节点；那么，在遍历结束后，所有没有被标记的节点，我们就称之为不可达节点。显而易见，这些节点的存在是没有任何意义的，自然的，我们就需要对它们进行垃圾回收。</p>
-<p>当然，每次都遍历全图，对于 Python 而言是一种巨大的性能浪费。所以，在 Python 的垃圾回收实现中，标记清除算法使用双向链表维护了一个数据结构，并且只考虑容器类的对象（只有容器类对象才有可能产生循环引用）。</p>
-<p>2、分代收集算法：</p>
-<p>将 Python 中的所有对象分为三代。刚刚创立的对象是第 0 代；经过一次垃圾回收后，依然存在的对象，便会依次从上一代挪到下一代。而每一代启动自动垃圾回收的阈值，则是可以单独指定的。当垃圾回收器中新增对象减去删除对象达到相应的阈值时，就会对这一代对象启动垃圾回收。</p>
-<p>事实上，分代收集基于的思想是，新生的对象更有可能被垃圾回收，而存活更久的对象也有更高的概率继续存活。因此，通过这种做法，可以节约不少计算量，从而提高 Python 的性能。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-18-GIL%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/" class="post-title-link" itemprop="url">python并发-18.GIL全局解释器锁</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-27 23:30:32" itemprop="dateCreated datePublished" datetime="2020-02-27T23:30:32+08:00">2020-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:08" itemprop="dateModified" datetime="2020-09-18T14:03:08+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>GIL，中文译为全局解释器锁。</p>
-<pre><code>import time
-
-start = time.clock()
-
-
-def count(n):
-    while n &gt; 0:
-        n -= 1
-
-
-count(10000)
-print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
-<p>输出：Time used: 0.0006330000000000016</p>
-<p>使用多（适量）线程可以提升程序性能：</p>
-<pre><code>import time
-from threading import Thread
-
-start = time.clock()
-
-
-def count(n):
-    while n &gt; 0:
-        n -= 1
-
-
-t1 = Thread(target=count, args=[10000 // 2])
-t2 = Thread(target=count, args=[10000 // 2])
-t1.start()
-t2.start()
-t1.join()
-t2.join()
-print(&#39;Time used:&#39;, (time.clock() - start))</code></pre>
-<p>输出：Time used: 0.0007749999999999979</p>
-<p>从输出结果看，多线程不但没有提高性能，反而降低了。</p>
-<pre><code>如果使用更多线程进行尝试，会发现其运行效率和 2 个线程效率几乎一样（本机器测试使用 4 个线程，其执行效率约为 0.001）。</code></pre>
-<p>事实上，得到这样的结果是肯定的，因为 GIL 限制了 Python 多线程的性能不会像我们预期的那样。</p>
-<p>那么，什么是 GIL 呢？GIL 是最流程的 CPython 解释器（平常称为 Python）中的一个技术术语，中文译为全局解释器锁，其本质上类似操作系统的 Mutex。GIL 的功能是：在 CPython 解释器中执行的每一个 Python 线程，都会先锁住自己，以阻止别的线程执行。</p>
-<p>当然，CPython 不可能容忍一个线程一直独占解释器，它会轮流执行 Python 线程。这样一来，用户看到的就是“伪”并行，即 Python 线程在交替执行，来模拟真正并行的线程。</p>
-<p>有读者可能会问，既然 CPython 能控制线程伪并行，为什么还需要 GIL 呢？其实，这和 CPython 的底层内存管理有关。</p>
-<p>CPython 使用引用计数来管理内容，所有 Python 脚本中创建的实例，都会配备一个引用计数，来记录有多少个指针来指向它。当实例的引用计数的值为 0 时，会自动释放其所占的内存。</p>
-<pre><code>&gt;&gt;&gt; import sys
-&gt;&gt;&gt; a = []
-&gt;&gt;&gt; b = a
-&gt;&gt;&gt; sys.getrefcount(a)
-3</code></pre>
-<p>a 的引用计数值为 3，因为有 a、b 和作为参数传递的 getrefcount 都引用了一个空列表。</p>
-<p>假设有两个 Python 线程同时引用 a，那么双方就都会尝试操作该数据，很有可能造成引用计数的条件竞争，导致引用计数只增加 1（实际应增加 2），这造成的后果是，当第一个线程结束时，会把引用计数减少 1，此时可能已经达到释放内存的条件（引用计数为 0），当第 2 个线程再次视图访问 a 时，就无法找到有效的内存了。</p>
-<p>所以，CPython 引进 GIL，可以最大程度上规避类似内存管理这样复杂的竞争风险问题。</p>
-<h2 id="一、GIL底层实现原理"><a href="#一、GIL底层实现原理" class="headerlink" title="一、GIL底层实现原理"></a>一、GIL底层实现原理</h2><p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/GIL.gif"></p>
-<p>GIL 在 Python 程序的工作流程：</p>
-<p>Thread 1、2、3 轮流执行，每一个线程在开始执行时，都会锁住 GIL，以阻止别的线程执行；同样的，每一个线程执行完一段后，会释放 GIL，以允许别的线程开始利用资源。</p>
-<p>为什么 Python 线程会去主动释放 GIL 呢？毕竟，如果仅仅要求 Python 线程在开始执行时锁住 GIL，且永远不去释放 GIL，那别的线程就都没有运行的机会。其实，CPython 中还有另一个机制，叫做间隔式检查（check_interval），意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况，每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会。</p>
-<p>注意：不同版本的 Python，其间隔式检查的实现方式并不一样。早期的 Python 是 100 个刻度（大致对应了 1000 个字节码）；而 Python 3 以后，间隔时间大致为 15 毫秒。当然，我们不必细究具体多久会强制释放 GIL，读者只需要明白，CPython 解释器会在一个“合理”的时间范围内释放 GIL 就可以了。</p>
-<p>每一个 Python 线程都是类似这样循环的封装，来看下面这段代码：</p>
-<pre><code>for (;;) &#123;
-    if (--ticker &lt; 0) &#123;
-        ticker = check_interval;   
-        /* Give another thread a chance */
-        PyThread_release_lock(interpreter_lock);
-        /* Other threads may run now */   
-        PyThread_acquire_lock(interpreter_lock, 1);
-    &#125;
-    bytecode = *next_instr++;
-    switch (bytecode) &#123;
-        /* execute the next instruction ... */
-    &#125;
-&#125;</code></pre>
-<p>每个 Python 线程都会先检查 ticker 计数。只有在 ticker 大于 0 的情况下，线程才会去执行自己的代码。</p>
-<h2 id="二、GIL不能绝对保证线程安全"><a href="#二、GIL不能绝对保证线程安全" class="headerlink" title="?二、GIL不能绝对保证线程安全"></a>?二、GIL不能绝对保证线程安全</h2><p>注意：有了 GIL，并不意味着 Python 程序员就不用去考虑线程安全了，因为即便 GIL 仅允许一个 Python 线程执行，但别忘了 Python 还有 check interval 这样的抢占机制。</p>
-<pre><code>import threading
-
-n = 0
-
-def foo():
-    global n
-    n += 1
-
-threads = []
-for i in range(100):
-    t = threading.Thread(target=foo)
-    threads.append(t)
-
-for i in threads:
-    i.start()
-
-for i in threads:
-    i.join()
-print(n)
-</code></pre>
-<p>执行此代码会发现，其大部分时候会打印 100，但有时也会打印 99 或者 98，原因在于 n+=1 这一句代码让线程并不安全。如果去翻译 foo 这个函数的字节码就会发现，它实际上是由下面四行字节码组成：</p>
-<pre><code>&gt;&gt;&gt; import dis
-&gt;&gt;&gt; dis.dis(foo)
-LOAD_GLOBAL              0 (n)
-LOAD_CONST               1 (1)
-INPLACE_ADD
-STORE_GLOBAL             0 (n)</code></pre>
-<p>而这四行字节码中间都是有可能被打断的！所以，千万别以为有了 GIL 程序就不会产生线程问题，我们仍然需要注意线程安全。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -3749,7 +3834,7 @@ STORE_GLOBAL             0 (n)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
