@@ -158,6 +158,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/" class="post-title-link" itemprop="url">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-17 13:30:10" itemprop="dateCreated datePublished" datetime="2018-04-17T13:30:10+08:00">2018-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:07" itemprop="dateModified" datetime="2020-09-18T17:14:07+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf</a>  </p>
+</blockquote>
+<p>前言：之前写过一篇利用文章——<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>，来抓取巨潮资讯企业基本信息的文章，后来我还需要拿这些企业的年报的PDF文件，所以我试过也用也用上面这种思路去抓取，但是太过复杂，需要动态点击的元素太多，实现起来很麻烦。后来仔细看年报这块儿是通过post请求加参数来发送request，所以就很简单了。</p>
+<h2 id="一、思路"><a href="#一、思路" class="headerlink" title="一、思路"></a>一、思路</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo3.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo2.jpg"></p>
+<pre><code>第一张图中我们选中了行业和所需要的年度报告，发送请求后会返回列表，里面有所有农业企业年度报告的链接。
+第二张图中我们看到了请求的url和所需参数，如图示绿色框所示，所以我们只需要构建这样的请求即可。</code></pre>
+<hr>
+<pre><code>query = &#123;
+    &#39;stock&#39;: &#39;&#39;,
+    &#39;searchkey&#39;: &#39;&#39;,
+    # &#39;plate&#39;: PLATE,
+    &#39;plate&#39;: &#39;&#39;,
+    &#39;category&#39;: CATEGORY,
+    &#39;trade&#39;: &#39;农、林、牧、渔业&#39;,
+    &#39;column&#39;: &#39;szse&#39;,
+    &#39;columnTitle&#39;: &#39;历史公告查询&#39;,
+    &#39;pageNum&#39;: page_num,
+    &#39;pageSize&#39;: MAX_PAGESIZE,
+    &#39;tabName&#39;: &#39;fulltext&#39;,
+    &#39;sortName&#39;: &#39;&#39;,
+    &#39;sortType&#39;: &#39;&#39;,
+    &#39;limit&#39;: &#39;&#39;,
+    &#39;showTitle&#39;: &#39;&#39;,
+    &#39;seDate&#39;: START_DATE + &#39;~&#39; + END_DATE,
+&#125;
+r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
+<hr>
+<pre><code>不复杂，把请求的返回内容存入csv文件，最后再通过downloader读取csv文件，最后根据csv中的链接把PDF文件下载下来。</code></pre>
+<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">代码</a>我和**PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)**这篇文章的代码放在一起了，放着cninfo的pdf文件中了，感兴趣自己可以看，可以跑起来的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E4%BD%BF%E7%94%A8Flask-Gunicorn-Nginx%E5%9C%A8Linux%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1748,204 +1855,6 @@ DkgJ_VkU5jM/hqdefault.jpg&quot;,\&#39; at line 4&#39;)**
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">利用Scrapy抓取一带一路战略性支撑平台信息</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-30 18:31:31" itemprop="dateCreated datePublished" datetime="2018-03-30T18:31:31+08:00">2018-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:14:56" itemprop="dateModified" datetime="2020-09-18T17:14:56+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/BeltandRoad">https://github.com/Gladysgong/BeltandRoad</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6fe4afa1b98a">https://www.jianshu.com/p/6fe4afa1b98a</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79761833">https://blog.csdn.net/u012052168/article/details/79761833</a></p>
-</blockquote>
-<pre><code>好久以前做的东西了，网站的数据也很容易拿到，最近想对自己的东西做一个总结，所以就有了这篇文章。    
-我的目标是抓取一带一路战略支撑平台里面一些机构的数据，像联系电话、邮箱等等，简单看看网站的样子把。
-首先获取列表项的所有url，其中包括一项翻页操作，拿到url后访问，获取里面的详细信息，就这么简单。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/beltandroad.jpg"></p>
-<h2 id="一、定义Items"><a href="#一、定义Items" class="headerlink" title="一、定义Items"></a>一、定义Items</h2><pre><code>`class BeltandRoadItem(scrapy.Item):
-# collection = &#39;BeltandRoad&#39;
-
-name = scrapy.Field()  # 机构名称
-intro = scrapy.Field()  # 机构简介
-address = scrapy.Field()  # 机构地址
-tel = scrapy.Field()  # 机构电话
-fax = scrapy.Field()  # 机构传真
-email = scrapy.Field()  # 机构邮箱
-site = scrapy.Field()  # 机构网址`</code></pre>
-<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>爬虫模块中包括翻页操作，并不复杂，就不详细说明。</code></pre>
-<hr>
-<pre><code>`# -*- coding:utf-8 -*-
-from scrapy.spiders import CrawlSpider, Rule
-import scrapy
-from ..items import BeltandRoadItem
-
-# from scrapy.conf import settings
-
-# 一带一路战略支撑平台
-class BeltandRoadSpider(CrawlSpider):
-    name = &quot;BeltandRoadSpider&quot;
-    start_urls = [&#39;http://ydyl.drcnet.com.cn/www/ydyl/channel.aspx?version=YDYL&amp;uid=8011&#39;]
-
-    # 解析url地址
-    def parse(self, response):
-        # urls = response.xpath(&#39;//div[@class=&quot;pub_right&quot;]/ul/li/div[1]/a/@href&#39;).extract()
-        urls = response.xpath(&#39;//ul[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1&quot;]/li/div[1]/a/@href&#39;).extract()
-        # institute_name = response.xpath(&#39;//ul[@class=&quot;left-nav&quot;]/li/h3/a/text()&#39;).extract()
-
-        for url in urls:
-            # url = &quot;http://ydyl.drcnet.com.cn/www/ydyl/&quot; + url
-            # print(&quot;1:&quot;, url)
-            yield scrapy.Request(url=url, callback=self.parse_content)
-
-        next_page = response.xpath(
-            &#39;//div[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1_PageRow&quot;]/input[4]/@onclick&#39;).extract()
-        next_page = str(next_page).split(&quot;\&#39;&quot;)[1]
-        print(&quot;next:&quot;, next_page)
-        if next_page:
-            next_page = &quot;http://ydyl.drcnet.com.cn&quot; + next_page
-            yield scrapy.Request(url=next_page, callback=self.parse)
-
-    # 解析内容
-    def parse_content(self, response):
-        item = BeltandRoadItem()
-        name = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/strong/div/text()&#39;).extract()[0]  # 提取名称
-        content = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/div[@id=&quot;docContent&quot;]/p&#39;).xpath(&#39;string(.)&#39;).extract()  # 提取其他信息
-        content = str(content).split(&#39;\&#39;&#39;)
-        item[&#39;name&#39;] = name
-        for i in range(len(content)):  # 过滤无效信息后，提取有用信息存储到item中
-            if content[i] != &#39;[&#39; and content[i] != &#39;]&#39; and content[i] != &#39;, &#39;:
-                print(&quot;xx:&quot;, content[i])
-                if &quot;简介&quot; in content[i]:
-                    item[&#39;intro&#39;] = content[i]
-                elif &quot;地址&quot; in content[i]:
-                    item[&#39;address&#39;] = content[i]
-                elif &quot;联系电话&quot; in content[i]:
-                    item[&#39;tel&#39;] = content[i]
-                elif &quot;传真&quot; in content[i]:
-                    item[&#39;fax&#39;] = content[i]
-                elif &quot;电子邮箱&quot; in content[i]:
-                    item[&#39;email&#39;] = content[i]
-                elif &quot;网址&quot; in content[i]:
-                    item[&#39;site&#39;] = content[i]
-        yield item
-`</code></pre>
-<h2 id="三、构建pipelines"><a href="#三、构建pipelines" class="headerlink" title="三、构建pipelines"></a>三、构建pipelines</h2><pre><code>主要就是进行数据持久化操作，把数据存入MongoDB数据中。</code></pre>
-<hr>
-<pre><code>`import pymongo
-from scrapy.conf import settings
-from .items import BeltandRoadItem
-
-# 一带一路战略支撑平台
-class BeltandRoadPipeline(object):
-    def __init__(self, mongo_uri, mongo_db, mongo_port):
-        self.mongo_uri = mongo_uri
-        self.mongo_port = mongo_port
-        self.mongo_db = mongo_db
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        return cls(mongo_uri=crawler.settings.get(&#39;MONGO_URI&#39;),
-                   mongo_port=crawler.settings.get(&#39;MONGO_PORT&#39;),
-                   mongo_db=crawler.settings.get(&#39;MONGO_DB&#39;)
-                   )
-
-    def open_spider(self, spider):
-        self.client = pymongo.MongoClient(self.mongo_uri, self.mongo_port)
-        self.db = self.client[self.mongo_db]
-        self.BeltandRoad = self.db[&#39;BeltandRoad&#39;]
-
-    def close_spider(self, spider):
-        self.client.close()
-
-    def process_item(self, item, spider):
-        if isinstance(item, BeltandRoadItem):
-            try:
-                if item[&#39;name&#39;]:
-                    item = dict(item)
-                    # self.db[item.collection].insert(item)  运行这个代码时利用items中collection创建表，会提示插入失败，但是依然会插入到数据库？
-                    self.BeltandRoad.insert(item)
-                    print(&quot;插入成功&quot;)
-                    return item
-            except Exception as e:
-                spider.logger.exception(&quot;插入失败&quot;)`</code></pre>
-<h2 id="四、配置文件settings"><a href="#四、配置文件settings" class="headerlink" title="四、配置文件settings"></a>四、配置文件settings</h2><pre><code># 激活pipelines
-ITEM_PIPELINES = &#123;
-   &#39;BeltandRoad.pipelines.BeltandRoadPipeline&#39;: 300,&#125;
-
-# 数据库配置
-MONGO_URI = &quot;127.0.0.1&quot;  # 主机IP
-MONGO_PORT = 27017  # 端口号
-MONGO_DB = &quot;Belt&quot;  # 数据库名字</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2015,7 +1924,7 @@ MONGO_DB = &quot;Belt&quot;  # 数据库名字</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

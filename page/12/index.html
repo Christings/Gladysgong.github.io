@@ -158,6 +158,322 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">基于用户的协同过滤算法实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-28 10:43:38" itemprop="dateCreated datePublished" datetime="2018-02-28T10:43:38+08:00">2018-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 22:20:37" itemprop="dateModified" datetime="2020-09-18T22:20:37+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、简单介绍"><a href="#一、简单介绍" class="headerlink" title="一、简单介绍"></a>一、简单介绍</h2><p>协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。<br>当然，协同过滤中会存在两个问题：<br>1.如何确定一个用户和你的爱好兴趣相似？<br>2.如何将你的最近邻的兴趣爱好排序？</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>`import codecs 
+from math import sqrt
+
+users = &#123;&quot;Angelica&quot;: &#123;&quot;Blues Traveler&quot;: 3.5, &quot;Broken Bells&quot;: 2.0,
+                  &quot;Norah Jones&quot;: 4.5, &quot;Phoenix&quot;: 5.0,
+                  &quot;Slightly Stoopid&quot;: 1.5,
+                  &quot;The Strokes&quot;: 2.5, &quot;Vampire Weekend&quot;: 2.0&#125;,
+
+     &quot;Bill&quot;:&#123;&quot;Blues Traveler&quot;: 2.0, &quot;Broken Bells&quot;: 3.5,
+             &quot;Deadmau5&quot;: 4.0, &quot;Phoenix&quot;: 2.0,
+             &quot;Slightly Stoopid&quot;: 3.5, &quot;Vampire Weekend&quot;: 3.0&#125;,
+
+     &quot;Chan&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 1.0,
+              &quot;Deadmau5&quot;: 1.0, &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5,
+              &quot;Slightly Stoopid&quot;: 1.0&#125;,
+
+     &quot;Dan&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Broken Bells&quot;: 4.0,
+             &quot;Deadmau5&quot;: 4.5, &quot;Phoenix&quot;: 3.0,
+             &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
+             &quot;Vampire Weekend&quot;: 2.0&#125;,
+
+     &quot;Hailey&quot;: &#123;&quot;Broken Bells&quot;: 4.0, &quot;Deadmau5&quot;: 1.0,
+                &quot;Norah Jones&quot;: 4.0, &quot;The Strokes&quot;: 4.0,
+                &quot;Vampire Weekend&quot;: 1.0&#125;,
+
+     &quot;Jordyn&quot;:  &#123;&quot;Broken Bells&quot;: 4.5, &quot;Deadmau5&quot;: 4.0,
+                 &quot;Norah Jones&quot;: 5.0, &quot;Phoenix&quot;: 5.0,
+                 &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
+                 &quot;Vampire Weekend&quot;: 4.0&#125;,
+
+     &quot;Sam&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 2.0,
+             &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5.0,
+             &quot;Slightly Stoopid&quot;: 4.0, &quot;The Strokes&quot;: 5.0&#125;,
+
+     &quot;Veronica&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Norah Jones&quot;: 5.0,
+                  &quot;Phoenix&quot;: 4.0, &quot;Slightly Stoopid&quot;: 2.5,
+                  &quot;The Strokes&quot;: 3.0&#125;
+    &#125;
+
+
+
+class recommender:
+
+    def __init__(self, data, k=1, metric=&#39;pearson&#39;, n=5):
+        &quot;&quot;&quot; initialize recommender
+        currently, if data is dictionary the recommender is initialized
+        to it.
+        For all other data types of data, no initialization occurs
+        k is the k value for k nearest neighbor
+        metric is which distance formula to use
+        n is the maximum number of recommendations to make&quot;&quot;&quot;
+        self.k = k
+        self.n = n
+        self.username2id = &#123;&#125;
+        self.userid2name = &#123;&#125;
+        self.productid2name = &#123;&#125;
+        # for some reason I want to save the name of the metric
+        self.metric = metric
+        if self.metric == &#39;pearson&#39;:
+            self.fn = self.pearson
+        #
+        # if data is dictionary set recommender data to it
+        #
+        if type(data).__name__ == &#39;dict&#39;:
+            self.data = data
+
+def convertProductID2name(self, id):
+    &quot;&quot;&quot;Given product id number return product name&quot;&quot;&quot;
+    if id in self.productid2name:
+        return self.productid2name[id]
+    else:
+        return id
+
+
+def userRatings(self, id, n):
+    &quot;&quot;&quot;Return n top ratings for user with id&quot;&quot;&quot;
+    print (&quot;Ratings for &quot; + self.userid2name[id])
+    ratings = self.data[id]
+    print(len(ratings))
+    ratings = list(ratings.items())
+    ratings = [(self.convertProductID2name(k), v)
+               for (k, v) in ratings]
+    # finally sort and return
+    ratings.sort(key=lambda artistTuple: artistTuple[1],
+                 reverse = True)
+    ratings = ratings[:n]
+    for rating in ratings:
+        print(&quot;%s\t%i&quot; % (rating[0], rating[1]))
+
+
+
+
+def loadBookDB(self, path=&#39;&#39;):
+    &quot;&quot;&quot;loads the BX book dataset. Path is where the BX files are
+    located&quot;&quot;&quot;
+    self.data = &#123;&#125;
+    i = 0
+    #
+    # First load book ratings into self.data
+    #
+    f = codecs.open(path + &quot;BX-Book-Ratings.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        user = fields[0].strip(&#39;&quot;&#39;)
+        book = fields[1].strip(&#39;&quot;&#39;)
+        rating = int(fields[2].strip().strip(&#39;&quot;&#39;))
+        if user in self.data:
+            currentRatings = self.data[user]
+        else:
+            currentRatings = &#123;&#125;
+        currentRatings[book] = rating
+        self.data[user] = currentRatings
+    f.close()
+    #
+    # Now load books into self.productid2name
+    # Books contains isbn, title, and author among other fields
+    #
+    f = codecs.open(path + &quot;BX-Books.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        isbn = fields[0].strip(&#39;&quot;&#39;)
+        title = fields[1].strip(&#39;&quot;&#39;)
+        author = fields[2].strip().strip(&#39;&quot;&#39;)
+        title = title + &#39; by &#39; + author
+        self.productid2name[isbn] = title
+    f.close()
+    #
+    #  Now load user info into both self.userid2name and
+    #  self.username2id
+    #
+    f = codecs.open(path + &quot;BX-Users.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
+    for line in f:
+        i += 1
+        #print(line)
+        #separate line into fields
+        fields = line.split(&#39;;&#39;)
+        userid = fields[0].strip(&#39;&quot;&#39;)
+        location = fields[1].strip(&#39;&quot;&#39;)
+        if len(fields) &gt; 3:
+            age = fields[2].strip().strip(&#39;&quot;&#39;)
+        else:
+            age = &#39;NULL&#39;
+        if age != &#39;NULL&#39;:
+            value = location + &#39;  (age: &#39; + age + &#39;)&#39;
+        else:
+            value = location
+        self.userid2name[userid] = value
+        self.username2id[location] = userid
+    f.close()
+    print(i)
+
+
+def pearson(self, rating1, rating2):
+    sum_xy = 0
+    sum_x = 0
+    sum_y = 0
+    sum_x2 = 0
+    sum_y2 = 0
+    n = 0
+    for key in rating1:
+        if key in rating2:
+            n += 1
+            x = rating1[key]
+            y = rating2[key]
+            sum_xy += x * y
+            sum_x += x
+            sum_y += y
+            sum_x2 += pow(x, 2)
+            sum_y2 += pow(y, 2)
+    if n == 0:
+        return 0
+    # now compute denominator
+    denominator = (sqrt(sum_x2 - pow(sum_x, 2) / n)
+                   * sqrt(sum_y2 - pow(sum_y, 2) / n))
+    if denominator == 0:
+        return 0
+    else:
+        return (sum_xy - (sum_x * sum_y) / n) / denominator
+
+
+def computeNearestNeighbor(self, username):
+    &quot;&quot;&quot;creates a sorted list of users based on their distance to
+    username&quot;&quot;&quot;
+    distances = []
+    for instance in self.data:
+        if instance != username:
+            distance = self.fn(self.data[username],
+                               self.data[instance])
+            distances.append((instance, distance))
+    # sort based on distance -- closest first
+    distances.sort(key=lambda artistTuple: artistTuple[1],
+                   reverse=True)
+    return distances
+
+def recommend(self, user):
+   &quot;&quot;&quot;Give list of recommendations&quot;&quot;&quot;
+   recommendations = &#123;&#125;
+   # first get list of users  ordered by nearness
+   nearest = self.computeNearestNeighbor(user)
+   #
+   # now get the ratings for the user
+   #
+   userRatings = self.data[user]
+   #
+   # determine the total distance
+   totalDistance = 0.0
+   for i in range(self.k):
+      totalDistance += nearest[i][1]
+   # now iterate through the k nearest neighbors
+   # accumulating their ratings
+   for i in range(self.k):
+      # compute slice of pie 
+      weight = nearest[i][1] / totalDistance
+      # get the name of the person
+      name = nearest[i][0]
+      # get the ratings for this person
+      neighborRatings = self.data[name]
+      # get the name of the person
+      # now find bands neighbor rated that user didn&#39;t
+      for artist in neighborRatings:
+         if not artist in userRatings:
+            if artist not in recommendations:
+               recommendations[artist] = (neighborRatings[artist]
+                                          * weight)
+            else:
+               recommendations[artist] = (recommendations[artist]
+                                          + neighborRatings[artist]
+                                          * weight)
+   # now make list from dictionary
+   recommendations = list(recommendations.items())
+   recommendations = [(self.convertProductID2name(k), v)
+                      for (k, v) in recommendations]
+   # finally sort and return
+   recommendations.sort(key=lambda artistTuple: artistTuple[1],
+                        reverse = True)
+   # Return the first n items
+   return recommendations[:self.n]</code></pre>
+<p>`</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E8%AF%A5%E8%AF%BB%E7%9A%84%E4%B9%A6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1030,824 +1346,6 @@ pyLDAvis.show(vis)`</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Pandas-1-%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Pandas-1-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Pandas-1-基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-24 08:37:53" itemprop="dateCreated datePublished" datetime="2018-01-24T08:37:53+08:00">2018-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:09:19" itemprop="dateModified" datetime="2020-09-18T17:09:19+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Pandas/" itemprop="url" rel="index"><span itemprop="name">Pandas</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/Pandas%E5%AD%A6%E4%B9%A0/">gongyanli.com</a> </p>
-<p>参考视频：<a target="_blank" rel="noopener" href="https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/">莫烦的Pandas视频</a></p>
-</blockquote>
-<p>前言:其实我之前看过pandas的书，但是本着看过就忘记的原则，下次再看见他的时候，反正看着很熟悉，怎么用早就抛到九霄云外了。所以这次网上看了几个简单的小视频，然后总结了以下，虽然没有以前看得那么繁琐，但我一直认为够用就好，不够用的等到用的时候再去查找。</p>
-<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>windows：pip install pandas（anaconda下）
-mac:pip install pandas
-linux:pip install pandas</code></pre>
-<h2 id="二、导入"><a href="#二、导入" class="headerlink" title="二、导入"></a>二、导入</h2><pre><code>import pandas as pd
-import numpy as np</code></pre>
-<h2 id="三、Pandas–基本介绍"><a href="#三、Pandas–基本介绍" class="headerlink" title="三、Pandas–基本介绍"></a>三、Pandas–基本介绍</h2><p>Numpy和Pandas区别：</p>
-<pre><code>Numpy：列表形式，没有数值标签，类似于python的列表
-Pandas：字典形式，类似于python的字典</code></pre>
-<p>Series：</p>
-<pre><code>s = pd.Series([1,3,6,np.nan,44,1])
-print(s)
-
-&quot;&quot;&quot;
-0     1.0
-1     3.0
-2     6.0
-3     NaN
-4    44.0
-5     1.0
-dtype: float64
-&quot;&quot;&quot;</code></pre>
-<p>DataFrame:</p>
-<pre><code>dates = pd.date_range(&#39;20160101&#39;,periods=6)
-df = pd.DataFrame(np.random.randn(6,4),index=dates,columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-print(df)
-
-&quot;&quot;&quot;
-                   a         b         c         d
-2016-01-01 -0.253065 -2.071051 -0.640515  0.613663
-2016-01-02 -1.147178  1.532470  0.989255 -0.499761
-2016-01-03  1.221656 -2.390171  1.862914  0.778070
-2016-01-04  1.473877 -0.046419  0.610046  0.204672
-2016-01-05 -1.584752 -0.700592  1.487264 -1.778293
-2016-01-06  0.633675 -1.414157 -0.277066 -0.442545
-&quot;&quot;&quot;
-
-print(df[&#39;b&#39;])
-
-&quot;&quot;&quot;
-2016-01-01   -2.071051
-2016-01-02    1.532470
-2016-01-03   -2.390171
-2016-01-04   -0.046419
-2016-01-05   -0.700592
-2016-01-06   -1.414157
-Freq: D, Name: b, dtype: float64
-&quot;&quot;&quot;
-
-df1 = pd.DataFrame(np.arange(12).reshape((3,4)))
-print(df1)
-
-&quot;&quot;&quot;
-   0  1   2   3
-0  0  1   2   3
-1  4  5   6   7
-2  8  9  10  11
-&quot;&quot;&quot;
-
-df2 = pd.DataFrame(&#123;&#39;A&#39; : 1.,
-                &#39;B&#39; : pd.Timestamp(&#39;20130102&#39;),
-                &#39;C&#39; : pd.Series(1,index=list(range(4)),dtype=&#39;float32&#39;),
-                &#39;D&#39; : np.array([3] * 4,dtype=&#39;int32&#39;),
-                &#39;E&#39; : pd.Categorical([&quot;test&quot;,&quot;train&quot;,&quot;test&quot;,&quot;train&quot;]),
-                &#39;F&#39; : &#39;foo&#39;&#125;)
-
-print(df2)
-
-&quot;&quot;&quot;
-     A          B    C  D      E    F
-0  1.0 2013-01-02  1.0  3   test  foo
-1  1.0 2013-01-02  1.0  3  train  foo
-2  1.0 2013-01-02  1.0  3   test  foo
-3  1.0 2013-01-02  1.0  3  train  foo
-&quot;&quot;&quot;
-
-print(df2.dtypes)
-
-&quot;&quot;&quot;
-df2.dtypes
-A           float64
-B    datetime64[ns]
-C           float32
-D             int32
-E          category
-F            object
-dtype: object
-&quot;&quot;&quot;
-
-print(df2.index)
-
-# Int64Index([0, 1, 2, 3], dtype=&#39;int64&#39;)
-
-print(df2.columns)
-
-# Index([&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;], dtype=&#39;object&#39;)
-
-print(df2.values)
-
-&quot;&quot;&quot;
-array([[1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;test&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;train&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;test&#39;, &#39;foo&#39;],
-       [1.0, Timestamp(&#39;2013-01-02 00:00:00&#39;), 1.0, 3, &#39;train&#39;, &#39;foo&#39;]], dtype=object)
-&quot;&quot;&quot;
-
-print(df2.describe())
-
-&quot;&quot;&quot;
-         A    C    D
-count  4.0  4.0  4.0
-mean   1.0  1.0  3.0
-std    0.0  0.0  0.0
-min    1.0  1.0  3.0
-25%    1.0  1.0  3.0
-50%    1.0  1.0  3.0
-75%    1.0  1.0  3.0
-max    1.0  1.0  3.0
-&quot;&quot;&quot;
-
-print(df2.T)
-
-&quot;&quot;&quot;                   
-0                    1                    2  \
-A                    1                    1                    1   
-B  2013-01-02 00:00:00  2013-01-02 00:00:00  2013-01-02 00:00:00   
-C                    1                    1                    1   
-D                    3                    3                    3   
-E                 test                train                 test   
-F                  foo                  foo                  foo   
-
-                     3  
-A                    1  
-B  2013-01-02 00:00:00  
-C                    1  
-D                    3  
-E                train  
-F                  foo  
-
-&quot;&quot;&quot;
-
-print(df2.sort_index(axis=1, ascending=False))
-
-&quot;&quot;&quot;
-     F      E  D    C          B    A
-0  foo   test  3  1.0 2013-01-02  1.0
-1  foo  train  3  1.0 2013-01-02  1.0
-2  foo   test  3  1.0 2013-01-02  1.0
-3  foo  train  3  1.0 2013-01-02  1.0
-&quot;&quot;&quot;
-
-print(df2.sort_values(by=&#39;B&#39;))
-
-&quot;&quot;&quot;
-     A          B    C  D      E    F
-0  1.0 2013-01-02  1.0  3   test  foo
-1  1.0 2013-01-02  1.0  3  train  foo
-2  1.0 2013-01-02  1.0  3   test  foo
-3  1.0 2013-01-02  1.0  3  train  foo
-&quot;&quot;&quot;</code></pre>
-<h2 id="四、Pandas–选择数据"><a href="#四、Pandas–选择数据" class="headerlink" title="四、Pandas–选择数据"></a>四、Pandas–选择数据</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-01   0   1   2   3
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<p>简单筛选</p>
-<pre><code>print(df[&#39;A&#39;])
-print(df.A)
-
-&quot;&quot;&quot;
-2013-01-01     0
-2013-01-02     4
-2013-01-03     8
-2013-01-04    12
-2013-01-05    16
-2013-01-06    20
-Freq: D, Name: A, dtype: int64
-&quot;&quot;&quot;
-
-print(df[0:3]) # 跨越多行
-
-&quot;&quot;&quot;
-            A  B   C   D
-2013-01-01  0  1   2   3
-2013-01-02  4  5   6   7
-2013-01-03  8  9  10  11
-&quot;&quot;&quot;
-
-print(df[&#39;20130102&#39;:&#39;20130104&#39;]) # 跨越多列
-
-&quot;&quot;&quot;
-A   B   C   D
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-&quot;&quot;&quot;</code></pre>
-<p>标签loc筛选</p>
-<pre><code>print(df.loc[&#39;20130102&#39;])
-&quot;&quot;&quot;
-A    4
-B    5
-C    6
-D    7
-Name: 2013-01-02 00:00:00, dtype: int64
-&quot;&quot;&quot;
-
-print(df.loc[:,[&#39;A&#39;,&#39;B&#39;]]) 
-&quot;&quot;&quot;
-             A   B
-2013-01-01   0   1
-2013-01-02   4   5
-2013-01-03   8   9
-2013-01-04  12  13
-2013-01-05  16  17
-2013-01-06  20  21
-&quot;&quot;&quot;
-
-print(df.loc[&#39;20130102&#39;,[&#39;A&#39;,&#39;B&#39;]])
-&quot;&quot;&quot;
-A    4
-B    5
-Name: 2013-01-02 00:00:00, dtype: int64
-&quot;&quot;&quot;</code></pre>
-<p>序列iloc筛选</p>
-<pre><code>print(df.iloc[3,1])
-# 13
-
-print(df.iloc[3:5,1:3])
-&quot;&quot;&quot;
-             B   C
-2013-01-04  13  14
-2013-01-05  17  18
-&quot;&quot;&quot;
-
-print(df.iloc[[1,3,5],1:3])
-&quot;&quot;&quot;
-             B   C
-2013-01-02   5   6
-2013-01-04  13  14
-2013-01-06  21  22
-
-&quot;&quot;&quot;</code></pre>
-<p>混合ix筛选</p>
-<pre><code>print(df.ix[:3,[&#39;A&#39;,&#39;C&#39;]])
-&quot;&quot;&quot;
-            A   C
-2013-01-01  0   2
-2013-01-02  4   6
-2013-01-03  8  10
-&quot;&quot;&quot;</code></pre>
-<p>判断筛选</p>
-<pre><code>print(df[df.A&gt;8])
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<h2 id="五、Pandas–设置值"><a href="#五、Pandas–设置值" class="headerlink" title="五、Pandas–设置值"></a>五、Pandas–设置值</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-
-&quot;&quot;&quot;
-             A   B   C   D
-2013-01-01   0   1   2   3
-2013-01-02   4   5   6   7
-2013-01-03   8   9  10  11
-2013-01-04  12  13  14  15
-2013-01-05  16  17  18  19
-2013-01-06  20  21  22  23
-&quot;&quot;&quot;</code></pre>
-<p>根据位置loc和iloc设置值</p>
-<pre><code>df.iloc[2,2] = 1111
-df.loc[&#39;20130101&#39;,&#39;B&#39;] = 2222
-
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0  2222     2   3
-2013-01-02   4     5     6   7
-2013-01-03   8     9  1111  11
-2013-01-04  12    13    14  15
-2013-01-05  16    17    18  19
-2013-01-06  20    21    22  23
-&quot;&quot;&quot;</code></pre>
-<p>根据条件设置值</p>
-<pre><code>df.B[df.A&gt;4] = 0
-&quot;&quot;&quot;
-                A     B     C   D
-2013-01-01   0  2222     2   3
-2013-01-02   4     5     6   7
-2013-01-03   8     0  1111  11
-2013-01-04  12     0    14  15
-2013-01-05  16     0    18  19
-2013-01-06  20     0    22  23 
-&quot;&quot;&quot;</code></pre>
-<p>按行或列设置值</p>
-<pre><code>df[&#39;F&#39;] = np.nan
-&quot;&quot;&quot;
-             A     B     C   D   F
-2013-01-01   0  2222     2   3 NaN
-2013-01-02   4     5     6   7 NaN
-2013-01-03   8     0  1111  11 NaN
-2013-01-04  12     0    14  15 NaN
-2013-01-05  16     0    18  19 NaN
-2013-01-06  20     0    22  23 NaN
-&quot;&quot;&quot;</code></pre>
-<p>添加数据–长度必须对齐</p>
-<pre><code>df[&#39;E&#39;] = pd.Series([1,2,3,4,5,6], index=pd.date_range(&#39;20130101&#39;,periods=6)) 
-&quot;&quot;&quot;
-             A     B     C   D   F  E
-2013-01-01   0  2222     2   3 NaN  1
-2013-01-02   4     5     6   7 NaN  2
-2013-01-03   8     0  1111  11 NaN  3
-2013-01-04  12     0    14  15 NaN  4
-2013-01-05  16     0    18  19 NaN  5
-2013-01-06  20     0    22  23 NaN  6
-&quot;&quot;&quot;</code></pre>
-<h2 id="六、Pandas–处理丢失值"><a href="#六、Pandas–处理丢失值" class="headerlink" title="六、Pandas–处理丢失值"></a>六、Pandas–处理丢失值</h2><pre><code>dates = pd.date_range(&#39;20130101&#39;, periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates, columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;])
-df.iloc[0,1] = np.nan
-df.iloc[1,2] = np.nan
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0   NaN   2.0   3
-2013-01-02   4   5.0   NaN   7
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.dropna()–删除缺失值所在的行或列</p>
-<pre><code>df.dropna(
-axis=0,     # 0: 对行进行操作; 1: 对列进行操作
-how=&#39;any&#39;   # &#39;any&#39;: 只要存在 NaN 就 drop 掉; &#39;all&#39;: 必须全部是 NaN 才 drop 
-) 
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.fillna()–填充缺失值</p>
-<pre><code>df.fillna(value=0)
-&quot;&quot;&quot;
-             A     B     C   D
-2013-01-01   0   0.0   2.0   3
-2013-01-02   4   5.0   0.0   7
-2013-01-03   8   9.0  10.0  11
-2013-01-04  12  13.0  14.0  15
-2013-01-05  16  17.0  18.0  19
-2013-01-06  20  21.0  22.0  23
-&quot;&quot;&quot;</code></pre>
-<p>pd.isnull()–判断缺失值，True为缺失值</p>
-<pre><code>df.isnull() 
-&quot;&quot;&quot;
-                A      B      C      D
-2013-01-01  False   True  False  False
-2013-01-02  False  False   True  False
-2013-01-03  False  False  False  False
-2013-01-04  False  False  False  False
-2013-01-05  False  False  False  False
-2013-01-06  False  False  False  False
-&quot;&quot;&quot;</code></pre>
-<p>检查数据中是否存在NaN,如果存在返回True</p>
-<pre><code>np.any(df.isnull()) == True  
-# True</code></pre>
-<h2 id="六、Pandas–导入导出数据"><a href="#六、Pandas–导入导出数据" class="headerlink" title="六、Pandas–导入导出数据"></a>六、Pandas–导入导出数据</h2><p>pandas可读取格式：csv、excel、json、html、pickle等，详见<a target="_blank" rel="noopener" href="http://pandas.pydata.org/pandas-docs/stable/io.html">官方文档</a></p>
-<p>读取csv</p>
-<pre><code>#读取csv
-data = pd.read_csv(&#39;student.csv&#39;)
-
-#打印出data
-print(data)</code></pre>
-<p>将资料存取成pickle</p>
-<pre><code>data.to_pickle(&#39;student.pickle&#39;)</code></pre>
-<h2 id="七、Pandas–合并–concat"><a href="#七、Pandas–合并–concat" class="headerlink" title="七、Pandas–合并–concat"></a>七、Pandas–合并–concat</h2><p>axis–合并方向（axis=0是预设值）</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df3 = pd.DataFrame(np.ones((3,4))*2, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-
-#concat纵向合并
-res = pd.concat([df1, df2, df3], axis=0)
-
-#打印结果
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 0  1.0  1.0  1.0  1.0
-# 1  1.0  1.0  1.0  1.0
-# 2  1.0  1.0  1.0  1.0
-# 0  2.0  2.0  2.0  2.0
-# 1  2.0  2.0  2.0  2.0
-# 2  2.0  2.0  2.0  2.0</code></pre>
-<p>ignore_index (重置 index)</p>
-<pre><code>#承上一个例子，并将index_ignore设定为True
-res = pd.concat([df1, df2, df3], axis=0, ignore_index=True)
-
-#打印结果
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-# 6  2.0  2.0  2.0  2.0
-# 7  2.0  2.0  2.0  2.0
-# 8  2.0  2.0  2.0  2.0</code></pre>
-<p>join（合并方式）–join=’outer’是预设值</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;], index=[1,2,3])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;], index=[2,3,4])
-
-#纵向&quot;外&quot;合并df1与df2
-res = pd.concat([df1, df2], axis=0, join=&#39;outer&#39;)
-
-print(res)
-#     a    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN
-# 2  0.0  0.0  0.0  0.0  NaN
-# 3  0.0  0.0  0.0  0.0  NaN
-# 2  NaN  1.0  1.0  1.0  1.0
-# 3  NaN  1.0  1.0  1.0  1.0
-# 4  NaN  1.0  1.0  1.0  1.0
-
-
-#承上一个例子
-#纵向&quot;内&quot;合并df1与df2
-res = pd.concat([df1, df2], axis=0, join=&#39;inner&#39;)
-
-#打印结果
-print(res)
-#     b    c    d
-# 1  0.0  0.0  0.0
-# 2  0.0  0.0  0.0
-# 3  0.0  0.0  0.0
-# 2  1.0  1.0  1.0
-# 3  1.0  1.0  1.0
-# 4  1.0  1.0  1.0
-
-#重置index并打印结果
-res = pd.concat([df1, df2], axis=0, join=&#39;inner&#39;, ignore_index=True)
-print(res)
-#     b    c    d
-# 0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0
-# 2  0.0  0.0  0.0
-# 3  1.0  1.0  1.0
-# 4  1.0  1.0  1.0
-# 5  1.0  1.0  1.0</code></pre>
-<p>join_axes (依照 axes 合并)</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;], index=[1,2,3])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;], index=[2,3,4])
-
-#依照`df1.index`进行横向合并
-res = pd.concat([df1, df2], axis=1, join_axes=[df1.index])
-
-#打印结果
-print(res)
-#     a    b    c    d    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN  NaN  NaN  NaN
-# 2  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 3  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-
-#移除join_axes，并打印结果
-res = pd.concat([df1, df2], axis=1)
-print(res)
-#     a    b    c    d    b    c    d    e
-# 1  0.0  0.0  0.0  0.0  NaN  NaN  NaN  NaN
-# 2  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 3  0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0
-# 4  NaN  NaN  NaN  NaN  1.0  1.0  1.0  1.0</code></pre>
-<p>append (添加数据)–只有纵向合并，没有横向合并</p>
-<pre><code>#定义资料集
-df1 = pd.DataFrame(np.ones((3,4))*0, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df2 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-df3 = pd.DataFrame(np.ones((3,4))*1, columns=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-s1 = pd.Series([1,2,3,4], index=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
-
-#将df2合并到df1的下面，以及重置index，并打印出结果
-res = df1.append(df2, ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-
-#合并多个df，将df2与df3合并至df1的下面，以及重置index，并打印出结果
-res = df1.append([df2, df3], ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  1.0  1.0  1.0
-# 4  1.0  1.0  1.0  1.0
-# 5  1.0  1.0  1.0  1.0
-# 6  1.0  1.0  1.0  1.0
-# 7  1.0  1.0  1.0  1.0
-# 8  1.0  1.0  1.0  1.0
-
-#合并series，将s1合并至df1，以及重置index，并打印出结果
-res = df1.append(s1, ignore_index=True)
-print(res)
-#     a    b    c    d
-# 0  0.0  0.0  0.0  0.0
-# 1  0.0  0.0  0.0  0.0
-# 2  0.0  0.0  0.0  0.0
-# 3  1.0  2.0  3.0  4.0</code></pre>
-<h2 id="八、Pandas–合并–-merge"><a href="#八、Pandas–合并–-merge" class="headerlink" title="八、Pandas–合并– merge"></a>八、Pandas–合并– merge</h2><p>用法：主要用于两组有key column的数据，统一索引的数据，通常也被用在Database的处理中。</p>
-<p>依据一组key合并</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;],
-                             &#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;, &#39;A3&#39;],
-                             &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;, &#39;B3&#39;]&#125;)
-right = pd.DataFrame(&#123;&#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;],
-                              &#39;C&#39;: [&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                              &#39;D&#39;: [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;)
-
-print(left)
-#    A   B key
-# 0  A0  B0  K0
-# 1  A1  B1  K1
-# 2  A2  B2  K2
-# 3  A3  B3  K3
-
-print(right)
-#    C   D key
-# 0  C0  D0  K0
-# 1  C1  D1  K1
-# 2  C2  D2  K2
-# 3  C3  D3  K3
-
-#依据key column合并，并打印出
-res = pd.merge(left, right, on=&#39;key&#39;)
-
-print(res)
-     A   B key   C   D
-# 0  A0  B0  K0  C0  D0
-# 1  A1  B1  K1  C1  D1
-# 2  A2  B2  K2  C2  D2
-# 3  A3  B3  K3  C3  D3</code></pre>
-<p>依据两组key合并–合并时有4种方法how = [‘left’, ‘right’, ‘outer’, ‘inner’]，预设值how=’inner’</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;key1&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;],
-                      &#39;key2&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K0&#39;, &#39;K1&#39;],
-                      &#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;, &#39;A3&#39;],
-                      &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;, &#39;B3&#39;]&#125;)
-right = pd.DataFrame(&#123;&#39;key1&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K1&#39;, &#39;K2&#39;],
-                       &#39;key2&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K0&#39;, &#39;K0&#39;],
-                       &#39;C&#39;: [&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                       &#39;D&#39;: [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;)
-
-print(left)
-#    A   B key1 key2
-# 0  A0  B0   K0   K0
-# 1  A1  B1   K0   K1
-# 2  A2  B2   K1   K0
-# 3  A3  B3   K2   K1
-
-print(right)
-#    C   D key1 key2
-# 0  C0  D0   K0   K0
-# 1  C1  D1   K1   K0
-# 2  C2  D2   K1   K0
-# 3  C3  D3   K2   K0
-
-#依据key1与key2 columns进行合并，并打印出四种结果[&#39;left&#39;, &#39;right&#39;, &#39;outer&#39;, &#39;inner&#39;]
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;inner&#39;)
-print(res)
-#    A   B key1 key2   C   D
-# 0  A0  B0   K0   K0  C0  D0
-# 1  A2  B2   K1   K0  C1  D1
-# 2  A2  B2   K1   K0  C2  D2
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;outer&#39;)
-print(res)
-#     A    B key1 key2    C    D
-# 0   A0   B0   K0   K0   C0   D0
-# 1   A1   B1   K0   K1  NaN  NaN
-# 2   A2   B2   K1   K0   C1   D1
-# 3   A2   B2   K1   K0   C2   D2
-# 4   A3   B3   K2   K1  NaN  NaN
-# 5  NaN  NaN   K2   K0   C3   D3
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;left&#39;)
-print(res)
-#    A   B key1 key2    C    D
-# 0  A0  B0   K0   K0   C0   D0
-# 1  A1  B1   K0   K1  NaN  NaN
-# 2  A2  B2   K1   K0   C1   D1
-# 3  A2  B2   K1   K0   C2   D2
-# 4  A3  B3   K2   K1  NaN  NaN
-
-res = pd.merge(left, right, on=[&#39;key1&#39;, &#39;key2&#39;], how=&#39;right&#39;)
-print(res)
-#     A    B key1 key2   C   D
-# 0   A0   B0   K0   K0  C0  D0
-# 1   A2   B2   K1   K0  C1  D1
-# 2   A2   B2   K1   K0  C2  D2
-# 3  NaN  NaN   K2   K0  C3  D3</code></pre>
-<p>Indicator–indicator=True会将合并的记录放在新的一列。</p>
-<pre><code>#定义资料集并打印出
-df1 = pd.DataFrame(&#123;&#39;col1&#39;:[0,1], &#39;col_left&#39;:[&#39;a&#39;,&#39;b&#39;]&#125;)
-df2 = pd.DataFrame(&#123;&#39;col1&#39;:[1,2,2],&#39;col_right&#39;:[2,2,2]&#125;)
-
-print(df1)
-#   col1 col_left
-# 0     0        a
-# 1     1        b
-
-print(df2)
-#   col1  col_right
-# 0     1          2
-# 1     2          2
-# 2     2          2
-
-# 依据col1进行合并，并启用indicator=True，最后打印出
-res = pd.merge(df1, df2, on=&#39;col1&#39;, how=&#39;outer&#39;, indicator=True)
-print(res)
-#   col1 col_left  col_right      _merge
-# 0   0.0        a        NaN   left_only
-# 1   1.0        b        2.0        both
-# 2   2.0      NaN        2.0  right_only
-# 3   2.0      NaN        2.0  right_only
-
-# 自定indicator column的名称，并打印出
-res = pd.merge(df1, df2, on=&#39;col1&#39;, how=&#39;outer&#39;, indicator=&#39;indicator_column&#39;)
-print(res)
-#   col1 col_left  col_right indicator_column
-# 0   0.0        a        NaN        left_only
-# 1   1.0        b        2.0             both
-# 2   2.0      NaN        2.0       right_only
-# 3   2.0      NaN        2.0       right_only</code></pre>
-<p>依据index合并</p>
-<pre><code>#定义资料集并打印出
-left = pd.DataFrame(&#123;&#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;],
-                     &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;]&#125;,
-                     index=[&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;])
-right = pd.DataFrame(&#123;&#39;C&#39;: [&#39;C0&#39;, &#39;C2&#39;, &#39;C3&#39;],
-                      &#39;D&#39;: [&#39;D0&#39;, &#39;D2&#39;, &#39;D3&#39;]&#125;,
-                     index=[&#39;K0&#39;, &#39;K2&#39;, &#39;K3&#39;])
-
-print(left)
-#     A   B
-# K0  A0  B0
-# K1  A1  B1
-# K2  A2  B2
-
-print(right)
-#     C   D
-# K0  C0  D0
-# K2  C2  D2
-# K3  C3  D3
-
-#依据左右资料集的index进行合并，how=&#39;outer&#39;,并打印出
-res = pd.merge(left, right, left_index=True, right_index=True, how=&#39;outer&#39;)
-print(res)
-#      A    B    C    D
-# K0   A0   B0   C0   D0
-# K1   A1   B1  NaN  NaN
-# K2   A2   B2   C2   D2
-# K3  NaN  NaN   C3   D3
-
-#依据左右资料集的index进行合并，how=&#39;inner&#39;,并打印出
-res = pd.merge(left, right, left_index=True, right_index=True, how=&#39;inner&#39;)
-print(res)
-#     A   B   C   D
-# K0  A0  B0  C0  D0
-# K2  A2  B2  C2  D2</code></pre>
-<p>解决overlapping的问题</p>
-<pre><code>#定义资料集
-boys = pd.DataFrame(&#123;&#39;k&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;], &#39;age&#39;: [1, 2, 3]&#125;)
-girls = pd.DataFrame(&#123;&#39;k&#39;: [&#39;K0&#39;, &#39;K0&#39;, &#39;K3&#39;], &#39;age&#39;: [4, 5, 6]&#125;)
-
-#使用suffixes解决overlapping的问题
-res = pd.merge(boys, girls, on=&#39;k&#39;, suffixes=[&#39;_boy&#39;, &#39;_girl&#39;], how=&#39;inner&#39;)
-print(res)
-#    age_boy   k  age_girl
-# 0        1  K0         4
-# 1        1  K0         5</code></pre>
-<h2 id="九、Pandas–plot出图"><a href="#九、Pandas–plot出图" class="headerlink" title="九、Pandas–plot出图"></a>九、Pandas–plot出图</h2><p>导入</p>
-<pre><code>import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt</code></pre>
-<p>Series可视化</p>
-<pre><code># 随机生成1000个数据
-data = pd.Series(np.random.randn(1000),index=np.arange(1000))
-
-# 为了方便观看效果, 我们累加这个数据
-data.cumsum()
-
-# pandas 数据可以直接观看其可视化形式
-data.plot()
-
-plt.show()
-
-可以使用 plt.plot(x=, y=)，把x,y的数据作为参数存进去，但是data本来就是一个数据，所以我们可以直接plot。 </code></pre>
-<p>DataFrame可视化</p>
-<pre><code>data = pd.DataFrame(
-np.random.randn(1000,4),
-index=np.arange(1000),
-columns=list(&quot;ABCD&quot;)
-)
-data.cumsum()
-data.plot()
-plt.show()
-
-常用方法:
-    plot
-    bar
-    hist
-    box
-    kde
-    area
-    scatter
-    hexbin
-
-ax = data.plot.scatter(x=&#39;A&#39;,y=&#39;B&#39;,color=&#39;DarkBlue&#39;,label=&#39;Class1&#39;)
-# 将之下这个 data 画在上一个 ax 上面
-data.plot.scatter(x=&#39;A&#39;,y=&#39;C&#39;,color=&#39;LightGreen&#39;,label=&#39;Class2&#39;,ax=ax)
-plt.show()</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1917,7 +1415,7 @@ plt.show()</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

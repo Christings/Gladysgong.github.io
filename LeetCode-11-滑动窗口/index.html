@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png">
 <meta property="article:published_time" content="2020-02-19T13:23:58.000Z">
-<meta property="article:modified_time" content="2020-08-18T14:37:01.809Z">
+<meta property="article:modified_time" content="2020-11-09T12:07:20.028Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:37:01" itemprop="dateModified" datetime="2020-08-18T22:37:01+08:00">2020-08-18</time>
+                <time title="Modified: 2020-11-09 20:07:20" itemprop="dateModified" datetime="2020-11-09T20:07:20+08:00">2020-11-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,7 @@
 输出: 3
 解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。
      请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre>
-<p>题解一（暴力破解）：<br>时间复杂度O(n^3)</p>
+<p>题解一|暴力破解：<br>时间复杂度O(n^3)</p>
 <pre><code>class Solution:
     def lengthOfLongestSubstring(self, s: str) -&gt; int:
         length=len(s)
@@ -254,8 +254,8 @@
         for i in range(length):
             for j in range(i+1,length):  
                 if s[i] != s[j]:
-                    print(i,j)
-                    print(s[i:j+1])
+                    # print(i,j)
+                    # print(s[i:j+1])
                     if self.isUnique(s[i:j+1]):
                         ans=max(ans,len(s[i:j+1]))
         return ans
@@ -274,16 +274,50 @@ haha
 ah
 2 3
 ha</code></pre>
-<p>题解二（滑动窗口）：</p>
-<p>什么是滑动窗口？</p>
-<pre><code>其实就是一个队列,比如例题中的 abcabcbb，进入这个队列（窗口）为 abc 满足题目要求，当再进入 a，队列变成了 abca，这时候不满足要求。所以，我们要移动这个队列！
+<p>题解二|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int) # 使用int的话，默认值变为0
+        left,right=0,0
+        res=0
+        count=0
+        while right &lt; len(s):
+            if lookup[s[right]]&gt;0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count &gt; 0:
+                if lookup[s[left]]&gt;1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+        return res</code></pre>
+<p>题解二|滑动窗口：</p>
+<pre><code>我们使用两个指针表示字符串中的某个子串的左右边界，其中左指针代表着上文中「枚举子串的起始位置」，而右指针即为上文中的 right；
 
-如何移动？
+在每一步的操作中，我们会将左指针向右移动一格，表示我们开始枚举下一个字符作为起始位置，然后我们可以不断地向右移动右指针，但需要保证这两个指针对应的子串中没有重复的字符。在移动结束后，这个子串就对应着以左指针开始的，不包含重复字符的最长子串。我们记录下这个子串的长度；
 
-我们只要把队列的左边的元素移出就行了，直到满足题目要求！
-
-一直维持这样的队列，找出队列出现最长的长度时候，求出解！</code></pre>
-<p>时间复杂度：O(n)</p>
+在枚举结束后，我们找到的最长的子串的长度即为答案。</code></pre>
+<p>时间复杂度：O(N)，其中 N 是字符串的长度。左指针和右指针分别会遍历整个字符串一次。<br>空间复杂度：O(∣Σ∣)</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s):
+        &quot;&quot;&quot;
+        :type s: str
+        :rtype: int
+        &quot;&quot;&quot;
+        occ=set()
+        n=len(s)
+        right,ans=-1,0
+        for i in range(n):
+            if i!=0:
+                occ.remove(s[i-1])
+            while right+1&lt;n and s[right+1] not in occ:
+                occ.add(s[right+1])
+                right+=1
+            ans=max(ans,right-i+1)
+        return ans</code></pre>
 <pre><code>class Solution:
     def lengthOfLongestSubstring(self, s: str) -&gt; int:
         if s is None:
@@ -449,6 +483,164 @@ class Solution:
     def strStr(self, haystack: str, needle: str) -&gt; int:
         i=haystack.find(needle)
         return i</code></pre>
+<h3 id="30-串联所有单词的子串"><a href="#30-串联所有单词的子串" class="headerlink" title="30. 串联所有单词的子串"></a>30. 串联所有单词的子串</h3><pre><code>链接：https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
+
+给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+
+注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。
+
+示例 1：
+
+输入：
+  s = &quot;barfoothefoobarman&quot;,
+  words = [&quot;foo&quot;,&quot;bar&quot;]
+输出：[0,9]
+解释：
+从索引 0 和 9 开始的子串分别是 &quot;barfoo&quot; 和 &quot;foobar&quot; 。
+输出的顺序不重要, [9,0] 也是有效答案。
+示例 2：
+
+输入：
+  s = &quot;wordgoodgoodgoodbestword&quot;,
+  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
+输出：[]</code></pre>
+<p>题解一|逐字母前进：</p>
+<pre><code>时间复杂度：O(m*n)</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(s_len-n+1):
+            res_hash=word_hash.copy()
+            j=i+w_len
+            while s[j-w_len:j] in res_hash and res_hash[s[j-w_len:j]]&gt;0:
+                res_hash[s[j-w_len:j]]-=1
+                j+=w_len
+            if sum(res_hash.values())==0:
+                ans.append(i)
+        return ans</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(s_len-n+1):
+            tmp=s[i:i+n]
+            res_hash=&#123;&#125;
+            for j in range(0,n,w_len):
+                res_hash[tmp[j:j+w_len]]=res_hash.get(tmp[j:j+w_len],0)+1
+            if word_hash==res_hash:
+                ans.append(i)
+        return ans</code></pre>
+<p>题解二|逐单词前进</p>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for offset in range(w_len):
+            tmp_hash=&#123;&#125;
+            for i in range(offset,offset+n-w_len,w_len):
+                tmp_hash[s[i:i+w_len]]=tmp_hash.get(s[i:i+w_len],0)+1
+            for begin in range(offset,s_len-n+1,w_len):
+                tmp_hash[s[begin+n-w_len:begin+n]]=tmp_hash.get(s[begin+n-w_len:begin+n],0)+1
+                if tmp_hash==word_hash:
+                    ans.append(begin)
+                tmp_hash[s[begin:begin+w_len]]-=1
+                if tmp_hash[s[begin:begin+w_len]]==0:
+                    del tmp_hash[s[begin:begin+w_len]]
+        return ans
+</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        from collections import Counter
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=Counter(words)
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(w_len):
+            cnt=0
+            left,right=i,i
+            cur_hash=Counter()
+            while right+w_len &lt;= s_len:
+                each=s[right:right+w_len]
+                right+=w_len
+                cur_hash[each]+=1
+                cnt+=1
+                print(cur_hash)
+                while cur_hash[each] &gt; word_hash[each]:
+                    tmp=s[left:left+w_len]
+                    left+=w_len
+                    cur_hash[tmp]-=1
+                    cnt-=1
+                if cnt==len(words):
+                    ans.append(left)
+        return ans</code></pre>
+<p>优化：</p>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        from collections import Counter
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=Counter(words)
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(w_len):
+            cnt=0
+            left,right=i,i
+            cur_hash=Counter()
+            while right+w_len &lt;= s_len:
+                each=s[right:right+w_len]
+                right+=w_len
+                if each not in words:
+                    left=right
+                    cur_hash.clear()
+                    cnt=0
+                else:
+                    cur_hash[each]+=1
+                    cnt+=1
+                    while cur_hash[each] &gt; word_hash[each]:
+                        tmp=s[left:left+w_len]
+                        left+=w_len
+                        cur_hash[tmp]-=1
+                        cnt-=1
+                    if cnt==len(words):
+                        ans.append(left)
+        return ans</code></pre>
 <h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76.最小覆盖子串"></a>76.最小覆盖子串</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-window-substring/
 
 给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。
@@ -461,7 +653,34 @@ class Solution:
 
 如果 S 中不存这样的子串，则返回空字符串 &quot;&quot;。
 如果 S 中存在这样的子串，我们保证它是唯一的答案。</code></pre>
-<p>题解一（滑动窗口）：</p>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        for each in t:
+            lookup[each]+=1
+        left,right=0,0
+        count=len(t)
+        min_len=float(&#39;inf&#39;)
+        res=&#39;&#39;
+
+        while right&lt;len(s):
+            if lookup[s[right]]&gt;0:
+                count-=1
+            lookup[s[right]]-=1
+            right+=1
+            while count==0:
+                if min_len&gt;right-left:
+                    min_len=right-left
+                    res=s[left:right]
+                if lookup[s[left]]==0:
+                    count+=1
+                lookup[s[left]]+=1
+                left+=1
+        return res
+</code></pre>
+<p>题解一|滑动窗口：</p>
 <pre><code>保证窗口(队列)字符串含有t中字符的个数大于等于t里相应元素个数</code></pre>
 <pre><code>class Solution:
     def minWindow(self, s: str, t: str) -&gt; str:
@@ -508,6 +727,68 @@ class Solution:
                 start+=1
         return res
 </code></pre>
+<h3 id="159-至多包含两个不同字符的最长子串"><a href="#159-至多包含两个不同字符的最长子串" class="headerlink" title="159. 至多包含两个不同字符的最长子串"></a>159. 至多包含两个不同字符的最长子串</h3><pre><code>给定一个字符串 s ，找出 至多 包含两个不同字符的最长子串 t 。
+
+示例 1:
+
+输入: &quot;eceba&quot;
+输出: 3
+解释: t 是 &quot;ece&quot;，长度为3。
+1
+2
+3
+示例 2:
+
+输入: &quot;ccaabbb&quot;
+输出: 5
+解释: t 是 &quot;aabbb&quot;，长度为5。</code></pre>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        left,right=0,0
+        res=0
+        count=0
+        while right&lt;len(s):
+            if lookup[s[right]]==0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count&gt;2:
+                if lookup[s[left]]==1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+            return res</code></pre>
+<h3 id="340-至多包含-K-个不同字符的最长子串"><a href="#340-至多包含-K-个不同字符的最长子串" class="headerlink" title="340. 至多包含 K 个不同字符的最长子串"></a>340. 至多包含 K 个不同字符的最长子串</h3><pre><code>给定一个字符串 s ，找出 至多 包含 k 个不同字符的最长子串 T。
+
+示例1：
+
+输入: s = &quot;eceba&quot;, k = 2
+输出: 3
+解释: 则 T 为 &quot;ece&quot;，所以长度为 3。</code></pre>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        left,right=0,0
+        res=0
+        count=0
+        while right &lt; len(s):
+            lookup[s[right]]==0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count &gt; k:
+                if lookup[s[left]]==1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+        return res</code></pre>
 
     </div>
 
@@ -591,7 +872,7 @@ class Solution:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">十一、滑动窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2"><span class="nav-number">1.1.</span> <span class="nav-text">3.无重复字符的最长子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr"><span class="nav-number">1.2.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#76-%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2"><span class="nav-number">1.3.</span> <span class="nav-text">76.最小覆盖子串</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">十一、滑动窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2"><span class="nav-number">1.1.</span> <span class="nav-text">3.无重复字符的最长子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr"><span class="nav-number">1.2.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2"><span class="nav-number">1.3.</span> <span class="nav-text">30. 串联所有单词的子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#76-%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2"><span class="nav-number">1.4.</span> <span class="nav-text">76.最小覆盖子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#159-%E8%87%B3%E5%A4%9A%E5%8C%85%E5%90%AB%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2"><span class="nav-number">1.5.</span> <span class="nav-text">159. 至多包含两个不同字符的最长子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#340-%E8%87%B3%E5%A4%9A%E5%8C%85%E5%90%AB-K-%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2"><span class="nav-number">1.6.</span> <span class="nav-text">340. 至多包含 K 个不同字符的最长子串</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -605,7 +886,7 @@ class Solution:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

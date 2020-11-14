@@ -158,6 +158,311 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-2-%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Shell-2-%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Shell-2-基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-11 16:43:14" itemprop="dateCreated datePublished" datetime="2018-07-11T16:43:14+08:00">2018-07-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:22:39" itemprop="dateModified" datetime="2020-09-18T16:22:39+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-变量"><a href="#1-变量" class="headerlink" title="1.变量"></a>1.变量</h3><pre><code>1) 局部变量 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
+2) 环境变量 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。
+3) shell变量 shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
+
+
+定义变量：不加$符号 
+my_name=&#39;gyl&#39;
+
+使用变量：$
+echo $my_name
+echo $&#123;my_name&#125;
+
+只读变量：不能被改变
+readonly myUrl
+
+删除变量：unset不能删除只读变量
+unset my_book</code></pre>
+<h3 id="2-字符串"><a href="#2-字符串" class="headerlink" title="2.字符串"></a>2.字符串</h3><pre><code>字符串可以用单引号和双引号，也可不用引号，单双引号的区别跟PHP类似。
+
+单引号：&#39;&#39;
+    单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；
+    单引号字串中不能出现单引号（对单引号使用转义符后也不行）；
+str=&#39;this is a string&#39;
+
+双引号：&quot;&quot;
+    双引号里可以有变量
+    双引号里可以出现转义字符
+my_name=&#39;gyl&#39;
+str=&quot;hello,I know you are \&quot;$my_name\&quot;! \n&quot;
+
+拼接字符串：
+echo $greeting $greeting1
+
+获取字符串长度：
+echo $&#123;#str&#125;
+
+提取字符串：
+echo $&#123;str:1:4&#125;
+
+查找子字符串：
+echo `expr index &quot;$string&quot; is` # 反引号，而非单引号</code></pre>
+<h3 id="3-数组"><a href="#3-数组" class="headerlink" title="3.数组"></a>3.数组</h3><pre><code>bash支持一维数组（不支持多维数组），并且没有限定数组的大小
+下标从0开始，初始时不需要定义数组大小（与PHP类似）
+
+定义数组：
+数组名=(值1 值2 ... 值n)
+array_name=(value0 value1 value2 value3)
+
+读取数组：
+$&#123;数组名[下标]&#125;
+valuen=$&#123;array_name[n]&#125;
+valuen=$&#123;array_name[@]&#125; # @符号可获取数组中的所有元素
+
+获取数组长度：
+length=$&#123;#array_name[@]&#125;
+length=$&#123;#array_name[*]&#125; # 获取数组元素的个数
+lengthn=$&#123;#array_name[n]&#125; # 获取数组单个元素的长度</code></pre>
+<h3 id="4-注释"><a href="#4-注释" class="headerlink" title="4.注释"></a>4.注释</h3><pre><code>#
+
+:&lt;&lt;EOF
+注释内容...
+注释内容...
+注释内容...
+EOF</code></pre>
+<h3 id="5-传递参数"><a href="#5-传递参数" class="headerlink" title="5.传递参数"></a>5.传递参数</h3><pre><code>$0:执行的文件名
+$1:第一个参数
+$2:第二个参数，以此类推
+
+$#    传递到脚本的参数个数
+$*    以一个单字符串显示所有向脚本传递的参数。如&quot;$*&quot;用「&quot;」括起来的情况、以&quot;$1 $2 … $n&quot;的形式输出所有参数。
+$$    脚本运行的当前进程ID号
+$!    后台运行的最后一个进程的ID号
+$@    与$*相同，但是使用时加引号，并在引号中返回每个参数。如&quot;$@&quot;用「&quot;」括起来的情况、以&quot;$1&quot; &quot;$2&quot; … &quot;$n&quot; 的形式输出所有参数。
+$-    显示Shell使用的当前选项，与set命令功能相同。
+$?    显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</code></pre>
+<h3 id="6-基本运算符"><a href="#6-基本运算符" class="headerlink" title="6.基本运算符"></a>6.基本运算符</h3><pre><code>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，如 awk 和 expr，expr 最常用。
+
+表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。
+完整的表达式要被 ` ` 包含，注意这个字符不是常用的单引号，在 Esc 键下边。
+val=`expr 2 + 2`</code></pre>
+<h4 id="6-1-算术运算符"><a href="#6-1-算术运算符" class="headerlink" title="6.1 算术运算符"></a>6.1 算术运算符</h4><pre><code>+ - * / % = == !=
+乘号(*)前边必须加反斜杠(\)才能实现乘法运算；
+在 MAC 中 shell 的 expr 语法是：$((表达式))，此处表达式中的 &quot;*&quot; 不需要转义符号 &quot;\&quot; 。</code></pre>
+<h4 id="6-2-关系运算符"><a href="#6-2-关系运算符" class="headerlink" title="6.2 关系运算符"></a>6.2 关系运算符</h4><pre><code>关系运算符只支持数字，不支持字符串，除非字符串的值是数字。
+
+-eq ：检测两个数是否相等
+-nq ：检测两个数是否不相等
+-gt ：检测左边的数是否大于右边的
+-lt ：检测左边的数是否小于右边的
+-ge ：检测左边的数是否大于等于右边的
+-le ：检测左边的数是否小于等于右边的</code></pre>
+<h4 id="6-3-布尔运算符"><a href="#6-3-布尔运算符" class="headerlink" title="6.3 布尔运算符"></a>6.3 布尔运算符</h4><pre><code>！ ：非运算
+-o ：或运算
+-a ：与运算</code></pre>
+<h4 id="6-4-逻辑运算符"><a href="#6-4-逻辑运算符" class="headerlink" title="6.4 逻辑运算符"></a>6.4 逻辑运算符</h4><pre><code>&amp;&amp; ：逻辑中的AND
+|| ：逻辑中OR    </code></pre>
+<h4 id="6-5-字符串运算"><a href="#6-5-字符串运算" class="headerlink" title="6.5 字符串运算"></a>6.5 字符串运算</h4><pre><code>=
+!=
+-z ：检测字符串长度是否为0，为0返回true
+-n ：检测字符串长度是否为0，不为0返回true
+str：检测字符串是否为空，不为空返回true</code></pre>
+<h4 id="6-6-文件测试运算符"><a href="#6-6-文件测试运算符" class="headerlink" title="6.6 文件测试运算符"></a>6.6 文件测试运算符</h4><pre><code>文件测试运算符用于检测 Unix 文件的各种属性
+
+-b file    检测文件是否是块设备文件，如果是，则返回 true。
+-c file    检测文件是否是字符设备文件，如果是，则返回 true。    
+-d file    检测文件是否是目录，如果是，则返回 true。    
+-f file    检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。    
+-g file    检测文件是否设置了 SGID 位，如果是，则返回 true。    
+-k file    检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。    
+-p file    检测文件是否是有名管道，如果是，则返回 true。    
+-u file    检测文件是否设置了 SUID 位，如果是，则返回 true。    
+-r file    检测文件是否可读，如果是，则返回 true。    
+-w file    检测文件是否可写，如果是，则返回 true。    
+-x file    检测文件是否可执行，如果是，则返回 true。    
+-s file    检测文件是否为空（文件大小是否大于0），不为空返回 true。    
+-e file    检测文件（包括目录）是否存在，如果是，则返回 true。</code></pre>
+<h3 id="7-echo"><a href="#7-echo" class="headerlink" title="7.echo"></a>7.echo</h3><pre><code>echo -e &quot;OK! \n&quot;    # -e开启转义
+echo “it is a test.” &gt; myfile # 结果定向到文件
+echo &#39;$name\&quot;&#39; # 原样输出字符串，不进行转义或取变量（用单引号）
+ehco `data` # 线上命令执行结果，用反引号而不是单引号，此处显示当前日期</code></pre>
+<h3 id="7-printf"><a href="#7-printf" class="headerlink" title="7.printf"></a>7.printf</h3><pre><code>默认 printf 不会像 echo 自动添加换行符，我们可以手动添加 \n
+
+printf &quot;%-10s %-8s %-4s\n&quot; 姓名 性别 体重kg  
+printf &quot;%-10s %-8s %-4.2f\n&quot; 郭芙 女 47.9876 </code></pre>
+<h3 id="8-test"><a href="#8-test" class="headerlink" title="8.test"></a>8.test</h3><pre><code>数值--6.2
+字符--6.5
+文件--6.6</code></pre>
+<h3 id="9-流程控制"><a href="#9-流程控制" class="headerlink" title="9.流程控制"></a>9.流程控制</h3><pre><code>if格式：
+    if condition
+    then
+        command1 
+        command2
+        ...
+        commandN 
+    fi
+    或if [ $(ps -ef | grep -c &quot;ssh&quot;) -gt 1 ]; then echo &quot;true&quot;; fi
+
+if else格式：
+    if condition
+    then
+        command1 
+        command2
+        ...
+        commandN 
+    else
+        command
+    fi
+
+if else-if else 格式：
+    if condition1
+    then
+        command1
+    elif condition2 
+    then 
+        command2
+    else
+        commandN
+    fi
+
+for格式：
+    for var in item1 item2 ... itemN
+    do
+        command1
+        command2
+        ...
+        commandN
+    done
+    或for var in item1 item2 ... itemN; do command1; command2… done;
+
+while格式：
+    while condition
+    do
+        command
+    done
+
+until格式：until循环直到条件为true时停止
+    until condition
+    do
+        command
+    done
+
+case格式：
+    case 值 in
+    模式1)
+        command1
+        command2
+        ...
+        commandN
+        ;;
+    模式2）
+        command1
+        command2
+        ...
+        commandN
+        ;;
+    esac
+
+break和continue：跳出循环和跳出当前循环</code></pre>
+<h3 id="10-函数"><a href="#10-函数" class="headerlink" title="10.函数"></a>10.函数</h3><pre><code>1、可以带function fun() 定义，也可以直接fun() 定义,不带任何参数。
+2、参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255）
+
+函数返回值在调用该函数后通过 $? 来获得。
+注意：所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。
+
+函数参数：$1表示第一个参数，以此类推
+函数调用：funWithParam 1 2 3 4 5 34 87
+注意，$10 不能获取第十个参数，获取第十个参数需要$&#123;10&#125;。当n&gt;=10时，需要使用$&#123;n&#125;来获取参数。
+
+$#    传递到脚本的参数个数
+$*    以一个单字符串显示所有向脚本传递的参数
+$$    脚本运行的当前进程ID号
+$!    后台运行的最后一个进程的ID号
+$@    与$*相同，但是使用时加引号，并在引号中返回每个参数。
+$-    显示Shell使用的当前选项，与set命令功能相同。
+$?    显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</code></pre>
+<h3 id="11-输入输出重定向"><a href="#11-输入输出重定向" class="headerlink" title="11.输入输出重定向"></a>11.输入输出重定向</h3><pre><code>注意:文件描述符:
+    0 通常是标准输入（STDIN）
+    1 是标准输出（STDOUT）
+    2 是标准错误输出（STDERR）
+
+command &gt; file    将输出重定向到 file。
+command &lt; file    将输入重定向到 file。
+command &gt;&gt; file    将输出以追加的方式重定向到 file。
+n &gt; file    将文件描述符为 n 的文件重定向到 file。
+n &gt;&gt; file    将文件描述符为 n 的文件以追加的方式重定向到 file。
+n &gt;&amp; m    将输出文件 m 和 n 合并。
+n &lt;&amp; m    将输入文件 m 和 n 合并。
+&lt;&lt; tag    将开始标记 tag 和结束标记 tag 之间的内容作为输入。</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Mac%E7%BB%88%E7%AB%AFssh%E7%99%BB%E5%BD%95Linux%E6%8F%90%E7%A4%BAcannot-change-locale-UTF-8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1278,113 +1583,6 @@ rules = (
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/" class="post-title-link" itemprop="url">用Python下载巨潮资讯农业上市企业的年报PDF文件(二)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-17 13:30:10" itemprop="dateCreated datePublished" datetime="2018-04-17T13:30:10+08:00">2018-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:14:07" itemprop="dateModified" datetime="2020-09-18T17:14:07+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%94%A8Python%E4%B8%8B%E8%BD%BD%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E5%86%9C%E4%B8%9A%E4%B8%8A%E5%B8%82%E4%BC%81%E4%B8%9A%E7%9A%84%E5%B9%B4%E6%8A%A5PDF%E6%96%87%E4%BB%B6(%E4%BA%8C)/">http://gongyanli.com/</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf</a>  </p>
-</blockquote>
-<p>前言：之前写过一篇利用文章——<a href="http://gongyanli.com/PhantomJS-Selenium-Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF/">PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)</a>，来抓取巨潮资讯企业基本信息的文章，后来我还需要拿这些企业的年报的PDF文件，所以我试过也用也用上面这种思路去抓取，但是太过复杂，需要动态点击的元素太多，实现起来很麻烦。后来仔细看年报这块儿是通过post请求加参数来发送request，所以就很简单了。</p>
-<h2 id="一、思路"><a href="#一、思路" class="headerlink" title="一、思路"></a>一、思路</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo3.jpg"><br><img src="http://p2lakvkq0.bkt.clouddn.com/cninfo2.jpg"></p>
-<pre><code>第一张图中我们选中了行业和所需要的年度报告，发送请求后会返回列表，里面有所有农业企业年度报告的链接。
-第二张图中我们看到了请求的url和所需参数，如图示绿色框所示，所以我们只需要构建这样的请求即可。</code></pre>
-<hr>
-<pre><code>query = &#123;
-    &#39;stock&#39;: &#39;&#39;,
-    &#39;searchkey&#39;: &#39;&#39;,
-    # &#39;plate&#39;: PLATE,
-    &#39;plate&#39;: &#39;&#39;,
-    &#39;category&#39;: CATEGORY,
-    &#39;trade&#39;: &#39;农、林、牧、渔业&#39;,
-    &#39;column&#39;: &#39;szse&#39;,
-    &#39;columnTitle&#39;: &#39;历史公告查询&#39;,
-    &#39;pageNum&#39;: page_num,
-    &#39;pageSize&#39;: MAX_PAGESIZE,
-    &#39;tabName&#39;: &#39;fulltext&#39;,
-    &#39;sortName&#39;: &#39;&#39;,
-    &#39;sortType&#39;: &#39;&#39;,
-    &#39;limit&#39;: &#39;&#39;,
-    &#39;showTitle&#39;: &#39;&#39;,
-    &#39;seDate&#39;: START_DATE + &#39;~&#39; + END_DATE,
-&#125;
-r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
-<hr>
-<pre><code>不复杂，把请求的返回内容存入csv文件，最后再通过downloader读取csv文件，最后根据csv中的链接把PDF文件下载下来。</code></pre>
-<h2 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/Gladysgong/cninfo/tree/master/cninfo/pdf">代码</a>我和**PhantomJS+Selenium+Scrapy抓取巨潮资讯网企业信息(一)**这篇文章的代码放在一起了，放着cninfo的pdf文件中了，感兴趣自己可以看，可以跑起来的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1454,7 +1652,7 @@ r = requests.post(URL, query, HEADER, timeout=RESPONSE_TIMEOUT)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

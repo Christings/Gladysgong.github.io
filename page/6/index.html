@@ -158,6 +158,650 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-11-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-11-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-title-link" itemprop="url">LeetCode-11-滑动窗口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-19 21:23:58" itemprop="dateCreated datePublished" datetime="2020-02-19T21:23:58+08:00">2020-02-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-09 20:07:20" itemprop="dateModified" datetime="2020-11-09T20:07:20+08:00">2020-11-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="十一、滑动窗口"><a href="#十一、滑动窗口" class="headerlink" title="十一、滑动窗口"></a>十一、滑动窗口</h2><h3 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3.无重复字符的最长子串"></a>3.无重复字符的最长子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+
+给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+
+输入: &quot;abcabcbb&quot;
+输出: 3 
+解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。
+示例 2:
+
+输入: &quot;bbbbb&quot;
+输出: 1
+解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。
+示例 3:
+
+输入: &quot;pwwkew&quot;
+输出: 3
+解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre>
+<p>题解一|暴力破解：<br>时间复杂度O(n^3)</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        length=len(s)
+
+        if s == &#39;&#39;:
+            return 0
+        ans=1
+
+        for i in range(length):
+            for j in range(i+1,length):  
+                if s[i] != s[j]:
+                    # print(i,j)
+                    # print(s[i:j+1])
+                    if self.isUnique(s[i:j+1]):
+                        ans=max(ans,len(s[i:j+1]))
+        return ans
+
+    def isUnique(self,s):
+        for i in range(len(s)):
+            if s[i] in s[i+1:]:
+                return False
+        return True</code></pre>
+<p>输出：</p>
+<pre><code>0 1
+ha
+0 3
+haha
+1 2
+ah
+2 3
+ha</code></pre>
+<p>题解二|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int) # 使用int的话，默认值变为0
+        left,right=0,0
+        res=0
+        count=0
+        while right &lt; len(s):
+            if lookup[s[right]]&gt;0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count &gt; 0:
+                if lookup[s[left]]&gt;1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+        return res</code></pre>
+<p>题解二|滑动窗口：</p>
+<pre><code>我们使用两个指针表示字符串中的某个子串的左右边界，其中左指针代表着上文中「枚举子串的起始位置」，而右指针即为上文中的 right；
+
+在每一步的操作中，我们会将左指针向右移动一格，表示我们开始枚举下一个字符作为起始位置，然后我们可以不断地向右移动右指针，但需要保证这两个指针对应的子串中没有重复的字符。在移动结束后，这个子串就对应着以左指针开始的，不包含重复字符的最长子串。我们记录下这个子串的长度；
+
+在枚举结束后，我们找到的最长的子串的长度即为答案。</code></pre>
+<p>时间复杂度：O(N)，其中 N 是字符串的长度。左指针和右指针分别会遍历整个字符串一次。<br>空间复杂度：O(∣Σ∣)</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s):
+        &quot;&quot;&quot;
+        :type s: str
+        :rtype: int
+        &quot;&quot;&quot;
+        occ=set()
+        n=len(s)
+        right,ans=-1,0
+        for i in range(n):
+            if i!=0:
+                occ.remove(s[i-1])
+            while right+1&lt;n and s[right+1] not in occ:
+                occ.add(s[right+1])
+                right+=1
+            ans=max(ans,right-i+1)
+        return ans</code></pre>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        if s is None:
+            return 0
+        maxLen=0
+        curLen=0
+        left=0
+        lookup=set()
+        for i in range(len(s)):
+            curLen+=1
+            while s[i] in lookup: # 注意此处是while，如果s[i]在lookup里，会一直循环
+                print(left,i,s[left],lookup)
+                lookup.remove(s[left]) # set是无序无排列的，注意是s[left]
+                left+=1
+                curLen-=1
+            maxLen=max(maxLen,curLen)
+            lookup.add(s[i])
+        return maxLen</code></pre>
+<p>输入：”abcabcbb”<br>输出：</p>
+<pre><code>0 3 a &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
+1 4 b &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
+2 5 c &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
+3 6 a &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
+4 6 b &#123;&#39;c&#39;, &#39;b&#39;&#125;
+5 7 c &#123;&#39;c&#39;, &#39;b&#39;&#125;
+6 7 b &#123;&#39;b&#39;&#125;
+
+</code></pre>
+<p>另一种写法：</p>
+<pre><code>from collection improt defaultdict
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
+        lookup=defaultdict(int)
+        start=0
+        end=0
+        maxLen=0
+        counter=0
+        while end&lt;len(s):
+            if lookup[s[end]]&gt;0:
+                counter+=1
+            lookup[s[end]]+=1
+            end+=1
+            while counter&gt;0:
+                if lookup[s[start]]&gt;1:
+                    counter-=1
+                lookup[s[start]]-=1
+                start+=1
+            maxLen=max(maxLen,end-start)
+        return maxLen</code></pre>
+<h3 id="28-实现-strStr"><a href="#28-实现-strStr" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><pre><code>链接：https://leetcode-cn.com/problems/implement-strstr/
+
+实现 strStr() 函数。
+
+给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+
+示例 1:
+
+输入: haystack = &quot;hello&quot;, needle = &quot;ll&quot;
+输出: 2
+示例 2:
+
+输入: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;
+输出: -1
+说明:
+
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+
+对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</code></pre>
+<p>题解一(子串逐一比较 - 线性时间复杂度)：</p>
+<p>思路：沿着字符换逐步移动滑动窗口，将窗口内的子串与 needle 字符串比较。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png"></p>
+<p>时间复杂度：O((N - L)L)，其中 N 为 haystack 字符串的长度，L 为 needle 字符串的长度。内循环中比较字符串的复杂度为 L，总共需要比较 (N - L) 次。<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        n,length=len(haystack),len(needle)
+        for i in range(n-length+1):
+            if haystack[i:i+length]==needle:
+                return i
+        return -1</code></pre>
+<p>？？题解二（双指针 - 线性时间复杂度）：</p>
+<p>题解一的缺陷是会将 haystack 所有长度为 L 的子串都与 needle 字符串比较，实际上是不需要这么做的。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png"></p>
+<pre><code>首先，只有子串的第一个字符跟 needle 字符串第一个字符相同的时候才需要比较。
+
+其次，可以一个字符一个字符比较，一旦不匹配了就立刻终止。
+
+比较到最后一位时发现不匹配，这时候开始回溯。需要注意的是，pn 指针是移动到 pn = pn - curr_len + 1 的位置，而 不是 pn = pn - curr_len 的位置。
+
+这时候再比较一次，就找到了完整匹配的子串，直接返回子串的开始位置 pn - L。</code></pre>
+<p>思路：</p>
+<pre><code>移动 pn 指针，直到 pn 所指向位置的字符与 needle 字符串第一个字符相等。
+
+通过 pn，pL，curr_len 计算匹配长度。
+
+如果完全匹配（即 curr_len == L），返回匹配子串的起始坐标（即 pn - L）。
+
+如果不完全匹配，回溯。使 pn = pn - curr_len + 1， pL = 0， curr_len = 0。</code></pre>
+<p>时间复杂度：最坏时间复杂度为 O((N - L)L)，最优时间复杂度为 O(N)。<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        L, n = len(needle), len(haystack)
+        if L == 0:
+            return 0
+
+        pn = 0
+        while pn &lt; n - L + 1:
+            # find the position of the first needle character
+            # in the haystack string
+            while pn &lt; n - L + 1 and haystack[pn] != needle[0]:
+                pn += 1
+
+            # compute the max match string
+            curr_len = pL = 0
+            while pL &lt; L and pn &lt; n and haystack[pn] == needle[pL]:
+                pn += 1
+                pL += 1
+                curr_len += 1
+
+            # if the whole needle string is found,
+            # return its start position
+            if curr_len == L:
+                return pn - L
+
+            # otherwise, backtrack
+            pn = pn - curr_len + 1
+
+        return -1</code></pre>
+<p>？？？题解三（KMP）：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/">https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0">https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0</a></p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        if not needle:
+            return 0
+        next=self.getNext(needle)
+        i=j=0
+        while i&lt;len(haystack) and j&lt;len(needle):
+            if j==-1 or haystack[i]==needle[j]:
+                i+=1
+                j+=1
+            else:
+                j=next[j]
+        if j==len(needle):
+            return i-j
+        else:
+            return -1
+    def getNext(self,needle):
+        next=[0]*len(needle)
+        next[0]=-1
+        print(next)
+        i=0
+        j=-1
+        while i&lt;len(needle)-1:
+            if j==-1 or needle[i]==needle[j]:
+                i+=1
+                j+=1
+                next[i]=j
+            else:
+                j=next[j]
+        return next</code></pre>
+<p>题解四：</p>
+<pre><code>class Solution:
+    def strStr(self, haystack: str, needle: str) -&gt; int:
+        i=haystack.find(needle)
+        return i</code></pre>
+<h3 id="30-串联所有单词的子串"><a href="#30-串联所有单词的子串" class="headerlink" title="30. 串联所有单词的子串"></a>30. 串联所有单词的子串</h3><pre><code>链接：https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
+
+给定一个字符串 s 和一些长度相同的单词 words。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+
+注意子串要与 words 中的单词完全匹配，中间不能有其他字符，但不需要考虑 words 中单词串联的顺序。
+
+示例 1：
+
+输入：
+  s = &quot;barfoothefoobarman&quot;,
+  words = [&quot;foo&quot;,&quot;bar&quot;]
+输出：[0,9]
+解释：
+从索引 0 和 9 开始的子串分别是 &quot;barfoo&quot; 和 &quot;foobar&quot; 。
+输出的顺序不重要, [9,0] 也是有效答案。
+示例 2：
+
+输入：
+  s = &quot;wordgoodgoodgoodbestword&quot;,
+  words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
+输出：[]</code></pre>
+<p>题解一|逐字母前进：</p>
+<pre><code>时间复杂度：O(m*n)</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(s_len-n+1):
+            res_hash=word_hash.copy()
+            j=i+w_len
+            while s[j-w_len:j] in res_hash and res_hash[s[j-w_len:j]]&gt;0:
+                res_hash[s[j-w_len:j]]-=1
+                j+=w_len
+            if sum(res_hash.values())==0:
+                ans.append(i)
+        return ans</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(s_len-n+1):
+            tmp=s[i:i+n]
+            res_hash=&#123;&#125;
+            for j in range(0,n,w_len):
+                res_hash[tmp[j:j+w_len]]=res_hash.get(tmp[j:j+w_len],0)+1
+            if word_hash==res_hash:
+                ans.append(i)
+        return ans</code></pre>
+<p>题解二|逐单词前进</p>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        ans=[]
+        if not words:
+            return ans
+
+        word_hash=&#123;&#125;
+        for each in words:
+            word_hash[each]=word_hash.get(each,0)+1
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for offset in range(w_len):
+            tmp_hash=&#123;&#125;
+            for i in range(offset,offset+n-w_len,w_len):
+                tmp_hash[s[i:i+w_len]]=tmp_hash.get(s[i:i+w_len],0)+1
+            for begin in range(offset,s_len-n+1,w_len):
+                tmp_hash[s[begin+n-w_len:begin+n]]=tmp_hash.get(s[begin+n-w_len:begin+n],0)+1
+                if tmp_hash==word_hash:
+                    ans.append(begin)
+                tmp_hash[s[begin:begin+w_len]]-=1
+                if tmp_hash[s[begin:begin+w_len]]==0:
+                    del tmp_hash[s[begin:begin+w_len]]
+        return ans
+</code></pre>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        from collections import Counter
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=Counter(words)
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(w_len):
+            cnt=0
+            left,right=i,i
+            cur_hash=Counter()
+            while right+w_len &lt;= s_len:
+                each=s[right:right+w_len]
+                right+=w_len
+                cur_hash[each]+=1
+                cnt+=1
+                print(cur_hash)
+                while cur_hash[each] &gt; word_hash[each]:
+                    tmp=s[left:left+w_len]
+                    left+=w_len
+                    cur_hash[tmp]-=1
+                    cnt-=1
+                if cnt==len(words):
+                    ans.append(left)
+        return ans</code></pre>
+<p>优化：</p>
+<pre><code>class Solution:
+    def findSubstring(self, s: str, words: List[str]) -&gt; List[int]:
+        from collections import Counter
+        ans=[]
+        if not s or not words:
+            return ans
+
+        word_hash=Counter(words)
+
+        s_len,w_len=len(s),len(words[0])
+        n=w_len * len(words) # 符合要求的子串长度
+
+        for i in range(w_len):
+            cnt=0
+            left,right=i,i
+            cur_hash=Counter()
+            while right+w_len &lt;= s_len:
+                each=s[right:right+w_len]
+                right+=w_len
+                if each not in words:
+                    left=right
+                    cur_hash.clear()
+                    cnt=0
+                else:
+                    cur_hash[each]+=1
+                    cnt+=1
+                    while cur_hash[each] &gt; word_hash[each]:
+                        tmp=s[left:left+w_len]
+                        left+=w_len
+                        cur_hash[tmp]-=1
+                        cnt-=1
+                    if cnt==len(words):
+                        ans.append(left)
+        return ans</code></pre>
+<h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76.最小覆盖子串"></a>76.最小覆盖子串</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-window-substring/
+
+给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。
+
+示例：
+
+输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;
+输出: &quot;BANC&quot;
+说明：
+
+如果 S 中不存这样的子串，则返回空字符串 &quot;&quot;。
+如果 S 中存在这样的子串，我们保证它是唯一的答案。</code></pre>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        for each in t:
+            lookup[each]+=1
+        left,right=0,0
+        count=len(t)
+        min_len=float(&#39;inf&#39;)
+        res=&#39;&#39;
+
+        while right&lt;len(s):
+            if lookup[s[right]]&gt;0:
+                count-=1
+            lookup[s[right]]-=1
+            right+=1
+            while count==0:
+                if min_len&gt;right-left:
+                    min_len=right-left
+                    res=s[left:right]
+                if lookup[s[left]]==0:
+                    count+=1
+                lookup[s[left]]+=1
+                left+=1
+        return res
+</code></pre>
+<p>题解一|滑动窗口：</p>
+<pre><code>保证窗口(队列)字符串含有t中字符的个数大于等于t里相应元素个数</code></pre>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        from collections import Counter
+        t=Counter(t)
+        lookup=Counter()
+        start,end=0,0
+        minLen=float(&#39;inf&#39;)
+        res=&#39;&#39;
+        while end &lt; len(s):
+            lookup[s[end]]+=1
+            end+=1
+            while all(map(lambda x:lookup[x] &gt;= t[x],t.keys())):
+                # print(lookup)
+                if end-start &lt; minLen:
+                    res=s[start:end]
+                    minLen=end-start
+                lookup[s[start]]-=1
+                start+=1
+        return res</code></pre>
+<pre><code>记录队列元素和t中元素的差值</code></pre>
+<pre><code>class Solution:
+    def minWindow(self, s: str, t: str) -&gt; str:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        for each in t:
+            lookup[each]+=1
+        start,end=0,0
+        minLen=float(&#39;inf&#39;)
+        counter=len(t)
+        res=&#39;&#39;
+        while end &lt; len(s):
+            if lookup[s[end]] &gt; 0:
+                counter-=1
+            lookup[s[end]]-=1
+            end+=1
+            while counter==0:
+                if minLen&gt; end-start:
+                    minLen=end-start
+                    res=s[start:end]
+                if lookup[s[start]]==0:
+                    counter+=1
+                lookup[s[start]]+=1
+                start+=1
+        return res
+</code></pre>
+<h3 id="159-至多包含两个不同字符的最长子串"><a href="#159-至多包含两个不同字符的最长子串" class="headerlink" title="159. 至多包含两个不同字符的最长子串"></a>159. 至多包含两个不同字符的最长子串</h3><pre><code>给定一个字符串 s ，找出 至多 包含两个不同字符的最长子串 t 。
+
+示例 1:
+
+输入: &quot;eceba&quot;
+输出: 3
+解释: t 是 &quot;ece&quot;，长度为3。
+1
+2
+3
+示例 2:
+
+输入: &quot;ccaabbb&quot;
+输出: 5
+解释: t 是 &quot;aabbb&quot;，长度为5。</code></pre>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: str) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        left,right=0,0
+        res=0
+        count=0
+        while right&lt;len(s):
+            if lookup[s[right]]==0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count&gt;2:
+                if lookup[s[left]]==1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+            return res</code></pre>
+<h3 id="340-至多包含-K-个不同字符的最长子串"><a href="#340-至多包含-K-个不同字符的最长子串" class="headerlink" title="340. 至多包含 K 个不同字符的最长子串"></a>340. 至多包含 K 个不同字符的最长子串</h3><pre><code>给定一个字符串 s ，找出 至多 包含 k 个不同字符的最长子串 T。
+
+示例1：
+
+输入: s = &quot;eceba&quot;, k = 2
+输出: 3
+解释: 则 T 为 &quot;ece&quot;，所以长度为 3。</code></pre>
+<p>题解一|滑动窗口|万能模版：</p>
+<pre><code>class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -&gt; int:
+        from collections import defaultdict
+        lookup=defaultdict(int)
+        left,right=0,0
+        res=0
+        count=0
+        while right &lt; len(s):
+            lookup[s[right]]==0:
+                count+=1
+            lookup[s[right]]+=1
+            right+=1
+            while count &gt; k:
+                if lookup[s[left]]==1:
+                    count-=1
+                lookup[s[left]]-=1
+                left+=1
+            res=max(res,right-left)
+        return res</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/TensorFlow-6-TensorBoard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1867,95 +2511,6 @@ if __name__ == &#39;__main__&#39;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-8-%E4%B8%AD%E4%BD%8D%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/LeetCode-8-%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-title-link" itemprop="url">LeetCode-8-中位数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-02 15:28:41" itemprop="dateCreated datePublished" datetime="2020-02-02T15:28:41+08:00">2020-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:37:05" itemprop="dateModified" datetime="2020-08-18T22:37:05+08:00">2020-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="八、中位数"><a href="#八、中位数" class="headerlink" title="八、中位数"></a>八、中位数</h2><p>首先假设我们的变量都是 int 值，二分查找中我们需要根据 start 和 end 求中点，正常情况下加起来除以 2 即可。</p>
-<pre><code>int mid = (start + end) / 2</code></pre>
-<p>但这样有一个缺点，我们知道int的最大值是 Integer.MAX_VALUE ，也就是2147483647（2^31-1）。那么有一个问题，如果 start = 2147483645，end = 2147483645，虽然 start 和 end都没有超出最大值，但是如果利用上边的公式，加起来的话就会造成溢出，从而导致mid计算错误。</p>
-<p>解决的一个方案就是利用数学上的技巧，我们可以加一个 start 再减一个 start 将公式变形：</p>
-<pre><code>(start + end) / 2 = (start + end + start - start) / 2 = start + (end - start) / 2</code></pre>
-<p>然后当时和同学看到jdk源码中，求mid的方法如下，通过移位实现了除以2：</p>
-<pre><code>int mid = (start + end) &gt;&gt;&gt; 1</code></pre>
-<p>补码：</p>
-<p>其实问题的关键就是这里了&gt;&gt;&gt; ，我们知道还有一种右移是&gt;&gt;。区别在于&gt;&gt;为有符号右移，右移以后最高位保持原来的最高位。而&gt;&gt;&gt;这个右移的话最高位补 0。</p>
-<p>所以这里其实利用到了整数的补码形式，最高位其实是符号位，所以当 start + end 溢出的时候，其实本质上只是符号位收到了进位，而&gt;&gt;&gt;这个右移不仅可以把符号位右移，同时最高位只是补零，不会对数字的大小造成影响。</p>
-<p>但&gt;&gt;有符号右移就会出现问题了，事实上 JDK6 之前都用的&gt;&gt;，这个 BUG 在 java 里竟然隐藏了十年之久。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median2.png"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median3.png"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median4.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2025,7 +2580,7 @@ if __name__ == &#39;__main__&#39;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

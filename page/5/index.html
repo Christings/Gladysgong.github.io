@@ -158,6 +158,128 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-11-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6scheduler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-11-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6scheduler/" class="post-title-link" itemprop="url">python并发-11.任务调度scheduler</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 15:03:06" itemprop="dateCreated datePublished" datetime="2020-02-26T15:03:06+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:02:41" itemprop="dateModified" datetime="2020-09-18T14:02:41+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Timer 定时器的弊端：只能控制线程在指定时间内执行一次任务，如果想实现每隔一段时间就执行一次，需要借助循环结构。</p>
+<p>Python中sched模块，该模块中含有一个 scheduler 类，可用来执行更复杂的任务调度。</p>
+<p>scheduler 类常用的构造方法如下：</p>
+<pre><code>scheduler(timefunc=time.monotonic, delayfunc=time.sleep)</code></pre>
+<p>该构造方法中 2 个参数（当然也可以不提供，因为都有默认值），分别表示的含义如下：</p>
+<pre><code>timefunc：指定生成时间戳的函数，默认使用 time.monotonic 来生成时间戳；
+delayfunc：在未到达指定时间前，通过该参数可以指定阻塞任务执行的函数，默认采用 time.sleep() 函数来阻塞程序。</code></pre>
+<p>scheduler 类的常用方法：</p>
+<p>1、scheduler.enter(delay, priority, action, argument=(), kwargs={})</p>
+<p>在 time 规定的时间后，执行 action 参数指定的函数，其中 argument 和 kwargs 负责为 action 指定的函数传参，priority 参数执行要执行任务的等级，当同一时间点有多个任务需要执行时，等级越高（ priority 值越小）的任务会优先执行。该函数会返回一个 event，可用来取消该任务。</p>
+<p>2、scheduler.cancel(event)</p>
+<p>取消 event 任务。注意，如果 event 参数执行的任务不存在，则会引发 ValueError 错误。</p>
+<p>3、scheduler.run(blocking=True)</p>
+<p>运行所有需要调度的任务。如果调用该方法的 blocking 参数为 True，该方法将会阻塞线程，直到所有被调度的任务都执行完成。</p>
+<pre><code>import threading
+from sched import scheduler
+
+
+def action(arg):
+    print(arg)
+
+
+def threadAction(*add):
+    &#39;&#39;&#39;
+    定义线程要调用的方法，*add可接收多个以非关键字方式传入的参数
+    :param add:
+    :return:
+    &#39;&#39;&#39;
+    sche = scheduler()  # 创建任务调度对象
+    i = 3  # 定义优先级
+    for arc in add:
+        sche.enter(1, i, action, argument=(arc,))  # 指定1秒后执行action函数
+        i -= 1
+    sche.run()  # 执行所有调度的任务
+
+
+myTuple = (
+    &#39;python&#39;, &#39;shell&#39;, &#39;java&#39;
+)
+thread = threading.Thread(target=threadAction, args=myTuple)
+thread.start()
+</code></pre>
+<p>注意：以上输出结果是在执行程序 1 秒后逐个输出的。    </p>
+<p>程序创建了 thread 子线程去执行 thread_action() 函数，在该函数中使用 scheduler 类调度了 3 个任务，这 3 个任务都指定的是 1 秒后执行，其优先级分别为 3、2、1。</p>
+<p>由于是在同一时间执行这 3 个任务，因此优先级的设定决定了谁先执行、谁后执行。显然优先级为 1 的任务优先执行，优先级为 3 的最后执行。因此上面程序执行结果中字符串的输出顺序恰好和 my_tuple 元组中的顺序是相反的？？？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-10-%E5%AE%9A%E6%97%B6%E5%99%A8Timer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1671,369 +1793,6 @@ Thread-1 http://c.biancheng.net/java/</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-11-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/LeetCode-11-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-title-link" itemprop="url">LeetCode-11-滑动窗口</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-19 21:23:58" itemprop="dateCreated datePublished" datetime="2020-02-19T21:23:58+08:00">2020-02-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:37:01" itemprop="dateModified" datetime="2020-08-18T22:37:01+08:00">2020-08-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="十一、滑动窗口"><a href="#十一、滑动窗口" class="headerlink" title="十一、滑动窗口"></a>十一、滑动窗口</h2><h3 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3.无重复字符的最长子串"></a>3.无重复字符的最长子串</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
-
-给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
-
-示例 1:
-
-输入: &quot;abcabcbb&quot;
-输出: 3 
-解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。
-示例 2:
-
-输入: &quot;bbbbb&quot;
-输出: 1
-解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。
-示例 3:
-
-输入: &quot;pwwkew&quot;
-输出: 3
-解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。
-     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre>
-<p>题解一（暴力破解）：<br>时间复杂度O(n^3)</p>
-<pre><code>class Solution:
-    def lengthOfLongestSubstring(self, s: str) -&gt; int:
-        length=len(s)
-
-        if s == &#39;&#39;:
-            return 0
-        ans=1
-
-        for i in range(length):
-            for j in range(i+1,length):  
-                if s[i] != s[j]:
-                    print(i,j)
-                    print(s[i:j+1])
-                    if self.isUnique(s[i:j+1]):
-                        ans=max(ans,len(s[i:j+1]))
-        return ans
-
-    def isUnique(self,s):
-        for i in range(len(s)):
-            if s[i] in s[i+1:]:
-                return False
-        return True</code></pre>
-<p>输出：</p>
-<pre><code>0 1
-ha
-0 3
-haha
-1 2
-ah
-2 3
-ha</code></pre>
-<p>题解二（滑动窗口）：</p>
-<p>什么是滑动窗口？</p>
-<pre><code>其实就是一个队列,比如例题中的 abcabcbb，进入这个队列（窗口）为 abc 满足题目要求，当再进入 a，队列变成了 abca，这时候不满足要求。所以，我们要移动这个队列！
-
-如何移动？
-
-我们只要把队列的左边的元素移出就行了，直到满足题目要求！
-
-一直维持这样的队列，找出队列出现最长的长度时候，求出解！</code></pre>
-<p>时间复杂度：O(n)</p>
-<pre><code>class Solution:
-    def lengthOfLongestSubstring(self, s: str) -&gt; int:
-        if s is None:
-            return 0
-        maxLen=0
-        curLen=0
-        left=0
-        lookup=set()
-        for i in range(len(s)):
-            curLen+=1
-            while s[i] in lookup: # 注意此处是while，如果s[i]在lookup里，会一直循环
-                print(left,i,s[left],lookup)
-                lookup.remove(s[left]) # set是无序无排列的，注意是s[left]
-                left+=1
-                curLen-=1
-            maxLen=max(maxLen,curLen)
-            lookup.add(s[i])
-        return maxLen</code></pre>
-<p>输入：”abcabcbb”<br>输出：</p>
-<pre><code>0 3 a &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
-1 4 b &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
-2 5 c &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
-3 6 a &#123;&#39;c&#39;, &#39;a&#39;, &#39;b&#39;&#125;
-4 6 b &#123;&#39;c&#39;, &#39;b&#39;&#125;
-5 7 c &#123;&#39;c&#39;, &#39;b&#39;&#125;
-6 7 b &#123;&#39;b&#39;&#125;
-
-</code></pre>
-<p>另一种写法：</p>
-<pre><code>from collection improt defaultdict
-
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -&gt; int:
-        lookup=defaultdict(int)
-        start=0
-        end=0
-        maxLen=0
-        counter=0
-        while end&lt;len(s):
-            if lookup[s[end]]&gt;0:
-                counter+=1
-            lookup[s[end]]+=1
-            end+=1
-            while counter&gt;0:
-                if lookup[s[start]]&gt;1:
-                    counter-=1
-                lookup[s[start]]-=1
-                start+=1
-            maxLen=max(maxLen,end-start)
-        return maxLen</code></pre>
-<h3 id="28-实现-strStr"><a href="#28-实现-strStr" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><pre><code>链接：https://leetcode-cn.com/problems/implement-strstr/
-
-实现 strStr() 函数。
-
-给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
-
-示例 1:
-
-输入: haystack = &quot;hello&quot;, needle = &quot;ll&quot;
-输出: 2
-示例 2:
-
-输入: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;
-输出: -1
-说明:
-
-当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
-
-对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</code></pre>
-<p>题解一(子串逐一比较 - 线性时间复杂度)：</p>
-<p>思路：沿着字符换逐步移动滑动窗口，将窗口内的子串与 needle 字符串比较。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str1.png"></p>
-<p>时间复杂度：O((N - L)L)，其中 N 为 haystack 字符串的长度，L 为 needle 字符串的长度。内循环中比较字符串的复杂度为 L，总共需要比较 (N - L) 次。<br>空间复杂度：O(1)</p>
-<pre><code>class Solution:
-    def strStr(self, haystack: str, needle: str) -&gt; int:
-        n,length=len(haystack),len(needle)
-        for i in range(n-length+1):
-            if haystack[i:i+length]==needle:
-                return i
-        return -1</code></pre>
-<p>？？题解二（双指针 - 线性时间复杂度）：</p>
-<p>题解一的缺陷是会将 haystack 所有长度为 L 的子串都与 needle 字符串比较，实际上是不需要这么做的。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/str.png"></p>
-<pre><code>首先，只有子串的第一个字符跟 needle 字符串第一个字符相同的时候才需要比较。
-
-其次，可以一个字符一个字符比较，一旦不匹配了就立刻终止。
-
-比较到最后一位时发现不匹配，这时候开始回溯。需要注意的是，pn 指针是移动到 pn = pn - curr_len + 1 的位置，而 不是 pn = pn - curr_len 的位置。
-
-这时候再比较一次，就找到了完整匹配的子串，直接返回子串的开始位置 pn - L。</code></pre>
-<p>思路：</p>
-<pre><code>移动 pn 指针，直到 pn 所指向位置的字符与 needle 字符串第一个字符相等。
-
-通过 pn，pL，curr_len 计算匹配长度。
-
-如果完全匹配（即 curr_len == L），返回匹配子串的起始坐标（即 pn - L）。
-
-如果不完全匹配，回溯。使 pn = pn - curr_len + 1， pL = 0， curr_len = 0。</code></pre>
-<p>时间复杂度：最坏时间复杂度为 O((N - L)L)，最优时间复杂度为 O(N)。<br>空间复杂度：O(1)</p>
-<pre><code>class Solution:
-    def strStr(self, haystack: str, needle: str) -&gt; int:
-        L, n = len(needle), len(haystack)
-        if L == 0:
-            return 0
-
-        pn = 0
-        while pn &lt; n - L + 1:
-            # find the position of the first needle character
-            # in the haystack string
-            while pn &lt; n - L + 1 and haystack[pn] != needle[0]:
-                pn += 1
-
-            # compute the max match string
-            curr_len = pL = 0
-            while pL &lt; L and pn &lt; n and haystack[pn] == needle[pL]:
-                pn += 1
-                pL += 1
-                curr_len += 1
-
-            # if the whole needle string is found,
-            # return its start position
-            if curr_len == L:
-                return pn - L
-
-            # otherwise, backtrack
-            pn = pn - curr_len + 1
-
-        return -1</code></pre>
-<p>？？？题解三（KMP）：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/">https://leetcode-cn.com/problems/implement-strstr/solution/kmphua-48xiao-shi-kan-dong-liao-kmpxiang-rang-ni-z/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=13225444196686531503</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0">https://www.bilibili.com/video/BV1hW411a7ys/?spm_id_from=333.788.videocard.0</a></p>
-<pre><code>class Solution:
-    def strStr(self, haystack: str, needle: str) -&gt; int:
-        if not needle:
-            return 0
-        next=self.getNext(needle)
-        i=j=0
-        while i&lt;len(haystack) and j&lt;len(needle):
-            if j==-1 or haystack[i]==needle[j]:
-                i+=1
-                j+=1
-            else:
-                j=next[j]
-        if j==len(needle):
-            return i-j
-        else:
-            return -1
-    def getNext(self,needle):
-        next=[0]*len(needle)
-        next[0]=-1
-        print(next)
-        i=0
-        j=-1
-        while i&lt;len(needle)-1:
-            if j==-1 or needle[i]==needle[j]:
-                i+=1
-                j+=1
-                next[i]=j
-            else:
-                j=next[j]
-        return next</code></pre>
-<p>题解四：</p>
-<pre><code>class Solution:
-    def strStr(self, haystack: str, needle: str) -&gt; int:
-        i=haystack.find(needle)
-        return i</code></pre>
-<h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76.最小覆盖子串"></a>76.最小覆盖子串</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-window-substring/
-
-给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字母的最小子串。
-
-示例：
-
-输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;
-输出: &quot;BANC&quot;
-说明：
-
-如果 S 中不存这样的子串，则返回空字符串 &quot;&quot;。
-如果 S 中存在这样的子串，我们保证它是唯一的答案。</code></pre>
-<p>题解一（滑动窗口）：</p>
-<pre><code>保证窗口(队列)字符串含有t中字符的个数大于等于t里相应元素个数</code></pre>
-<pre><code>class Solution:
-    def minWindow(self, s: str, t: str) -&gt; str:
-        from collections import Counter
-        t=Counter(t)
-        lookup=Counter()
-        start,end=0,0
-        minLen=float(&#39;inf&#39;)
-        res=&#39;&#39;
-        while end &lt; len(s):
-            lookup[s[end]]+=1
-            end+=1
-            while all(map(lambda x:lookup[x] &gt;= t[x],t.keys())):
-                # print(lookup)
-                if end-start &lt; minLen:
-                    res=s[start:end]
-                    minLen=end-start
-                lookup[s[start]]-=1
-                start+=1
-        return res</code></pre>
-<pre><code>记录队列元素和t中元素的差值</code></pre>
-<pre><code>class Solution:
-    def minWindow(self, s: str, t: str) -&gt; str:
-        from collections import defaultdict
-        lookup=defaultdict(int)
-        for each in t:
-            lookup[each]+=1
-        start,end=0,0
-        minLen=float(&#39;inf&#39;)
-        counter=len(t)
-        res=&#39;&#39;
-        while end &lt; len(s):
-            if lookup[s[end]] &gt; 0:
-                counter-=1
-            lookup[s[end]]-=1
-            end+=1
-            while counter==0:
-                if minLen&gt; end-start:
-                    minLen=end-start
-                    res=s[start:end]
-                if lookup[s[start]]==0:
-                    counter+=1
-                lookup[s[start]]+=1
-                start+=1
-        return res
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2103,7 +1862,7 @@ class Solution:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

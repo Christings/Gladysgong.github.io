@@ -158,6 +158,145 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-15-%E8%84%91%E7%AD%8B%E6%80%A5%E8%BD%AC%E5%BC%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-15-%E8%84%91%E7%AD%8B%E6%80%A5%E8%BD%AC%E5%BC%AF/" class="post-title-link" itemprop="url">LeetCode-15-脑筋急转弯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-17 09:40:04" itemprop="dateCreated datePublished" datetime="2020-06-17T09:40:04+08:00">2020-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-18 22:33:39" itemprop="dateModified" datetime="2020-08-18T22:33:39+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="292-Nim-游戏"><a href="#292-Nim-游戏" class="headerlink" title="292. Nim 游戏"></a>292. Nim 游戏</h3><pre><code>链接：https://leetcode-cn.com/problems/nim-game/
+
+你和你的朋友，两个人一起玩 Nim 游戏：桌子上有一堆石头，每次你们轮流拿掉 1 - 3 块石头。 拿掉最后一块石头的人就是获胜者。你作为先手。
+
+你们是聪明人，每一步都是最优解。 编写一个函数，来判断你是否可以在给定石头数量的情况下赢得游戏。
+
+示例:
+
+输入: 4
+输出: false 
+解释: 如果堆中有 4 块石头，那么你永远不会赢得比赛；
+     因为无论你拿走 1 块、2 块 还是 3 块石头，最后一块石头总是会被你的朋友拿走。</code></pre>
+<pre><code>class Solution:
+    def canWinNim(self, n: int) -&gt; bool:
+        # 如果上来就踩到 4 的倍数，那就认输吧
+        # 否则，可以把对方控制在 4 的倍数，必胜
+        return n%4 != 0</code></pre>
+<h3 id="319-灯泡开关"><a href="#319-灯泡开关" class="headerlink" title="319. 灯泡开关"></a>319. 灯泡开关</h3><pre><code>链接：https://leetcode-cn.com/problems/bulb-switcher/
+
+初始时有 n 个灯泡关闭。 第 1 轮，你打开所有的灯泡。 第 2 轮，每两个灯泡你关闭一次。 第 3 轮，每三个灯泡切换一次开关（如果关闭则开启，如果开启则关闭）。第 i 轮，每 i 个灯泡切换一次开关。 对于第 n 轮，你只切换最后一个灯泡的开关。 找出 n 轮后有多少个亮着的灯泡。
+
+示例:
+
+输入: 3
+输出: 1 
+解释: 
+初始时, 灯泡状态 [关闭, 关闭, 关闭].
+第一轮后, 灯泡状态 [开启, 开启, 开启].
+第二轮后, 灯泡状态 [开启, 关闭, 开启].
+第三轮后, 灯泡状态 [开启, 关闭, 关闭]. 
+
+你应该返回 1，因为只有一个灯泡还亮着。</code></pre>
+<p>过程:<br>设总共有 n 个灯泡， 使用i (i∈[1,n])表示第 i 个灯泡。使用 ai(i∈[1,n])表示第i个灯泡的当前状态。</p>
+<pre><code>第0轮：全部关闭
+第1轮：间隔0个灯泡操作，
+操作第1,2,3,……,n个灯泡
+第2轮：间隔1个灯泡操作，
+操作第2,4,6,……个灯泡
+第3轮：间隔2个灯泡操作，
+操作第3,6,9,……个灯泡
+……
+……
+第j轮：间隔j-1个灯泡操作，
+操作第j,2j,3j,……个灯泡
+……
+……
+第n轮：间隔n-1个灯泡操作，
+操作第n个灯泡</code></pre>
+<p>1 分析:</p>
+<p>1）第j轮的第i个灯泡的状态判断方法：<br>将包含本轮在内的对第i个灯泡的所有操作次数做和，记为Sij。<br>若Sij为奇数，说明第i个灯泡，经过j轮以后，是亮着的，因为第0轮一定是关闭的。<br>同理，若Sij为偶数，说明第i个灯泡，经过j轮以后，是关闭的。</p>
+<p>所以问题转变为：<br>经过n轮，第i个灯泡被操作了奇数次还是偶数次？奇数次则最后是亮的，偶数次则最后是关闭的。</p>
+<p>2）观察：<br>第j轮操作的灯泡的位置，一定是j的倍数。咱们反向观察一下：</p>
+<p>第1个灯泡在什么时候会被操作？第1轮<br>第10个灯泡在什么时候会被操作？第1轮，第2轮，第5轮，第10轮<br>第20个灯泡在什么时候会被操作？第1轮，第2轮，第4轮，第5轮，第10轮，第20轮</p>
+<p>说到这里，会立马发现：第 i 个灯泡只有在第 k 轮会被操作，而 k 一定是 i 的因数。并且 n&gt;=k。所以如果一个数的因数的个数为奇数个，那么它最后一定是亮的，否则是关闭的。<br>那么问题又转变了：</p>
+<pre><code>什么数的因数的个数是奇数个？
+答案是完全平方数。</code></pre>
+<p>2 为什么完全平方数的因数的个数是奇数个？<br>设P,A,B 为正整数，如果 P=A*B，则A和B为P的因数。<br>P的因数A和B总是成对出现。也就是说他们总是一起为 P 的因数个数做贡献。但是如果他们相等呢？这个时候他们一起只会为因数的个数贡献 1。</p>
+<p>其次，P=A*A，这种情况对于P来说最多只能出现1次，而这种情况只可能出现在完全平方数中。<br>所以对于正整数而言，只有完全平方数的因数的个数是奇数个。</p>
+<p>综上所述，所以每个完全平方数就是答案</p>
+<pre><code>class Solution:
+    def bulbSwitch(self, n: int) -&gt; int:
+        return int(sqrt(n))</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-9-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E5%8D%9A%E5%BC%88%E7%B3%BB%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3056,176 +3195,6 @@ class Solution:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-1-KMP%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数据结构与算法-1-KMP算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-27 20:32:17" itemprop="dateCreated datePublished" datetime="2020-04-27T20:32:17+08:00">2020-04-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-28 15:26:43" itemprop="dateModified" datetime="2020-10-28T15:26:43+08:00">2020-10-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考：<br>    <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html">http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jb411V78H?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1jb411V78H?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1Px411z7Yo?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hW411a7ys?from=search&amp;seid=3722651774629068033">https://www.bilibili.com/video/BV1hW411a7ys?from=search&amp;seid=3722651774629068033</a><br>    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/dahu-daqing/p/9302668.html">https://www.cnblogs.com/dahu-daqing/p/9302668.html</a></p>
-<h2 id="一、KMP"><a href="#一、KMP" class="headerlink" title="一、KMP"></a>一、KMP</h2><p>KMP算法，又称模式匹配算法，能够在线性时间内判定字符串 T 是否为 S 的子串，并求出字符串 T 在 S 中各次出现的位置。</p>
-<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><pre><code>1、解决奇偶数问题
-    在原字符串的每个相邻两个字符中间插入一个分隔符，同时在首尾也添加分隔符，如何#
-2、字符串观察
-    s:aaaba
-    t:#a#a#a#b#a#
-    回文半径数组：RL
-
-    RL[i]-1等于回文串的长度</code></pre>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/manacher.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/manacher.jpg"></p>
-<p>时间复杂度：O(m+n)</p>
-<pre><code>#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @contact: voidqueens@hotmail.com
-# @software: PyCharm
-# @time: 2020/4/26 下午6:50
-# @site: www.gongyanli.com
-# @file: kmp.py
-
-def getNext(p):
-    &#39;&#39;&#39;
-    p为模式串
-    返回next数组，即部分匹配表，使用p字符的前缀和后缀计算得到。
-    等同于从模式字符串的第1位(注意，不包括第0位)开始对自身进行匹配运算。
-    :param p:
-    :return:
-    &#39;&#39;&#39;
-    next = [0] * len(p)
-    next[0] = -1
-    i = 0
-    j = -1
-    while i &lt; len(p) - 1:
-        if j == -1 or p[i] == p[j]: # i遍历的是数组下标，j则为next赋值
-            i += 1
-            j += 1
-            next[i] = j
-        else:
-            j = next[j]
-    return next
-
-
-def kmp(s, p):
-    &#39;&#39;&#39;
-    s为主串
-    p为模式串
-    如果t里有p，返回打头下标
-    :param s:
-    :param p:
-    :return:
-    &#39;&#39;&#39;
-    next = getNext(p)
-    i = j = 0
-    while i &lt; len(s) and j &lt; len(p):
-        if j == -1 or s[i] == p[j]: 
-            i += 1
-            j += 1
-        else:
-            j = next[j]
-    if j == len(p):
-        return i - j
-    else:
-        return -1
-
-
-s = &#39;ababababca&#39;
-p = &#39;abababca&#39;
-print(getNext(p))
-print(kmp(s, p))
-</code></pre>
-<h2 id="三、中心扩散–验证回文串"><a href="#三、中心扩散–验证回文串" class="headerlink" title="三、中心扩散–验证回文串"></a>三、中心扩散–验证回文串</h2><pre><code>中心扩散主要用于验证字符串是否是回文串。
-
-思路：
-
-    每个字母当成回文串的中心
-    考虑两种情况:回文串的长度为奇数或者偶数情况。
-
-缺点：
-    奇数和偶数需要分开讨论
-    没有充分利用前面查找的结果
-    没有思考回文字符本身的特性--对称性</code></pre>
-<pre><code>class Solution:
-    def longestPalindrome(self, s: str) -&gt; str:
-        n=len(s)
-        self.res=&#39;&#39;
-        def helper(i,j):
-            while i&gt;= 0 and j&lt;n and s[i]==s[j]:
-                i-=1
-                j+=1
-            if len(self.res) &lt; j-i-1:
-                self.res=s[i+1:j]
-                # print(i,self.res)
-
-        for i in range(n):
-            helper(i,i)
-            helper(i,i+1) # 解决case为&quot;cbbd&quot;,即解决回文串为偶数的情况
-        return self.res</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3295,7 +3264,7 @@ print(kmp(s, p))
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="155. 最小栈链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;min-stack&#x2F;solution&#x2F;  设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。  push(x) —— 将元素 x 推入栈中。 pop() —— 删除栈顶的元素。 top() —— 获取栈顶元素。 getMin() —— 检索栈中的最小元素。  示例:  输入：">
+  <meta name="description" content="496. 下一个更大元素 I链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;next-greater-element-i&#x2F;  给定两个 没有重复元素 的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。找到 nums1 中每个元素在 nums2 中的下一个比其大的值。  nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode-17-设计">
-<meta property="og:url" content="http://gongyanli.com/LeetCode-17-%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:title" content="LeetCode-2-栈-单调栈">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-2-%E6%A0%88-%E5%8D%95%E8%B0%83%E6%A0%88/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="155. 最小栈链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;min-stack&#x2F;solution&#x2F;  设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。  push(x) —— 将元素 x 推入栈中。 pop() —— 删除栈顶的元素。 top() —— 获取栈顶元素。 getMin() —— 检索栈中的最小元素。  示例:  输入：">
+<meta property="og:description" content="496. 下一个更大元素 I链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;next-greater-element-i&#x2F;  给定两个 没有重复元素 的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。找到 nums1 中每个元素在 nums2 中的下一个比其大的值。  nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-10-29T13:24:44.000Z">
-<meta property="article:modified_time" content="2020-10-30T02:35:49.242Z">
+<meta property="article:published_time" content="2020-11-13T07:41:07.000Z">
+<meta property="article:modified_time" content="2020-11-14T11:52:51.040Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://gongyanli.com/LeetCode-17-%E8%AE%BE%E8%AE%A1/">
+<link rel="canonical" href="http://gongyanli.com/LeetCode-2-%E6%A0%88-%E5%8D%95%E8%B0%83%E6%A0%88/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>LeetCode-17-设计 | 茉莉Python</title>
+  <title>LeetCode-2-栈-单调栈 | 茉莉Python</title>
   
 
 
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-17-%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-2-%E6%A0%88-%E5%8D%95%E8%B0%83%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode-17-设计
+          LeetCode-2-栈-单调栈
         </h1>
 
         <div class="post-meta">
@@ -185,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-10-29 21:24:44" itemprop="dateCreated datePublished" datetime="2020-10-29T21:24:44+08:00">2020-10-29</time>
+              <time title="Created: 2020-11-13 15:41:07" itemprop="dateCreated datePublished" datetime="2020-11-13T15:41:07+08:00">2020-11-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-30 10:35:49" itemprop="dateModified" datetime="2020-10-30T10:35:49+08:00">2020-10-30</time>
+                <time title="Modified: 2020-11-14 19:52:51" itemprop="dateModified" datetime="2020-11-14T19:52:51+08:00">2020-11-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,159 +219,158 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="155-最小栈"><a href="#155-最小栈" class="headerlink" title="155. 最小栈"></a>155. 最小栈</h3><pre><code>链接：https://leetcode-cn.com/problems/min-stack/solution/
+        <h3 id="496-下一个更大元素-I"><a href="#496-下一个更大元素-I" class="headerlink" title="496. 下一个更大元素 I"></a>496. 下一个更大元素 I</h3><pre><code>链接：https://leetcode-cn.com/problems/next-greater-element-i/
 
-设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
+给定两个 没有重复元素 的数组 nums1 和 nums2 ，其中nums1 是 nums2 的子集。找到 nums1 中每个元素在 nums2 中的下一个比其大的值。
 
-push(x) —— 将元素 x 推入栈中。
-pop() —— 删除栈顶的元素。
-top() —— 获取栈顶元素。
-getMin() —— 检索栈中的最小元素。
+nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的右边的第一个比 x 大的元素。如果不存在，对应位置输出 -1 。
 
-示例:
+示例 1:
 
-输入：
-[&quot;MinStack&quot;,&quot;push&quot;,&quot;push&quot;,&quot;push&quot;,&quot;getMin&quot;,&quot;pop&quot;,&quot;top&quot;,&quot;getMin&quot;]
-[[],[-2],[0],[-3],[],[],[],[]]
+输入: nums1 = [4,1,2], nums2 = [1,3,4,2].
+输出: [-1,3,-1]
+解释:
+    对于num1中的数字4，你无法在第二个数组中找到下一个更大的数字，因此输出 -1。
+    对于num1中的数字1，第二个数组中数字1右边的下一个较大数字是 3。
+    对于num1中的数字2，第二个数组中没有下一个更大的数字，因此输出 -1。
+示例 2:
 
-输出：
-[null,null,null,null,-3,null,0,-2]
+输入: nums1 = [2,4], nums2 = [1,2,3,4].
+输出: [3,-1]
+解释:
+    对于 num1 中的数字 2 ，第二个数组中的下一个较大数字是 3 。
+    对于 num1 中的数字 4 ，第二个数组中没有下一个更大的数字，因此输出 -1 。
 
-解释：
-MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin();   --&gt; 返回 -3.
-minStack.pop();
-minStack.top();      --&gt; 返回 0.
-minStack.getMin();   --&gt; 返回 -2.
 
 提示：
 
-pop、top 和 getMin 操作总是在 非空栈 上调用。</code></pre>
-<p>题解一|双栈：</p>
-<pre><code>class MinStack:
-
-    def __init__(self):
-        &quot;&quot;&quot;
-        initialize your data structure here.
-        &quot;&quot;&quot;
-        self.stack=[]
-        self.minstack=[]
-
-    def push(self, x: int) -&gt; None:
-        self.stack.append(x)
-        if not self.minstack or self.minstack[-1]&gt;=x:
-            self.minstack.append(x)
-
-    def pop(self) -&gt; None:
-        if self.stack:
-            if self.stack[-1] == self.minstack[-1]:
-                self.minstack.pop()
-            return self.stack.pop()
-
-    def top(self) -&gt; int:
-        if self.stack:
-            return self.stack[-1]
-        else:
-            return 
-
-    def getMin(self) -&gt; int:
-        if self.minstack:
-            return self.minstack[-1]
-        else:
-            return
-
-# Your MinStack object will be instantiated and called as such:
-# obj = MinStack()
-# obj.push(x)
-# obj.pop()
-# param_3 = obj.top()
-# param_4 = obj.getMin()</code></pre>
-<h3 id="384-打乱数组"><a href="#384-打乱数组" class="headerlink" title="384. 打乱数组"></a>384. 打乱数组</h3><pre><code>链接：https://leetcode-cn.com/problems/shuffle-an-array/
-
-打乱一个没有重复元素的数组。
-
-示例:
-
-// 以数字集合 1, 2 和 3 初始化数组。
-int[] nums = &#123;1,2,3&#125;;
-Solution solution = new Solution(nums);
-
-// 打乱数组 [1,2,3] 并返回结果。任何 [1,2,3]的排列返回的概率应该相同。
-solution.shuffle();
-
-// 重设数组到它的初始状态[1,2,3]。
-solution.reset();
-
-// 随机返回数组[1,2,3]打乱后的结果。
-solution.shuffle();</code></pre>
-<p>拷贝知识：</p>
-<pre><code>直接赋值：其实就是对象的引用（别名）。
-
-浅拷贝(copy)：拷贝父对象，不会拷贝对象的内部的子对象。
-
-深拷贝(deepcopy)： copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。</code></pre>
+nums1和nums2中所有元素是唯一的。
+nums1和nums2 的数组大小都不超过1000。</code></pre>
 <p>题解一|暴力：</p>
-<p>时间复杂度： O(n^2)，乘方时间复杂度来自于 list.remove（list.pop）。每次操作都是线性时间的，总共发生 n 次。</p>
-<p>空间复杂度： O(n)，因为需要实现 重置 方法，需要额外的空间把原始数组另存一份，在重置的时候用来恢复原始状态。</p>
+<p>时间复杂度：O(n^2)</p>
+<p>从前向后遍历：</p>
 <pre><code>class Solution:
-    from copy import copy
-    from random import random
-    def __init__(self, nums: List[int]):
-        self.ori=copy.deepcopy(nums)
-        self.nums=nums
-
-    def reset(self) -&gt; List[int]:
-        &quot;&quot;&quot;
-        Resets the array to its original configuration and return it.
-        &quot;&quot;&quot;
-        return self.ori
-
-    def shuffle(self) -&gt; List[int]:
-        &quot;&quot;&quot;
-        Returns a random shuffling of the array.
-        &quot;&quot;&quot;
-        self.aux=copy.deepcopy(self.nums)
-        for i in range(len(self.nums)):
-            index=random.randrange(len(self.aux))
-            self.nums[i]=self.aux.pop(index)
-        return self.nums
-
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(nums)
-# param_1 = obj.reset()
-# param_2 = obj.shuffle()</code></pre>
-<p>题解二| Fisher-Yates 洗牌算法：</p>
-<p>时间复杂度 ： O(n)，Fisher-Yates 洗牌算法时间复杂度是线性的，因为算法中生成随机序列，交换两个元素这两种操作都是常数时间复杂度的。</p>
-<p>空间复杂度： O(n)，因为要实现 重置 功能，原始数组必须得保存一份，因此空间复杂度并没有优化。</p>
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        m=len(nums1)
+        n=len(nums2)
+        res=[-1]*m
+        for i in range(m):
+            flag=0
+            for j in range(n):
+                if nums1[i]==nums2[j]:
+                    flag=1
+                if flag==1 and nums1[i]&lt;nums2[j]:
+                    res[i]=nums2[j]
+                    break
+        return res</code></pre>
+<p>从后向前遍历：</p>
 <pre><code>class Solution:
-    from copy import copy
-    from random import random
-    def __init__(self, nums: List[int]):
-        self.ori=copy.deepcopy(nums)
-        self.nums=nums
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        m=len(nums1)
+        n=len(nums2)
+        res=[-1]*m
+        for i in range(m):
+            for j in range(n-1,-1,-1):
+                if nums1[i]==nums2[j]:
+                    break
+                if nums1[i]&lt;nums2[j]:
+                    res[i]=nums2[j]
+        return res</code></pre>
+<p>题解二|单调递减栈：</p>
+<p>思路：</p>
+<pre><code>遍历nums2，维护一个递减栈
+当得到一个更大的数的时候，将栈里小于它的数都放到哈希表当中</code></pre>
+<p>时间复杂度：O(M+N)<br>空间复杂度：O(M)</p>
+<pre><code>class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -&gt; List[int]:
+        m=len(nums1)
+        n=len(nums2)
+        hash=&#123;&#125;
+        stack=[]
+        res=[]
+        for i in range(n):
+            while stack and stack[-1]&lt;nums2[i]:
+                hash[stack.pop()]=nums2[i]
+            stack.append(nums2[i])
+        for i in nums1:
+            res.append(hash.get(i,-1))
+        return res </code></pre>
+<h3 id="503-下一个更大元素-II"><a href="#503-下一个更大元素-II" class="headerlink" title="503. 下一个更大元素 II"></a>503. 下一个更大元素 II</h3><pre><code>链接：https://leetcode-cn.com/problems/next-greater-element-ii/
 
-    def reset(self) -&gt; List[int]:
-        &quot;&quot;&quot;
-        Resets the array to its original configuration and return it.
-        &quot;&quot;&quot;
-        return self.ori
+给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字 x 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 -1。
 
-    def shuffle(self) -&gt; List[int]:
-        &quot;&quot;&quot;
-        Returns a random shuffling of the array.
-        &quot;&quot;&quot;
-        for i in range(len(self.nums)):
-            index=random.randint(i,len(self.nums)-1)
-            self.nums[i],self.nums[index]=self.nums[index],self.nums[i]
-        return self.nums
+示例 1:
 
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(nums)
-# param_1 = obj.reset()
-# param_2 = obj.shuffle()</code></pre>
+输入: [1,2,1]
+输出: [2,-1,2]
+解释: 第一个 1 的下一个更大的数是 2；
+数字 2 找不到下一个更大的数； 
+第二个 1 的下一个最大的数需要循环搜索，结果也是 2。
+注意: 输入数组的长度不会超过 10000。</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def nextGreaterElements(self, nums: List[int]) -&gt; List[int]:
+        new=nums+nums
+        res=[-1]*len(new)
+        for i in range(len(new)):
+            tmp=new[i]
+            if i&gt;len(nums):
+                break
+            for j in range(i+1,len(new)):
+                if new[i]&lt;new[j]:
+                    res[i]=new[j]
+                    break
+        return res[:len(nums)]</code></pre>
+<p>题解二|单调递减栈：</p>
+<p>不同点：和上一题不相同的是，这个是循环数组，关于循环数组的一个技巧就是*2取余了</p>
+<p>栈内存储的是什么，是下标还是值，都是可以的。</p>
+<pre><code>class Solution:
+    def nextGreaterElements(self, nums: List[int]) -&gt; List[int]:
+        n=len(nums)
+        stack=[]
+        res=[-1]*n
+        for i in range(2*n):
+            while stack and nums[stack[-1]] &lt; nums[i%n]:
+                index=stack.pop()
+                res[index%n]=nums[i%n]
+            stack.append(i%n)
+        return res</code></pre>
+<h3 id="739-每日温度"><a href="#739-每日温度" class="headerlink" title="739. 每日温度"></a>739. 每日温度</h3><pre><code>链接：https://leetcode-cn.com/problems/daily-temperatures/
+
+请根据每日 气温 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。
+
+例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。
+
+提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的均为华氏度，都是在 [30, 100] 范围内的整数。</code></pre>
+<p>题解一|暴力|超时：</p>
+<p>关键：找出右边第 1 个严格大于自己的元素的索引。</p>
+<p>问题：就像选择排序一样，上一轮的操作并没有为下一轮的操作留下什么有用的信息。</p>
+<p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def dailyTemperatures(self, T: List[int]) -&gt; List[int]:
+        n=len(T)
+        res=[0]*n
+        for i in range(n-1):
+            tmp=T[i]
+            for j in range(i+1,n):
+                if tmp&lt;T[j]:
+                    res[i]=j-i
+                    break                
+        return res    </code></pre>
+<p>题解二|单调递减栈：</p>
+<p>单调栈介绍视频：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/daily-temperatures/solution/leetcode-tu-jie-739mei-ri-wen-du-by-misterbooo/">https://leetcode-cn.com/problems/daily-temperatures/solution/leetcode-tu-jie-739mei-ri-wen-du-by-misterbooo/</a></p>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def dailyTemperatures(self, T: List[int]) -&gt; List[int]:
+        n=len(T)
+        stack=[]
+        res=[0]*n
+        for i in range(n):
+            while stack and T[stack[-1]]&lt;T[i]:
+                index=stack.pop()
+                res[index]=i-index
+            stack.append(i)
+        return res    </code></pre>
 
     </div>
 
@@ -390,13 +389,10 @@ solution.shuffle();</code></pre>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/LeetCode-16-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="prev" title="LeetCode-16-二分查找">
-      <i class="fa fa-chevron-left"></i> LeetCode-16-二分查找
+    <a href="/LeetCode-19-%E5%85%B6%E4%BB%96/" rel="prev" title="LeetCode-19-其他">
+      <i class="fa fa-chevron-left"></i> LeetCode-19-其他
     </a></div>
-      <div class="post-nav-item">
-    <a href="/LeetCode-18-%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E5%BA%8F/" rel="next" title="LeetCode-18-搜索和排序">
-      LeetCode-18-搜索和排序 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -455,7 +451,7 @@ solution.shuffle();</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#155-%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">155. 最小栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#384-%E6%89%93%E4%B9%B1%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">384. 打乱数组</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#496-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0-I"><span class="nav-number">1.</span> <span class="nav-text">496. 下一个更大元素 I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#503-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0-II"><span class="nav-number">2.</span> <span class="nav-text">503. 下一个更大元素 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6"><span class="nav-number">3.</span> <span class="nav-text">739. 每日温度</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

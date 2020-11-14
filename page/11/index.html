@@ -158,6 +158,204 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">利用Scrapy抓取一带一路战略性支撑平台信息</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 18:31:31" itemprop="dateCreated datePublished" datetime="2018-03-30T18:31:31+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:56" itemprop="dateModified" datetime="2020-09-18T17:14:56+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E6%8A%93%E5%8F%96%E4%B8%80%E5%B8%A6%E4%B8%80%E8%B7%AF%E6%88%98%E7%95%A5%E6%80%A7%E6%94%AF%E6%92%91%E5%B9%B3%E5%8F%B0%E4%BF%A1%E6%81%AF/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/BeltandRoad">https://github.com/Gladysgong/BeltandRoad</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6fe4afa1b98a">https://www.jianshu.com/p/6fe4afa1b98a</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79761833">https://blog.csdn.net/u012052168/article/details/79761833</a></p>
+</blockquote>
+<pre><code>好久以前做的东西了，网站的数据也很容易拿到，最近想对自己的东西做一个总结，所以就有了这篇文章。    
+我的目标是抓取一带一路战略支撑平台里面一些机构的数据，像联系电话、邮箱等等，简单看看网站的样子把。
+首先获取列表项的所有url，其中包括一项翻页操作，拿到url后访问，获取里面的详细信息，就这么简单。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/beltandroad.jpg"></p>
+<h2 id="一、定义Items"><a href="#一、定义Items" class="headerlink" title="一、定义Items"></a>一、定义Items</h2><pre><code>`class BeltandRoadItem(scrapy.Item):
+# collection = &#39;BeltandRoad&#39;
+
+name = scrapy.Field()  # 机构名称
+intro = scrapy.Field()  # 机构简介
+address = scrapy.Field()  # 机构地址
+tel = scrapy.Field()  # 机构电话
+fax = scrapy.Field()  # 机构传真
+email = scrapy.Field()  # 机构邮箱
+site = scrapy.Field()  # 机构网址`</code></pre>
+<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>爬虫模块中包括翻页操作，并不复杂，就不详细说明。</code></pre>
+<hr>
+<pre><code>`# -*- coding:utf-8 -*-
+from scrapy.spiders import CrawlSpider, Rule
+import scrapy
+from ..items import BeltandRoadItem
+
+# from scrapy.conf import settings
+
+# 一带一路战略支撑平台
+class BeltandRoadSpider(CrawlSpider):
+    name = &quot;BeltandRoadSpider&quot;
+    start_urls = [&#39;http://ydyl.drcnet.com.cn/www/ydyl/channel.aspx?version=YDYL&amp;uid=8011&#39;]
+
+    # 解析url地址
+    def parse(self, response):
+        # urls = response.xpath(&#39;//div[@class=&quot;pub_right&quot;]/ul/li/div[1]/a/@href&#39;).extract()
+        urls = response.xpath(&#39;//ul[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1&quot;]/li/div[1]/a/@href&#39;).extract()
+        # institute_name = response.xpath(&#39;//ul[@class=&quot;left-nav&quot;]/li/h3/a/text()&#39;).extract()
+
+        for url in urls:
+            # url = &quot;http://ydyl.drcnet.com.cn/www/ydyl/&quot; + url
+            # print(&quot;1:&quot;, url)
+            yield scrapy.Request(url=url, callback=self.parse_content)
+
+        next_page = response.xpath(
+            &#39;//div[@id=&quot;ContentPlaceHolder1_WebPageDocumentsByUId1_PageRow&quot;]/input[4]/@onclick&#39;).extract()
+        next_page = str(next_page).split(&quot;\&#39;&quot;)[1]
+        print(&quot;next:&quot;, next_page)
+        if next_page:
+            next_page = &quot;http://ydyl.drcnet.com.cn&quot; + next_page
+            yield scrapy.Request(url=next_page, callback=self.parse)
+
+    # 解析内容
+    def parse_content(self, response):
+        item = BeltandRoadItem()
+        name = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/strong/div/text()&#39;).extract()[0]  # 提取名称
+        content = response.xpath(&#39;//div[@id=&quot;disArea&quot;]/div[@id=&quot;docContent&quot;]/p&#39;).xpath(&#39;string(.)&#39;).extract()  # 提取其他信息
+        content = str(content).split(&#39;\&#39;&#39;)
+        item[&#39;name&#39;] = name
+        for i in range(len(content)):  # 过滤无效信息后，提取有用信息存储到item中
+            if content[i] != &#39;[&#39; and content[i] != &#39;]&#39; and content[i] != &#39;, &#39;:
+                print(&quot;xx:&quot;, content[i])
+                if &quot;简介&quot; in content[i]:
+                    item[&#39;intro&#39;] = content[i]
+                elif &quot;地址&quot; in content[i]:
+                    item[&#39;address&#39;] = content[i]
+                elif &quot;联系电话&quot; in content[i]:
+                    item[&#39;tel&#39;] = content[i]
+                elif &quot;传真&quot; in content[i]:
+                    item[&#39;fax&#39;] = content[i]
+                elif &quot;电子邮箱&quot; in content[i]:
+                    item[&#39;email&#39;] = content[i]
+                elif &quot;网址&quot; in content[i]:
+                    item[&#39;site&#39;] = content[i]
+        yield item
+`</code></pre>
+<h2 id="三、构建pipelines"><a href="#三、构建pipelines" class="headerlink" title="三、构建pipelines"></a>三、构建pipelines</h2><pre><code>主要就是进行数据持久化操作，把数据存入MongoDB数据中。</code></pre>
+<hr>
+<pre><code>`import pymongo
+from scrapy.conf import settings
+from .items import BeltandRoadItem
+
+# 一带一路战略支撑平台
+class BeltandRoadPipeline(object):
+    def __init__(self, mongo_uri, mongo_db, mongo_port):
+        self.mongo_uri = mongo_uri
+        self.mongo_port = mongo_port
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(mongo_uri=crawler.settings.get(&#39;MONGO_URI&#39;),
+                   mongo_port=crawler.settings.get(&#39;MONGO_PORT&#39;),
+                   mongo_db=crawler.settings.get(&#39;MONGO_DB&#39;)
+                   )
+
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri, self.mongo_port)
+        self.db = self.client[self.mongo_db]
+        self.BeltandRoad = self.db[&#39;BeltandRoad&#39;]
+
+    def close_spider(self, spider):
+        self.client.close()
+
+    def process_item(self, item, spider):
+        if isinstance(item, BeltandRoadItem):
+            try:
+                if item[&#39;name&#39;]:
+                    item = dict(item)
+                    # self.db[item.collection].insert(item)  运行这个代码时利用items中collection创建表，会提示插入失败，但是依然会插入到数据库？
+                    self.BeltandRoad.insert(item)
+                    print(&quot;插入成功&quot;)
+                    return item
+            except Exception as e:
+                spider.logger.exception(&quot;插入失败&quot;)`</code></pre>
+<h2 id="四、配置文件settings"><a href="#四、配置文件settings" class="headerlink" title="四、配置文件settings"></a>四、配置文件settings</h2><pre><code># 激活pipelines
+ITEM_PIPELINES = &#123;
+   &#39;BeltandRoad.pipelines.BeltandRoadPipeline&#39;: 300,&#125;
+
+# 数据库配置
+MONGO_URI = &quot;127.0.0.1&quot;  # 主机IP
+MONGO_PORT = 27017  # 端口号
+MONGO_DB = &quot;Belt&quot;  # 数据库名字</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/PhantomJS+Selenium+Scrapy%E6%8A%93%E5%8F%96%E5%B7%A8%E6%BD%AE%E8%B5%84%E8%AE%AF%E7%BD%91%E4%BC%81%E4%B8%9A%E4%BF%A1%E6%81%AF(%E4%B8%80)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1688,322 +1886,6 @@ vimdiff test test.bak</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">基于用户的协同过滤算法实现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-02-28 10:43:38" itemprop="dateCreated datePublished" datetime="2018-02-28T10:43:38+08:00">2018-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 22:20:37" itemprop="dateModified" datetime="2020-09-18T22:20:37+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、简单介绍"><a href="#一、简单介绍" class="headerlink" title="一、简单介绍"></a>一、简单介绍</h2><p>协同过滤的经典例子，当你不知道想看什么电影时，你就去问你周围的朋友，当然你问的对象会是和你电影品味是类似的，这时候你的朋友会把他认为口碑或评分高的电影推荐给你，这就是协同过滤的中心思想了。<br>当然，协同过滤中会存在两个问题：<br>1.如何确定一个用户和你的爱好兴趣相似？<br>2.如何将你的最近邻的兴趣爱好排序？</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><pre><code>`import codecs 
-from math import sqrt
-
-users = &#123;&quot;Angelica&quot;: &#123;&quot;Blues Traveler&quot;: 3.5, &quot;Broken Bells&quot;: 2.0,
-                  &quot;Norah Jones&quot;: 4.5, &quot;Phoenix&quot;: 5.0,
-                  &quot;Slightly Stoopid&quot;: 1.5,
-                  &quot;The Strokes&quot;: 2.5, &quot;Vampire Weekend&quot;: 2.0&#125;,
-
-     &quot;Bill&quot;:&#123;&quot;Blues Traveler&quot;: 2.0, &quot;Broken Bells&quot;: 3.5,
-             &quot;Deadmau5&quot;: 4.0, &quot;Phoenix&quot;: 2.0,
-             &quot;Slightly Stoopid&quot;: 3.5, &quot;Vampire Weekend&quot;: 3.0&#125;,
-
-     &quot;Chan&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 1.0,
-              &quot;Deadmau5&quot;: 1.0, &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5,
-              &quot;Slightly Stoopid&quot;: 1.0&#125;,
-
-     &quot;Dan&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Broken Bells&quot;: 4.0,
-             &quot;Deadmau5&quot;: 4.5, &quot;Phoenix&quot;: 3.0,
-             &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
-             &quot;Vampire Weekend&quot;: 2.0&#125;,
-
-     &quot;Hailey&quot;: &#123;&quot;Broken Bells&quot;: 4.0, &quot;Deadmau5&quot;: 1.0,
-                &quot;Norah Jones&quot;: 4.0, &quot;The Strokes&quot;: 4.0,
-                &quot;Vampire Weekend&quot;: 1.0&#125;,
-
-     &quot;Jordyn&quot;:  &#123;&quot;Broken Bells&quot;: 4.5, &quot;Deadmau5&quot;: 4.0,
-                 &quot;Norah Jones&quot;: 5.0, &quot;Phoenix&quot;: 5.0,
-                 &quot;Slightly Stoopid&quot;: 4.5, &quot;The Strokes&quot;: 4.0,
-                 &quot;Vampire Weekend&quot;: 4.0&#125;,
-
-     &quot;Sam&quot;: &#123;&quot;Blues Traveler&quot;: 5.0, &quot;Broken Bells&quot;: 2.0,
-             &quot;Norah Jones&quot;: 3.0, &quot;Phoenix&quot;: 5.0,
-             &quot;Slightly Stoopid&quot;: 4.0, &quot;The Strokes&quot;: 5.0&#125;,
-
-     &quot;Veronica&quot;: &#123;&quot;Blues Traveler&quot;: 3.0, &quot;Norah Jones&quot;: 5.0,
-                  &quot;Phoenix&quot;: 4.0, &quot;Slightly Stoopid&quot;: 2.5,
-                  &quot;The Strokes&quot;: 3.0&#125;
-    &#125;
-
-
-
-class recommender:
-
-    def __init__(self, data, k=1, metric=&#39;pearson&#39;, n=5):
-        &quot;&quot;&quot; initialize recommender
-        currently, if data is dictionary the recommender is initialized
-        to it.
-        For all other data types of data, no initialization occurs
-        k is the k value for k nearest neighbor
-        metric is which distance formula to use
-        n is the maximum number of recommendations to make&quot;&quot;&quot;
-        self.k = k
-        self.n = n
-        self.username2id = &#123;&#125;
-        self.userid2name = &#123;&#125;
-        self.productid2name = &#123;&#125;
-        # for some reason I want to save the name of the metric
-        self.metric = metric
-        if self.metric == &#39;pearson&#39;:
-            self.fn = self.pearson
-        #
-        # if data is dictionary set recommender data to it
-        #
-        if type(data).__name__ == &#39;dict&#39;:
-            self.data = data
-
-def convertProductID2name(self, id):
-    &quot;&quot;&quot;Given product id number return product name&quot;&quot;&quot;
-    if id in self.productid2name:
-        return self.productid2name[id]
-    else:
-        return id
-
-
-def userRatings(self, id, n):
-    &quot;&quot;&quot;Return n top ratings for user with id&quot;&quot;&quot;
-    print (&quot;Ratings for &quot; + self.userid2name[id])
-    ratings = self.data[id]
-    print(len(ratings))
-    ratings = list(ratings.items())
-    ratings = [(self.convertProductID2name(k), v)
-               for (k, v) in ratings]
-    # finally sort and return
-    ratings.sort(key=lambda artistTuple: artistTuple[1],
-                 reverse = True)
-    ratings = ratings[:n]
-    for rating in ratings:
-        print(&quot;%s\t%i&quot; % (rating[0], rating[1]))
-
-
-
-
-def loadBookDB(self, path=&#39;&#39;):
-    &quot;&quot;&quot;loads the BX book dataset. Path is where the BX files are
-    located&quot;&quot;&quot;
-    self.data = &#123;&#125;
-    i = 0
-    #
-    # First load book ratings into self.data
-    #
-    f = codecs.open(path + &quot;BX-Book-Ratings.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        user = fields[0].strip(&#39;&quot;&#39;)
-        book = fields[1].strip(&#39;&quot;&#39;)
-        rating = int(fields[2].strip().strip(&#39;&quot;&#39;))
-        if user in self.data:
-            currentRatings = self.data[user]
-        else:
-            currentRatings = &#123;&#125;
-        currentRatings[book] = rating
-        self.data[user] = currentRatings
-    f.close()
-    #
-    # Now load books into self.productid2name
-    # Books contains isbn, title, and author among other fields
-    #
-    f = codecs.open(path + &quot;BX-Books.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        isbn = fields[0].strip(&#39;&quot;&#39;)
-        title = fields[1].strip(&#39;&quot;&#39;)
-        author = fields[2].strip().strip(&#39;&quot;&#39;)
-        title = title + &#39; by &#39; + author
-        self.productid2name[isbn] = title
-    f.close()
-    #
-    #  Now load user info into both self.userid2name and
-    #  self.username2id
-    #
-    f = codecs.open(path + &quot;BX-Users.csv&quot;, &#39;r&#39;, &#39;utf8&#39;)
-    for line in f:
-        i += 1
-        #print(line)
-        #separate line into fields
-        fields = line.split(&#39;;&#39;)
-        userid = fields[0].strip(&#39;&quot;&#39;)
-        location = fields[1].strip(&#39;&quot;&#39;)
-        if len(fields) &gt; 3:
-            age = fields[2].strip().strip(&#39;&quot;&#39;)
-        else:
-            age = &#39;NULL&#39;
-        if age != &#39;NULL&#39;:
-            value = location + &#39;  (age: &#39; + age + &#39;)&#39;
-        else:
-            value = location
-        self.userid2name[userid] = value
-        self.username2id[location] = userid
-    f.close()
-    print(i)
-
-
-def pearson(self, rating1, rating2):
-    sum_xy = 0
-    sum_x = 0
-    sum_y = 0
-    sum_x2 = 0
-    sum_y2 = 0
-    n = 0
-    for key in rating1:
-        if key in rating2:
-            n += 1
-            x = rating1[key]
-            y = rating2[key]
-            sum_xy += x * y
-            sum_x += x
-            sum_y += y
-            sum_x2 += pow(x, 2)
-            sum_y2 += pow(y, 2)
-    if n == 0:
-        return 0
-    # now compute denominator
-    denominator = (sqrt(sum_x2 - pow(sum_x, 2) / n)
-                   * sqrt(sum_y2 - pow(sum_y, 2) / n))
-    if denominator == 0:
-        return 0
-    else:
-        return (sum_xy - (sum_x * sum_y) / n) / denominator
-
-
-def computeNearestNeighbor(self, username):
-    &quot;&quot;&quot;creates a sorted list of users based on their distance to
-    username&quot;&quot;&quot;
-    distances = []
-    for instance in self.data:
-        if instance != username:
-            distance = self.fn(self.data[username],
-                               self.data[instance])
-            distances.append((instance, distance))
-    # sort based on distance -- closest first
-    distances.sort(key=lambda artistTuple: artistTuple[1],
-                   reverse=True)
-    return distances
-
-def recommend(self, user):
-   &quot;&quot;&quot;Give list of recommendations&quot;&quot;&quot;
-   recommendations = &#123;&#125;
-   # first get list of users  ordered by nearness
-   nearest = self.computeNearestNeighbor(user)
-   #
-   # now get the ratings for the user
-   #
-   userRatings = self.data[user]
-   #
-   # determine the total distance
-   totalDistance = 0.0
-   for i in range(self.k):
-      totalDistance += nearest[i][1]
-   # now iterate through the k nearest neighbors
-   # accumulating their ratings
-   for i in range(self.k):
-      # compute slice of pie 
-      weight = nearest[i][1] / totalDistance
-      # get the name of the person
-      name = nearest[i][0]
-      # get the ratings for this person
-      neighborRatings = self.data[name]
-      # get the name of the person
-      # now find bands neighbor rated that user didn&#39;t
-      for artist in neighborRatings:
-         if not artist in userRatings:
-            if artist not in recommendations:
-               recommendations[artist] = (neighborRatings[artist]
-                                          * weight)
-            else:
-               recommendations[artist] = (recommendations[artist]
-                                          + neighborRatings[artist]
-                                          * weight)
-   # now make list from dictionary
-   recommendations = list(recommendations.items())
-   recommendations = [(self.convertProductID2name(k), v)
-                      for (k, v) in recommendations]
-   # finally sort and return
-   recommendations.sort(key=lambda artistTuple: artistTuple[1],
-                        reverse = True)
-   # Return the first n items
-   return recommendations[:self.n]</code></pre>
-<p>`</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2073,7 +1955,7 @@ def recommend(self, user):
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

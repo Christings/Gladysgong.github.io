@@ -158,6 +158,95 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-8-%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-8-%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-title-link" itemprop="url">LeetCode-8-中位数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-02 15:28:41" itemprop="dateCreated datePublished" datetime="2020-02-02T15:28:41+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-18 22:37:05" itemprop="dateModified" datetime="2020-08-18T22:37:05+08:00">2020-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="八、中位数"><a href="#八、中位数" class="headerlink" title="八、中位数"></a>八、中位数</h2><p>首先假设我们的变量都是 int 值，二分查找中我们需要根据 start 和 end 求中点，正常情况下加起来除以 2 即可。</p>
+<pre><code>int mid = (start + end) / 2</code></pre>
+<p>但这样有一个缺点，我们知道int的最大值是 Integer.MAX_VALUE ，也就是2147483647（2^31-1）。那么有一个问题，如果 start = 2147483645，end = 2147483645，虽然 start 和 end都没有超出最大值，但是如果利用上边的公式，加起来的话就会造成溢出，从而导致mid计算错误。</p>
+<p>解决的一个方案就是利用数学上的技巧，我们可以加一个 start 再减一个 start 将公式变形：</p>
+<pre><code>(start + end) / 2 = (start + end + start - start) / 2 = start + (end - start) / 2</code></pre>
+<p>然后当时和同学看到jdk源码中，求mid的方法如下，通过移位实现了除以2：</p>
+<pre><code>int mid = (start + end) &gt;&gt;&gt; 1</code></pre>
+<p>补码：</p>
+<p>其实问题的关键就是这里了&gt;&gt;&gt; ，我们知道还有一种右移是&gt;&gt;。区别在于&gt;&gt;为有符号右移，右移以后最高位保持原来的最高位。而&gt;&gt;&gt;这个右移的话最高位补 0。</p>
+<p>所以这里其实利用到了整数的补码形式，最高位其实是符号位，所以当 start + end 溢出的时候，其实本质上只是符号位收到了进位，而&gt;&gt;&gt;这个右移不仅可以把符号位右移，同时最高位只是补零，不会对数字的大小造成影响。</p>
+<p>但&gt;&gt;有符号右移就会出现问题了，事实上 JDK6 之前都用的&gt;&gt;，这个 BUG 在 java 里竟然隐藏了十年之久。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median2.png"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median3.png"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/median4.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-6-%E8%B4%AA%E5%BF%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -596,7 +685,7 @@ Example:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-05 19:35:06" itemprop="dateModified" datetime="2020-11-05T19:35:06+08:00">2020-11-05</time>
+                <time title="Modified: 2020-11-13 14:46:13" itemprop="dateModified" datetime="2020-11-13T14:46:13+08:00">2020-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1612,6 +1701,53 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
                 path.pop()
         backtrace([],0)
         return res</code></pre>
+<h3 id="79-单词搜索"><a href="#79-单词搜索" class="headerlink" title="79. 单词搜索"></a>79. 单词搜索</h3><pre><code>链接：https://leetcode-cn.com/problems/word-search/
+
+给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+示例:
+
+board =
+[
+  [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;E&#39;],
+  [&#39;S&#39;,&#39;F&#39;,&#39;C&#39;,&#39;S&#39;],
+  [&#39;A&#39;,&#39;D&#39;,&#39;E&#39;,&#39;E&#39;]
+]
+
+给定 word = &quot;ABCCED&quot;, 返回 true
+给定 word = &quot;SEE&quot;, 返回 true
+给定 word = &quot;ABCB&quot;, 返回 false
+
+
+提示：
+
+board 和 word 中只包含大写和小写英文字母。
+1 &lt;= board.length &lt;= 200
+1 &lt;= board[i].length &lt;= 200
+1 &lt;= word.length &lt;= 10^3</code></pre>
+<p>题解一|DFS：</p>
+<pre><code>class Solution:
+    def exist(self, board: List[List[str]], word: str) -&gt; bool:
+        def dfs(board,word,i,j,index):
+            if i&lt;0 or i&gt;=m or j&lt;0 or j&gt;=n or board[i][j]!=word[index]:
+                return False
+            if index==len(word)-1:
+                return True
+            tmp=board[i][j]
+            board[i][j]=&#39;.&#39;
+            res=dfs(board,word,i+1,j,index+1) or dfs(board,word,i-1,j,index+1) or dfs(board,word,i,j+1,index+1) or dfs(board,word,i,j-1,index+1)
+            board[i][j]=tmp
+            return res
+
+        m=len(board)
+        n=len(board[0])
+        for i in range(m):
+            for j in range(n):
+                if dfs(board,word,i,j,0):
+                    return True
+        return False</code></pre>
 <h3 id="90-子集-II"><a href="#90-子集-II" class="headerlink" title="90. 子集 II"></a>90. 子集 II</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets-ii/submissions/
 
 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
@@ -2225,7 +2361,7 @@ S 仅由数字和字母组成。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-02 11:23:20" itemprop="dateModified" datetime="2020-11-02T11:23:20+08:00">2020-11-02</time>
+                <time title="Modified: 2020-11-09 20:52:05" itemprop="dateModified" datetime="2020-11-09T20:52:05+08:00">2020-11-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3902,6 +4038,51 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 # Your NumMatrix object will be instantiated and called as such:
 # obj = NumMatrix(matrix)
 # param_1 = obj.sumRegion(row1,col1,row2,col2)</code></pre>
+<h3 id="334-递增的三元子序列"><a href="#334-递增的三元子序列" class="headerlink" title="334. 递增的三元子序列"></a>334. 递增的三元子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/increasing-triplet-subsequence/
+
+给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+
+数学表达式如下:
+
+如果存在这样的 i, j, k,  且满足 0 ≤ i &lt; j &lt; k ≤ n-1，
+使得 arr[i] &lt; arr[j] &lt; arr[k] ，返回 true ; 否则返回 false 。
+说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。
+
+示例 1:
+
+输入: [1,2,3,4,5]
+输出: true
+示例 2:
+
+输入: [5,4,3,2,1]
+输出: false</code></pre>
+<p>题解一|动态规划：</p>
+<p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def increasingTriplet(self, nums: List[int]) -&gt; bool:
+        n=len(nums)
+        dp=[1]*n
+        for i in range(1,n):
+            for j in range(i):
+                if nums[j]&lt;nums[i]:
+                    dp[i]=max(dp[i],dp[j]+1)
+                if dp[i]&gt;=3:
+                    return True
+        return False
+</code></pre>
+<p>题解二|双指针：</p>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def increasingTriplet(self, nums: List[int]) -&gt; bool:
+        m1,m2=float(&#39;inf&#39;),float(&#39;inf&#39;)
+        for i in nums:
+            if m1&gt;=i:
+                m1=i
+            elif m2&gt;=i:
+                m2=i
+            else:
+                return True
+        return False</code></pre>
 <h3 id="338-比特位计数"><a href="#338-比特位计数" class="headerlink" title="338. 比特位计数"></a>338. 比特位计数</h3><pre><code>链接：https://leetcode-cn.com/problems/counting-bits/
 
 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
@@ -10688,7 +10869,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-30 10:36:09" itemprop="dateModified" datetime="2020-10-30T10:36:09+08:00">2020-10-30</time>
+                <time title="Modified: 2020-11-13 15:17:56" itemprop="dateModified" datetime="2020-11-13T15:17:56+08:00">2020-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -11577,6 +11758,183 @@ class Solution:
                     if rows[i][char]&gt;1 or columns[j][char]&gt;1 or boxes[index][char]&gt;1:
                         return False
         return True</code></pre>
+<h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a>42. 接雨水</h3><pre><code>https://leetcode-cn.com/problems/trapping-rain-water/
+
+给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+示例 1：
+
+输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+输出：6
+解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 
+示例 2：
+
+输入：height = [4,2,0,3,2,5]
+输出：9
+
+
+提示：
+
+n == height.length
+0 &lt;= n &lt;= 3 * 104
+0 &lt;= height[i] &lt;= 105</code></pre>
+<p>思路： 求出每个柱子上面能够存多少水，然后将每根柱子的存水量相加便能得到总的存水量，为求出每根柱子上能够存多少水，就要求出每根柱子左边最高的和右边最高柱子，然后用两者的最小值减去当前柱子的高度。 例如图中从左到右第二根柱子的高度为2，它左边最高柱子的值为5，右边最高柱子的值为4，因此它的最大存水量为 Min（4，5）-2=2。</p>
+<p>题解一|暴力：</p>
+<p>利用上面思路，从左到右遍历每根柱子，遍历的时候求出每根柱子左边最高和右边最高柱子的值，然后利用两者的最小值减去当前柱子的高度就行了。时间复杂度O（n^2）,空间复杂度O（1）。</p>
+<p>注意：如果当前柱子大于它左右最大值的任何一个是存不了水的。</p>
+<pre><code>def water(lists):
+    length = len(lists)
+    waters = 0  # 保存最大存水量
+
+    # 一根柱子时，不围水
+    if (lists is None or length &lt;= 1):
+        return 0
+
+    left, right = 0, 0
+    for i in range(length):
+        left, right = 0, 0 # 分别用于保存遍过程中，当前元素左边最大值，和右边最大值。
+        for j in range(i):
+            left = max(left, lists[j]) # 左边最大值
+        print(&#39;left&#39;,left)
+
+        for j in range(length-1, i, -1):
+            right = max(right, lists[j]) # 右边最大值
+        print(&#39;right&#39;,right)
+
+        isWaterNums = min(left, right)
+        if isWaterNums &gt; lists[i]:
+            waters += isWaterNums - lists[i]
+        else:
+            waters += 0
+
+        # waters+=lambda min(left,right)-lists[i] if min(left,right)&gt;lists[i] else 0
+        # 如果最小值大于当前元素，存水量等于最小值减去当前元素；如果最小值小于当前元素，存水量为0
+
+    return waters
+
+print(water([1,4,3,1,3,2,3]))</code></pre>
+<p>题解二|优化：</p>
+<p>分析上面的算法发现算法的时间复杂度为O（n^2）。原因是对于每个元素都要从左到右，和从右到最左遍历其两边最大值，假如使用两个数组 left[ ] , right[ ]来保存每个元素左边最大值，右边最大值的话，这样就不用每次都遍历了，因此时间复杂度可以减少到O（n），但空间复杂度为O（n），典型的空间换时间算法。</p>
+<p>对于数组[ 5, 2 , 6 , 2 , 4 ]<br>它的左数组：[5,5,6,6,6]<br>它的右数组：[4,4,6,6,6]<br>算法的流程：</p>
+<p>从左到右遍历一次求出每个元素左边的最大值，保存在 left 数组中。<br>从右到左遍历一次求出每个元素右边的最大值，保存在right数。<br>最后一次遍历求出每个元素（每根柱子）的存水量。</p>
+<pre><code>def water(lists):
+    length = len(lists)
+    waters = 0  # 保存最大存水量
+
+    # 一根柱子时，不围水
+    if (lists is None or length &lt;= 1):
+        return 0
+
+    leftLargest, rightLargest = 0, 0
+    left = [0] * length  # left中保存每个元素左边的最大值，left[i]表示数组中第i个元素的左边最大值。
+    right = [0] * length  # right中保存每个元素左边的最大值，right[i]，表示数组中第i个元素的右边最大值。
+
+    # 遍历找到每个元素左边最大值
+    for i in range(length):
+        leftLargest = max(leftLargest, lists[i])
+        # left.insert(i, leftLargest)
+        # left.append(leftLargest)  # 使用insert正序插入的时候，顺序不会乱掉。
+        left[i] = leftLargest
+
+    # 遍历找到每个元素右边最大值
+    for i in range(length - 1, -1, -1):
+        rightLargest = max(rightLargest, lists[i])
+        # right.insert(i, rightLargest) # 使用insert倒序插入的时候，顺序会乱掉。
+        # right.append(rightLargest)    # 使用append获得的右边的顺序刚好是倒着的
+        right[i] = rightLargest
+
+    print(left)
+    print(right)
+
+    for i in range(length):
+        waters += min(left[i], right[i]) - lists[i] if min(left[i], right[i]) &gt; lists[i] else 0
+
+    return waters
+
+print(water([5, 2, 6, 2, 4]))</code></pre>
+<p>题解三|优化：</p>
+<p>分析上面算法发现其实没有必要使用 left 数组，因为当从左到右遍历求存水量的过程中可以利用一个变量来保存当前元素左边的最大值。</p>
+<pre><code>def water(lists):
+    length = len(lists)
+    waters = 0  # 保存最大存水量
+
+    # 一根柱子时，不围水
+    if (lists is None or length &lt;= 1):
+        return 0
+
+    leftLargest, rightLargest = 0, 0
+    right = [0]*length  # right中保存每个元素左边的最大值，right[i]，表示数组中第i个元素的右边最大值。
+
+    # 遍历找到每个元素右边最大值
+    for i in range(length - 1, -1, -1):
+        rightLargest = max(rightLargest, lists[i])
+        # right.insert(i, rightLargest)
+        # right.append(rightLargest)  # 使用insert倒序插入的时候，顺序会乱掉。
+        right[i]=rightLargest
+
+    for i in range(length):
+        leftLargest = max(leftLargest, lists[i])
+        waters += min(leftLargest, right[i]) - lists[i] if min(leftLargest, right[i]) &gt; lists[i] else 0
+
+    return waters
+
+print(water([5, 2, 6, 2, 4]))</code></pre>
+<p>题解四|双指针：</p>
+<pre><code>上面左右两边的黄色块分别表示当前元素左边最大值和右边最大值。
+
+left ，right分别代表从左到右移动和从右到左移动的指针。
+
+如果当前元素的左边最大值比右边最大值小，则left指针向右移动，否则right指针向左移动。
+
+这种左右指针移动的目的是为了保证所求的左右最大值一定是当前元素的左右最大值。</code></pre>
+<pre><code>def water(lists):
+    length = len(lists)
+    waters = 0  # 保存最大存水量
+
+    # 一根柱子时，不围水
+    if (lists is None or length &lt;= 1):
+        return 0
+
+    leftLargest, rightLargest = 0, 0
+    left, right = 0, length - 1
+
+    while left &lt; right:
+        leftLargest = max(lists[left], leftLargest)
+        rightLargest = max(lists[right], rightLargest)
+
+        if leftLargest &gt; rightLargest:
+            waters += rightLargest - lists[right]
+            right -= 1
+
+            print(&#39;1&#39;, waters)
+        else:
+            waters += leftLargest - lists[left]
+            left += 1
+
+            print(&#39;2&#39;, waters)
+    return waters</code></pre>
+<pre><code>def trap(height):
+    if not height: return 0
+    left = 0
+    right = len(height) - 1
+    res = 0
+    # 记录左右边最大值
+    left_max = height[left]
+    right_max = height[right]
+    while left &lt; right:
+        if height[left] &lt; height[right]:
+            if left_max &gt; height[left]:
+                res += left_max - height[left]
+            else:
+                left_max = height[left]
+            left += 1
+        else:
+            if right_max &gt; height[right]:
+                res += right_max - height[right]
+            else:
+                right_max = height[right]
+            right -= 1
+    return res</code></pre>
 <h3 id="45-跳跃游戏-II"><a href="#45-跳跃游戏-II" class="headerlink" title="45. 跳跃游戏 II"></a>45. 跳跃游戏 II</h3><pre><code>链接：https://leetcode-cn.com/problems/jump-game-ii/
 
 给定一个非负整数数组，你最初位于数组的第一个位置。
@@ -11701,11 +12059,11 @@ class Solution:
   [&quot;nat&quot;,&quot;tan&quot;],
   [&quot;bat&quot;]
 ]
-说明：
+·
 
 所有输入均为小写字母。
 不考虑答案输出的顺序。</code></pre>
-<p>题解一（hash）：</p>
+<p>题解一|hash：</p>
 <pre><code>class Solution:
     def groupAnagrams(self, strs: List[str]) -&gt; List[List[str]]:
         hash=&#123;&#125;
@@ -11940,14 +12298,15 @@ class Solution:
 <pre><code>用matrix第一行和第一列记录该行该列是否有0,作为标志位
 但是对于第一行,和第一列要设置一个标志位,为了防止自己这一行(一列)也有0的情况.
 
-
 参考：https://leetcode-cn.com/problems/set-matrix-zeroes/solution/li-yong-di-yi-xing-he-di-yi-lie-ji-lu-o1kong-jian-/
 
 定义flag_line=False，判断第一行是否需要置0。
 定义flag_row=False，判断第一列是否需要置0。
 遍历第一列，若第一列中存在0，将flag_row=True，表示需要将第一列置0。
 遍历第一行，若第一行中存在0，将flag_line=True，表示需要将第一行置0。
+
 遍历矩阵，遍历区间，行区间[1,m)，列区间[1,m)，若matrix[i][j]==0，则将对应的行和列记录下来，即将第一行和第一列中对应的位置置为0。matrix[i][0]=matrix[0][j]=0
+
 再遍历一次矩阵，若当前位置的行或列索引对应的第一行或者第一列处为0，即matrix[i][0]==0 or matrix[0][j]==0，将此位置置为0。
 根据flag_line，判断是否需要将第一行置为0。
 根据flag_row，判断第一列是否需要置0。
@@ -12936,115 +13295,6 @@ plt<span class="token punctuation">.</span>show<span class="token punctuation">(
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%A6%82%E4%BD%95%E5%B0%86ipynb%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAhtml%EF%BC%8Cmarkdown%EF%BC%8Cpdf%E7%AD%89/" class="post-title-link" itemprop="url">如何将ipynb文件转换为html，markdown，pdf等</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-09-09 22:25:54" itemprop="dateCreated datePublished" datetime="2018-09-09T22:25:54+08:00">2018-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:26:53" itemprop="dateModified" datetime="2020-09-18T21:26:53+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Jupyter/" itemprop="url" rel="index"><span itemprop="name">Jupyter</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><pre><code>本文讲将jupyter notebook中的文件（xxx.ipynb）转换成html，md，pdf等格式呢。
-如果使用下列命令有误的话，建议安装jupyter相关插件：
-$ pip install jupyter_contrib_nbextensions</code></pre>
-<h2 id="一-ipynb转为html格式"><a href="#一-ipynb转为html格式" class="headerlink" title="一.ipynb转为html格式"></a>一.ipynb转为html格式</h2><pre><code>$ jupyter nbconvert --to html notebook.ipynb
-
-jupyter中提供了一些命令，可以对生成的html格式进行配置：
-$ jupyter nbconvert --to html --template full notebook.ipynb
-
-默认配置，提供完整的静态html格式，交互性更强。
-$ jupyter nbconvert --to html --template basic notebook.ipynb
-简化的html，用于嵌入网页、博客等，这不包括html标题。</code></pre>
-<h2 id="二-ipynb转换为md格式"><a href="#二-ipynb转换为md格式" class="headerlink" title="二.ipynb转换为md格式"></a>二.ipynb转换为md格式</h2><pre><code>$ jupyter nbconvert --to markdown notebook.ipynb
-简单的Markdown格式输出，cell单元不受影响，代码cell缩进4个空格。</code></pre>
-<h2 id="三-ipynb转换为tex格式"><a href="#三-ipynb转换为tex格式" class="headerlink" title="三.ipynb转换为tex格式"></a>三.ipynb转换为tex格式</h2><pre><code>$ jupyter nbconvert --to letex notebook.ipynb
-
-Letex导出格式，生成后缀名为NOTEBOOK_NAME.tex的文件。jupyter提供的额外模板配置为：
-$ jupyter nbconvert --to letex -template article notebook.ipynb
-
-默认配置，Latex文章。
-$ jupyter nbconvert --to letex -template report notebook.ipynb
-
-Latex报告，提供目录和章节。
-$ jupyter nbconvert --to letex -template basic notebook.ipynb
-最基本的Latex输出，经常用来自定义配置。</code></pre>
-<h2 id="四-jupyter转换为pdf格式"><a href="#四-jupyter转换为pdf格式" class="headerlink" title="四.jupyter转换为pdf格式"></a>四.jupyter转换为pdf格式</h2><pre><code>$ jupyter nbconvert --to pdf notebook.ipynb
-
-转换为pdf格式分模板配置与latex配置是一样的。但是直接转换为pdf格式经常会出现xelatex错误：
-该错误提示没有安装xelatex。所以，我们需要提前安装xelatex，方法是安装texLive套装：
-
-$ sudo apt-get install texlive-full
-texlive-full的安装包有点大，约1G多。</code></pre>
-<h2 id="五-简单的转换方法"><a href="#五-简单的转换方法" class="headerlink" title="五.简单的转换方法"></a>五.简单的转换方法</h2><pre><code>ipynb转换为html、md、pdf等格式，还有另一种更简单的方法：在jupyter notebook中，选择File-&gt;Download as，直接选择需要转换的格式就可以了。需要注意的是，转换为pdf格式之前，同样要保证已经安装了xelatex。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -13114,7 +13364,7 @@ texlive-full的安装包有点大，约1G多。</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

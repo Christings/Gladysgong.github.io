@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="茉莉Python">
 <meta property="og:description" content="一、冒泡排序一、思想每次比较两个相邻的元素，如果他们之前的顺序不符就交换位置。 比如5个数从小到大排序，23，64，1，43，21 第一趟： 第一次比较：23，64，1，43，21 第二次比较：23，1，64，43，21 第三次比较：23，1，43，64，21 第四次比较：23，1，43，21，64 经过第一趟的比较后，最大的数字已经到最后面了，接下来只需要比较前四个数字，以此类推。 第二趟：1，">
 <meta property="og:locale">
-<meta property="og:image" content="http://p2lakvkq0.bkt.clouddn.com/quickSort.jpg">
+<meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg">
 <meta property="article:published_time" content="2020-08-27T05:04:49.000Z">
-<meta property="article:modified_time" content="2020-09-17T06:21:28.502Z">
+<meta property="article:modified_time" content="2020-11-14T14:01:18.597Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://p2lakvkq0.bkt.clouddn.com/quickSort.jpg">
+<meta name="twitter:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg">
 
 <link rel="canonical" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-14-%E6%8E%92%E5%BA%8F/">
 
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-17 14:21:28" itemprop="dateModified" datetime="2020-09-17T14:21:28+08:00">2020-09-17</time>
+                <time title="Modified: 2020-11-14 22:01:18" itemprop="dateModified" datetime="2020-11-14T22:01:18+08:00">2020-11-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,9 +265,10 @@ def selectSort(nums):
                 min = j
         nums[i], nums[min] = nums[min], nums[i]
     return nums`</code></pre>
-<h2 id="三、插入排序"><a href="#三、插入排序" class="headerlink" title="三、插入排序"></a>三、插入排序</h2><h3 id="一、思想-2"><a href="#一、思想-2" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>    插入排序原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。其基本操作就是
-将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，是稳定的排
-序方法，时间复杂度为O(n^2)。</code></pre>
+<h2 id="三、插入排序"><a href="#三、插入排序" class="headerlink" title="三、插入排序"></a>三、插入排序</h2><h3 id="一、思想-2"><a href="#一、思想-2" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>插入排序原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
+其基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，是稳定的排
+序方法。
+时间复杂度为O(n^2)。</code></pre>
 <h3 id="二、步骤"><a href="#二、步骤" class="headerlink" title="二、步骤"></a>二、步骤</h3><pre><code>1. 从第一个元素开始，该元素可以认为已经被排序
 2. 取出下一个元素，在已经排序的元素序列中从后向前扫描
 3. 如果该元素（已排序）大于新元素，将该元素移到下一位置
@@ -289,16 +290,13 @@ def insertSort(lists):
             j -= 1
     return lists
 
-
 lists = [4, 6, 2, 4, 7, 3, 9, 2, 1]
 print(insertSort(lists))</code></pre>
 <p>`</p>
-<h2 id="四、快速排序"><a href="#四、快速排序" class="headerlink" title="四、快速排序"></a>四、快速排序</h2><h3 id="一、思想-3"><a href="#一、思想-3" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>    快速排序是对冒泡排序的一种改进，其基本思想是通过一趟排序将待排序记录分割成独立的两部分，一种一部分记录的关键字均比
-另一部分记录的关键字小，最后再分别对这两部分记录继续进行排序，以达到整个序列有序。
-    一趟快读排序的具体做法是：附设两个指针low和high，初值分别为low和high，设枢轴记录关键字为pivotkey，则首先从high
-所指位置向前搜索找到第一个关键字小于pivotkey的记录和枢轴记录相互交换，然后从low所指位置起向后搜索，找到第一个关键字大
-于pivotkey的记录和枢轴记录相互交换，重复这两步直到low=high为止，过程如图。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/quickSort.jpg"></p>
+<h2 id="四、快速排序"><a href="#四、快速排序" class="headerlink" title="四、快速排序"></a>四、快速排序</h2><h3 id="一、思想-3"><a href="#一、思想-3" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>快速排序是对冒泡排序的一种改进，其基本思想是通过一趟排序将待排序记录分割成独立的两部分，一种一部分记录的关键字均比另一部分记录的关键字小，最后再分别对这两部分记录继续进行排序，以达到整个序列有序。
+
+一趟快读排序的具体做法是：附设两个指针low和high，初值分别为low和high，设枢轴记录关键字为pivotkey，则首先从high所指位置向前搜索找到第一个关键字小于pivotkey的记录和枢轴记录相互交换，然后从low所指位置起向后搜索，找到第一个关键字大于pivotkey的记录和枢轴记录相互交换，重复这两步直到low=high为止，过程如图：</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg"></p>
 <h3 id="二、用Python实现快速排序"><a href="#二、用Python实现快速排序" class="headerlink" title="二、用Python实现快速排序"></a>二、用Python实现快速排序</h3><pre><code>`
 #!/usr/bin/env python
 # coding:utf-8
@@ -424,7 +422,7 @@ print(quickSort(x, 0, 4))</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
