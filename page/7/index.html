@@ -278,7 +278,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-26 19:54:18" itemprop="dateModified" datetime="2020-08-26T19:54:18+08:00">2020-08-26</time>
+                <time title="Modified: 2020-11-24 18:06:59" itemprop="dateModified" datetime="2020-11-24T18:06:59+08:00">2020-11-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -348,7 +348,9 @@
 说明:
 
 假设你总是可以到达数组的最后一个位置。</code></pre>
-<p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486128&amp;idx=2&amp;sn=bcec6b9eb7374169d823963bb7ca8415&amp;scene=21#wechat_redirect</a></p>
+</blockquote>
 <p>问题是：保证你一定可以跳到最后一格，请问你最少要跳多少次，才能跳过去？</p>
 <p>题解一|从右向左搜索：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png"></p>
@@ -361,6 +363,22 @@
             cur=right-1
             for i in range(right-2,-1,-1):
                 if (i+nums[i]) &gt;= right:
+                    cur=i
+            right=cur
+            sum+=1
+        return sum</code></pre>
+<pre><code>class Solution(object):
+    def jump(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        right=len(nums)-1
+        sum=0
+        while right&gt;0:
+            cur=right-1
+            for i in range(right-1,-1,-1):
+                if i+nums[i]&gt;=right:
                     cur=i
             right=cur
             sum+=1
@@ -400,7 +418,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
 <p>题解三|贪心:</p>
 <p>贪心选择性质，我们不需要「递归地」计算出所有选择的具体结果然后比较求最值，而只需要做出那个最有「潜力」，看起来最优的选择即可。</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png"></p>
-<p>时间复杂度是 O(n)，空间复杂度是 O(1)。</p>
+<p>时间复杂度是 O(n)<br>空间复杂度是 O(1)</p>
 <pre><code>class Solution:
     def jump(self, nums: List[int]) -&gt; int:
         if len(nums)&lt;2:
@@ -443,15 +461,19 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
         return False</code></pre>
 <p>题解二|贪心：</p>
 <p>思考：<br>    通过题目中的跳跃规则，最多能跳多远？如果能够越过最后一格，返回 true，否则返回 false。</p>
-<pre><code>class Solution:
-    def canJump(self, nums: List[int]) -&gt; bool:
+<pre><code>class Solution(object):
+    def canJump(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: bool
+        &quot;&quot;&quot;
         n=len(nums)
-        maxDistance=0
+        farthest=0
         for i in range(n-1):
-            maxDistance=max(maxDistance,i+nums[i])
-            if maxDistance &lt;= i:
+            farthest=max(farthest,i+nums[i])
+            if  farthest &lt;= i:
                 return False
-        return maxDistance &gt;= n-1</code></pre>
+        return farthest &gt;= n-1</code></pre>
 <pre><code>class Solution:
     def canJump(self, nums: List[int]) -&gt; bool:
         if len(nums)&lt;2:
@@ -10869,7 +10891,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-13 15:17:56" itemprop="dateModified" datetime="2020-11-13T15:17:56+08:00">2020-11-13</time>
+                <time title="Modified: 2020-11-16 21:39:58" itemprop="dateModified" datetime="2020-11-16T21:39:58+08:00">2020-11-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -11558,81 +11580,6 @@ class Solution:
                 nums[i]=nums[j]
                 i+=1
         return i</code></pre>
-<h3 id="29-两数相除"><a href="#29-两数相除" class="headerlink" title="29.两数相除"></a>29.两数相除</h3><pre><code>链接：https://leetcode-cn.com/problems/divide-two-integers/submissions/
-
-给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
-
-返回被除数 dividend 除以除数 divisor 得到的商。
-
-示例 1:
-
-输入: dividend = 10, divisor = 3
-输出: 3
-示例 2:
-
-输入: dividend = 7, divisor = -3
-输出: -2
-说明:
-
-被除数和除数均为 32 位有符号整数。
-除数不为 0。
-假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。</code></pre>
-<p>题解一|减法|超时:</p>
-<p>超时：当被除数为2147483648，除数为 1，必然超时。</p>
-<pre><code>class Solution:
-    def divide(self, dividend: int, divisor: int) -&gt; int:
-        res=0
-        flag=1 if dividend ^ divisor &gt;=0 else -1
-        dividend=abs(dividend)
-        divisor=abs(divisor)
-        while dividend &gt;= divisor:
-            res+=1
-            dividend-=divisor
-        res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
-<p>题解二|增倍除数:</p>
-<pre><code>&lt;&lt; 是左移，末位补0，类比十进制数在末尾添0相当于原数乘以10，x&lt;&lt;1是将x的二进制表示左移一位，相当于原数x乘2。比如整数4在二进制下是100，4&lt;&lt;1左移1位变成1000(二进制)，结果是8。
-
-&gt;&gt;是右移，右移1位相当于除以2。</code></pre>
-<pre><code>class Solution:
-    def divide(self, dividend: int, divisor: int) -&gt; int:
-        res=0
-        flag=1 if dividend ^ divisor &gt;=0 else -1
-        dividend=abs(dividend)
-        divisor=abs(divisor)
-        while dividend &gt;= divisor:
-            tmp,i=divisor,1
-            while dividend&gt;=tmp:
-                dividend-=tmp
-                res+=i
-                i &lt;&lt;=1
-                tmp &lt;&lt;=1
-        res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
-<p>题解三（位移）：<br>算法是把除法化归成移位和减法两种运算方法。对于 10 进制数，移位运算就是乘（左移）除（右移）10，而我们都知道计算机中的移位运算是乘（左移）除（右移）2，因为计算机是通过二进制的方法存储数的。这样，类比十进制，二进制的除法（仍以 45/2 为例）可以写作（注意，这里我们并没有用到乘除法）</p>
-<pre><code>class Solution:
-    def divide(self, dividend: int, divisor: int) -&gt; int:
-        res=0
-        flag=1 if dividend ^ divisor &gt;=0 else -1
-        dividend=abs(dividend)
-        divisor=abs(divisor)
-        count=0
-
-        # 不断左移，直到大于被除数
-        while dividend &gt;= divisor:
-            count+=1
-            divisor &lt;&lt;=1
-
-        while count &gt; 0:
-            count -=1
-            divisor &gt;&gt;=1
-            res &lt;&lt;=1
-            if divisor &lt;= dividend:
-                res+=1
-                dividend -= divisor
-
-        res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
 <p>题解二：</p>
 <pre><code>class Solution:
     def myAtoi(self, str: str) -&gt; int:
@@ -12140,98 +12087,6 @@ left ，right分别代表从左到右移动和从右到左移动的指针。
                 digits[i]=0
                 i-=1
         return digits</code></pre>
-<h3 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69.x的平方根"></a>69.x的平方根</h3><pre><code>链接：https://leetcode-cn.com/problems/sqrtx/
-
-实现 int sqrt(int x) 函数。
-
-计算并返回 x 的平方根，其中 x 是非负整数。
-
-由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
-
-示例 1:
-
-输入: 4
-输出: 2
-示例 2:
-
-输入: 8
-输出: 2
-说明: 8 的平方根是 2.82842..., 
-     由于返回类型是整数，小数部分将被舍去。</code></pre>
-<p>题解一(二分法):</p>
-<p>思路分析：使用二分法搜索平方根的思想很简单，就类似于小时候我们看的电视节目中的“猜价格”游戏，高了就往低了猜，低了就往高了猜，范围越来越小。因此，使用二分法猜算术平方根就很自然。</p>
-<p>一个数的平方根肯定不会超过它自己，不过直觉还告诉我们，一个数的平方根最多不会超过它的一半，例如 8的平方根，8 的一半是 4，4^2=16&gt;8，如果这个数越大越是如此，因此我们要计算一下，这个边界是多少。为此，解如下不等式：(a/2)^2 &gt;= a</p>
-<p>时间复杂度：O(logn)<br>空间复杂度：O(1)</p>
-<pre><code>class Solution:
-    def mySqrt(self, x: int) -&gt; int:
-        left=0
-        right=x//2+1
-        while left &lt; right:
-            # mid = left + (right - left + 1) // 2
-            # mid=(left+right+1)&gt;&gt;1
-            mid=(left+right+1)//2 # 使用除法的耗时比移位多
-            square=mid*mid
-
-            if square&gt;x:
-                right=mid-1
-            else:
-                left=mid
-
-        return left</code></pre>
-<pre><code># 单独照顾0这个特例
-
-class Solution:
-    def mySqrt(self, x: int) -&gt; int:
-        if x==0:
-            return 0
-        left=1
-        right=x//2
-        while left &lt; right:
-            # mid=(left+right+1)&gt;&gt;1
-            mid=(left+right+1)//2 # 使用除法的耗时比移位多
-            # 一定取右中位数，如果取左中位数(left+right)//2，代码可能会进入死循环
-            square=mid*mid
-
-            if square&gt;x:
-                right=mid-1
-            else:
-                left=mid
-
-        return left</code></pre>
-<pre><code>class Solution:
-
-    def mySqrt(self, x):
-        left = 0
-        right = 999999
-        while left &lt; right:
-            # 这种取中位数的方法又快又好，是我刚学会的，原因在下面这篇文章的评论区
-            # https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/
-            mid = (left + right + 1) &gt;&gt; 1
-            square = mid * mid
-            if square &gt; x:
-                right = mid - 1
-            else:
-                left = mid
-
-        return left</code></pre>
-<p>?题解二（牛顿法）:</p>
-<p>牛顿法的应用：一个是求方程的根，另一个是求解最优化问题</p>
-<p>使用牛顿法可以得到一个正实数的算术平方根，因为题目中说“结果只保留整数部分”，因此，我们把使用牛顿法得到的浮点数转换为整数即可。</p>
-<p>在迭代过程中，以直线代替曲线，用一阶泰勒展式（即在当前点的切线）代替原曲线，求直线与 xx 轴的交点，重复这个过程直到收敛。<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png"></p>
-<pre><code>class Solution:
-    def mySqrt(self, x: int) -&gt; int:
-        if x&lt;0:
-            # raise Exception(&#39;不能输入负数)
-            return -1
-        if x==0:
-            return 0
-
-        cur=1
-        while True:
-            pre=cur
-            cur=(cur+x/cur)/2
-            if abs(cur-pre)&lt; 1e-6:
-                return int(cur)</code></pre>
 <h3 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73. 矩阵置零"></a>73. 矩阵置零</h3><pre><code>链接：https://leetcode-cn.com/problems/set-matrix-zeroes/
 
 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
@@ -12425,7 +12280,7 @@ nums2 = [2,5,6],       n = 3
             nums1[p1+p2:]=copy[p1:]
         if p2&lt;n:
             nums1[p1+p2:]=nums2[p2:]</code></pre>
-<p>题解三(双指针 / 从后往前)：</p>
+<p>题解三|双指针|从后往前：</p>
 <p>时间复杂度 : O(n + m)<br>空间复杂度 : O(1)</p>
 <pre><code>class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:

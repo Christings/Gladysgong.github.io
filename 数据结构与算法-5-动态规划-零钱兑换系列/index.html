@@ -28,7 +28,7 @@
 <meta property="og:description" content="322.零钱兑换链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;coin-change&#x2F;  给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。  示例 1:  输入: coins &#x3D; [1, 2, 5], amount &#x3D; 11 输出: 3  解释: 11 &#x3D;">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-08-26T03:51:34.000Z">
-<meta property="article:modified_time" content="2020-08-26T04:50:55.373Z">
+<meta property="article:modified_time" content="2020-11-18T15:43:05.722Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-08-26 11:51:34 / Modified: 12:50:55" itemprop="dateCreated datePublished" datetime="2020-08-26T11:51:34+08:00">2020-08-26</time>
+              <time title="Created: 2020-08-26 11:51:34" itemprop="dateCreated datePublished" datetime="2020-08-26T11:51:34+08:00">2020-08-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-18 23:43:05" itemprop="dateModified" datetime="2020-11-18T23:43:05+08:00">2020-11-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -227,15 +233,15 @@
 <p>题解一|递归|超时：</p>
 <pre><code>递归遍历添加所有硬币的情况，每次添加某硬币，则递归遍历总金额-某硬币 的子问题。
 
-    若 当前总金额&#39; 为 0 则表明当前硬币情况有解，返回 0。
+    若 当前总金额为 0 则表明当前硬币情况有解，返回 0。
 
-    若 当前总金额&#39; 不为 0，则继续添加硬币
+    若 当前总金额不为 0，则继续添加硬币
 
-        若 当前总金额&#39;-硬币&lt;0 表明不能添加该硬币（无解），尝试添加其他硬币。
+        若 当前总金额-硬币&lt;0 表明不能添加该硬币（无解），尝试添加其他硬币。
 
-        若 当前总金额&#39;-硬币&gt;0 则递归遍历 当前总金额-硬币 的子问题，若子问题无解，尝试添加其他硬币；若子问题有解，则每次添加硬币时记录，硬币数 +1，最终比较取最小值。
+        若 当前总金额-硬币&gt;0 则递归遍历当前总金额-硬币的子问题，若子问题无解，尝试添加其他硬币；若子问题有解，则每次添加硬币时记录，硬币数 +1，最终比较取最小值。
 
-    返回情况，若子问题有解，则返回子问题的 最少硬币数，否则返回 -1。</code></pre>
+    返回情况，若子问题有解，则返回子问题的最少硬币数，否则返回 -1。</code></pre>
 <pre><code>class Solution:
     def coinChange(self, coins: List[int], amount: int) -&gt; int:
         self.res=float(&#39;inf&#39;)
@@ -314,7 +320,7 @@
             return memo[amount]
         memo=&#123;&#125;
         return helper(coins,amount,memo)</code></pre>
-<p>题解三|动态规划：</p>
+<p>题解三|动态规划|自上而下：</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect</a></p>
 <p>1、定义数组含义</p>
 <pre><code>dp[i] 保存金额 i 的最小组成数。</code></pre>
@@ -323,13 +329,13 @@
 
     遍历每种硬币的面值 coin：
         必须满足条件 i&gt;=coin，表示金额必须比硬币面值大。
-        dp[i]=min(dp[i],dp(i-coin)+1)，保证保存的是最小的组成数。
+        dp[i]=min(dp[i],dp(i-coin)+1)，保存的是最小的组成数。
 
 若 dp[amount]不为MAX，则返回，否则返回 −1。</code></pre>
 <p>3、找到初始值</p>
 <pre><code>初试化 dp=[MAX,⋯,MAX]，长度为 amount+1
 dp[0]=0，表示 0 元的组成种类为 0</code></pre>
-<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<p>时间复杂度：O(mn)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
     def coinChange(self, coins: List[int], amount: int) -&gt; int:
         dp=[float(&#39;inf&#39;)]*(amount+1)

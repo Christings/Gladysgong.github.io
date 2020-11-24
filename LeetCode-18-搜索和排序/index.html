@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="278. 第一个错误的版本链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;first-bad-version&#x2F;  你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。  假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个">
+  <meta name="description" content="34. 在排序数组中查找元素的第一个和最后一个位置链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-first-and-last-position-of-element-in-sorted-array&#x2F;  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。  你的算法时间复杂度必须是 O(log n)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-18-搜索和排序">
 <meta property="og:url" content="http://gongyanli.com/LeetCode-18-%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="278. 第一个错误的版本链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;first-bad-version&#x2F;  你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。  假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个">
+<meta property="og:description" content="34. 在排序数组中查找元素的第一个和最后一个位置链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-first-and-last-position-of-element-in-sorted-array&#x2F;  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。  你的算法时间复杂度必须是 O(log n)">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-29T13:34:51.000Z">
-<meta property="article:modified_time" content="2020-10-29T13:35:08.390Z">
+<meta property="article:modified_time" content="2020-11-16T13:39:53.078Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-29 21:34:51 / Modified: 21:35:08" itemprop="dateCreated datePublished" datetime="2020-10-29T21:34:51+08:00">2020-10-29</time>
+              <time title="Created: 2020-10-29 21:34:51" itemprop="dateCreated datePublished" datetime="2020-10-29T21:34:51+08:00">2020-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-16 21:39:53" itemprop="dateModified" datetime="2020-11-16T21:39:53+08:00">2020-11-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -213,7 +219,170 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
+        <h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h3><pre><code>链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+
+给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+你的算法时间复杂度必须是 O(log n) 级别。
+
+如果数组中不存在目标值，返回 [-1, -1]。
+
+示例 1:
+
+输入: nums = [5,7,7,8,8,10], target = 8
+输出: [3,4]
+示例 2:
+
+输入: nums = [5,7,7,8,8,10], target = 6
+输出: [-1,-1]</code></pre>
+<p>题解一：</p>
+<p>时间复杂度： O(n)<br>空间复杂度： O(1)</p>
+<pre><code>class Solution(object):
+    def searchRange(self, nums, target):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        res=[-1,-1]
+        for i in range(len(nums)):
+            if nums[i]==target:
+                res[0]=i
+                break
+        if res[0]==-1:
+            return res
+        for i in range(len(nums)-1,-1,-1):
+            if nums[i]==target:
+                res[1]=i
+                break
+        return res</code></pre>
+<p>题解二|二分查找：</p>
+<p>时间复杂度： O(logn)<br>空间复杂度： O(1)</p>
+<pre class=" language-class"><code class="language-class">    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        if not nums:
+            return [-1,-1]
+        left,right=0,len(nums)-1
+        while left<right:
+            mid=left+(right-left)//2
+            if nums[mid]>=target:
+                right=mid
+            else:
+                left=mid+1
+        if nums[left]!=target:
+            return [-1,-1]
+        start=left
+
+        left,right=0,len(nums)-1
+        while left<right:
+            mid=(left+right+1)//2
+            if nums[mid]<=target:
+                left=mid
+            else:
+                right=mid-1
+        if nums[left]!=target:
+            return [-1,-1]
+        end=right
+        return [start,end]</code></pre>
+<h3 id="75-颜色分类"><a href="#75-颜色分类" class="headerlink" title="75. 颜色分类"></a>75. 颜色分类</h3><pre><code>链接：https://leetcode-cn.com/problems/sort-colors/
+
+给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+注意:
+不能使用代码库中的排序函数来解决这道题。
+
+示例:
+
+输入: [2,0,2,1,1,0]
+输出: [0,0,1,1,2,2]
+进阶：
+
+一个直观的解决方案是使用计数排序的两趟扫描算法。
+首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
+你能想出一个仅使用常数空间的一趟扫描算法吗？</code></pre>
+<p>题解一|重写数组：</p>
+<pre><code>class Solution:
+    def sortColors(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        c0,c1,c2=0,0,0
+        for i in nums:
+            if i==0:
+                c0+=1
+            elif i==1:
+                c1+=1
+            elif i==2:
+                c2+=1
+        for i in range(len(nums)):
+            if c0:
+                nums[i]=0
+                c0-=1
+            elif c1:
+                nums[i]=1
+                c1-=1
+            elif c2:
+                nums[i]=2
+                c2-=1</code></pre>
+<p>题解二|单指针：</p>
+<p>时间复杂度：O(n)，其中 n 是数组 nums 的长度。<br>空间复杂度：O(1)。</p>
+<pre><code>class Solution:
+    def sortColors(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        n=len(nums)
+        ptr=0
+        for i in range(n):
+            if nums[i]==0:
+                nums[i],nums[ptr]=nums[ptr],nums[i]
+                ptr+=1
+        for i in range(ptr,n):
+            if nums[i]==1:
+                nums[i],nums[ptr]=nums[ptr],nums[i]
+                ptr+=1</code></pre>
+<p>题解三|双指针：</p>
+<p>时间复杂度：O(n)，其中 n 是数组 nums 的长度。<br>空间复杂度：O(1)。</p>
+<pre><code>class Solution:
+    def sortColors(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        n=len(nums)
+        p0=p1=0
+        for i in range(n):
+            if nums[i]==1:
+                nums[i],nums[p1]=nums[p1],nums[i]
+                p1+=1
+            elif nums[i]==0:
+                nums[i],nums[p0]=nums[p0],nums[i]
+                if p0 &lt; p1:
+                    nums[i],nums[p1]=nums[p1],nums[i]
+                p0+=1
+                p1+=1</code></pre>
+<pre><code>class Solution:
+    def sortColors(self, nums: List[int]) -&gt; None:
+        &quot;&quot;&quot;
+        Do not return anything, modify nums in-place instead.
+        &quot;&quot;&quot;
+        n=len(nums)
+        p0,p2=0,n-1
+        i=0
+        while i&lt;=p2:
+            while i&lt;=p2 and nums[i]==2:
+                nums[i],nums[p2]=nums[p2],nums[i]
+                p2-=1
+            if nums[i]==0:
+                nums[i],nums[p0]=nums[p0],nums[i]
+                p0+=1
+            i+=1</code></pre>
+<h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
 
 你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
 
@@ -333,7 +502,7 @@ class Solution:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
