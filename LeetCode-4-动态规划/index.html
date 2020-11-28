@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png">
 <meta property="article:published_time" content="2020-01-19T03:28:41.000Z">
-<meta property="article:modified_time" content="2020-11-09T12:52:05.847Z">
+<meta property="article:modified_time" content="2020-11-25T16:27:36.913Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-09 20:52:05" itemprop="dateModified" datetime="2020-11-09T20:52:05+08:00">2020-11-09</time>
+                <time title="Modified: 2020-11-26 00:27:36" itemprop="dateModified" datetime="2020-11-26T00:27:36+08:00">2020-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1740,6 +1740,33 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
         return res</code></pre>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
+<p>题解三|贪心|二分查找：</p>
+<p>时间复杂度：O(nlogn)。数组 nums 的长度为 n，我们依次用数组中的元素去更新 dp 数组，而更新 do 数组时需要进行 O(logn) 的二分搜索，所以总时间复杂度为 O(nlogn)。</p>
+<p>空间复杂度：O(n)</p>
+<pre><code>class Solution(object):
+    def lengthOfLIS(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        if not nums:
+            return 0
+        dp=[]
+        for num in nums:
+            if not dp or num&gt;dp[-1]:
+                dp.append(num)
+            else:
+                left,right=0,len(dp)-1
+                loc=right
+                while left &lt;= right:
+                    mid=left+(right-left)//2
+                    if dp[mid] &gt;= num:
+                        loc=mid
+                        right=mid-1
+                    else:
+                        left=mid+1
+                dp[loc]=num
+        return len(dp)</code></pre>
 <h3 id="303-区域和检索-数组不可变"><a href="#303-区域和检索-数组不可变" class="headerlink" title="303. 区域和检索 - 数组不可变"></a>303. 区域和检索 - 数组不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-immutable/
 
 给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。

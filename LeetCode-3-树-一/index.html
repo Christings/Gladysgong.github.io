@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree3.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree4.png">
 <meta property="article:published_time" content="2020-01-02T07:49:29.000Z">
-<meta property="article:modified_time" content="2020-11-04T07:51:20.684Z">
+<meta property="article:modified_time" content="2020-11-26T07:57:50.557Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-04 15:51:20" itemprop="dateModified" datetime="2020-11-04T15:51:20+08:00">2020-11-04</time>
+                <time title="Modified: 2020-11-26 15:57:50" itemprop="dateModified" datetime="2020-11-26T15:57:50+08:00">2020-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1902,6 +1902,12 @@ class Solution:
 输出: 42</code></pre>
 <p>??题解一|递归：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/</a></p>
+<p>关键就是区分：</p>
+<ol>
+<li>当前节点最大路径和计算：以当前节点为起点的所有路径和</li>
+<li>当前节点对上一层的贡献：只能选择当前节点的最大的一条路径作为贡献，因为路径节点不可重复</li>
+</ol>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2790,6 +2796,148 @@ class Solution:
                 path.pop()
         helper(root,[])
         return res</code></pre>
+<h3 id="297-二叉树的序列化与反序列化"><a href="#297-二叉树的序列化与反序列化" class="headerlink" title="297. 二叉树的序列化与反序列化"></a>297. 二叉树的序列化与反序列化</h3><pre><code>链接：https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
+
+序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
+
+请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+
+示例: 
+
+你可以将以下二叉树：
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+
+序列化为 &quot;[1,2,3,null,null,4,5]&quot;
+提示: 这与 LeetCode 目前使用的方式一致，详情请参阅 LeetCode 序列化二叉树的格式。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。
+
+说明: 不要使用类的成员 / 全局 / 静态变量来存储状态，你的序列化和反序列化算法应该是无状态的。</code></pre>
+<p>题解一|DFS：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return &#39;X,&#39;
+        res=&#39;&#39;
+        if root:
+            res+=str(root.val)+&#39;,&#39;
+            res+=self.serialize(root.left)
+            res+=self.serialize(root.right)
+            return res
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return &#39;X,&#39;
+        left=self.serialize(root.left)
+        right=self.serialize(root.right)
+        return str(root.val)+&#39;,&#39;+left+right
+
+    def deserialize(self, data):
+        &quot;&quot;&quot;Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        &quot;&quot;&quot;
+        data=data.split(&#39;,&#39;)
+        root=self.buildTree(data)
+        return root
+
+    def buildTree(self,data):
+        val=data.pop(0)
+        if val==&#39;X&#39;:
+            return None
+        node=TreeNode(val)
+        node.left=self.buildTree(data)
+        node.right=self.buildTree(data)
+        return node
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))</code></pre>
+<p>题解二|BFS：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+from collections import deque
+class Codec:
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return
+        q=deque()
+        q.append(root)
+        res=&#39;&#39;
+        while q:
+            node=q.popleft()
+            if node:
+                res+=str(node.val)+&#39;,&#39;
+                q.append(node.left)
+                q.append(node.right)
+            else:
+                res+=&#39;X,&#39;
+        return res
+
+
+    def deserialize(self, data):
+        &quot;&quot;&quot;Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        &quot;&quot;&quot;
+        if not data:
+            return
+        data=data.split(&#39;,&#39;)
+        root=TreeNode(data.pop(0))
+        q=[root]
+        while q:
+            node=q.pop(0)
+            if data:
+                val=data.pop(0)
+                if val != &#39;X&#39;:
+                    node.left=TreeNode(val)
+                    q.append(node.left)
+            if data:
+                val=data.pop(0)
+                if val != &#39;X&#39;:
+                    node.right=TreeNode(val)
+                    q.append(node.right)
+        return root
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))</code></pre>
 <h3 id="404-左叶子之和"><a href="#404-左叶子之和" class="headerlink" title="404. 左叶子之和"></a>404. 左叶子之和</h3><pre><code>链接：https://leetcode-cn.com/problems/sum-of-left-leaves/
 
 计算给定二叉树的所有左叶子之和。
@@ -3671,6 +3819,58 @@ class Solution:
                     queue.append(node.right)
             res.append(sum(tmp)/len(tmp))
         return res</code></pre>
+<h3 id="671-二叉树中第二小的节点"><a href="#671-二叉树中第二小的节点" class="headerlink" title="671. 二叉树中第二小的节点"></a>671. 二叉树中第二小的节点</h3><pre><code>链接：https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/
+
+给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
+
+更正式地说，root.val = min(root.left.val, root.right.val) 总成立。
+
+给出这样的一个二叉树，你需要输出所有节点中的第二小的值。如果第二小的值不存在的话，输出 -1 。
+
+示例 1：
+
+输入：root = [2,2,5,null,null,5,7]
+输出：5
+解释：最小的值是 2 ，第二小的值是 5 。
+示例 2：
+
+输入：root = [2,2,2]
+输出：-1
+解释：最小的值是 2, 但是不存在第二小的值。
+
+提示：
+
+树中节点数目在范围 [1, 25] 内
+1 &lt;= Node.val &lt;= 231 - 1
+对于树中每个节点 root.val == min(root.left.val, root.right.val)</code></pre>
+<p>题解一：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        def helper(root,value):
+            if not root:
+                return -1
+            if root.val &gt; value:
+                return root.val
+            l=helper(root.left,value)
+            r=helper(root.right,value)
+            if l==-1:
+                return r
+            if r==-1:
+                return l
+            return min(l,r)
+        if not root:
+            return -1
+        return helper(root,root.val)</code></pre>
 
     </div>
 
@@ -3754,7 +3954,7 @@ class Solution:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">三、树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.1.</span> <span class="nav-text">94.二叉树的中序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-II"><span class="nav-number">1.2.</span> <span class="nav-text">?95.不同的二叉搜索树 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.3.</span> <span class="nav-text">96.不同的二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">98.验证二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#99-%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.5.</span> <span class="nav-text">99.恢复二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91"><span class="nav-number">1.6.</span> <span class="nav-text">100.相同的树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.7.</span> <span class="nav-text">101.对称二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="nav-number">1.8.</span> <span class="nav-text">102.二叉树的层次遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="nav-number">1.9.</span> <span class="nav-text">103.二叉树的锯齿形层次遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.10.</span> <span class="nav-text">104. 二叉树的最大深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.11.</span> <span class="nav-text">105.从前序与中序遍历序列构造二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E5%92%8C%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.12.</span> <span class="nav-text">106.从中序和后序遍历序列构造二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#107-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86-II"><span class="nav-number">1.13.</span> <span class="nav-text">107.二叉树的层次遍历 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.14.</span> <span class="nav-text">108.将有序数组转换为二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%A7%8B%E7%BB%88%E9%80%89%E6%8B%A9%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%B7%A6%E8%BE%B9%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.1.</span> <span class="nav-text">1、中序遍历：始终选择中间位置左边元素作为根节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%A7%8B%E7%BB%88%E9%80%89%E6%8B%A9%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%8F%B3%E8%BE%B9%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.2.</span> <span class="nav-text">2、中序遍历：始终选择中间位置右边元素作为根节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E9%80%89%E6%8B%A9%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.3.</span> <span class="nav-text">3、中序遍历：选择任意一个中间位置元素作为根节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#110-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.15.</span> <span class="nav-text">110.平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#111-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.16.</span> <span class="nav-text">111.二叉树的最小深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8"><span class="nav-number">1.17.</span> <span class="nav-text">114. 二叉树展开为链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88"><span class="nav-number">1.18.</span> <span class="nav-text">116. 填充每个节点的下一个右侧节点指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#117-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-II"><span class="nav-number">1.19.</span> <span class="nav-text">117. 填充每个节点的下一个右侧节点指针 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.20.</span> <span class="nav-text">124. 二叉树中的最大路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#129-%E6%B1%82%E6%A0%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C"><span class="nav-number">1.21.</span> <span class="nav-text">129. 求根到叶子节点数字之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.22.</span> <span class="nav-text">144.二叉树的前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.23.</span> <span class="nav-text">145.二叉树的后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#173-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.24.</span> <span class="nav-text">173. 二叉搜索树迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#199-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE"><span class="nav-number">1.25.</span> <span class="nav-text">199. 二叉树的右视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0"><span class="nav-number">1.26.</span> <span class="nav-text">222.完全二叉树的节点个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.27.</span> <span class="nav-text">226. 翻转二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACK%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.28.</span> <span class="nav-text">230. 二叉搜索树中第K小的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">1.29.</span> <span class="nav-text">235. 二叉搜索树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">1.30.</span> <span class="nav-text">236. 二叉树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#257-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84"><span class="nav-number">1.31.</span> <span class="nav-text">257. 二叉树的所有路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#404-%E5%B7%A6%E5%8F%B6%E5%AD%90%E4%B9%8B%E5%92%8C"><span class="nav-number">1.32.</span> <span class="nav-text">404. 左叶子之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#429-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.33.</span> <span class="nav-text">429. N叉树的层序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0"><span class="nav-number">1.34.</span> <span class="nav-text">501. 二叉搜索树中的众数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#530-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%9D%E5%AF%B9%E5%B7%AE"><span class="nav-number">1.35.</span> <span class="nav-text">530. 二叉搜索树的最小绝对差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91"><span class="nav-number">1.36.</span> <span class="nav-text">538. 把二叉搜索树转换为累加树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#543-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84"><span class="nav-number">1.37.</span> <span class="nav-text">543. 二叉树的直径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#559-N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.38.</span> <span class="nav-text">559. N叉树的最大深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#563-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9D%A1%E5%BA%A6"><span class="nav-number">1.39.</span> <span class="nav-text">563. 二叉树的坡度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91"><span class="nav-number">1.40.</span> <span class="nav-text">572. 另一个树的子树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#589-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.41.</span> <span class="nav-text">589. N叉树的前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#590-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.42.</span> <span class="nav-text">590. N叉树的后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#606-%E6%A0%B9%E6%8D%AE%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.43.</span> <span class="nav-text">606. 根据二叉树创建字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.44.</span> <span class="nav-text">617. 合并二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">1.45.</span> <span class="nav-text">637.二叉树的层平均值</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">三、树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.1.</span> <span class="nav-text">94.二叉树的中序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-II"><span class="nav-number">1.2.</span> <span class="nav-text">?95.不同的二叉搜索树 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.3.</span> <span class="nav-text">96.不同的二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">98.验证二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#99-%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.5.</span> <span class="nav-text">99.恢复二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91"><span class="nav-number">1.6.</span> <span class="nav-text">100.相同的树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#101-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.7.</span> <span class="nav-text">101.对称二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="nav-number">1.8.</span> <span class="nav-text">102.二叉树的层次遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#103-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%BD%A2%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="nav-number">1.9.</span> <span class="nav-text">103.二叉树的锯齿形层次遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.10.</span> <span class="nav-text">104. 二叉树的最大深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.11.</span> <span class="nav-text">105.从前序与中序遍历序列构造二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#106-%E4%BB%8E%E4%B8%AD%E5%BA%8F%E5%92%8C%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.12.</span> <span class="nav-text">106.从中序和后序遍历序列构造二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#107-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86-II"><span class="nav-number">1.13.</span> <span class="nav-text">107.二叉树的层次遍历 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#108-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.14.</span> <span class="nav-text">108.将有序数组转换为二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%A7%8B%E7%BB%88%E9%80%89%E6%8B%A9%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%B7%A6%E8%BE%B9%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.1.</span> <span class="nav-text">1、中序遍历：始终选择中间位置左边元素作为根节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E5%A7%8B%E7%BB%88%E9%80%89%E6%8B%A9%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%8F%B3%E8%BE%B9%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.2.</span> <span class="nav-text">2、中序遍历：始终选择中间位置右边元素作为根节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%9A%E9%80%89%E6%8B%A9%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E4%B8%AD%E9%97%B4%E4%BD%8D%E7%BD%AE%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.14.3.</span> <span class="nav-text">3、中序遍历：选择任意一个中间位置元素作为根节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#110-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.15.</span> <span class="nav-text">110.平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#111-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.16.</span> <span class="nav-text">111.二叉树的最小深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8"><span class="nav-number">1.17.</span> <span class="nav-text">114. 二叉树展开为链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88"><span class="nav-number">1.18.</span> <span class="nav-text">116. 填充每个节点的下一个右侧节点指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#117-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88-II"><span class="nav-number">1.19.</span> <span class="nav-text">117. 填充每个节点的下一个右侧节点指针 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.20.</span> <span class="nav-text">124. 二叉树中的最大路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#129-%E6%B1%82%E6%A0%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C"><span class="nav-number">1.21.</span> <span class="nav-text">129. 求根到叶子节点数字之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.22.</span> <span class="nav-text">144.二叉树的前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.23.</span> <span class="nav-text">145.二叉树的后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#173-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.24.</span> <span class="nav-text">173. 二叉搜索树迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#199-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE"><span class="nav-number">1.25.</span> <span class="nav-text">199. 二叉树的右视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0"><span class="nav-number">1.26.</span> <span class="nav-text">222.完全二叉树的节点个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.27.</span> <span class="nav-text">226. 翻转二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACK%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.28.</span> <span class="nav-text">230. 二叉搜索树中第K小的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">1.29.</span> <span class="nav-text">235. 二叉搜索树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">1.30.</span> <span class="nav-text">236. 二叉树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#257-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84"><span class="nav-number">1.31.</span> <span class="nav-text">257. 二叉树的所有路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#297-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.32.</span> <span class="nav-text">297. 二叉树的序列化与反序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#404-%E5%B7%A6%E5%8F%B6%E5%AD%90%E4%B9%8B%E5%92%8C"><span class="nav-number">1.33.</span> <span class="nav-text">404. 左叶子之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#429-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.34.</span> <span class="nav-text">429. N叉树的层序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#501-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0"><span class="nav-number">1.35.</span> <span class="nav-text">501. 二叉搜索树中的众数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#530-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%9D%E5%AF%B9%E5%B7%AE"><span class="nav-number">1.36.</span> <span class="nav-text">530. 二叉搜索树的最小绝对差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#538-%E6%8A%8A%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%AF%E5%8A%A0%E6%A0%91"><span class="nav-number">1.37.</span> <span class="nav-text">538. 把二叉搜索树转换为累加树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#543-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84"><span class="nav-number">1.38.</span> <span class="nav-text">543. 二叉树的直径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#559-N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="nav-number">1.39.</span> <span class="nav-text">559. N叉树的最大深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#563-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9D%A1%E5%BA%A6"><span class="nav-number">1.40.</span> <span class="nav-text">563. 二叉树的坡度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#572-%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%A0%91%E7%9A%84%E5%AD%90%E6%A0%91"><span class="nav-number">1.41.</span> <span class="nav-text">572. 另一个树的子树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#589-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.42.</span> <span class="nav-text">589. N叉树的前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#590-N%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.43.</span> <span class="nav-text">590. N叉树的后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#606-%E6%A0%B9%E6%8D%AE%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9B%E5%BB%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.44.</span> <span class="nav-text">606. 根据二叉树创建字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#617-%E5%90%88%E5%B9%B6%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.45.</span> <span class="nav-text">617. 合并二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#637-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">1.46.</span> <span class="nav-text">637.二叉树的层平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#671-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%AC%AC%E4%BA%8C%E5%B0%8F%E7%9A%84%E8%8A%82%E7%82%B9"><span class="nav-number">1.47.</span> <span class="nav-text">671. 二叉树中第二小的节点</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="34. 在排序数组中查找元素的第一个和最后一个位置链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-first-and-last-position-of-element-in-sorted-array&#x2F;  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。  你的算法时间复杂度必须是 O(log n)">
+  <meta name="description" content="33. 搜索旋转排序数组链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;search-in-rotated-sorted-array&#x2F;  给你一个整数数组 nums ，和一个整数 target 。  该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。  请你在数组中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-18-搜索和排序">
 <meta property="og:url" content="http://gongyanli.com/LeetCode-18-%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="34. 在排序数组中查找元素的第一个和最后一个位置链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-first-and-last-position-of-element-in-sorted-array&#x2F;  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。  你的算法时间复杂度必须是 O(log n)">
+<meta property="og:description" content="33. 搜索旋转排序数组链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;search-in-rotated-sorted-array&#x2F;  给你一个整数数组 nums ，和一个整数 target 。  该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。  请你在数组中">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-29T13:34:51.000Z">
-<meta property="article:modified_time" content="2020-11-16T13:39:53.078Z">
+<meta property="article:modified_time" content="2020-11-27T07:23:43.882Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 21:39:53" itemprop="dateModified" datetime="2020-11-16T21:39:53+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-27 15:23:43" itemprop="dateModified" datetime="2020-11-27T15:23:43+08:00">2020-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,7 +219,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h3><pre><code>链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+        <h3 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h3><pre><code>链接：https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
+
+给你一个整数数组 nums ，和一个整数 target 。
+
+该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。
+
+请你在数组中搜索 target ，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+
+
+示例 1：
+
+输入：nums = [4,5,6,7,0,1,2], target = 0
+输出：4
+示例 2：
+
+输入：nums = [4,5,6,7,0,1,2], target = 3
+输出：-1
+示例 3：
+
+输入：nums = [1], target = 0
+输出：-1
+
+提示：
+
+1 &lt;= nums.length &lt;= 5000
+-10^4 &lt;= nums[i] &lt;= 10^4
+nums 中的每个值都 独一无二
+nums 肯定会在某个点上旋转
+-10^4 &lt;= target &lt;= 10^4</code></pre>
+<p>题解一|二分查找：</p>
+<p>时间复杂度：O(logn)，其中 n 为 nums数组的大小。整个算法时间复杂度即为二分搜索的时间复杂度 O(logn)。</p>
+<p>空间复杂度：O(1) 我们只需要常数级别的空间存放变量。</p>
+<p>注意：if中很多等号的判断</p>
+<pre><code>class Solution(object):
+    def search(self, nums, target):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if not nums:
+            return -1
+        left,right=0,len(nums)-1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[0]&lt;=nums[mid] : # 此处加=号，解决case[3,1]和1
+                if nums[0]&lt;=target&lt;nums[mid]: # 此处加=号，解决case[1,3,5]和1
+                    right=mid-1
+                else:
+                    left=mid+1
+            else:
+                if nums[mid]&lt;target&lt;=nums[len(nums)-1]: # 此处加=号，解决case[1,3]和3
+                    left=mid+1
+                else:
+                    right=mid-1
+        return -1</code></pre>
+<h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h3><pre><code>链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
@@ -382,6 +440,72 @@
                 nums[i],nums[p0]=nums[p0],nums[i]
                 p0+=1
             i+=1</code></pre>
+<h3 id="162-寻找峰值"><a href="#162-寻找峰值" class="headerlink" title="162. 寻找峰值"></a>162. 寻找峰值</h3><pre><code>峰值元素是指其值大于左右相邻值的元素。
+
+给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。
+
+数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。
+
+你可以假设 nums[-1] = nums[n] = -∞。
+
+示例 1:
+
+输入: nums = [1,2,3,1]
+输出: 2
+解释: 3 是峰值元素，你的函数应该返回其索引 2。
+示例 2:
+
+输入: nums = [1,2,1,3,5,6,4]
+输出: 1 或 5 
+解释: 你的函数可以返回索引 1，其峰值元素为 2；
+     或者返回索引 5， 其峰值元素为 6。
+说明:
+
+你的解法应该是 O(logN) 时间复杂度的。</code></pre>
+<p>题解一|线性扫描：</p>
+<p>1、一直上坡<br>2、一直下坡<br>3、上坡和下坡</p>
+<p>时间复杂度 : O(n)。 我们对长度为 n 的数组 nums 只进行一次遍历。<br>空间复杂度 : O(1)。 只使用了常数空间。</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        for i in range(len(nums)-1):
+            if nums[i]&gt;nums[i+1]:
+                return i
+        return len(nums)-1</code></pre>
+<p>题解二|递归|二分查找：<br>时间复杂度 : O(logn)。每一步都将搜索空间减半。因此，总的搜索空间只需要 log(n) 步。其中 n 为 nums 数组的长度。<br>空间复杂度: O(logn)。每一步都将搜索空间减半。因此，总的搜索空间只需要 log(n) 步。于是，递归树的深度为 log(n)。</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        return self.binarySearch(nums,0,len(nums)-1)
+    def binarySearch(self,nums,left,right):
+        if left==right:
+            return left
+        mid=left+(right-left)//2
+        if nums[mid]&gt;nums[mid+1]:
+            return self.binarySearch(nums,left,mid)
+        return self.binarySearch(nums,mid+1,right)</code></pre>
+<p>题解三|迭代|二分查找：</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        left,right=0,len(nums)-1
+        while left&lt;right:
+            mid=left+(right-left)//2
+            if nums[mid]&gt;nums[mid+1]:
+                right=mid
+            else:
+                left=mid+1
+        return left
+</code></pre>
 <h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
 
 你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
@@ -419,6 +543,86 @@ class Solution:
             else:
                 left=mid+1
         return left</code></pre>
+<h3 id="240-搜索二维矩阵-II"><a href="#240-搜索二维矩阵-II" class="headerlink" title="240. 搜索二维矩阵 II"></a>240. 搜索二维矩阵 II</h3><pre><code>链接：https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
+
+编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
+
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列。
+
+示例 1：
+
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+输出：true
+示例 2：
+
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+输出：false
+
+提示：
+
+m == matrix.length
+n == matrix[i].length
+1 &lt;= n, m &lt;= 300
+-109 &lt;= matix[i][j] &lt;= 109
+每行的所有元素从左到右升序排列
+每列的所有元素从上到下升序排列
+-109 &lt;= target &lt;= 109</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        for row in matrix:
+            if target in row:
+                return True
+        return False</code></pre>
+<p>题解二|二分查找：</p>
+<p>时间复杂度：O(mlogn)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution(object):
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        for i in range(len(matrix)):
+            if self.binarySearch(matrix,i,target):
+                return True
+        return False
+
+    def binarySearch(self,matrix,i,target):
+        left,right=0,len(matrix[0])-1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            if target &gt; matrix[i][mid]:
+                left=mid+1
+            elif target &lt; matrix[i][mid]:
+                right=mid-1
+            elif target == matrix[i][mid]:
+                return True
+        return False</code></pre>
+<p>题解三|规律:</p>
+<p>时间复杂度：O(m+n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution(object):
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        left,right=0,len(matrix[0])-1
+        while left&lt;len(matrix) and right&gt;=0:
+            if matrix[left][right]&gt;target:
+                right-=1
+            elif matrix[left][right]&lt;target:
+                left+=1
+            elif matrix[left][right]==target:
+                return True
+        return False</code></pre>
 
     </div>
 
@@ -502,7 +706,7 @@ class Solution:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">162. 寻找峰值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="nav-number">6.</span> <span class="nav-text">240. 搜索二维矩阵 II</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

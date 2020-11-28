@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy2.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/greepy1.png">
 <meta property="article:published_time" content="2020-01-31T04:09:27.000Z">
-<meta property="article:modified_time" content="2020-11-24T10:06:59.770Z">
+<meta property="article:modified_time" content="2020-11-25T05:47:29.919Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-24 18:06:59" itemprop="dateModified" datetime="2020-11-24T18:06:59+08:00">2020-11-24</time>
+                <time title="Modified: 2020-11-25 13:47:29" itemprop="dateModified" datetime="2020-11-25T13:47:29+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -425,7 +425,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
 输出: 4
 解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
      第三个孩子只得到 1 颗糖果，这已满足上述两个条件。</code></pre>
-<p>题解一：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
+<p>题解一|两个数组：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
 <pre><code>class Solution:
     def candy(self, ratings: List[int]) -&gt; int:
         left=[1 for _ in range(len(ratings))]
@@ -439,7 +439,21 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
                 right[i]=right[i+1]+1
             count+=max(left[i],right[i])
         return count</code></pre>
-<p>题解二：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
+<p>题解二|一个数组：</p>
+<p>时间复杂度：O(n) 。长度为 nn 数组 candiescandies 被遍历了 3 次。<br>空间复杂度：O(n)O 。数组 candiescandies 长度为 nn 。</p>
+<pre><code>class Solution:
+    def candy(self, ratings: List[int]) -&gt; int:
+        left=[1 for _ in range(len(ratings))]
+        for i in range(1,len(ratings)):
+            if ratings[i]&gt;ratings[i-1]:
+                left[i]=left[i-1]+1
+        count=left[-1]
+        for i in range(len(ratings)-2,-1,-1):
+            if ratings[i]&gt;ratings[i+1]:
+                left[i]=max(left[i],left[i+1]+1)
+            count+=left[i]
+        return count</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
 <h3 id="316-去除重复字母"><a href="#316-去除重复字母" class="headerlink" title="316.去除重复字母"></a>316.去除重复字母</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicate-letters/
 
 给定一个仅包含小写字母的字符串，去除字符串中重复的字母，使得每个字母只出现一次。需保证返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
@@ -456,7 +470,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
 <pre><code>字典序：对于字符而言，按 ascii 码值进行比较，小的排在前，大的排在后。对于字符串，从第 0 位字符开始比较，ascii 码数值小的排在前面，如果相同，就延后一位比较 ascii 码值大小。
 
 子序列：子序列不同于子串，子串要求它们在原串中连续，而子序列则不要求连续。例如acd是abcd的子序列，但不是子串。</code></pre>
-<p>?题解一（递归）：</p>
+<p>?题解一|递归：</p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         for i in sorted(set(s)):
@@ -464,7 +478,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
             if len(set(tmp)) == len(set(s)):
                 return i+self.removeDuplicateLetters(tmp.replace(i,&#39;&#39;))
         return &#39;&#39;</code></pre>
-<p>?题解二（迭代）：</p>
+<p>?题解二|迭代：</p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         res = &quot;&quot;
@@ -476,7 +490,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
             res += a
             s = s[s.index(a):].replace(a, &quot;&quot;)
         return res</code></pre>
-<p>题解三(栈):<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
+<p>题解三|栈:<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         from collections import Counter
@@ -491,6 +505,55 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
                 existed.add(i)
             count[i]-=1
         return &#39;&#39;.join(stack)</code></pre>
+<h3 id="330-按要求补齐数组"><a href="#330-按要求补齐数组" class="headerlink" title="330. 按要求补齐数组"></a>330. 按要求补齐数组</h3><pre><code>链接：https://leetcode-cn.com/problems/patching-array/
+
+给定一个已排序的正整数数组 nums，和一个正整数 n 。从 [1, n] 区间内选取任意个数字补充到 nums 中，使得 [1, n] 区间内的任何数字都可以用 nums 中某几个数字的和来表示。请输出满足上述要求的最少需要补充的数字个数。
+
+示例 1:
+
+输入: nums = [1,3], n = 6
+输出: 1 
+解释:
+根据 nums 里现有的组合 [1], [3], [1,3]，可以得出 1, 3, 4。
+现在如果我们将 2 添加到 nums 中， 组合变为: [1], [2], [3], [1,3], [2,3], [1,2,3]。
+其和可以表示数字 1, 2, 3, 4, 5, 6，能够覆盖 [1, 6] 区间里所有的数。
+所以我们最少需要添加一个数字。
+示例 2:
+
+输入: nums = [1,5,10], n = 20
+输出: 2
+解释: 我们需要添加 [2, 4]。
+示例 3:
+
+输入: nums = [1,2,2], n = 5
+输出: 0</code></pre>
+<p>题解一|贪心：</p>
+<p>补齐数组特点：</p>
+<pre><code>假设数组 arr 添加一个元素即可覆盖 [1, n) 内所有数字，那么添加的数字 mm 一定满足m &lt;= n。
+假设数组 arr 可以覆盖 [1, n) 的所有数字，则给 arr 内加元素 mm ：
+
+    若m &lt;= n，新数组可以覆盖[1, m + n) = [1, n) ∪ [m, m + n)内所有数字；</code></pre>
+<p>贪心法则：<br>对于一个覆盖 [1, n)[1,n) 的数组 arrarr 来说，添加数字 nn 连续扩容范围最大（扩容至 [1, 2n)[1,2n) ）。</p>
+<p>思路： 设置一个初始范围 [1, 1)，通过不断确认并扩大数组可以覆盖的范围，最终计算出最少需要加入的数字。</p>
+<pre><code>当i &lt; len(nums)且nums[i] &lt;= add时：不需要加入新数字，循环确认并更新数组可以覆盖的范围[1, add + nums[i])，直到找到大于确认范围 add 的 nums[i] 或索引越界。
+否则：无法根据现有数字构建更大的连续范围，，因此需要使用贪心策略向数组加入数字 add，将数组从覆盖 [1, add) 扩容至可覆盖 [1, 2add)。
+直到确认的范围add &gt; n，说明此时已经覆盖 [1, n] ，退出迭代并返回。</code></pre>
+<pre><code>class Solution(object):
+    def minPatches(self, nums, n):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        add,count,i=1,0,0
+        while add &lt;= n:
+            if i&lt;len(nums) and nums[i]&lt;=add:
+                add+=nums[i] # from [1, add] to [1, add + nums[i]]
+                i+=1
+            else:
+                add+=add # from [1, add] to [1, 2add]
+                count+=1
+        return count</code></pre>
 <h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435.无重叠区间"></a>435.无重叠区间</h3><pre><code>链接:https://leetcode-cn.com/problems/non-overlapping-intervals/
 
 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
@@ -525,7 +588,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
     n=len(intervals)
     return n - intervalSchedule(intervals);
 &#125;</code></pre>
-<p>题解一（贪心）:</p>
+<p>题解一|贪心:</p>
 <pre><code>先计算能组成不重叠最多区间个数： 
 （1）按区间结尾排序
 （2）每次选择结尾最小，且与前一个区间不重叠</code></pre>
@@ -657,7 +720,7 @@ Example:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B4%AA%E5%BF%83"><span class="nav-number">1.</span> <span class="nav-text">六、贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II"><span class="nav-number">1.1.</span> <span class="nav-text">45.跳跃游戏 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F"><span class="nav-number">1.2.</span> <span class="nav-text">55.跳跃游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">135.分发糖果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#316-%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AF%8D"><span class="nav-number">1.4.</span> <span class="nav-text">316.去除重复字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4"><span class="nav-number">1.5.</span> <span class="nav-text">435.无重叠区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83"><span class="nav-number">1.6.</span> <span class="nav-text">452. 用最少数量的箭引爆气球</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B4%AA%E5%BF%83"><span class="nav-number">1.</span> <span class="nav-text">六、贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II"><span class="nav-number">1.1.</span> <span class="nav-text">45.跳跃游戏 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F"><span class="nav-number">1.2.</span> <span class="nav-text">55.跳跃游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#135-%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">135.分发糖果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#316-%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E5%AD%97%E6%AF%8D"><span class="nav-number">1.4.</span> <span class="nav-text">316.去除重复字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#330-%E6%8C%89%E8%A6%81%E6%B1%82%E8%A1%A5%E9%BD%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.5.</span> <span class="nav-text">330. 按要求补齐数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#435-%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4"><span class="nav-number">1.6.</span> <span class="nav-text">435.无重叠区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#452-%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83"><span class="nav-number">1.7.</span> <span class="nav-text">452. 用最少数量的箭引爆气球</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

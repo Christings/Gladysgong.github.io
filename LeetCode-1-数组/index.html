@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/water3.jpg">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/duijiaoxian.png">
 <meta property="article:published_time" content="2019-09-26T04:13:05.000Z">
-<meta property="article:modified_time" content="2020-11-16T13:39:58.785Z">
+<meta property="article:modified_time" content="2020-11-25T03:00:04.434Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 21:39:58" itemprop="dateModified" datetime="2020-11-16T21:39:58+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-25 11:00:04" itemprop="dateModified" datetime="2020-11-25T11:00:04+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -801,7 +801,8 @@ class Solution:
 <p>第二个指针 j ：每遇到新的不同数字时，执行 j += 1 ， j 指针有两个作用：</p>
 <pre><code>记录数组中不同数字的数量；
 作为修改数组元素的索引index。</code></pre>
-<p>最终，返回 k+1 即可。<br>时间复杂度O(n),空间复杂福O(1)。</p>
+<p>最终，返回 k+1 即可。</p>
+<p>时间复杂度O(n),空间复杂福O(1)。</p>
 <pre><code>class Solution:
     def removeDuplicates(self, nums: List[int]) -&gt; int:
         if not nums:

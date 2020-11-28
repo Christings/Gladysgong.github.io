@@ -158,6 +158,384 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-16-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LeetCode-16-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">LeetCode-16-区间问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-26 18:27:11" itemprop="dateCreated datePublished" datetime="2020-11-26T18:27:11+08:00">2020-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-27 12:32:13" itemprop="dateModified" datetime="2020-11-27T12:32:13+08:00">2020-11-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://labuladong.github.io/ebook/%E7%AE%97%E6%B3%95%E6%80%9D%E7%BB%B4%E7%B3%BB%E5%88%97/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86.html">https://labuladong.github.io/ebook/%E7%AE%97%E6%B3%95%E6%80%9D%E7%BB%B4%E7%B3%BB%E5%88%97/%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86.html</a></p>
+</blockquote>
+<h3 id="56-合并区间"><a href="#56-合并区间" class="headerlink" title="56. 合并区间"></a>56. 合并区间</h3><pre><code>链接：https://leetcode-cn.com/problems/merge-intervals/
+
+给出一个区间的集合，请合并所有重叠的区间。
+
+示例 1:
+
+输入: intervals = [[1,3],[2,6],[8,10],[15,18]]
+输出: [[1,6],[8,10],[15,18]]
+解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+示例 2:
+
+输入: intervals = [[1,4],[4,5]]
+输出: [[1,5]]
+解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+注意：输入类型已于2019年4月15日更改。 请重置默认代码定义以获取新方法签名。
+
+提示：
+
+intervals[i][0] &lt;= intervals[i][1]</code></pre>
+<p>题解一：</p>
+<p>时间复杂度：O(nlogn)，其中 n为区间的数量。除去排序的开销，我们只需要一次线性扫描，所以主要的时间开销是排序的 O(nlogn)。</p>
+<p>空间复杂度：O(logn)，其中 n为区间的数量。这里计算的是存储答案之外，使用的额外空间。O(logn) 即为排序所需要的空间复杂度。</p>
+<pre><code>class Solution(object):
+    def merge(self, intervals):
+        &quot;&quot;&quot;
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+        if not intervals:
+            return
+        intervals.sort(key=lambda x:(x[0],-x[1]))
+        res=[]
+        res.append(intervals[0])
+        for i in range(1,len(intervals)):
+            tmp=intervals[i]
+            last=res[-1]
+            if last[1] &gt;= tmp[0]:
+                last[1]=max(last[1],tmp[1])
+            else:
+                res.append(tmp)
+        return res</code></pre>
+<h3 id="57-插入区间"><a href="#57-插入区间" class="headerlink" title="57. 插入区间"></a>57. 插入区间</h3><pre><code>链接：https://leetcode-cn.com/problems/insert-interval/
+
+给出一个无重叠的 ，按照区间起始端点排序的区间列表。
+
+在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。
+
+示例 1：
+
+输入：intervals = [[1,3],[6,9]], newInterval = [2,5]
+输出：[[1,5],[6,9]]
+示例 2：
+
+输入：intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+输出：[[1,2],[3,10],[12,16]]
+解释：这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
+
+注意：输入类型已在 2019 年 4 月 15 日更改。请重置为默认代码定义以获取新的方法签名。</code></pre>
+<p>题解一|分段考察：</p>
+<p>1、不重叠，位于newInterval的左侧<br>2、重叠<br>2、不重叠，位于newInterval的右侧</p>
+<pre><code>class Solution(object):
+    def insert(self, intervals, newInterval):
+        &quot;&quot;&quot;
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+        res=[]
+        i,n=0,len(intervals)
+        while i&lt;n and intervals[i][1]&lt;newInterval[0]:
+            res.append(intervals[i])
+            i+=1
+        while i&lt;n and intervals[i][0]&lt;=newInterval[1]:
+            newInterval[0]=min(newInterval[0],intervals[i][0])
+            newInterval[1]=max(newInterval[1],intervals[i][1])
+            i+=1
+        res.append(newInterval)
+        while i&lt;n:
+            res.append(intervals[i])
+            i+=1
+        return res</code></pre>
+<p>题解二|模拟：</p>
+<pre><code>class Solution(object):
+    def insert(self, intervals, newInterval):
+        &quot;&quot;&quot;
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+        left,right=newInterval
+        flag=False
+        ans=[]
+        for low,high in intervals:
+            if low&gt;right: # 在插入区间右侧且无交集
+                if not flag:
+                    ans.append([left,right]) # 此处插入交集部分
+                    flag=True
+                ans.append([low,high])
+            elif high&lt;left: # 在插入区间左侧且无交集
+                ans.append([low,high])
+            else: # 与插入区间有交集，计算它们的并集
+                left=min(left,low)
+                right=max(right,high)
+        if not flag: # 如果intervals为空时，此处插入newInterval
+            ans.append([left,right])
+        return ans</code></pre>
+<h3 id="228-汇总区间"><a href="#228-汇总区间" class="headerlink" title="228. 汇总区间"></a>228. 汇总区间</h3><pre><code>给定一个无重复元素的有序整数数组 nums 。
+
+返回 恰好覆盖数组中所有数字 的 最小有序 区间范围列表。也就是说，nums 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 nums 的数字 x 。
+
+列表中的每个区间范围 [a,b] 应该按如下格式输出：
+
+&quot;a-&gt;b&quot; ，如果 a != b
+&quot;a&quot; ，如果 a == b
+
+示例 1：
+
+输入：nums = [0,1,2,4,5,7]
+输出：[&quot;0-&gt;2&quot;,&quot;4-&gt;5&quot;,&quot;7&quot;]
+解释：区间范围是：
+[0,2] --&gt; &quot;0-&gt;2&quot;
+[4,5] --&gt; &quot;4-&gt;5&quot;
+[7,7] --&gt; &quot;7&quot;
+示例 2：
+
+输入：nums = [0,2,3,4,6,8,9]
+输出：[&quot;0&quot;,&quot;2-&gt;4&quot;,&quot;6&quot;,&quot;8-&gt;9&quot;]
+解释：区间范围是：
+[0,0] --&gt; &quot;0&quot;
+[2,4] --&gt; &quot;2-&gt;4&quot;
+[6,6] --&gt; &quot;6&quot;
+[8,9] --&gt; &quot;8-&gt;9&quot;
+示例 3：
+
+输入：nums = []
+输出：[]
+示例 4：
+
+输入：nums = [-1]
+输出：[&quot;-1&quot;]
+示例 5：
+
+输入：nums = [0]
+输出：[&quot;0&quot;]
+
+提示：
+
+0 &lt;= nums.length &lt;= 20
+-231 &lt;= nums[i] &lt;= 231 - 1
+nums 中的所有值都 互不相同</code></pre>
+<p>题解一|双指针：</p>
+<p>时间复杂度：O(N)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution(object):
+    def summaryRanges(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: List[str]
+        &quot;&quot;&quot;
+        left,right=0,0
+        nums.append(float(&#39;inf&#39;)) # 解决溢出问题
+        res=[]
+        for i in range(len(nums)-1):
+            right=i
+            if nums[i]+1 != nums[i+1]:
+                if left==right:
+                    res.append(str(nums[right])+&#39;&#39;)
+                else:
+                    res.append(str(nums[left])+&#39;-&gt;&#39;+str(nums[right]))
+
+                left=i+1
+                right=i+1
+        return res</code></pre>
+<pre><code>class Solution(object):
+    def summaryRanges(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: List[str]
+        &quot;&quot;&quot;
+        if len(nums) == 0: 
+            return []
+        elif len(nums) == 1:
+            return [str(nums[0])]
+        result = []
+        j = 0 
+        for i in range(len(nums)):
+            if i:
+                if nums[i] - nums[i-1] != 1:
+                    if j == i-1:
+                        result.append(str(nums[j]))
+                    else:
+                        result.append(str(nums[j]) + &#39;-&gt;&#39; + str(nums[i-1]))
+                    if i == len(nums)-1:
+                        result.append(str(nums[i]))
+                    j = i
+            if i == len(nums)-1 and j &lt; len(nums)-1:
+                result.append(str(nums[j]) + &#39;-&gt;&#39; + str(nums[i]))
+        return result</code></pre>
+<h3 id="986-区间列表的交集"><a href="#986-区间列表的交集" class="headerlink" title="986. 区间列表的交集"></a>986. 区间列表的交集</h3><pre><code>链接：https://leetcode-cn.com/problems/interval-list-intersections/
+
+给定两个由一些 闭区间 组成的列表，每个区间列表都是成对不相交的，并且已经排序。
+
+返回这两个区间列表的交集。
+
+（形式上，闭区间 [a, b]（其中 a &lt;= b）表示实数 x 的集合，而 a &lt;= x &lt;= b。两个闭区间的交集是一组实数，要么为空集，要么为闭区间。例如，[1, 3] 和 [2, 4] 的交集为 [2, 3]。）
+
+示例：
+
+输入：A = [[0,2],[5,10],[13,23],[24,25]], B = [[1,5],[8,12],[15,24],[25,26]]
+输出：[[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+
+
+提示：
+
+0 &lt;= A.length &lt; 1000
+0 &lt;= B.length &lt; 1000
+0 &lt;= A[i].start, A[i].end, B[i].start, B[i].end &lt; 10^9</code></pre>
+<p>题解一|归并计算：</p>
+<p>时间复杂度：O(M+N)，其中 M, N 分别是数组 A 和 B 的长度。</p>
+<p>空间复杂度：O(M+N)，答案中区间数量的上限。</p>
+<pre><code>class Solution(object):
+    def intervalIntersection(self, A, B):
+        &quot;&quot;&quot;
+        :type A: List[List[int]]
+        :type B: List[List[int]]
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+        i,j=0,0
+        res=[]
+        while i&lt;len(A) and j&lt;len(B):
+            a1,a2=A[i][0],A[i][1]
+            b1,b2=B[j][0],B[j][1]
+
+            if b2&gt;=a1 and a2&gt;=b1:
+                res.append([max(a1,b1),min(a2,b2)]) # 交集计算
+            if b2&lt;a2:
+                j+=1
+            else:
+                i+=1
+        return res</code></pre>
+<h3 id="1288-删除被覆盖区间"><a href="#1288-删除被覆盖区间" class="headerlink" title="1288. 删除被覆盖区间"></a>1288. 删除被覆盖区间</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-covered-intervals/
+
+给你一个区间列表，请你删除列表中被其他区间所覆盖的区间。
+
+只有当 c &lt;= a 且 b &lt;= d 时，我们才认为区间 [a,b) 被区间 [c,d) 覆盖。
+
+在完成所有删除操作后，请你返回列表中剩余区间的数目。
+
+示例：
+
+输入：intervals = [[1,4],[3,6],[2,8]]
+输出：2
+解释：区间 [3,6] 被区间 [2,8] 覆盖，所以它被删除了。
+
+提示：​​​​​​
+
+1 &lt;= intervals.length &lt;= 1000
+0 &lt;= intervals[i][0] &lt; intervals[i][1] &lt;= 10^5
+对于所有的 i != j：intervals[i] != intervals[j]</code></pre>
+<p>题解一:</p>
+<pre><code>1、区间被完全覆盖
+2、两个区间相交，合并成一个大区间
+3、两个区间完全不相交</code></pre>
+<p>注意：对于这两个起点相同的区间，我们需要保证长的那个区间在上面（按照终点降序），这样才会被判定为覆盖，否则会被错误地判定为相交，少算一个覆盖区间。</p>
+<pre><code>class Solution(object):
+    def removeCoveredIntervals(self, intervals):
+        &quot;&quot;&quot;
+        :type intervals: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        intervals.sort(key=lambda x: (x[0],-x[1])) # 起点升序排序，起点相同时降序排序
+        left,right=intervals[0][0],intervals[0][1] # 合并区间的起点和终点
+        count=0
+        for i in range(1,len(intervals)):
+            tmp=intervals[i]
+            if left&lt;=tmp[0] and right&gt;=tmp[1]: # 覆盖区间
+                count+=1
+            if right&gt;=tmp[0] and right&lt;=tmp[1]: # 相交区间，合并
+                right=tmp[1]
+            if right&lt;tmp[0]: # 完全不相交区间，更新起点和终点
+                left=tmp[0]
+                right=tmp[1]
+        return len(intervals)-count</code></pre>
+<p>题解二|贪心|扫描线：</p>
+<pre><code>class Solution(object):
+    def removeCoveredIntervals(self, intervals):
+        &quot;&quot;&quot;
+        :type intervals: List[List[int]]
+        :rtype: int
+        &quot;&quot;&quot;
+        intervals.sort(key=lambda x: (x[0],-x[1]))
+        right=intervals[0][1]
+        count=0
+        for i in range(1,len(intervals)):
+            if right&gt;=intervals[i][1]:
+                count+=1
+            else:
+                right=intervals[i][1]
+        return len(intervals)-count</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-2-%E6%A0%88-%E5%8D%95%E8%B0%83%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -705,7 +1083,7 @@ nums 中的所有数字都 独一无二</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 21:39:53" itemprop="dateModified" datetime="2020-11-16T21:39:53+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-27 15:23:43" itemprop="dateModified" datetime="2020-11-27T15:23:43+08:00">2020-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -732,7 +1110,65 @@ nums 中的所有数字都 独一无二</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h3><pre><code>链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+          <h3 id="33-搜索旋转排序数组"><a href="#33-搜索旋转排序数组" class="headerlink" title="33. 搜索旋转排序数组"></a>33. 搜索旋转排序数组</h3><pre><code>链接：https://leetcode-cn.com/problems/search-in-rotated-sorted-array/
+
+给你一个整数数组 nums ，和一个整数 target 。
+
+该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。
+
+请你在数组中搜索 target ，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+
+
+示例 1：
+
+输入：nums = [4,5,6,7,0,1,2], target = 0
+输出：4
+示例 2：
+
+输入：nums = [4,5,6,7,0,1,2], target = 3
+输出：-1
+示例 3：
+
+输入：nums = [1], target = 0
+输出：-1
+
+提示：
+
+1 &lt;= nums.length &lt;= 5000
+-10^4 &lt;= nums[i] &lt;= 10^4
+nums 中的每个值都 独一无二
+nums 肯定会在某个点上旋转
+-10^4 &lt;= target &lt;= 10^4</code></pre>
+<p>题解一|二分查找：</p>
+<p>时间复杂度：O(logn)，其中 n 为 nums数组的大小。整个算法时间复杂度即为二分搜索的时间复杂度 O(logn)。</p>
+<p>空间复杂度：O(1) 我们只需要常数级别的空间存放变量。</p>
+<p>注意：if中很多等号的判断</p>
+<pre><code>class Solution(object):
+    def search(self, nums, target):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if not nums:
+            return -1
+        left,right=0,len(nums)-1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[0]&lt;=nums[mid] : # 此处加=号，解决case[3,1]和1
+                if nums[0]&lt;=target&lt;nums[mid]: # 此处加=号，解决case[1,3,5]和1
+                    right=mid-1
+                else:
+                    left=mid+1
+            else:
+                if nums[mid]&lt;target&lt;=nums[len(nums)-1]: # 此处加=号，解决case[1,3]和3
+                    left=mid+1
+                else:
+                    right=mid-1
+        return -1</code></pre>
+<h3 id="34-在排序数组中查找元素的第一个和最后一个位置"><a href="#34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="34. 在排序数组中查找元素的第一个和最后一个位置"></a>34. 在排序数组中查找元素的第一个和最后一个位置</h3><pre><code>链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
@@ -895,6 +1331,72 @@ nums 中的所有数字都 独一无二</code></pre>
                 nums[i],nums[p0]=nums[p0],nums[i]
                 p0+=1
             i+=1</code></pre>
+<h3 id="162-寻找峰值"><a href="#162-寻找峰值" class="headerlink" title="162. 寻找峰值"></a>162. 寻找峰值</h3><pre><code>峰值元素是指其值大于左右相邻值的元素。
+
+给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。
+
+数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。
+
+你可以假设 nums[-1] = nums[n] = -∞。
+
+示例 1:
+
+输入: nums = [1,2,3,1]
+输出: 2
+解释: 3 是峰值元素，你的函数应该返回其索引 2。
+示例 2:
+
+输入: nums = [1,2,1,3,5,6,4]
+输出: 1 或 5 
+解释: 你的函数可以返回索引 1，其峰值元素为 2；
+     或者返回索引 5， 其峰值元素为 6。
+说明:
+
+你的解法应该是 O(logN) 时间复杂度的。</code></pre>
+<p>题解一|线性扫描：</p>
+<p>1、一直上坡<br>2、一直下坡<br>3、上坡和下坡</p>
+<p>时间复杂度 : O(n)。 我们对长度为 n 的数组 nums 只进行一次遍历。<br>空间复杂度 : O(1)。 只使用了常数空间。</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        for i in range(len(nums)-1):
+            if nums[i]&gt;nums[i+1]:
+                return i
+        return len(nums)-1</code></pre>
+<p>题解二|递归|二分查找：<br>时间复杂度 : O(logn)。每一步都将搜索空间减半。因此，总的搜索空间只需要 log(n) 步。其中 n 为 nums 数组的长度。<br>空间复杂度: O(logn)。每一步都将搜索空间减半。因此，总的搜索空间只需要 log(n) 步。于是，递归树的深度为 log(n)。</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        return self.binarySearch(nums,0,len(nums)-1)
+    def binarySearch(self,nums,left,right):
+        if left==right:
+            return left
+        mid=left+(right-left)//2
+        if nums[mid]&gt;nums[mid+1]:
+            return self.binarySearch(nums,left,mid)
+        return self.binarySearch(nums,mid+1,right)</code></pre>
+<p>题解三|迭代|二分查找：</p>
+<pre><code>class Solution(object):
+    def findPeakElement(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        left,right=0,len(nums)-1
+        while left&lt;right:
+            mid=left+(right-left)//2
+            if nums[mid]&gt;nums[mid+1]:
+                right=mid
+            else:
+                left=mid+1
+        return left
+</code></pre>
 <h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
 
 你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
@@ -932,6 +1434,86 @@ class Solution:
             else:
                 left=mid+1
         return left</code></pre>
+<h3 id="240-搜索二维矩阵-II"><a href="#240-搜索二维矩阵-II" class="headerlink" title="240. 搜索二维矩阵 II"></a>240. 搜索二维矩阵 II</h3><pre><code>链接：https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
+
+编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
+
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列。
+
+示例 1：
+
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+输出：true
+示例 2：
+
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+输出：false
+
+提示：
+
+m == matrix.length
+n == matrix[i].length
+1 &lt;= n, m &lt;= 300
+-109 &lt;= matix[i][j] &lt;= 109
+每行的所有元素从左到右升序排列
+每列的所有元素从上到下升序排列
+-109 &lt;= target &lt;= 109</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>class Solution:
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        for row in matrix:
+            if target in row:
+                return True
+        return False</code></pre>
+<p>题解二|二分查找：</p>
+<p>时间复杂度：O(mlogn)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution(object):
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        for i in range(len(matrix)):
+            if self.binarySearch(matrix,i,target):
+                return True
+        return False
+
+    def binarySearch(self,matrix,i,target):
+        left,right=0,len(matrix[0])-1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            if target &gt; matrix[i][mid]:
+                left=mid+1
+            elif target &lt; matrix[i][mid]:
+                right=mid-1
+            elif target == matrix[i][mid]:
+                return True
+        return False</code></pre>
+<p>题解三|规律:</p>
+<p>时间复杂度：O(m+n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution(object):
+    def searchMatrix(self, matrix, target):
+        &quot;&quot;&quot;
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        left,right=0,len(matrix[0])-1
+        while left&lt;len(matrix) and right&gt;=0:
+            if matrix[left][right]&gt;target:
+                right-=1
+            elif matrix[left][right]&lt;target:
+                left+=1
+            elif matrix[left][right]==target:
+                return True
+        return False</code></pre>
 
       
     </div>
@@ -982,7 +1564,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-30 10:35:49" itemprop="dateModified" datetime="2020-10-30T10:35:49+08:00">2020-10-30</time>
+                <time title="Modified: 2020-11-26 16:36:29" itemprop="dateModified" datetime="2020-11-26T16:36:29+08:00">2020-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1079,6 +1661,105 @@ pop、top 和 getMin 操作总是在 非空栈 上调用。</code></pre>
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()</code></pre>
+<h3 id="380-常数时间插入、删除和获取随机元素"><a href="#380-常数时间插入、删除和获取随机元素" class="headerlink" title="380. 常数时间插入、删除和获取随机元素"></a>380. 常数时间插入、删除和获取随机元素</h3><pre><code>链接：https://leetcode-cn.com/problems/insert-delete-getrandom-o1/
+
+设计一个支持在平均 时间复杂度 O(1) 下，执行以下操作的数据结构。
+
+insert(val)：当元素 val 不存在时，向集合中插入该项。
+remove(val)：元素 val 存在时，从集合中移除该项。
+getRandom：随机返回现有集合中的一项。每个元素应该有相同的概率被返回。
+示例 :
+
+// 初始化一个空的集合。
+RandomizedSet randomSet = new RandomizedSet();
+
+// 向集合中插入 1 。返回 true 表示 1 被成功地插入。
+randomSet.insert(1);
+
+// 返回 false ，表示集合中不存在 2 。
+randomSet.remove(2);
+
+// 向集合中插入 2 。返回 true 。集合现在包含 [1,2] 。
+randomSet.insert(2);
+
+// getRandom 应随机返回 1 或 2 。
+randomSet.getRandom();
+
+// 从集合中移除 1 ，返回 true 。集合现在包含 [2] 。
+randomSet.remove(1);
+
+// 2 已在集合中，所以返回 false 。
+randomSet.insert(2);
+
+// 由于 2 是集合中唯一的数字，getRandom 总是返回 2 。
+randomSet.getRandom();</code></pre>
+<p>题解一|hash|动态数组：</p>
+<p>1、insert：</p>
+<pre><code>平均插入时间为O(1) 的选择：
+    哈希表：Java 中为 HashMap，Python 中为 dictionary。
+    动态数组：Java 中为 ArrayList，Python 中为 list。</code></pre>
+<p>2、getRandom：</p>
+<pre><code>哈希表提供常数时间的插入和删除，但是实现 getRandom 时会出现问题。
+getRandom 的思想是选择一个随机索引，然后使用该索引返回一个元素。而哈希表中没有索引，因此要获得真正的随机值，则要将哈希表中的键转换为列表，这需要线性时间。解决的方法是用一个列表存储值，并在该列表中实现常数时间的 getRandom。</code></pre>
+<p>3、remove：</p>
+<pre><code>列表有索引可以实现常数时间的 insert 和 getRandom，则接下来的问题是如何实现常数时间的 remove。
+
+删除任意索引元素需要线性时间，这里的解决方案是总是删除最后一个元素。
+    将要删除元素和最后一个元素交换。
+    将最后一个元素删除。</code></pre>
+<p>综上：</p>
+<pre><code>动态数组存储元素值。
+哈希表存储存储值到索引的映射。</code></pre>
+<pre><code>import random
+class RandomizedSet(object):
+
+    def __init__(self):
+        &quot;&quot;&quot;
+        Initialize your data structure here.
+        &quot;&quot;&quot;
+        self.list=[]
+        self.dict=&#123;&#125;
+
+
+    def insert(self, val):
+        &quot;&quot;&quot;
+        Inserts a value to the set. Returns true if the set did not already contain the specified element.
+        :type val: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        if val in self.dict:
+            return False
+        self.dict[val]=len(self.list)
+        self.list.append(val)
+        return True
+
+    def remove(self, val):
+        &quot;&quot;&quot;
+        Removes a value from the set. Returns true if the set contained the specified element.
+        :type val: int
+        :rtype: bool
+        &quot;&quot;&quot;
+        if val in self.dict:
+            last,index=self.list[-1],self.dict[val]
+            self.list[index],self.dict[last]=last,index
+            self.list.pop()
+            del self.dict[val]
+            return True
+        return False
+
+
+    def getRandom(self):
+        &quot;&quot;&quot;
+        Get a random element from the set.
+        :rtype: int
+        &quot;&quot;&quot;
+        return random.choice(self.list)
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()</code></pre>
 <h3 id="384-打乱数组"><a href="#384-打乱数组" class="headerlink" title="384. 打乱数组"></a>384. 打乱数组</h3><pre><code>链接：https://leetcode-cn.com/problems/shuffle-an-array/
 
 打乱一个没有重复元素的数组。
@@ -1162,84 +1843,6 @@ solution.shuffle();</code></pre>
 # obj = Solution(nums)
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-16-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/LeetCode-16-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">LeetCode-16-二分查找</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-23 13:21:24" itemprop="dateCreated datePublished" datetime="2020-10-23T13:21:24+08:00">2020-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-29 21:24:21" itemprop="dateModified" datetime="2020-10-29T21:24:21+08:00">2020-10-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/">https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/</a></p>
 
       
     </div>
@@ -1486,7 +2089,7 @@ CREATE TABLE &quot;django_migrations&quot; (&quot;id&quot; integer NOT NULL PRIM
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-14 22:01:18" itemprop="dateModified" datetime="2020-11-14T22:01:18+08:00">2020-11-14</time>
+                <time title="Modified: 2020-11-27 19:55:13" itemprop="dateModified" datetime="2020-11-27T19:55:13+08:00">2020-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1509,7 +2112,8 @@ CREATE TABLE &quot;django_migrations&quot; (&quot;id&quot; integer NOT NULL PRIM
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、冒泡排序"><a href="#一、冒泡排序" class="headerlink" title="一、冒泡排序"></a>一、冒泡排序</h2><h3 id="一、思想"><a href="#一、思想" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>每次比较两个相邻的元素，如果他们之前的顺序不符就交换位置。
+          <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/ge-chong-pai-xu-suan-fa-tu-xie-zong-jie-by-ke-ai-x/">https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/ge-chong-pai-xu-suan-fa-tu-xie-zong-jie-by-ke-ai-x/</a></p>
+<h2 id="一、冒泡排序"><a href="#一、冒泡排序" class="headerlink" title="一、冒泡排序"></a>一、冒泡排序</h2><h3 id="一、思想"><a href="#一、思想" class="headerlink" title="一、思想"></a>一、思想</h3><pre><code>每次比较两个相邻的元素，如果他们之前的顺序不符就交换位置。
 比如5个数从小到大排序，23，64，1，43，21
 第一趟：
 第一次比较：23，64，1，43，21

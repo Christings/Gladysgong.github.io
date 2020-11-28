@@ -1168,7 +1168,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 20:06:29" itemprop="dateModified" datetime="2020-11-16T20:06:29+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-25 15:30:07" itemprop="dateModified" datetime="2020-11-25T15:30:07+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1420,6 +1420,61 @@ class Solution:
             cur=(cur+x/cur)/2
             if abs(cur-pre)&lt; 1e-6:
                 return int(cur)</code></pre>
+<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><pre><code>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,1]
+输出: 1
+示例 2:
+
+输入: [4,1,2,1,2]
+输出: 4</code></pre>
+<p>题解一|位运算：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return reduce(lambda x,y:x^y,nums)</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        res=0
+        for i in nums:
+            res^=i
+        return res</code></pre>
+<pre><code>class Solution(object):
+    def singleNumber(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        ans=nums[0]
+        for i in range(1,len(nums)):
+            ans^=nums[i]
+        return ans</code></pre>
+<p>题解二|hash:</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=[]
+        for i in nums:
+            if i not in temp:
+                temp.append(i)
+            else:
+                temp.remove(i)
+        return temp[0]</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=&#123;&#125;
+        for i in nums:
+            if i not in temp:
+                temp[i]=1
+            else:
+                temp[i]+=1
+        for k,v in temp.items():
+            if v==1:
+                return k</code></pre>
 <h3 id="166-分数到小数"><a href="#166-分数到小数" class="headerlink" title="166. 分数到小数"></a>166. 分数到小数</h3><pre><code>链接：https://leetcode-cn.com/problems/fraction-to-recurring-decimal/
 
 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。

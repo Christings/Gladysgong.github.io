@@ -278,7 +278,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-24 18:06:59" itemprop="dateModified" datetime="2020-11-24T18:06:59+08:00">2020-11-24</time>
+                <time title="Modified: 2020-11-25 13:47:29" itemprop="dateModified" datetime="2020-11-25T13:47:29+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -508,7 +508,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
 输出: 4
 解释: 你可以分别给这三个孩子分发 1、2、1 颗糖果。
      第三个孩子只得到 1 颗糖果，这已满足上述两个条件。</code></pre>
-<p>题解一：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
+<p>题解一|两个数组：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/">https://leetcode-cn.com/problems/candy/solution/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/</a></p>
 <pre><code>class Solution:
     def candy(self, ratings: List[int]) -&gt; int:
         left=[1 for _ in range(len(ratings))]
@@ -522,7 +522,21 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
                 right[i]=right[i+1]+1
             count+=max(left[i],right[i])
         return count</code></pre>
-<p>题解二：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
+<p>题解二|一个数组：</p>
+<p>时间复杂度：O(n) 。长度为 nn 数组 candiescandies 被遍历了 3 次。<br>空间复杂度：O(n)O 。数组 candiescandies 长度为 nn 。</p>
+<pre><code>class Solution:
+    def candy(self, ratings: List[int]) -&gt; int:
+        left=[1 for _ in range(len(ratings))]
+        for i in range(1,len(ratings)):
+            if ratings[i]&gt;ratings[i-1]:
+                left[i]=left[i-1]+1
+        count=left[-1]
+        for i in range(len(ratings)-2,-1,-1):
+            if ratings[i]&gt;ratings[i+1]:
+                left[i]=max(left[i],left[i+1]+1)
+            count+=left[i]
+        return count</code></pre>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/">https://leetcode-cn.com/problems/candy/solution/fen-fa-tang-guo-by-powcai/</a></p>
 <h3 id="316-去除重复字母"><a href="#316-去除重复字母" class="headerlink" title="316.去除重复字母"></a>316.去除重复字母</h3><pre><code>链接：https://leetcode-cn.com/problems/remove-duplicate-letters/
 
 给定一个仅包含小写字母的字符串，去除字符串中重复的字母，使得每个字母只出现一次。需保证返回结果的字典序最小（要求不能打乱其他字符的相对位置）。
@@ -539,7 +553,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
 <pre><code>字典序：对于字符而言，按 ascii 码值进行比较，小的排在前，大的排在后。对于字符串，从第 0 位字符开始比较，ascii 码数值小的排在前面，如果相同，就延后一位比较 ascii 码值大小。
 
 子序列：子序列不同于子串，子串要求它们在原串中连续，而子序列则不要求连续。例如acd是abcd的子序列，但不是子串。</code></pre>
-<p>?题解一（递归）：</p>
+<p>?题解一|递归：</p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         for i in sorted(set(s)):
@@ -547,7 +561,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
             if len(set(tmp)) == len(set(s)):
                 return i+self.removeDuplicateLetters(tmp.replace(i,&#39;&#39;))
         return &#39;&#39;</code></pre>
-<p>?题解二（迭代）：</p>
+<p>?题解二|迭代：</p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         res = &quot;&quot;
@@ -559,7 +573,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
             res += a
             s = s[s.index(a):].replace(a, &quot;&quot;)
         return res</code></pre>
-<p>题解三(栈):<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
+<p>题解三|栈:<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486367&amp;idx=2&amp;sn=b25c0701241325f644acda12599ec06a&amp;scene=21#wechat_redirect</a></p>
 <pre><code>class Solution:
     def removeDuplicateLetters(self, s: str) -&gt; str:
         from collections import Counter
@@ -574,6 +588,55 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
                 existed.add(i)
             count[i]-=1
         return &#39;&#39;.join(stack)</code></pre>
+<h3 id="330-按要求补齐数组"><a href="#330-按要求补齐数组" class="headerlink" title="330. 按要求补齐数组"></a>330. 按要求补齐数组</h3><pre><code>链接：https://leetcode-cn.com/problems/patching-array/
+
+给定一个已排序的正整数数组 nums，和一个正整数 n 。从 [1, n] 区间内选取任意个数字补充到 nums 中，使得 [1, n] 区间内的任何数字都可以用 nums 中某几个数字的和来表示。请输出满足上述要求的最少需要补充的数字个数。
+
+示例 1:
+
+输入: nums = [1,3], n = 6
+输出: 1 
+解释:
+根据 nums 里现有的组合 [1], [3], [1,3]，可以得出 1, 3, 4。
+现在如果我们将 2 添加到 nums 中， 组合变为: [1], [2], [3], [1,3], [2,3], [1,2,3]。
+其和可以表示数字 1, 2, 3, 4, 5, 6，能够覆盖 [1, 6] 区间里所有的数。
+所以我们最少需要添加一个数字。
+示例 2:
+
+输入: nums = [1,5,10], n = 20
+输出: 2
+解释: 我们需要添加 [2, 4]。
+示例 3:
+
+输入: nums = [1,2,2], n = 5
+输出: 0</code></pre>
+<p>题解一|贪心：</p>
+<p>补齐数组特点：</p>
+<pre><code>假设数组 arr 添加一个元素即可覆盖 [1, n) 内所有数字，那么添加的数字 mm 一定满足m &lt;= n。
+假设数组 arr 可以覆盖 [1, n) 的所有数字，则给 arr 内加元素 mm ：
+
+    若m &lt;= n，新数组可以覆盖[1, m + n) = [1, n) ∪ [m, m + n)内所有数字；</code></pre>
+<p>贪心法则：<br>对于一个覆盖 [1, n)[1,n) 的数组 arrarr 来说，添加数字 nn 连续扩容范围最大（扩容至 [1, 2n)[1,2n) ）。</p>
+<p>思路： 设置一个初始范围 [1, 1)，通过不断确认并扩大数组可以覆盖的范围，最终计算出最少需要加入的数字。</p>
+<pre><code>当i &lt; len(nums)且nums[i] &lt;= add时：不需要加入新数字，循环确认并更新数组可以覆盖的范围[1, add + nums[i])，直到找到大于确认范围 add 的 nums[i] 或索引越界。
+否则：无法根据现有数字构建更大的连续范围，，因此需要使用贪心策略向数组加入数字 add，将数组从覆盖 [1, add) 扩容至可覆盖 [1, 2add)。
+直到确认的范围add &gt; n，说明此时已经覆盖 [1, n] ，退出迭代并返回。</code></pre>
+<pre><code>class Solution(object):
+    def minPatches(self, nums, n):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        add,count,i=1,0,0
+        while add &lt;= n:
+            if i&lt;len(nums) and nums[i]&lt;=add:
+                add+=nums[i] # from [1, add] to [1, add + nums[i]]
+                i+=1
+            else:
+                add+=add # from [1, add] to [1, 2add]
+                count+=1
+        return count</code></pre>
 <h3 id="435-无重叠区间"><a href="#435-无重叠区间" class="headerlink" title="435.无重叠区间"></a>435.无重叠区间</h3><pre><code>链接:https://leetcode-cn.com/problems/non-overlapping-intervals/
 
 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
@@ -608,7 +671,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
     n=len(intervals)
     return n - intervalSchedule(intervals);
 &#125;</code></pre>
-<p>题解一（贪心）:</p>
+<p>题解一|贪心:</p>
 <pre><code>先计算能组成不重叠最多区间个数： 
 （1）按区间结尾排序
 （2）每次选择结尾最小，且与前一个区间不重叠</code></pre>
@@ -2383,7 +2446,7 @@ S 仅由数字和字母组成。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-09 20:52:05" itemprop="dateModified" datetime="2020-11-09T20:52:05+08:00">2020-11-09</time>
+                <time title="Modified: 2020-11-26 00:27:36" itemprop="dateModified" datetime="2020-11-26T00:27:36+08:00">2020-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3917,6 +3980,33 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
         return res</code></pre>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
+<p>题解三|贪心|二分查找：</p>
+<p>时间复杂度：O(nlogn)。数组 nums 的长度为 n，我们依次用数组中的元素去更新 dp 数组，而更新 do 数组时需要进行 O(logn) 的二分搜索，所以总时间复杂度为 O(nlogn)。</p>
+<p>空间复杂度：O(n)</p>
+<pre><code>class Solution(object):
+    def lengthOfLIS(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        if not nums:
+            return 0
+        dp=[]
+        for num in nums:
+            if not dp or num&gt;dp[-1]:
+                dp.append(num)
+            else:
+                left,right=0,len(dp)-1
+                loc=right
+                while left &lt;= right:
+                    mid=left+(right-left)//2
+                    if dp[mid] &gt;= num:
+                        loc=mid
+                        right=mid-1
+                    else:
+                        left=mid+1
+                dp[loc]=num
+        return len(dp)</code></pre>
 <h3 id="303-区域和检索-数组不可变"><a href="#303-区域和检索-数组不可变" class="headerlink" title="303. 区域和检索 - 数组不可变"></a>303. 区域和检索 - 数组不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-immutable/
 
 给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
@@ -7373,7 +7463,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-04 15:51:20" itemprop="dateModified" datetime="2020-11-04T15:51:20+08:00">2020-11-04</time>
+                <time title="Modified: 2020-11-26 15:57:50" itemprop="dateModified" datetime="2020-11-26T15:57:50+08:00">2020-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -9072,6 +9162,12 @@ class Solution:
 输出: 42</code></pre>
 <p>??题解一|递归：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/</a></p>
+<p>关键就是区分：</p>
+<ol>
+<li>当前节点最大路径和计算：以当前节点为起点的所有路径和</li>
+<li>当前节点对上一层的贡献：只能选择当前节点的最大的一条路径作为贡献，因为路径节点不可重复</li>
+</ol>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -9960,6 +10056,148 @@ class Solution:
                 path.pop()
         helper(root,[])
         return res</code></pre>
+<h3 id="297-二叉树的序列化与反序列化"><a href="#297-二叉树的序列化与反序列化" class="headerlink" title="297. 二叉树的序列化与反序列化"></a>297. 二叉树的序列化与反序列化</h3><pre><code>链接：https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
+
+序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
+
+请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+
+示例: 
+
+你可以将以下二叉树：
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+
+序列化为 &quot;[1,2,3,null,null,4,5]&quot;
+提示: 这与 LeetCode 目前使用的方式一致，详情请参阅 LeetCode 序列化二叉树的格式。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。
+
+说明: 不要使用类的成员 / 全局 / 静态变量来存储状态，你的序列化和反序列化算法应该是无状态的。</code></pre>
+<p>题解一|DFS：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return &#39;X,&#39;
+        res=&#39;&#39;
+        if root:
+            res+=str(root.val)+&#39;,&#39;
+            res+=self.serialize(root.left)
+            res+=self.serialize(root.right)
+            return res
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return &#39;X,&#39;
+        left=self.serialize(root.left)
+        right=self.serialize(root.right)
+        return str(root.val)+&#39;,&#39;+left+right
+
+    def deserialize(self, data):
+        &quot;&quot;&quot;Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        &quot;&quot;&quot;
+        data=data.split(&#39;,&#39;)
+        root=self.buildTree(data)
+        return root
+
+    def buildTree(self,data):
+        val=data.pop(0)
+        if val==&#39;X&#39;:
+            return None
+        node=TreeNode(val)
+        node.left=self.buildTree(data)
+        node.right=self.buildTree(data)
+        return node
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))</code></pre>
+<p>题解二|BFS：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+from collections import deque
+class Codec:
+
+    def serialize(self, root):
+        &quot;&quot;&quot;Encodes a tree to a single string.
+
+        :type root: TreeNode
+        :rtype: str
+        &quot;&quot;&quot;
+        if not root:
+            return
+        q=deque()
+        q.append(root)
+        res=&#39;&#39;
+        while q:
+            node=q.popleft()
+            if node:
+                res+=str(node.val)+&#39;,&#39;
+                q.append(node.left)
+                q.append(node.right)
+            else:
+                res+=&#39;X,&#39;
+        return res
+
+
+    def deserialize(self, data):
+        &quot;&quot;&quot;Decodes your encoded data to tree.
+
+        :type data: str
+        :rtype: TreeNode
+        &quot;&quot;&quot;
+        if not data:
+            return
+        data=data.split(&#39;,&#39;)
+        root=TreeNode(data.pop(0))
+        q=[root]
+        while q:
+            node=q.pop(0)
+            if data:
+                val=data.pop(0)
+                if val != &#39;X&#39;:
+                    node.left=TreeNode(val)
+                    q.append(node.left)
+            if data:
+                val=data.pop(0)
+                if val != &#39;X&#39;:
+                    node.right=TreeNode(val)
+                    q.append(node.right)
+        return root
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))</code></pre>
 <h3 id="404-左叶子之和"><a href="#404-左叶子之和" class="headerlink" title="404. 左叶子之和"></a>404. 左叶子之和</h3><pre><code>链接：https://leetcode-cn.com/problems/sum-of-left-leaves/
 
 计算给定二叉树的所有左叶子之和。
@@ -10841,6 +11079,58 @@ class Solution:
                     queue.append(node.right)
             res.append(sum(tmp)/len(tmp))
         return res</code></pre>
+<h3 id="671-二叉树中第二小的节点"><a href="#671-二叉树中第二小的节点" class="headerlink" title="671. 二叉树中第二小的节点"></a>671. 二叉树中第二小的节点</h3><pre><code>链接：https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/
+
+给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
+
+更正式地说，root.val = min(root.left.val, root.right.val) 总成立。
+
+给出这样的一个二叉树，你需要输出所有节点中的第二小的值。如果第二小的值不存在的话，输出 -1 。
+
+示例 1：
+
+输入：root = [2,2,5,null,null,5,7]
+输出：5
+解释：最小的值是 2 ，第二小的值是 5 。
+示例 2：
+
+输入：root = [2,2,2]
+输出：-1
+解释：最小的值是 2, 但是不存在第二小的值。
+
+提示：
+
+树中节点数目在范围 [1, 25] 内
+1 &lt;= Node.val &lt;= 231 - 1
+对于树中每个节点 root.val == min(root.left.val, root.right.val)</code></pre>
+<p>题解一：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        &quot;&quot;&quot;
+        :type root: TreeNode
+        :rtype: int
+        &quot;&quot;&quot;
+        def helper(root,value):
+            if not root:
+                return -1
+            if root.val &gt; value:
+                return root.val
+            l=helper(root.left,value)
+            r=helper(root.right,value)
+            if l==-1:
+                return r
+            if r==-1:
+                return l
+            return min(l,r)
+        if not root:
+            return -1
+        return helper(root,root.val)</code></pre>
 
       
     </div>
@@ -10891,7 +11181,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 21:39:58" itemprop="dateModified" datetime="2020-11-16T21:39:58+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-25 11:00:04" itemprop="dateModified" datetime="2020-11-25T11:00:04+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -11495,7 +11785,8 @@ class Solution:
 <p>第二个指针 j ：每遇到新的不同数字时，执行 j += 1 ， j 指针有两个作用：</p>
 <pre><code>记录数组中不同数字的数量；
 作为修改数组元素的索引index。</code></pre>
-<p>最终，返回 k+1 即可。<br>时间复杂度O(n),空间复杂福O(1)。</p>
+<p>最终，返回 k+1 即可。</p>
+<p>时间复杂度O(n),空间复杂福O(1)。</p>
 <pre><code>class Solution:
     def removeDuplicates(self, nums: List[int]) -&gt; int:
         if not nums:

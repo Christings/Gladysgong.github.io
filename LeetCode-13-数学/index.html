@@ -29,7 +29,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/newton.png">
 <meta property="article:published_time" content="2020-03-29T12:12:16.000Z">
-<meta property="article:modified_time" content="2020-11-16T12:06:29.632Z">
+<meta property="article:modified_time" content="2020-11-25T07:30:07.144Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 20:06:29" itemprop="dateModified" datetime="2020-11-16T20:06:29+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-25 15:30:07" itemprop="dateModified" datetime="2020-11-25T15:30:07+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -446,6 +446,61 @@ class Solution:
             cur=(cur+x/cur)/2
             if abs(cur-pre)&lt; 1e-6:
                 return int(cur)</code></pre>
+<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><pre><code>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,1]
+输出: 1
+示例 2:
+
+输入: [4,1,2,1,2]
+输出: 4</code></pre>
+<p>题解一|位运算：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return reduce(lambda x,y:x^y,nums)</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        res=0
+        for i in nums:
+            res^=i
+        return res</code></pre>
+<pre><code>class Solution(object):
+    def singleNumber(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: int
+        &quot;&quot;&quot;
+        ans=nums[0]
+        for i in range(1,len(nums)):
+            ans^=nums[i]
+        return ans</code></pre>
+<p>题解二|hash:</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=[]
+        for i in nums:
+            if i not in temp:
+                temp.append(i)
+            else:
+                temp.remove(i)
+        return temp[0]</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        temp=&#123;&#125;
+        for i in nums:
+            if i not in temp:
+                temp[i]=1
+            else:
+                temp[i]+=1
+        for k,v in temp.items():
+            if v==1:
+                return k</code></pre>
 <h3 id="166-分数到小数"><a href="#166-分数到小数" class="headerlink" title="166. 分数到小数"></a>166. 分数到小数</h3><pre><code>链接：https://leetcode-cn.com/problems/fraction-to-recurring-decimal/
 
 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。
@@ -1017,7 +1072,7 @@ n = 15,
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%95%B0%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">十三、数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4"><span class="nav-number">1.1.</span> <span class="nav-text">29.两数相除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#50-Pow-x-n"><span class="nav-number">1.2.</span> <span class="nav-text">50. Pow(x, n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#69-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9"><span class="nav-number">1.3.</span> <span class="nav-text">69.x的平方根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#166-%E5%88%86%E6%95%B0%E5%88%B0%E5%B0%8F%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">166. 分数到小数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#171-Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7"><span class="nav-number">1.5.</span> <span class="nav-text">171.Excel表列序号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#172-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6"><span class="nav-number">1.6.</span> <span class="nav-text">172. 阶乘后的零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#202-%E5%BF%AB%E4%B9%90%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">202. 快乐数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">204. 计数质数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#326-3%E7%9A%84%E5%B9%82"><span class="nav-number">1.9.</span> <span class="nav-text">326. 3的幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#412-Fizz-Buzz"><span class="nav-number">1.10.</span> <span class="nav-text">412. Fizz Buzz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1447-%E6%9C%80%E7%AE%80%E5%88%86%E6%95%B0"><span class="nav-number">1.11.</span> <span class="nav-text">1447. 最简分数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%95%B0%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">十三、数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#29-%E4%B8%A4%E6%95%B0%E7%9B%B8%E9%99%A4"><span class="nav-number">1.1.</span> <span class="nav-text">29.两数相除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#50-Pow-x-n"><span class="nav-number">1.2.</span> <span class="nav-text">50. Pow(x, n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#69-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9"><span class="nav-number">1.3.</span> <span class="nav-text">69.x的平方根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">136. 只出现一次的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#166-%E5%88%86%E6%95%B0%E5%88%B0%E5%B0%8F%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">166. 分数到小数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#171-Excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7"><span class="nav-number">1.6.</span> <span class="nav-text">171.Excel表列序号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#172-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6"><span class="nav-number">1.7.</span> <span class="nav-text">172. 阶乘后的零</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#202-%E5%BF%AB%E4%B9%90%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">202. 快乐数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">204. 计数质数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#326-3%E7%9A%84%E5%B9%82"><span class="nav-number">1.10.</span> <span class="nav-text">326. 3的幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#412-Fizz-Buzz"><span class="nav-number">1.11.</span> <span class="nav-text">412. Fizz Buzz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1447-%E6%9C%80%E7%AE%80%E5%88%86%E6%95%B0"><span class="nav-number">1.12.</span> <span class="nav-text">1447. 最简分数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
