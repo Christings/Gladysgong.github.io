@@ -1083,7 +1083,7 @@ nums 中的所有数字都 独一无二</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-27 15:23:43" itemprop="dateModified" datetime="2020-11-27T15:23:43+08:00">2020-11-27</time>
+                <time title="Modified: 2020-11-30 14:43:58" itemprop="dateModified" datetime="2020-11-30T14:43:58+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1434,6 +1434,71 @@ class Solution:
             else:
                 left=mid+1
         return left</code></pre>
+<h3 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a>215. 数组中的第K个最大元素</h3><pre><code>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+
+示例 1:
+
+输入: [3,2,1,5,6,4] 和 k = 2
+输出: 5
+示例 2:
+
+输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+输出: 4
+说明:
+
+你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</code></pre>
+<p>题解一|小顶堆：</p>
+<pre><code>class Solution(object):
+    def __init__(self):
+        self.heapList = [0]
+        self.currentSize = 0
+
+    def findKthLargest(self, nums, k):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        &quot;&quot;&quot;
+        self.buildHeap(nums[:k])
+        # print(self.heapList)
+        for i in range(k,len(nums)):
+            if nums[i]&gt;self.heapList[1]:
+                self.heapList[1]=nums[i]
+                self.percDown(1)
+        return self.heapList[1]
+    def percDown(self,i):
+        while (i * 2) &lt;= self.currentSize:
+            mc = self.minChild(i)
+            if self.heapList[i] &gt; self.heapList[mc]:
+                tmp = self.heapList[i]
+                self.heapList[i] = self.heapList[mc]
+                self.heapList[mc] = tmp
+            i = mc
+
+    def minChild(self,i):
+        if i * 2 + 1 &gt; self.currentSize:
+            return i * 2
+        else:
+            if self.heapList[i*2] &lt; self.heapList[i*2+1]:
+                return i * 2
+            else:
+                return i * 2 + 1
+
+    def delMin(self):
+        retval = self.heapList[1]
+        self.heapList[1] = self.heapList[self.currentSize]
+        self.currentSize = self.currentSize - 1
+        self.heapList.pop()
+        self.percDown(1)
+        return retval
+
+    def buildHeap(self,alist):
+        i = len(alist) // 2
+        self.currentSize = len(alist)
+        self.heapList = [0] + alist[:]
+        while (i &gt; 0):
+            self.percDown(i)
+            i = i - 1</code></pre>
 <h3 id="240-搜索二维矩阵-II"><a href="#240-搜索二维矩阵-II" class="headerlink" title="240. 搜索二维矩阵 II"></a>240. 搜索二维矩阵 II</h3><pre><code>链接：https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
 
 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
@@ -2089,7 +2154,7 @@ CREATE TABLE &quot;django_migrations&quot; (&quot;id&quot; integer NOT NULL PRIM
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-27 19:55:13" itemprop="dateModified" datetime="2020-11-27T19:55:13+08:00">2020-11-27</time>
+                <time title="Modified: 2020-11-30 13:26:52" itemprop="dateModified" datetime="2020-11-30T13:26:52+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2221,6 +2286,18 @@ def quickSort(lists, left, right):
 lists = [59, 3, 6, 3, 46]
 print(quickSort(x, 0, 4))</code></pre>
 <p>`</p>
+<h2 id="五、海量数据TopK问题"><a href="#五、海量数据TopK问题" class="headerlink" title="五、海量数据TopK问题"></a>五、海量数据TopK问题</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.codenong.com/cs105636770/">https://www.codenong.com/cs105636770/</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/heap-sort.html">https://www.runoob.com/w3cnote/heap-sort.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yezigege/p/13386408.html">https://www.cnblogs.com/yezigege/p/13386408.html</a><br><a target="_blank" rel="noopener" href="https://github.com/ShaoQiBNU/Topk">https://github.com/ShaoQiBNU/Topk</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/eudiwffe/p/6202111.html">https://www.cnblogs.com/eudiwffe/p/6202111.html</a></p>
+</blockquote>
+<p>TopK问题：在海量的数据中找出前k个最大值或者最小值。</p>
+<p>假设我们对所有的数据进行排序，时间复杂度（快速排序）：O(nlogn)。如果这是数亿个数据，那这样的方法也就不那么高效了</p>
+<p>大根堆的堆顶是堆中的最大元素；而小根堆的堆顶是堆中的最小元素。</p>
+<h3 id="1、小根堆"><a href="#1、小根堆" class="headerlink" title="1、小根堆"></a>1、小根堆</h3><p>利用堆来解决TopK问题（以最大的k个举例）：</p>
+<p>我们可以建立一个大小为K小根堆，然后从第k个元素开始遍历，如果大于小根堆的堆顶，那么就交换两个元素，交换一次调整一次，直到所有数据遍历结束，堆中的元素就是海量数据中最大的k个。</p>
+<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀</p>
+<p>答：我们的目的是小根堆中保存所有数据中最大的k个，正因为小根堆的堆顶是最小的值，当我们遍历剩余的数据时，只有大于我们这个堆中的最小值，才有资格放进来，这样当遍历结束后堆中的元素就是最大的k个；</p>
+<p>为什么建立大小为k呢？</p>
+<p>答：因为我们只是想要找出海量数据中最大或最小的k个，所以只需要大小为k；</p>
 
       
     </div>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="33. 搜索旋转排序数组链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;search-in-rotated-sorted-array&#x2F;  给你一个整数数组 nums ，和一个整数 target 。  该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。  请你在数组中">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-29T13:34:51.000Z">
-<meta property="article:modified_time" content="2020-11-27T07:23:43.882Z">
+<meta property="article:modified_time" content="2020-11-30T06:43:58.024Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-27 15:23:43" itemprop="dateModified" datetime="2020-11-27T15:23:43+08:00">2020-11-27</time>
+                <time title="Modified: 2020-11-30 14:43:58" itemprop="dateModified" datetime="2020-11-30T14:43:58+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -543,6 +543,71 @@ class Solution:
             else:
                 left=mid+1
         return left</code></pre>
+<h3 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a>215. 数组中的第K个最大元素</h3><pre><code>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+
+示例 1:
+
+输入: [3,2,1,5,6,4] 和 k = 2
+输出: 5
+示例 2:
+
+输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+输出: 4
+说明:
+
+你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</code></pre>
+<p>题解一|小顶堆：</p>
+<pre><code>class Solution(object):
+    def __init__(self):
+        self.heapList = [0]
+        self.currentSize = 0
+
+    def findKthLargest(self, nums, k):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        &quot;&quot;&quot;
+        self.buildHeap(nums[:k])
+        # print(self.heapList)
+        for i in range(k,len(nums)):
+            if nums[i]&gt;self.heapList[1]:
+                self.heapList[1]=nums[i]
+                self.percDown(1)
+        return self.heapList[1]
+    def percDown(self,i):
+        while (i * 2) &lt;= self.currentSize:
+            mc = self.minChild(i)
+            if self.heapList[i] &gt; self.heapList[mc]:
+                tmp = self.heapList[i]
+                self.heapList[i] = self.heapList[mc]
+                self.heapList[mc] = tmp
+            i = mc
+
+    def minChild(self,i):
+        if i * 2 + 1 &gt; self.currentSize:
+            return i * 2
+        else:
+            if self.heapList[i*2] &lt; self.heapList[i*2+1]:
+                return i * 2
+            else:
+                return i * 2 + 1
+
+    def delMin(self):
+        retval = self.heapList[1]
+        self.heapList[1] = self.heapList[self.currentSize]
+        self.currentSize = self.currentSize - 1
+        self.heapList.pop()
+        self.percDown(1)
+        return retval
+
+    def buildHeap(self,alist):
+        i = len(alist) // 2
+        self.currentSize = len(alist)
+        self.heapList = [0] + alist[:]
+        while (i &gt; 0):
+            self.percDown(i)
+            i = i - 1</code></pre>
 <h3 id="240-搜索二维矩阵-II"><a href="#240-搜索二维矩阵-II" class="headerlink" title="240. 搜索二维矩阵 II"></a>240. 搜索二维矩阵 II</h3><pre><code>链接：https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
 
 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
@@ -706,7 +771,7 @@ n == matrix[i].length
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">162. 寻找峰值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="nav-number">6.</span> <span class="nav-text">240. 搜索二维矩阵 II</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">162. 寻找峰值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">215. 数组中的第K个最大元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="nav-number">7.</span> <span class="nav-text">240. 搜索二维矩阵 II</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

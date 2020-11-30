@@ -771,7 +771,7 @@ torchvison:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 11:04:19" itemprop="dateModified" datetime="2020-11-16T11:04:19+08:00">2020-11-16</time>
+                <time title="Modified: 2020-11-30 14:44:12" itemprop="dateModified" datetime="2020-11-30T14:44:12+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -824,6 +824,7 @@ buildHeap(list) 从键列表构建一个新的堆。</code></pre>
             tmp=self.heapList[i//2]
             self.heapList[i//2]=self.heapList[i]
             self.heapList[i]=tmp
+            # self.heapList[i//2],self.heapList[i]=self.heapList[i],self.heapList[i//2]
         i=i//2
 
 def insert(self,k):
@@ -868,7 +869,7 @@ def delMin(self):
     self.heapList.pop()
     self.percDown(1)
     return retval</code></pre>
-<p>为了完成我们对二叉堆的讨论，我们将看从一个列表构建整个堆的方法.如图，给定一个列表，通过一次插入一个键轻松地构建一个堆。由于你从一个项的列表开始，该列表是有序的，可以使用二分查找找到正确的位置，以大约 O(logn)O(logn) 操作的成本插入下一个键。 但是，请记住，在列表中间插入项可能需要 O(n)O(n) 操作来移动列表的其余部分，为新项腾出空间。 因此，要在堆中插入 n 个键，将需要总共 O(nlogn)O(nlogn) 操作。 然而，如果我们从整个列表开始，那么我们可以在 O(n)O(n) 操作中构建整个堆。Listing 6 展示了构建整个堆的代码。</p>
+<p>为了完成我们对二叉堆的讨论，我们将看从一个列表构建整个堆的方法.如图，给定一个列表，通过一次插入一个键轻松地构建一个堆。由于你从一个项的列表开始，该列表是有序的，可以使用二分查找找到正确的位置，以大约 O(logn) 操作的成本插入下一个键。 但是，请记住，在列表中间插入项可能需要 O(n) 操作来移动列表的其余部分，为新项腾出空间。 因此，要在堆中插入 n 个键，将需要总共 O(nlogn) 操作。 然而，如果我们从整个列表开始，那么我们可以在 O(n) 操作中构建整个堆。Listing 6 展示了构建整个堆的代码。</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/heap5.png"></p>
 <p>buildHeap 方法在 [9,6,5,2,3] 的初始树中的节点移动到其正确位置时所做的交换。虽然我们从树的中间开始，并以我们的方式回到根节点，percDown 方法确保最大的子节点总是沿着树向下移动。因为堆是一个完整的二叉树，超过中途点的任何节点都将是树叶，因此没有子节点。注意，当i = 1 时，我们从树的根节点向下交换，因此可能需要多次交换。正如你在上图最右边的两个树中可以看到的，首先 9 从根位置移出，但是 9 在树中向下移动一级之后，percDown 检查下一组子树，以确保它被推到下一层。在这种情况下，它与 3 进行第二次交换。现在 9 已经移动到树的最低层，不能进行进一步交换。将上图所示的这一系列交换的列表与树进行比较是有用的。</p>
 <pre><code>def buildHeap(self, alist):
@@ -887,9 +888,7 @@ def delMin(self):
     def percUp(self,i):
         while i // 2 &gt; 0:
           if self.heapList[i] &lt; self.heapList[i // 2]:
-             tmp = self.heapList[i // 2]
-             self.heapList[i // 2] = self.heapList[i]
-             self.heapList[i] = tmp
+             self.heapList[i // 2],self.heapList[i]=self.heapList[i],self.heapList[i // 2]
           i = i // 2
 
     def insert(self,k):
@@ -901,9 +900,7 @@ def delMin(self):
       while (i * 2) &lt;= self.currentSize:
           mc = self.minChild(i)
           if self.heapList[i] &gt; self.heapList[mc]:
-              tmp = self.heapList[i]
-              self.heapList[i] = self.heapList[mc]
-              self.heapList[mc] = tmp
+              self.heapList[i],self.heapList[mc] = self.heapList[mc],self.heapList[i]
           i = mc
 
     def minChild(self,i):
@@ -948,9 +945,7 @@ print(bh.delMin())</code></pre>
     def percUp(self, i):
         while i // 2 &gt; 0:
             if self.heapList[i] &gt; self.heapList[i // 2]:
-                tmp = self.heapList[i // 2]
-                self.heapList[i // 2] = self.heapList[i]
-                self.heapList[i] = tmp
+                self.heapList[i],self.heapList[i // 2]=self.heapList[i // 2],self.heapList[i]
             i = i // 2
 
     def insert(self, k):
@@ -962,9 +957,7 @@ print(bh.delMin())</code></pre>
         while (i * 2) &lt;= self.currentSize:
             mc = self.maxChild(i)
             if self.heapList[i] &lt; self.heapList[mc]:
-                tmp = self.heapList[i]
-                self.heapList[i] = self.heapList[mc]
-                self.heapList[mc] = tmp
+                self.heapList[i],self.heapList[mc]=self.heapList[mc],self.heapList[i]
             i = mc
 
     def maxChild(self, i):
@@ -979,7 +972,7 @@ print(bh.delMin())</code></pre>
     def delMax(self):
         retval = self.heapList[1]
         self.heapList[1] = self.heapList[self.currentSize]
-        self.currentSize = self.currentSize - 1
+        self.currentSize -= 1
         self.heapList.pop()
         self.percDown(1)
         return retval
