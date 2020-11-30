@@ -29,7 +29,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg">
 <meta property="article:published_time" content="2020-08-27T05:04:49.000Z">
-<meta property="article:modified_time" content="2020-11-30T05:26:52.113Z">
+<meta property="article:modified_time" content="2020-11-30T08:19:19.999Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-30 13:26:52" itemprop="dateModified" datetime="2020-11-30T13:26:52+08:00">2020-11-30</time>
+                <time title="Modified: 2020-11-30 16:19:19" itemprop="dateModified" datetime="2020-11-30T16:19:19+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -334,7 +334,7 @@ print(quickSort(x, 0, 4))</code></pre>
 <p>大根堆的堆顶是堆中的最大元素；而小根堆的堆顶是堆中的最小元素。</p>
 <h3 id="1、小根堆"><a href="#1、小根堆" class="headerlink" title="1、小根堆"></a>1、小根堆</h3><p>利用堆来解决TopK问题（以最大的k个举例）：</p>
 <p>我们可以建立一个大小为K小根堆，然后从第k个元素开始遍历，如果大于小根堆的堆顶，那么就交换两个元素，交换一次调整一次，直到所有数据遍历结束，堆中的元素就是海量数据中最大的k个。</p>
-<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀</p>
+<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀？</p>
 <p>答：我们的目的是小根堆中保存所有数据中最大的k个，正因为小根堆的堆顶是最小的值，当我们遍历剩余的数据时，只有大于我们这个堆中的最小值，才有资格放进来，这样当遍历结束后堆中的元素就是最大的k个；</p>
 <p>为什么建立大小为k呢？</p>
 <p>答：因为我们只是想要找出海量数据中最大或最小的k个，所以只需要大小为k；</p>

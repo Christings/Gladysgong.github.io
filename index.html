@@ -1083,7 +1083,7 @@ nums 中的所有数字都 独一无二</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-30 14:43:58" itemprop="dateModified" datetime="2020-11-30T14:43:58+08:00">2020-11-30</time>
+                <time title="Modified: 2020-11-30 19:10:28" itemprop="dateModified" datetime="2020-11-30T19:10:28+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1397,43 +1397,6 @@ nums 肯定会在某个点上旋转
                 left=mid+1
         return left
 </code></pre>
-<h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
-
-你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
-
-假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个错误的版本。
-
-你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
-
-示例:
-
-给定 n = 5，并且 version = 4 是第一个错误的版本。
-
-调用 isBadVersion(3) -&gt; false
-调用 isBadVersion(5) -&gt; true
-调用 isBadVersion(4) -&gt; true
-
-所以，4 是第一个错误的版本。 </code></pre>
-<p>题解一|二分查找：</p>
-<pre><code># The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return an integer
-# def isBadVersion(version):
-
-class Solution:
-    def firstBadVersion(self, n):
-        &quot;&quot;&quot;
-        :type n: int
-        :rtype: int
-        &quot;&quot;&quot;
-        left,right=1,n
-        while left&lt;=right: # 注意是小于等于
-            mid=left+(right-left)//2
-            if isBadVersion(mid):
-                right=mid-1
-            else:
-                left=mid+1
-        return left</code></pre>
 <h3 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a>215. 数组中的第K个最大元素</h3><pre><code>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
 
 示例 1:
@@ -1473,6 +1436,7 @@ class Solution:
                 tmp = self.heapList[i]
                 self.heapList[i] = self.heapList[mc]
                 self.heapList[mc] = tmp
+                # self.heapList[i],self.heapList[mc]=self.heapList[mc],self.heapList[i]
             i = mc
 
     def minChild(self,i):
@@ -1579,6 +1543,109 @@ n == matrix[i].length
             elif matrix[left][right]==target:
                 return True
         return False</code></pre>
+<h3 id="278-第一个错误的版本"><a href="#278-第一个错误的版本" class="headerlink" title="278. 第一个错误的版本"></a>278. 第一个错误的版本</h3><pre><code>链接：https://leetcode-cn.com/problems/first-bad-version/
+
+你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
+
+假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个错误的版本。
+
+你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
+
+示例:
+
+给定 n = 5，并且 version = 4 是第一个错误的版本。
+
+调用 isBadVersion(3) -&gt; false
+调用 isBadVersion(5) -&gt; true
+调用 isBadVersion(4) -&gt; true
+
+所以，4 是第一个错误的版本。 </code></pre>
+<p>题解一|二分查找：</p>
+<pre><code># The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return an integer
+# def isBadVersion(version):
+
+class Solution:
+    def firstBadVersion(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        left,right=1,n
+        while left&lt;=right: # 注意是小于等于
+            mid=left+(right-left)//2
+            if isBadVersion(mid):
+                right=mid-1
+            else:
+                left=mid+1
+        return left</code></pre>
+<h3 id="347-前-K-个高频元素"><a href="#347-前-K-个高频元素" class="headerlink" title="347. 前 K 个高频元素"></a>347. 前 K 个高频元素</h3><pre><code>链接：https://leetcode-cn.com/problems/top-k-frequent-elements/
+
+给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
+
+示例 1:
+
+输入: nums = [1,1,1,2,2,3], k = 2
+输出: [1,2]
+示例 2:
+
+输入: nums = [1], k = 1
+输出: [1]
+
+
+提示：
+
+你可以假设给定的 k 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。
+你的算法的时间复杂度必须优于 O(n log n) , n 是数组的大小。
+题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的。
+你可以按任意顺序返回答案。</code></pre>
+<p>题解一|小根堆：</p>
+<pre><code>import collections 
+class Solution(object):
+    def __init__(self):
+        self.size=0
+        self.heap=[(0,0)]
+
+    def topKFrequent(self, nums, k):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        hash=&#123;&#125;
+        for i in nums:
+            hash[i]=hash.get(i,0)+1
+        hashlist=[[key,value] for key,value in hash.items()]
+        self.buildHeap(hashlist[:k]) # 建立基于次数的小根堆
+        for i in range(k,len(hashlist)):
+            if self.heap[1][1]&lt;=hashlist[i][1]:
+                self.heap[1]=hashlist[i]
+                self.percDown(1)
+        return [self.heap[i][0] for i in range(1,k+1)]
+
+    def percDown(self,i):
+        while (i * 2) &lt;= self.size:
+            mc = self.minChild(i)
+            if self.heap[i][1] &gt; self.heap[mc][1]: # 注意，基于次数
+                self.heap[i],self.heap[mc]=self.heap[mc],self.heap[i]
+            i = mc
+
+    def minChild(self,i):
+        if i * 2 + 1 &gt; self.size:
+            return i * 2
+        else:
+            if self.heap[i*2][1] &lt; self.heap[i*2+1][1]: # 注意此处比较的是次数，而不是self.heap[i*2] &lt; self.heap[i*2+1]
+                return i * 2
+            else:
+                return i * 2 + 1
+    def buildHeap(self,arr):
+        i=len(arr)//2
+        self.size=len(arr)
+        self.heap=[(0,0)]+arr[:]
+        while i&gt;0:
+            self.percDown(i)
+            i-=1</code></pre>
 
       
     </div>
@@ -2154,7 +2221,7 @@ CREATE TABLE &quot;django_migrations&quot; (&quot;id&quot; integer NOT NULL PRIM
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-30 13:26:52" itemprop="dateModified" datetime="2020-11-30T13:26:52+08:00">2020-11-30</time>
+                <time title="Modified: 2020-11-30 16:19:19" itemprop="dateModified" datetime="2020-11-30T16:19:19+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2294,7 +2361,7 @@ print(quickSort(x, 0, 4))</code></pre>
 <p>大根堆的堆顶是堆中的最大元素；而小根堆的堆顶是堆中的最小元素。</p>
 <h3 id="1、小根堆"><a href="#1、小根堆" class="headerlink" title="1、小根堆"></a>1、小根堆</h3><p>利用堆来解决TopK问题（以最大的k个举例）：</p>
 <p>我们可以建立一个大小为K小根堆，然后从第k个元素开始遍历，如果大于小根堆的堆顶，那么就交换两个元素，交换一次调整一次，直到所有数据遍历结束，堆中的元素就是海量数据中最大的k个。</p>
-<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀</p>
+<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀？</p>
 <p>答：我们的目的是小根堆中保存所有数据中最大的k个，正因为小根堆的堆顶是最小的值，当我们遍历剩余的数据时，只有大于我们这个堆中的最小值，才有资格放进来，这样当遍历结束后堆中的元素就是最大的k个；</p>
 <p>为什么建立大小为k呢？</p>
 <p>答：因为我们只是想要找出海量数据中最大或最小的k个，所以只需要大小为k；</p>
