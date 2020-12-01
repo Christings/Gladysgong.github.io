@@ -29,7 +29,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/quickSort.jpg">
 <meta property="article:published_time" content="2020-08-27T05:04:49.000Z">
-<meta property="article:modified_time" content="2020-11-30T08:19:19.999Z">
+<meta property="article:modified_time" content="2020-12-01T16:04:34.122Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-30 16:19:19" itemprop="dateModified" datetime="2020-11-30T16:19:19+08:00">2020-11-30</time>
+                <time title="Modified: 2020-12-02 00:04:34" itemprop="dateModified" datetime="2020-12-02T00:04:34+08:00">2020-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -326,18 +326,29 @@ def quickSort(lists, left, right):
 lists = [59, 3, 6, 3, 46]
 print(quickSort(x, 0, 4))</code></pre>
 <p>`</p>
-<h2 id="五、海量数据TopK问题"><a href="#五、海量数据TopK问题" class="headerlink" title="五、海量数据TopK问题"></a>五、海量数据TopK问题</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.codenong.com/cs105636770/">https://www.codenong.com/cs105636770/</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/heap-sort.html">https://www.runoob.com/w3cnote/heap-sort.html</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yezigege/p/13386408.html">https://www.cnblogs.com/yezigege/p/13386408.html</a><br><a target="_blank" rel="noopener" href="https://github.com/ShaoQiBNU/Topk">https://github.com/ShaoQiBNU/Topk</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/eudiwffe/p/6202111.html">https://www.cnblogs.com/eudiwffe/p/6202111.html</a></p>
-</blockquote>
-<p>TopK问题：在海量的数据中找出前k个最大值或者最小值。</p>
-<p>假设我们对所有的数据进行排序，时间复杂度（快速排序）：O(nlogn)。如果这是数亿个数据，那这样的方法也就不那么高效了</p>
-<p>大根堆的堆顶是堆中的最大元素；而小根堆的堆顶是堆中的最小元素。</p>
-<h3 id="1、小根堆"><a href="#1、小根堆" class="headerlink" title="1、小根堆"></a>1、小根堆</h3><p>利用堆来解决TopK问题（以最大的k个举例）：</p>
-<p>我们可以建立一个大小为K小根堆，然后从第k个元素开始遍历，如果大于小根堆的堆顶，那么就交换两个元素，交换一次调整一次，直到所有数据遍历结束，堆中的元素就是海量数据中最大的k个。</p>
-<p>为什么是小根堆，而不是大根堆呢？大根堆的堆顶是堆中的最大值呀？</p>
-<p>答：我们的目的是小根堆中保存所有数据中最大的k个，正因为小根堆的堆顶是最小的值，当我们遍历剩余的数据时，只有大于我们这个堆中的最小值，才有资格放进来，这样当遍历结束后堆中的元素就是最大的k个；</p>
-<p>为什么建立大小为k呢？</p>
-<p>答：因为我们只是想要找出海量数据中最大或最小的k个，所以只需要大小为k；</p>
+<pre><code>def partition(arr, low, high):
+    i = low-1
+    pivot = arr[high]
+    for j in range(low,high):
+        if arr[j] &lt;= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i+1], arr[high] = arr[high], arr[i+1]
+    return i+1
+
+
+def quickSort(arr, low, high):
+    if low&lt;high:
+        pi = partition(arr, low, high)
+        quickSort(arr, low, pi-1)
+        quickSort(arr, pi+1, high)
+    return arr
+
+
+arr = [10, 7, 8, 9, 1, 5] 
+n = len(arr) 
+print(quickSort(arr,0,len(arr)-1))
+</code></pre>
 
     </div>
 
@@ -421,7 +432,7 @@ print(quickSort(x, 0, 4))</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">一、冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">二、用Python实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">二、选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-1"><span class="nav-number">2.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">二、用Python实现选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">三、插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-2"><span class="nav-number">3.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.</span> <span class="nav-text">二、步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">二、用Python实现插入排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">四、快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-3"><span class="nav-number">4.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">4.2.</span> <span class="nav-text">二、用Python实现快速排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AETopK%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">五、海量数据TopK问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%B0%8F%E6%A0%B9%E5%A0%86"><span class="nav-number">5.1.</span> <span class="nav-text">1、小根堆</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">一、冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">二、用Python实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">二、选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-1"><span class="nav-number">2.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">二、用Python实现选择排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">三、插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-2"><span class="nav-number">3.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.2.</span> <span class="nav-text">二、步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">二、用Python实现插入排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">四、快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E6%83%B3-3"><span class="nav-number">4.1.</span> <span class="nav-text">一、思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%94%A8Python%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">4.2.</span> <span class="nav-text">二、用Python实现快速排序</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

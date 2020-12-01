@@ -28,7 +28,7 @@
 <meta property="og:description" content="33. 搜索旋转排序数组链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;search-in-rotated-sorted-array&#x2F;  给你一个整数数组 nums ，和一个整数 target 。  该整数数组原本是按升序排列，但输入时在预先未知的某个点上进行了旋转。（例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] ）。  请你在数组中">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-10-29T13:34:51.000Z">
-<meta property="article:modified_time" content="2020-11-30T11:10:28.948Z">
+<meta property="article:modified_time" content="2020-12-01T16:32:58.703Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-30 19:10:28" itemprop="dateModified" datetime="2020-11-30T19:10:28+08:00">2020-11-30</time>
+                <time title="Modified: 2020-12-02 00:32:58" itemprop="dateModified" datetime="2020-12-02T00:32:58+08:00">2020-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -506,6 +506,50 @@ nums 肯定会在某个点上旋转
                 left=mid+1
         return left
 </code></pre>
+<h3 id="179-最大数"><a href="#179-最大数" class="headerlink" title="179. 最大数"></a>179. 最大数</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-number/
+
+给定一组非负整数 nums，重新排列它们每个数字的顺序（每个数字不可拆分）使之组成一个最大的整数。
+
+注意：输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+
+示例 1：
+
+输入：nums = [10,2]
+输出：&quot;210&quot;
+示例 2：
+
+输入：nums = [3,30,34,5,9]
+输出：&quot;9534330&quot;
+示例 3：
+
+输入：nums = [1]
+输出：&quot;1&quot;
+示例 4：
+
+输入：nums = [10]
+输出：&quot;10&quot;
+
+
+提示：
+
+1 &lt;= nums.length &lt;= 100
+0 &lt;= nums[i] &lt;= 109</code></pre>
+<p>题解一|重载运算符:</p>
+<pre><code>class StrLt(str):
+    def __lt__(x,y):
+        # 1、比较 ab 与 ba的大小，按降序排列；
+        # 2、将数组转化为字符串。
+        return x+y&gt;y+x
+
+class Solution(object):
+    def largestNumber(self, nums):
+        &quot;&quot;&quot;
+        :type nums: List[int]
+        :rtype: str
+        &quot;&quot;&quot;
+        tostr=[str(i) for i in nums]
+        tostr.sort(key=StrLt)
+        return &#39;&#39;.join(tostr) if tostr[0] != &#39;0&#39; else &#39;0&#39;</code></pre>
 <h3 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a>215. 数组中的第K个最大元素</h3><pre><code>在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
 
 示例 1:
@@ -755,6 +799,164 @@ class Solution(object):
         while i&gt;0:
             self.percDown(i)
             i-=1</code></pre>
+<h3 id="451-根据字符出现频率排序"><a href="#451-根据字符出现频率排序" class="headerlink" title="451. 根据字符出现频率排序"></a>451. 根据字符出现频率排序</h3><pre><code>链接：https://leetcode-cn.com/problems/sort-characters-by-frequency/
+
+给定一个字符串，请将字符串里的字符按照出现的频率降序排列。
+
+示例 1:
+
+输入:
+&quot;tree&quot;
+
+输出:
+&quot;eert&quot;
+
+解释:
+&#39;e&#39;出现两次，&#39;r&#39;和&#39;t&#39;都只出现一次。
+因此&#39;e&#39;必须出现在&#39;r&#39;和&#39;t&#39;之前。此外，&quot;eetr&quot;也是一个有效的答案。
+示例 2:
+
+输入:
+&quot;cccaaa&quot;
+
+输出:
+&quot;cccaaa&quot;
+
+解释:
+&#39;c&#39;和&#39;a&#39;都出现三次。此外，&quot;aaaccc&quot;也是有效的答案。
+注意&quot;cacaca&quot;是不正确的，因为相同的字母必须放在一起。
+示例 3:
+
+输入:
+&quot;Aabb&quot;
+
+输出:
+&quot;bbAa&quot;
+
+解释:
+此外，&quot;bbaA&quot;也是一个有效的答案，但&quot;Aabb&quot;是不正确的。
+注意&#39;A&#39;和&#39;a&#39;被认为是两种不同的字符。</code></pre>
+<p>题解一|小根堆：</p>
+<pre><code>class Solution(object):
+    def __init__(self):
+        self.size=0
+        self.heap=[[&#39;0&#39;,0]]
+    def frequencySort(self, s):
+        &quot;&quot;&quot;
+        :type s: str
+        :rtype: str
+        &quot;&quot;&quot;
+        hash=&#123;&#125;
+        for i in s:
+            if i not in hash:
+                hash[i]=1
+            else:
+                hash[i]+=1
+        hashlist=[[key,value] for key,value in hash.items()]
+        self.buildHeap(hashlist)
+
+        for i in range(len(hashlist),0,-1): 不要写成self.size,和下面self.size-=1不好区分。
+        # for i in range(self.size,0,-1):
+            self.heap[1],self.heap[i]=self.heap[i],self.heap[1]
+            self.size-=1 # 关键点,减1后避免和最后一个元素再交换回去。
+            self.percDown(1)
+        result=&#39;&#39;
+        for i in range(1,len(self.heap)):
+            result+=str(self.heap[i][0]*self.heap[i][1])
+        return result
+    def percDown(self,i):
+        while (i*2)&lt;=self.size:
+            mc=self.minChild(i)
+            if self.heap[i][1]&gt;self.heap[mc][1]:
+                self.heap[i],self.heap[mc]=self.heap[mc],self.heap[i]
+            i=mc
+    def minChild(self,i):
+        if i*2+1&gt;self.size:
+            return i*2
+        else:
+            if self.heap[i*2][1]&lt;self.heap[i*2+1][1]:
+                return i*2
+            else:
+                return i*2+1
+    def buildHeap(self,arr):
+        i=len(arr)//2
+        self.size=len(arr)
+        self.heap=[[&#39;0&#39;,0]]+arr
+        while i&gt;0:
+            self.percDown(i)
+            i-=1</code></pre>
+<h3 id="973-最接近原点的-K-个点"><a href="#973-最接近原点的-K-个点" class="headerlink" title="973. 最接近原点的 K 个点"></a>973. 最接近原点的 K 个点</h3><pre><code>链接：https://leetcode-cn.com/problems/k-closest-points-to-origin/
+
+我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。
+
+（这里，平面上两点之间的距离是欧几里德距离。）
+
+你可以按任何顺序返回答案。除了点坐标的顺序之外，答案确保是唯一的。
+
+示例 1：
+
+输入：points = [[1,3],[-2,2]], K = 1
+输出：[[-2,2]]
+解释： 
+(1, 3) 和原点之间的距离为 sqrt(10)，
+(-2, 2) 和原点之间的距离为 sqrt(8)，
+由于 sqrt(8) &lt; sqrt(10)，(-2, 2) 离原点更近。
+我们只需要距离原点最近的 K = 1 个点，所以答案就是 [[-2,2]]。
+示例 2：
+
+输入：points = [[3,3],[5,-1],[-2,4]], K = 2
+输出：[[3,3],[-2,4]]
+（答案 [[-2,4],[3,3]] 也会被接受。）
+
+
+提示：
+
+1 &lt;= K &lt;= points.length &lt;= 10000
+-10000 &lt; points[i][0] &lt; 10000
+-10000 &lt; points[i][1] &lt; 10000</code></pre>
+<p>题解一|大根堆：</p>
+<pre><code>import math
+class Solution(object):
+    def __init__(self):
+        self.size=0
+        self.heap=[[0,0]]
+    def kClosest(self, points, K):
+        &quot;&quot;&quot;
+        :type points: List[List[int]]
+        :type K: int
+        :rtype: List[List[int]]
+        &quot;&quot;&quot;
+        self.buildHeap(points[:K])
+        for i in range(K,len(points)):
+            if self.cal(self.heap[1]) &gt; self.cal(points[i]):
+                self.heap[1]=points[i]
+                self.percDown(1)
+        return [self.heap[i] for i in range(1,K+1)]
+
+    def percDown(self,i):
+        while i*2&lt;=self.size:
+            mc=self.maxChild(i)
+            if self.cal(self.heap[i])&lt;self.cal(self.heap[mc]):
+                self.heap[i],self.heap[mc]=self.heap[mc],self.heap[i]
+            i=mc
+    def maxChild(self,i):
+        if (i*2+1)&gt;self.size:
+            return i*2
+        else:
+            if self.cal(self.heap[i*2])&gt;self.cal(self.heap[i*2+1]):
+                return i*2
+            else:
+                return i*2+1
+    def buildHeap(self,arr):
+        i=len(arr)//2
+        self.heap=[[0,0]]+arr
+        self.size=len(arr)
+        while i&gt;0:
+            self.percDown(i)
+            i-=1
+
+    def cal(self,point):
+        return math.sqrt(point[0]**2+point[1]**2)</code></pre>
 
     </div>
 
@@ -838,7 +1040,7 @@ class Solution(object):
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">162. 寻找峰值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="nav-number">5.</span> <span class="nav-text">215. 数组中的第K个最大元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="nav-number">6.</span> <span class="nav-text">240. 搜索二维矩阵 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">7.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#347-%E5%89%8D-K-%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0"><span class="nav-number">8.</span> <span class="nav-text">347. 前 K 个高频元素</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">33. 搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">34. 在排序数组中查找元素的第一个和最后一个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">75. 颜色分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#162-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">162. 寻找峰值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#179-%E6%9C%80%E5%A4%A7%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">179. 最大数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">215. 数组中的第K个最大元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="nav-number">7.</span> <span class="nav-text">240. 搜索二维矩阵 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#278-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">8.</span> <span class="nav-text">278. 第一个错误的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#347-%E5%89%8D-K-%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0"><span class="nav-number">9.</span> <span class="nav-text">347. 前 K 个高频元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#451-%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%8E%92%E5%BA%8F"><span class="nav-number">10.</span> <span class="nav-text">451. 根据字符出现频率排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#973-%E6%9C%80%E6%8E%A5%E8%BF%91%E5%8E%9F%E7%82%B9%E7%9A%84-K-%E4%B8%AA%E7%82%B9"><span class="nav-number">11.</span> <span class="nav-text">973. 最接近原点的 K 个点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

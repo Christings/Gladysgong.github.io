@@ -1403,7 +1403,7 @@ int[] dp(TreeNode root) &#123;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 20:55:56" itemprop="dateModified" datetime="2020-11-16T20:55:56+08:00">2020-11-16</time>
+                <time title="Modified: 2020-12-02 00:31:13" itemprop="dateModified" datetime="2020-12-02T00:31:13+08:00">2020-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1632,8 +1632,8 @@ int[] dp(TreeNode root) &#123;
         dp[0][0]=0
         dp[0][1]=-float(&#39;inf&#39;)
         for i in range(n):
-            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
-            dp[i][1]=max(dp[i-1][1],dp[i-2][0]-prices[i])
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i]) # max(前一天未持有，前一天卖出)
+            dp[i][1]=max(dp[i-1][1],dp[i-2][0]-prices[i]) # max(前一天持有，前两天买入)
         return dp[n-1][0]</code></pre>
 <pre><code>class Solution:
     def maxProfit(self, prices: List[int]) -&gt; int:
