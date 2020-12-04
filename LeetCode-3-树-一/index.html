@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree3.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree4.png">
 <meta property="article:published_time" content="2020-01-02T07:49:29.000Z">
-<meta property="article:modified_time" content="2020-11-26T07:57:50.557Z">
+<meta property="article:modified_time" content="2020-12-04T09:35:08.276Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-26 15:57:50" itemprop="dateModified" datetime="2020-11-26T15:57:50+08:00">2020-11-26</time>
+                <time title="Modified: 2020-12-04 17:35:08" itemprop="dateModified" datetime="2020-12-04T17:35:08+08:00">2020-12-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1130,7 +1130,8 @@ class Solution:
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -&gt; TreeNode:
-        if not inorder: # 只能是判断inorder，而不能是preorder
+        if not inorder or not preorder:
+        # if not inorder: # 只能是判断inorder，而不能是preorder，原因应该是preorder.pop(0)操作造成的。
             return
         root=TreeNode(preorder.pop(0))
         i=inorder.index(root.val)
@@ -1149,6 +1150,7 @@ class Solution:
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -&gt; TreeNode:
         if not inorder:
+        # if not preorder:
             return
         # 前序遍历第一个值为根节点
         root=TreeNode(preorder[0])
@@ -1199,6 +1201,7 @@ class Solution:
 <pre><code>class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -&gt; TreeNode: 
         if len(inorder) == 0:
+        #if not inorder or not postorder:
             return None
 
         # 后序遍历最后一个节点为根节点
