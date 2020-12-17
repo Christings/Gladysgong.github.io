@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,374 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-13-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%90%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-13-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%90%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="post-title-link" itemprop="url">python并发-13.多进程编程合多线程编程的优缺点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-27 20:16:41" itemprop="dateCreated datePublished" datetime="2020-02-27T20:16:41+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:02:49" itemprop="dateModified" datetime="2020-09-18T14:02:49+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>多进程编程和多钱程编程，都可以使用并行机制来提升系统的运行效率。</p>
+<p>二者的区别在于运行时所占的内存分布不同，多钱程是共用一套内存的代码块区间；而多进程是各用一套独立的内存区间。</p>
+<p>多进程优点：稳定性好，一个子进程崩溃了，不会影响主进程以及其余进程。基于这个特性，常常会用多进程来实现守护服务器的功能。</p>
+<p>多进程缺点：创建进程的代价非常大，因为操作系统要给每个进程分配固定的资源，并且操作系统对进程的总数会有一定的限制，若进程过多，操作系统调度都会存在问题，会造成假死状态。</p>
+<p>多线程优点：效率较高一些，适用于批处理任务等功能。<br>多线程缺点：任何一个线程崩溃都可能造成整个进程的崩溃，因为它们共享了进程的内存资源池。</p>
+<p>既然多线程编程和多进程编程各有优缺点，因此它们分别适用于不同的场景。比如说，对于计算密集型的任务，多进程效率会更高一下；而对于IO密集型的任务（比如文件操作，网络爬虫），采用多线程编程效率更高。</p>
+<p>对于 IO 密集型操作，大部分消耗时间其实是等待时间，在等待时间中，Python会释放GIL供新的线程使用，实现了线程间的切换；相反对于 CPU 密集型代码，2 个 CPU 干活肯定比一个 CPU 快很多。</p>
+<p>在大型的计算机集群系统中，通常都会将多进程程序分布运行在不同的计算机上协同工作。而每一台计算机上的进程内部，又会由多个线程来并行工作。</p>
+<p>注意，对于任务数来说，无论是多进程编程或者多线程编程，其进程数或线程数都不能太多：</p>
+<p>1、对于多进程编程来说，操作系统在切换任务时，会有一系列的保护现场措施，这要花费相当多的系统资源，若任务过多，则大部分资源都被用做干这些了，结果就是所有任务都做不好；</p>
+<p>2、多线程编程也不是线程个数越多效率越高，通过下面的公式可以计算出线程数量最优的一个参考值。</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-12-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/python%E5%B9%B6%E5%8F%91-12-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA/" class="post-title-link" itemprop="url">python并发-12.进程创建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 20:51:12" itemprop="dateCreated datePublished" datetime="2020-02-26T20:51:12+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:02:45" itemprop="dateModified" datetime="2020-09-18T14:02:45+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、os-fork-–在windows系统上无效"><a href="#一、os-fork-–在windows系统上无效" class="headerlink" title="一、os.fork()–在windows系统上无效"></a>一、os.fork()–在windows系统上无效</h2><p>每个 Python 程序在执行时，系统都会生成一个新的进程，该进程又称父进程（或主进程）。</p>
+<p>Python os 模块提供 fork() 函数，该函数可以在当前程序中再创建出一个进程（又称子进程）。</p>
+<p>程序调用 os.fork() 函数，程序中会拥有 2 个进程，其中父进程负责执行整个程序代码，而通过 fork() 函数创建出的子进程，会从创建位置开始，执行后续所有的程序（包含创建子进程的代码）。</p>
+<pre><code>注意：os.fork() 函数在 Windows 系统上无效，只在 UNIX 及类 UNIX 系统上（包括UNIX、Linux 和 Mac OS X）效。</code></pre>
+<p>fork()语法：pid = os.fork()</p>
+<p>pid 作为函数的返回值，主进程和子进程都会执行该语句，但主进程执行 fork() 函数得到的 pid 值为非 0 值（其实是子进程的进程 ID），而子进程执行该语句得到的 pid 值为 0。因此，pid 常常作为区分父进程和子进程的标志。</p>
+<p>在大多数操作系统中，都会为执行的进程配备唯一的 ID 号，os 模块提供了 getpid() 和 getppid() 函数，可分别用来获取当前进程的 ID 号和父进程的 ID 号。</p>
+<pre><code>import os
+
+print(&#39;父进程 id=&#39;, os.getpid())
+pid = os.fork()  # 创建子进程，下面代码会被两个进程执行
+print(&#39;当前进程 id=&#39;, os.getpid(), &#39; pid=&#39;, pid)
+if pid == 0:
+    print(&#39;子进程 id=&#39;, os.getpid(), &#39; 父进程 id=&#39;, os.getppid())
+else:
+    print(&#39;父进程 id=&#39;, os.getpid(), &#39; pid=&#39;, pid)</code></pre>
+<p>输出：</p>
+<pre><code>父进程 id= 10396
+当前进程 id= 10396  pid= 10397
+父进程 id= 10396  pid= 10397
+当前进程 id= 10397  pid= 0
+子进程 id= 10397  父进程 id= 10396</code></pre>
+<p>注意，程序 if 判断语句，通过判断 pid 值是否为 0，分别为父进程和 fork() 函数创建的子进程布置了不同的执行任务，即子进程负责执行 if 代码块，而父进程则负责执行 else 代码块。</p>
+<h2 id="二、Process"><a href="#二、Process" class="headerlink" title="二、Process"></a>二、Process</h2><p>Python multiprocessing 模块提供了 Process 类，该类可用来在 Windows 平台上创建新进程。和使用 Thread 类创建多线程方法类似，使用 Process 类创建多进程也有以下 2 种方式：</p>
+<pre><code>直接创建 Process 类的实例对象，由此就可以创建一个新的进程；
+
+通过继承 Process 类的子类，创建实例对象，也可以创建新的进程。注意，继承 Process 类的子类需重写父类的 run() 方法。</code></pre>
+<p>Process类常用属性和方法：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/process.png"></p>
+<h3 id="2-1-通过Process类创建进程"><a href="#2-1-通过Process类创建进程" class="headerlink" title="2.1 通过Process类创建进程"></a>2.1 通过Process类创建进程</h3><p>和使用 thread 类创建子线程的方式非常类似，使用 Process 类创建实例化对象，其本质是调用该类的构造方法创建新进程。Process 类的构造方法格式如下：</p>
+<pre><code>def __init__(self,group=None,target=None,name=None,args=(),kwargs=&#123;&#125;)</code></pre>
+<p>参数的含义为：</p>
+<pre><code>group：该参数未进行实现，不需要传参；
+target：为新建进程指定执行任务，也就是指定一个函数；
+name：为新建进程设置名称；
+args：为 target 参数指定的参数传递非关键字参数；
+kwargs：为 target 参数指定的参数传递关键字参数。</code></pre>
+<pre><code>from multiprocessing import Process
+import os
+
+print(&#39;当前进程id：&#39;, os.getpid())
+
+
+def action(name, *add):
+    &#39;&#39;&#39;
+    准备作为新进程的 target 参数
+    :param name:
+    :param add:
+    :return:
+    &#39;&#39;&#39;
+    print(name)
+    for arc in add:
+        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))
+
+
+if __name__ == &#39;__main__&#39;:
+    myTuple = (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)
+    myProcess = Process(target=action, args=(&#39;myProcess进程&#39;, *myTuple))  # 创建子进程，执行 action 函数
+    myProcess.start()  # 启动子进程
+    action(&#39;主进程&#39;, *myTuple)  # 主进程执行 action 函数</code></pre>
+<p>输出：</p>
+<pre><code>当前进程id： 68797
+主进程
+python --当前进程68797
+shell --当前进程68797
+java --当前进程68797
+myProcess进程
+python --当前进程68798
+shell --当前进程68798
+java --当前进程68798</code></pre>
+<p>说明：通过 multiprocessing.Process 来创建并启动进程时，程序必须先判断 if <strong>name</strong>==’<strong>main</strong>‘:，否则运行该程序会引发异常。</p>
+<p>程序分别为主进程和我们创建的新进程，主进程会执行整个程序，而子进程不会执行 if <strong>name</strong> == ‘<strong>main</strong>‘ 中包含的程序，而是先执行此判断语句之外的所有可执行程序，然后再执行我们分配让它的任务（也就是通过 target 参数指定的函数）。</p>
+<h3 id="2-2-通过Process继承类创建进程"><a href="#2-2-通过Process继承类创建进程" class="headerlink" title="2.2 通过Process继承类创建进程"></a>2.2 通过Process继承类创建进程</h3><p>注意：在创建 Process 的子类时，需在子类内容重写 run() 方法。实际上，该方法所起到的作用，就如同第一种创建方式中 target 参数执行的函数。</p>
+<p>通过 Process 子类创建进程，和使用 Process 类一样，先创建该类的实例对象，然后调用 start() 方法启动该进程。</p>
+<pre><code>from multiprocessing import Process
+import os
+
+print(&#39;当前进程id：&#39;, os.getpid())
+
+
+def action(name, *add):
+    &#39;&#39;&#39;
+    准备作为新进程的 target 参数
+    :param name:
+    :param add:
+    :return:
+    &#39;&#39;&#39;
+    print(name)
+    for arc in add:
+        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))
+
+
+class MyProcess(Process):
+    &#39;&#39;&#39;
+    定义进程类
+    :param Process:
+    :return:
+    &#39;&#39;&#39;
+
+    def __init__(self, name, *add):
+        super().__init__()
+        self.name = name
+        self.add = add
+
+    def run(self):
+        print(self.name)
+        for arc in self.add:
+            print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))
+
+
+if __name__ == &#39;__main__&#39;:
+    myTuple = (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)
+    myProcess = MyProcess(&#39;myprocess进程&#39;, *myTuple)
+    myProcess.start()
+    action(&#39;主进程&#39;, *myTuple)</code></pre>
+<p>输出：</p>
+<pre><code>当前进程id： 80398
+主进程
+python --当前进程80398
+shell --当前进程80398
+java --当前进程80398
+myprocess进程
+python --当前进程80399
+shell --当前进程80399
+java --当前进程80399</code></pre>
+<p>运行结果与上一个程序的运行结果大致相同，它们只是创建进程的方式略有不同而已，推荐使用第一种来创建，更加简单。</p>
+<h2 id="三、进程启动"><a href="#三、进程启动" class="headerlink" title="三、进程启动"></a>三、进程启动</h2><p>我们可以使用 os.fork() 和 Process 类来创建进程。<br>其中：</p>
+<p>1、使用 os.fork() 函数创建的子进程，会从创建位置处开始，执行后续所有的程序，主进程如何执行，则子进程就如何执行；</p>
+<p>2、而使用 Process 类创建的进程，则仅会执行if “<strong>name</strong>“=”<strong>main</strong>“之外的可执行代码以及该类构造方法中 target 参数指定的函数（使用 Process 子类创建的进程，只能执行重写的 run() 方法）。</p>
+<p>实际上，Python 创建的子进程执行的内容，和启动该进程的方式有关。而根据不同的平台，启动进程的方式大致可分为以下 3 种：</p>
+<p>1、spawn：使用此方式启动的进程，只会执行和 target 参数或者 run() 方法相关的代码。Windows 平台只能使用此方法，事实上该平台默认使用的也是该启动方式。相比其他两种方式，此方式启动进程的效率最低。</p>
+<p>2、fork：使用此方式启动的进程，基本等同于主进程（即主进程拥有的资源，该子进程全都有）。因此，该子进程会从创建位置起，和主进程一样执行程序中的代码。注意，此启动方式仅适用于 UNIX 平台，os.fork() 创建的进程就是采用此方式启动的。</p>
+<p>3、forserver：使用此方式，程序将会启动一个服务器进程。即当程序每次请求启动新进程时，父进程都会连接到该服务器进程，请求由服务器进程来创建新进程。通过这种方式启动的进程不需要从父进程继承资源。注意，此启动方式只在 UNIX 平台上有效。</p>
+<p>总的来说，使用类 UNIX 平台，启动进程的方式有以上 3 种，而使用 Windows 平台，只能选用 spawn 方式（默认即可）。</p>
+<p>在了解以上 3 种进程启动方式的基础上，我们还需要知道手动设置进程启动方式的方法，大致有以下  2 种：</p>
+<p>1、 Python multiprocessing 模块提供了一个set_start_method() 函数，该函数可用于设置启动进程的方式。需要注意的是，该函数的调用位置，必须位于所有与多进程有关的代码之前。</p>
+<pre><code>import multiprocessing
+from multiprocessing import Process
+import os
+
+print(&#39;当前进程id：&#39;, os.getpid())
+
+
+def action(name, *add):
+    &#39;&#39;&#39;
+    准备作为新进程的 target 参数
+    :param name:
+    :param add:
+    :return:
+    &#39;&#39;&#39;
+    print(name)
+    for arc in add:
+        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))
+
+
+if __name__ == &#39;__main__&#39;:
+    myTuple = (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)
+    multiprocessing.set_start_method(&#39;spawn&#39;)  # 设置进程启动方式
+    myProcess = Process(target=action, args=(&#39;myProcess进程&#39;, *myTuple))  # 创建子进程，执行 action 函数
+    myProcess.start()  # 启动子进程</code></pre>
+<p>输出：</p>
+<pre><code>当前进程id： 82570
+当前进程id： 82572
+myProcess进程
+python --当前进程82572
+shell --当前进程82572
+java --当前进程82572</code></pre>
+<p>注意：由于此程序中进程的启动方式为 spawn，因此该程序可以在任意（ Windows 和类 UNIX 上都可以 ）平台上执行。</p>
+<p>2、除此之外，还可以使用 multiprocessing 模块提供的 get_context() 函数来设置进程启动的方法，调用该函数时可传入 “spawn”、”fork”、”forkserver” 作为参数，用来指定进程启动的方式。</p>
+<p>注意：前面创建进程使用的 multiprocessing.Process() 这种形式，而在使用 get_context() 函数设置启动进程方式时，需用该函数的返回值，代替 multiprocessing 模块调用 Process()。 </p>
+<pre><code>import multiprocessing
+from multiprocessing import Process
+import os
+
+print(&#39;当前进程id：&#39;, os.getpid())
+
+
+def action(name, *add):
+    &#39;&#39;&#39;
+    准备作为新进程的 target 参数
+    :param name:
+    :param add:
+    :return:
+    &#39;&#39;&#39;
+    print(name)
+    for arc in add:
+        print(&#39;%s --当前进程%d&#39; % (arc, os.getpid()))
+
+
+if __name__ == &#39;__main__&#39;:
+    myTuple = (&#39;python&#39;, &#39;shell&#39;, &#39;java&#39;)
+    ctx = multiprocessing.get_context(&#39;spawn&#39;)  # 设置进程启动方式
+    myProcess = ctx.Process(target=action,
+                            args=(&#39;myProcess进程&#39;, *myTuple))  # 用 ctx 代替 multiprocessing 模块创建子进程，执行 action() 函数
+    myProcess.start()  # 启动子进程</code></pre>
+<p>输出：</p>
+<pre><code>当前进程id： 83308
+当前进程id： 83310
+myProcess进程
+python --当前进程83310
+shell --当前进程83310
+java --当前进程83310</code></pre>
+<p>仅演示了在 Windows 平台上设置进程启动方式的效果，有兴趣的读者可自行尝试选择类 UNIX 平台测试其他启动进程的方式。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1589,210 +1957,6 @@ Thread-1 http://c.biancheng.net/java/</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-3-%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-3-%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">python并发-3.线程生命周期</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-21 21:01:44" itemprop="dateCreated datePublished" datetime="2020-02-21T21:01:44+08:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:03:21" itemprop="dateModified" datetime="2020-09-18T14:03:21+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>当程序中包含多个线程时，CPU 不会一直被特定的线程霸占，而是轮流执行各个线程。</p>
-<p>CPU 在轮换执行线程过程中，线程都经历了什么呢？线程从创建到消亡的整个过程，可能会历经 5 种状态，分别是新建、就绪、运行、阻塞和死亡。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread1.gif" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread1.gif"></p>
-<h2 id="一、新建和就绪"><a href="#一、新建和就绪" class="headerlink" title="一、新建和就绪"></a>一、新建和就绪</h2><p>无论是通过 Thread 类直接实例化对象创建线程，还是通过继承自 Thread 类的子类实例化创建线程，新创建的线程在调用 start() 方法之前，不会得到执行，此阶段的线程就处于新建状态。</p>
-<p>所以，只有当线程刚刚创建，且未调用 start() 方法时，该线程才处于新建状态，而一旦线程调用 start() 方法之后，线程将无法再回到新建状态。</p>
-<p>当位于新建状态的线程调用 start() 方法后，该线程就转换到就绪状态。所谓就绪，就是告诉 CPU，该线程已经可以执行了，但是具体什么时候执行，取决于 CPU 什么时候调度它。换句话说，如果一个线程处于就绪状态，只能说明此线程已经做好了准备，随时等待 CPU 调度执行，并不是说执行了 start() 方法此线程就会立即被执行。</p>
-<p>注意：start() 方法只能由处于新建状态的线程调用，而一旦调用 start() 方法，线程状态就会由新建状态转为就绪状态。所以，每一个线程最多只能调用一次 start() 方法。如果多次调用，则 Python 解释器将抛出 RuntimeError 异常。</p>
-<p>线程由新建状态转到就绪状态，只有一个办法，就是调用 start() 方法。<br>直接调用 Thread 类构造方法中 target 参数指定的函数，或者直接调用 Thread 子类中的 run() 实例方法，不可以吗？当然不可以，这 2 种方法是可以执行目标代码，但是由主线程 MianThread 负责执行，而不是由新创建的子线程负责执行。</p>
-<p>一方面 Python解释器会将它们看做是普通的函数调用和类方法调用。另一方面，由于新建的线程属于新建状态而不是就绪状态，因此不会得到 CPU 的调度。</p>
-<h2 id="二、运行和阻塞"><a href="#二、运行和阻塞" class="headerlink" title="二、运行和阻塞"></a>二、运行和阻塞</h2><p>当位于就绪状态的线程得到了 CPU，并开始执行 target 参数执行的目标函数或者 run() 方法，就表明当前线程处于运行状态。</p>
-<p>如果当前有多个线程处于就绪状态（等待 CPU 调度）时，处于运行状态的线程将无法一直霸占 CPU 资源，为了使其它线程也有执行的机会，CPU 会在一定时间内强制当前运行的线程让出 CPU 资源，以供其他线程使用。而对于获得 CPU 调度却没有执行完毕的线程，就会进入阻塞状态。</p>
-<p>目前几乎所有的桌面和服务器操作系统，都采用的是抢占式优先级调度策略。即 CPU 会给每一个就绪线程一段固定时间来处理任务，当该时间用完后，系统就会阻止该线程继续使用 CPU 资源，让其他线程获得执行的机会。而对于具体选择那个线程上 CPU，不同的平台采用不同的算法，比如先进先出算法（FIFO）、时间片轮转算法、优先级算法等，每种算法各有优缺点，适用于不同的场景。</p>
-<p>如果处于运行状态的线程发生如下几种情况，也将会由运行状态转到阻塞状态：</p>
-<pre><code>线程调用了 sleep() 方法；
-线程等待接收用户输入的数据；
-线程试图获取某个对象的同步锁（后续章节会详细讲解）时，如果该锁被其他线程所持有，则当前线程进入阻塞状态；
-线程调用 wait() 方法，等待特定条件的满足；</code></pre>
-<p>以上 4 种可能发生线程阻塞的情况，解决措施分别如下：</p>
-<pre><code>sleep() 方法规定的时间已过；
-线程接收到了用户输入的数据；
-其他线程释放了该同步锁，并由该线程获得；
-调用 set() 方法发出通知；</code></pre>
-<h2 id="三、死亡"><a href="#三、死亡" class="headerlink" title="三、死亡"></a>三、死亡</h2><p>对于获得 CPU 调度却未执行完毕的线程，它会转入阻塞状态，待条件成熟之后继续转入就绪状态，重复争取 CPU 资源，直到其执行结束。执行结束的线程将处于死亡状态。</p>
-<p>线程执行结束，除了正常执行结束外，如果程序执行过程发生异常（Exception）或者错误（Error），线程也会进入死亡状态。</p>
-<p>对于处于死亡状态的线程，有以下 2 点需要注意：</p>
-<pre><code>主线程死亡，并不意味着所有线程全部死亡。也就是说，主线程的死亡，不会影响子线程继续执行；反之也是如此。
-
-对于死亡的线程，无法再调用 start() 方法使其重新启动，否则 Python 解释器将抛出 RuntimeError 异常。</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/python%E5%B9%B6%E5%8F%91-1-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/python%E5%B9%B6%E5%8F%91-1-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">python并发-1.进程和线程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-21 11:29:02" itemprop="dateCreated datePublished" datetime="2020-02-21T11:29:02+08:00">2020-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:02:29" itemprop="dateModified" datetime="2020-09-18T14:02:29+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Python%E5%B9%B6%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Python并发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、并发与并行"><a href="#一、并发与并行" class="headerlink" title="一、并发与并行"></a>一、并发与并行</h2><p>区别：</p>
-<pre><code>并发和并行是两个概念，并行指在同一时刻有多条指令在多个处理器上同时执行；
-并发是指在同一时刻只能有一条指令执行，但多个进程指令被快速轮换执行，使得在宏观上具有多个进程同时执行的效果。</code></pre>
-<p>对于一个 CPU 而言，在某个时间点它只能执行一个程序。也就是说，只能运行一个进程，CPU 不断地在这些进程之间轮换执行。那么，为什么用户感觉不到任何中断呢？</p>
-<p>这是因为相对人的感觉来说，CPU 的执行速度太快了（如果启动的程序足够多，则用户依然可以感觉到程序的运行速度下降了）。所以，虽然 CPU 在多个进程之间轮换执行，但用户感觉到好像有多个进程在同时执行。</p>
-<h2 id="二、线程和多线程"><a href="#二、线程和多线程" class="headerlink" title="二、线程和多线程"></a>二、线程和多线程</h2><p>线程 是可以在操作系统中执行的最小执行单元。它本身不是一个程序，而是在一个程序中运行。换句话说，线程不是彼此独立的。每个线程与其他线程共享代码段，数据段等。它们也被称为轻量级过程。</p>
-<p>线程组成 ：</p>
-<pre><code>程序计数器，包含下一个可执行指令的地址
-堆
-寄存器集
-一唯一的id</code></pre>
-<p>多线程 是CPU通过并发执行多个线程来管理操作系统使用的能力。多线程的主要思想是通过将进程划分为多个线程来实现并行性。</p>
-<p>一个进程只能有一个线程，称为主线程，或者多个线程有自己的寄存器，程序计数器和堆栈。</p>
-<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/thread.jpg"></p>
-<p>进程和线程的关系是这样的：操作系统可以同时执行多个任务，每一个任务就是一个进程，进程可以同时执行多个任务，每一个任务就是一个线程。</p>
-<p>线程是进程的组成部分，一个进程可以拥有多个线程。在多线程中，会有一个主线程来完成整个进程从开始到结束的全部操作，而其他的线程会在主线程的运行过程中被创建或退出。</p>
-<p>当进程被初始化后，主线程就被创建了，对于绝大多数的应用程序来说，通常仅要求有一个主线程，但也可以在进程内创建多个顺序执行流，这些顺序执行流就是线程。<br>当一个进程里只有一个线程时，叫作单线程。超过一个线程就叫作多线程。</p>
-<p>每个线程必须有自己的父进程，且它可以拥有自己的堆栈、程序计数器和局部变量，但不拥有系统资源，因为它和父进程的其他线程共享该进程所拥有的全部资源。线程可以完成一定的任务，可以与其他线程共享父进程中的共享变量及部分环境，相互之间协同完成进程所要完成的任务。<br>多个线程共享父进程里的全部资源，会使得编程更加方便，需要注意的是，要确保线程不会妨碍同一进程中的其他线程。</p>
-<p>线程是独立运行的，它并不知道进程中是否还有其他线程存在。线程的运行是抢占式的，也就是说，当前运行的线程在任何时候都可能被挂起，以便另外一个线程可以运行。<br>多线程也是并发执行的，即同一时刻，Python 主程序只允许有一个线程执行，这和全局解释器锁有关系，后续会做详细介绍。</p>
-<p>一个线程可以创建和撤销另一个线程，同一个进程中的多个线程之间可以并发运行。</p>
-<p>从逻辑的角度来看，多线程存在于一个应用程序中，让一个应用程序可以有多个执行部分同时执行，但操作系统无须将多个线程看作多个独立的应用，对多线程实现调度和管理以及资源分配，线程的调度和管理由进程本身负责完成。</p>
-<p>python并发编程有用api：线程，并发功能，多处理，asyncio，gevent和greenlets</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1862,7 +2026,7 @@ Thread-1 http://c.biancheng.net/java/</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,265 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/" class="post-title-link" itemprop="url">利用wordloud制作词云</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-26 17:46:54" itemprop="dateCreated datePublished" datetime="2018-01-26T17:46:54+08:00">2018-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:10:06" itemprop="dateModified" datetime="2020-09-18T17:10:06+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/wordcloud/" itemprop="url" rel="index"><span itemprop="name">wordcloud</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客: <a href="http://gongyanli.com/Python-%E5%88%A9%E7%94%A8wordloud%E5%88%B6%E4%BD%9C%E8%AF%8D%E4%BA%91/">gongyanli.com</a><br>词云github: <a target="_blank" rel="noopener" href="https://github.com/amueller/word_cloud">https://github.com/amueller/word_cloud</a><br>词云官方地址: <a target="_blank" rel="noopener" href="https://amueller.github.io/word_cloud/">https://amueller.github.io/word_cloud/</a></p>
+</blockquote>
+<p>前言：第一次使用wordcloud，然后记录了自己的点滴，使用其实很简单。我输出的图形看着不太美观，后续可以深入研究，输出自己想要的形状。</p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><pre><code>pip install wordcloud</code></pre>
+<h2 id="二、准备数据"><a href="#二、准备数据" class="headerlink" title="二、准备数据"></a>二、准备数据</h2><p>我在维基百科找了一篇文章复制到txt中，文章地址<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Australian_Defence_Force">https://en.wikipedia.org/wiki/Australian_Defence_Force</a></p>
+<h2 id="三、制作词云"><a href="#三、制作词云" class="headerlink" title="三、制作词云"></a>三、制作词云</h2><pre><code>`from wordcloud import WordCloud  # 导入wordcloud
+import matplotlib.pyplot as plt
+
+filename = &quot;australian-defence-force.txt&quot; # 打开txt文件
+with open(filename) as f:
+    mytext = f.read()  # 读取文件
+    wordcloud = WordCloud().generate(mytext)  # 生成词云
+    plt.imshow(wordcloud, interpolation=&#39;bilinear&#39;)  # 利用plt把词云可视化显示
+    plt.axis(&#39;off&#39;)
+    plt.show()
+    # print(mytext)</code></pre>
+<p>`</p>
+<h2 id="四、出图"><a href="#四、出图" class="headerlink" title="四、出图"></a>四、出图</h2><p><img src="http://p2lakvkq0.bkt.clouddn.com/wordcloud.jpg"></p>
+<h2 id="五、注意事项"><a href="#五、注意事项" class="headerlink" title="五、注意事项"></a>五、注意事项</h2><p>报错 ImportError: cannot import name WordCloud<br>创建python文件的时候我把文件取名为wordcloud.py，之后导入wordcloud时一直出错，重新取一个名字就ok了。</p>
+<h2 id="六、进阶"><a href="#六、进阶" class="headerlink" title="六、进阶"></a>六、进阶</h2><p>如果想要进阶，可参考此博客<a target="_blank" rel="noopener" href="http://blog.csdn.net/fontthrone/article/details/72775865">Python词云 wordcloud 十五分钟入门与进阶</a>，哈哈，我是还没有时间细看这篇博客了，大致瞟了一眼，觉得不错，空下来细看。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/LDA%E4%B8%BB%E9%A2%98%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">LDA主题建模</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-26 15:23:34" itemprop="dateCreated datePublished" datetime="2018-01-26T15:23:34+08:00">2018-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:02:03" itemprop="dateModified" datetime="2020-09-18T17:02:03+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E4%B8%8E%E8%AE%A4%E7%9F%A5%E6%99%BA%E8%83%BD-%E8%82%96%E4%BB%B0%E5%8D%8E/">gongyanli.com</a>  </p>
+</blockquote>
+<p>前言:本文用到的方法叫做主题建模（topic model)或主题抽取(topic extraction)，在机器学习的分类中，它属于非监督学习(unsupervised machine learning)。它是文本挖掘中常用的主题模型，用来从大量文档中提取出最能表达各个主题的一些关键词。<br>主题模型定义(维基百科)：在机器学习和自然语言处理等领域是用来在一系列文档中发现抽象主题的一种统计模型。</p>
+<ul>
+<li><p>主题抽取方法：目前最为流行的是隐含狄利克雷分布(Latent Dirichlet Allocation–LDA)</p>
+</li>
+<li><p>LDA需要人为设定主题的数量，而我们怎么知道一堆文章里究竟有多少个主题呢？</p>
+<p>  如果只需要把文章粗略划分为几个分类，那可以把数字设定小一些；<br>  如果希望能识别出非常细分化的主题，那就增大主题的个数；<br>  如果对于划分的结果不够满意，那可以继续迭代，调整主题数量来进行优化；</p>
+</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>1.文本分词</p>
+<pre><code>英文：split()都可以
+中文：推荐jieba分词</code></pre>
+<p>2.构建主题模型</p>
+<pre><code>（1）构建词典
+（2）对应text的向量(word2vec1)
+ (3) 统计tdidf
+（4）对应的text的向量(word2vec2)
+（5）LDA模型
+（6）LDA特征向量
+ 代码中得到的corpus_lda就是每个text的LDA向量，稀疏的，元素值隶属于对应叙述类的权重</code></pre>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>注意：最好在linux下运行，我在windows下运行的时候，出现以下错误：</p>
+<pre><code>ImportError: [joblib] Attempting to do parallel computing without protecting your import on a system that does not suppo
+rt forking. 
+To use parallel-computing in a script, you must protect you main loop using &quot;if __name__ == &#39;__main__&#39;&quot;. 
+Please see the joblib documentation on Parallel for more information</code></pre>
+<p>我在python3下即使加了if <strong>name</strong>==’main’还是错误的，所以我换到了linux下。</p>
+<pre><code>`import jieba
+import pandas as pd
+
+df = pd.read_csv(&quot;datascience.csv&quot;, encoding=&#39;gb18030&#39;)  # 打开文件
+
+
+# print(df.head())  # 默认读取文件的头5行
+# print(df.shape)   # 查看数据的维度
+
+# 使用jieba分词对文件进行分词
+def chinese_word_cut(text):
+    return &quot; &quot;.join(jieba.cut(text))
+
+
+df[&quot;content_cutted&quot;] = df.content.apply(chinese_word_cut)
+# print(df.content_cutted.head()) # 查看文件是否已被正确分词
+
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+
+&#39;&#39;&#39;
+    文本向量化：将文章中的关键词转换为一个个特征，然后统计关键词个数
+&#39;&#39;&#39;
+n_features = 1000  # 只提取1000个最重要的关键词
+tf_vectorizer = CountVectorizer(strip_accents=&#39;unicode&#39;,
+                                max_features=n_features,
+                                stop_words=&#39;english&#39;,
+                                max_df=0.5,
+                                min_df=10)
+tf = tf_vectorizer.fit_transform(df.content_cutted)
+
+from sklearn.decomposition import LatentDirichletAllocation
+
+n_topics = 5  # 设定主题个数
+lda = LatentDirichletAllocation(n_topics=n_topics, max_iter=50, learning_method=&#39;online&#39;, learning_offset=50.,
+                                random_state=0)
+result_topic = lda.fit(tf)
+print(result_topic)
+
+
+# 显示每个主题下的前若干关键词
+def print_top_words(model, feature_names, n_top_words):
+    for topic_idx, topic in enumerate(model.components_):
+        print(&quot;Topic #%d:&quot; % topic_idx)
+        print(&quot; &quot;.join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]]))
+        print()
+
+
+n_top_words = 20
+tf_features_names = tf_vectorizer.get_feature_names()
+print_top_words(lda, tf_features_names, n_top_words)
+
+import pyLDAvis.sklearn
+
+# 主题可视化
+vis = pyLDAvis.sklearn.prepare(lda, tf, tf_vectorizer)
+pyLDAvis.show(vis)`</code></pre>
+<h2 id="出图"><a href="#出图" class="headerlink" title="出图"></a>出图</h2><ul>
+<li>左侧圆圈代表不同的主题，圆圈大小代表每个主题分别包含文章的数量</li>
+<li>右侧列出了频率最高的关键词列表，当把鼠标停在主题圆圈上的时候，关键词列表用不同的颜色表明当前关键词占全部文本关键词的比例</li>
+</ul>
+<h1 id="中文停用词"><a href="#中文停用词" class="headerlink" title="中文停用词"></a>中文停用词</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -2429,356 +2688,6 @@ wordlists.fileids()`</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/jenkins-1-groovy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jenkins-1-groovy/" class="post-title-link" itemprop="url">nltk-1-入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 10:13:56" itemprop="dateCreated datePublished" datetime="2018-01-12T10:13:56+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:48:49" itemprop="dateModified" datetime="2020-09-18T21:48:49+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/jenkins/" itemprop="url" rel="index"><span itemprop="name">jenkins</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>#!groovy<br>def remote = [:]<br>remote.allowAnyHosts = true</p>
-<p>pipeline {<br>    agent {node {label ‘master’}}<br>    environment {<br>        PATH=”/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin”<br>    }<br>    parameters {<br>      string defaultValue: ‘<a target="_blank" rel="noopener" href="http://svn.sogou-inc.com/svn/mobilesearch/web/wap_searchhub/trunk&#39;">http://svn.sogou-inc.com/svn/mobilesearch/web/wap_searchhub/trunk&#39;</a>, description: ‘svn代码’, name: ‘svn’, trim: true<br>      string defaultValue: ‘10.134.30.112’, description: ‘ip地址’, name: ‘ip’, trim: true<br>      string defaultValue: ‘root’, description: ‘用户名’, name: ‘user’, trim: true<br>      string defaultValue: ‘noSafeNoWork@2014’, description: ‘密码’, name: ‘password’, trim: true<br>    }</p>
-<pre><code>stages &#123;
-    stage(&#39;preprocess&#39;) &#123;
-      steps &#123;
-             withCredentials([sshUserPrivateKey(credentialsId: &#39;sh_fugailv&#39;, keyFileVariable: &#39;identity&#39;, passphraseVariable: &#39;&#39;, usernameVariable: &#39;userName&#39;)]) &#123;
-                script &#123;
-                    remote.name = &quot;$&#123;ip&#125;&quot;
-                    remote.host = &quot;$&#123;ip&#125;&quot;
-                    remote.user = userName
-                    remote.password = &quot;$&#123;password&#125;&quot;
-                    remote.svn=&quot;$&#123;svn&#125;&quot;
-                    remote.allowAnyHosts = true
-                &#125;
-
-                sshCommand remote: remote, command: &quot;&quot;&quot;
-                    cd /search/odin/gongyanli/searchhub/pc
-                    sh downData.sh
-                    cd /search/odin/gongyanli/searchhub/pc/web_test
-                    svn sw $&#123;svn&#125; --username &#39;gongyanli&#39; --password &#39;Gyl421498170&#39;
-                    make -j
-                    sh stop.sh
-                    sh start_centos7.sh
-                &quot;&quot;&quot;
-            &#125;
-
-        &#125;
-    &#125; 
-stage(&#39;mem&#39;) &#123;
-      steps &#123;
-             withCredentials([sshUserPrivateKey(credentialsId: &#39;sh_fugailv&#39;, keyFileVariable: &#39;identity&#39;, passphraseVariable: &#39;&#39;, usernameVariable: &#39;userName&#39;)]) &#123;
-      script &#123;
-        remote.name = &quot;$&#123;ip&#125;&quot;
-          remote.host = &quot;$&#123;ip&#125;&quot;
-          remote.user = userName
-        remote.password = &quot;$&#123;password&#125;&quot;
-        remote.svn=&quot;$&#123;svn&#125;&quot;
-        remote.allowAnyHosts = true
-      &#125;
-
-      sshCommand remote: remote, command: &quot;&quot;&quot;
-        cd /search/odin/gongyanli/searchhub/pc
-        sh mem.sh &amp;
-        &quot;&quot;&quot;
-      &#125;
-
-        &#125;
-    &#125; 
-&#125;</code></pre>
-<p>}</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/nltk-1-%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/nltk-1-%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">nltk-1-入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-12 10:13:56" itemprop="dateCreated datePublished" datetime="2018-01-12T10:13:56+08:00">2018-01-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:47:26" itemprop="dateModified" datetime="2020-09-18T21:47:26+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/nltk/" itemprop="url" rel="index"><span itemprop="name">nltk</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文首发于我的博客：<a href="http://gongyanli.com/(%E4%B8%80)%20nltk%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8/">gongyanli.com</a>  </p>
-<p>参考博客：<a target="_blank" rel="noopener" href="http://www.shareditor.com/blogshow?blogId=65">http://www.shareditor.com/blogshow?blogId=65</a>  </p>
-</blockquote>
-<p>前言：NLTK(Natural Language Toolkit) 是一个用于构建处理人类语言数据的python应用的开源平台。它提供了超过50多个素材库和词库资源的易用接口，其中有很多文本处理库，可以用来给文本分类，符号化，提取词根，贴标签，解析，语义推理，或者打包成工业级的自然语言处理库。本文简单介绍了nltk的安装与使用，希望对小伙伴们有用。</p>
-<h2 id="一、NTLK库安装"><a href="#一、NTLK库安装" class="headerlink" title="一、NTLK库安装"></a>一、NTLK库安装</h2><pre><code>$ pip install nltk</code></pre>
-<h2 id="二、NLTK模块与功能介绍"><a href="#二、NLTK模块与功能介绍" class="headerlink" title="二、NLTK模块与功能介绍"></a>二、NLTK模块与功能介绍</h2><pre><code>语言处理任务            NLTK模块                功能描述
-获取语料库            nltk.corpus            语料库和词典的标准化接口
-字符串处理            nltk.tokenize,        分词、句子分解
-                    nltk.stem            词干化
-搭配研究                nltk.collocations    t-检验、卡方、点互信息
-词性标注                nltk.tag            n-gram、backoff、Brill、HMM、TnT
-分类                    nltk.classify        决策树、最大熵、朴素贝叶斯、EM、K-Means
-                    nltk.cluster        
-分块                    nltk.chunk            正则表达式、n-gram、命名实体
-解析                    nltk.parse            图标、基于特征、一致性、概率性、依赖项
-语义解释                nltk.stem            λ演算、一阶逻辑、模型检验
-                    nltk.inference        
-指标测评                nltk.metrics        精度、召回率、协议系数
-概率与估计            nltk.probalility    频率分布、平滑概率分布
-应用                    nltk.app            图形化的关键词排序、分析器、wordnet查看器
-                    nltk.chat
-语言学领域的工作        nltk.toolbox        处理STL工具箱格式的数据</code></pre>
-<h2 id="三、下载书籍"><a href="#三、下载书籍" class="headerlink" title="三、下载书籍"></a>三、下载书籍</h2><pre><code>$ python
-&gt;&gt;&gt; import nltk
-&gt;&gt;&gt; nltk.download()
-选择语料库--book进行下载
-&gt;&gt;&gt; nltk.book import *
-&gt;&gt;&gt; text1
-&lt;Text: Moby Dick by Herman Melville 1851&gt;</code></pre>
-<h2 id="四、NLTK基本使用"><a href="#四、NLTK基本使用" class="headerlink" title="四、NLTK基本使用"></a>四、NLTK基本使用</h2><pre><code>1.搜索文本
-    &gt;&gt;&gt; text1.concordancd(&quot;next&quot;)
-    &gt; 显示20个包含next的语句上下文
-2.搜索相关词
-    &gt;&gt;&gt; text1.similar(&quot;boat&quot;)
-    &gt;查找出boat的近义词等相关词
-3.查找词在文章中的位置
-    &gt;&gt;&gt; text1.dispersion_plot([&quot;bext&quot;,&quot;city&quot;,&quot;America&quot;])
-    &gt; 如果出现错误，请记得安装matplotlib
-    &gt; pip install matplotlib
-4.词统计
-    len(text1)：返回总字数
-    set(text1)：返回文本的所有词集合
-    len(set(text4))：返回文本总词数
-    text4.count(&quot;is&quot;)：返回“is”这个词出现的总次数
-    FreqDist(text1)：统计文章的词频并按从大到小排序存到一个列表里
-    fdist1 = FreqDist(text1);fdist1.plot(50, cumulative=True)：统计词频，并输出累计图像
-    fdist1.hapaxes()：返回只出现一次的词text4.collocations()：频繁的双联词</code></pre>
-<h2 id="五、NLTK–文本预处理"><a href="#五、NLTK–文本预处理" class="headerlink" title="五、NLTK–文本预处理"></a>五、NLTK–文本预处理</h2><p>1.分词<br>(1)英文分词</p>
-<pre><code>方法1：将文本分割成单词
-split()
-方法2：将文本分割成句子
-from nltk.tokenize import sent_tokenize
-sent=sent_token(text)
-方法3:将文本分割成单词
-from nltk.tokenize import word_tokenize
-word=word_tokenize(text)</code></pre>
-<p>(2)非英文分词</p>
-<pre><code>from nltk.tokenize import sent_tokenize
-sent=sent_token(text,&quot;french&quot;)</code></pre>
-<p>2.词干化处理（stem）</p>
-<p>文档分词后一般要进行词干化处理，词干化处理就是将名词复数变为单数，动词不同时态变为基本时态等。</p>
-<pre><code>from nltk.stem import PorterStemmer
-from nltk.corpus import wordnet as wn
-from nltk import PorterStemmer
-from nltk.stem.lancaster import LancasterStemmer
-
-def stemWords(self,wordsList):
-
-    # 方法1
-    porter=PorterStemmer()
-    result=[porter.stem(w) for w in wordsList]
-    # 方法2
-    stemWords=[]
-    for words in wordsList:
-        stemWords+=[[wn.morphy(w) for w in words]]
-    return stemWords
-    # 方法3--支持非英文词干化提取
-    stemmer=SnowballStemmer(&quot;english&quot;)
-    result=stemmer.stem(&quot;imaging&quot;)
-    # 方法4
-    lancaster_stemmer = LancasterStemmer()
-    lancaster_stemmer.stem(‘saying’)</code></pre>
-<p>3.单词变体还原–将单词还原成一个真实的单词<br>当用PorterStemmer和PorterStemmer对imaging这个单词进行词干化处理时，得到的结果是imag，显然这并不是我们想要的结果，所以这时候就很有必要进行还原。<br>有时候将单词变体还原时，总是得到同样的词，这是因为语言默认部分为名词，要想得到动词，使用pos=”v”</p>
-<pre><code>from nltk.stem import WordNetLemmatizer
-lemmatizer = WordNetLemmatizer()
-print(lemmatizer.lemmatize(&#39;imaging&#39;, pos=&quot;v&quot;))
-
-pos=&quot;v&quot;--动词
-pos=&quot;n&quot;--名词
-pos=&quot;a&quot;--形容词
-pos=&quot;r&quot;--副词</code></pre>
-<p>4.停用词处理（stopwords）</p>
-<pre><code>from nltk.corpus import stopwordds
-stopwordset=stopwords.words(&quot;english&quot;)
-clean_tokens=list()
-for token in tokens:
-    if token not in stopwordset:
-        clean_tokens.append(token)
-# clean_list=[token for tokens in text if token not in stopwordset]</code></pre>
-<p>5.同义词处理</p>
-<pre><code># WordNet是一个为自然语言处理而建立的数据库，包含一些同义词组及简短定义
-from nltk.corpus import wordnet
-# 获取单词的定义和示例
-  syn = wordnet.synsets(&quot;pain&quot;)
-print(syn[0].definition())
-print(syn[0].examples())
-# 获取同义词
-synonyms = []
-for syn in wordnet.synsets(&quot;computer&quot;):
-    for lemma in syn.lemmas():
-        synonyms.append(lemma.name())
-print(synonyms)</code></pre>
-<p>6.反义词处理</p>
-<pre><code>from nltk.corpus import wordnet
-  antonyms = []
-for syn in wordnet.synsets(&quot;small&quot;):
-    for l in syn.lemmas():
-        if l.antonyms():
-            antonyms.append(l.antonyms()[0].name())
-print(antonyms)</code></pre>
-<p>7.词性标注(pos tagger)</p>
-<pre><code>import nltk
-tokens=nltk.pos_tag(tokens) # 进行词性标注
-
-# 查看相关说明文档
-nltk.help.upeen_tagset(&quot;JJ&quot;)
-nltk.help.upeen_tagset(&quot;IN&quot;)
-nltk.help.upeen_tagset(&quot;NNP&quot;)</code></pre>
-<p>8.去掉数字标点和非字母字符</p>
-<pre><code>def CleanLines(self,line):  
-    identify = string.maketrans(&#39;&#39;, &#39;&#39;)  
-    delEStr = string.punctuation +string.digits  #ASCII 标点符号，数字    
-    cleanLine =line.translate(identify,delEStr) #去掉ASCII 标点符号  
-   return cleanLine  </code></pre>
-<p>9.拼写检查</p>
-<pre><code>def WordCheck(self,words):#拼写检查  
-    d = enchant.Dict(&quot;en_US&quot;)  
-    checkedWords=()  
-    for word in words:  
-        if not d.check(word):  
-            d.suggest(word)  
-            word=raw_input()  
-        checkedWords = (checkedWords,&#39;05&#39;)  
-   return checkedWords  </code></pre>
-<h2 id="六、NLTK结合Stanford-NLP工具包进行文本处理"><a href="#六、NLTK结合Stanford-NLP工具包进行文本处理" class="headerlink" title="六、NLTK结合Stanford NLP工具包进行文本处理"></a>六、NLTK结合Stanford NLP工具包进行文本处理</h2><p>待完成</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2848,7 +2757,7 @@ nltk.help.upeen_tagset(&quot;NNP&quot;)</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

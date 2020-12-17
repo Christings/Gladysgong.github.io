@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="207. 课程表链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;course-schedule&#x2F;  你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。  在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]  给定课程总量以及它们的先决条件，请你判断是否可能完成所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode-10-图-一">
+<meta property="og:url" content="http://gongyanli.com/LeetCode-10-%E5%9B%BE-%E4%B8%80/index.html">
+<meta property="og:site_name" content="茉莉Python">
+<meta property="og:description" content="207. 课程表链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;course-schedule&#x2F;  你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。  在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]  给定课程总量以及它们的先决条件，请你判断是否可能完成所有">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-08T02:04:32.000Z">
+<meta property="article:modified_time" content="2020-12-08T08:55:52.159Z">
+<meta property="article:author" content="Lilly">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://gongyanli.com/LeetCode-10-%E5%9B%BE-%E4%B8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCode-10-图-一 | 茉莉Python</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">茉莉Python</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">voidqueens@hotmail.com</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-10-%E5%9B%BE-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode-10-图-一
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-08 10:04:32 / Modified: 16:55:52" itemprop="dateCreated datePublished" datetime="2020-12-08T10:04:32+08:00">2020-12-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207. 课程表"></a>207. 课程表</h3><pre><code>链接：https://leetcode-cn.com/problems/course-schedule/
+
+你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。
+
+在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
+
+给定课程总量以及它们的先决条件，请你判断是否可能完成所有课程的学习？
+
+
+示例 1:
+
+输入: 2, [[1,0]] 
+输出: true
+解释: 总共有 2 门课程。学习课程 1 之前，你需要完成课程 0。所以这是可能的。
+示例 2:
+
+输入: 2, [[1,0],[0,1]]
+输出: false
+解释: 总共有 2 门课程。学习课程 1 之前，你需要先完成​课程 0；并且学习课程 0 之前，你还应先完成课程 1。这是不可能的。
+
+提示：
+
+输入的先决条件是由 边缘列表 表示的图形，而不是 邻接矩阵 。详情请参见图的表示法。
+你可以假定输入的先决条件中没有重复的边。
+1 &lt;= numCourses &lt;= 10^5</code></pre>
+<p>题解一|拓扑排序|bfs：</p>
+<p>有向无环图，把一个 有向无环图 转成 线性的排序 就叫 拓扑排序。</p>
+<p>有向图有 入度 和 出度 的概念：</p>
+<pre><code>如果存在一条有向边 A --&gt; B，则这条边给 A 增加了 1 个出度，给 B 增加了 1 个入度。</code></pre>
+<p>思路：</p>
+<pre><code>A--&gt;B
+每次选择入度为0的课程，因为它不需要依赖其他的课程；
+当选择A后，B的依赖课程少了一门，入度由1变为0，接着选B；
+一直选择，直到选不到入度为0的课程；</code></pre>
+<pre><code>import collections
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -&gt; bool:
+        n=len(prerequisites)
+        if n==0:
+            return True
+        in_degrees=[0 for _ in range(numCourses)]
+        adjacency=[[] for _ in range(numCourses)]
+        queue=collections.deque()
+
+        for second,first in prerequisites:
+            in_degrees[second]+=1 # 节点的入度，index代表节点，value代表入度值。
+            adjacency[first].append(second) # 邻接矩阵关系
+
+        for i in range(numCourses):
+            if in_degrees[i]==0:
+                queue.append(i) # 如果入度为0，则把index即节点加入到queue队列中。
+
+        while queue:
+            node=queue.popleft()
+            for i in adjacency[node]: # 节点指向的节点
+                in_degrees[i]-=1
+                if in_degrees[i]==0:
+                    queue.append(i)
+            numCourses-=1
+        return numCourses==0</code></pre>
+<p>题解二|dfs：</p>
+<pre><code>import collections
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -&gt; bool:
+        def dfs(i, adjacency, flags):
+            if flags[i] == -1: return True
+            if flags[i] == 1: return False
+            flags[i] = 1
+            for j in adjacency[i]:
+                if not dfs(j, adjacency, flags): return False
+            flags[i] = -1
+            return True
+
+        adjacency = [[] for _ in range(numCourses)]
+        flags = [0 for _ in range(numCourses)]
+        for cur, pre in prerequisites:
+            adjacency[pre].append(cur)
+        for i in range(numCourses):
+            if not dfs(i, adjacency, flags): return False
+        return True</code></pre>
+<h3 id="997-找到小镇的法官"><a href="#997-找到小镇的法官" class="headerlink" title="997. 找到小镇的法官"></a>997. 找到小镇的法官</h3><pre><code>链接：https://leetcode-cn.com/problems/find-the-town-judge/
+
+在一个小镇里，按从 1 到 N 标记了 N 个人。传言称，这些人中有一个是小镇上的秘密法官。
+
+如果小镇的法官真的存在，那么：
+
+小镇的法官不相信任何人。
+每个人（除了小镇法官外）都信任小镇的法官。
+只有一个人同时满足属性 1 和属性 2 。
+给定数组 trust，该数组由信任对 trust[i] = [a, b] 组成，表示标记为 a 的人信任标记为 b 的人。
+
+如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的标记。否则，返回 -1。
+
+示例 1：
+
+输入：N = 2, trust = [[1,2]]
+输出：2
+示例 2：
+
+输入：N = 3, trust = [[1,3],[2,3]]
+输出：3
+示例 3：
+
+输入：N = 3, trust = [[1,3],[2,3],[3,1]]
+输出：-1
+示例 4：
+
+输入：N = 3, trust = [[1,2],[2,3]]
+输出：-1
+示例 5：
+
+输入：N = 4, trust = [[1,3],[1,4],[2,3],[2,4],[4,3]]
+输出：3
+
+
+提示：
+
+1 &lt;= N &lt;= 1000
+trust.length &lt;= 10000
+trust[i] 是完全不同的
+trust[i][0] != trust[i][1]
+1 &lt;= trust[i][0], trust[i][1] &lt;= N</code></pre>
+<p>题解一|出度和入度：</p>
+<pre><code>class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -&gt; int:
+        if N&lt;1:
+            return -1
+        n=len(trust)
+        indegree=[0 for _ in range(N+1)]
+        outdegree=[0 for _ in range(N+1)]
+        for first,second in trust:
+            indegree[second]+=1
+            outdegree[first]+=1
+        for i in range(1,N+1): # 从1开始
+            if indegree[i]==N-1 and outdegree[i]==0:
+                return i
+        return -1</code></pre>
+<pre><code>class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -&gt; int:
+        if N&lt;=1:
+            return N
+        n=len(trust)
+        degree=[0 for _ in range(N+1)]
+        for first,second in trust:
+            degree[first]-=1
+            degree[second]+=1
+        for i in range(N+1):
+            if degree[i]==N-1:
+                return i
+        return -1</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/LeetCode-16-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" rel="prev" title="LeetCode-16-区间问题">
+      <i class="fa fa-chevron-left"></i> LeetCode-16-区间问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode-%E5%91%A8%E8%B5%9B-219/" rel="next" title="LeetCode-周赛-219">
+      LeetCode-周赛-219 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#207-%E8%AF%BE%E7%A8%8B%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">207. 课程表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#997-%E6%89%BE%E5%88%B0%E5%B0%8F%E9%95%87%E7%9A%84%E6%B3%95%E5%AE%98"><span class="nav-number">2.</span> <span class="nav-text">997. 找到小镇的法官</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lilly</p>
+  <div class="site-description" itemprop="description">Up in the wind!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lilly</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,449 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">线性回归--从0开始实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-17 19:19:43" itemprop="dateCreated datePublished" datetime="2018-09-17T19:19:43+08:00">2018-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:10:52" itemprop="dateModified" datetime="2020-09-18T17:10:52+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/" itemprop="url" rel="index"><span itemprop="name">gluon</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>代码：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/">https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/</a></p>
+<h2 id="一-线性回归"><a href="#一-线性回归" class="headerlink" title="一.线性回归"></a>一.线性回归</h2><pre><code>线性回归输出是连续值，因此不适用于回归问题；
+Softmax回归输出是是离散值，因为适用于分类问题。</code></pre>
+<h3 id="1-线性回归要素"><a href="#1-线性回归要素" class="headerlink" title="1.线性回归要素"></a>1.线性回归要素</h3><pre><code>模型: 
+    表达式：</code></pre>
+<p>$$\hat{y} = x_1 w_1 + x_2 w_2 + b,$$</p>
+<pre><code>    模型训练:
+        训练数据
+        损失函数
+        优化算法:
+            解析解：误差最小化问题的解可以直接用公式表达出来
+            数值解：大多数深度学习模型并没有解析解，只能通过优化算法有限次迭代模型参数来尽可能降低损失函数的值
+                   小批量随机梯度下降：批量大小和学习率是认为设定的，叫做超参数
+
+    模型预测</code></pre>
+<h3 id="2-线性回归表示方法"><a href="#2-线性回归表示方法" class="headerlink" title="2.线性回归表示方法"></a>2.线性回归表示方法</h3><pre><code>神经网络图
+矢量计算表达式</code></pre>
+<h2 id="二-线性回归–从0开始实现"><a href="#二-线性回归–从0开始实现" class="headerlink" title="二.线性回归–从0开始实现"></a>二.线性回归–从0开始实现</h2><pre class=" language-python"><code class="language-python"><span class="token operator">%</span>matplotlib inline
+<span class="token keyword">from</span> IPython <span class="token keyword">import</span> display
+<span class="token keyword">from</span> matplotlib <span class="token keyword">import</span> pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">from</span> mxnet <span class="token keyword">import</span> autograd<span class="token punctuation">,</span> nd
+<span class="token keyword">import</span> random</code></pre>
+<h3 id="1-生成数据集"><a href="#1-生成数据集" class="headerlink" title="1.生成数据集"></a>1.生成数据集</h3><pre><code>numpy.random.normal(loc=0.0, scale=1.0, size=None)11
+loc：float
+    此概率分布的均值（对应着整个分布的中心centre）
+scale：float
+    此概率分布的标准差（对应于分布的宽度，scale越大越矮胖，scale越小，越瘦高）
+size：int or tuple of ints
+    输出的shape，默认为None</code></pre>
+<pre class=" language-python"><code class="language-python">num_inputs<span class="token operator">=</span><span class="token number">2</span>
+num_examples<span class="token operator">=</span><span class="token number">1000</span>
+true_w<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.4</span><span class="token punctuation">]</span>
+true_b<span class="token operator">=</span><span class="token number">4.2</span>
+features<span class="token operator">=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>shape<span class="token operator">=</span><span class="token punctuation">(</span>num_examples<span class="token punctuation">,</span>num_inputs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+labels<span class="token operator">=</span>true_w<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>true_w<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>true_b
+labels<span class="token operator">+=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>shape<span class="token operator">=</span>labels<span class="token punctuation">.</span>shape<span class="token punctuation">)</span></code></pre>
+<pre class=" language-python"><code class="language-python">features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>labels<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code></pre>
+<pre><code>(
+ [ 1.16307867  0.48380461]
+ &lt;NDArray 2 @cpu(0)&gt;, 
+ [ 4.87962484]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">use_svg_display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 用矢量图表示</span>
+    display<span class="token punctuation">.</span>set_matplotlib_formats<span class="token punctuation">(</span><span class="token string">'svg'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">set_figsize</span><span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3.5</span><span class="token punctuation">,</span><span class="token number">2.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true">#set_matplotlib_formats('svg')</span>
+    use_svg_display<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 设置图的尺寸</span>
+    plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'figure.figsize'</span><span class="token punctuation">]</span><span class="token operator">=</span>figsize
+
+set_figsize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>labels<span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># plt.show()</span></code></pre>
+<pre><code>&lt;matplotlib.collections.PathCollection at 0x117cadda0&gt;</code></pre>
+<p><img src="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/linear_regression_6_1.svg" alt="svg"></p>
+<h3 id="2-读取数据"><a href="#2-读取数据" class="headerlink" title="2.读取数据"></a>2.读取数据</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 每次返回batch_size(批量大小)个随机样本的特征和标签</span>
+<span class="token comment" spellcheck="true"># 此函数已保存在gluonbook包中方便以后使用</span>
+<span class="token keyword">def</span> <span class="token function">data_iter</span><span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span>features<span class="token punctuation">,</span>labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    num_examples<span class="token operator">=</span>len<span class="token punctuation">(</span>features<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"长度："</span><span class="token punctuation">,</span>num_examples<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 1000,行数</span>
+    indices<span class="token operator">=</span>list<span class="token punctuation">(</span>range<span class="token punctuation">(</span>num_examples<span class="token punctuation">)</span><span class="token punctuation">)</span> 
+<span class="token comment" spellcheck="true">#     print("indices：",indices)  # 0-999</span>
+    random<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>indices<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 样本的读取顺序是随机的。</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>num_examples<span class="token punctuation">,</span>batch_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        j<span class="token operator">=</span>nd<span class="token punctuation">.</span>array<span class="token punctuation">(</span>indices<span class="token punctuation">[</span>i<span class="token punctuation">:</span>min<span class="token punctuation">(</span>i<span class="token operator">+</span>batch_size<span class="token punctuation">,</span>num_examples<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">yield</span> features<span class="token punctuation">.</span>take<span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">,</span>labels<span class="token punctuation">.</span>take<span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># take 函数根据索引返回对应元素。</span></code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 每个批量的特征形状为（10， 2），分别对应批量大小和输入个数；标签形状为批量大小。</span>
+batch_size <span class="token operator">=</span> <span class="token number">10</span>
+
+<span class="token keyword">for</span> X<span class="token punctuation">,</span> y <span class="token keyword">in</span> data_iter<span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span> features<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+    <span class="token keyword">break</span></code></pre>
+<pre><code>长度： 1000
+
+[[-1.4370029  -2.39830184]
+ [ 0.86399084 -0.95994246]
+ [-1.49929214  1.21278656]
+ [ 2.52268934 -0.37837121]
+ [ 1.39448225  0.56141484]
+ [ 0.50767344  0.07797763]
+ [ 0.37963197 -0.65589839]
+ [-0.47827247 -1.17394924]
+ [-0.11860342  1.41482413]
+ [ 1.18384051  0.65427899]]
+&lt;NDArray 10x2 @cpu(0)&gt; 
+[  9.47776413   9.20563984  -2.91862679  10.52518559   5.09047413
+   4.9430213    7.19049788   7.2272377   -0.82722223   4.32375574]
+&lt;NDArray 10 @cpu(0)&gt;</code></pre>
+<h3 id="3-初始化模型参数"><a href="#3-初始化模型参数" class="headerlink" title="3.初始化模型参数"></a>3.初始化模型参数</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 将权重初始化成均值为 0 标准差为 0.01 的正态随机数，偏差则初始化成 0。</span>
+w<span class="token operator">=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>shape<span class="token operator">=</span><span class="token punctuation">(</span>num_inputs<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+b<span class="token operator">=</span>nd<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>shape<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-python"><code class="language-python">w<span class="token punctuation">,</span>b</code></pre>
+<pre><code>(
+ [[ 0.01464221]
+  [-0.01305814]]
+ &lt;NDArray 2x1 @cpu(0)&gt;, 
+ [ 0.]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建梯度，yinw需要对这些参数求梯度来迭代参数的值</span>
+w<span class="token punctuation">.</span>attach_grad<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 申请存储梯度所需要的内存</span>
+b<span class="token punctuation">.</span>attach_grad<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<h3 id="4-定义模型"><a href="#4-定义模型" class="headerlink" title="4.定义模型"></a>4.定义模型</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 线性回归的矢量计算表达式的实现</span>
+<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
+<span class="token keyword">def</span> <span class="token function">linreg</span><span class="token punctuation">(</span>X<span class="token punctuation">,</span>w<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> nd<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>X<span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token operator">+</span>b <span class="token comment" spellcheck="true"># dot做矩阵乘法</span></code></pre>
+<h3 id="5-定义损失函数"><a href="#5-定义损失函数" class="headerlink" title="5.定义损失函数"></a>5.定义损失函数</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 使用平方损失来定义线性回归的损失函数</span>
+<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
+<span class="token keyword">def</span> <span class="token function">squared_loss</span><span class="token punctuation">(</span>y_hat<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span><span class="token punctuation">(</span>y_hat<span class="token operator">-</span>y<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>y_hat<span class="token punctuation">.</span>shape<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">**</span><span class="token number">2</span><span class="token operator">/</span><span class="token number">2</span> <span class="token comment" spellcheck="true"># y_hat是线性回归对真实价格 y 的预测或估计</span></code></pre>
+<h3 id="6-定义优化算法"><a href="#6-定义优化算法" class="headerlink" title="6.定义优化算法"></a>6.定义优化算法</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 使用sgd函数实现小批量随机梯度下降算法</span>
+<span class="token comment" spellcheck="true"># 通过不断迭代模型参数来优化损失函数，这里自动求导模块计算得来的梯度是一个批量样本的梯度和，将它除以批量大小来得到平均值。</span>
+<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
+<span class="token keyword">def</span> <span class="token function">sgd</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span>lr<span class="token punctuation">,</span>batch_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> param <span class="token keyword">in</span> params<span class="token punctuation">:</span>
+        param<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>param<span class="token operator">-</span>lr<span class="token operator">*</span>param<span class="token punctuation">.</span>grad<span class="token operator">/</span>batch_size</code></pre>
+<h3 id="7-训练模型"><a href="#7-训练模型" class="headerlink" title="7.训练模型"></a>7.训练模型</h3><pre class=" language-python"><code class="language-python">lr <span class="token operator">=</span> <span class="token number">0.03</span>
+num_epochs <span class="token operator">=</span> <span class="token number">3</span>
+net <span class="token operator">=</span> linreg
+loss <span class="token operator">=</span> squared_loss
+
+<span class="token keyword">for</span> epoch <span class="token keyword">in</span> range<span class="token punctuation">(</span>num_epochs<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 训练模型一共需要 num_epochs 个迭代周期。</span>
+    <span class="token comment" spellcheck="true"># 在一个迭代周期中，使用训练数据集中所有样本一次（假设样本数能够被批量大小整除）。</span>
+    <span class="token comment" spellcheck="true"># X 和 y 分别是小批量样本的特征和标签。</span>
+    <span class="token keyword">for</span> X<span class="token punctuation">,</span> y <span class="token keyword">in</span> data_iter<span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span> features<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">with</span> autograd<span class="token punctuation">.</span>record<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            l <span class="token operator">=</span> loss<span class="token punctuation">(</span>net<span class="token punctuation">(</span>X<span class="token punctuation">,</span> w<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># l 是有关小批量 X 和 y 的损失。</span>
+        l<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 小批量的损失对模型参数求梯度。</span>
+        sgd<span class="token punctuation">(</span><span class="token punctuation">[</span>w<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">,</span> lr<span class="token punctuation">,</span> batch_size<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 使用小批量随机梯度下降迭代模型参数。</span>
+    train_l <span class="token operator">=</span> loss<span class="token punctuation">(</span>net<span class="token punctuation">(</span>features<span class="token punctuation">,</span> w<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'epoch %d, loss %f'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>epoch <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> train_l<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<pre><code>长度： 1000
+epoch 1, loss 0.000048
+长度： 1000
+epoch 2, loss 0.000048
+长度： 1000
+epoch 3, loss 0.000048</code></pre>
+<pre class=" language-python"><code class="language-python">true_w<span class="token punctuation">,</span>w</code></pre>
+<pre><code>([2, -3.4], 
+ [[ 2.00003362]
+  [-3.40025949]]
+ &lt;NDArray 2x1 @cpu(0)&gt;)</code></pre>
+<pre class=" language-python"><code class="language-python">true_b<span class="token punctuation">,</span>b</code></pre>
+<pre><code>(4.2, 
+ [ 4.20015049]
+ &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/KNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/KNN/" class="post-title-link" itemprop="url">KNN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-10 14:26:36" itemprop="dateCreated datePublished" datetime="2018-09-10T14:26:36+08:00">2018-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:59:41" itemprop="dateModified" datetime="2020-09-18T16:59:41+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E3%80%8B/" itemprop="url" rel="index"><span itemprop="name">《机器学习实战》</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#coding:utf-8</span>
+
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> operator</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">createDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    group<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0.1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    labels<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">]</span>
+    <span class="token keyword">return</span> group<span class="token punctuation">,</span>labels</code></pre>
+<pre class=" language-python"><code class="language-python">group<span class="token punctuation">,</span>labels<span class="token operator">=</span>createDataSet<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class=" language-python"><code class="language-python">group<span class="token punctuation">,</span>labels</code></pre>
+<pre><code>(array([[1. , 1.1],
+        [1. , 1. ],
+        [0. , 0. ],
+        [0. , 0.1]]), [&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;])</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">classify0</span><span class="token punctuation">(</span>inX<span class="token punctuation">,</span>dataSet<span class="token punctuation">,</span>labels<span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataSetSize<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># dataSet的行数</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"dataSetSize:"</span><span class="token punctuation">,</span>dataSetSize<span class="token punctuation">)</span>
+    diffMat<span class="token operator">=</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span><span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span>dataSet <span class="token comment" spellcheck="true"># 构造一个和dataSet一样的矩阵，再和dataSet相减</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"diffMat:"</span><span class="token punctuation">,</span>diffMat<span class="token punctuation">)</span>
+    sqDiffMat<span class="token operator">=</span>diffMat<span class="token operator">**</span><span class="token number">2</span> <span class="token comment" spellcheck="true"># 矩阵的平方</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sqDiffMat:"</span><span class="token punctuation">,</span>sqDiffMat<span class="token punctuation">)</span>
+    sqDistances<span class="token operator">=</span>sqDiffMat<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 按行相加</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sqDistances:"</span><span class="token punctuation">,</span>sqDistances<span class="token punctuation">)</span>
+    distances<span class="token operator">=</span>sqDistances<span class="token operator">**</span><span class="token number">0.5</span> <span class="token comment" spellcheck="true"># 开方，求距离</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"distances:"</span><span class="token punctuation">,</span>distances<span class="token punctuation">)</span>
+    sortedDistIndicies<span class="token operator">=</span>distances<span class="token punctuation">.</span>argsort<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 对距离排序</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sortedDistIndicies:"</span><span class="token punctuation">,</span>sortedDistIndicies<span class="token punctuation">)</span>
+    classCount<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        voteIlabel<span class="token operator">=</span>labels<span class="token punctuation">[</span>sortedDistIndicies<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"voteIlable:"</span><span class="token punctuation">,</span>voteIlabel<span class="token punctuation">)</span>
+        classCount<span class="token punctuation">[</span>voteIlabel<span class="token punctuation">]</span><span class="token operator">=</span>classCount<span class="token punctuation">.</span>get<span class="token punctuation">(</span>voteIlabel<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"classCount:"</span><span class="token punctuation">,</span>classCount<span class="token punctuation">)</span>
+    sortedClassCount<span class="token operator">=</span>sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>sortedClassCount<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+classify0<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>group<span class="token punctuation">,</span>labels<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
+<pre><code>dataSetSize: 4
+diffMat: [[0.  0.1]
+ [0.  0.2]
+ [1.  1.2]
+ [1.  1.1]]
+sqDiffMat: [[0.   0.01]
+ [0.   0.04]
+ [1.   1.44]
+ [1.   1.21]]
+sqDistances: [0.01 0.04 2.44 2.21]
+distances: [0.1        0.2        1.56204994 1.48660687]
+sortedDistIndicies: [0 1 3 2]
+voteIlable: A
+classCount: &#123;&#39;A&#39;: 1&#125;
+voteIlable: A
+classCount: &#123;&#39;A&#39;: 2&#125;
+voteIlable: B
+classCount: &#123;&#39;A&#39;: 2, &#39;B&#39;: 1&#125;
+[(&#39;A&#39;, 2), (&#39;B&#39;, 1)]
+
+
+
+
+
+&#39;A&#39;</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 将文本记录转换为numpy矩阵</span>
+<span class="token keyword">def</span> <span class="token function">file2matrix</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fr<span class="token operator">=</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
+
+    numberOfLines<span class="token operator">=</span>len<span class="token punctuation">(</span>fr<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    returnMat<span class="token operator">=</span>np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>numberOfLines<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 创建一个和文本一样形式的0矩阵</span>
+    classLabelVector<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+    fr<span class="token operator">=</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
+
+    index<span class="token operator">=</span><span class="token number">0</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> fr<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        line<span class="token operator">=</span>line<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        listFromLine<span class="token operator">=</span>line<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">)</span>
+        returnMat<span class="token punctuation">[</span>index<span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>listFromLine<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+        classLabelVector<span class="token punctuation">.</span>append<span class="token punctuation">(</span>int<span class="token punctuation">(</span>listFromLine<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        index<span class="token operator">+=</span><span class="token number">1</span>
+    <span class="token keyword">return</span> returnMat<span class="token punctuation">,</span>classLabelVector</code></pre>
+<pre class=" language-python"><code class="language-python">datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token operator">=</span>file2matrix<span class="token punctuation">(</span><span class="token string">'datingTestSet2.txt'</span><span class="token punctuation">)</span>
+datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">]</span></code></pre>
+<pre><code>(array([[4.0920000e+04, 8.3269760e+00, 9.5395200e-01],
+        [1.4488000e+04, 7.1534690e+00, 1.6739040e+00],
+        [2.6052000e+04, 1.4418710e+00, 8.0512400e-01],
+        ...,
+        [2.6575000e+04, 1.0650102e+01, 8.6662700e-01],
+        [4.8111000e+04, 9.1345280e+00, 7.2804500e-01],
+        [4.3757000e+04, 7.8826010e+00, 1.3324460e+00]]),
+ [3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 2, 3])</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 分析数据，使用Matplotlib创建散点图</span>
+<span class="token keyword">import</span> matplotlib
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token comment" spellcheck="true"># mpl.rcParams['font.sans-serif'] = ['SimHei']  </span>
+<span class="token comment" spellcheck="true"># mpl.rcParams['axes.unicode_minus'] = False  </span>
+fig<span class="token operator">=</span>plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ax<span class="token operator">=</span>fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">111</span><span class="token punctuation">)</span>
+
+datingLabels <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>datingLabels<span class="token punctuation">)</span>
+
+idx_1<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span>
+p1<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_1<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_1<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'y'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+idx_2<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">2</span><span class="token punctuation">)</span>
+p2<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_2<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_2<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'g'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span>
+idx_3<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">3</span><span class="token punctuation">)</span>
+p3<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_3<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_3<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'b'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># ax.scatter(datingDataMat[:,1],datingDataMat[:,2],15.0*np.array(datingLabels),15.0*np.array(datingLabels),c='yellow')</span>
+
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span>u<span class="token string">'每年获取的飞行常客里程数'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span>u<span class="token string">'玩视频游戏所耗时间百分比'</span><span class="token punctuation">)</span>
+ax<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">(</span>p1<span class="token punctuation">,</span>p2<span class="token punctuation">,</span>p3<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>u<span class="token string">'不喜欢'</span><span class="token punctuation">,</span> u<span class="token string">'魅力一般'</span><span class="token punctuation">,</span> u<span class="token string">'极具魅力'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> loc<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># ax.rc('font',family=['SeiHei'])</span>
+<span class="token comment" spellcheck="true">#ax.legend((p1,p2,p3), (u'不喜欢', u'魅力一般', u'极具魅力'), loc=2, prop=zhfont)</span>
+plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'font.sans-serif'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'SimHei'</span><span class="token punctuation">]</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><img src="/KNN/Untitled_7_0.png" alt="png"></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 归一化特征值</span>
+<span class="token keyword">def</span> <span class="token function">autoNorm</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    minVals<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>min<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 3列数据中的3个最小值</span>
+    maxVals<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>max<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 3列数据中的3个最大值</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>minVals<span class="token punctuation">)</span>
+
+    ranges<span class="token operator">=</span>maxVals<span class="token operator">-</span>minVals
+    normDateSet<span class="token operator">=</span>np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span>
+    m<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 行数1000</span>
+    normDateSet<span class="token operator">=</span>dataSet<span class="token operator">-</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>minVals<span class="token punctuation">,</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#dataSet减去同样格式的最小值组成的矩阵</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span>
+    normDateSet<span class="token operator">=</span>normDateSet<span class="token operator">/</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>ranges<span class="token punctuation">,</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> normDateSet<span class="token punctuation">,</span>ranges<span class="token punctuation">,</span>minVals</code></pre>
+<p>normMat,ranges,minVals=autoNorm(datingDataMat)</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 分类器针对约会网站的测试代码</span>
+<span class="token keyword">def</span> <span class="token function">datingClassTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    hoRatio<span class="token operator">=</span><span class="token number">0.5</span>
+    datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token operator">=</span>file2matrix<span class="token punctuation">(</span><span class="token string">'datingTestSet2.txt'</span><span class="token punctuation">)</span>
+    normMat<span class="token punctuation">,</span>ranges<span class="token punctuation">,</span>minVals<span class="token operator">=</span>autoNorm<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">)</span>
+    m<span class="token operator">=</span>normMat<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    numTestVecs<span class="token operator">=</span>int<span class="token punctuation">(</span>m<span class="token operator">*</span>hoRatio<span class="token punctuation">)</span>
+    errorCount<span class="token operator">=</span><span class="token number">0.0</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>numTestVecs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        classifierResult<span class="token operator">=</span>classify0<span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span></code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1371,259 +1814,6 @@ $ mysql -u root -p
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="post-title-link" itemprop="url">SMTP发送邮件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-07-27 14:37:07" itemprop="dateCreated datePublished" datetime="2018-07-27T14:37:07+08:00">2018-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 14:01:15" itemprop="dateModified" datetime="2020-09-18T14:01:15+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/Mail/" itemprop="url" rel="index"><span itemprop="name">Mail</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一.概述"></a>一.概述</h2><pre><code>SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮
-件的规则，由它来控制信件的中转方式。
-python中smtplib对smtp协议进行了简单封装，让我们能够方便的发送电子邮件，可以发送纯文本邮件、html
-邮件及带附件的邮件。
-python的SMTP支持smtplib和email两个模块，email负责构造邮件，smtplib负责发送邮件。
-
-email:
-
-from emial.mime.text import MIMEText
-msg=MIMEText(&#39;hello&#39;,&#39;plain&#39;,&#39;utf-8&#39;)
-注意：MIMEText对象第一个参数是邮件正文，第二个参数时MIME的subtype，传入&#39;plain&#39;，最终的MIME就是
-&#39;text/plain&#39;，最后用&#39;utf-8&#39;保证多语言兼容性。
-
-smtplib:
-
-import smtplib
-smtpobj=smtplib.SMTP([host[,port[,local_hostname]]])
-
-host: SMTP服务器主机,可指定主机的ip地址或者域名,可选参数;
-port: 如果你提供了host参数, 你需要指定SMTP服务使用的端口号，一般情况下SMTP端口号为25;
-local_hostname: 如果SMTP在你的本机上，你只需要指定服务器地址为localhost即可;
-
-# 发送邮件
-SMTP.sendmail(from_addr,to_addrs,msg[,mail_options,rcpt_options])
-
-from_addr: 邮件发送者地址；
-to_addrs: 字符串列表，邮件发送地址；
-msg: 发送消息；</code></pre>
-<h2 id="二-代码实现"><a href="#二-代码实现" class="headerlink" title="二.代码实现"></a>二.代码实现</h2><pre><code># -*- coding: UTF-8 -*-
-&#39;&#39;&#39;&#39;
-title:自动发送测试
-author:Lilly
-&#39;&#39;&#39;
-import sys, os, re, urllib, urllib.parse
-import smtplib
-import traceback
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-
-def sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password):
-    &#39;&#39;&#39;&#39;&#39;
-    @subject:邮件主题
-    @msg:邮件内容
-    @toaddrs:收信人的邮箱地址
-    @fromaddr:发信人的邮箱地址
-    @smtpaddr:smtp服务地址，可以在邮箱看，比如163邮箱为smtp.163.com
-    @password:发信人的邮箱密码
-    &#39;&#39;&#39;
-    mail_msg = MIMEMultipart()
-    if not isinstance(subject, str):
-        subject = str(subject, &#39;utf-8&#39;)
-    mail_msg[&#39;Subject&#39;] = subject
-    mail_msg[&#39;From&#39;] = fromaddr
-    mail_msg[&#39;To&#39;] = &#39;,&#39;.join(toaddrs)
-    mail_msg.attach(MIMEText(msg, &#39;html&#39;, &#39;utf-8&#39;))
-    try:
-        s = smtplib.SMTP()
-        s.connect(smtpaddr)  # 连接smtp服务器
-        s.set_debuglevel(1)  # 打印和SMTP服务交互的所有信息
-        s.login(fromaddr, password)  # 登录邮箱
-        s.sendmail(fromaddr, toaddrs, mail_msg.as_string())  # 发送邮件
-        s.quit()
-    except Exception as e:
-        print(&quot;Error: unable to send email&quot;)
-        print(traceback.format_exc())
-
-
-if __name__ == &#39;__main__&#39;:
-    fromaddr = &quot;voidqueen@163.com&quot;
-    smtpaddr = &quot;smtp.163.com&quot;
-    toaddrs = [&quot;531404376@qq.com&quot;]
-    subject = &quot;测试邮件&quot;
-    password = &quot;********&quot; # 邮箱客户端授权码
-    msg = &quot;测试测试&quot;
-    sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password)</code></pre>
-<h2 id="三-小结"><a href="#三-小结" class="headerlink" title="三.小结"></a>三.小结</h2><pre><code>构造一个邮件对象就是一个Messag对象；
-如果构造一个MIMEText对象，就表示一个文本邮件对象；
-如果构造一个MIMEImage对象，就表示一个作为附件的图片；
-要把多个对象组合起来，就用MIMEMultipart对象；
-而MIMEBase可以表示任何对象。
-它们的继承关系如下：
-Message
-+- MIMEBase
-   +- MIMEMultipart
-   +- MIMENonMultipart
-      +- MIMEMessage
-      +- MIMEText
-      +- MIMEImage</code></pre>
-<h2 id="四-参考文档"><a href="#四-参考文档" class="headerlink" title="四.参考文档"></a>四.参考文档</h2><p><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/email.mime.html">email.mime参考文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000">廖雪峰-SMTP发送邮件</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Shell-1-问题记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-07-26 09:54:56" itemprop="dateCreated datePublished" datetime="2018-07-26T09:54:56+08:00">2018-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:19:10" itemprop="dateModified" datetime="2020-09-18T16:19:10+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、问题：integer-expression-expected"><a href="#一、问题：integer-expression-expected" class="headerlink" title="一、问题：integer expression expected"></a>一、问题：integer expression expected</h2><h3 id="1-错误及原因"><a href="#1-错误及原因" class="headerlink" title="1.错误及原因"></a>1.错误及原因</h3><pre><code>在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expected”的错误。这是因为参数-eq，-lt，-gt比较的都是数字和变量，而变量var如果是一个字符串的话，就会出现上述错误了。</code></pre>
-<h3 id="2-解决办法"><a href="#2-解决办法" class="headerlink" title="2.解决办法"></a>2.解决办法</h3><pre><code>此时可以采用一种迂回的办法，即用awk工具对变量进行比较，返回比较结果，再将比较结果与相应的数字量进行比较。
-如：
-[ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq 0]</code></pre>
-<h3 id="3-例子"><a href="#3-例子" class="headerlink" title="3.例子"></a>3.例子</h3><pre><code>if [ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq &quot;0&quot; ];
-    then
-        grep xml request_body_dump.file | grep &quot;&lt;v2:from&gt;$var&lt;/v2:from&gt;&lt;v2:to&gt;zh-CHS&lt;/v2:to&gt;&quot; | head -n 1000 &gt; xml</code></pre>
-<p>-zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 1000 &gt;&gt; xm<br>l-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        else<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>$var<a href="v2:to">v2:to</a>zh-CHS“ | head -n 200 &gt; xml-<br>zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 200 &gt;&gt; xml<br>-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        fi</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1693,7 +1883,7 @@ Message
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

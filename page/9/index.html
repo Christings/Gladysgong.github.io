@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,259 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/SMTP%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="post-title-link" itemprop="url">SMTP发送邮件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-27 14:37:07" itemprop="dateCreated datePublished" datetime="2018-07-27T14:37:07+08:00">2018-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 14:01:15" itemprop="dateModified" datetime="2020-09-18T14:01:15+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Mail/" itemprop="url" rel="index"><span itemprop="name">Mail</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一.概述"></a>一.概述</h2><pre><code>SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮
+件的规则，由它来控制信件的中转方式。
+python中smtplib对smtp协议进行了简单封装，让我们能够方便的发送电子邮件，可以发送纯文本邮件、html
+邮件及带附件的邮件。
+python的SMTP支持smtplib和email两个模块，email负责构造邮件，smtplib负责发送邮件。
+
+email:
+
+from emial.mime.text import MIMEText
+msg=MIMEText(&#39;hello&#39;,&#39;plain&#39;,&#39;utf-8&#39;)
+注意：MIMEText对象第一个参数是邮件正文，第二个参数时MIME的subtype，传入&#39;plain&#39;，最终的MIME就是
+&#39;text/plain&#39;，最后用&#39;utf-8&#39;保证多语言兼容性。
+
+smtplib:
+
+import smtplib
+smtpobj=smtplib.SMTP([host[,port[,local_hostname]]])
+
+host: SMTP服务器主机,可指定主机的ip地址或者域名,可选参数;
+port: 如果你提供了host参数, 你需要指定SMTP服务使用的端口号，一般情况下SMTP端口号为25;
+local_hostname: 如果SMTP在你的本机上，你只需要指定服务器地址为localhost即可;
+
+# 发送邮件
+SMTP.sendmail(from_addr,to_addrs,msg[,mail_options,rcpt_options])
+
+from_addr: 邮件发送者地址；
+to_addrs: 字符串列表，邮件发送地址；
+msg: 发送消息；</code></pre>
+<h2 id="二-代码实现"><a href="#二-代码实现" class="headerlink" title="二.代码实现"></a>二.代码实现</h2><pre><code># -*- coding: UTF-8 -*-
+&#39;&#39;&#39;&#39;
+title:自动发送测试
+author:Lilly
+&#39;&#39;&#39;
+import sys, os, re, urllib, urllib.parse
+import smtplib
+import traceback
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
+def sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password):
+    &#39;&#39;&#39;&#39;&#39;
+    @subject:邮件主题
+    @msg:邮件内容
+    @toaddrs:收信人的邮箱地址
+    @fromaddr:发信人的邮箱地址
+    @smtpaddr:smtp服务地址，可以在邮箱看，比如163邮箱为smtp.163.com
+    @password:发信人的邮箱密码
+    &#39;&#39;&#39;
+    mail_msg = MIMEMultipart()
+    if not isinstance(subject, str):
+        subject = str(subject, &#39;utf-8&#39;)
+    mail_msg[&#39;Subject&#39;] = subject
+    mail_msg[&#39;From&#39;] = fromaddr
+    mail_msg[&#39;To&#39;] = &#39;,&#39;.join(toaddrs)
+    mail_msg.attach(MIMEText(msg, &#39;html&#39;, &#39;utf-8&#39;))
+    try:
+        s = smtplib.SMTP()
+        s.connect(smtpaddr)  # 连接smtp服务器
+        s.set_debuglevel(1)  # 打印和SMTP服务交互的所有信息
+        s.login(fromaddr, password)  # 登录邮箱
+        s.sendmail(fromaddr, toaddrs, mail_msg.as_string())  # 发送邮件
+        s.quit()
+    except Exception as e:
+        print(&quot;Error: unable to send email&quot;)
+        print(traceback.format_exc())
+
+
+if __name__ == &#39;__main__&#39;:
+    fromaddr = &quot;voidqueen@163.com&quot;
+    smtpaddr = &quot;smtp.163.com&quot;
+    toaddrs = [&quot;531404376@qq.com&quot;]
+    subject = &quot;测试邮件&quot;
+    password = &quot;********&quot; # 邮箱客户端授权码
+    msg = &quot;测试测试&quot;
+    sendmail(subject, msg, toaddrs, fromaddr, smtpaddr, password)</code></pre>
+<h2 id="三-小结"><a href="#三-小结" class="headerlink" title="三.小结"></a>三.小结</h2><pre><code>构造一个邮件对象就是一个Messag对象；
+如果构造一个MIMEText对象，就表示一个文本邮件对象；
+如果构造一个MIMEImage对象，就表示一个作为附件的图片；
+要把多个对象组合起来，就用MIMEMultipart对象；
+而MIMEBase可以表示任何对象。
+它们的继承关系如下：
+Message
++- MIMEBase
+   +- MIMEMultipart
+   +- MIMENonMultipart
+      +- MIMEMessage
+      +- MIMEText
+      +- MIMEImage</code></pre>
+<h2 id="四-参考文档"><a href="#四-参考文档" class="headerlink" title="四.参考文档"></a>四.参考文档</h2><p><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/email.mime.html">email.mime参考文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000">廖雪峰-SMTP发送邮件</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Shell-1-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Shell-1-问题记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-26 09:54:56" itemprop="dateCreated datePublished" datetime="2018-07-26T09:54:56+08:00">2018-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 16:19:10" itemprop="dateModified" datetime="2020-09-18T16:19:10+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、问题：integer-expression-expected"><a href="#一、问题：integer-expression-expected" class="headerlink" title="一、问题：integer expression expected"></a>一、问题：integer expression expected</h2><h3 id="1-错误及原因"><a href="#1-错误及原因" class="headerlink" title="1.错误及原因"></a>1.错误及原因</h3><pre><code>在Shell脚本中，在进行参数比较时，比如[ $var -eq &quot;en&quot; ],此时就会出现“integer expression expected”的错误。这是因为参数-eq，-lt，-gt比较的都是数字和变量，而变量var如果是一个字符串的话，就会出现上述错误了。</code></pre>
+<h3 id="2-解决办法"><a href="#2-解决办法" class="headerlink" title="2.解决办法"></a>2.解决办法</h3><pre><code>此时可以采用一种迂回的办法，即用awk工具对变量进行比较，返回比较结果，再将比较结果与相应的数字量进行比较。
+如：
+[ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq 0]</code></pre>
+<h3 id="3-例子"><a href="#3-例子" class="headerlink" title="3.例子"></a>3.例子</h3><pre><code>if [ `echo $var | awk -v tem=&quot;en&quot; &#39;&#123;print($1&gt;tem)? &quot;1&quot;:&quot;0&quot;&#125;&#39;` -eq &quot;0&quot; ];
+    then
+        grep xml request_body_dump.file | grep &quot;&lt;v2:from&gt;$var&lt;/v2:from&gt;&lt;v2:to&gt;zh-CHS&lt;/v2:to&gt;&quot; | head -n 1000 &gt; xml</code></pre>
+<p>-zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 1000 &gt;&gt; xm<br>l-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        else<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>$var<a href="v2:to">v2:to</a>zh-CHS“ | head -n 200 &gt; xml-<br>zh-$var<br>            grep xml request_body_dump.file | grep “<a href="v2:from">v2:from</a>zh-CHS<a href="v2:to">v2:to</a>$var“ | head -n 200 &gt;&gt; xml<br>-zh-$var<br>            echo “$datename-success-xml-$var” &gt;&gt; std.log<br>        fi</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1298,291 +1551,6 @@ $ mkdir /root/hadoop/dfs/data</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Python%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81/" class="post-title-link" itemprop="url">Python中的编码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-25 14:24:03" itemprop="dateCreated datePublished" datetime="2018-04-25T14:24:03+08:00">2018-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:37:51" itemprop="dateModified" datetime="2020-09-18T21:37:51+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/%E5%9F%BA%E7%A1%80%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">基础篇</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、编码起源–从ASCII编码开始"><a href="#一、编码起源–从ASCII编码开始" class="headerlink" title="一、编码起源–从ASCII编码开始"></a>一、编码起源–从ASCII编码开始</h2><p>计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以一个字节能表示的最大的整数就是255（二进制11111111=十进制255）。如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。</p>
-<pre><code>计算机是美国人发明的，最早只有127个字符被编码到计算机中，这个编码就是ASCII编码，包含大小写英文字母、数字以及一些符号。
-大写字母A：65
-小写字母z：122
-
-要处理中文一个字节显然不够了，至少需要2个字节，还不能和ASCII编码冲突，所以中国制定了GB2312编码，来对中文进行编码。
-同理，日本把日文编到Shift_JIS里，韩国把韩文编到Euc-kr里，所有就形成了一个问题，每个国家都有每个国家不同的标准，就会出现冲突。于
-是，在多语言混合的文本中，显示就会有乱码问题。
-于是，Unicode编码出现了，把所有语言统一到一套编码中，这样就解决了冲突问题。</code></pre>
-<h2 id="二、Unicode编码"><a href="#二、Unicode编码" class="headerlink" title="二、Unicode编码"></a>二、Unicode编码</h2><pre><code>Unicode标准在不断发展中，最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语
-言都直接支持Unicode。
-
-ASCII编码和Unicode编码的区别：
-
-    ASCII编码是1个字节，而Unicode编码通常是2个字节。
-
-    字母-A 用ASCII编码是十进制的65，二进制的01000001；
-
-    字符-0 用ASCII编码是十进制的48，二进制的00110000，注意字符&#39;0&#39;和整数0是不同的；
-
-    汉字-中 已经超出了ASCII编码的范围，用Unicode编码是十进制的20013，二进制的01001110 00101101。
-
-    如果把ASCII编码的A用Unicode编码，只需要在前面补0就可以，因此，A的Unicode编码是00000000 01000001。
-
-新的问题又出现了：如果统一成Unicode编码，乱码问题从此消失了。但是，如果你写的文本基本上全部是英文的话，用Unicode编码比ASCII编码
-需要多一倍的存储空间，在存储和传输上就十分不划算。
-
-所以，为了节约存储空间和传输时间，可以把Unicode编码转换为“可变长的编码”，即UTF-8编码。</code></pre>
-<h2 id="三、UTF-8编码"><a href="#三、UTF-8编码" class="headerlink" title="三、UTF-8编码"></a>三、UTF-8编码</h2><p>UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码就能节省空间。</p>
-<pre><code>字符            ASCII        Unicode                    UTF-8
-A            01000001    00000000 01000001        01000001
-中            x            01001110 00101101        11100100 10111000 10101101
-
-从上面可以看出，UTF-8编码有一个额外的好处，就是ASCII编码实际上可以被看成是UTF-8编码的一部分，所以，大量只支持ASCII编码的历史遗留
-软件可以在UTF-8编码下继续工作。</code></pre>
-<h2 id="四、计算机系统通用的字符编码工作方式"><a href="#四、计算机系统通用的字符编码工作方式" class="headerlink" title="四、计算机系统通用的字符编码工作方式"></a>四、计算机系统通用的字符编码工作方式</h2><pre><code>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。
-用记事本编辑的时候，从文件读取的UTF-8字符被转换为Unicode字符到内存里，编辑完成后，保存的时候再把Unicode转换为UTF-8保存到文件。
-浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器，所以你看到很多网页的源码上会有类似
-&lt;meta charset=&quot;UTF-8&quot; /&gt;的信息，表示该网页正是用的UTF-8编码。</code></pre>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/code1.jpg"></p>
-<p><img src="http://p2lakvkq0.bkt.clouddn.com/code2.jpg"></p>
-<h2 id="五、Python中的字符串"><a href="#五、Python中的字符串" class="headerlink" title="五、Python中的字符串"></a>五、Python中的字符串</h2><pre><code>在Python3中，字符串以Unicode编码，所以此字符串是支持多语言的。
-单个字符：
-    ord():获取字符的整数表示
-    chr():把编码转换为对应的字符
-
-Python中的字符串类型为str，在内存中以Unicode表示，一个字符对应若干个字节。如果在网络上传输或保存在磁盘中，需要把str变为以字节为单
-位bytes。
-Python对bytes类型的数据用带b前缀的单引号或双引号表示：x=b&#39;abc&#39;
-
-注意区分&#39;ABC&#39;和b&#39;ABC&#39;，前者是str，后者虽然内容显示得和前者一样，但bytes的每个字符都只占用一个字节。</code></pre>
-<h3 id="1-encode-方法"><a href="#1-encode-方法" class="headerlink" title="1.encode()方法"></a>1.encode()方法</h3><pre><code>以Unicode表示的str通过encode()方法可以编码为指定的bytes，如：
-
-&gt;&gt;&gt; &#39;ABC&#39;.encode(&#39;ascii&#39;)
-b&#39;ABC&#39;
-&gt;&gt;&gt; &#39;中文&#39;.encode(&#39;utf-8&#39;)
-b&#39;\xe4\xb8\xad\xe6\x96\x87&#39;
-&gt;&gt;&gt; &#39;中文&#39;.encode(&#39;ascii&#39;)
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode characters in position 0-1: ordinal not in range(128)
-
-纯英文的str可以用ASCII编码为bytes，内容是一样的，含有中文的str可以用UTF-8编码为bytes。
-含有中文的str无法用ASCII编码，因为中文编码的范围超过了ASCII编码的范围，Python会报错。
-
-在bytes中，无法显示为ASCII字符的字节，用\x##显示。</code></pre>
-<h3 id="2-decode-方法"><a href="#2-decode-方法" class="headerlink" title="2.decode()方法"></a>2.decode()方法</h3><pre><code>相反，如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes，这时就需要用decode()把bytes变为str。
-
-&gt;&gt;&gt; b&#39;ABC&#39;.decode(&#39;ascii&#39;)
-&#39;ABC&#39;
-&gt;&gt;&gt; b&#39;\xe4\xb8\xad\xe6\x96\x87&#39;.decode(&#39;utf-8&#39;)
-&#39;中文&#39;
-&gt;&gt;&gt; b&#39;\xe4\xb8\xad\xff&#39;.decode(&#39;utf-8&#39;)
-Traceback (most recent call last):
-  ...
-UnicodeDecodeError: &#39;utf-8&#39; codec can&#39;t decode byte 0xff in position 3: invalid start byte
-
-如果bytes中包含无法解码的字节，decode()会报错。但如果bytes中只有一小部分无效字节，可以用errors=&#39;ignore&#39;来忽略错误字节。</code></pre>
-<h3 id="3-小结"><a href="#3-小结" class="headerlink" title="3.小结"></a>3.小结</h3><pre><code>1个中文字符经过UTF-8编码后通常会占用3个字节，而1个英文字符只占用1个字节。
-在操作字符串时，我们经常遇到str和bytes的互相转换。为了避免乱码问题，应当始终坚持使用UTF-8编码对str和bytes进行转换。
-由于Python源代码也是一个文本文件，所以当源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读
-取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：    
-
-    #!/usr/bin/env python3
-    # -*- coding: utf-8 -*-
-第一行注释是为了告诉Linux/OS X系统，这是一个Python可执行程序，Windows系统会忽略这个注释；
-第二行注释是为了告诉Python解释器，按照UTF-8编码读取源代码，否则，你在源代码中写的中文输出可能会有乱码。</code></pre>
-<h2 id="六、中文编码–关于gb2312-gbk-gb18030三者的关系"><a href="#六、中文编码–关于gb2312-gbk-gb18030三者的关系" class="headerlink" title="六、中文编码–关于gb2312,gbk,gb18030三者的关系"></a>六、中文编码–关于gb2312,gbk,gb18030三者的关系</h2><pre><code>GB2312：6763个汉字
-GBK：21003个汉字
-GB18030-2000：27533个汉字
-GB18030-2005：70244个汉字
-
-所以，GBKSS是GB2312的超集，GB18030是GBK的超集。</code></pre>
-<h2 id="七、将UTF-8格式的文件转换成GBK格式的文件"><a href="#七、将UTF-8格式的文件转换成GBK格式的文件" class="headerlink" title="七、将UTF-8格式的文件转换成GBK格式的文件"></a>七、将UTF-8格式的文件转换成GBK格式的文件</h2><pre><code>功能：在函数readFile中以utf-8编码方式读取文件，返回Unicode的结果，最后将Unicode结果以gbk格式写入文件。
-`
-def readFile(filePath,encoding=&quot;utf-8&quot;):
-    with codecs.open(filePath,&quot;r&quot;,encoding) as f:
-        return f.read()
-
-def writeFile(filePath,u,encoding=&quot;gbk&quot;):
-    with codecs.open(filePath,&quot;w&quot;,encoding) as f:
-        f.write(u)
-
-def UTF8_2_GBK(src,dst):
-    content = ReadFile(src,encoding=&quot;utf-8&quot;)
-    WriteFile(dst,content,encoding=&quot;gbk&quot;)
-`</code></pre>
-<h2 id="八、报错"><a href="#八、报错" class="headerlink" title="八、报错"></a>八、报错</h2><pre><code>UnicodeEncodeError: &#39;gbk&#39; codec can&#39;t encode character u&#39;\xa0&#39; in position 4813: illegal multibyte sequence.
-在将Unicode编码成gbk的时候，不能将Unicode u&#39;\xa0&#39;编码成gbk。
-在进行格式转换的时候，如果某些字符不包含在bgk字符集中，就会报错。
-
-`
-# 方案一
-def writeFile(filePath, u, encoding=&#39;gbk&#39;):
-    with codecs.open(filePath, &#39;wb&#39;) as f:
-        f.write(u.encode(encoding, errors=&#39;ignore&#39;)) 
-# ignore表示编码的时候，忽略掉无法编码的字符，解码同理。
-# 执行后发现把utf-8转换成了ansi格式，另外生成文件中每隔一行都有一行空行，所以加上b，使之以二进制流的形式写文件。
-
-# 方案二
-def utf8_2_gbk(src, dst):
-    content = readFile(src, encoding=&#39;utf-8&#39;)
-    writeFile(dst, content, encoding=&#39;gbk18030&#39;)
-`</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/Scrapy-CrawlSpider/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Scrapy-CrawlSpider/" class="post-title-link" itemprop="url">Scrapy--CrawlSpider</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-23 15:17:20" itemprop="dateCreated datePublished" datetime="2018-04-23T15:17:20+08:00">2018-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:13:16" itemprop="dateModified" datetime="2020-09-18T17:13:16+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、CrawlSpider"><a href="#一、CrawlSpider" class="headerlink" title="一、CrawlSpider"></a>一、CrawlSpider</h3><pre><code>爬取规则,不带callback表示向该类url递归爬取
-rules = (
-    Rule(SgmlLinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/page/\d&#39;,))),
-    Rule(LinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/page/\d&#39;,))),
-    Rule(SgmlLinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/\d+&#39;,)), callback=&#39;parse_content&#39;),
-    Rule(LinkExtractor(allow=(r&#39;https://news.cnblogs.com/n/\d+&#39;,)), callback=&#39;parse_content&#39;),
-)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1652,7 +1620,7 @@ rules = (
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

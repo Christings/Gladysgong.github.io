@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,309 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">利用Scrapy下载世界银行excel文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-03 16:36:53" itemprop="dateCreated datePublished" datetime="2018-04-03T16:36:53+08:00">2018-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:14:47" itemprop="dateModified" datetime="2020-09-18T17:14:47+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%88%A9%E7%94%A8Scrapy%E4%B8%8B%E8%BD%BD%E4%B8%96%E7%95%8C%E9%93%B6%E8%A1%8Cexcel%E6%95%B0%E6%8D%AE/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/wordbank">https://github.com/Gladysgong/wordbank</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b8253ad8054e">https://www.jianshu.com/p/b8253ad8054e</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79806493">https://blog.csdn.net/u012052168/article/details/79806493</a></p>
+</blockquote>
+<h2 id="一、总体思路"><a href="#一、总体思路" class="headerlink" title="一、总体思路"></a>一、总体思路</h2><pre><code>    我的目标是下载世界银行中各个指标的excel文件，刚好世界银行给我们提供了excel下载页面的url地址，这样子我们只需要构建url地址进行
+请求就好了，还蛮简单的，也不会太大劲。
+    首先我需要把所有指标的地址拿到，于是我找到了这个地址**https://data.worldbank.org/indicator?tab=all**，通过这个地址拿到所
+有指标的href，再进行拼接，最后把拼接的结果进行请求。</code></pre>
+<p><img src="http://p2lakvkq0.bkt.clouddn.com/worldbank.jpg"></p>
+<h2 id="二、item模块"><a href="#二、item模块" class="headerlink" title="二、item模块"></a>二、item模块</h2><pre><code>class WorldBankItem(scrapy.Item):
+    indi_url = scrapy.Field()  # 指标(indicator)的url
+    indi_name = scrapy.Field()  # 指标(indicator)的名字</code></pre>
+<h2 id="二、爬虫模块"><a href="#二、爬虫模块" class="headerlink" title="二、爬虫模块"></a>二、爬虫模块</h2><pre><code>1.解析url
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]&#39;)
+        indi_url = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/@href&#39;).extract()
+        # indi = re.findall(r&#39;/indicator/.*/?view=chart&#39;, indicators, re.S)
+        indi_name = indicators.xpath(&#39;section[@class=&quot;nav-item&quot;]/ul/li/a/text()&#39;).extract()
+
+        for each in indi_url:
+            each = each[:-10] + &quot;downloadformat=excel&quot;
+            # i.replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;) #使用replace进行替换时总是不成功，有待探索！
+            item[&#39;indi_url&#39;] = each
+            print(&quot;indi_url&quot;, item[&#39;indi_url&#39;])
+            yield item
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + each,
+                                 callback=self.download_excel)
+
+        for each in indi_name:
+            print(&quot;indi_name:&quot;, each)
+            item[&#39;indi_name&#39;] = each
+            # self.filenames = indi_name
+            yield item
+2.下载excel文件并写入
+    def download_excel(self, response):
+        name_temp = response.url.split(&quot;/&quot;)[-1]
+        name = name_temp.split(&quot;?&quot;)[-2]
+        print(&quot;storename:&quot;, name, &#39;-&#39;, response.url)
+        filename = r&quot;D:\workspace\scrapy\worldbank\worldbankexcelfiles\%s.xls&quot; % name
+        resp = requests.get(response.url)
+        output = open(filename, &#39;wb&#39;)
+        output.write(resp.content)
+        output.close()
+        return None</code></pre>
+<h2 id="四、数据持久化"><a href="#四、数据持久化" class="headerlink" title="四、数据持久化"></a>四、数据持久化</h2><pre><code>1.定义mysql类（属于我单独定义的）
+    import pymysql
+    class Mysql:
+        def __init__(self, host, user, pwd, db):
+            self.host = host
+            self.user = user
+            self.pwd = pwd
+            self.db = db
+
+        def __GetConnect(self):
+            if not self.db:
+                raise (NameError, &#39;数据库不存在&#39;)
+            self.conn = pymysql.connect(host=self.host, user=self.user, password=self.pwd, database=self.db, charset=&#39;utf8&#39;)
+            cur = self.conn.cursor()
+            if not cur:
+                raise (NameError, &#39;账号或密码错误&#39;)
+            else:
+                return cur
+
+        def ExecQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            resList = cur.fetchall()
+
+            self.conn.close()
+            return resList
+
+        def ExecNoQuery(self, sql):
+            cur = self.__GetConnect()
+            cur.execute(sql)
+            self.conn.commit()
+            self.conn.close()
+2.pipelines
+    from worldbank.db.mysql import Mysql
+    from worldbank.items import WorldBankItem
+
+
+    class WorldbankPipeline(object):
+        def process_item(self, item, spider):
+            if isinstance(item, WorldBankItem):
+                mysql = Mysql(host=&#39;localhost&#39;, user=&#39;root&#39;, pwd=&#39;421498&#39;, db=&#39;saas&#39;)
+                if len(item[&#39;indi_name&#39;]) == 0:
+                    pass
+                else:
+                    newsql = &quot;insert into worldbank_indi(indi_url,indi_name)values(&#39;%s&#39;,&#39;%s&#39;)&quot; % (
+                        item[&#39;indi_url&#39;], item[&#39;indi_name&#39;])
+                    print(newsql)
+                    mysql.ExecNoQuery(newsql.encode(&#39;utf-8&#39;))
+            else:
+                pass
+            return item</code></pre>
+<h2 id="五、设置settings"><a href="#五、设置settings" class="headerlink" title="五、设置settings"></a>五、设置settings</h2><pre><code>ITEM_PIPELINES = &#123;
+       &#39;worldbank.pipelines.WorldbankPipeline&#39;: 300,&#125; # 记得开启此处</code></pre>
+<h2 id="六、bug"><a href="#六、bug" class="headerlink" title="六、bug"></a>六、bug</h2><pre><code>    在爬虫模块parse_urls()中我不光拼接了url地址，我还把指标的url和name放进了item中，因为我这边考虑的，excel文件命名的时候我是
+用的url的一部分命名的，像这样子**EN.ATM.GHGO.KT.CE**，这是属于指标名字的简写，的确我们手工下载数据的时候也是以这个命名。但是像我
+这种对指标不熟悉的人，完全看不出简写的含义，所以我就想把简写以及指标的全名存储进入数据库，以方便对照，所以我用的yield item这样子来
+返回数据。
+    但是实际存储的时候，总是报错**KeyError: &#39;indi_name&#39;**，但是数据也确实存进了数据库，所以我很不理解，这个问题有待于探索，也希
+望知道的朋友可以告知。
+    本来我也试过用Request中meta来传递item，然后一起返回，但是插入数据库的时候，报错主键的值必须唯一。
+    有可能和用的数据库也有关系，用MySQL的数据来存储爬虫数据很不顺手，因为需要自己手工建立数据库和表，或者写代码建立。而MongoDB就很
+方便了，告诉数据库名字和表名，自动就帮我们创建了。</code></pre>
+<h2 id="七、我是二傻"><a href="#七、我是二傻" class="headerlink" title="七、我是二傻"></a>七、我是二傻</h2><pre><code>    原来上面的问题我早就解决了，只是我忘记了，果然好记性不如烂笔头。
+parse_url()换成如下：
+其实是把两个for改成了一个for，但是这样子就需要把list换成str来进行存储，并且存储的时候我遇到了转义字符的问题，报错如下：
+**pymysql.err.ProgrammingError: (1064, &#39;You have an error in your SQL syntax; check the manual that corresponds to 
+your MySQL server version for the right syntax to use near \&#39;Recipe&quot; of Machine Learning&quot;,&quot;https://i.ytimg.com/vi/
+DkgJ_VkU5jM/hqdefault.jpg&quot;,\&#39; at line 4&#39;)**
+改pipelines文件，把字段包裹上pymysql.escape_string(),同时我已经将代码更新，可以自己去看。
+
+    def parse_urls(self, response):
+        item = WorldBankItem()
+        selector = scrapy.Selector(response)
+
+        indicators = selector.xpath(&#39;//*[@id=&quot;main&quot;]/div[2]/section[@class=&quot;nav-item&quot;]/ul/li&#39;)
+
+        for i in indicators:
+            temp_url = i.xpath(&#39;a/@href&#39;).extract()  # 得到的结果为list
+            # indi_url = str(temp_url)[:-12] + &quot;downloadformat=excel&quot;
+            indi_url = str(temp_url).replace(&quot;view=chart&quot;, &quot;downloadformat=excel&quot;)
+            item[&quot;indi_url&quot;] = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            # print(&#39;item[&quot;indi_url&quot;]:&#39;, item[&quot;indi_url&quot;])
+
+            indi_name = i.xpath(&#39;a/text()&#39;).extract()
+            item[&quot;indi_name&quot;] = str(indi_name)
+            # print(&#39;item[&quot;indi_name&quot;]:&#39;, item[&quot;indi_name&quot;])
+            yield item
+
+            url = indi_url.replace(&quot;&#39;&quot;, &quot;&quot;).replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &#39;&#39;)
+            yield scrapy.Request(url=&quot;http://api.worldbank.org/v2/en&quot; + url, callback=self.download_excel)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">基于关键字在主流搜索引擎中抓取信息</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-30 19:54:52" itemprop="dateCreated datePublished" datetime="2018-03-30T19:54:52+08:00">2018-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 17:15:13" itemprop="dateModified" datetime="2020-09-18T17:15:13+08:00">2020-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/Scrapy/" itemprop="url" rel="index"><span itemprop="name">Scrapy</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文首发于我的博客：<a href="http://gongyanli.com/%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E4%B8%BB%E6%B5%81%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B8%AD%E6%8A%93%E5%8F%96%E4%BF%A1%E6%81%AF/">http://gongyanli.com</a><br>代码传送门：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/seCrawler">https://github.com/Gladysgong/seCrawler</a><br>简书: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4e244563849a">https://www.jianshu.com/p/4e244563849a</a><br>CSDN: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u012052168/article/details/79762586">https://blog.csdn.net/u012052168/article/details/79762586</a></p>
+</blockquote>
+<h1 id="seCrawler-Search-Engine-Crawler"><a href="#seCrawler-Search-Engine-Crawler" class="headerlink" title="seCrawler(Search Engine Crawler)"></a>seCrawler(Search Engine Crawler)</h1><p>A scrapy project can crawl search result of Google/Bing/Baidu<br>基于scrapy来做的爬虫项目，可以根据关键字来抓取从百度、bing、google中所搜索到的结果</p>
+<h2 id="1-refer"><a href="#1-refer" class="headerlink" title="1.refer"></a>1.refer</h2><p>copying by <a target="_blank" rel="noopener" href="https://github.com/xtt129/seCrawler">https://github.com/xtt129/seCrawler</a> and rewrite,adding title and abstract.</p>
+<h2 id="prerequisite"><a href="#prerequisite" class="headerlink" title="prerequisite"></a>prerequisite</h2><p>python 3.5 and scrapy is needed.</p>
+<h2 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h2><p>run one command to get 50 pages result from search engine with keyword, the result would be kept in the “urls.txt” under the current directory.</p>
+<p>####Bing<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=bing -a pages=50</code></p>
+<p>####Baidu<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=baidu -a pages=50</code></p>
+<p>####Google<br><code>scrapy crawl keywordSpider -a keyword=Spider-Man -a se=google -a pages=50</code></p>
+<h2 id="results"><a href="#results" class="headerlink" title="results"></a>results</h2><p>url,title and abstract will be stored in the urls.txt</p>
+<h2 id="limitation"><a href="#limitation" class="headerlink" title="limitation"></a>limitation</h2><p>The project doesn’t provide any workaround to the anti-spider measure like CAPTCHA, IP ban list, etc. </p>
+<p>But to reduce these measures, we recommand to set <code>DOWNLOAD_DELAY=10</code> in settings.py file to add a temporisation (in second) between the crawl of two pages, see details in <a target="_blank" rel="noopener" href="https://doc.scrapy.org/en/1.2/topics/settings.html#std:setting-DOWNLOAD_DELAY">Scrapy Setting</a>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1716,176 +2019,6 @@ vimdiff test test.bak</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B8%B8%E7%94%A8%E5%9B%BD%E5%A4%96%E7%BD%91%E7%AB%99/" class="post-title-link" itemprop="url">开发人员常用国外网站</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-12 12:55:31" itemprop="dateCreated datePublished" datetime="2018-03-12T12:55:31+08:00">2018-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:16:22" itemprop="dateModified" datetime="2020-09-18T17:16:22+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Site/" itemprop="url" rel="index"><span itemprop="name">Site</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-GitHub"><a href="#1-GitHub" class="headerlink" title="1.GitHub"></a>1.GitHub</h3><pre><code>源代码托管</code></pre>
-<h3 id="2-StackOverflow"><a href="#2-StackOverflow" class="headerlink" title="2.StackOverflow"></a>2.StackOverflow</h3><pre><code>程序设计问答网站</code></pre>
-<h3 id="3-DZone"><a href="#3-DZone" class="headerlink" title="3.DZone"></a>3.DZone</h3><pre><code>IT及编程社区</code></pre>
-<h3 id="4-LeetCode"><a href="#4-LeetCode" class="headerlink" title="4.LeetCode"></a>4.LeetCode</h3><pre><code>面试题</code></pre>
-<h3 id="5-Hacker-News"><a href="#5-Hacker-News" class="headerlink" title="5.Hacker News"></a>5.Hacker News</h3><pre><code>编程资源信息</code></pre>
-<h3 id="6-Medium"><a href="#6-Medium" class="headerlink" title="6.Medium"></a>6.Medium</h3><pre><code>博客</code></pre>
-<h3 id="7-Reddit"><a href="#7-Reddit" class="headerlink" title="7.Reddit"></a>7.Reddit</h3><pre><code>IT社区</code></pre>
-<h3 id="8-CodeProject"><a href="#8-CodeProject" class="headerlink" title="8.CodeProject"></a>8.CodeProject</h3><pre><code>软件开发社区</code></pre>
-<h3 id="9-PineApple"><a href="#9-PineApple" class="headerlink" title="9.PineApple"></a>9.PineApple</h3><pre><code>开发社区</code></pre>
-<h3 id="10-Coursera"><a href="#10-Coursera" class="headerlink" title="10.Coursera"></a>10.Coursera</h3><pre><code>在线课堂</code></pre>
-<h3 id="11-SitePoint"><a href="#11-SitePoint" class="headerlink" title="11.SitePoint"></a>11.SitePoint</h3><pre><code>编程技术</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E5%88%A9%E7%94%A8t-SNE%E5%AF%B9Word2vec%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8F%AF%E8%A7%86%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E5%88%A9%E7%94%A8t-SNE%E5%AF%B9Word2vec%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8F%AF%E8%A7%86%E5%8C%96/" class="post-title-link" itemprop="url">利用t-SNE对Word2vec训练的模型进行可视化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-06 11:27:10" itemprop="dateCreated datePublished" datetime="2018-03-06T11:27:10+08:00">2018-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 21:36:05" itemprop="dateModified" datetime="2020-09-18T21:36:05+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">数据分析和抓取</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%93%E5%8F%96/t-sne/" itemprop="url" rel="index"><span itemprop="name">t-sne</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>综述:TSNE可以将高维词汇特征向量压缩到2维x,y坐标对及3维向量，这个想法可以让相似词靠的更近，让不相似的词保持最大化距离，所以TSNE在可视化对象之间的相似度上非常有效。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><pre><code>1.清洗数据
-2.构建语料
-3.训练Word2vec模型
-4.利用t-SNE可视化最常用词</code></pre>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1955,7 +2088,7 @@ vimdiff test test.bak</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

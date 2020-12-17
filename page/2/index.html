@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,374 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%E7%B3%BB%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-5-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%E7%B3%BB%E5%88%97/" class="post-title-link" itemprop="url">数据结构与算法-5-动态规划-零钱兑换系列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-26 11:51:34" itemprop="dateCreated datePublished" datetime="2020-08-26T11:51:34+08:00">2020-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-18 23:43:05" itemprop="dateModified" datetime="2020-11-18T23:43:05+08:00">2020-11-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="322-零钱兑换"><a href="#322-零钱兑换" class="headerlink" title="322.零钱兑换"></a>322.零钱兑换</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change/
+
+给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
+
+示例 1:
+
+输入: coins = [1, 2, 5], amount = 11
+输出: 3 
+解释: 11 = 5 + 5 + 1
+示例 2:
+
+输入: coins = [2], amount = 3
+输出: -1
+说明:
+你可以认为每种硬币的数量是无限的。</code></pre>
+<p>题解一|递归|超时：</p>
+<pre><code>递归遍历添加所有硬币的情况，每次添加某硬币，则递归遍历总金额-某硬币 的子问题。
+
+    若 当前总金额为 0 则表明当前硬币情况有解，返回 0。
+
+    若 当前总金额不为 0，则继续添加硬币
+
+        若 当前总金额-硬币&lt;0 表明不能添加该硬币（无解），尝试添加其他硬币。
+
+        若 当前总金额-硬币&gt;0 则递归遍历当前总金额-硬币的子问题，若子问题无解，尝试添加其他硬币；若子问题有解，则每次添加硬币时记录，硬币数 +1，最终比较取最小值。
+
+    返回情况，若子问题有解，则返回子问题的最少硬币数，否则返回 -1。</code></pre>
+<pre><code>class Solution:
+    def coinChange(self, coins: List[int], amount: int) -&gt; int:
+        self.res=float(&#39;inf&#39;)
+        def helper(amount,count):
+            if amount &lt; 0:
+                return
+            if amount == 0:
+                self.res=min(self.res,count)
+            for i in range(len(coins)):
+                helper(amount-coins[i],count+1)
+
+        if len(coins)==0:
+            return -1
+        helper(amount,0)
+        if self.res == float(&#39;inf&#39;):
+            return -1
+        return self.res</code></pre>
+<pre><code>class Solution:
+    def coinChange(self, coins: List[int], amount: int) -&gt; int:
+        if amount &lt; 0:
+            return 0
+        res=float(&#39;inf&#39;)
+        for coin in coins:
+            if amount-coin &lt; 0:
+                continue
+            sub=self.coinChange(coins,amount-coin)
+            if sub == -1:
+                continue
+            res=min(res,sub+1)
+        return res if res != float(&#39;inf&#39;) else -1</code></pre>
+<p>题解二|记忆化搜索：</p>
+<pre><code>class Solution:
+    def coinChange(self, coins: List[int], amount: int) -&gt; int:
+        def helper(coins,amount,memo):
+            if amount == 0:
+                return 0
+            if amount in memo:
+                return memo[amount]
+
+            res=float(&#39;inf&#39;)
+
+            for coin in coins:
+                if amount-coin &lt; 0:
+                    continue
+                sub=helper(coins,amount-coin,memo)
+                if sub == -1:
+                    continue
+                res=min(res,sub+1)
+            if res != float(&#39;inf&#39;):
+                memo[amount]=res
+            else:
+                memo[amount]=-1
+            return memo[amount]
+        memo=&#123;&#125;
+        return helper(coins,amount,memo)</code></pre>
+<pre><code>class Solution:
+    def coinChange(self, coins: List[int], amount: int) -&gt; int:
+        def helper(amount):
+            if amount in memo:
+                return memo[amount]
+            if amount == 0:
+                return 0
+            if amount &lt; 0:
+                return -1
+
+            res=float(&#39;inf&#39;)
+            for coin in coins:
+                sub=helper(amount-coin)
+                if sub == -1:
+                    continue
+                res=min(res,sub+1)
+            if res != float(&#39;inf&#39;):
+                memo[amount]=res
+            else:
+                memo[amount]=-1
+            return memo[amount]
+        memo=&#123;&#125;
+        return helper(coins,amount,memo)</code></pre>
+<p>题解三|动态规划|自上而下：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486360&amp;idx=2&amp;sn=bebf739b28f51a666af4cb9b30533b55&amp;scene=21#wechat_redirect</a></p>
+<p>1、定义数组含义</p>
+<pre><code>dp[i] 保存金额 i 的最小组成数。</code></pre>
+<p>2、找出数组递推关系式</p>
+<pre><code>遍历 dp 数组，i 遍历区间 [1,amount+1)：
+
+    遍历每种硬币的面值 coin：
+        必须满足条件 i&gt;=coin，表示金额必须比硬币面值大。
+        dp[i]=min(dp[i],dp(i-coin)+1)，保存的是最小的组成数。
+
+若 dp[amount]不为MAX，则返回，否则返回 −1。</code></pre>
+<p>3、找到初始值</p>
+<pre><code>初试化 dp=[MAX,⋯,MAX]，长度为 amount+1
+dp[0]=0，表示 0 元的组成种类为 0</code></pre>
+<p>时间复杂度：O(mn)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def coinChange(self, coins: List[int], amount: int) -&gt; int:
+        dp=[float(&#39;inf&#39;)]*(amount+1)
+        dp[0]=0
+        for i in range(1,amount+1):
+            for coin in coins:
+                if i &gt;= coin:
+                    dp[i]=min(dp[i],dp[i-coin]+1)
+        return dp[-1] if dp[-1] != float(&#39;inf&#39;) else -1</code></pre>
+<h3 id="518-零钱兑换-II"><a href="#518-零钱兑换-II" class="headerlink" title="518. 零钱兑换 II"></a>518. 零钱兑换 II</h3><pre><code>链接：https://leetcode-cn.com/problems/coin-change-2/
+
+给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。 
+
+示例 1:
+
+输入: amount = 5, coins = [1, 2, 5]
+输出: 4
+解释: 有四种方式可以凑成总金额:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+
+示例 2:
+
+输入: amount = 3, coins = [2]
+输出: 0
+解释: 只用面额2的硬币不能凑成总金额3。
+
+示例 3:
+
+输入: amount = 10, coins = [10] 
+输出: 1
+
+注意:
+
+你可以假设：
+
+0 &lt;= amount (总金额) &lt;= 5000
+1 &lt;= coin (硬币面额) &lt;= 5000
+硬币种类不超过 500 种
+结果符合 32 位符号整数</code></pre>
+<p>题解一|回溯|超时：</p>
+<pre><code>class Solution:
+    def change(self, amount: int, coins: List[int]) -&gt; int:
+        n=len(coins)
+        self.res=0
+        def helper(first,amount):
+            if amount == 0:
+                self.res+=1
+                return
+
+            for i in range(first,len(coins)):
+                if coins[i] &lt;= amount:
+                    helper(i,amount-coins[i])
+        coins.sort()
+        helper(0,amount)
+        return self.res</code></pre>
+<pre><code>class Solution:
+    def change(self, amount: int, coins: List[int]) -&gt; int:
+        n=len(coins)
+        self.res=0
+        def helper(first,amount):
+            if amount == 0:
+                self.res+=1
+                return 
+            for i in range(first,len(coins)):
+                if amount &gt;= coins[i]:
+                    amount-=coins[i]
+                    helper(i,amount)
+                    amount+=coins[i]
+        coins.sort()
+        helper(0,amount)
+        return self.res</code></pre>
+<p>题解二|动态规划：</p>
+<pre><code>参考背包系列</code></pre>
+<pre><code>class Solution:
+    def change(self, amount: int, coins: List[int]) -&gt; int:
+        n=len(coins)
+        dp=[[0]*(amount+1) for i in range(n+1)]
+        for i in range(n+1):
+            dp[i][0]=1
+        for i in range(1,n+1):
+            for j in range(1,amount+1):
+                if j-coins[i-1]&gt;=0:
+                    dp[i][j]=dp[i-1][j]+dp[i][j-coins[i-1]]
+                else:
+                    dp[i][j]=dp[i-1][j]
+        return dp[n][amount]</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-13-%E7%BA%A2%E9%BB%91%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-13-%E7%BA%A2%E9%BB%91%E6%A0%91/" class="post-title-link" itemprop="url">数据结构与算法-13-红黑树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-14 10:47:10" itemprop="dateCreated datePublished" datetime="2020-07-14T10:47:10+08:00">2020-07-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-27 12:52:45" itemprop="dateModified" datetime="2020-08-27T12:52:45+08:00">2020-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考：<a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1641940303518144126&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1641940303518144126&amp;wfr=spider&amp;for=pc</a></p>
+<h2 id="一、红黑树"><a href="#一、红黑树" class="headerlink" title="一、红黑树"></a>一、红黑树</h2><p>红黑树除了符合二叉查找树的特性之外，还具有以下特性：</p>
+<pre><code>1. 节点是红色或者黑色
+
+2. 根节点是黑色
+
+3. 每个叶子的节点都是黑色的空节点（NULL）
+
+4. 每个红色节点的两个子节点都是黑色的。
+
+5. 从任意节点到其每个叶子的所有路径都包含相同的黑色节点。</code></pre>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/redblacktree.jpeg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/redblacktree.jpeg"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -2490,713 +2858,6 @@ class Solution:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/LeetCode-3-%E6%A0%91-%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/LeetCode-3-%E6%A0%91-%E4%BA%8C/" class="post-title-link" itemprop="url">LeetCode-3-树-二</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-05-08 11:41:24" itemprop="dateCreated datePublished" datetime="2020-05-08T11:41:24+08:00">2020-05-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 15:39:34" itemprop="dateModified" datetime="2020-09-16T15:39:34+08:00">2020-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="面试题-04-10-检查子树"><a href="#面试题-04-10-检查子树" class="headerlink" title="面试题 04.10. 检查子树"></a>面试题 04.10. 检查子树</h3><pre><code>链接：https://leetcode-cn.com/problems/check-subtree-lcci/
-
-检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。
-
-如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与 T2 完全相同。
-
-示例1:
-
- 输入：t1 = [1, 2, 3], t2 = [2]
- 输出：true
-示例2:
-
- 输入：t1 = [1, null, 2, 4], t2 = [3, 2]
- 输出：false
-提示：
-
-树的节点数目范围为[0, 20000]。</code></pre>
-<p>题解一|递归：</p>
-<pre><code>一：在 t1 中找到 t2 的起点。先判断 t1 当前节点，如果不对就判断 t1 左子树和 t1 右子树。
-二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。</code></pre>
-<pre><code>class Solution:
-    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
-
-        def helper(t1,t2):
-            if not t2:
-                return True
-            elif not t1 and t2:
-                return False
-            elif t1.val != t2.val:
-                return False
-            else:
-                return helper(t1.left,t2.left) and helper(t1.right,t2.right)
-
-        if not  t1:
-            return False
-        if not t2:
-            return True
-        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</code></pre>
-<pre><code>class Solution:
-    def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
-        if not  t1:
-            return False
-        if not t2:
-            return True
-        return self.helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
-
-    def helper(self,t1,t2):
-        if not t2:
-            return True
-        elif not t1 and t2:
-            return False
-        elif t1.val != t2.val:
-            return False
-        else:
-            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)</code></pre>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
-        if not A or not B:
-            return False
-        return self.helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
-
-    def helper(self,A,B):
-        if not A and B:
-            return False
-        elif not B:
-            return True
-        elif A.val != B.val:
-            return False
-        else:
-            return self.helper(A.left,B.left) and self.helper(A.right,B.right)</code></pre>
-<pre><code>class Solution:
-    def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
-        def helper(A,B):
-            if not B:
-                return True
-            if not A or (A.val != B.val):
-                return False
-            return helper(A.left,B.left) and helper(A.right,B.right)
-        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))</code></pre>
-<h3 id="面试题-17-12-BiNode"><a href="#面试题-17-12-BiNode" class="headerlink" title="面试题 17.12. BiNode"></a>面试题 17.12. BiNode</h3><pre><code>链接：https://leetcode-cn.com/problems/binode-lcci/
-
-二叉树数据结构TreeNode可用来表示单向链表（其中left置空，right为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求值的顺序保持不变，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。
-
-返回转换后的单向链表的头节点。
-
-注意：本题相对原题稍作改动
-
-示例：
-
-输入： [4,2,5,1,3,null,6,0]
-输出： [0,null,1,null,2,null,3,null,4,null,5,null,6]
-提示：
-
-节点数量不会超过 100000。</code></pre>
-<p>题解一|迭代|中序遍历：</p>
-<pre><code>root.left=None
-pre.right=root
-pre=root</code></pre>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
-        head=TreeNode(0)
-        pre=head
-        stack=[]
-        while stack or root:
-            if root:
-                stack.append(root)
-                root=root.left
-            else:
-                root=stack.pop()
-
-                root.left=None
-                pre.right=root
-                pre=root
-
-                root=root.right
-        return head.right</code></pre>
-<p>题解二|递归:</p>
-<pre><code>class Solution:
-    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
-        head=TreeNode(0)
-        self.helper(root,head)
-        return head.right
-
-    def helper(self,root,pre):
-        if root:
-            pre=self.helper(root.left,pre)
-            root.left=None
-            pre.right=root
-            pre=root
-            pre=self.helper(root.right,pre)
-        return pre</code></pre>
-<pre><code>class Solution:
-    def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
-        head=TreeNode(0)
-        self.pre=head
-        self.helper(root)
-        return head.right
-
-    def helper(self,root):
-        if not root:
-            return
-        self.helper(root.left)
-
-        root.left=None
-        self.pre.right=root
-        self.pre=root
-
-        self.helper(root.right)</code></pre>
-<h3 id="面试题-04-12-求和路径"><a href="#面试题-04-12-求和路径" class="headerlink" title="面试题 04.12. 求和路径"></a>面试题 04.12. 求和路径</h3><pre><code>链接：https://leetcode-cn.com/problems/paths-with-sum-lcci/
-
-给定一棵二叉树，其中每个节点都含有一个整数数值(该值或正或负)。设计一个算法，打印节点数值总和等于某个给定值的所有路径的数量。注意，路径不一定非得从二叉树的根节点或叶节点开始或结束，但是其方向必须向下(只能从父节点指向子节点方向)。
-
-示例:
-给定如下二叉树，以及目标和 sum = 22，
-
-              5
-             / \
-            4   8
-           /   / \
-          11  13  4
-         /  \    / \
-        7    2  5   1
-返回:
-
-3
-解释：和为 22 的路径有：[5,4,11,2], [5,8,4,5], [4,11,7]
-提示：
-
-节点总数 &lt;= 10000</code></pre>
-<p>题解一|递归：</p>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def pathSum(self, root: TreeNode, sum: int) -&gt; int:
-        if not root:
-            return 0
-        return self.helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)
-
-    def helper(self,root,sum):
-        count=0
-        if not root:
-            return 0
-        if sum-root.val==0:
-            count+=1
-        count+=self.helper(root.left,sum-root.val)
-        count+=self.helper(root.right,sum-root.val)
-        return count</code></pre>
-<h3 id="面试题54-二叉搜索树的第k大节点"><a href="#面试题54-二叉搜索树的第k大节点" class="headerlink" title="面试题54. 二叉搜索树的第k大节点"></a>面试题54. 二叉搜索树的第k大节点</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
-
-给定一棵二叉搜索树，请找出其中第k大的节点。
-
-示例 1:
-
-输入: root = [3,1,4,null,2], k = 1
-   3
-  / \
- 1   4
-  \
-   2
-输出: 4
-示例 2:
-
-输入: root = [5,3,6,2,4,null,null,1], k = 3
-       5
-      / \
-     3   6
-    / \
-   2   4
-  /
- 1
-输出: 4
-
-限制：
-
-1 ≤ k ≤ 二叉搜索树元素个数</code></pre>
-<p>注意：和二叉搜索树的第k小节点的区别。</p>
-<p>题解一|迭代：</p>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
-        if not root:
-            return 0
-        stack=[]
-        while stack or root:
-            if root:
-                stack.append(root)
-                root=root.right
-            else:
-                root=stack.pop()
-                k-=1
-                if k==0:
-                    return root.val
-                root=root.left</code></pre>
-<p>题解二|递归:</p>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
-        self.k=k
-        self.res=0
-        self.helper(root)
-        return self.res
-    def helper(self,root):
-        if not root:
-            return 0
-        self.helper(root.right)
-        if self.k==0: return # ？？提高性能，提前返回。
-        self.k-=1        
-        if self.k==0:
-            self.res=root.val # 直接return不行，需要存入全局变量中
-        self.helper(root.left)
-        return self.res</code></pre>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def kthLargest(self, root: TreeNode, k: int) -&gt; int:
-        self.k=k
-        self.res=0
-        self.helper(root)
-        return self.res
-    def helper(self,root):
-        if not root or self.k == 0:
-            return 0
-        self.helper(root.right)
-        self.k-=1        
-        if self.k==0:
-            self.res=root.val # 直接return不行，需要存入全局变量中
-        self.helper(root.left)
-        return self.res</code></pre>
-<h3 id="面试题55-I-二叉树的深度"><a href="#面试题55-I-二叉树的深度" class="headerlink" title="面试题55 - I. 二叉树的深度"></a>面试题55 - I. 二叉树的深度</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
-
-输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
-
-例如：
-
-给定二叉树 [3,9,20,null,null,15,7]，
-
-    3
-   / \
-  9  20
-    /  \
-   15   7
-返回它的最大深度 3 。
-
-提示：节点总数 &lt;= 10000</code></pre>
-<p>题解一（递归）：</p>
-<pre><code>class Solution:
-    def maxDepth(self, root: TreeNode) -&gt; int:
-        if not root:
-            return 0
-        left=self.maxDepth(root.left)
-        right=self.maxDepth(root.right)
-        return max(left,right)+1</code></pre>
-<p>题解二（迭代）:</p>
-<pre><code>class Solution:
-    def maxDepth(self, root: TreeNode) -&gt; int:
-        if not root:
-            return 0
-        stack=[root]
-        depth=0
-        while stack:
-            tmp=[]
-            for i in range(len(stack)):
-                root=stack.pop() 
-                if root.left:
-                    tmp.append(root.left)
-                if root.right:
-                    tmp.append(root.right)
-            stack=tmp
-            depth+=1
-        return depth</code></pre>
-<pre><code>class Solution:
-    def maxDepth(self, root: TreeNode) -&gt; int:
-        if not root:
-            return 0
-        stack=[root]
-        depth=0
-        while stack:
-            tmp=[]
-            for root in stack:
-                if root.left:
-                    tmp.append(root.left)
-                if root.right:
-                    tmp.append(root.right)
-            stack=tmp
-            depth+=1
-        return depth</code></pre>
-<h3 id="面试题55-II-平衡二叉树"><a href="#面试题55-II-平衡二叉树" class="headerlink" title="面试题55 - II. 平衡二叉树"></a>面试题55 - II. 平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
-
-输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
-
-示例 1:
-
-给定二叉树 [3,9,20,null,null,15,7]
-
-    3
-   / \
-  9  20
-    /  \
-   15   7
-返回 true 。
-
-示例 2:
-
-给定二叉树 [1,2,2,3,3,null,null,4,4]
-
-       1
-      / \
-     2   2
-    / \
-   3   3
-  / \
- 4   4
-返回 false 。</code></pre>
-<p>限制：1 &lt;= 树的结点个数 &lt;= 10000</p>
-<p>题解一（递归）：</p>
-<pre><code>class Solution:
-    def isBalanced(self, root: TreeNode) -&gt; bool:
-        if not root:
-            return True
-        return abs(self.helper(root.left)-self.helper(root.right))&lt;=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
-
-    def helper(self,root):
-        if not root:
-            return 0
-        left=self.helper(root.left)
-        right=self.helper(root.right)
-        return max(left,right)+1</code></pre>
-<h3 id="面试题68-I-二叉搜索树的最近公共祖先"><a href="#面试题68-I-二叉搜索树的最近公共祖先" class="headerlink" title="面试题68 - I. 二叉搜索树的最近公共祖先"></a>面试题68 - I. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
-
-给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
-
-百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
-
-例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]
-
-示例 1:
-
-输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
-输出: 6 
-解释: 节点 2 和节点 8 的最近公共祖先是 6。
-示例 2:
-
-输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
-输出: 2
-解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
-
-
-说明:
-
-所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
-<p>最近公共祖先（最近公共节点）:</p>
-<pre><code>根据题目给定的前提：
-
-    所有节点的值都是唯一的。
-    p、q 为不同节点且均存在于给定的二叉搜索树中。
-
-说明有以下几种情况：
-
-    二叉树本身为空，root == null ，return root
-    p.val == q.val ,一个节点也可以是它自己的祖先
-    p.val 和 q.val 都小于 root.val
-    (两个子节点的值都小于根节点的值，说明它们的公共节点只能在二叉树的左子树寻找）
-    p.val 和 q.val 都大于 root.val
-    (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
-    如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
-    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
-<p>题解一（递归）：</p>
-<pre><code>class Solution:
-    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
-        # if not root:
-        #     return
-        if root.val &lt; p.val and root.val &lt; q.val:
-            return self.lowestCommonAncestor(root.right,p,q)
-        elif root.val &gt; p.val and root.val &gt; q.val:
-            return self.lowestCommonAncestor(root.left,p,q)
-        return root</code></pre>
-<p>题解二（后序遍历）：</p>
-<pre><code>class Solution:
-    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
-        if not root or root==p or root==q:
-            return root
-        l=self.lowestCommonAncestor(root.left,p,q)
-        r=self.lowestCommonAncestor(root.right,p,q)
-        if not l:
-            return r
-        elif not r:
-            return l
-        else:
-            return root</code></pre>
-<p>题解三（迭代）：</p>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
-        while root:
-            if root.val &lt; p.val and root.val &lt; q.val:
-                root=root.right
-            elif root.val &gt; p.val and root.val &gt; q.val:
-                root=root.left
-            else:
-                break
-        return root</code></pre>
-<h3 id="面试题68-II-二叉树的最近公共祖先"><a href="#面试题68-II-二叉树的最近公共祖先" class="headerlink" title="面试题68 - II. 二叉树的最近公共祖先"></a>面试题68 - II. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
-
-给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
-
-百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
-
-例如，给定如下二叉树:  root = [3,5,1,6,2,0,8,null,null,7,4]
-
-示例 1:
-
-输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
-输出: 3
-解释: 节点 5 和节点 1 的最近公共祖先是节点 3。
-示例 2:
-
-输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
-输出: 5
-解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
-
-
-说明:
-
-所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
-<p>题解一（后序遍历）：</p>
-<pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:
-        if not root or root==p or root==q:
-            return root
-        l=self.lowestCommonAncestor(root.left,p,q)
-        r=self.lowestCommonAncestor(root.right,p,q)
-        if not l:
-            return r
-        elif not r:
-            return l
-        else:
-            return root
-</code></pre>
-<pre><code>class Solution:
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:
-        if not root or root == p or root == q: return root
-        left = self.lowestCommonAncestor(root.left, p, q)
-        right = self.lowestCommonAncestor(root.right, p, q)
-        if not left and not right: return # 1.
-        if not left: return right # 3.
-        if not right: return left # 4.
-        return root # 2. if left and right:</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-2-Manacher%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数据结构与算法-2-Manacher算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-29 11:49:54 / Modified: 12:17:50" itemprop="dateCreated datePublished" datetime="2020-04-29T11:49:54+08:00">2020-04-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000003914228">https://segmentfault.com/a/1190000003914228</a></p>
-<h2 id="一、Manacher"><a href="#一、Manacher" class="headerlink" title="一、Manacher"></a>一、Manacher</h2><pre><code>Manacher用来在字符串中求最长回文串。</code></pre>
-<h2 id="二、代码"><a href="#二、代码" class="headerlink" title="二、代码"></a>二、代码</h2><pre><code>def manacher(s):
-    s=&#39;#&#39;+&#39;#&#39;.join(s)+&#39;#&#39;
-
-    RL=[0]*len(s)
-    maxRight=0
-    pos=0
-    maxLen=0
-
-    for i in range(len(s)):
-        if i&lt;MaxRight:
-            RL[i]=min(RL[2*pos-i], MaxRight-i)
-        else:
-            RL[i]=1
-        #尝试扩展，注意处理边界
-        while i-RL[i]&gt;=0 and i+RL[i]&lt;len(s) and s[i-RL[i]]==s[i+RL[i]]:
-            RL[i]+=1
-        #更新MaxRight,pos
-        if RL[i]+i-1&gt;MaxRight:
-            MaxRight=RL[i]+i-1
-            pos=i
-        #更新最长回文串的长度
-        maxLen=max(maxLen, RL[i])
-    return maxLen-1</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3266,7 +2927,7 @@ class Solution:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

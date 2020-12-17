@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -154,6 +154,618 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-12-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-12-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="post-title-link" itemprop="url">数据结构与算法-12-二叉搜索树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-05 21:37:06" itemprop="dateCreated datePublished" datetime="2020-02-05T21:37:06+08:00">2020-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:03:41" itemprop="dateModified" datetime="2020-08-26T20:03:41+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、二叉搜索树"><a href="#一、二叉搜索树" class="headerlink" title="一、二叉搜索树"></a>一、二叉搜索树</h2><p>二叉搜索树（Binary Search Tree）是指一棵空树或具有如下性质的二叉树：</p>
+<pre><code>若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值
+若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值
+任意节点的左、右子树也分别为二叉搜索树
+没有键值相等的节点</code></pre>
+<p>基于以上性质，我们可以得出一个二叉搜索树的特性：二叉搜索树的中序遍历结果为递增序列。</p>
+<h2 id="二、二叉搜索树的后序遍历"><a href="#二、二叉搜索树的后序遍历" class="headerlink" title="二、二叉搜索树的后序遍历"></a>二、二叉搜索树的后序遍历</h2><pre><code>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+
+例如：输入数组&#123;5,7,6,9,11,10,8&#125;，则返回Yes，因为这个整数序列是下图二叉搜索树的后序遍历结果。
+       8
+      / \
+     6   10
+    / \  / \
+   5  7 9   11
+
+如果输入数组是&#123;7,4,6,5&#125;则由于没有哪个二叉搜索树的后序遍历结果是这个序列，因此返回False</code></pre>
+<p>递归：<br>    二叉树的后序遍历特点：序列的最后一个值为二叉树的根 root ；二叉搜索树左子树值都比 root 小，右子树值都比 root 大。</p>
+<pre><code>所以：
+1、确定找出 root；
+
+2、遍历序列（除去root结点），找到第一个大于root的位置，则该位置左边为左子树，右边为右子树；
+
+3、遍历右子树，若发现有小于root的值，则是不符合二叉树搜索树的规则的，则直接返回false；
+
+4、分别判断左子树和右子树是否仍是二叉搜索树（即递归步骤1、2、3）。</code></pre>
+<pre><code>def VerifySquenceOfBST(self, nums):
+    if nums is None or len(nums) &lt; 1:
+        return False
+    index = 0
+    for i in range(len(nums)):
+        if nums[i] &gt; nums[-1]:
+            index = i
+            break
+
+    for j in range(index, len(nums)):
+        if nums[j] &lt; nums[-1]:
+            return False
+
+    left = True
+    right = True
+
+    if len(nums[:index]) &gt; 0:
+        left = self.VerifySquenceOfBST(nums[:index])
+    if len(nums[index:-1]) &gt; 0:
+        right = self.VerifySquenceOfBST(nums[index:-1])
+
+    return left and right
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-10-%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lilly">
+      <meta itemprop="description" content="Up in the wind!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="茉莉Python">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95-10-%E6%A0%91/" class="post-title-link" itemprop="url">数据结构与算法-10-树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-02 22:12:32" itemprop="dateCreated datePublished" datetime="2020-02-02T22:12:32+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-26 20:03:47" itemprop="dateModified" datetime="2020-08-26T20:03:47+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bjwu/p/9284534.html">https://www.cnblogs.com/bjwu/p/9284534.html</a></p>
+<h2 id="一、如何遍历一棵树？"><a href="#一、如何遍历一棵树？" class="headerlink" title="一、如何遍历一棵树？"></a>一、如何遍历一棵树？</h2><pre><code>有两种通用的遍历树的策略：</code></pre>
+<p>1、深度优先搜索（DFS）</p>
+<pre><code>在这个策略中，我们采用深度作为优先级，以便从跟开始一直到达某个确定的叶子，然后再返回根到达另一个分支。
+
+深度优先搜索策略又可以根据根节点、左孩子和右孩子的相对顺序被细分为先序遍历，中序遍历和后序遍历。</code></pre>
+<p>2、宽度优先搜索（BFS）</p>
+<pre><code>我们按照高度顺序一层一层的访问整棵树，高层次的节点将会比低层次的节点先被访问到。</code></pre>
+<p>下图中的顶点按照访问的顺序编号，按照 1-2-3-4-5 的顺序来比较不同的策略。<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree5.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree5.png"></p>
+<h2 id="二、二叉树的前序遍历"><a href="#二、二叉树的前序遍历" class="headerlink" title="二、二叉树的前序遍历"></a>二、二叉树的前序遍历</h2><p>递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        ans=[]
+        if root:
+            ans.append(root.val)
+            ans+=self.preorderTraversal(root.left) # 这儿我之前直接用append，出来的结果会列表中嵌套列表
+            ans+=self.preorderTraversal(root.right)
+        return ans</code></pre>
+<p>迭代–辅助栈（后进先出）：</p>
+<pre><code>1、把二叉树的根节点 root 放进栈。
+
+2、如果栈不为空，从栈中取出一个节点，把该节点放入容器的尾部；如果该节点的右子树不为空，则把有节点放入栈；如果该节点的左子树不为空，则把左子树放入栈中。
+
+3、一直重复步骤 2 ，直到栈为空，此时遍历结束。</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        stack.append(root)
+        if root is None:
+            return res
+        while stack:
+            tmp=stack.pop()
+            res.append(tmp.val)
+            if tmp.right: # 栈后进先出，所以先放右节点
+                stack.append(tmp.right)
+            if tmp.left:
+                stack.append(tmp.left)
+        return res</code></pre>
+<p>迭代：和上面代码稍有差异，但是不如上面直观。</p>
+<p>前序遍历，我们使用栈stack，由于前序遍历的顺序是中左右，所以我们每次先打印当前结点curr，并将右子结点push到栈中，然后将左子结点设为当前结点。入栈和出栈条件（当前结点curr不为None时，每一次循环将当前结点curr入栈；当前结点curr为None时，则出栈一个结点）以及循环结束条件（整个循环在stack和curr皆为None的时候结束），与中序遍历一模一样。</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        curr=root
+        while stack or curr:
+            if curr:
+                res.append(curr.val)
+                stack.append(curr.right)
+                curr=curr.left
+            else:
+                curr=stack.pop()
+        return res</code></pre>
+<h2 id="三、二叉树的中序遍历"><a href="#三、二叉树的中序遍历" class="headerlink" title="三、二叉树的中序遍历"></a>三、二叉树的中序遍历</h2><p>递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        if root:
+            if root.left: # 其实这里不用再判断一次，因为递归时已经判断了。
+                res+=(self.inorderTraversal(root.left))
+            res.append(root.val)
+            if root.right:
+                res+=self.inorderTraversal(root.right)
+        return res</code></pre>
+<pre><code>class Solution:
+    def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        if root:
+            res=self.inorderTraversal(root.left) # 注意不能使用append,否则结果是[1,[3],2]，而不是[1,3,2]
+            res.append(root.val)
+            res+=self.inorderTraversal(root.right)
+        return res</code></pre>
+<p>更加简洁：</p>
+<pre><code>class Solution:
+    def inorderTraversal(self, root):
+        if not root:
+            return [] 
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)</code></pre>
+<p>递归–辅助栈：</p>
+<p>对于中序遍历的循环实现，每次将当前结点(curr)的左子结点push到栈中，直到当前结点(curr)为None。这时，pop出栈顶的第一个元素，设其为当前结点，并输出该结点的value值，且开始遍历该结点的右子树。</p>
+<p>规律为：当前结点curr不为None时，每一次循环将当前结点curr入栈；当前结点curr为None时，则出栈一个结点，且打印出栈结点的value值。整个循环在stack和curr皆为None的时候结束。</p>
+<pre><code>1、进入 while 循环，接着把根节点及其所有左子节点放入栈中。
+
+2、从栈中取出一个节点，把该节点放入容器的尾部；如果该节点的右子节点不为空，则把右子节点及其右子节点的所有左子节点放入队列。
+
+3、一直重复步骤 2 ，直到栈为空并且当前节点也为空则退出循环。</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        while root or stack:
+            if root:
+                stack.append(root)
+                root=root.left
+            else:
+                root=stack.pop()
+                res.append(root.val)
+                root=root.right
+        return res</code></pre>
+<p>同上：</p>
+<pre><code>class Solution:
+    def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        curr=root
+        while stack or curr:
+            if curr:
+                stack.append(curr)
+                curr=curr.left
+            else:
+                curr=stack.pop()
+                res.append(curr.val)
+                curr=curr.right
+        return res</code></pre>
+<h2 id="四、二叉树的后序遍历"><a href="#四、二叉树的后序遍历" class="headerlink" title="四、二叉树的后序遍历"></a>四、二叉树的后序遍历</h2><p>递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        if root:
+            res=self.postorderTraversal(root.left)
+            res+=self.postorderTraversal(root.right)
+            res.append(root.val)
+        return res</code></pre>
+<p>递归–辅助栈：</p>
+<p>1、把二叉树的根节点 root 放进栈。</p>
+<p>2、如果栈不为空，从栈中取出一个节点，把该节点插入到容器的头部。；如果该节点的左子树不为空，则把该左子树放入栈中；如果该节点的右子树不为空，则把右子树放入栈中。，</p>
+<p>注意，之前的前序遍历和中序遍历，我们都是用 ArrayList 容器，并且是把节点插入到容器的尾部，这就是后序遍历的不同点。</p>
+<p>3、一直重复步骤 2 ，直到栈为空，此时遍历结束。</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        if root is None:
+            return res
+        stack.append(root)
+        while stack:
+            tmp=stack.pop()
+            res.insert(0,tmp.val)
+            if tmp.left:
+                stack.append(tmp.left)
+            if tmp.right:
+                stack.append(tmp.right)
+        return res</code></pre>
+<p>递归：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/">https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/</a></p>
+<p>如果当前节点的右节点和上一次遍历的节点相同，那就表明当前是从右节点过来的了。</p>
+<pre><code>class Solution:
+    def postorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res=[]
+        stack=[]
+        cur=root
+        last=None
+
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur=cur.left
+            else:
+                tmp=stack[-1]
+                # 是否变到右子树
+                if tmp.right and tmp.right !=last:
+                    cur=tmp.right
+                else:
+                    res.append(tmp.val)
+                    last=tmp
+                    stack.pop()
+        return res
+</code></pre>
+<h2 id="五、二叉树的层次遍历（即逐层地，从左到右访问所有节点）"><a href="#五、二叉树的层次遍历（即逐层地，从左到右访问所有节点）" class="headerlink" title="五、二叉树的层次遍历（即逐层地，从左到右访问所有节点）"></a>五、二叉树的层次遍历（即逐层地，从左到右访问所有节点）</h2><p>递归：</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        res=[]
+
+        def helper(node,depth):
+            if not node:
+                return
+            if len(res)==depth:
+                res.append([])
+            res[depth].append(node.val)
+            helper(node.left,depth+1)
+            helper(node.right,depth+1)
+        helper(root,0)
+        return res</code></pre>
+<p>迭代：</p>
+<p>思想是采用广度优先遍历，借助一个辅助队列，步骤如下：</p>
+<p>1、把二叉树的根节点 root 放进队列。</p>
+<p>2、如果队列不为空，取出队列的一个节点，把这个节点的左右孩子放进队列中(为空的话就不用放)，然后打印这个节点。</p>
+<p>3、一直重复步骤 2 ，直到队列为空，此时遍历结束。</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        res=[]
+        queue=[]
+        if root is None:
+            return res
+        queue.append(root)
+        while queue:
+            tmp=queue[0]
+            res.append(tmp.val)
+            if tmp.left:
+                queue.append(tmp.left)
+            if tmp.right:
+                queue.append(tmp.right)
+        return res</code></pre>
+<pre><code>from collections import deque
+class Solution:
+
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        if root is None:
+            return 
+        res=[]
+        queue=deque() # queue=[]
+        queue.append(root)
+        while len(queue)&gt;0:
+            p=queue.popleft() # p=queue.pop(0)
+            res.append(p.val)
+
+            if p.left:
+                queue.append(p.left)
+            if p.right:
+                queue.append(p.right)
+
+        return res
+
+预期输出：[[3],[9,20],[15,7]]
+实际输出：[3, 9, 20, 15, 7]
+
+所以，要想得到预期输出，需要增加深度。</code></pre>
+<pre><code>class Solution:
+
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        if root is None:
+            return 
+        res=[]
+        queue=[root] # 不能使用这个queue.append([root])
+        depth=0
+
+        while queue:
+            res.append([])
+            for i in range(len(queue)):
+                node=queue.pop(0)
+                res[depth].append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            depth+=1
+
+        return res</code></pre>
+<pre><code>class Solution:
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        if not root: return []
+        res = []
+        cur_level = [root]
+        while cur_level:
+            tmp = []
+            next_level = []
+            for node in cur_level:
+                tmp.append(node.val)
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+            res.append(tmp)
+            cur_level = next_level
+        return res</code></pre>
+<h2 id="六、求二叉树中任意两个结点的距离"><a href="#六、求二叉树中任意两个结点的距离" class="headerlink" title="六、求二叉树中任意两个结点的距离"></a>六、求二叉树中任意两个结点的距离</h2><p>步骤：</p>
+<pre><code>（1）计算根到第一个结点的距离；
+（2）计算根到第二个结点的距离；
+（3）计算最近公共祖先lca；
+（4）计算根到lca结点的距离；
+结果为(1) + (2) - 2 * (4)，因为重复计算了两次的从跟到lca结点的距离；</code></pre>
+<pre><code>class Node(object):
+    def __init__(self, value=0):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+def get_path_length(root, node, path):
+    &#39;&#39;&#39;
+    计算根到结点node的距离
+    :param root: 根
+    :param node: 结点node
+    :param path: 距离
+    :return:
+    &#39;&#39;&#39;
+    if not root:
+        return 0
+    if root.value == node:
+        return path
+    else:
+        return get_path_length(root.left, node, path + 1) or get_path_length(root.right, node, path + 1)
+
+
+def find_lca(root, node1, node2):
+    &#39;&#39;&#39;
+    找到node1和node2的最近公共祖先lca
+    :param root:
+    :param node1:
+    :param node2:
+    :return:
+    &#39;&#39;&#39;
+    if root is None:
+        return None
+    if root.value == node1 or root.value == node2:
+        return root
+    left = find_lca(root.left, node1, node2)
+    right = find_lca(root.right, node1, node2)
+    if left and right:
+        return root
+    elif left:
+        return left
+    elif right:
+        return right
+    else:
+        return None
+
+
+def find_distance(root, node1, node2):
+    &#39;&#39;&#39;
+    计算任意两个结点node1和node2之间的距离
+    :param root:
+    :param node1:
+    :param node2:
+    :return:
+    &#39;&#39;&#39;
+    x = get_path_length(root, node1, 0)
+    y = get_path_length(root, node2, 0)
+    lca = find_lca(root, node1, node2).value
+    lca_dis = get_path_length(root, lca, 0)
+    return (x + y) - 2 * lca_dis
+
+
+if __name__ == &#39;__main__&#39;:
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.left.left = Node(4)
+    root.right.right = Node(7)
+    root.right.left = Node(6)
+    root.left.right = Node(5)
+    root.right.left.right = Node(8)
+    dist = find_distance(root, 4, 5)
+    print(&quot;Distance between node &#123;&#125; &amp; &#123;&#125;: &#123;&#125;&quot;.format(4, 5, dist))
+    dist = find_distance(root, 4, 6)
+    print(&quot;Distance between node &#123;&#125; &amp; &#123;&#125;: &#123;&#125;&quot;.format(4, 6, dist))
+    dist = find_distance(root, 3, 4)
+    print(&quot;Distance between node &#123;&#125; &amp; &#123;&#125;: &#123;&#125;&quot;.format(3, 4, dist))
+    dist = find_distance(root, 2, 4)
+    print(&quot;Distance between node &#123;&#125; &amp; &#123;&#125;: &#123;&#125;&quot;.format(2, 4, dist))
+    dist = find_distance(root, 8, 5)
+    print(&quot;Distance between node &#123;&#125; &amp; &#123;&#125;: &#123;&#125;&quot;.format(8, 5, dist))</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -770,7 +1382,7 @@ Example:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-13 14:46:13" itemprop="dateModified" datetime="2020-11-13T14:46:13+08:00">2020-11-13</time>
+                <time title="Modified: 2020-12-15 14:22:01" itemprop="dateModified" datetime="2020-12-15T14:22:01+08:00">2020-12-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1522,7 +2134,35 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
 解释: 4 皇后问题存在两个不同的解法。</code></pre>
 <p>题解一|回溯法:</p>
 <p>问题是十九世纪著名的数学家高斯1850年提出：在8X8格的国际象棋上摆放八个皇后（棋子），使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
-<p>1、判断每次输入的皇后是否在同一行、同一列或者同一斜线上<br>2、核心算法</p>
+<p>1、判断每次输入的皇后是否在同一行、同一列或者同一斜线上<br>2、核心算法:<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-queens/solution/51-n-queenshui-su-fa-jing-dian-wen-ti-xiang-jie-by/">https://leetcode-cn.com/problems/n-queens/solution/51-n-queenshui-su-fa-jing-dian-wen-ti-xiang-jie-by/</a></p>
+<pre><code>class Solution:
+    def solveNQueens(self, n: int) -&gt; List[List[str]]:
+
+        def isValid(row,col):
+            for i in range(row):
+                for j in range(n):
+                    if board[i][j]==&#39;Q&#39; and (j==col or i-j==row-col or i+j==row+col):
+                        return False
+            return True
+        def helper(row):
+            if row==n: # 结束条件
+                tmplist=[]
+                for each in board:
+                    tmpstr=&#39;&#39;.join(each)
+                    tmplist.append(tmpstr)
+                res.append(tmplist)
+                return
+
+            for col in range(n):
+                if isValid(row,col):
+                    board[row][col]=&#39;Q&#39;
+                    helper(row+1)
+                    board[row][col]=&#39;.&#39;
+
+        board=[[&#39;.&#39;]*n for i in range(n)]
+        res=[]
+        helper(0)
+        return res</code></pre>
 <pre><code>class Solution:
     def solveNQueens(self, n: int) -&gt; List[List[str]]:
         board,ret=[[&#39;.&#39;]*n for _ in range(n)],[]
@@ -1552,6 +2192,60 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
                 return False
         return True
 </code></pre>
+<h3 id="52-N皇后-II"><a href="#52-N皇后-II" class="headerlink" title="52. N皇后 II"></a>52. N皇后 II</h3><pre><code>链接：https://leetcode-cn.com/problems/n-queens-ii/
+
+n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+
+上图为 8 皇后问题的一种解法。
+
+给定一个整数 n，返回 n 皇后不同的解决方案的数量。
+
+示例:
+
+输入: 4
+输出: 2
+解释: 4 皇后问题存在如下两个不同的解法。
+[
+[&quot;.Q..&quot;,  // 解法 1
+&quot;...Q&quot;,
+&quot;Q...&quot;,
+&quot;..Q.&quot;],
+
+[&quot;..Q.&quot;,  // 解法 2
+&quot;Q...&quot;,
+&quot;...Q&quot;,
+&quot;.Q..&quot;]
+]
+
+提示：
+
+皇后，是国际象棋中的棋子，意味着国王的妻子。皇后只做一件事，那就是“吃子”。当她遇见可以吃的棋子时，就迅速冲上去吃掉棋子。当然，她横、竖、斜都可走一或 N-1 步，可进可退。（引用自 百度百科 - 皇后 ）</code></pre>
+<p>题解一|回溯：</p>
+<pre><code>class Solution:
+    def __init__(self):
+        self.count=0
+
+    def totalNQueens(self, n: int) -&gt; int:
+
+        def isValid(row,col):
+            for i in range(row):
+                for j in range(n):
+                    if board[i][j]==&#39;Q&#39; and (j==col or i-j==row-col or i+j==row+col):
+                        return False
+            return True
+
+        def helper(row):
+            if row==n:
+                self.count+=1
+                return
+            for col in range(n):
+                if isValid(row,col):
+                    board[row][col]=&#39;Q&#39;
+                    helper(row+1)
+                    board[row][col]=&#39;.&#39;
+        board=[[&#39;.&#39;]*n for i in range(n)]
+        helper(0)
+        return self.count</code></pre>
 <h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutation-sequence/
 
 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
@@ -2446,7 +3140,7 @@ S 仅由数字和字母组成。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-02 00:31:11" itemprop="dateModified" datetime="2020-12-02T00:31:11+08:00">2020-12-02</time>
+                <time title="Modified: 2020-12-14 22:08:56" itemprop="dateModified" datetime="2020-12-14T22:08:56+08:00">2020-12-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2690,6 +3384,157 @@ S 仅由数字和字母组成。</code></pre>
                     max_len=l
         return s[start:start+max_len]
 </code></pre>
+<h3 id="10-正则表达式匹配"><a href="#10-正则表达式匹配" class="headerlink" title="10. 正则表达式匹配"></a>10. 正则表达式匹配</h3><pre><code>链接：https://leetcode-cn.com/problems/regular-expression-matching/
+
+给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 &#39;.&#39; 和 &#39;*&#39; 的正则表达式匹配。
+
+&#39;.&#39; 匹配任意单个字符
+&#39;*&#39; 匹配零个或多个前面的那一个元素
+所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+
+
+示例 1：
+
+输入：s = &quot;aa&quot; p = &quot;a&quot;
+输出：false
+解释：&quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。
+示例 2:
+
+输入：s = &quot;aa&quot; p = &quot;a*&quot;
+输出：true
+解释：因为 &#39;*&#39; 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 &#39;a&#39;。因此，字符串 &quot;aa&quot; 可被视为 &#39;a&#39; 重复了一次。
+示例 3：
+
+输入：s = &quot;ab&quot; p = &quot;.*&quot;
+输出：true
+解释：&quot;.*&quot; 表示可匹配零个或多个（&#39;*&#39;）任意字符（&#39;.&#39;）。
+示例 4：
+
+输入：s = &quot;aab&quot; p = &quot;c*a*b&quot;
+输出：true
+解释：因为 &#39;*&#39; 表示零个或多个，这里 &#39;c&#39; 为 0 个, &#39;a&#39; 被重复一次。因此可以匹配字符串 &quot;aab&quot;。
+示例 5：
+
+输入：s = &quot;mississippi&quot; p = &quot;mis*is*p*.&quot;
+输出：false
+
+
+提示：
+
+0 &lt;= s.length &lt;= 20
+0 &lt;= p.length &lt;= 30
+s 可能为空，且只包含从 a-z 的小写字母。
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
+保证每次出现字符 * 时，前面都匹配到有效的字符</code></pre>
+<p>题解一|动态规划：<br>思路：</p>
+<p>1、定义dp[i][j]：dp[i][j]代表s的前i个元素能否被p的前j个元素匹配<br>2、递推表达式</p>
+<pre><code>(1) s[i-1] == p[j-1] or p[j-1]==&#39;.&#39;时：dp[i][j] = dp[i-1][j-1]=True；
+(2) s[i-1] != p[j-1]时：
+        p[j-1]==&#39;*&#39;时：
+            s[i-1]!=p[j-2]时：dp[i][j] = dp[i][j-2]
+            s[i-1]==p[j-2] or p[j-2]==&#39;*&#39;:
+                p[j-2]重复0次，dp[i][j]=dp[i][j-2]
+                p[j-2]重复1次，dp[i][j]=dp[i-1][j-2]
+                p[j-2]重复2次以上，dp[i][j]=dp[i-1][j]</code></pre>
+<p>3、初始值<br>    s和p为空，匹配<br>    s不为空，p为空，不匹配<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。</p>
+<pre><code>class Solution:
+    def isMatch(self, s: str, p: str) -&gt; bool:
+        # if not s or not p: # 当s=&#39;&#39;,p=&#39;a*&#39;,此case无法通过。
+        #     return False
+        m,n=len(s),len(p)
+        dp=[[False]*(n+1) for _ in range(m+1)] # dp[i][j]代表s的前i个元素能否被p的前j个元素匹配
+        dp[0][0]=True
+        for j in range(1,n+1):
+            if p[j-1]==&#39;*&#39;:
+                dp[0][j]=dp[0][j-2]
+        for i in range(1,m+1):
+            for j in range(1,n+1):
+                if s[i-1]==p[j-1] or p[j-1]==&#39;.&#39;:
+                    dp[i][j]=dp[i-1][j-1]
+                elif p[j-1]==&#39;*&#39;:
+                    if s[i-1]==p[j-2] or p[j-2]==&#39;.&#39;:
+                        dp[i][j]=dp[i][j-2] or dp[i-1][j-2] or dp[i-1][j]
+                    else:
+                        dp[i][j]=dp[i][j-2]
+        return dp[m][n]
+</code></pre>
+<h3 id="32-最长有效括号"><a href="#32-最长有效括号" class="headerlink" title="32. 最长有效括号"></a>32. 最长有效括号</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-valid-parentheses/
+
+给定一个只包含 &#39;(&#39; 和 &#39;)&#39; 的字符串，找出最长的包含有效括号的子串的长度。
+
+示例 1:
+
+输入: &quot;(()&quot;
+输出: 2
+解释: 最长有效括号子串为 &quot;()&quot;
+示例 2:
+
+输入: &quot;)()())&quot;
+输出: 4
+解释: 最长有效括号子串为 &quot;()()&quot;</code></pre>
+<p>题解一|动态规划：</p>
+<p>1、定义dp：dp[i]表示以i结尾的最长有效括号<br>2、递推表达式：</p>
+<pre><code>    s[i]==&#39;(&#39;,所以dp[i]=0；
+    s[i]==&#39;)&#39;:
+        当s[i-1]==&#39;(&#39;,所以dp[i]=dp[i-2]+2；
+        当s[i-1]==&#39;)&#39;,且s[i-dp[i-1]-1]为&#39;(&#39;,所以dp[i]= dp[i-1] + 2 + dp[i-dp[i-1]-2]；</code></pre>
+<p>3、初始化dp[i]=0</p>
+<p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def longestValidParentheses(self, s: str) -&gt; int:
+        if not s:
+            return 0
+        dp=[0]*len(s)
+        count=0
+        for i in range(len(s)):
+            if i&gt;0 and s[i]==&#39;)&#39;:
+                if s[i-1]==&#39;(&#39;:
+                    dp[i]=dp[i-2]+2
+                # elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot;: # 无法过case=&quot;(()))())(&quot;
+                elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot; and i-dp[i-1]-1&gt;=0:
+                    dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]
+            if dp[i]&gt;count:
+                count=dp[i]
+        return count</code></pre>
+<pre><code>class Solution:
+    def longestValidParentheses(self, s: str) -&gt; int:
+        count=0
+        n=len(s)
+        dp=[0]*n
+        for i in range(1,n):
+            if s[i]==&#39;)&#39;:
+                if s[i-1]==&#39;(&#39;:
+                    if i-2 &gt;= 0:
+                        dp[i]=dp[i-2]+2
+                    else:
+                        dp[i]=2
+                elif s[i-dp[i-1]-1]==&#39;(&#39; and i-dp[i-1]&gt;0:
+                    if i-dp[i-1]-2 &gt;= 0:
+                        dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]
+                    else:
+                        dp[i]=dp[i-1]+2
+            count=max(count,dp[i])
+        return count
+
+</code></pre>
+<p>题解二|栈：</p>
+<pre><code>class Solution:
+    def longestValidParentheses(self, s: str) -&gt; int:
+        if not s:
+            return 0
+        n=len(s)
+        res=0
+        stack=[-1]
+        for i in range(n):
+            if s[i]==&#39;(&#39;:
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack: # 解决第一个字符为&#39;)&#39;时，stack.pop()后为空越界的问题
+                    stack.append(i)
+                else:
+                    res=max(res,i-stack[-1])
+        return res</code></pre>
 <h3 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53.最大子序和"></a>53.最大子序和</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-subarray/
 
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
@@ -5378,7 +6223,7 @@ base case：n == 1时，排序 1 个饼时不需要翻转。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-06 15:06:34" itemprop="dateModified" datetime="2020-11-06T15:06:34+08:00">2020-11-06</time>
+                <time title="Modified: 2020-12-11 17:15:54" itemprop="dateModified" datetime="2020-12-11T17:15:54+08:00">2020-12-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -5541,7 +6386,7 @@ class Solution:
         # print( fast.val,slow.val)
         slow.next=slow.next.next
         return dummy.next</code></pre>
-<h3 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21. 合并两个有序链表"></a>21. 合并两个有序链表</h3><pre><code>链接：https://leetcode-cn.com/problems/merge-two-sorted-lists/
+<h3 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21. 合并两个有序链表"></a>21. 合并两个有序链表</h3><pre><code>链接：c
 
 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 
@@ -5549,7 +6394,24 @@ class Solution:
 
 输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
 输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</code></pre>
-<p>题解一：</p>
+<p>题解一|递归：</p>
+<p>时间复杂度：O(n+m)<br>空间复杂度：O(n+m)</p>
+<pre><code>class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
+        if not l1:
+            return l2
+        elif not l2:
+            return l1
+        elif l1.val &lt; l2.val:
+            l1.next=self.mergeTwoLists(l1.next,l2)
+            return l1
+        else:
+            l2.next=self.mergeTwoLists(l1,l2.next)
+            return l2
+
+</code></pre>
+<p>题解二|迭代：</p>
+<p>时间复杂度：O(n+m)<br>空间复杂度：O(1)</p>
 <pre><code># Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -5575,6 +6437,134 @@ class Solution:
             head.next=l1
         if l2:
             head.next=l2
+        return dummy.next</code></pre>
+<h3 id="23-合并K个升序链表"><a href="#23-合并K个升序链表" class="headerlink" title="23. 合并K个升序链表"></a>23. 合并K个升序链表</h3><pre><code>链接：https://leetcode-cn.com/problems/merge-k-sorted-lists/
+
+给你一个链表数组，每个链表都已经按升序排列。
+
+请你将所有链表合并到一个升序链表中，返回合并后的链表。
+
+示例 1：
+
+输入：lists = [[1,4,5],[1,3,4],[2,6]]
+输出：[1,1,2,3,4,4,5,6]
+解释：链表数组如下：
+[
+1-&gt;4-&gt;5,
+1-&gt;3-&gt;4,
+2-&gt;6
+]
+将它们合并到一个有序链表中得到。
+1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6
+示例 2：
+
+输入：lists = []
+输出：[]
+示例 3：
+
+输入：lists = [[]]
+输出：[]
+
+
+提示：
+
+k == lists.length
+0 &lt;= k &lt;= 10^4
+0 &lt;= lists[i].length &lt;= 500
+-10^4 &lt;= lists[i][j] &lt;= 10^4
+lists[i] 按 升序 排列
+lists[i].length 的总和不超过 10^4</code></pre>
+<p>题解一|两两合并：</p>
+<p>时间复杂度：O(k^2*n)<br>空间复杂度：O(1)</p>
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode:
+
+        def mergeTwoLists(l1, l2):
+            head=dummy=ListNode(-1)
+            while l1 and l2:
+                if l1.val &lt; l2.val:
+                    head.next=l1
+                    l1=l1.next
+                else:
+                    head.next=l2
+                    l2=l2.next
+                head=head.next
+            if l1:
+                head.next=l1
+            if l2:
+                head.next=l2
+            return dummy.next
+
+        ans=ListNode(float(&#39;-inf&#39;))
+        for i in lists:
+            ans=mergeTwoLists(ans,i)
+        return ans.next</code></pre>
+<p>题解二|归并：</p>
+<p>时间复杂度：O(kn*logk)<br>空间复杂度：O(logk)</p>
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode:
+
+        def mergeTwoLists(l1, l2):
+            head=dummy=ListNode(-1)
+            while l1 and l2:
+                if l1.val &lt; l2.val:
+                    head.next=l1
+                    l1=l1.next
+                else:
+                    head.next=l2
+                    l2=l2.next
+                head=head.next
+            if l1:
+                head.next=l1
+            if l2:
+                head.next=l2
+            return dummy.next
+
+        def merge(lists,left,right):
+            if left==right:
+                return lists[left]
+            if left&gt;right:
+                return
+            mid=left+(right-left)//2
+            return mergeTwoLists(merge(lists,left,mid),merge(lists,mid+1,right))
+
+        if not lists:
+            return
+        return merge(lists,0,len(lists)-1)</code></pre>
+<p>题解三|优先队列|小顶堆：</p>
+<p>时间复杂度：O(kn*logk)<br>空间复杂度：O(k)</p>
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+import heapq
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode:
+        p=dummy=ListNode(0)
+        head=[]
+        for i in range(len(lists)):
+            if lists[i]:
+                heapq.heappush(head,(lists[i].val,i))
+                lists[i]=lists[i].next
+        while head:
+            val,index=heapq.heappop(head)
+            p.next=ListNode(val)
+            p=p.next
+            if lists[index]:
+                heapq.heappush(head,(lists[index].val,index))
+                lists[index]=lists[index].next
         return dummy.next</code></pre>
 <h3 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><pre><code>链接：https://leetcode-cn.com/problems/swap-nodes-in-pairs/
 
@@ -5653,6 +6643,71 @@ class Solution:
             head=first.next
 
         return dummy.next</code></pre>
+<h3 id="25-K-个一组翻转链表"><a href="#25-K-个一组翻转链表" class="headerlink" title="25. K 个一组翻转链表"></a>25. K 个一组翻转链表</h3><pre><code>链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+
+给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+
+k 是一个正整数，它的值小于或等于链表的长度。
+
+如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+示例：
+
+给你这个链表：1-&gt;2-&gt;3-&gt;4-&gt;5
+
+当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5
+
+当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5
+
+说明：
+
+你的算法只能使用常数的额外空间。
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。</code></pre>
+<p>题解一|模拟：</p>
+<p>时间复杂度为 O(n∗K)，最好的情况为 O(n) ，最差的情况未 O(n^2)<br>空间复杂度为 O(1) </p>
+<pre><code># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -&gt; ListNode:
+        dummy=ListNode(-1)
+        dummy.next=head
+        pre=dummy
+        end=dummy
+
+        while end.next:
+            i=0
+            while i&lt;k and end:
+                end=end.next
+                i+=1
+            if not end: break
+
+            # 断开链表
+            start=pre.next
+            nxt=end.next
+            end.next=None
+
+            pre.next=self.reverse(start) # 翻转
+            start.next=nxt # 链接断开的链表
+
+            # 后移处理下一组
+            pre=start
+            end=pre
+
+        return dummy.next
+    def reverse(self, head):
+            if not head:
+                return
+            pre=None
+            while head:
+                nxt=head.next
+                head.next=pre
+                pre=head
+                head=nxt
+            return pre
+</code></pre>
 <h3 id="61-旋转链表"><a href="#61-旋转链表" class="headerlink" title="61. 旋转链表"></a>61. 旋转链表</h3><pre><code>链接：https://leetcode-cn.com/problems/rotate-list/
 
 给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
@@ -11184,7 +12239,7 @@ class Solution(object):
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-25 11:00:04" itemprop="dateModified" datetime="2020-11-25T11:00:04+08:00">2020-11-25</time>
+                <time title="Modified: 2020-12-17 18:18:06" itemprop="dateModified" datetime="2020-12-17T18:18:06+08:00">2020-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -11331,7 +12386,7 @@ class Solution:
         if flag:
             res.next=ListNode(1)
         return dummy.next</code></pre>
-<h3 id="？？4-寻找两个有序数组的中位数"><a href="#？？4-寻找两个有序数组的中位数" class="headerlink" title="？？4.寻找两个有序数组的中位数"></a>？？4.寻找两个有序数组的中位数</h3><pre><code>链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
+<h3 id="4-寻找两个有序数组的中位数"><a href="#4-寻找两个有序数组的中位数" class="headerlink" title="4.寻找两个有序数组的中位数"></a>4.寻找两个有序数组的中位数</h3><pre><code>链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
 
 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
 
@@ -11351,7 +12406,141 @@ nums1 = [1, 2]
 nums2 = [3, 4]
 
 则中位数是 (2 + 3)/2 = 2.5</code></pre>
-<p>题解一（暴力）：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-w-2/">https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-w-2/</a></p>
+</blockquote>
+<p>题解一|归并排序：</p>
+<pre><code>class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        m,n=len(nums1),len(nums2)
+        ans=[]
+        if m==0:
+            if n%2==0:
+                return (nums2[n//2-1]+nums2[n//2])/2
+            else:
+                return nums2[n//2]
+        if n==0:
+            if m%2==0:
+                return (nums1[m//2-1]+nums1[m//2])/2
+            else:
+                return nums1[m//2]
+        count=0
+        i,j=0,0
+        while count != (m+n):
+            if nums1[i]&lt;nums2[j]:
+                ans.append(nums1[i])
+                count+=1
+                i+=1
+            else:
+                ans.append(nums2[j])
+                count+=1
+                j+=1
+
+            if i==m and j!=n:
+                ans+=nums2[j:]
+                break
+            if j==n and i!=m:
+                ans+=nums1[i:]
+                break
+        count=(m+n)
+        if count%2==0:
+            return (ans[count//2-1]+ans[count//2])/2
+        else:
+            return ans[count//2]</code></pre>
+<pre><code>class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        def merge(left,right):
+            result=[]
+            while left and right:
+                if left[0]&lt;right[0]:
+                    result.append(left.pop(0))
+                else:
+                    result.append(right.pop(0))
+            while left:
+                result.append(left.pop(0))
+            while right:
+                result.append(right.pop(0))
+            return result
+
+        m,n=len(nums1),len(nums2)
+        ans=merge(nums1,nums2)
+        count=(m+n)
+        if count%2==0:
+            return (ans[count//2-1]+ans[count//2])/2
+        else:
+            return ans[count//2]
+</code></pre>
+<p>题解二|双指针：</p>
+<p>时间复杂度：O(m+n)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        m,n=len(nums1),len(nums2)
+        length=m+n
+        left,right=-1,-1
+        astart,bstart=0,0
+        for i in range(length//2+1):
+            left=right
+            if astart&lt;m and (bstart&gt;=n or nums1[astart]&lt;nums2[bstart]):
+                right=nums1[astart]
+                astart+=1                
+            else:
+                right=nums2[bstart]
+                bstart+=1
+        if length &amp; 1 == 0:
+            return (left+right)/2
+        else:
+            return right</code></pre>
+<p>题解三|Kth：</p>
+<p>时间复杂度：O(log(m+n))<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        def getKth(nums1,start1,end1,nums2,start2,end2,k):
+            l1=end1-start1+1
+            l2=end2-start2+1
+            if l1&gt;l2:
+                return getKth(nums2,start2,end2,nums1,start1,end1,k)
+            if l1==0:
+                return nums2[start2+k-1]
+            if k==1:
+                return min(nums1[start1],nums2[start2])
+            i=start1+min(l1,k//2)-1
+            j=start2+min(l2,k//2)-1
+            if nums1[i]&gt;nums2[j]:
+                # print(&#39;a&#39;,i,j,nums1[i],nums2[j],k)
+                return getKth(nums1,start1,end1,nums2,j+1,end2,k-(j-start2+1))
+            else:
+                # print(&#39;b&#39;,i,j,nums1[i],nums2[j],k)
+                return getKth(nums1,i+1,end1,nums2,start2,end2,k-(i-start1+1))
+
+        m,n=len(nums1),len(nums2)
+        left=(m+n+1)//2
+        right=(m+n+2)//2
+        return (getKth(nums1,0,m-1,nums2,0,n-1,left)+getKth(nums1,0,m-1,nums2,0,n-1,right))/2</code></pre>
+<p>题解四|划分数组：</p>
+<p>时间复杂度：O(log(m+n))<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
+        if len(nums1)&gt;len(nums2):
+            return self.findMedianSortedArrays(nums2,nums1)
+        m,n=len(nums1),len(nums2)
+        left,right=0,m
+        med1,med2=0,0 # med1是前半部分最大值，med2是后半部分最小值
+        while left&lt;=right:
+            i=(left+right)//2
+            j=(m+n+1)//2-i
+
+            nums_i_1=float(&#39;-inf&#39;) if i==0 else nums1[i-1]
+            nums_i=float(&#39;inf&#39;) if i==m else nums1[i]
+            nums_j_1 = float(&#39;-inf&#39;) if j == 0 else nums2[j - 1]
+            nums_j=float(&#39;inf&#39;)  if j==n else nums2[j]
+
+            if nums_i_1 &lt;= nums_j:
+                med1, med2 = max(nums_i_1, nums_j_1), min(nums_i, nums_j)
+                left = i + 1
+            else:
+                right = i - 1
+
+        return (med1+med2)/2 if (m+n)%2==0 else med1</code></pre>
 <h3 id="6-Z字形变换"><a href="#6-Z字形变换" class="headerlink" title="6.Z字形变换"></a>6.Z字形变换</h3><pre><code>链接：https://leetcode-cn.com/problems/zigzag-conversion/
 
 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
@@ -11999,6 +13188,118 @@ class Solution:
                     if rows[i][char]&gt;1 or columns[j][char]&gt;1 or boxes[index][char]&gt;1:
                         return False
         return True</code></pre>
+<h3 id="41-缺失的第一个正数"><a href="#41-缺失的第一个正数" class="headerlink" title="41. 缺失的第一个正数"></a>41. 缺失的第一个正数</h3><pre><code>链接：https://leetcode-cn.com/problems/first-missing-positive/
+
+给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。
+
+示例 1:
+
+输入: [1,2,0]
+输出: 3
+示例 2:
+
+输入: [3,4,-1,1]
+输出: 2
+示例 3:
+
+输入: [7,8,9,11,12]
+输出: 1
+
+提示：
+
+你的算法的时间复杂度应为O(n)，并且只能使用常数级别的额外空间。</code></pre>
+<p>题解一|暴力：</p>
+<pre><code>时间复杂度：O(n^2)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def firstMissingPositive(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        for i in range(1,n+1):
+            has=False
+            for j in range(n):
+                if nums[j]==i: 
+                    has=True
+                    break
+            if not has: # 未找到，直接返回
+                return i
+        return n+1</code></pre>
+<p>题解二|排序|二分查找：</p>
+<pre><code>时间复杂度：O(nlogn)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def firstMissingPositive(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        nums.sort()
+        for i in range(1,n+1):
+            res=self.binarySearch(nums,i)
+            if res==-1:
+                return i
+        return n+1
+
+    def binarySearch(self,arr,target):
+        left,right=0,len(arr)-1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            if arr[mid]==target:
+                return mid
+            elif arr[mid] &lt; target:
+                left=mid+1
+            else:
+                right=mid-1
+
+        return -1</code></pre>
+<p>题解三|hash：</p>
+<pre><code>时间复杂度：O(n)
+空间复杂度：O(n)</code></pre>
+<pre><code>class Solution:
+    def firstMissingPositive(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        hash=&#123;&#125;
+        for i in nums:
+            if i not in hash:
+                hash[i]=1
+            else:
+                hash[i]+=1
+        for i in range(1,n+1):
+            if i not in hash:
+                return i
+        return n+1</code></pre>
+<p>题解四|置换|hash：</p>
+<pre><code>思路：自定义哈希函数，规则就是数值为 i 的数映射到下标为 i - 1 的位置。
+
+时间复杂度：O(n)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def firstMissingPositive(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        for i in range(n):
+            while nums[i]&gt;=1 and nums[i]&lt;=n and nums[i]!=nums[nums[i]-1]:
+                self.__swap(nums,i,nums[i]-1) # 赋值时有先后顺序，所以会导致出错，建议封装函数。
+        for i in range(n):
+            if i+1 != nums[i]:
+                return i+1
+        return n+1
+
+    def __swap(self,nums,i,j):
+        nums[i],nums[j]=nums[j],nums[i]
+</code></pre>
+<p>题解五|自定义hash:</p>
+<pre><code>时间复杂度：O(n)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def firstMissingPositive(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        for i in range(n):
+            if nums[i]&lt;=0:
+                nums[i]=n+1
+        for i in range(n):
+            digit=abs(nums[i])
+            if digit&lt;=n:
+                nums[digit-1]=-abs(nums[digit-1])
+        for i in range(n):
+            if nums[i]&gt;0:
+                return i+1
+        return n+1</code></pre>
 <h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a>42. 接雨水</h3><pre><code>https://leetcode-cn.com/problems/trapping-rain-water/
 
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
@@ -12847,8 +14148,38 @@ index记录非0的位置；</code></pre>
 
 输出:
 [2,3]</code></pre>
-<p>题解一|原地变负：</p>
+<p>题解一|置换|hash：</p>
+<p>思路：自定义哈希函数，规则就是数值为 i 的数映射到下标为 i - 1 的位置。</p>
+<pre><code>时间复杂度：O(n)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def findDuplicates(self, nums: List[int]) -&gt; List[int]:
+        n=len(nums)
+        res=[]
+
+        for i in range(n):
+            while nums[i]&gt;=1 and nums[i]&lt;=n and nums[i]!=nums[nums[i]-1]:
+                self.__swap(nums,i,nums[i]-1)
+
+        for i in range(n):
+            if nums[i] != i+1:
+                res.append(nums[i])
+        return res
+
+    def __swap(self,arr,i,j):
+        arr[i],arr[j]=arr[j],arr[i]</code></pre>
+<p>题解二|原地变负：</p>
 <p>注意：1 ≤ a[i] ≤ n，所以变负时才不会越界。</p>
+<p>找到数字i时，将位置i-1处的数字翻转为负数。<br>如果位置i-1 上的数字已经为负，则i是出现两次的数字。</p>
+<pre><code>class Solution:
+    def findDuplicates(self, nums: List[int]) -&gt; List[int]:
+        ans=[]
+        for i in range(len(nums)):
+            index=abs(nums[i])-1
+            if nums[index]&lt;0:
+                ans.append(index+1)
+            num[index]=-nums[index]
+        return ans</code></pre>
 <pre><code>class Solution:
     def findDuplicates(self, nums: List[int]) -&gt; List[int]:
         ans=[]
@@ -12986,449 +14317,53 @@ nums 中最多有 10^5 个数字。</code></pre>
         for i in sub:
             result+=i[::-1]
         return result</code></pre>
+<h3 id="1679-K-和数对的最大数目"><a href="#1679-K-和数对的最大数目" class="headerlink" title="1679. K 和数对的最大数目"></a>1679. K 和数对的最大数目</h3><pre><code>链接：https://leetcode-cn.com/problems/max-number-of-k-sum-pairs/
 
-      
-    </div>
+给你一个整数数组 nums 和一个整数 k 。
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+每一步操作中，你需要从数组中选出和为 k 的两个整数，并将它们移出数组。
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/">
+返回你可以对数组执行的最大操作数。
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
+示例 1：
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">线性回归--从0开始实现</a>
-        </h2>
+输入：nums = [1,2,3,4], k = 5
+输出：2
+解释：开始时 nums = [1,2,3,4]：
+- 移出 1 和 4 ，之后 nums = [2,3]
+- 移出 2 和 3 ，之后 nums = []
+不再有和为 5 的数对，因此最多执行 2 次操作。
+示例 2：
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-09-17 19:19:43" itemprop="dateCreated datePublished" datetime="2018-09-17T19:19:43+08:00">2018-09-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 17:10:52" itemprop="dateModified" datetime="2020-09-18T17:10:52+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/gluon/" itemprop="url" rel="index"><span itemprop="name">gluon</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>代码：<a target="_blank" rel="noopener" href="https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/">https://github.com/Gladysgong/gluon_learning/blob/master/chap3_basic/</a></p>
-<h2 id="一-线性回归"><a href="#一-线性回归" class="headerlink" title="一.线性回归"></a>一.线性回归</h2><pre><code>线性回归输出是连续值，因此不适用于回归问题；
-Softmax回归输出是是离散值，因为适用于分类问题。</code></pre>
-<h3 id="1-线性回归要素"><a href="#1-线性回归要素" class="headerlink" title="1.线性回归要素"></a>1.线性回归要素</h3><pre><code>模型: 
-    表达式：</code></pre>
-<p>$$\hat{y} = x_1 w_1 + x_2 w_2 + b,$$</p>
-<pre><code>    模型训练:
-        训练数据
-        损失函数
-        优化算法:
-            解析解：误差最小化问题的解可以直接用公式表达出来
-            数值解：大多数深度学习模型并没有解析解，只能通过优化算法有限次迭代模型参数来尽可能降低损失函数的值
-                   小批量随机梯度下降：批量大小和学习率是认为设定的，叫做超参数
-
-    模型预测</code></pre>
-<h3 id="2-线性回归表示方法"><a href="#2-线性回归表示方法" class="headerlink" title="2.线性回归表示方法"></a>2.线性回归表示方法</h3><pre><code>神经网络图
-矢量计算表达式</code></pre>
-<h2 id="二-线性回归–从0开始实现"><a href="#二-线性回归–从0开始实现" class="headerlink" title="二.线性回归–从0开始实现"></a>二.线性回归–从0开始实现</h2><pre class=" language-python"><code class="language-python"><span class="token operator">%</span>matplotlib inline
-<span class="token keyword">from</span> IPython <span class="token keyword">import</span> display
-<span class="token keyword">from</span> matplotlib <span class="token keyword">import</span> pyplot <span class="token keyword">as</span> plt
-<span class="token keyword">from</span> mxnet <span class="token keyword">import</span> autograd<span class="token punctuation">,</span> nd
-<span class="token keyword">import</span> random</code></pre>
-<h3 id="1-生成数据集"><a href="#1-生成数据集" class="headerlink" title="1.生成数据集"></a>1.生成数据集</h3><pre><code>numpy.random.normal(loc=0.0, scale=1.0, size=None)11
-loc：float
-    此概率分布的均值（对应着整个分布的中心centre）
-scale：float
-    此概率分布的标准差（对应于分布的宽度，scale越大越矮胖，scale越小，越瘦高）
-size：int or tuple of ints
-    输出的shape，默认为None</code></pre>
-<pre class=" language-python"><code class="language-python">num_inputs<span class="token operator">=</span><span class="token number">2</span>
-num_examples<span class="token operator">=</span><span class="token number">1000</span>
-true_w<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.4</span><span class="token punctuation">]</span>
-true_b<span class="token operator">=</span><span class="token number">4.2</span>
-features<span class="token operator">=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>shape<span class="token operator">=</span><span class="token punctuation">(</span>num_examples<span class="token punctuation">,</span>num_inputs<span class="token punctuation">)</span><span class="token punctuation">)</span>
-labels<span class="token operator">=</span>true_w<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>true_w<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>true_b
-labels<span class="token operator">+=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>shape<span class="token operator">=</span>labels<span class="token punctuation">.</span>shape<span class="token punctuation">)</span></code></pre>
-<pre class=" language-python"><code class="language-python">features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>labels<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code></pre>
-<pre><code>(
- [ 1.16307867  0.48380461]
- &lt;NDArray 2 @cpu(0)&gt;, 
- [ 4.87962484]
- &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">use_svg_display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 用矢量图表示</span>
-    display<span class="token punctuation">.</span>set_matplotlib_formats<span class="token punctuation">(</span><span class="token string">'svg'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">def</span> <span class="token function">set_figsize</span><span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">3.5</span><span class="token punctuation">,</span><span class="token number">2.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true">#set_matplotlib_formats('svg')</span>
-    use_svg_display<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 设置图的尺寸</span>
-    plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'figure.figsize'</span><span class="token punctuation">]</span><span class="token operator">=</span>figsize
-
-set_figsize<span class="token punctuation">(</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>features<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>labels<span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true"># plt.show()</span></code></pre>
-<pre><code>&lt;matplotlib.collections.PathCollection at 0x117cadda0&gt;</code></pre>
-<p><img src="/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-%E4%BB%8E0%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0/linear_regression_6_1.svg" alt="svg"></p>
-<h3 id="2-读取数据"><a href="#2-读取数据" class="headerlink" title="2.读取数据"></a>2.读取数据</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 每次返回batch_size(批量大小)个随机样本的特征和标签</span>
-<span class="token comment" spellcheck="true"># 此函数已保存在gluonbook包中方便以后使用</span>
-<span class="token keyword">def</span> <span class="token function">data_iter</span><span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span>features<span class="token punctuation">,</span>labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    num_examples<span class="token operator">=</span>len<span class="token punctuation">(</span>features<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"长度："</span><span class="token punctuation">,</span>num_examples<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 1000,行数</span>
-    indices<span class="token operator">=</span>list<span class="token punctuation">(</span>range<span class="token punctuation">(</span>num_examples<span class="token punctuation">)</span><span class="token punctuation">)</span> 
-<span class="token comment" spellcheck="true">#     print("indices：",indices)  # 0-999</span>
-    random<span class="token punctuation">.</span>shuffle<span class="token punctuation">(</span>indices<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 样本的读取顺序是随机的。</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>num_examples<span class="token punctuation">,</span>batch_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        j<span class="token operator">=</span>nd<span class="token punctuation">.</span>array<span class="token punctuation">(</span>indices<span class="token punctuation">[</span>i<span class="token punctuation">:</span>min<span class="token punctuation">(</span>i<span class="token operator">+</span>batch_size<span class="token punctuation">,</span>num_examples<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token keyword">yield</span> features<span class="token punctuation">.</span>take<span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">,</span>labels<span class="token punctuation">.</span>take<span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># take 函数根据索引返回对应元素。</span></code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 每个批量的特征形状为（10， 2），分别对应批量大小和输入个数；标签形状为批量大小。</span>
-batch_size <span class="token operator">=</span> <span class="token number">10</span>
-
-<span class="token keyword">for</span> X<span class="token punctuation">,</span> y <span class="token keyword">in</span> data_iter<span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span> features<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
-    <span class="token keyword">break</span></code></pre>
-<pre><code>长度： 1000
-
-[[-1.4370029  -2.39830184]
- [ 0.86399084 -0.95994246]
- [-1.49929214  1.21278656]
- [ 2.52268934 -0.37837121]
- [ 1.39448225  0.56141484]
- [ 0.50767344  0.07797763]
- [ 0.37963197 -0.65589839]
- [-0.47827247 -1.17394924]
- [-0.11860342  1.41482413]
- [ 1.18384051  0.65427899]]
-&lt;NDArray 10x2 @cpu(0)&gt; 
-[  9.47776413   9.20563984  -2.91862679  10.52518559   5.09047413
-   4.9430213    7.19049788   7.2272377   -0.82722223   4.32375574]
-&lt;NDArray 10 @cpu(0)&gt;</code></pre>
-<h3 id="3-初始化模型参数"><a href="#3-初始化模型参数" class="headerlink" title="3.初始化模型参数"></a>3.初始化模型参数</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 将权重初始化成均值为 0 标准差为 0.01 的正态随机数，偏差则初始化成 0。</span>
-w<span class="token operator">=</span>nd<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>scale<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>shape<span class="token operator">=</span><span class="token punctuation">(</span>num_inputs<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-b<span class="token operator">=</span>nd<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>shape<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-<pre class=" language-python"><code class="language-python">w<span class="token punctuation">,</span>b</code></pre>
-<pre><code>(
- [[ 0.01464221]
-  [-0.01305814]]
- &lt;NDArray 2x1 @cpu(0)&gt;, 
- [ 0.]
- &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建梯度，yinw需要对这些参数求梯度来迭代参数的值</span>
-w<span class="token punctuation">.</span>attach_grad<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 申请存储梯度所需要的内存</span>
-b<span class="token punctuation">.</span>attach_grad<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<h3 id="4-定义模型"><a href="#4-定义模型" class="headerlink" title="4.定义模型"></a>4.定义模型</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 线性回归的矢量计算表达式的实现</span>
-<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
-<span class="token keyword">def</span> <span class="token function">linreg</span><span class="token punctuation">(</span>X<span class="token punctuation">,</span>w<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> nd<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>X<span class="token punctuation">,</span>w<span class="token punctuation">)</span><span class="token operator">+</span>b <span class="token comment" spellcheck="true"># dot做矩阵乘法</span></code></pre>
-<h3 id="5-定义损失函数"><a href="#5-定义损失函数" class="headerlink" title="5.定义损失函数"></a>5.定义损失函数</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 使用平方损失来定义线性回归的损失函数</span>
-<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
-<span class="token keyword">def</span> <span class="token function">squared_loss</span><span class="token punctuation">(</span>y_hat<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span><span class="token punctuation">(</span>y_hat<span class="token operator">-</span>y<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>y_hat<span class="token punctuation">.</span>shape<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">**</span><span class="token number">2</span><span class="token operator">/</span><span class="token number">2</span> <span class="token comment" spellcheck="true"># y_hat是线性回归对真实价格 y 的预测或估计</span></code></pre>
-<h3 id="6-定义优化算法"><a href="#6-定义优化算法" class="headerlink" title="6.定义优化算法"></a>6.定义优化算法</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 使用sgd函数实现小批量随机梯度下降算法</span>
-<span class="token comment" spellcheck="true"># 通过不断迭代模型参数来优化损失函数，这里自动求导模块计算得来的梯度是一个批量样本的梯度和，将它除以批量大小来得到平均值。</span>
-<span class="token comment" spellcheck="true"># 本函数已保存在 gluonbook 包中方便以后使用。</span>
-<span class="token keyword">def</span> <span class="token function">sgd</span><span class="token punctuation">(</span>params<span class="token punctuation">,</span>lr<span class="token punctuation">,</span>batch_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">for</span> param <span class="token keyword">in</span> params<span class="token punctuation">:</span>
-        param<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>param<span class="token operator">-</span>lr<span class="token operator">*</span>param<span class="token punctuation">.</span>grad<span class="token operator">/</span>batch_size</code></pre>
-<h3 id="7-训练模型"><a href="#7-训练模型" class="headerlink" title="7.训练模型"></a>7.训练模型</h3><pre class=" language-python"><code class="language-python">lr <span class="token operator">=</span> <span class="token number">0.03</span>
-num_epochs <span class="token operator">=</span> <span class="token number">3</span>
-net <span class="token operator">=</span> linreg
-loss <span class="token operator">=</span> squared_loss
-
-<span class="token keyword">for</span> epoch <span class="token keyword">in</span> range<span class="token punctuation">(</span>num_epochs<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 训练模型一共需要 num_epochs 个迭代周期。</span>
-    <span class="token comment" spellcheck="true"># 在一个迭代周期中，使用训练数据集中所有样本一次（假设样本数能够被批量大小整除）。</span>
-    <span class="token comment" spellcheck="true"># X 和 y 分别是小批量样本的特征和标签。</span>
-    <span class="token keyword">for</span> X<span class="token punctuation">,</span> y <span class="token keyword">in</span> data_iter<span class="token punctuation">(</span>batch_size<span class="token punctuation">,</span> features<span class="token punctuation">,</span> labels<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">with</span> autograd<span class="token punctuation">.</span>record<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            l <span class="token operator">=</span> loss<span class="token punctuation">(</span>net<span class="token punctuation">(</span>X<span class="token punctuation">,</span> w<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># l 是有关小批量 X 和 y 的损失。</span>
-        l<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 小批量的损失对模型参数求梯度。</span>
-        sgd<span class="token punctuation">(</span><span class="token punctuation">[</span>w<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">,</span> lr<span class="token punctuation">,</span> batch_size<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 使用小批量随机梯度下降迭代模型参数。</span>
-    train_l <span class="token operator">=</span> loss<span class="token punctuation">(</span>net<span class="token punctuation">(</span>features<span class="token punctuation">,</span> w<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'epoch %d, loss %f'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>epoch <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> train_l<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>asnumpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-<pre><code>长度： 1000
-epoch 1, loss 0.000048
-长度： 1000
-epoch 2, loss 0.000048
-长度： 1000
-epoch 3, loss 0.000048</code></pre>
-<pre class=" language-python"><code class="language-python">true_w<span class="token punctuation">,</span>w</code></pre>
-<pre><code>([2, -3.4], 
- [[ 2.00003362]
-  [-3.40025949]]
- &lt;NDArray 2x1 @cpu(0)&gt;)</code></pre>
-<pre class=" language-python"><code class="language-python">true_b<span class="token punctuation">,</span>b</code></pre>
-<pre><code>(4.2, 
- [ 4.20015049]
- &lt;NDArray 1 @cpu(0)&gt;)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://gongyanli.com/KNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lilly">
-      <meta itemprop="description" content="Up in the wind!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="茉莉Python">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/KNN/" class="post-title-link" itemprop="url">KNN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-09-10 14:26:36" itemprop="dateCreated datePublished" datetime="2018-09-10T14:26:36+08:00">2018-09-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 16:59:41" itemprop="dateModified" datetime="2020-09-18T16:59:41+08:00">2020-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习和深度学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E3%80%8B/" itemprop="url" rel="index"><span itemprop="name">《机器学习实战》</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#coding:utf-8</span>
-
-<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-<span class="token keyword">import</span> operator</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">createDataSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    group<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0.1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    labels<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">,</span><span class="token string">'B'</span><span class="token punctuation">]</span>
-    <span class="token keyword">return</span> group<span class="token punctuation">,</span>labels</code></pre>
-<pre class=" language-python"><code class="language-python">group<span class="token punctuation">,</span>labels<span class="token operator">=</span>createDataSet<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<pre class=" language-python"><code class="language-python">group<span class="token punctuation">,</span>labels</code></pre>
-<pre><code>(array([[1. , 1.1],
-        [1. , 1. ],
-        [0. , 0. ],
-        [0. , 0.1]]), [&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;])</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">classify0</span><span class="token punctuation">(</span>inX<span class="token punctuation">,</span>dataSet<span class="token punctuation">,</span>labels<span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    dataSetSize<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># dataSet的行数</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"dataSetSize:"</span><span class="token punctuation">,</span>dataSetSize<span class="token punctuation">)</span>
-    diffMat<span class="token operator">=</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>inX<span class="token punctuation">,</span><span class="token punctuation">(</span>dataSetSize<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">-</span>dataSet <span class="token comment" spellcheck="true"># 构造一个和dataSet一样的矩阵，再和dataSet相减</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"diffMat:"</span><span class="token punctuation">,</span>diffMat<span class="token punctuation">)</span>
-    sqDiffMat<span class="token operator">=</span>diffMat<span class="token operator">**</span><span class="token number">2</span> <span class="token comment" spellcheck="true"># 矩阵的平方</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sqDiffMat:"</span><span class="token punctuation">,</span>sqDiffMat<span class="token punctuation">)</span>
-    sqDistances<span class="token operator">=</span>sqDiffMat<span class="token punctuation">.</span>sum<span class="token punctuation">(</span>axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 按行相加</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sqDistances:"</span><span class="token punctuation">,</span>sqDistances<span class="token punctuation">)</span>
-    distances<span class="token operator">=</span>sqDistances<span class="token operator">**</span><span class="token number">0.5</span> <span class="token comment" spellcheck="true"># 开方，求距离</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"distances:"</span><span class="token punctuation">,</span>distances<span class="token punctuation">)</span>
-    sortedDistIndicies<span class="token operator">=</span>distances<span class="token punctuation">.</span>argsort<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 对距离排序</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sortedDistIndicies:"</span><span class="token punctuation">,</span>sortedDistIndicies<span class="token punctuation">)</span>
-    classCount<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;&amp;#125;</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        voteIlabel<span class="token operator">=</span>labels<span class="token punctuation">[</span>sortedDistIndicies<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"voteIlable:"</span><span class="token punctuation">,</span>voteIlabel<span class="token punctuation">)</span>
-        classCount<span class="token punctuation">[</span>voteIlabel<span class="token punctuation">]</span><span class="token operator">=</span>classCount<span class="token punctuation">.</span>get<span class="token punctuation">(</span>voteIlabel<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"classCount:"</span><span class="token punctuation">,</span>classCount<span class="token punctuation">)</span>
-    sortedClassCount<span class="token operator">=</span>sorted<span class="token punctuation">(</span>classCount<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>key<span class="token operator">=</span>operator<span class="token punctuation">.</span>itemgetter<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>sortedClassCount<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> sortedClassCount<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-classify0<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">1.2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>group<span class="token punctuation">,</span>labels<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
-<pre><code>dataSetSize: 4
-diffMat: [[0.  0.1]
- [0.  0.2]
- [1.  1.2]
- [1.  1.1]]
-sqDiffMat: [[0.   0.01]
- [0.   0.04]
- [1.   1.44]
- [1.   1.21]]
-sqDistances: [0.01 0.04 2.44 2.21]
-distances: [0.1        0.2        1.56204994 1.48660687]
-sortedDistIndicies: [0 1 3 2]
-voteIlable: A
-classCount: &#123;&#39;A&#39;: 1&#125;
-voteIlable: A
-classCount: &#123;&#39;A&#39;: 2&#125;
-voteIlable: B
-classCount: &#123;&#39;A&#39;: 2, &#39;B&#39;: 1&#125;
-[(&#39;A&#39;, 2), (&#39;B&#39;, 1)]
+输入：nums = [3,1,3,4,3], k = 6
+输出：1
+解释：开始时 nums = [3,1,3,4,3]：
+- 移出前两个 3 ，之后nums = [1,4,3]
+不再有和为 6 的数对，因此最多执行 1 次操作。
 
 
+提示：
 
-
-
-&#39;A&#39;</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 将文本记录转换为numpy矩阵</span>
-<span class="token keyword">def</span> <span class="token function">file2matrix</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    fr<span class="token operator">=</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
-
-    numberOfLines<span class="token operator">=</span>len<span class="token punctuation">(</span>fr<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    returnMat<span class="token operator">=</span>np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span>numberOfLines<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 创建一个和文本一样形式的0矩阵</span>
-    classLabelVector<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
-    fr<span class="token operator">=</span>open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
-
-    index<span class="token operator">=</span><span class="token number">0</span>
-    <span class="token keyword">for</span> line <span class="token keyword">in</span> fr<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        line<span class="token operator">=</span>line<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        listFromLine<span class="token operator">=</span>line<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">)</span>
-        returnMat<span class="token punctuation">[</span>index<span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token operator">=</span>listFromLine<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
-        classLabelVector<span class="token punctuation">.</span>append<span class="token punctuation">(</span>int<span class="token punctuation">(</span>listFromLine<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        index<span class="token operator">+=</span><span class="token number">1</span>
-    <span class="token keyword">return</span> returnMat<span class="token punctuation">,</span>classLabelVector</code></pre>
-<pre class=" language-python"><code class="language-python">datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token operator">=</span>file2matrix<span class="token punctuation">(</span><span class="token string">'datingTestSet2.txt'</span><span class="token punctuation">)</span>
-datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">]</span></code></pre>
-<pre><code>(array([[4.0920000e+04, 8.3269760e+00, 9.5395200e-01],
-        [1.4488000e+04, 7.1534690e+00, 1.6739040e+00],
-        [2.6052000e+04, 1.4418710e+00, 8.0512400e-01],
-        ...,
-        [2.6575000e+04, 1.0650102e+01, 8.6662700e-01],
-        [4.8111000e+04, 9.1345280e+00, 7.2804500e-01],
-        [4.3757000e+04, 7.8826010e+00, 1.3324460e+00]]),
- [3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 1, 1, 1, 2, 3])</code></pre>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 分析数据，使用Matplotlib创建散点图</span>
-<span class="token keyword">import</span> matplotlib
-<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
-<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-<span class="token comment" spellcheck="true"># mpl.rcParams['font.sans-serif'] = ['SimHei']  </span>
-<span class="token comment" spellcheck="true"># mpl.rcParams['axes.unicode_minus'] = False  </span>
-fig<span class="token operator">=</span>plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
-ax<span class="token operator">=</span>fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">111</span><span class="token punctuation">)</span>
-
-datingLabels <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>datingLabels<span class="token punctuation">)</span>
-
-idx_1<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span>
-p1<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_1<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_1<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'y'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
-idx_2<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">2</span><span class="token punctuation">)</span>
-p2<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_2<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_2<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'g'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span>
-idx_3<span class="token operator">=</span>np<span class="token punctuation">.</span>where<span class="token punctuation">(</span>datingLabels<span class="token operator">==</span><span class="token number">3</span><span class="token punctuation">)</span>
-p3<span class="token operator">=</span>ax<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">[</span>idx_3<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>datingDataMat<span class="token punctuation">[</span>idx_3<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>color<span class="token operator">=</span><span class="token string">'b'</span><span class="token punctuation">,</span>label<span class="token operator">=</span><span class="token string">'1'</span><span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># ax.scatter(datingDataMat[:,1],datingDataMat[:,2],15.0*np.array(datingLabels),15.0*np.array(datingLabels),c='yellow')</span>
-
-plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span>u<span class="token string">'每年获取的飞行常客里程数'</span><span class="token punctuation">)</span>
-plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span>u<span class="token string">'玩视频游戏所耗时间百分比'</span><span class="token punctuation">)</span>
-ax<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">(</span>p1<span class="token punctuation">,</span>p2<span class="token punctuation">,</span>p3<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>u<span class="token string">'不喜欢'</span><span class="token punctuation">,</span> u<span class="token string">'魅力一般'</span><span class="token punctuation">,</span> u<span class="token string">'极具魅力'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> loc<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true"># ax.rc('font',family=['SeiHei'])</span>
-<span class="token comment" spellcheck="true">#ax.legend((p1,p2,p3), (u'不喜欢', u'魅力一般', u'极具魅力'), loc=2, prop=zhfont)</span>
-plt<span class="token punctuation">.</span>rcParams<span class="token punctuation">[</span><span class="token string">'font.sans-serif'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'SimHei'</span><span class="token punctuation">]</span>
-plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-<p><img src="/KNN/Untitled_7_0.png" alt="png"></p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 归一化特征值</span>
-<span class="token keyword">def</span> <span class="token function">autoNorm</span><span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    minVals<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>min<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 3列数据中的3个最小值</span>
-    maxVals<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>max<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 3列数据中的3个最大值</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>minVals<span class="token punctuation">)</span>
-
-    ranges<span class="token operator">=</span>maxVals<span class="token operator">-</span>minVals
-    normDateSet<span class="token operator">=</span>np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>dataSet<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span>
-    m<span class="token operator">=</span>dataSet<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 行数1000</span>
-    normDateSet<span class="token operator">=</span>dataSet<span class="token operator">-</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>minVals<span class="token punctuation">,</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#dataSet减去同样格式的最小值组成的矩阵</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span>
-    normDateSet<span class="token operator">=</span>normDateSet<span class="token operator">/</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>ranges<span class="token punctuation">,</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> normDateSet<span class="token punctuation">,</span>ranges<span class="token punctuation">,</span>minVals</code></pre>
-<p>normMat,ranges,minVals=autoNorm(datingDataMat)</p>
-<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 分类器针对约会网站的测试代码</span>
-<span class="token keyword">def</span> <span class="token function">datingClassTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    hoRatio<span class="token operator">=</span><span class="token number">0.5</span>
-    datingDataMat<span class="token punctuation">,</span>datingLabels<span class="token operator">=</span>file2matrix<span class="token punctuation">(</span><span class="token string">'datingTestSet2.txt'</span><span class="token punctuation">)</span>
-    normMat<span class="token punctuation">,</span>ranges<span class="token punctuation">,</span>minVals<span class="token operator">=</span>autoNorm<span class="token punctuation">(</span>datingDataMat<span class="token punctuation">)</span>
-    m<span class="token operator">=</span>normMat<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    numTestVecs<span class="token operator">=</span>int<span class="token punctuation">(</span>m<span class="token operator">*</span>hoRatio<span class="token punctuation">)</span>
-    errorCount<span class="token operator">=</span><span class="token number">0.0</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>numTestVecs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        classifierResult<span class="token operator">=</span>classify0<span class="token punctuation">(</span>normDateSet<span class="token punctuation">)</span></code></pre>
+1 &lt;= nums.length &lt;= 105
+1 &lt;= nums[i] &lt;= 109
+1 &lt;= k &lt;= 109</code></pre>
+<p>题解一：</p>
+<pre><code>class Solution:
+    def maxOperations(self, nums: List[int], k: int) -&gt; int:
+        nums.sort()
+        i,j=0,len(nums)-1
+        count=0
+        while i&lt;j:
+            tmp=nums[i]+nums[j]
+            if tmp==k:
+                count+=1
+                i+=1
+                j-=1
+            elif tmp&gt;k:
+                j-=1
+            else:
+                i+=1
+        return count</code></pre>
 
       
     </div>
@@ -13513,7 +14448,7 @@ plt<span class="token punctuation">.</span>show<span class="token punctuation">(
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="参考：https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000003914228 一、ManacherManacher用来在字符串中求最长回文串。 二、代码def manacher(s):     s&#x3D;&#39;#&#39;+&#39;#&#39;.join(s)+&#39;#&#39;      RL&#x3D;[0]*len(s)     maxRight&#x3D;0     pos&#x3D;0     m">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-04-29T03:49:54.000Z">
-<meta property="article:modified_time" content="2020-04-29T04:17:50.604Z">
+<meta property="article:modified_time" content="2020-12-13T09:40:29.732Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="数据结构与算法">
 <meta name="twitter:card" content="summary">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-29 11:49:54 / Modified: 12:17:50" itemprop="dateCreated datePublished" datetime="2020-04-29T11:49:54+08:00">2020-04-29</time>
+              <time title="Created: 2020-04-29 11:49:54" itemprop="dateCreated datePublished" datetime="2020-04-29T11:49:54+08:00">2020-04-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-13 17:40:29" itemprop="dateModified" datetime="2020-12-13T17:40:29+08:00">2020-12-13</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -221,7 +227,7 @@
 
     for i in range(len(s)):
         if i&lt;MaxRight:
-            RL[i]=min(RL[2*pos-i], MaxRight-i)
+            RL[i]=min(RL[2*pos-i], MaxRight-i)·
         else:
             RL[i]=1
         #尝试扩展，注意处理边界
@@ -331,7 +337,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
