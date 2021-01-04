@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-16 20:55:59" itemprop="dateModified" datetime="2020-11-16T20:55:59+08:00">2020-11-16</time>
+                <time title="Modified: 2020-12-29 20:49:19" itemprop="dateModified" datetime="2020-12-29T20:49:19+08:00">2020-12-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -881,63 +881,6 @@ zip([iterable, ...])
     def strStr(self, haystack: str, needle: str) -&gt; int:
         i=haystack.find(needle)
         return i</code></pre>
-<h3 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a>20. 有效的括号</h3><pre><code>链接：https://leetcode-cn.com/problems/valid-parentheses/
-
-给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;&#123;&#39;，&#39;&#125;&#39;，&#39;[&#39;，&#39;]&#39; 的字符串，判断字符串是否有效。
-
-有效字符串需满足：
-
-左括号必须用相同类型的右括号闭合。
-左括号必须以正确的顺序闭合。
-注意空字符串可被认为是有效字符串。
-
-示例 1:
-
-输入: &quot;()&quot;
-输出: true
-示例 2:
-
-输入: &quot;()[]&#123;&#125;&quot;
-输出: true
-示例 3:
-
-输入: &quot;(]&quot;
-输出: false
-示例 4:
-
-输入: &quot;([)]&quot;
-输出: false
-示例 5:
-
-输入: &quot;&#123;[]&#125;&quot;
-输出: true</code></pre>
-<p>题解一：</p>
-<p>时间复杂度：O(N)。遍历了一遍字符串。<br>空间复杂度：O(N)。最坏情况下，假如输入是 (((((((，栈的大小将是输入字符串的长度。</p>
-<pre><code>class Solution:
-    def isValid(self, s: str) -&gt; bool:
-        dict = &#123;&#39;)&#39;:&#39;(&#39;,&#39;]&#39;:&#39;[&#39;,&#39;&#125;&#39;:&#39;&#123;&#39;&#125;
-        stack=[]
-        for i in s:
-            if stack and i in dict:
-                if stack[-1] == dict[i]:
-                    stack.pop()
-                else:
-                    return False
-            else:
-                stack.append(i)
-        return not stack</code></pre>
-<pre><code>class Solution:
-    def isValid(self, s: str) -&gt; bool:
-        dicts=&#123;&#39;(&#39;:1,&#39;)&#39;:-1,&#39;&#123;&#39;:2,&#39;&#125;&#39;:-2,&#39;[&#39;:3,&#39;]&#39;:-3&#125;
-        list=[]
-        for i in s:
-            if len(list)==0:
-                list.append(i)
-            elif dicts[i]+dicts[list[-1]]==0:
-                del list[-1]
-            else:
-                list.append(i)
-        return len(list)==0</code></pre>
 <h3 id="38-外观数列"><a href="#38-外观数列" class="headerlink" title="38. 外观数列"></a>38. 外观数列</h3><pre><code>链接：https://leetcode-cn.com/problems/count-and-say/
 
 「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：
@@ -3936,7 +3879,7 @@ if __name__ == &#39;__main__&#39;:
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

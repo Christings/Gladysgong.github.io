@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-16 15:39:34" itemprop="dateModified" datetime="2020-09-16T15:39:34+08:00">2020-09-16</time>
+                <time title="Modified: 2020-12-24 17:06:55" itemprop="dateModified" datetime="2020-12-24T17:06:55+08:00">2020-12-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -536,7 +536,7 @@ class Solution:
 返回它的最大深度 3 。
 
 提示：节点总数 &lt;= 10000</code></pre>
-<p>题解一（递归）：</p>
+<p>题解一|递归：</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
         if not root:
@@ -544,7 +544,7 @@ class Solution:
         left=self.maxDepth(root.left)
         right=self.maxDepth(root.right)
         return max(left,right)+1</code></pre>
-<p>题解二（迭代）:</p>
+<p>题解二|迭代:</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
         if not root:
@@ -554,7 +554,7 @@ class Solution:
         while stack:
             tmp=[]
             for i in range(len(stack)):
-                root=stack.pop() 
+                root=stack.pop()
                 if root.left:
                     tmp.append(root.left)
                 if root.right:
@@ -659,7 +659,7 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
     (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
     如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
     p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
-<p>题解一（递归）：</p>
+<p>题解一|递归：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
         # if not root:
@@ -669,7 +669,7 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
         elif root.val &gt; p.val and root.val &gt; q.val:
             return self.lowestCommonAncestor(root.left,p,q)
         return root</code></pre>
-<p>题解二（后序遍历）：</p>
+<p>题解二|后序遍历：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
         if not root or root==p or root==q:
@@ -682,7 +682,7 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
             return l
         else:
             return root</code></pre>
-<p>题解三（迭代）：</p>
+<p>题解三|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2837,7 +2837,7 @@ n = 15,
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -890,7 +890,7 @@ if __name__ == &#39;__main__&#39;:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-25 13:47:29" itemprop="dateModified" datetime="2020-11-25T13:47:29+08:00">2020-11-25</time>
+                <time title="Modified: 2020-12-21 17:35:52" itemprop="dateModified" datetime="2020-12-21T17:35:52+08:00">2020-12-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1135,7 +1135,7 @@ int dp(vector&lt;int&gt;&amp; nums, int p) &#123;
             count+=max(left[i],right[i])
         return count</code></pre>
 <p>题解二|一个数组：</p>
-<p>时间复杂度：O(n) 。长度为 nn 数组 candiescandies 被遍历了 3 次。<br>空间复杂度：O(n)O 。数组 candiescandies 长度为 nn 。</p>
+<p>时间复杂度：O(n) 。长度为 n 数组 candies 被遍历了 3 次。<br>空间复杂度：O(n)。数组 candies 长度为 n 。</p>
 <pre><code>class Solution:
     def candy(self, ratings: List[int]) -&gt; int:
         left=[1 for _ in range(len(ratings))]
@@ -1382,7 +1382,7 @@ Example:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-15 14:22:01" itemprop="dateModified" datetime="2020-12-15T14:22:01+08:00">2020-12-15</time>
+                <time title="Modified: 2020-12-19 23:35:18" itemprop="dateModified" datetime="2020-12-19T23:35:18+08:00">2020-12-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1452,6 +1452,7 @@ def backtrack(路径, 选择列表):
 说明:
 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</code></pre>
 <p>题解一|暴力：</p>
+<p>时间复杂度：O(3^M×4^N)，M 是对应三个字母的数字个数，N 是对应四个字母的数字个数。<br>空间复杂度：O(3^M×4^N)，一共要生成 3^M×4^N个结果。</p>
 <pre><code>class Solution:
     def letterCombinations(self, digits: str) -&gt; List[str]:
         key_all=&#123;
@@ -1471,8 +1472,10 @@ def backtrack(路径, 选择列表):
             ans=[pre+suf for pre in ans for suf in key_all[num]]
         return ans</code></pre>
 <pre><code>class Solution:
-    def letterCombinations(self, digits):
-        key_all=&#123;
+    def letterCombinations(self, digits: str) -&gt; List[str]:
+        if not digits:
+            return []
+        hash=&#123;
             &#39;2&#39;: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;],
             &#39;3&#39;: [&#39;d&#39;, &#39;e&#39;, &#39;f&#39;],
             &#39;4&#39;: [&#39;g&#39;, &#39;h&#39;, &#39;i&#39;],
@@ -1482,17 +1485,16 @@ def backtrack(路径, 选择列表):
             &#39;8&#39;: [&#39;t&#39;, &#39;u&#39;, &#39;v&#39;],
             &#39;9&#39;: [&#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;]
         &#125;
-        if digits==&#39;&#39;:
-            return &#39;&#39;
         ans=[&#39;&#39;]
         for num in digits:
             tmp=[]
-            for pre in ans:
-                for suf in key_all[num]:
-                    tmp.append(pre+suf)
-            ans=tmp[:]
+            for i in ans:
+                for j in hash[num]:
+                    tmp.append(i+j)
+                ans=tmp[:]
         return ans</code></pre>
 <p>题解二|回溯：</p>
+<p>时间复杂度：O(3^M×4^N)，M 是对应三个字母的数字个数，N 是对应四个字母的数字个数。<br>空间复杂度：O(3^M×4^N)，一共要生成 3^M×4^N个结果。</p>
 <pre><code>class Solution:
     def letterCombinations(self, digits: str) -&gt; List[str]:
         if not digits:
@@ -1515,7 +1517,7 @@ def backtrack(路径, 选择列表):
                 res.append(&#39;&#39;.join(path))
                 return
 
-            digit=int(digits[index])
+            digit=int(digits[index]) # hash的key定义是int
             for i in hash.get(digit,[]):
                 path.append(i)
                 traceback(digits,index+1,path)
@@ -1543,7 +1545,7 @@ def backtrack(路径, 选择列表):
                 res.append(&#39;&#39;.join(path))
                 return
             # digit=int(digits[first])
-            digit=digits[first]
+            digit=digits[first] # hash的key定义为str
             for i in hash.get(digit,[]):
                 path.append(i)
                 traceback(digits,first+1,path)
@@ -1552,7 +1554,7 @@ def backtrack(路径, 选择列表):
         return res</code></pre>
 <h3 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h3><pre><code>链接：https://leetcode-cn.com/problems/generate-parentheses/
 
-数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的 括号组合。
+数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。
 
 示例：
 
@@ -1565,6 +1567,8 @@ def backtrack(路径, 选择列表):
        &quot;()()()&quot;
      ]</code></pre>
 <p>题解一|暴力：</p>
+<p>时间复杂度：O(2^{2n}n)，对于 2^{2n}个序列中的每一个，我们用于建立和验证该序列的复杂度为 O(n)。</p>
+<p>空间复杂度：O(n)，除了答案数组之外，我们所需要的空间取决于递归栈的深度，每一层递归函数需要 O(1) 的空间，最多递归 2n 层，因此空间复杂度为 O(n)。</p>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
         def generate(A):
@@ -1594,6 +1598,8 @@ def backtrack(路径, 选择列表):
 <p>可以只在序列仍然保持有效时才添加 ‘(‘ or ‘)’，而不是像 方法一 那样每次添加。</p>
 <p>我们可以通过跟踪到目前为止放置的左括号和右括号的数目来做到这一点，</p>
 <p>如果左括号数量不大于 n，我们可以放一个左括号。如果右括号数量小于左括号的数量，我们可以放一个右括号。</p>
+<p>时间复杂度：O(4^n/sqrt(n))，在回溯过程中，每个答案需要 O(n)O(n) 的时间复制到答案数组中。</p>
+<p>空间复杂度：O(n)，除了答案数组之外，我们所需要的空间取决于递归栈的深度，每一层递归函数需要 O(1) 的空间，最多递归 2n 层，因此空间复杂度为 O(n)。</p>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
 
@@ -1736,7 +1742,8 @@ candidates 中的数字可以无限制重复被选取。
   [2,3,3],
   [3,5]
 ]</code></pre>
-<p>题解一|回溯:<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/">https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/</a></p>
+<p>题解一|回溯:</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/">https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/</a></p>
 <pre><code>class Solution:
     def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:
         size=len(candidates)
@@ -1753,7 +1760,7 @@ candidates 中的数字可以无限制重复被选取。
         for i in range(begin,size):
             residue=target-candidates[i]
             if residue &lt; 0:
-                break
+                break # 前面已排序，所以才能用break，否则还是要用continue。
             path.append(candidates[i])
             self.helper(candidates,i,size,residue,res,path)
             path.pop()
@@ -1764,6 +1771,7 @@ candidates 中的数字可以无限制重复被选取。
         def backtrace(candidates,start,path,target):
             if target==0:
                 # res.append(path[:])
+                # list2 = list1[:]则是把list1通过切片运算取得的新list对象绑定到list2上，产生了新list，名称和引用也不同，所以，修改其中一个，另一个不会变。
                 res.append(path+[])
                 return
 
@@ -1773,6 +1781,7 @@ candidates 中的数字可以无限制重复被选取。
                     continue
                 path.append(candidates[i])
                 backtrace(candidates,i,path,tmp) # 注意此处i的取值
+                # backtrace(candidates,start,path,tmp) # 结果为[[2,2,3],[2,3,2],[3,2,2],[7]]
                 path.pop()
 
         backtrace(candidates,0,[],target)
@@ -1838,7 +1847,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
 <pre><code>1.先排序，使相同元素相邻；
 2.在backtrack的for循环里：
     if(i&gt;start &amp;&amp; candidates[i]==candidates[i-1]) continue;</code></pre>
-<pre><code>这个避免重复当思想是在是太重要了。
+<pre><code>这个避免重复思想是在是太重要了。
 这个方法最重要的作用是，可以让同一层级，不出现相同的元素。即
                   1
                  / \
@@ -1848,7 +1857,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
                 例2
                   1
                  /
-                2      这种情况确是允许的
+                 2      这种情况确是允许的
                /
               2  
 
@@ -1865,6 +1874,21 @@ candidates 中的每个数字在每个组合中只能使用一次。
 第一个出现的2的特点就是 i == start. 第二个出现的2 特点是i &gt; start.
 
 再通俗点，就是有重复元素的话，比如测试用例中的第一个1和第二个1，都会有1,7组成8，这样就产生了重复的list。因为都是从当前数开始遍历，所以加这一层的意思就是过滤掉重复的数，但是第一个1依然能使用第二个1，而第二个1是失去了作用的。
+
+
+1、给定的数组可能有重复的元素，先排序，使得重复的数字相邻，方便去重。
+
+2、for 循环枚举出选项时，加入下面判断，从而忽略掉同一层重复的选项，避免产生重复的组合。比如[1,2,2,2,5]中，选了第一个 2，变成 [1,2]，它的下一选项也是 2，跳过它，因为选它，就还是 [1,2]。
+
+
+    if (i - 1 &gt;= start &amp;&amp; candidates[i - 1] == candidates[i]) &#123;
+        continue;
+    &#125;
+
+3、当前选择的数字不能和下一个选择的数字重复，给子递归传i+1，避免与当前选的i重复。
+
+    dfs(i + 1, temp, sum + candidates[i]);
+
 </code></pre>
 <pre><code>class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -&gt; List[List[int]]:
@@ -1931,15 +1955,13 @@ candidates 中的每个数字在每个组合中只能使用一次。
             for i in range(first, n):
                 # place i-th integer first
                 # in the current permutation
-                print(&#39;i,first:&#39;,i, first)
-                print(nums[i], nums[first])
+                print(&#39;i,first:&#39;,i, first,nums[i], nums[first])
                 nums[first], nums[i] = nums[i], nums[first]
                 # use next integers to complete the permutations
                 backtrack(first + 1)
                 # backtrack
                 nums[first], nums[i] = nums[i], nums[first]
-                print(&#39;2:i,first:&#39;, i, first)
-                print(&#39;2:&#39;, nums[i], nums[first])
+                print(&#39;2:i,first:&#39;, i, first,nums[i], nums[first])
 
         n = len(nums)
         output = []
@@ -2140,8 +2162,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
 
         def isValid(row,col):
             for i in range(row):
-                for j in range(n):
-                    if board[i][j]==&#39;Q&#39; and (j==col or i-j==row-col or i+j==row+col):
+                for j in range(n): # 注意此处是n
+                    if board[i][j]==&#39;Q&#39; and (j==col or i-j==row-col or i+j==row+col): # 判断列、对角线和斜对角线
                         return False
             return True
         def helper(row):
@@ -2320,7 +2342,7 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         backtrace([])
         tmp=[str(i) for i in res[-1]]
         return &#39;&#39;.join(tmp)</code></pre>
-<p>???</p>
+<p>回溯|剪枝：</p>
 <pre><code>class Solution:
     def getPermutation(self, n: int, k: int) -&gt; str:
         res=[]
@@ -2572,7 +2594,7 @@ board 和 word 中只包含大写和小写英文字母。
         res=[]
         nums.sort()
         def backtrace(path,first):
-            res.append(path[:]) # ???没有return
+            res.append(path[:]) # # 没有return，加上return后不会进入回溯。
             for i in range(first,len(nums)):
                 if i&gt;first and nums[i]==nums[i-1]: # 滤重
                     continue
@@ -2617,6 +2639,7 @@ board 和 word 中只包含大写和小写英文字母。
 <p>题解二|回溯:</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/">https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/</a></p>
 <p>思路:</p>
+<p>回溯的要点1：</p>
 <pre><code>做第一步时我们有几种 选择 以 &quot;25525511135&quot; 为例：
 
     选 &quot;2&quot; 作为第一个片段
@@ -3140,7 +3163,7 @@ S 仅由数字和字母组成。</code></pre>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-14 22:08:56" itemprop="dateModified" datetime="2020-12-14T22:08:56+08:00">2020-12-14</time>
+                <time title="Modified: 2021-01-02 16:29:37" itemprop="dateModified" datetime="2021-01-02T16:29:37+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3426,8 +3449,11 @@ S 仅由数字和字母组成。</code></pre>
 s 可能为空，且只包含从 a-z 的小写字母。
 p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
 保证每次出现字符 * 时，前面都匹配到有效的字符</code></pre>
-<p>题解一|动态规划：<br>思路：</p>
-<p>1、定义dp[i][j]：dp[i][j]代表s的前i个元素能否被p的前j个元素匹配<br>2、递推表达式</p>
+<p>题解一|动态规划：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/">https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/</a></p>
+<p>思路：</p>
+<p>1、定义dp[i][j]：dp[i][j]代表s的前i个元素能否被p的前j个元素匹配</p>
+<p>2、递推表达式</p>
 <pre><code>(1) s[i-1] == p[j-1] or p[j-1]==&#39;.&#39;时：dp[i][j] = dp[i-1][j-1]=True；
 (2) s[i-1] != p[j-1]时：
         p[j-1]==&#39;*&#39;时：
@@ -3436,7 +3462,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                 p[j-2]重复0次，dp[i][j]=dp[i][j-2]
                 p[j-2]重复1次，dp[i][j]=dp[i-1][j-2]
                 p[j-2]重复2次以上，dp[i][j]=dp[i-1][j]</code></pre>
-<p>3、初始值<br>    s和p为空，匹配<br>    s不为空，p为空，不匹配<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。</p>
+<p>3、初始值<br>    s和p为空，匹配。dp[i][j]=True<br>    s不为空，p为空，不匹配。dp[i][0]=False<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。dp[0][j]=dp[0][j-2]=True</p>
 <pre><code>class Solution:
     def isMatch(self, s: str, p: str) -&gt; bool:
         # if not s or not p: # 当s=&#39;&#39;,p=&#39;a*&#39;,此case无法通过。
@@ -3444,7 +3470,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
         m,n=len(s),len(p)
         dp=[[False]*(n+1) for _ in range(m+1)] # dp[i][j]代表s的前i个元素能否被p的前j个元素匹配
         dp[0][0]=True
-        for j in range(1,n+1):
+        for j in range(1,n+1): # 初始值
             if p[j-1]==&#39;*&#39;:
                 dp[0][j]=dp[0][j-2]
         for i in range(1,m+1):
@@ -3492,7 +3518,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                     dp[i]=dp[i-2]+2
                 # elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot;: # 无法过case=&quot;(()))())(&quot;
                 elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot; and i-dp[i-1]-1&gt;=0:
-                    dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]
+                    dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]  # dp[i-dp[i-1]-2]解决case：()(())
             if dp[i]&gt;count:
                 count=dp[i]
         return count</code></pre>
@@ -3716,7 +3742,7 @@ g：当前位置l和上一个位置l取数值最大
             dp[i]=1
 
         for i in range(1,m):
-            dp[0]=1
+            dp[0]=1 # 每行第一个值为1。
             for j in range(1,n):
                 dp[j]=dp[j-1]+dp[j]
         return dp[n-1]</code></pre>
@@ -3785,6 +3811,26 @@ dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下�
                     dp[i][j]=dp[i-1][j]+dp[i][j-1]
         # print(dp[m-1][n-1])
         return dp[-1][-1]
+</code></pre>
+<p>题解二|动态规划优化：</p>
+<p>时间复杂度：O(mn)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int:
+        m,n=len(obstacleGrid),len(obstacleGrid[0])
+        if not obstacleGrid:
+            return 0
+        if obstacleGrid[0][0]==1 or obstacleGrid[m-1][n-1]==1:
+            return 0
+        dp=n*[0]
+        dp[0]=1
+        for i in range(m):
+            for j in range(n):
+                if obstacleGrid[i][j] == 1:
+                    dp[j]=0
+                    continue
+                if j&gt;=1:
+                    dp[j]=dp[j-1]+dp[j]
+        return dp[n-1]
 </code></pre>
 <h3 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64.最小路径和"></a>64.最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-path-sum/
 
@@ -4111,8 +4157,10 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
 输入: &quot;226&quot;
 输出: 3
 解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</code></pre>
-<p>题解一|动态规划：<br>    此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。</p>
-<pre><code>青蛙跳台阶时，可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式：
+<p>题解一|动态规划：</p>
+<pre><code>此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。
+
+青蛙跳台阶时，可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式：
 一种是从第 n-1 级跳上来；
 一种是从第 n-2 级跳上来；
 
@@ -4192,7 +4240,7 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
                 return 0
         # print(dp[-1])
         return dp[length]</code></pre>
-<h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="?95. 不同的二叉搜索树 II"></a>?95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
+<h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="95. 不同的二叉搜索树 II"></a>95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
 
 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
 
@@ -4265,7 +4313,8 @@ class Solution:
 <p>题解一|动态规划:</p>
 <p>二叉树定义：</p>
 <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a><br>方法：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a></p>
+<p>方法：</p>
 <pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
 在上述方法中，由于根各自不同，每棵二叉树都保证是独特的。
 
@@ -4276,7 +4325,9 @@ class Solution:
 
 所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree.png" alt="tree"></p>
-<p>1、定义数组元素的含义<br>    G[i]代表二叉搜索树的个数<br>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>G[i]代表二叉搜索树的个数</code></pre>
+<p>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
 <pre><code>f(i)=G(i-1)+G(n-i)
 G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
     =G(0)G(n-1)+G(1)G(n-2)+...+G(n-1)G(0)</code></pre>
@@ -4370,6 +4421,24 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
                 if dp[i][j]==0:
                     dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
         return dp[rowIndex]</code></pre>
+<p>题解二|动态规划优化：</p>
+<pre><code>class Solution:
+    def getRow(self, rowIndex: int) -&gt; List[int]:
+        dp=[1 for i in range(rowIndex+1)]
+        for i in range(1,rowIndex+1):
+            for j in range(i-1,0,-1):
+                print(j,)
+                dp[j]=dp[j-1]+dp[j]
+        return dp</code></pre>
+<pre><code>class Solution:
+    def getRow(self, rowIndex: int) -&gt; List[int]:
+        dp = [1] * (rowIndex+1)
+        for i in range(2, rowIndex+1):
+            for j in range(1, i):
+                index = i-j
+                dp[index] = dp[index] + dp[index-1]
+        return dp
+</code></pre>
 <h3 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="120.三角形最小路径和"></a>120.三角形最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/triangle/
 
 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
@@ -4782,7 +4851,8 @@ class Solution:
 <pre><code>从小到大计算 dp[] 数组的值，在计算 dp[i] 之前，我们已经计算出 dp[0…i−1] 的值:
 dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
 <p>3、找出初始值<br>    dp[i]=1，1 个字符显然是长度为 1 的上升子序列。</p>
-<p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)<br>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
+<p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)</p>
+<p>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
 <pre><code>class Solution:
     def lengthOfLIS(self, nums: List[int]) -&gt; int:
         if not nums:
@@ -4825,6 +4895,27 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
         return res</code></pre>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
+<pre><code>class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        top=n*[0]
+        piles=0
+        for i in range(n):
+            poker=nums[i]
+            left,right=0,piles
+            while left&lt;right:
+                mid=left+(right-left)//2
+                if top[mid]&gt;poker:
+                    right=mid
+                elif top[mid]&lt;poker:
+                    left=mid+1
+                else:
+                    right=mid
+
+            if left==piles:
+                piles+=1
+            top[left]=poker
+        return piles</code></pre>
 <p>题解三|贪心|二分查找：</p>
 <p>时间复杂度：O(nlogn)。数组 nums 的长度为 n，我们依次用数组中的元素去更新 dp 数组，而更新 do 数组时需要进行 O(logn) 的二分搜索，所以总时间复杂度为 O(nlogn)。</p>
 <p>空间复杂度：O(n)</p>
@@ -4987,7 +5078,7 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
             for i in range(1, row + 1):
                 for j in range(1, col + 1):
-                    self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1]重复计算了, 所以需要减去.
+                    self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1] # 重复计算了, 所以需要减去.
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -&gt; int:
         return self.dp[row2 + 1][col2 + 1] - self.dp[row1][col2 + 1] - self.dp[row2 + 1][col1] + self.dp[row1][col1]
@@ -8518,7 +8609,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-04 17:35:08" itemprop="dateModified" datetime="2020-12-04T17:35:08+08:00">2020-12-04</time>
+                <time title="Modified: 2020-12-23 19:34:49" itemprop="dateModified" datetime="2020-12-23T19:34:49+08:00">2020-12-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -8561,7 +8652,8 @@ class Solution:
 
 输出: [1,3,2]
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？</code></pre>
-<p>题解一（递归）：</p>
+<p>题解一|递归：</p>
+<p>时间复杂度：O(n)，其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。<br>空间复杂度：O(n)。空间复杂度取决于递归的栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -8586,7 +8678,8 @@ class Solution:
         if not root:
             return [] 
         return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)</code></pre>
-<p>题解二（迭代）:<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/inorder.png" alt="inorder"></p>
+<p>题解二|迭代:</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/inorder.png" alt="inorder"></p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -8665,7 +8758,7 @@ class Solution:
     def build(self,start,end):
         # 结束条件
         if start&gt;end:
-            return [None,]
+            return [None]
 
         trees=[]
         for i in range(start,end+1):
@@ -8695,7 +8788,8 @@ class Solution:
      3     2     1      1   3      2
     /     /       \                 \
    2     1         2                 3</code></pre>
-<p>题解一（动态规划）:<br>二叉树定义：</p>
+<p>题解一|动态规划:</p>
+<p>二叉树定义：</p>
 <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a><br>方法：</p>
 <pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
@@ -8812,8 +8906,8 @@ class Solution:
             stack.append((root.left,lower,val))
         return True</code></pre>
 <p>题解三|中序遍历:<br>    中序遍历[1,2,3]，检查 inorder 中的每个元素是否小于下一个。</p>
-<pre><code>时间复杂度 : 最坏情况下（树为二叉搜索树或破坏条件的元素是最右叶结点）为 &#123;O&#125;(N)。
-空间复杂度 : &#123;O&#125;(N) 用于存储 stack。</code></pre>
+<pre><code>时间复杂度 : 最坏情况下（树为二叉搜索树或破坏条件的元素是最右叶结点）为 O(N)。
+空间复杂度 : O(N) 用于存储 stack。</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -9115,7 +9209,7 @@ class Solution:
         if not root:
             return True
         return helper(root.left,root.right)</code></pre>
-<p>题解二（迭代）：</p>
+<p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -9625,7 +9719,7 @@ class Solution:
 <p>二叉搜索树的特性：二叉搜索树的中序遍历结果为递增序列。</p>
 <p>平衡二叉树，既然要做到平衡，我们只要把根节点选为数组的中点即可。</p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/solution/jiang-you-xu-shu-zu-zhuan-huan-wei-er-cha-sou-s-15/">https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/solution/jiang-you-xu-shu-zu-zhuan-huan-wei-er-cha-sou-s-15/</a></p>
-<p>题解一|递归+二分：</p>
+<p>题解一|递归|二分：</p>
 <p>1、函数作用<br>通过上述解题过程我们可以明确该问题的子问题是：构造树的每个节点以及该节点的左右子树。因此，递归函数的作用很明显：</p>
 <pre><code>选取要构造关系的节点并创建它
 构造该节点的左子树
@@ -9703,6 +9797,7 @@ inorder = sorted(postorder) = sorted(preorder)，
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree4.png"></p>
 <p>时间复杂度：O(N)，每个元素只访问一次。<br>空间复杂度：O(N)，二叉搜索树空间 O(N)，递归栈深度 O(logN)。</p>
 <pre><code>from random import randint
+
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -&gt; TreeNode:        
         def helper(left, right):
@@ -9904,8 +9999,7 @@ def minDepth(root):
             if cur.right:
                 queue.appendleft(cur.right)
         depth+=1
-    return depth
-</code></pre>
+    return depth</code></pre>
 <h3 id="114-二叉树展开为链表"><a href="#114-二叉树展开为链表" class="headerlink" title="114. 二叉树展开为链表"></a>114. 二叉树展开为链表</h3><pre><code>链接：https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
 
 给定一个二叉树，原地将它展开为一个单链表。
@@ -10241,14 +10335,11 @@ class Solution:
                 return 0
             # 递归计算左右子节点的最大贡献值
             # 只有在最大贡献值大于0时，才回选取对应子节点
-            leftMax=max(0,helper(root.left))
-            rightMax=max(0,helper(root.right))
+            leftMax=max(0,helper(root.left)) # 左孩子贡献
+            rightMax=max(0,helper(root.right)) # 右孩子贡献
 
             # 节点的最大路径和取决于该节点值与该节点的左右节点的最大贡献值
-            price=root.val+leftMax+rightMax  
-
-            # 更新答案
-            self.ans=max(self.ans,price)
+            self.ans=max(self.ans,root.val+leftMax+rightMax) # 更新答案
 
             # 返回节点的最大贡献值
             return root.val+max(leftMax,rightMax)
@@ -10665,7 +10756,7 @@ class Solution(object):
             node,depth=queue.pop()
             if node:
                 max_depth=max(max_depth,depth)
-                right.setdefault(depth,node.val)
+                right.setdefault(depth,node.val) # 和get()类似，setdefault()如果键不存在于字典中，将会添加键并将值设为默认值。
                 queue.append((node.left,depth+1))
                 queue.append((node.right,depth+1))
         return [right[i] for i in range(max_depth+1)]</code></pre>
@@ -10688,7 +10779,7 @@ class Solution(object):
 
 输出: 6</code></pre>
 <p>题解一|递归：</p>
-<p>时间复杂度：O(N)。<br>空间复杂度：O(logN)，其中 d 指的是树的的高度，运行过程中堆栈所使用的空间。</p>
+<p>时间复杂度：O(n)。<br>空间复杂度：O(logn)，其中 d 指的是树的的高度，运行过程中堆栈所使用的空间。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -11085,7 +11176,7 @@ class Solution:
                 if not left and not right:
                     res.append(&#39;-&gt;&#39;.join(path))
                 path.pop()
-                return True  # 别漏掉
+                return True  # 别漏掉，用来判断left和right的True和False
 
         helper(root,[])
         return res</code></pre>
@@ -11373,7 +11464,6 @@ class Node:
         self.val = val
         self.children = children
 &quot;&quot;&quot;
-
 class Solution:
     def levelOrder(self, root: &#39;Node&#39;) -&gt; List[List[int]]:
         if not root:
@@ -11601,6 +11691,7 @@ class Solution:
             if not root:
                 return []
             return inOrder(root.left)+[root.val]+inOrder(root.right)
+
         tmp=inOrder(root)
         res=float(&#39;inf&#39;)
         for i in range(1,len(tmp)):
@@ -11621,7 +11712,7 @@ class Solution:
              18
             /   \
           20     13</code></pre>
-<p>题解一|递归|后序遍历：</p>
+<p>题解一|递归：</p>
 <pre><code>class Solution:
     def convertBST(self, root: TreeNode) -&gt; TreeNode:
         self.sum=0
@@ -11634,7 +11725,7 @@ class Solution:
             helper(root.left)
         helper(root)
         return root</code></pre>
-<p>题解二|迭代|后序遍历：</p>
+<p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -11889,8 +11980,7 @@ class Solution:
             for i in root.children:
                 helper(i)
         helper(root)
-        return res
-</code></pre>
+        return res</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -12239,7 +12329,7 @@ class Solution(object):
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-17 18:18:06" itemprop="dateModified" datetime="2020-12-17T18:18:06+08:00">2020-12-17</time>
+                <time title="Modified: 2021-01-04 18:25:27" itemprop="dateModified" datetime="2021-01-04T18:25:27+08:00">2021-01-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -12468,16 +12558,15 @@ nums2 = [3, 4]
         if count%2==0:
             return (ans[count//2-1]+ans[count//2])/2
         else:
-            return ans[count//2]
-</code></pre>
+            return ans[count//2]</code></pre>
 <p>题解二|双指针：</p>
 <p>时间复杂度：O(m+n)<br>空间复杂度：O(1)</p>
 <pre><code>class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:
         m,n=len(nums1),len(nums2)
         length=m+n
-        left,right=-1,-1
-        astart,bstart=0,0
+        left,right=-1,-1 # 保存上一次遍历的结果和当前遍历的结果
+        astart,bstart=0,0 # 双指针
         for i in range(length//2+1):
             left=right
             if astart&lt;m and (bstart&gt;=n or nums1[astart]&lt;nums2[bstart]):
@@ -12486,7 +12575,7 @@ nums2 = [3, 4]
             else:
                 right=nums2[bstart]
                 bstart+=1
-        if length &amp; 1 == 0:
+        if length &amp; 1 == 0: # 判断奇偶
             return (left+right)/2
         else:
             return right</code></pre>
@@ -12513,8 +12602,8 @@ nums2 = [3, 4]
                 return getKth(nums1,i+1,end1,nums2,start2,end2,k-(i-start1+1))
 
         m,n=len(nums1),len(nums2)
-        left=(m+n+1)//2
-        right=(m+n+2)//2
+        left=(m+n+1)//2 
+        right=(m+n+2)//2 # 将奇数和偶数的情况合并，如果是奇数，会求2次同样的K。
         return (getKth(nums1,0,m-1,nums2,0,n-1,left)+getKth(nums1,0,m-1,nums2,0,n-1,right))/2</code></pre>
 <p>题解四|划分数组：</p>
 <p>时间复杂度：O(log(m+n))<br>空间复杂度：O(1)</p>
@@ -12662,7 +12751,8 @@ T     S     G</code></pre>
 输入: &quot;-91283472332&quot;
 输出: -2147483648
 解释: 数字 &quot;-91283472332&quot; 超过 32 位有符号整数范围。 </code></pre>
-<p>          因此返回 INT_MIN (−231) 。<br>题解一|正则表达式：</p>
+<p>          因此返回 INT_MIN (−231) 。</p>
+<p>题解一|正则表达式：</p>
 <pre><code>^：匹配字符串开头
 [\+\-]：代表一个+字符或-字符
 ?：前面一个字符可有可无
@@ -12755,7 +12845,7 @@ class Solution:
             if x[i] != x[-i-1]:
                 return False
         return True</code></pre>
-<p>题解二（数字反转）:</p>
+<p>题解二|数字反转:</p>
 <pre><code>class Solution:
     def isPalindrome(self, x) :
         if x&lt;0:
@@ -12789,8 +12879,7 @@ class Solution:
         area=0
         for i in range(len(height)):
             for j in range(i+1,len(height)):
-                # print(&#39;i&#39;,i,height[i])
-                # print(&#39;j&#39;,j,height[j])
+                # print(i,height[i],j,height[j])
                 area=max(area,min(height[i],height[j])*(j-1)) # j-1为矩阵的长度</code></pre>
 <pre><code>class Solution:
     def maxArea(self, height: List[int]) -&gt; int:
@@ -12837,6 +12926,7 @@ class Solution:
 <pre><code>继续思考如何优化，可以通过双指针动态消去无效解来优化效率。
 铺垫：先将给定 nums 排序，复杂度为 O(nlogn)
 思路：固定 3 个指针中最左（最小）数字的指针 k，双指针 i，j 分设在数组索引 (k, len(nums))两端，通过双指针交替向中间移动，记录对于每个固定指针 k 的所有满足 nums[k] + nums[i] + nums[j] == 0 的 i,j 组合。
+
 时间复杂度O(n^2)，空间复杂度O(n)。</code></pre>
 <pre><code>class Solution:
     def threeSum(self, nums: List[int]) -&gt; List[List[int]]:
@@ -12978,7 +13068,7 @@ class Solution:
 <pre><code>记录数组中不同数字的数量；
 作为修改数组元素的索引index。</code></pre>
 <p>最终，返回 k+1 即可。</p>
-<p>时间复杂度O(n),空间复杂福O(1)。</p>
+<p>时间复杂度O(n),空间复杂读O(1)。</p>
 <pre><code>class Solution:
     def removeDuplicates(self, nums: List[int]) -&gt; int:
         if not nums:
@@ -13054,7 +13144,8 @@ class Solution:
 
 你不需要考虑数组中超出新长度后面的元素。</code></pre>
 <p>题解一|双指针：</p>
-<p>可以保留两个指针 i 和 j，其中 i 是慢指针，j 是快指针。当 nums[j]与val相等时，递增 j以跳过该元素。只要 nums[j] 不等于 val，我们就复制 nums[j]到 nums[i] 并同时递增两个索引。重复这一过程，直到 j 到达数组的末尾，该数组的新长度为 i。<br>时间复杂度O(n),空间复杂度O(1).</p>
+<p>可以保留两个指针 i 和 j，其中 i 是慢指针，j 是快指针。当 nums[j]与val相等时，递增 j以跳过该元素。只要 nums[j] 不等于 val，我们就复制 nums[j]到 nums[i] 并同时递增两个索引。重复这一过程，直到 j 到达数组的末尾，该数组的新长度为 i。</p>
+<p>时间复杂度O(n),空间复杂度O(1).</p>
 <pre><code>class Solution:
     def removeElement(self, nums: List[int], val: int) -&gt; int:
         i=0
@@ -13063,30 +13154,6 @@ class Solution:
                 nums[i]=nums[j]
                 i+=1
         return i</code></pre>
-<p>题解二：</p>
-<pre><code>class Solution:
-    def myAtoi(self, str: str) -&gt; int:
-        # return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)
-
-        # print(re.findall(&#39;\d&#39;,str.lstrip())) # [&#39;4&#39;, &#39;2&#39;, &#39;4&#39;, &#39;4&#39;]
-        # print(re.findall(&#39;\d*&#39;,str.lstrip())) # [&#39;4244&#39;, &#39;&#39;]
-        # print(re.findall(&#39;\d+&#39;,str.lstrip())) # [&#39;4244&#39;]
-        # print(re.findall(&#39;^[+-]\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]
-        print(re.findall(&#39;^[+-]?\d+&#39;,str.lstrip())) # [&#39;-4244&#39;]
-        # #  re.findall返回的是一个字符串列表，int()数据类型转换不支持列表，用*对列表解包得到字符串。比如[7,8,8]→7,8,8
-        # print(int(*re.findall(&#39;^[+-]\d+&#39;,str.lstrip()))) # -4244
-
-        x=int(*re.findall(&#39;^[-+]?\d+&#39;,str.lstrip()))
-        if x &gt; pow(2,31)-1:
-            return pow(2,31)-1
-        elif x &lt; pow(-2,31):
-            return pow(-2,31)
-        else:
-            return x</code></pre>
-<p>题解三：</p>
-<pre><code>class Solution:
-    def myAtoi(self, str: str) -&gt; int:
-        return max(min(int(*re.findall(&#39;^[\+\-]?\d+&#39;,str.lstrip())),2**31-1),-2**31)</code></pre>
 <h3 id="31-下一个排列"><a href="#31-下一个排列" class="headerlink" title="31. 下一个排列"></a>31. 下一个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/next-permutation/
 
 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
@@ -13283,7 +13350,7 @@ class Solution:
     def __swap(self,nums,i,j):
         nums[i],nums[j]=nums[j],nums[i]
 </code></pre>
-<p>题解五|自定义hash:</p>
+<p>题解五|变负|hash:</p>
 <pre><code>时间复杂度：O(n)
 空间复杂度：O(1)</code></pre>
 <pre><code>class Solution:
@@ -13989,6 +14056,55 @@ nums2 = [2,5,6],       n = 3
                 nums[1:n]=nums[0:n-1]
                 nums[0]=tmp
                 k-=1</code></pre>
+<h3 id="268-丢失的数字"><a href="#268-丢失的数字" class="headerlink" title="268. 丢失的数字"></a>268. 丢失的数字</h3><pre><code>链接：https://leetcode-cn.com/problems/missing-number/
+
+给定一个包含 [0, n] 中 n 个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。
+
+进阶：
+
+你能否实现线性时间复杂度、仅使用额外常数空间的算法解决此问题?
+
+
+示例 1：
+
+输入：nums = [3,0,1]
+输出：2
+解释：n = 3，因为有 3 个数字，所以所有的数字都在范围 [0,3] 内。2 是丢失的数字，因为它没有出现在 nums 中。
+示例 2：
+
+输入：nums = [0,1]
+输出：2
+解释：n = 2，因为有 2 个数字，所以所有的数字都在范围 [0,2] 内。2 是丢失的数字，因为它没有出现在 nums 中。
+示例 3：
+
+输入：nums = [9,6,4,2,3,5,7,0,1]
+输出：8
+解释：n = 9，因为有 9 个数字，所以所有的数字都在范围 [0,9] 内。8 是丢失的数字，因为它没有出现在 nums 中。
+示例 4：
+
+输入：nums = [0]
+输出：1
+解释：n = 1，因为有 1 个数字，所以所有的数字都在范围 [0,1] 内。1 是丢失的数字，因为它没有出现在 nums 中。
+
+
+提示：
+
+n == nums.length
+1 &lt;= n &lt;= 104
+0 &lt;= nums[i] &lt;= n
+nums 中的所有数字都 独一无二</code></pre>
+<p>题解一|数学|高斯求和：</p>
+<pre><code>注意：高斯求和有溢出的风险
+
+时间复杂度：O(n)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def missingNumber(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        ans=((n+1)*n)//2
+        for i in range(len(nums)):
+            ans-=nums[i]
+        return ans</code></pre>
 <h3 id="283-移动零"><a href="#283-移动零" class="headerlink" title="283. 移动零"></a>283. 移动零</h3><pre><code>链接：https://leetcode-cn.com/problems/move-zeroes/
 
 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
@@ -14168,7 +14284,7 @@ index记录非0的位置；</code></pre>
 
     def __swap(self,arr,i,j):
         arr[i],arr[j]=arr[j],arr[i]</code></pre>
-<p>题解二|原地变负：</p>
+<p>题解二|原地变负|hash：</p>
 <p>注意：1 ≤ a[i] ≤ n，所以变负时才不会越界。</p>
 <p>找到数字i时，将位置i-1处的数字翻转为负数。<br>如果位置i-1 上的数字已经为负，则i是出现两次的数字。</p>
 <pre><code>class Solution:
@@ -14187,6 +14303,50 @@ index记录非0的位置；</code></pre>
             if nums[abs(num)-1] &lt; 0:
                 ans.append(abs(num))
             nums[abs(num)-1]*=-1
+        return ans</code></pre>
+<h3 id="448-找到所有数组中消失的数字"><a href="#448-找到所有数组中消失的数字" class="headerlink" title="448. 找到所有数组中消失的数字"></a>448. 找到所有数组中消失的数字</h3><pre><code>给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
+
+找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+
+您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。
+
+示例:
+
+输入:
+[4,3,2,7,8,2,3,1]
+
+输出:
+[5,6]</code></pre>
+<p>题解一|置换|hash:</p>
+<p>思路：自定义哈希函数，规则就是数值为 i 的数映射到下标为 i - 1 的位置。</p>
+<pre><code>时间复杂度：O(n)
+空间复杂度：O(1)</code></pre>
+<pre><code>class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -&gt; List[int]:
+        n=len(nums)
+        ans=[]
+        for i in range(n):
+            while nums[i]&gt;=1 and nums[i]&lt;=n and nums[i]!=nums[nums[i]-1]:
+                self.__swap(nums,i,nums[i]-1) # 赋值时有先后顺序，所以会导致出错，建议封装函数。    
+        for i in range(n):
+            if i+1 != nums[i]:
+                ans.append(i+1)
+        return ans
+
+    def __swap(self,nums,i,j):
+        nums[i],nums[j]=nums[j],nums[i]</code></pre>
+<p>题解二|原地变负|hash:</p>
+<p>找到数字i时，将位置i-1处的数字翻转为负数。<br>如果位置i-1 上的数字已经为负，则i是出现两次的数字。</p>
+<pre><code>class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -&gt; List[int]:
+        ans=[]
+        for i in range(len(nums)):
+            index=abs(nums[i])-1
+            if nums[index]&gt;0:
+                nums[index]*=-1
+        for i in range(len(nums)):
+            if nums[i]&gt;0:
+                ans.append(i+1)
         return ans</code></pre>
 <h3 id="498-对角线遍历"><a href="#498-对角线遍历" class="headerlink" title="498. 对角线遍历"></a>498. 对角线遍历</h3><pre><code>给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。
 
@@ -14488,7 +14648,7 @@ nums 中最多有 10^5 个数字。</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png">
 <meta property="article:published_time" content="2020-01-19T03:28:41.000Z">
-<meta property="article:modified_time" content="2020-12-14T14:08:56.779Z">
+<meta property="article:modified_time" content="2021-01-02T08:29:37.763Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-14 22:08:56" itemprop="dateModified" datetime="2020-12-14T22:08:56+08:00">2020-12-14</time>
+                <time title="Modified: 2021-01-02 16:29:37" itemprop="dateModified" datetime="2021-01-02T16:29:37+08:00">2021-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -492,8 +492,11 @@
 s 可能为空，且只包含从 a-z 的小写字母。
 p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
 保证每次出现字符 * 时，前面都匹配到有效的字符</code></pre>
-<p>题解一|动态规划：<br>思路：</p>
-<p>1、定义dp[i][j]：dp[i][j]代表s的前i个元素能否被p的前j个元素匹配<br>2、递推表达式</p>
+<p>题解一|动态规划：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/">https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/</a></p>
+<p>思路：</p>
+<p>1、定义dp[i][j]：dp[i][j]代表s的前i个元素能否被p的前j个元素匹配</p>
+<p>2、递推表达式</p>
 <pre><code>(1) s[i-1] == p[j-1] or p[j-1]==&#39;.&#39;时：dp[i][j] = dp[i-1][j-1]=True；
 (2) s[i-1] != p[j-1]时：
         p[j-1]==&#39;*&#39;时：
@@ -502,7 +505,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                 p[j-2]重复0次，dp[i][j]=dp[i][j-2]
                 p[j-2]重复1次，dp[i][j]=dp[i-1][j-2]
                 p[j-2]重复2次以上，dp[i][j]=dp[i-1][j]</code></pre>
-<p>3、初始值<br>    s和p为空，匹配<br>    s不为空，p为空，不匹配<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。</p>
+<p>3、初始值<br>    s和p为空，匹配。dp[i][j]=True<br>    s不为空，p为空，不匹配。dp[i][0]=False<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。dp[0][j]=dp[0][j-2]=True</p>
 <pre><code>class Solution:
     def isMatch(self, s: str, p: str) -&gt; bool:
         # if not s or not p: # 当s=&#39;&#39;,p=&#39;a*&#39;,此case无法通过。
@@ -510,7 +513,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
         m,n=len(s),len(p)
         dp=[[False]*(n+1) for _ in range(m+1)] # dp[i][j]代表s的前i个元素能否被p的前j个元素匹配
         dp[0][0]=True
-        for j in range(1,n+1):
+        for j in range(1,n+1): # 初始值
             if p[j-1]==&#39;*&#39;:
                 dp[0][j]=dp[0][j-2]
         for i in range(1,m+1):
@@ -558,7 +561,7 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                     dp[i]=dp[i-2]+2
                 # elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot;: # 无法过case=&quot;(()))())(&quot;
                 elif s[i-1]==&#39;)&#39; and s[i - dp[i - 1] - 1] == &quot;(&quot; and i-dp[i-1]-1&gt;=0:
-                    dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]
+                    dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]  # dp[i-dp[i-1]-2]解决case：()(())
             if dp[i]&gt;count:
                 count=dp[i]
         return count</code></pre>
@@ -782,7 +785,7 @@ g：当前位置l和上一个位置l取数值最大
             dp[i]=1
 
         for i in range(1,m):
-            dp[0]=1
+            dp[0]=1 # 每行第一个值为1。
             for j in range(1,n):
                 dp[j]=dp[j-1]+dp[j]
         return dp[n-1]</code></pre>
@@ -851,6 +854,26 @@ dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下�
                     dp[i][j]=dp[i-1][j]+dp[i][j-1]
         # print(dp[m-1][n-1])
         return dp[-1][-1]
+</code></pre>
+<p>题解二|动态规划优化：</p>
+<p>时间复杂度：O(mn)<br>空间复杂度：O(n)</p>
+<pre><code>class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int:
+        m,n=len(obstacleGrid),len(obstacleGrid[0])
+        if not obstacleGrid:
+            return 0
+        if obstacleGrid[0][0]==1 or obstacleGrid[m-1][n-1]==1:
+            return 0
+        dp=n*[0]
+        dp[0]=1
+        for i in range(m):
+            for j in range(n):
+                if obstacleGrid[i][j] == 1:
+                    dp[j]=0
+                    continue
+                if j&gt;=1:
+                    dp[j]=dp[j-1]+dp[j]
+        return dp[n-1]
 </code></pre>
 <h3 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64.最小路径和"></a>64.最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-path-sum/
 
@@ -1177,8 +1200,10 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
 输入: &quot;226&quot;
 输出: 3
 解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</code></pre>
-<p>题解一|动态规划：<br>    此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。</p>
-<pre><code>青蛙跳台阶时，可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式：
+<p>题解一|动态规划：</p>
+<pre><code>此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。
+
+青蛙跳台阶时，可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式：
 一种是从第 n-1 级跳上来；
 一种是从第 n-2 级跳上来；
 
@@ -1258,7 +1283,7 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
                 return 0
         # print(dp[-1])
         return dp[length]</code></pre>
-<h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="?95. 不同的二叉搜索树 II"></a>?95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
+<h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="95. 不同的二叉搜索树 II"></a>95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
 
 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
 
@@ -1331,7 +1356,8 @@ class Solution:
 <p>题解一|动态规划:</p>
 <p>二叉树定义：</p>
 <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a><br>方法：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/">https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode/</a></p>
+<p>方法：</p>
 <pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
 在上述方法中，由于根各自不同，每棵二叉树都保证是独特的。
 
@@ -1342,7 +1368,9 @@ class Solution:
 
 所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree.png" alt="tree"></p>
-<p>1、定义数组元素的含义<br>    G[i]代表二叉搜索树的个数<br>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
+<p>1、定义数组元素的含义</p>
+<pre><code>G[i]代表二叉搜索树的个数</code></pre>
+<p>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
 <pre><code>f(i)=G(i-1)+G(n-i)
 G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
     =G(0)G(n-1)+G(1)G(n-2)+...+G(n-1)G(0)</code></pre>
@@ -1436,6 +1464,24 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
                 if dp[i][j]==0:
                     dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
         return dp[rowIndex]</code></pre>
+<p>题解二|动态规划优化：</p>
+<pre><code>class Solution:
+    def getRow(self, rowIndex: int) -&gt; List[int]:
+        dp=[1 for i in range(rowIndex+1)]
+        for i in range(1,rowIndex+1):
+            for j in range(i-1,0,-1):
+                print(j,)
+                dp[j]=dp[j-1]+dp[j]
+        return dp</code></pre>
+<pre><code>class Solution:
+    def getRow(self, rowIndex: int) -&gt; List[int]:
+        dp = [1] * (rowIndex+1)
+        for i in range(2, rowIndex+1):
+            for j in range(1, i):
+                index = i-j
+                dp[index] = dp[index] + dp[index-1]
+        return dp
+</code></pre>
 <h3 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="120.三角形最小路径和"></a>120.三角形最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/triangle/
 
 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
@@ -1848,7 +1894,8 @@ class Solution:
 <pre><code>从小到大计算 dp[] 数组的值，在计算 dp[i] 之前，我们已经计算出 dp[0…i−1] 的值:
 dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
 <p>3、找出初始值<br>    dp[i]=1，1 个字符显然是长度为 1 的上升子序列。</p>
-<p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)<br>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
+<p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)</p>
+<p>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
 <pre><code>class Solution:
     def lengthOfLIS(self, nums: List[int]) -&gt; int:
         if not nums:
@@ -1891,6 +1938,27 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
         return res</code></pre>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
+<pre><code>class Solution:
+    def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        n=len(nums)
+        top=n*[0]
+        piles=0
+        for i in range(n):
+            poker=nums[i]
+            left,right=0,piles
+            while left&lt;right:
+                mid=left+(right-left)//2
+                if top[mid]&gt;poker:
+                    right=mid
+                elif top[mid]&lt;poker:
+                    left=mid+1
+                else:
+                    right=mid
+
+            if left==piles:
+                piles+=1
+            top[left]=poker
+        return piles</code></pre>
 <p>题解三|贪心|二分查找：</p>
 <p>时间复杂度：O(nlogn)。数组 nums 的长度为 n，我们依次用数组中的元素去更新 dp 数组，而更新 do 数组时需要进行 O(logn) 的二分搜索，所以总时间复杂度为 O(nlogn)。</p>
 <p>空间复杂度：O(n)</p>
@@ -2053,7 +2121,7 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
             for i in range(1, row + 1):
                 for j in range(1, col + 1):
-                    self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1]重复计算了, 所以需要减去.
+                    self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1] # 重复计算了, 所以需要减去.
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -&gt; int:
         return self.dp[row2 + 1][col2 + 1] - self.dp[row1][col2 + 1] - self.dp[row2 + 1][col1] + self.dp[row1][col1]
@@ -2849,7 +2917,7 @@ n范围在[1, 1000000]之间</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">四、动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="nav-number">1.1.</span> <span class="nav-text">?5.最长回文子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">1.2.</span> <span class="nav-text">10. 正则表达式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.3.</span> <span class="nav-text">32. 最长有效括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C"><span class="nav-number">1.4.</span> <span class="nav-text">53.最大子序和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">1.5.</span> <span class="nav-text">62.不同路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-II"><span class="nav-number">1.6.</span> <span class="nav-text">63.不同路径 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.7.</span> <span class="nav-text">64.最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#70-%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.8.</span> <span class="nav-text">70.爬楼梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB"><span class="nav-number">1.9.</span> <span class="nav-text">72.编辑距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.</span> <span class="nav-text">91.解码方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-II"><span class="nav-number">1.11.</span> <span class="nav-text">?95. 不同的二叉搜索树 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.12.</span> <span class="nav-text">96.不同的二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#118-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92"><span class="nav-number">1.13.</span> <span class="nav-text">118.杨辉三角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-II"><span class="nav-number">1.14.</span> <span class="nav-text">119. 杨辉三角 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#120-%E4%B8%89%E8%A7%92%E5%BD%A2%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.15.</span> <span class="nav-text">120.三角形最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86"><span class="nav-number">1.16.</span> <span class="nav-text">139.单词拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.17.</span> <span class="nav-text">152. 乘积最大子数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2"><span class="nav-number">1.18.</span> <span class="nav-text">221.最大正方形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#264-%E4%B8%91%E6%95%B0-II"><span class="nav-number">1.19.</span> <span class="nav-text">264. 丑数 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0"><span class="nav-number">1.20.</span> <span class="nav-text">279. 完全平方数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E7%90%86%E8%A7%A3-300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.21.</span> <span class="nav-text">继续理解 300. 最长上升子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#303-%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">1.22.</span> <span class="nav-text">303. 区域和检索 - 数组不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#304-%E4%BA%8C%E7%BB%B4%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E7%9F%A9%E9%98%B5%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">1.23.</span> <span class="nav-text">304. 二维区域和检索 - 矩阵不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#334-%E9%80%92%E5%A2%9E%E7%9A%84%E4%B8%89%E5%85%83%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.24.</span> <span class="nav-text">334. 递增的三元子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0"><span class="nav-number">1.25.</span> <span class="nav-text">338. 比特位计数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86"><span class="nav-number">1.26.</span> <span class="nav-text">343. 整数拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#354-%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83%E4%BF%A1%E5%B0%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.27.</span> <span class="nav-text">354. 俄罗斯套娃信封问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#357-%E8%AE%A1%E7%AE%97%E5%90%84%E4%B8%AA%E4%BD%8D%E6%95%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0"><span class="nav-number">1.28.</span> <span class="nav-text">357. 计算各个位数不同的数字个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#368-%E6%9C%80%E5%A4%A7%E6%95%B4%E9%99%A4%E5%AD%90%E9%9B%86"><span class="nav-number">1.29.</span> <span class="nav-text">368. 最大整除子集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.30.</span> <span class="nav-text">392. 判断子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#516-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.31.</span> <span class="nav-text">516. 最长回文子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#651-4%E9%94%AE%E9%94%AE%E7%9B%98"><span class="nav-number">1.32.</span> <span class="nav-text">???651.4键键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#673-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.33.</span> <span class="nav-text">673. 最长递增子序列的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#674-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="nav-number">1.34.</span> <span class="nav-text">674. 最长连续递增序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#746-%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E8%8A%B1%E8%B4%B9%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.35.</span> <span class="nav-text">746. 使用最小花费爬楼梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1025-%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88"><span class="nav-number">1.36.</span> <span class="nav-text">1025. 除数博弈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-08-01-%E4%B8%89%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.37.</span> <span class="nav-text">面试题 08.01. 三步问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-16-17-%E8%BF%9E%E7%BB%AD%E6%95%B0%E5%88%97"><span class="nav-number">1.38.</span> <span class="nav-text">面试题 16.17. 连续数列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9842-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C"><span class="nav-number">1.39.</span> <span class="nav-text">面试题42. 连续子数组的最大和</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">四、动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="nav-number">1.1.</span> <span class="nav-text">?5.最长回文子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">1.2.</span> <span class="nav-text">10. 正则表达式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.3.</span> <span class="nav-text">32. 最长有效括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C"><span class="nav-number">1.4.</span> <span class="nav-text">53.最大子序和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">1.5.</span> <span class="nav-text">62.不同路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-II"><span class="nav-number">1.6.</span> <span class="nav-text">63.不同路径 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.7.</span> <span class="nav-text">64.最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#70-%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.8.</span> <span class="nav-text">70.爬楼梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB"><span class="nav-number">1.9.</span> <span class="nav-text">72.编辑距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.10.</span> <span class="nav-text">91.解码方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-II"><span class="nav-number">1.11.</span> <span class="nav-text">95. 不同的二叉搜索树 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.12.</span> <span class="nav-text">96.不同的二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#118-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92"><span class="nav-number">1.13.</span> <span class="nav-text">118.杨辉三角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#119-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-II"><span class="nav-number">1.14.</span> <span class="nav-text">119. 杨辉三角 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#120-%E4%B8%89%E8%A7%92%E5%BD%A2%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C"><span class="nav-number">1.15.</span> <span class="nav-text">120.三角形最小路径和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86"><span class="nav-number">1.16.</span> <span class="nav-text">139.单词拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.17.</span> <span class="nav-text">152. 乘积最大子数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2"><span class="nav-number">1.18.</span> <span class="nav-text">221.最大正方形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#264-%E4%B8%91%E6%95%B0-II"><span class="nav-number">1.19.</span> <span class="nav-text">264. 丑数 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0"><span class="nav-number">1.20.</span> <span class="nav-text">279. 完全平方数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E7%90%86%E8%A7%A3-300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.21.</span> <span class="nav-text">继续理解 300. 最长上升子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#303-%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">1.22.</span> <span class="nav-text">303. 区域和检索 - 数组不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#304-%E4%BA%8C%E7%BB%B4%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E7%9F%A9%E9%98%B5%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">1.23.</span> <span class="nav-text">304. 二维区域和检索 - 矩阵不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#334-%E9%80%92%E5%A2%9E%E7%9A%84%E4%B8%89%E5%85%83%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.24.</span> <span class="nav-text">334. 递增的三元子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0"><span class="nav-number">1.25.</span> <span class="nav-text">338. 比特位计数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#343-%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86"><span class="nav-number">1.26.</span> <span class="nav-text">343. 整数拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#354-%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83%E4%BF%A1%E5%B0%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.27.</span> <span class="nav-text">354. 俄罗斯套娃信封问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#357-%E8%AE%A1%E7%AE%97%E5%90%84%E4%B8%AA%E4%BD%8D%E6%95%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E4%B8%AA%E6%95%B0"><span class="nav-number">1.28.</span> <span class="nav-text">357. 计算各个位数不同的数字个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#368-%E6%9C%80%E5%A4%A7%E6%95%B4%E9%99%A4%E5%AD%90%E9%9B%86"><span class="nav-number">1.29.</span> <span class="nav-text">368. 最大整除子集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.30.</span> <span class="nav-text">392. 判断子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#516-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">1.31.</span> <span class="nav-text">516. 最长回文子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#651-4%E9%94%AE%E9%94%AE%E7%9B%98"><span class="nav-number">1.32.</span> <span class="nav-text">???651.4键键盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#673-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.33.</span> <span class="nav-text">673. 最长递增子序列的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#674-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="nav-number">1.34.</span> <span class="nav-text">674. 最长连续递增序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#746-%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E8%8A%B1%E8%B4%B9%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="nav-number">1.35.</span> <span class="nav-text">746. 使用最小花费爬楼梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1025-%E9%99%A4%E6%95%B0%E5%8D%9A%E5%BC%88"><span class="nav-number">1.36.</span> <span class="nav-text">1025. 除数博弈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-08-01-%E4%B8%89%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.37.</span> <span class="nav-text">面试题 08.01. 三步问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-16-17-%E8%BF%9E%E7%BB%AD%E6%95%B0%E5%88%97"><span class="nav-number">1.38.</span> <span class="nav-text">面试题 16.17. 连续数列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9842-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C"><span class="nav-number">1.39.</span> <span class="nav-text">面试题42. 连续子数组的最大和</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -2903,7 +2971,7 @@ n范围在[1, 1000000]之间</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
