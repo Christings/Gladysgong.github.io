@@ -890,7 +890,7 @@ if __name__ == &#39;__main__&#39;:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-21 17:35:52" itemprop="dateModified" datetime="2020-12-21T17:35:52+08:00">2020-12-21</time>
+                <time title="Modified: 2021-01-05 16:28:32" itemprop="dateModified" datetime="2021-01-05T16:28:32+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -12329,7 +12329,7 @@ class Solution(object):
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-04 18:25:27" itemprop="dateModified" datetime="2021-01-04T18:25:27+08:00">2021-01-04</time>
+                <time title="Modified: 2021-01-05 14:27:18" itemprop="dateModified" datetime="2021-01-05T14:27:18+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -13176,6 +13176,7 @@ class Solution:
         &quot;&quot;&quot;
         Do not return anything, modify nums in-place instead.
         &quot;&quot;&quot;
+
         for i in range(len(nums)-2,-1,-1):
             if nums[i] &lt; nums[i+1]:
                 nums[i+1:]=sorted(nums[i+1:])
@@ -13913,7 +13914,7 @@ nums1 = [1,2,3,0,0,0], m = 3
 nums2 = [2,5,6],       n = 3
 
 输出: [1,2,2,3,5,6]</code></pre>
-<p>题解一（合并后再排序）：</p>
+<p>题解一|合并后再排序：</p>
 <p>时间复杂度 : O((n + m)\log(n + m))<br>空间复杂度 : O(1)</p>
 <pre><code>class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
@@ -13921,7 +13922,7 @@ nums2 = [2,5,6],       n = 3
         Do not return anything, modify nums1 in-place instead.
         &quot;&quot;&quot;
         nums1[:]=sorted(nums1[:m]+nums2)</code></pre>
-<p>题解二（双指针 / 从前往后）：</p>
+<p>题解二|双指针 / 从前往后）：</p>
 <p>时间复杂度 : O(n + m)<br>空间复杂度 : O(m)</p>
 <pre><code>class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
@@ -14507,7 +14508,7 @@ nums 中最多有 10^5 个数字。</code></pre>
 1 &lt;= nums.length &lt;= 105
 1 &lt;= nums[i] &lt;= 109
 1 &lt;= k &lt;= 109</code></pre>
-<p>题解一：</p>
+<p>题解一|二分：</p>
 <pre><code>class Solution:
     def maxOperations(self, nums: List[int], k: int) -&gt; int:
         nums.sort()
