@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree3.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree4.png">
 <meta property="article:published_time" content="2020-01-02T07:49:29.000Z">
-<meta property="article:modified_time" content="2020-12-23T11:34:49.070Z">
+<meta property="article:modified_time" content="2021-08-28T14:26:46.847Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-23 19:34:49" itemprop="dateModified" datetime="2020-12-23T19:34:49+08:00">2020-12-23</time>
+                <time title="Modified: 2021-08-28 22:26:46" itemprop="dateModified" datetime="2021-08-28T22:26:46+08:00">2021-08-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,8 @@
    3
 
 输出: [1,3,2]
-进阶: 递归算法很简单，你可以通过迭代算法完成吗？</code></pre>
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+</code></pre>
 <p>题解一|递归：</p>
 <p>时间复杂度：O(n)，其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。<br>空间复杂度：O(n)。空间复杂度取决于递归的栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。</p>
 <pre><code># Definition for a binary tree node.
@@ -262,7 +263,8 @@ class Solution:
             res=self.inorderTraversal(root.left)
             res.append(root.val)
             res+=self.inorderTraversal(root.right)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def inorderTraversal(self, root):
         &quot;&quot;&quot;
@@ -271,7 +273,8 @@ class Solution:
         &quot;&quot;&quot;
         if not root:
             return [] 
-        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)</code></pre>
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+</code></pre>
 <p>题解二|迭代:</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/inorder.png" alt="inorder"></p>
 <pre><code># Definition for a binary tree node.
@@ -294,7 +297,8 @@ class Solution:
                 curr=stack.pop()
                 res.append(curr.val)
                 curr=curr.right
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="?95.不同的二叉搜索树 II"></a>?95.不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
 
 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
@@ -317,7 +321,8 @@ class Solution:
     \       /     /      / \      \
      3     2     1      1   3      2
     /     /       \                 \
-   2     1         2                 3</code></pre>
+   2     1         2                 3
+</code></pre>
 <p>题解一|递归：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree3.png" alt="tree3"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree4.png" alt="tree4"></p>
 <pre><code>所以如果求 1...n 的所有可能。
 
@@ -335,7 +340,8 @@ n 作为根节点，[ 1... n ] 的所有可能作为左子树，[ ] 作为右子
 
 至于，[ 2 ... n ] 的所有可能以及 [ 4 ... n ] 以及其他情况的所有可能，可以利用上边的方法，把每个数字作为根节点，然后把所有可能的左子树和右子树组合起来即可。
 
-如果只有一个数字，那么所有可能就是一种情况，把该数字作为一棵树。而如果是 [ ]，那就返回 null。</code></pre>
+如果只有一个数字，那么所有可能就是一种情况，把该数字作为一棵树。而如果是 [ ]，那就返回 null。
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -353,7 +359,7 @@ class Solution:
         # 结束条件
         if start&gt;end:
             return [None]
-
+        
         trees=[]
         for i in range(start,end+1):
             leftTrees=self.build(start,i-1)
@@ -365,7 +371,8 @@ class Solution:
                     currentTree.right=r
                     trees.append(currentTree)
         # print(trees)
-        return trees</code></pre>
+        return trees
+</code></pre>
 <h3 id="96-不同的二叉搜索树"><a href="#96-不同的二叉搜索树" class="headerlink" title="96.不同的二叉搜索树"></a>96.不同的二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees/
 
 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
@@ -381,7 +388,8 @@ class Solution:
     \       /     /      / \      \
      3     2     1      1   3      2
     /     /       \                 \
-   2     1         2                 3</code></pre>
+   2     1         2                 3
+</code></pre>
 <p>题解一|动态规划:</p>
 <p>二叉树定义：</p>
 <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
@@ -389,17 +397,20 @@ class Solution:
 <pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
 在上述方法中，由于根各自不同，每棵二叉树都保证是独特的。
 
-可见，问题可以分解成规模较小的子问题。因此，我们可以存储并复用子问题的解，而不是递归的（也重复的）解决这些子问题，这就是动态规划法。</code></pre>
+可见，问题可以分解成规模较小的子问题。因此，我们可以存储并复用子问题的解，而不是递归的（也重复的）解决这些子问题，这就是动态规划法。
+</code></pre>
 <p>函数定义：</p>
 <pre><code>令G(n)的从1到n可以形成二叉搜索树个数
 令f(i)为以i为根的二叉搜索树的个数
 
-所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)</code></pre>
+所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)
+</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree.png" alt="tree"></p>
 <p>1、定义数组元素的含义<br>    G[i]代表二叉搜索树的个数<br>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
 <pre><code>f(i)=G(i−1)∗G(n−i)
 
-G(n)=G(0)∗G(n−1)+G(1)∗(n−2)+...+G(n−1)∗G(0)</code></pre>
+G(n)=G(0)∗G(n−1)+G(1)∗(n−2)+...+G(n−1)∗G(0)
+</code></pre>
 <p>3、找出初始值<br>    G[0]=1<br>    G[1]=1<br>    G[2]=2</p>
 <p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
 <p>dp[2] = f(1)+f(2)= dp[0] * dp[1] (1为根的情况) + dp[1] * dp[0] (2为根的情况)</p>
@@ -413,7 +424,8 @@ G(n)=G(0)∗G(n−1)+G(1)∗(n−2)+...+G(n−1)∗G(0)</code></pre>
             for j in range(1,i+1):
                 dp[i]+=dp[j-1]*dp[i-j] 
         # print(dp)
-        return dp[n]</code></pre>
+        return dp[n]
+</code></pre>
 <h3 id="98-验证二叉搜索树"><a href="#98-验证二叉搜索树" class="headerlink" title="98.验证二叉搜索树"></a>98.验证二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/validate-binary-search-tree/
 
 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
@@ -440,12 +452,14 @@ G(n)=G(0)∗G(n−1)+G(1)∗(n−2)+...+G(n−1)∗G(0)</code></pre>
     3   6
 输出: false
 解释: 输入为: [5,1,4,null,null,3,6]。
-     根节点的值为 5 ，但是其右子节点值为 4 。</code></pre>
+     根节点的值为 5 ，但是其右子节点值为 4 。
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/validate-binary-search-tree/solution/die-dai-yu-di-gui-by-powcai/">https://leetcode-cn.com/problems/validate-binary-search-tree/solution/die-dai-yu-di-gui-by-powcai/</a></p>
 <p>题解一|递归:</p>
 <p>理解：</p>
 <pre><code>当前节点的值是其左子树的值的上界（最大值）
-当前节点的值是其右子树的值的下界（最小值）</code></pre>
+当前节点的值是其右子树的值的下界（最小值）
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -461,20 +475,22 @@ class Solution:
             val=root.val
             if val&lt;=lower or val&gt;=upper:
                 return False
-
+            
             if not helper(root.right,val,upper):
                 return False
 
             if not helper(root.left,lower,val):
                 return False
-
+        
             return True
-        return helper(root)</code></pre>
+        return helper(root)
+</code></pre>
 <pre><code>class Solution:
     def isValidBST(self, root: TreeNode, low = float(&#39;-inf&#39;), high = float(&#39;inf&#39;)) -&gt; bool:
         if not root:return True
         if not low&lt;root.val&lt;high:return False
-        return self.isValidBST(root.left,low,root.val) and self.isValidBST(root.right,root.val,high)</code></pre>
+        return self.isValidBST(root.left,low,root.val) and self.isValidBST(root.right,root.val,high)
+</code></pre>
 <p>题解二|迭代：<br>时间复杂度 : O(N)。每个结点访问一次。<br>空间复杂度 : O(N)。我们跟进了整棵树。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -498,10 +514,12 @@ class Solution:
                 return False
             stack.append((root.right,val,upper)) # 此处的left和right的顺序没有关系
             stack.append((root.left,lower,val))
-        return True</code></pre>
+        return True
+</code></pre>
 <p>题解三|中序遍历:<br>    中序遍历[1,2,3]，检查 inorder 中的每个元素是否小于下一个。</p>
 <pre><code>时间复杂度 : 最坏情况下（树为二叉搜索树或破坏条件的元素是最右叶结点）为 O(N)。
-空间复杂度 : O(N) 用于存储 stack。</code></pre>
+空间复杂度 : O(N) 用于存储 stack。
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -522,7 +540,8 @@ class Solution:
                 return False
             inorder=root.val
             root=root.right
-        return True</code></pre>
+        return True
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -544,7 +563,8 @@ class Solution:
                     return False
                 inorder=root.val
                 root=root.right
-        return True</code></pre>
+        return True
+</code></pre>
 <h3 id="99-恢复二叉搜索树"><a href="#99-恢复二叉搜索树" class="headerlink" title="99.恢复二叉搜索树"></a>99.恢复二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/recover-binary-search-tree/
 
 二叉搜索树中的两个节点被错误地交换。
@@ -588,7 +608,8 @@ class Solution:
 进阶:
 
 使用 O(n) 空间复杂度的解法很容易实现。
-你能想出一个只使用常数空间的解决方案吗？</code></pre>
+你能想出一个只使用常数空间的解决方案吗？
+</code></pre>
 <p>思路:<br>    难点：找到2个节点进行交换</p>
 <pre><code>二叉树搜索树的中序遍历(中序遍历遍历元素是递增的)
 
@@ -598,7 +619,8 @@ class Solution:
 
     第一个节点,是第一个按照中序遍历时候前一个节点大于后一个节点,我们选取前一个节点,这里指节点3;
 
-    第二个节点,是在第一个节点找到之后, 后面出现前一个节点大于后一个节点,我们选择后一个节点,这里指节点2;</code></pre>
+    第二个节点,是在第一个节点找到之后, 后面出现前一个节点大于后一个节点,我们选择后一个节点,这里指节点2;
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -626,7 +648,8 @@ class Solution:
             self.pre=root
             helper(root.right)
         helper(root)
-        self.firstNode.val,self.secondNode.val=self.secondNode.val,self.firstNode.val</code></pre>
+        self.firstNode.val,self.secondNode.val=self.secondNode.val,self.firstNode.val
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -656,7 +679,8 @@ class Solution:
                 secondNode=root
             pre=root
             root=root.right
-        firstNode.val,secondNode.val=secondNode.val,firstNode.val</code></pre>
+        firstNode.val,secondNode.val=secondNode.val,firstNode.val
+</code></pre>
 <h3 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100.相同的树"></a>100.相同的树</h3><pre><code>链接：https://leetcode-cn.com/problems/same-tree/
 
 给定两个二叉树，编写一个函数来检验它们是否相同。
@@ -689,7 +713,8 @@ class Solution:
 
         [1,2,1],   [1,1,2]
 
-输出: false</code></pre>
+输出: false
+</code></pre>
 <p>题解一|递归:</p>
 <p>时间复杂度 : O(N)，其中 N 是树的结点数，因为每个结点都访问一次。</p>
 <p>空间复杂度 : 最优情况（完全平衡二叉树）时为 O(log(N))，最坏情况下（完全不平衡二叉树）时为 O(N)，用于维护递归栈。</p>
@@ -707,7 +732,7 @@ class Solution:
             return False
         if p.val != q.val:
             return False
-
+        
         return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
 </code></pre>
 <pre><code>class Solution:
@@ -717,7 +742,8 @@ class Solution:
         if p is None or q is None:
             return False
         if p.val == q.val:
-            return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)</code></pre>
+            return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
+</code></pre>
 <p>题解二|迭代:</p>
 <p>时间复杂度 : O(N)，其中 N 是树的结点数，因为每个结点都访问一次。</p>
 <p>空间复杂度 : 最优情况（完全平衡二叉树）时为 O(log(N))，最坏情况下（完全不平衡二叉树）时为 O(N)，用于维护双向队列。</p>
@@ -741,7 +767,8 @@ class Solution:
             if p:  # 当p和q为None时，此时p.left不成立，所以需要判断。
                 deq.append((p.left,q.left))
                 deq.append((p.right,q.right))
-        return True</code></pre>
+        return True
+</code></pre>
 <p>总结：第一种方法就是先序遍历的递归形式，第二种方法是层次遍历的非递归算法</p>
 <h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101.对称二叉树"></a>101.对称二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/symmetric-tree/
 给定一个二叉树，检查它是否是镜像对称的。
@@ -759,7 +786,8 @@ class Solution:
    / \
   2   2
    \   \
-   3    3</code></pre>
+   3    3
+</code></pre>
 <p>题解一|递归:</p>
 <pre><code>class TreeNode:
     def __init__(self, x):
@@ -782,7 +810,8 @@ class Solution:
         #    return False
         l=self.isMirror(p.left,q.right)
         r=self.isMirror(q.left,p.right) # 注意：此处是对称，注意节点的选择。
-        return p.val==q.val and l and r</code></pre>
+        return p.val==q.val and l and r
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -802,7 +831,8 @@ class Solution:
             return helper(p.left,q.right) and helper(p.right,q.left)
         if not root:
             return True
-        return helper(root.left,root.right)</code></pre>
+        return helper(root.left,root.right)
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -830,7 +860,8 @@ class Solution:
             if p:  # 当p和q为None时，此时p.left不成立，所以需要判断。
                 deq.append((p.left,q.right))
                 deq.append((p.right,q.left))
-        return True</code></pre>
+        return True
+</code></pre>
 <p>别人的迭代：</p>
 <pre><code>class Solution(object):
     def isSymmetric(self, root):
@@ -855,7 +886,8 @@ class Solution:
             # 将左节点的右孩子，右节点的左孩子放入队列
             queue.append(left.right)
             queue.append(right.left)
-        return True</code></pre>
+        return True
+</code></pre>
 <h3 id="102-二叉树的层次遍历"><a href="#102-二叉树的层次遍历" class="headerlink" title="102.二叉树的层次遍历"></a>102.二叉树的层次遍历</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
 
 给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
@@ -874,13 +906,14 @@ class Solution:
   [3],
   [9,20],
   [15,7]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
 
     def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
         res=[]
-
+        
         def helper(node,depth):
             if not node:
                 return
@@ -890,7 +923,8 @@ class Solution:
             helper(node.left,depth+1)
             helper(node.right,depth+1)
         helper(root,0)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代：<br>    我们将树上顶点按照层次依次放入队列结构中，队列中元素满足 FIFO（先进先出）的原则。在 Java 中可以使用 Queue 接口中的 LinkedList实现。在 Python 中如果使用 Queue 结构，但因为它是为多线程之间安全交换而设计的，所以使用了锁，会导致性能不佳。因此在 Python 中可以使用 deque 的 append() 和 popleft() 函数来快速实现队列的功能。</p>
 <pre><code>第 0 层只包含根节点 root ，算法实现如下：
 
@@ -900,7 +934,8 @@ class Solution:
         计算当前层有多少个元素：等于队列的长度。
         将这些元素从队列中弹出，并加入 levels 当前层的空列表中。
         将他们的孩子节点作为下一层压入队列中。
-        进入下一层 level++。</code></pre>
+        进入下一层 level++。
+</code></pre>
 <pre><code>from collections import deque
 class Solution:
 
@@ -918,13 +953,14 @@ class Solution:
                 queue.append(p.left)
             if p.right:
                 queue.append(p.right)
-
+        
         return res
-
+            
 预期输出：[[3],[9,20],[15,7]]
 实际输出：[3, 9, 20, 15, 7]
 
-所以，要想得到预期输出，需要增加深度。</code></pre>
+所以，要想得到预期输出，需要增加深度。
+</code></pre>
 <pre><code>class Solution:
 
     def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
@@ -933,7 +969,7 @@ class Solution:
         res=[]
         queue=[root] # 不能使用这个queue.append([root])
         depth=0
-
+        
         while queue:
             res.append([])
             for i in range(len(queue)):
@@ -944,8 +980,9 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             depth+=1
-
-        return res</code></pre>
+        
+        return res
+</code></pre>
 <pre><code>class Solution:
     def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
         if not root: return []
@@ -962,7 +999,33 @@ class Solution:
                     next_level.append(node.right)
             res.append(tmp)
             cur_level = next_level
-        return res</code></pre>
+        return res
+</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: TreeNode) -&gt; List[List[int]]:
+        if not root:
+            return []
+        ans=[]
+        queue=[root]
+        while queue:
+            n=len(queue)
+            tmp=[]
+            for i in range(n):
+                node=queue.pop(0)
+                tmp.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            ans.append(tmp)
+        return ans
+</code></pre>
 <h3 id="103-二叉树的锯齿形层次遍历"><a href="#103-二叉树的锯齿形层次遍历" class="headerlink" title="103.二叉树的锯齿形层次遍历"></a>103.二叉树的锯齿形层次遍历</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
 
 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
@@ -981,13 +1044,15 @@ class Solution:
   [3],
   [20,9],
   [15,7]
-]</code></pre>
+]
+</code></pre>
 <p>思路：锯齿形遍历和层次遍历的差异，如果仍然按层次遍历，但是我要第一层从左往右，第二层从右往左，第三从左往右，这种zigzag遍历方式如何实现？</p>
 <pre><code>对层数进行一个奇偶判断即可，如下：
 if depth %2 == 0:
     res[depth].append(root.val)
 else:
-    res[depth].insert(0, root.val)</code></pre>
+    res[depth].insert(0, root.val)
+</code></pre>
 <p>题解一|递归:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1008,12 +1073,13 @@ class Solution:
                 res[depth].append(root.val)
             else:
                 res[depth].insert(0, root.val)
-
+                
             helper(root.left,depth+1)
             helper(root.right,depth+1)
-
+            
         helper(root,0)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1043,7 +1109,8 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             depth+=1
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104. 二叉树的最大深度"></a>104. 二叉树的最大深度</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
 
 给定一个二叉树，找出其最大深度。
@@ -1060,7 +1127,8 @@ class Solution:
   9  20
     /  \
    15   7
-返回它的最大深度 3 。</code></pre>
+返回它的最大深度 3 。
+</code></pre>
 <p>题解一|递归：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/tree1.png" alt="tree1"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/youdao/tree2.png" alt="tree2"></p>
 <p>时间复杂度：我们每个结点只访问一次，因此时间复杂度为 O(N)，<br>其中 N 是结点的数量。</p>
 <p>空间复杂度：在最糟糕的情况下，树是完全不平衡的，例如每个结点只剩下左子结点，递归将会被调用 N 次（树的高度），因此保持调用栈的存储将是 O(N)。但在最好的情况下（树是完全平衡的），树的高度将是 log(N)。因此，在这种情况下的空间复杂度将是 O(log(N))。</p>
@@ -1077,7 +1145,8 @@ class Solution:
         else:
             leftHeight=self.maxDepth(root.left)
             rightHeight=self.maxDepth(root.right)
-            return max(leftHeight,rightHeight)+1</code></pre>
+            return max(leftHeight,rightHeight)+1
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -1089,7 +1158,8 @@ class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
         if not root:
             return 0
-        return max(self.maxDepth(root.left),self.maxDepth(root.right))+1</code></pre>
+        return max(self.maxDepth(root.left),self.maxDepth(root.right))+1
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
@@ -1104,7 +1174,8 @@ class Solution:
                 depth=max(depth,curr)
                 stack.append((curr+1,root.left))
                 stack.append((curr+1,root.right))
-        return depth</code></pre>
+        return depth
+</code></pre>
 <h3 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105.从前序与中序遍历序列构造二叉树"></a>105.从前序与中序遍历序列构造二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 
 根据一棵树的前序遍历与中序遍历构造二叉树。
@@ -1122,7 +1193,8 @@ class Solution:
    / \
   9  20
     /  \
-   15   7</code></pre>
+   15   7
+</code></pre>
 <p>题解一|递归、模拟法：<br>    前序遍历和中序遍历有以下特点：<br>        前序遍历： 根节点 | 左子树 | 右子树 ； 例如：[1 | 2 4 5 | 3 6 7]<br>        中序遍历： 左子树 | 根节点 | 右子树 ； 例如：[4 2 5 | 1 | 6 3 7]<br>        对于每个左子树、右子树的前序遍历和中序遍历依然有此规律。<br>    思路：<br>        按前序遍历的顺序每次pop并建立节点root，在中序遍历中找到root的对应index，划分出哪些节点构成此节点的左子树inorder[:i]，哪些构成右子树inorder[i+1:]。<br>        返回值：递归构建完当前节点root左右子树后，返回root，作为上轮递归父节点的left或right。<br>        终止条件： 当inorder[:i]中序遍历无剩余元素时，说明当前root已经越过叶子节点，直接返回None。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1142,7 +1214,8 @@ class Solution:
 
         root.left=self.buildTree(preorder,inorder[:i])
         root.right=self.buildTree(preorder,inorder[i+1:])
-        return root</code></pre>
+        return root
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -1165,7 +1238,8 @@ class Solution:
         root.left=self.buildTree(preorder[1:i+1],inorder[:i])
         # 构建右子树
         root.right=self.buildTree(preorder[i+1:],inorder[i+1:])
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="106-从中序和后序遍历序列构造二叉树"><a href="#106-从中序和后序遍历序列构造二叉树" class="headerlink" title="106.从中序和后序遍历序列构造二叉树"></a>106.从中序和后序遍历序列构造二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 
 根据一棵树的中序遍历与后序遍历构造二叉树。
@@ -1183,7 +1257,8 @@ class Solution:
    / \
   9  20
     /  \
-   15   7</code></pre>
+   15   7
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1200,27 +1275,29 @@ class Solution:
         i=inorder.index(root.val)
         root.right=self.buildTree(inorder[i+1:],postorder) # 注意：需要先右节点，再左节点
         root.left=self.buildTree(inorder[0:i],postorder)
-        return root</code></pre>
+        return root
+</code></pre>
 <pre><code>class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -&gt; TreeNode: 
         if len(inorder) == 0:
         #if not inorder or not postorder:
             return None
-
+        
         # 后序遍历最后一个节点为根节点
         root = TreeNode(postorder[-1])
-
+        
         # 根节点在中序遍历中的位置
         index = inorder.index(postorder[-1])
-
+        
         # 构造左子树
         root.left = self.buildTree(inorder[:index], postorder[:index])
-
+        
         # 构造右子树
         root.right = self.buildTree(inorder[index+1:], postorder[index:len(postorder) - 1])
         # root.right = self.buildTree(inorder[index+1:], postorder[index:-1])
-
-        return root</code></pre>
+        
+        return root
+</code></pre>
 <h3 id="107-二叉树的层次遍历-II"><a href="#107-二叉树的层次遍历-II" class="headerlink" title="107.二叉树的层次遍历 II"></a>107.二叉树的层次遍历 II</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/
 
 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
@@ -1239,7 +1316,8 @@ class Solution:
   [15,7],
   [9,20],
   [3]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def levelOrderBottom(self, root: TreeNode) -&gt; List[List[int]]:
@@ -1249,12 +1327,13 @@ class Solution:
                 return
             if len(res)==depth:
                 res.insert(0,[])
-
+            
             res[-(depth+1)].append(node.val)
             helper(node.left,depth+1)
             helper(node.right,depth+1)
         helper(root,0)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>class Solution:
     def levelOrderBottom(self, root: TreeNode) -&gt; List[List[int]]:
@@ -1273,7 +1352,8 @@ class Solution:
                 if node.right:
                     queue.appendleft(node.right)
             res.insert(0,tmp) # 注意与从上到下层次遍历区别
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def levelOrderBottom(self, root: TreeNode) -&gt; List[List[int]]:
         from collections import deque
@@ -1291,7 +1371,8 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             res.insert(0,tmp)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108.将有序数组转换为二叉搜索树"></a>108.将有序数组转换为二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/
 
 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
@@ -1308,7 +1389,8 @@ class Solution:
      / \
    -3   9
    /   /
- -10  5</code></pre>
+ -10  5
+</code></pre>
 <p>二叉搜索树：<br>    若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值<br>    若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值<br>    任意节点的左、右子树也分别为二叉搜索树<br>    没有键值相等的节点</p>
 <p>二叉搜索树的特性：二叉搜索树的中序遍历结果为递增序列。</p>
 <p>平衡二叉树，既然要做到平衡，我们只要把根节点选为数组的中点即可。</p>
@@ -1317,7 +1399,8 @@ class Solution:
 <p>1、函数作用<br>通过上述解题过程我们可以明确该问题的子问题是：构造树的每个节点以及该节点的左右子树。因此，递归函数的作用很明显：</p>
 <pre><code>选取要构造关系的节点并创建它
 构造该节点的左子树
-构造该节点的右子树</code></pre>
+构造该节点的右子树
+</code></pre>
 <p>函数的输入为递增数组，函数的返回为完成构造的节点。</p>
 <p>2、何时结束<br>当输入的递增数组为空时，只能构成一棵空树，此时返回空节点。</p>
 <p>3、何时调用<br>当构造节点的左右子树时，对递增数组进行拆分并进行递归调用。</p>
@@ -1337,21 +1420,25 @@ class Solution:
 
         # node.left, node.right = map(self.sortedArrayToBST, [nums[:mid], nums[mid+1:]])
 
-        return node</code></pre>
+        return node
+</code></pre>
 <p>扩展：将有序数组转换为二叉搜索树的结果为什么 不唯一 ？</p>
 <p>众所周知，二叉搜索树的中序遍历是一个升序序列。</p>
 <p>将有序数组作为输入，可以把该问题看做根据中序遍历序列创建二叉搜索树。</p>
-<pre><code>这个问题的答案唯一吗。例如：是否可以根据中序遍历序列和二叉搜索树之间是否一一对应，答案是否定的。</code></pre>
+<pre><code>这个问题的答案唯一吗。例如：是否可以根据中序遍历序列和二叉搜索树之间是否一一对应，答案是否定的。
+</code></pre>
 <p>关于 BST 的知识：</p>
 <pre><code>中序遍历不能唯一确定一棵二叉搜索树。
 先序和后序遍历不能唯一确定一棵二叉搜索树。
 先序/后序遍历和中序遍历的关系：
 inorder = sorted(postorder) = sorted(preorder)，
-中序+后序、中序+先序可以唯一确定一棵二叉树。</code></pre>
+中序+后序、中序+先序可以唯一确定一棵二叉树。
+</code></pre>
 <p>因此，“有序数组 -&gt; BST”有多种答案：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree1.png"></p>
 <p>因此，添加一个附件条件：树的高度应该是平衡的、例如：每个节点的两棵子树高度差不超过 1。</p>
-<pre><code>这种情况下答案唯一吗？仍然没有。</code></pre>
+<pre><code>这种情况下答案唯一吗？仍然没有。
+</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree2.png"></p>
 <p>高度平衡意味着每次必须选择中间数字作为根节点。这对于奇数个数的数组是有用的，但对偶数个数的数组没有预定义的选择方案。</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree3.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bitTree3.png"></p>
@@ -1369,7 +1456,8 @@ inorder = sorted(postorder) = sorted(preorder)，
             root.right=helper(mid+1,right)
             return root
 
-        return helper(0,len(nums)-1)</code></pre>
+        return helper(0,len(nums)-1)
+</code></pre>
 <h4 id="2、中序遍历：始终选择中间位置右边元素作为根节点"><a href="#2、中序遍历：始终选择中间位置右边元素作为根节点" class="headerlink" title="2、中序遍历：始终选择中间位置右边元素作为根节点"></a>2、中序遍历：始终选择中间位置右边元素作为根节点</h4><p>时间复杂度：O(N)，每个元素只访问一次。<br>空间复杂度：O(N)，二叉搜索树空间 O(N)，递归栈深度 O(logN)。</p>
 <pre><code>class Solution:
     def sortedArrayToBST(self, nums: List[int]) -&gt; TreeNode:        
@@ -1418,7 +1506,8 @@ class Solution:
 如果要看对象是否有定义，就要使用 is None来判断。
 
 if not nums 和 if nums is None 有什么区别？
-空列表, 0, None都满足第一个条件, 但是第二个只有None才满足</code></pre>
+空列表, 0, None都满足第一个条件, 但是第二个只有None才满足
+</code></pre>
 <h3 id="110-平衡二叉树"><a href="#110-平衡二叉树" class="headerlink" title="110.平衡二叉树"></a>110.平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/balanced-binary-tree/
 
 给定一个二叉树，判断它是否是高度平衡的二叉树。
@@ -1449,12 +1538,14 @@ if not nums 和 if nums is None 有什么区别？
    3   3
   / \
  4   4
-返回 false 。</code></pre>
+返回 false 。
+</code></pre>
 <p>题解一|递归|自顶向下：</p>
 <p>构造一个获取当前节点最大深度的方法 depth() ，通过比较左右子树最大高度差abs(self.depth(root.left) - self.depth(root.right))，来判断以此节点为根节点下是否是二叉平衡树；</p>
 <p>从顶至底DFS，以每个节点为根节点，递归判断是否是平衡二叉树：</p>
 <pre><code>若所有根节点都满足平衡二叉树性质，则返回 True ；
-若其中任何一个节点作为根节点时，不满足平衡二叉树性质，则返回False。</code></pre>
+若其中任何一个节点作为根节点时，不满足平衡二叉树性质，则返回False。
+</code></pre>
 <p>本方法产生大量重复的节点访问和计算，最差情况下时间复杂度 O(N^2)。</p>
 <pre><code>class TreeNode:
     def __init__(self, x):
@@ -1467,7 +1558,7 @@ class Solution:
         if root is None:
             return True
         return abs(self.height(root.left)-self.height(root.right))&lt;=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
-
+           
     def height(self,node):
         if not node:
             return 0
@@ -1480,7 +1571,8 @@ class Solution:
     从底至顶，返回以每个节点root为根节点的子树最大高度(左右子树中最大的高度值加1，max(left,right) + 1)；
     当我们发现有一例 左/右子树高度差 ＞ 1 的情况时，代表此树不是平衡树，返回-1；
 
-当发现不是平衡树时，后面的高度计算都没有意义了，因此一路返回-1，避免后续多余计算。</code></pre>
+当发现不是平衡树时，后面的高度计算都没有意义了，因此一路返回-1，避免后续多余计算。
+</code></pre>
 <p>最差情况是对树做一遍完整DFS，时间复杂度为 O(N)。</p>
 <pre><code>class Solution:
     def isBalanced(self, root: TreeNode) -&gt; bool:
@@ -1494,8 +1586,9 @@ class Solution:
         right=self.depth(root.right)
         if right == -1:
             return -1
-
-        return max(left,right)+1 if abs(left-right)&lt;=1 else -1</code></pre>
+        
+        return max(left,right)+1 if abs(left-right)&lt;=1 else -1
+</code></pre>
 <h3 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111.二叉树的最小深度"></a>111.二叉树的最小深度</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 
 给定一个二叉树，找出其最小深度。
@@ -1513,7 +1606,8 @@ class Solution:
   9  20
     /  \
    15   7
-返回它的最小深度  2.</code></pre>
+返回它的最小深度  2.
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def minDepth(self, root: TreeNode) -&gt; int:
@@ -1526,11 +1620,13 @@ class Solution:
                 return rightHeight+1
             if not root.right:
                 return leftHeight+1
-            return min(leftHeight,rightHeight)+1</code></pre>
+            return min(leftHeight,rightHeight)+1
+</code></pre>
 <p>思路：</p>
 <pre><code>1. 当 root 节点左右孩子都为空时，返回 1
 2. 当 root 节点左右孩子有一个为空时，返回不为空的孩子节点的深度
-3. 当 root 节点左右孩子都不为空时，返回左右孩子较小深度的节点值</code></pre>
+3. 当 root 节点左右孩子都不为空时，返回左右孩子较小深度的节点值
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -1552,7 +1648,21 @@ class Solution:
             else:
                 return right+1
         else:
-            return min(left,right)+1</code></pre>
+            return min(left,right)+1
+</code></pre>
+<pre><code>class Solution:
+    def minDepth(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1
+        l=self.minDepth(root.left)
+        r=self.minDepth(root.right)
+        
+        if not root.left or not root.right:
+            return l+r+1
+        return min(l,r)+1
+</code></pre>
 <p>题解二|层次遍历:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1575,7 +1685,8 @@ class Solution:
             if node.left:
                 queue.append((node.left,dep+1))
             if node.right:
-                queue.append((node.right,dep+1))</code></pre>
+                queue.append((node.right,dep+1))
+</code></pre>
 <pre><code>from collections import deque
 def minDepth(root):
     if not root:
@@ -1593,7 +1704,47 @@ def minDepth(root):
             if cur.right:
                 queue.appendleft(cur.right)
         depth+=1
-    return depth</code></pre>
+    return depth
+</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def minDepth(self, root: TreeNode) -&gt; int:
+        if root is None:
+            return 0
+        queue=[(root,1)]
+        while queue:
+            node,dep=queue.pop(0)
+            if not node.left and not node.right:
+                return dep
+            if node.left:
+                queue.append((node.left,dep+1))
+            if node.right:
+                queue.append((node.right,dep+1))
+</code></pre>
+<pre><code>def minDepth(root):
+    if not root:
+        return 0
+    queue=[root]
+    depth=1
+    while queue:
+        size=len(queue)
+        for i in range(size):
+            node=queue.pop(0)
+            if not node.left and not node.right:
+                return depth
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        depth+=1
+    return depth
+</code></pre>
 <h3 id="114-二叉树展开为链表"><a href="#114-二叉树展开为链表" class="headerlink" title="114. 二叉树展开为链表"></a>114. 二叉树展开为链表</h3><pre><code>链接：https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
 
 给定一个二叉树，原地将它展开为一个单链表。
@@ -1617,7 +1768,8 @@ def minDepth(root):
        \
         5
          \
-          6</code></pre>
+          6
+</code></pre>
 <p>思路：</p>
 <pre><code>将左子树插入到右子树的地方；
 将原来的右子树接到左子树的最右边节点；
@@ -1645,7 +1797,7 @@ def minDepth(root):
           5
            \
             6
-
+            
 //将 2 的左子树插入到右子树的地方
     1
      \
@@ -1656,7 +1808,7 @@ def minDepth(root):
                   5
                    \
                     6   
-
+        
 //将原来的右子树接到左子树的最右边节点
     1
      \
@@ -1668,7 +1820,8 @@ def minDepth(root):
            \
             5
              \
-              6         </code></pre>
+              6         
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def flatten(self, root: TreeNode) -&gt; None:
@@ -1685,7 +1838,8 @@ def minDepth(root):
             root.right=root.left # 令根节点的右子树指向根节点的左子树
             root.left=None # 置空根节点的左子树
         self.flatten(root.left)
-        self.flatten(root.right)</code></pre>
+        self.flatten(root.right)
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1708,7 +1862,8 @@ class Solution:
                 root.right=root.left
                 root.left=None
             root=root.right
-        return </code></pre>
+        return 
+</code></pre>
 <h3 id="116-填充每个节点的下一个右侧节点指针"><a href="#116-填充每个节点的下一个右侧节点指针" class="headerlink" title="116. 填充每个节点的下一个右侧节点指针"></a>116. 填充每个节点的下一个右侧节点指针</h3><pre><code>链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/
 
 给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
@@ -1730,11 +1885,12 @@ struct Node &#123;
 输出：&#123;&quot;$id&quot;:&quot;1&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;2&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;5&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7&#125;,&quot;right&quot;:null,&quot;val&quot;:6&#125;,&quot;right&quot;:null,&quot;val&quot;:5&#125;,&quot;right&quot;:null,&quot;val&quot;:4&#125;,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:&#123;&quot;$ref&quot;:&quot;5&quot;&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;6&quot;&#125;,&quot;val&quot;:3&#125;,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;4&quot;&#125;,&quot;val&quot;:2&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;7&quot;&#125;,&quot;val&quot;:1&#125;
 
 解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。
-
+ 
 提示：
 
 你只能使用常量级额外空间。
-使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</code></pre>
+使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -1759,7 +1915,8 @@ class Solution:
             helper(root.left)
             helper(root.right)
         helper(root)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -1785,7 +1942,8 @@ class Solution:
                     queue.append(tmp.left)
                 if tmp.right:
                     queue.append(tmp.right)
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="117-填充每个节点的下一个右侧节点指针-II"><a href="#117-填充每个节点的下一个右侧节点指针-II" class="headerlink" title="117. 填充每个节点的下一个右侧节点指针 II"></a>117. 填充每个节点的下一个右侧节点指针 II</h3><pre><code>链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/
 
 给定一个二叉树
@@ -1804,18 +1962,19 @@ struct Node &#123;
 
 你只能使用常量级额外空间。
 使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
-
+ 
 示例：
 
 输入：root = [1,2,3,4,5,null,7]
 输出：[1,#,2,3,#,4,5,7,#]
 解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。
-
+ 
 
 提示：
 
 树中的节点数小于 6000
--100 &lt;= node.val &lt;= 100</code></pre>
+-100 &lt;= node.val &lt;= 100
+</code></pre>
 <p>？？题解一|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -1852,7 +2011,8 @@ class Solution:
         # 注意：先递归右子树，否则右子树根节点next关系没建立好，左子树到右子树子节点无法正确挂载
         self.connect(root.right)
         self.connect(root.left)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -1879,7 +2039,8 @@ class Solution:
                     queue.append(tmp.left)
                 if tmp.right:
                     queue.append(tmp.right)
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="124-二叉树中的最大路径和"><a href="#124-二叉树中的最大路径和" class="headerlink" title="124. 二叉树中的最大路径和"></a>124. 二叉树中的最大路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
 
 给定一个非空二叉树，返回其最大路径和。
@@ -1905,7 +2066,8 @@ class Solution:
     /  \
    15   7
 
-输出: 42</code></pre>
+输出: 42
+</code></pre>
 <p>??题解一|递归：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/shou-hui-tu-jie-hen-you-ya-de-yi-dao-dfsti-by-hyj8/</a></p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/er-cha-shu-de-zui-da-lu-jing-he-zhu-yao-li-jie-ti-/</a></p>
@@ -1938,7 +2100,8 @@ class Solution:
             # 返回节点的最大贡献值
             return root.val+max(leftMax,rightMax)
         helper(root)
-        return self.ans</code></pre>
+        return self.ans
+</code></pre>
 <h3 id="129-求根到叶子节点数字之和"><a href="#129-求根到叶子节点数字之和" class="headerlink" title="129. 求根到叶子节点数字之和"></a>129. 求根到叶子节点数字之和</h3><pre><code>链接：https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/
 
 给定一个二叉树，它的每个结点都存放一个 0-9 的数字，每条从根到叶子节点的路径都代表一个数字。
@@ -1973,7 +2136,9 @@ class Solution:
 从根到叶子节点路径 4-&gt;9-&gt;5 代表数字 495.
 从根到叶子节点路径 4-&gt;9-&gt;1 代表数字 491.
 从根到叶子节点路径 4-&gt;0 代表数字 40.
-因此，数字总和 = 495 + 491 + 40 = 1026.</code></pre>
+因此，数字总和 = 495 + 491 + 40 = 1026.
+</code></pre>
+<p>思路：<br>二叉树的每条从根节点到叶子节点的路径都代表一个数字。其实，每个节点都对应一个数字，等于其父节点对应的数字乘以 10 再加上该节点的值（这里假设根节点的父节点对应的数字是 00）。只要计算出每个叶子节点对应的数字，然后计算所有叶子节点对应的数字之和，即可得到结果。可以通过深度优先搜索和广度优先搜索实现。</p>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1997,7 +2162,54 @@ class Solution:
         ans=0
         for i in res:
             ans+=int(i)
-        return ans</code></pre>
+        return ans
+</code></pre>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        return self.dfs(root,0)
+    def dfs(self,root,ans):
+        if not root:
+            return 0
+        ans=10*ans+root.val
+        if not root.left and not root.right:
+            return ans
+        return self.dfs(root.left,ans)+self.dfs(root.right,ans)
+</code></pre>
+<p>题解二|bfs:</p>
+<pre><code># Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        ans=0
+        queue=[(root,root.val)]
+        while queue:
+            node,val=queue.pop(0)
+            left,right=node.left,node.right
+            if not left and not right:
+                ans+=val
+            else:
+                if left:
+                    queue.append((left,val*10+left.val))
+                if right:
+                    queue.append((right,val*10+right.val))
+        return ans
+
+
+</code></pre>
 <h3 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144.二叉树的前序遍历"></a>144.二叉树的前序遍历</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
 
 给定一个二叉树，返回它的 前序 遍历。
@@ -2012,7 +2224,8 @@ class Solution:
    3 
 
 输出: [1,2,3]
-进阶: 递归算法很简单，你可以通过迭代算法完成吗？</code></pre>
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2028,7 +2241,8 @@ class Solution:
             ans.append(root.val)
             ans+=self.preorderTraversal(root.left) # 这儿我之前直接用append，出来的结果会列表中嵌套列表
             ans+=self.preorderTraversal(root.right)
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>题解二|迭代|辅助栈|后进先出：</p>
 <p>1、把二叉树的根节点 root 放进栈。</p>
 <p>2、如果栈不为空，从栈中取出一个节点，把该节点放入容器的尾部；如果该节点的右子树不为空，则把有节点放入栈；如果该节点的左子树不为空，则把左子树放入栈中。</p>
@@ -2054,7 +2268,8 @@ class Solution:
                 stack.append(tmp.right)
             if tmp.left:
                 stack.append(tmp.left)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解三|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2075,7 +2290,8 @@ class Solution:
                 curr=curr.left
             else:
                 curr=stack.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145.二叉树的后序遍历"></a>145.二叉树的后序遍历</h3><pre><code>链接：
 
 给定一个二叉树，返回它的 后序 遍历。
@@ -2090,7 +2306,8 @@ class Solution:
    3 
 
 输出: [3,2,1]
-进阶: 递归算法很简单，你可以通过迭代算法完成吗？</code></pre>
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+</code></pre>
 <p>题解一|递归:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2106,7 +2323,8 @@ class Solution:
             res=self.postorderTraversal(root.left)
             res+=self.postorderTraversal(root.right)
             res.append(root.val)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代|辅助栈：</p>
 <p>1、把二叉树的根节点 root 放进栈。</p>
 <p>2、如果栈不为空，从栈中取出一个节点，把该节点插入到容器的头部。；如果该节点的左子树不为空，则把该左子树放入栈中；如果该节点的右子树不为空，则把右子树放入栈中。，</p>
@@ -2133,7 +2351,8 @@ class Solution:
                 stack.append(tmp.left)
             if tmp.right:
                 stack.append(tmp.right)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解三|递归：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/">https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--34/</a></p>
 <p>如果当前节点的右节点和上一次遍历的节点相同，那就表明当前是从右节点过来的了。</p>
@@ -2143,7 +2362,7 @@ class Solution:
         stack=[]
         cur=root
         last=None
-
+        
         while cur or stack:
             if cur:
                 stack.append(cur)
@@ -2177,17 +2396,19 @@ iterator.next();    // 返回 15
 iterator.hasNext(); // 返回 true
 iterator.next();    // 返回 20
 iterator.hasNext(); // 返回 false
-
+ 
 
 提示：
 
 next() 和 hasNext() 操作的时间复杂度是 O(1)，并使用 O(h) 内存，其中 h 是树的高度。
-你可以假设 next() 调用总是有效的，也就是说，当调用 next() 时，BST 中至少存在一个下一个最小的数。</code></pre>
+你可以假设 next() 调用总是有效的，也就是说，当调用 next() 时，BST 中至少存在一个下一个最小的数。
+</code></pre>
 <p>题解一|扁平化二叉搜索树：</p>
 <p>时间复杂度：</p>
 <p>构造迭代器花费的时间为 O(N)，问题陈述只要求我们分析两个函数的复杂性，但是在实现类时，还要注意初始化类对象所需的时间；在这种情况下，时间复杂度与二叉搜索树中的节点数成线性关系。</p>
 <pre><code>next()：O(1)
-hasNext()：O(1)</code></pre>
+hasNext()：O(1)
+</code></pre>
 <p>空间复杂度：</p>
 <p>O(N)，由于我们创建了一个数组来包含二叉搜索树中的所有节点值，这不符合问题陈述中的要求，任一函数的最大空间复杂度应为 O(h)，其中 h 指的是树的高度，对于平衡的二叉搜索树，高度通常为 logN。</p>
 <pre><code># Definition for a binary tree node.
@@ -2203,7 +2424,7 @@ class BSTIterator:
         self.queue=[]
         self.index=-1
         self.inorder(root)
-
+    
     def inorder(self,root):
         if not root:
             return
@@ -2227,12 +2448,14 @@ class BSTIterator:
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
 # param_1 = obj.next()
-# param_2 = obj.hasNext()</code></pre>
+# param_2 = obj.hasNext()
+</code></pre>
 <p>题解二|受控递归：</p>
 <p>时间复杂度：</p>
 <pre><code>hasNext()：若栈中还有元素，则返回 true，反之返回 false。所以这是一个 O(1) 的操作。
 
-next()：包含了两个主要步骤。一个是从栈中弹出一个元素，它是下一个最小的元素。这是一个 O(1) 的操作。然而，随后我们要调用帮助函数 _inorder_left ，它需要递归的，将左节点添加到栈上，是线性时间的操作，最坏的情况下为 O(N)。但是我们只对含有右节点的节点进行调用，它也不会总是处理 N 个节点。只有当我们有一个倾斜的树，才会有 N 个节点。因此该操作的平均时间复杂度仍然是 O(1)，符合问题中所要求的。</code></pre>
+next()：包含了两个主要步骤。一个是从栈中弹出一个元素，它是下一个最小的元素。这是一个 O(1) 的操作。然而，随后我们要调用帮助函数 _inorder_left ，它需要递归的，将左节点添加到栈上，是线性时间的操作，最坏的情况下为 O(N)。但是我们只对含有右节点的节点进行调用，它也不会总是处理 N 个节点。只有当我们有一个倾斜的树，才会有 N 个节点。因此该操作的平均时间复杂度仍然是 O(1)，符合问题中所要求的。
+</code></pre>
 <p>空间复杂度：O(h)，使用了一个栈来模拟递归。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2246,7 +2469,7 @@ class BSTIterator:
     def __init__(self, root: TreeNode):
         self.queue=[]
         self.inorder(root)
-
+    
     def inorder(self,root):
         while root:
             self.queue.append(root)
@@ -2272,7 +2495,8 @@ class BSTIterator:
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
 # param_1 = obj.next()
-# param_2 = obj.hasNext()</code></pre>
+# param_2 = obj.hasNext()
+</code></pre>
 <h3 id="199-二叉树的右视图"><a href="#199-二叉树的右视图" class="headerlink" title="199. 二叉树的右视图"></a>199. 二叉树的右视图</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-right-side-view/
 
 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
@@ -2287,7 +2511,8 @@ class BSTIterator:
  /   \
 2     3         &lt;---
  \     \
-  5     4       &lt;---</code></pre>
+  5     4       &lt;---
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2307,7 +2532,8 @@ class Solution:
             helper(root.right,level+1)
             helper(root.left,level+1)
         helper(root,1)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|广度优先搜索：</p>
 <p>时间复杂度 : O(n)。 每个节点最多进队列一次，出队列一次，因此广度优先搜索的复杂度为线性。</p>
 <p>空间复杂度 : O(n)。每个节点最多进队列一次，所以队列长度最大不不超过 n，所以这里的空间代价为 O(n)。</p>
@@ -2330,7 +2556,8 @@ class Solution(object):
                 right[depth]=node.val
                 queue.append((node.left,depth+1))
                 queue.append((node.right,depth+1))
-        return [right[i] for i in range(max_depth+1)]</code></pre>
+        return [right[i] for i in range(max_depth+1)]
+</code></pre>
 <p>题解三|深度优先搜索：</p>
 <p>时间复杂度 : O(n)。深度优先搜索最多访问每个结点一次，因此是线性复杂度。</p>
 <p>空间复杂度 : O(n)。最坏情况下，栈内会包含接近树高度的结点数量，占用 O(n) 的空间。</p>
@@ -2353,7 +2580,8 @@ class Solution(object):
                 right.setdefault(depth,node.val) # 和get()类似，setdefault()如果键不存在于字典中，将会添加键并将值设为默认值。
                 queue.append((node.left,depth+1))
                 queue.append((node.right,depth+1))
-        return [right[i] for i in range(max_depth+1)]</code></pre>
+        return [right[i] for i in range(max_depth+1)]
+</code></pre>
 <h3 id="222-完全二叉树的节点个数"><a href="#222-完全二叉树的节点个数" class="headerlink" title="222.完全二叉树的节点个数"></a>222.完全二叉树的节点个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-complete-tree-nodes/
 
 给出一个完全二叉树，求出该树的节点个数。
@@ -2371,7 +2599,8 @@ class Solution(object):
  / \  /
 4  5 6
 
-输出: 6</code></pre>
+输出: 6
+</code></pre>
 <p>题解一|递归：</p>
 <p>时间复杂度：O(n)。<br>空间复杂度：O(logn)，其中 d 指的是树的的高度，运行过程中堆栈所使用的空间。</p>
 <pre><code># Definition for a binary tree node.
@@ -2383,7 +2612,7 @@ class Solution(object):
 
 class Solution:
     def countNodes(self, root: TreeNode) -&gt; int:
-
+        
         self.res=0
         def helper(root):
             if not root:
@@ -2394,8 +2623,9 @@ class Solution:
             helper(root.right)
             return self.res
         helper(root)
-
-        return self.res</code></pre>
+        
+        return self.res
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2412,10 +2642,12 @@ class Solution:
         self.res+=1
         self.countNodes(root.left)
         self.countNodes(root.right)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <pre><code>class Solution:
     def countNodes(self, root: TreeNode) -&gt; int:
-        return 1 + self.countNodes(root.right) + self.countNodes(root.left) if root else 0</code></pre>
+        return 1 + self.countNodes(root.right) + self.countNodes(root.left) if root else 0
+</code></pre>
 <h3 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a>226. 翻转二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/invert-binary-tree/
 
 翻转一棵二叉树。
@@ -2439,12 +2671,14 @@ class Solution:
 备注:
 这个问题是受到 Max Howell 的 原问题 启发的 ：
 
-谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。</code></pre>
+谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
+</code></pre>
 <p>题解一|递归：</p>
 <p>交换一下左右节点，然后再递归的交换左节点，右节点。</p>
 <p>递归的两个条件：</p>
 <pre><code>终止条件：当前节点为null时返回
-交换当前节点的左右节点，再递归的交换当前节点的左节点，递归的交换当前节点的右节点</code></pre>
+交换当前节点的左右节点，再递归的交换当前节点的左节点，递归的交换当前节点的右节点
+</code></pre>
 <p>时间复杂度：每个元素都必须访问一次，所以是O(n)<br>空间复杂度：最坏的情况下，需要存放O(h)个函数调用(h是树的高度)，所以是O(h)</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2457,7 +2691,8 @@ class Solution:
         if not root:
             return
         root.left,root.right=self.invertTree(root.right),self.invertTree(root.left)
-        return root</code></pre>
+        return root
+</code></pre>
 <pre><code>class Solution:
     def invertTree(self, root: TreeNode) -&gt; TreeNode:
         if not root:
@@ -2465,13 +2700,15 @@ class Solution:
         root.left,root.right=root.right,root.left
         self.invertTree(root.left)
         self.invertTree(root.right)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|迭代|广度优先遍历）：</p>
 <p>递归实现也就是深度优先遍历的方式，那么对应的就是广度优先遍历。</p>
 <p>广度优先遍历需要额外的数据结构–队列，来存放临时遍历到的元素。</p>
 <p>深度优先遍历的特点是一竿子插到底，不行了再退回来继续；而广度优先遍历的特点是层层扫荡。<br>所以，我们需要先将根节点放入到队列中，然后不断的迭代队列中的元素。<br>对当前元素调换其左右子树的位置，然后：</p>
 <pre><code>判断其左子树是否为空，不为空就放入队列中
-判断其右子树是否为空，不为空就放入队列中</code></pre>
+判断其右子树是否为空，不为空就放入队列中
+</code></pre>
 <p>时间复杂度：同样每个节点都需要入队列/出队列一次，所以是O(n)<br>空间复杂度：最坏的情况下会包含所有的叶子节点，完全二叉树叶子节点是n/2个，所以时间复杂度是0(n)</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2492,7 +2729,8 @@ class Solution:
                 queue.append(tmp.left)
             if tmp.right: # 如果当前节点的右子树不为空，则放入队列等待后续处理    
                 queue.append(tmp.right)
-        return root # 返回处理完的根节点</code></pre>
+        return root # 返回处理完的根节点
+</code></pre>
 <h3 id="230-二叉搜索树中第K小的元素"><a href="#230-二叉搜索树中第K小的元素" class="headerlink" title="230. 二叉搜索树中第K小的元素"></a>230. 二叉搜索树中第K小的元素</h3><pre><code>给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
 
 说明：
@@ -2519,7 +2757,8 @@ class Solution:
  1
 输出: 3
 进阶：
-如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？</code></pre>
+如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？
+</code></pre>
 <p>题解一|递归|中序遍历：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2534,7 +2773,8 @@ class Solution:
             if not root:
                 return []
             return inorder(root.left)+[root.val]+inorder(root.right)
-        return inorder(root)[k-1]</code></pre>
+        return inorder(root)[k-1]
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2553,7 +2793,8 @@ class Solution:
             k-=1
             if not k:
                 return root.val
-            root=root.right</code></pre>
+            root=root.right
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -2574,7 +2815,8 @@ class Solution:
                 k-=1
                 if not k:
                     return root.val
-                root=root.right</code></pre>
+                root=root.right
+</code></pre>
 <h3 id="235-二叉搜索树的最近公共祖先"><a href="#235-二叉搜索树的最近公共祖先" class="headerlink" title="235. 二叉搜索树的最近公共祖先"></a>235. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/
 lowest-common-ancestor-of-a-binary-search-tree/
 
@@ -2594,18 +2836,20 @@ lowest-common-ancestor-of-a-binary-search-tree/
 输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
 输出: 2
 解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉搜索树中。
+</code></pre>
 <p>题解一|递归：</p>
 <p>思路：</p>
 <pre><code>1、从根节点开始遍历树
 2、如果节点 p 和节点 q 都在右子树上，那么以右孩子为根节点继续 1 的操作
 3、如果节点 p 和节点 q 都在左子树上，那么以左孩子为根节点继续 1 的操作
-4、如果条件 2 和条件 3 都不成立，这就意味着我们已经找到节 p 和节点 q 的 最近公共祖先(LCA) 了</code></pre>
+4、如果条件 2 和条件 3 都不成立，这就意味着我们已经找到节 p 和节点 q 的 最近公共祖先(LCA) 了
+</code></pre>
 <p>时间复杂度：O(N)<br>其中 N 为 BST 中节点的个数，在最坏的情况下我们可能需要访问 BST 中所有的节点。</p>
 <p>空间复杂度：O(N)<br>所需开辟的额外空间主要是递归栈产生的，之所以是 N 是因为 BST 的高度为 N。</p>
 <pre><code># Definition for a binary tree node.
@@ -2624,7 +2868,8 @@ class Solution:
         elif p.val &gt; root.val and q.val &gt; root.val:
             return self.lowestCommonAncestor(root.right,p,q)
         else:
-            return root</code></pre>
+            return root
+</code></pre>
 <p>题解二|迭代：</p>
 <p>时间复杂度：O(N)<br>其中 NN 为 BST 中节点的个数，在最坏的情况下我们可能需要遍历 BST 中所有的节点。</p>
 <p>空间复杂度：O(1)</p>
@@ -2645,7 +2890,8 @@ class Solution:
             elif p.val &gt; root.val and q.val &gt; root.val:
                 root=root.right
             else:
-                return root</code></pre>
+                return root
+</code></pre>
 <h3 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
@@ -2664,11 +2910,12 @@ class Solution:
 输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
 输出: 5
 解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉树中。
+</code></pre>
 <p>题解一|递归：</p>
 <p>最近公共祖先的定义： 设节点 root 为节点 p, q 的某公共祖先，若其左子节点 root.left 和右子节点 root.right 都不是 p,q 的公共祖先，则称 root 是 “最近的公共祖先” 。</p>
 <p>根据以上定义，若 root 是 p, q 的 最近公共祖先 ，则只可能为以下情况之一：</p>
@@ -2676,10 +2923,12 @@ p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
 <p>递归解析：</p>
 <p>1、终止条件：</p>
 <pre><code>当越过叶节点，则直接返回 null ；
-当 root 等于 p, q，则直接返回 root ；</code></pre>
+当 root 等于 p, q，则直接返回 root ；
+</code></pre>
 <p>2、递推工作：</p>
 <pre><code>开启递归左子节点，返回值记为 left ；
-开启递归右子节点，返回值记为 right ；</code></pre>
+开启递归右子节点，返回值记为 right ；
+</code></pre>
 <p>3、返回值： 根据 left 和 right ，可展开为四种情况；</p>
 <pre><code>(1)当 left 和 right 同时为空 ：说明 root 的左/右子树中都不包含 p,q ，返回 null ；
 (2)当 left 和 right 同时不为空 ：说明 p, q 分列在 root 的 异侧 （分别在 左 / 右子树），因此 root 为最近公共祖先，返回 root ；
@@ -2688,7 +2937,8 @@ p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
     p,q 其中一个在 root 的 右子树 中，此时 right 指向 p（假设为 p ）；
     p,q 两节点都在 root 的 右子树 中，此时的 right 指向 最近公共祖先节点 ；
 
-(4)当 left 不为空 ， right 为空 ：与情况 3. 同理；</code></pre>
+(4)当 left 不为空 ， right 为空 ：与情况 3. 同理；
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2709,7 +2959,8 @@ class Solution:
         elif not left:  # 3
             return right
         elif not right: # 4
-            return left</code></pre>
+            return left
+</code></pre>
 <h3 id="257-二叉树的所有路径"><a href="#257-二叉树的所有路径" class="headerlink" title="257. 二叉树的所有路径"></a>257. 二叉树的所有路径</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-paths/
 
 给定一个二叉树，返回所有从根节点到叶子节点的路径。
@@ -2727,7 +2978,8 @@ class Solution:
 
 输出: [&quot;1-&gt;2-&gt;5&quot;, &quot;1-&gt;3&quot;]
 
-解释: 所有根节点到叶子节点的路径为: 1-&gt;2-&gt;5, 1-&gt;3</code></pre>
+解释: 所有根节点到叶子节点的路径为: 1-&gt;2-&gt;5, 1-&gt;3
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/2019/10/18/5da9456f33ee7/">https://www.dazhuanlan.com/2019/10/18/5da9456f33ee7/</a></p>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
@@ -2750,7 +3002,8 @@ class Solution:
             if root.right:
                 helper(root.right,path+&#39;-&gt;&#39;+str(root.right.val))
         helper(root,&#39;&#39;+str(root.val))
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|回溯：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2773,7 +3026,8 @@ class Solution:
                 return True  # 别漏掉，用来判断left和right的True和False
 
         helper(root,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2798,7 +3052,8 @@ class Solution:
                 helper(node.right,path)
                 path.pop()
         helper(root,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="297-二叉树的序列化与反序列化"><a href="#297-二叉树的序列化与反序列化" class="headerlink" title="297. 二叉树的序列化与反序列化"></a>297. 二叉树的序列化与反序列化</h3><pre><code>链接：https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
 
 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
@@ -2818,7 +3073,8 @@ class Solution:
 序列化为 &quot;[1,2,3,null,null,4,5]&quot;
 提示: 这与 LeetCode 目前使用的方式一致，详情请参阅 LeetCode 序列化二叉树的格式。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。
 
-说明: 不要使用类的成员 / 全局 / 静态变量来存储状态，你的序列化和反序列化算法应该是无状态的。</code></pre>
+说明: 不要使用类的成员 / 全局 / 静态变量来存储状态，你的序列化和反序列化算法应该是无状态的。
+</code></pre>
 <p>题解一|DFS：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode(object):
@@ -2831,7 +3087,7 @@ class Codec:
 
     def serialize(self, root):
         &quot;&quot;&quot;Encodes a tree to a single string.
-
+        
         :type root: TreeNode
         :rtype: str
         &quot;&quot;&quot;
@@ -2846,7 +3102,7 @@ class Codec:
 
     def serialize(self, root):
         &quot;&quot;&quot;Encodes a tree to a single string.
-
+        
         :type root: TreeNode
         :rtype: str
         &quot;&quot;&quot;
@@ -2855,10 +3111,10 @@ class Codec:
         left=self.serialize(root.left)
         right=self.serialize(root.right)
         return str(root.val)+&#39;,&#39;+left+right
-
+            
     def deserialize(self, data):
         &quot;&quot;&quot;Decodes your encoded data to tree.
-
+        
         :type data: str
         :rtype: TreeNode
         &quot;&quot;&quot;
@@ -2874,11 +3130,12 @@ class Codec:
         node.left=self.buildTree(data)
         node.right=self.buildTree(data)
         return node
-
+        
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
 # deser = Codec()
-# ans = deser.deserialize(ser.serialize(root))</code></pre>
+# ans = deser.deserialize(ser.serialize(root))
+</code></pre>
 <p>题解二|BFS：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode(object):
@@ -2892,7 +3149,7 @@ class Codec:
 
     def serialize(self, root):
         &quot;&quot;&quot;Encodes a tree to a single string.
-
+        
         :type root: TreeNode
         :rtype: str
         &quot;&quot;&quot;
@@ -2910,11 +3167,11 @@ class Codec:
             else:
                 res+=&#39;X,&#39;
         return res
-
+            
 
     def deserialize(self, data):
         &quot;&quot;&quot;Decodes your encoded data to tree.
-
+        
         :type data: str
         :rtype: TreeNode
         &quot;&quot;&quot;
@@ -2936,11 +3193,12 @@ class Codec:
                     node.right=TreeNode(val)
                     q.append(node.right)
         return root
-
+            
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
 # deser = Codec()
-# ans = deser.deserialize(ser.serialize(root))</code></pre>
+# ans = deser.deserialize(ser.serialize(root))
+</code></pre>
 <h3 id="404-左叶子之和"><a href="#404-左叶子之和" class="headerlink" title="404. 左叶子之和"></a>404. 左叶子之和</h3><pre><code>链接：https://leetcode-cn.com/problems/sum-of-left-leaves/
 
 计算给定二叉树的所有左叶子之和。
@@ -2953,7 +3211,8 @@ class Codec:
     /  \
    15   7
 
-在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24</code></pre>
+在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2976,7 +3235,8 @@ class Solution:
             helper(root.left)
             helper(root.right)
         helper(root)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <pre><code>class Solution:
     def sumOfLeftLeaves(self, root: TreeNode) -&gt; int:
         if not root:
@@ -2987,7 +3247,21 @@ class Solution:
             sum += root.left.val
         sum += self.sumOfLeftLeaves(root.left)
         sum += self.sumOfLeftLeaves(root.right)
-        return sum</code></pre>
+        return sum
+</code></pre>
+<pre><code>class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -&gt; int:
+        if not root:
+            return 0
+        def helper(root):
+            if not root:
+                return 0
+            if root.left and not root.left.left and not root.left.right: 
+                return root.left.val+helper(root.right)
+            return helper(root.left)+helper(root.right)
+
+        helper(root)
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3003,13 +3277,15 @@ class Solution:
         stack=[root]
         res=0
         while stack:
-            node=stack.pop()
-            if node:
-                if node.left and not node.left.left and not node.left.right:
-                    res+=node.left.val
+            node=stack.pop(0)
+            if node.left and not node.left.left and not node.left.right:
+                res+=node.left.val
+            if node.left:
                 stack.append(node.left)
+            if node.right:
                 stack.append(node.right)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="429-N叉树的层序遍历"><a href="#429-N叉树的层序遍历" class="headerlink" title="429. N叉树的层序遍历"></a>429. N叉树的层序遍历</h3><pre><code>给定一个 N 叉树，返回其节点值的层序遍历。 (即从左到右，逐层遍历)。
 
 例如，给定一个 3叉树 :
@@ -3021,11 +3297,12 @@ class Solution:
      [3,2,4],
      [5,6]
 ]
-
+ 
 说明:
 
 树的深度不会超过 1000。
-树的节点总数不会超过 5000。</code></pre>
+树的节点总数不会超过 5000。
+</code></pre>
 <p>题解一|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3050,7 +3327,8 @@ class Solution:
                 for i in root.children:
                     stack.append(i)
             depth+=1
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
 class Node:
@@ -3074,7 +3352,8 @@ class Solution:
                 # for i in root.children:
                 #     stack.append(i)
             depth+=1
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
 class Node:
@@ -3096,7 +3375,8 @@ class Solution:
                 tmp.append(root.val)
                 stack.extend(root.children)
             res.append(tmp)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
 class Node:
@@ -3118,7 +3398,8 @@ class Solution:
                 res[-1].append(i.val)
                 tmp.extend(i.children)
             stack=tmp
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3139,7 +3420,8 @@ class Solution:
             for i in node.children:
                 helper(i,depth+1)
         helper(root,0)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="501-二叉搜索树中的众数"><a href="#501-二叉搜索树中的众数" class="headerlink" title="501. 二叉搜索树中的众数"></a>501. 二叉搜索树中的众数</h3><pre><code>链接：https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/
 
 给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。
@@ -3161,7 +3443,8 @@ class Solution:
 
 提示：如果众数超过1个，不需考虑输出顺序
 
-进阶：你可以不使用额外的空间吗？（假设由递归产生的隐式调用栈的开销不被计算在内）</code></pre>
+进阶：你可以不使用额外的空间吗？（假设由递归产生的隐式调用栈的开销不被计算在内）
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -3180,7 +3463,7 @@ class Solution:
                     hash[root.val]+=1
                 helper(root.left)
                 helper(root.right)
-
+            
         helper(root)
         res=[]
         if not root:
@@ -3189,7 +3472,8 @@ class Solution:
         for k,v in hash.items():
             if count==v:
                 res.append(k)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|二叉搜索树处理：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3220,14 +3504,15 @@ class Solution:
                     self.ans.append(node.val)
                 helper(node.right)
         helper(root)
-        return self.ans</code></pre>
+        return self.ans
+</code></pre>
 <p>题解三|普通二叉树处理：</p>
 <pre><code># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution:
     def findMode(self, root: TreeNode) -&gt; List[int]:
@@ -3247,7 +3532,8 @@ class Solution:
                     self.maxTimes=num
                 helper(node.right)
         helper(root)
-        return self.ans        </code></pre>
+        return self.ans        
+</code></pre>
 <h3 id="530-二叉搜索树的最小绝对差"><a href="#530-二叉搜索树的最小绝对差" class="headerlink" title="530. 二叉搜索树的最小绝对差"></a>530. 二叉搜索树的最小绝对差</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/
 给你一棵所有节点为非负值的二叉搜索树，请你计算树中任意两节点的差的绝对值的最小值。
 
@@ -3266,11 +3552,12 @@ class Solution:
 
 解释：
 最小绝对差为 1，其中 2 和 1 的差的绝对值为 1（或者 2 和 3）。
-
+ 
 提示：
 
 树中至少有 2 个节点。
-本题与 783 https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/ 相同</code></pre>
+本题与 783 https://leetcode-cn.com/problems/minimum-distance-between-bst-nodes/ 相同
+</code></pre>
 <p>题解一|中序遍历：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3290,7 +3577,8 @@ class Solution:
         res=float(&#39;inf&#39;)
         for i in range(1,len(tmp)):
             res=min(res,tmp[i]-tmp[i-1])
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="538-把二叉搜索树转换为累加树"><a href="#538-把二叉搜索树转换为累加树" class="headerlink" title="538. 把二叉搜索树转换为累加树"></a>538. 把二叉搜索树转换为累加树</h3><pre><code>链接：https://leetcode-cn.com/problems/convert-bst-to-greater-tree/
 
 给定一个二叉搜索树（Binary Search Tree），把它转换成为累加树（Greater Tree)，使得每个节点的值是原来的节点值加上所有大于它的节点值之和。
@@ -3305,7 +3593,8 @@ class Solution:
 输出: 转换为累加树:
              18
             /   \
-          20     13</code></pre>
+          20     13
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def convertBST(self, root: TreeNode) -&gt; TreeNode:
@@ -3318,7 +3607,8 @@ class Solution:
             root.val=self.sum
             helper(root.left)
         helper(root)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3338,7 +3628,8 @@ class Solution:
             sum+=node.val
             node.val=sum
             node=node.left
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="543-二叉树的直径"><a href="#543-二叉树的直径" class="headerlink" title="543. 二叉树的直径"></a>543. 二叉树的直径</h3><pre><code>链接：https://leetcode-cn.com/problems/diameter-of-binary-tree/
 
 给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。
@@ -3353,7 +3644,8 @@ class Solution:
       4   5    
 返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。
 
-注意：两结点之间的路径长度是以它们之间边的数目表示。</code></pre>
+注意：两结点之间的路径长度是以它们之间边的数目表示。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3373,7 +3665,8 @@ class Solution:
             self.res=max(self.res,left+right) # 每个结点都要去判断左子树+右子树的高度是否大于self.max，更新最大值
             return max(left,right)+1
         helper(root)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <h3 id="559-N叉树的最大深度"><a href="#559-N叉树的最大深度" class="headerlink" title="559. N叉树的最大深度"></a>559. N叉树的最大深度</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/
 
 给定一个 N 叉树，找到其最大深度。
@@ -3387,7 +3680,8 @@ class Solution:
 说明:
 
 树的深度不会超过 1000。
-树的节点总不会超过 5000。</code></pre>
+树的节点总不会超过 5000。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3405,7 +3699,8 @@ class Solution:
             return 1
         else:
             height=[ self.maxDepth(i) for i in root.children]
-            return max(height)+1</code></pre>
+            return max(height)+1
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3427,7 +3722,8 @@ class Solution:
                 depth=max(depth,cur)
                 for i in root.children:
                     stack.append((cur+1,i))
-        return depth</code></pre>
+        return depth
+</code></pre>
 <h3 id="563-二叉树的坡度"><a href="#563-二叉树的坡度" class="headerlink" title="563. 二叉树的坡度"></a>563. 二叉树的坡度</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-tree-tilt/
 给定一个二叉树，计算整个树的坡度。
 
@@ -3447,11 +3743,12 @@ class Solution:
 结点 3 的坡度: 0
 结点 1 的坡度: |2-3| = 1
 树的坡度 : 0 + 0 + 1 = 1
-
+ 
 提示：
 
 任何子树的结点的和不会超过 32 位整数的范围。
-坡度的值不会超过 32 位整数的范围。</code></pre>
+坡度的值不会超过 32 位整数的范围。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3470,9 +3767,10 @@ class Solution:
             right = helper(root.right)
             self.res+=abs(left-right)
             return left+right+root.val
-
+        
         helper(root)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <h3 id="572-另一个树的子树"><a href="#572-另一个树的子树" class="headerlink" title="572. 另一个树的子树"></a>572. 另一个树的子树</h3><pre><code>链接：https://leetcode-cn.com/problems/subtree-of-another-tree/
 
 给定两个非空二叉树 s 和 t，检验 s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。s 也可以看做它自身的一棵子树。
@@ -3507,7 +3805,8 @@ class Solution:
    4
   / \
  1   2
-返回 false。</code></pre>
+返回 false。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3529,7 +3828,8 @@ class Solution:
             return True
         if not s or not t:
             return False
-        return helper(s,t) or self.isSubtree(s.left,t) or self.isSubtree(s.right,t)</code></pre>
+        return helper(s,t) or self.isSubtree(s.left,t) or self.isSubtree(s.right,t)
+</code></pre>
 <h3 id="589-N叉树的前序遍历"><a href="#589-N叉树的前序遍历" class="headerlink" title="589. N叉树的前序遍历"></a>589. N叉树的前序遍历</h3><pre><code>链接：https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/
 
 给定一个 N 叉树，返回其节点值的前序遍历。
@@ -3538,7 +3838,8 @@ class Solution:
 
 返回其前序遍历: [1,3,5,6,2,4]。  
 
-说明: 递归法很简单，你可以使用迭代法完成此题吗?</code></pre>
+说明: 递归法很简单，你可以使用迭代法完成此题吗?
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3554,7 +3855,8 @@ class Solution:
             ans.append(root.val)
             for i in root.children:
                 ans+=self.preorder(i)
-        return ans</code></pre>
+        return ans
+</code></pre>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
 class Node:
@@ -3574,7 +3876,8 @@ class Solution:
             for i in root.children:
                 helper(i)
         helper(root)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3595,13 +3898,15 @@ class Solution:
             for i in root.children[::-1]:
                 stack.append(i)
             # stack.extend(root.children[::-1]) # 不使用append
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>Python中append和extend的区别：</p>
 <pre><code>a=[1,2,3]
 b=[4,5]
 
 b.extend(a) # 输出[4,5,1,2,3]
-b.append(a) # 输出[4,5,[1,2,3]]</code></pre>
+b.append(a) # 输出[4,5,[1,2,3]]
+</code></pre>
 <h3 id="590-N叉树的后序遍历"><a href="#590-N叉树的后序遍历" class="headerlink" title="590. N叉树的后序遍历"></a>590. N叉树的后序遍历</h3><pre><code>链接：https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/
 
 给定一个 N 叉树，返回其节点值的后序遍历。
@@ -3610,7 +3915,8 @@ b.append(a) # 输出[4,5,[1,2,3]]</code></pre>
 
 返回其后序遍历: [5,6,3,2,4,1].
 
-说明: 递归法很简单，你可以使用迭代法完成此题吗?</code></pre>
+说明: 递归法很简单，你可以使用迭代法完成此题吗?
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3627,7 +3933,8 @@ class Solution:
             for i in root.children:
                 ans+=self.postorder(i)
             ans.append(root.val)
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>题解二|迭代：</p>
 <pre><code>&quot;&quot;&quot;
 # Definition for a Node.
@@ -3648,7 +3955,8 @@ class Solution:
             res.append(root.val)
             for i in root.children:
                 stack.append(i)
-        return res[::-1]</code></pre>
+        return res[::-1]
+</code></pre>
 <h3 id="606-根据二叉树创建字符串"><a href="#606-根据二叉树创建字符串" class="headerlink" title="606. 根据二叉树创建字符串"></a>606. 根据二叉树创建字符串</h3><pre><code>链接：https://leetcode-cn.com/problems/construct-string-from-binary-tree/
 
 你需要采用前序遍历的方式，将一个二叉树转换成一个由括号和整数组成的字符串。
@@ -3681,7 +3989,8 @@ class Solution:
 输出: &quot;1(2()(4))(3)&quot;
 
 解释: 和第一个示例相似，
-除了我们不能省略第一个对括号来中断输入和输出之间的一对一映射关系。</code></pre>
+除了我们不能省略第一个对括号来中断输入和输出之间的一对一映射关系。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3700,7 +4009,8 @@ class Solution:
             return str(t.val)+&#39;()&#39;+&#39;(&#39;+self.tree2str(t.right)+&#39;)&#39;
         if t.left and not t.right:
             return str(t.val)+&#39;(&#39;+self.tree2str(t.left)+&#39;)&#39;
-        return str(t.val)+&#39;(&#39;+self.tree2str(t.left)+&#39;)&#39;+&#39;(&#39;+self.tree2str(t.right)+&#39;)&#39;</code></pre>
+        return str(t.val)+&#39;(&#39;+self.tree2str(t.left)+&#39;)&#39;+&#39;(&#39;+self.tree2str(t.right)+&#39;)&#39;
+</code></pre>
 <h3 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617. 合并二叉树"></a>617. 合并二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/merge-two-binary-trees/
 
 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
@@ -3723,7 +4033,8 @@ class Solution:
        4   5
       / \   \ 
      5   4   7
-注意: 合并必须从两个树的根节点开始。</code></pre>
+注意: 合并必须从两个树的根节点开始。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3745,7 +4056,8 @@ class Solution:
             root.val=t1.val+t2.val
             root.left=self.mergeTrees(t1.left,t2.left)
             root.right=self.mergeTrees(t1.right,t2.right)
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637.二叉树的层平均值"></a>637.二叉树的层平均值</h3><pre><code>链接：https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/
 
 给定一个非空二叉树, 返回一个由每层节点平均值组成的数组.
@@ -3763,7 +4075,8 @@ class Solution:
 第0层的平均值是 3,  第1层是 14.5, 第2层是 11. 因此返回 [3, 14.5, 11].
 注意：
 
-节点值的范围在32位有符号整数范围内。</code></pre>
+节点值的范围在32位有符号整数范围内。
+</code></pre>
 <p>题解一|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3794,7 +4107,8 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             res.append(s)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>去掉脑残for循环，巨耗时。</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -3820,7 +4134,8 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
             res.append(sum(tmp)/len(tmp))
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="671-二叉树中第二小的节点"><a href="#671-二叉树中第二小的节点" class="headerlink" title="671. 二叉树中第二小的节点"></a>671. 二叉树中第二小的节点</h3><pre><code>链接：https://leetcode-cn.com/problems/second-minimum-node-in-a-binary-tree/
 
 给定一个非空特殊的二叉树，每个节点都是正数，并且每个节点的子节点数量只能为 2 或 0。如果一个节点有两个子节点的话，那么该节点的值等于两个子节点中较小的一个。
@@ -3839,12 +4154,13 @@ class Solution:
 输入：root = [2,2,2]
 输出：-1
 解释：最小的值是 2, 但是不存在第二小的值。
-
+ 
 提示：
 
 树中节点数目在范围 [1, 25] 内
 1 &lt;= Node.val &lt;= 231 - 1
-对于树中每个节点 root.val == min(root.left.val, root.right.val)</code></pre>
+对于树中每个节点 root.val == min(root.left.val, root.right.val)
+</code></pre>
 <p>题解一：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode(object):
@@ -3872,7 +4188,8 @@ class Solution(object):
             return min(l,r)
         if not root:
             return -1
-        return helper(root,root.val)</code></pre>
+        return helper(root,root.val)
+</code></pre>
 
     </div>
 
@@ -4010,7 +4327,7 @@ class Solution(object):
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

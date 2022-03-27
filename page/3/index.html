@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-24 17:06:55" itemprop="dateModified" datetime="2020-12-24T17:06:55+08:00">2020-12-24</time>
+                <time title="Modified: 2021-01-11 23:33:16" itemprop="dateModified" datetime="2021-01-11T23:33:16+08:00">2021-01-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,10 +232,12 @@
  输出：false
 提示：
 
-树的节点数目范围为[0, 20000]。</code></pre>
+树的节点数目范围为[0, 20000]。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>一：在 t1 中找到 t2 的起点。先判断 t1 当前节点，如果不对就判断 t1 左子树和 t1 右子树。
-二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。</code></pre>
+二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。
+</code></pre>
 <pre><code>class Solution:
     def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
 
@@ -253,7 +255,8 @@
             return False
         if not t2:
             return True
-        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</code></pre>
+        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
+</code></pre>
 <pre><code>class Solution:
     def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
         if not  t1:
@@ -261,7 +264,7 @@
         if not t2:
             return True
         return self.helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
-
+    
     def helper(self,t1,t2):
         if not t2:
             return True
@@ -270,7 +273,8 @@
         elif t1.val != t2.val:
             return False
         else:
-            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)</code></pre>
+            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -283,7 +287,7 @@ class Solution:
         if not A or not B:
             return False
         return self.helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
-
+    
     def helper(self,A,B):
         if not A and B:
             return False
@@ -292,7 +296,8 @@ class Solution:
         elif A.val != B.val:
             return False
         else:
-            return self.helper(A.left,B.left) and self.helper(A.right,B.right)</code></pre>
+            return self.helper(A.left,B.left) and self.helper(A.right,B.right)
+</code></pre>
 <pre><code>class Solution:
     def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
         def helper(A,B):
@@ -301,7 +306,8 @@ class Solution:
             if not A or (A.val != B.val):
                 return False
             return helper(A.left,B.left) and helper(A.right,B.right)
-        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))</code></pre>
+        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))
+</code></pre>
 <h3 id="面试题-17-12-BiNode"><a href="#面试题-17-12-BiNode" class="headerlink" title="面试题 17.12. BiNode"></a>面试题 17.12. BiNode</h3><pre><code>链接：https://leetcode-cn.com/problems/binode-lcci/
 
 二叉树数据结构TreeNode可用来表示单向链表（其中left置空，right为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求值的顺序保持不变，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。
@@ -316,11 +322,13 @@ class Solution:
 输出： [0,null,1,null,2,null,3,null,4,null,5,null,6]
 提示：
 
-节点数量不会超过 100000。</code></pre>
+节点数量不会超过 100000。
+</code></pre>
 <p>题解一|迭代|中序遍历：</p>
 <pre><code>root.left=None
 pre.right=root
-pre=root</code></pre>
+pre=root
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -345,14 +353,15 @@ class Solution:
                 pre=root
 
                 root=root.right
-        return head.right</code></pre>
+        return head.right
+</code></pre>
 <p>题解二|递归:</p>
 <pre><code>class Solution:
     def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
         head=TreeNode(0)
         self.helper(root,head)
         return head.right
-
+    
     def helper(self,root,pre):
         if root:
             pre=self.helper(root.left,pre)
@@ -360,7 +369,8 @@ class Solution:
             pre.right=root
             pre=root
             pre=self.helper(root.right,pre)
-        return pre</code></pre>
+        return pre
+</code></pre>
 <pre><code>class Solution:
     def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
         head=TreeNode(0)
@@ -377,7 +387,8 @@ class Solution:
         self.pre.right=root
         self.pre=root
 
-        self.helper(root.right)</code></pre>
+        self.helper(root.right)
+</code></pre>
 <h3 id="面试题-04-12-求和路径"><a href="#面试题-04-12-求和路径" class="headerlink" title="面试题 04.12. 求和路径"></a>面试题 04.12. 求和路径</h3><pre><code>链接：https://leetcode-cn.com/problems/paths-with-sum-lcci/
 
 给定一棵二叉树，其中每个节点都含有一个整数数值(该值或正或负)。设计一个算法，打印节点数值总和等于某个给定值的所有路径的数量。注意，路径不一定非得从二叉树的根节点或叶节点开始或结束，但是其方向必须向下(只能从父节点指向子节点方向)。
@@ -398,7 +409,8 @@ class Solution:
 解释：和为 22 的路径有：[5,4,11,2], [5,8,4,5], [4,11,7]
 提示：
 
-节点总数 &lt;= 10000</code></pre>
+节点总数 &lt;= 10000
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -421,7 +433,58 @@ class Solution:
             count+=1
         count+=self.helper(root.left,sum-root.val)
         count+=self.helper(root.right,sum-root.val)
-        return count</code></pre>
+        return count
+</code></pre>
+<h3 id="剑指-Offer-36-二叉搜索树与双向链表"><a href="#剑指-Offer-36-二叉搜索树与双向链表" class="headerlink" title="剑指 Offer 36. 二叉搜索树与双向链表"></a>剑指 Offer 36. 二叉搜索树与双向链表</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/
+
+输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。
+
+为了让您更好地理解问题，以下面的二叉搜索树为例：
+
+
+我们希望将这个二叉搜索树转化为双向循环链表。链表中的每个节点都有一个前驱和后继指针。对于双向循环链表，第一个节点的前驱是最后一个节点，最后一个节点的后继是第一个节点。
+
+下图展示了上面的二叉搜索树转化成的链表。“head” 表示指向链表中有最小元素的节点。
+
+特别地，我们希望可以就地完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
+
+注意：本题与主站 426 题相同：https://leetcode-cn.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/
+
+注意：此题对比原题有改动。
+</code></pre>
+<p>题解一|中序遍历：</p>
+<pre><code>&quot;&quot;&quot;
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+&quot;&quot;&quot;
+class Solution:
+    def __init__(self):
+        self.head=None
+        self.pre=None
+    
+    def treeToDoublyList(self, root: &#39;Node&#39;) -&gt; &#39;Node&#39;:
+        if not root:
+            return root
+        self.dfs(root)
+        self.head.left,self.pre.right=self.pre,self.head
+        return self.head
+       
+    def dfs(self,root):
+        if not root:
+            return
+        self.dfs(root.left)
+        if not self.pre:
+            self.head=root
+        else:
+            self.pre.right=root
+            root.left=self.pre
+        self.pre=root
+        self.dfs(root.right)
+</code></pre>
 <h3 id="面试题54-二叉搜索树的第k大节点"><a href="#面试题54-二叉搜索树的第k大节点" class="headerlink" title="面试题54. 二叉搜索树的第k大节点"></a>面试题54. 二叉搜索树的第k大节点</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
 
 给定一棵二叉搜索树，请找出其中第k大的节点。
@@ -446,10 +509,11 @@ class Solution:
   /
  1
 输出: 4
-
+ 
 限制：
 
-1 ≤ k ≤ 二叉搜索树元素个数</code></pre>
+1 ≤ k ≤ 二叉搜索树元素个数
+</code></pre>
 <p>注意：和二叉搜索树的第k小节点的区别。</p>
 <p>题解一|迭代：</p>
 <pre><code># Definition for a binary tree node.
@@ -473,7 +537,8 @@ class Solution:
                 k-=1
                 if k==0:
                     return root.val
-                root=root.left</code></pre>
+                root=root.left
+</code></pre>
 <p>题解二|递归:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -497,7 +562,8 @@ class Solution:
         if self.k==0:
             self.res=root.val # 直接return不行，需要存入全局变量中
         self.helper(root.left)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -519,7 +585,8 @@ class Solution:
         if self.k==0:
             self.res=root.val # 直接return不行，需要存入全局变量中
         self.helper(root.left)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <h3 id="面试题55-I-二叉树的深度"><a href="#面试题55-I-二叉树的深度" class="headerlink" title="面试题55 - I. 二叉树的深度"></a>面试题55 - I. 二叉树的深度</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
 
 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
@@ -535,7 +602,8 @@ class Solution:
    15   7
 返回它的最大深度 3 。
 
-提示：节点总数 &lt;= 10000</code></pre>
+提示：节点总数 &lt;= 10000
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
@@ -543,7 +611,8 @@ class Solution:
             return 0
         left=self.maxDepth(root.left)
         right=self.maxDepth(root.right)
-        return max(left,right)+1</code></pre>
+        return max(left,right)+1
+</code></pre>
 <p>题解二|迭代:</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
@@ -561,7 +630,8 @@ class Solution:
                     tmp.append(root.right)
             stack=tmp
             depth+=1
-        return depth</code></pre>
+        return depth
+</code></pre>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
         if not root:
@@ -577,7 +647,8 @@ class Solution:
                     tmp.append(root.right)
             stack=tmp
             depth+=1
-        return depth</code></pre>
+        return depth
+</code></pre>
 <h3 id="面试题55-II-平衡二叉树"><a href="#面试题55-II-平衡二叉树" class="headerlink" title="面试题55 - II. 平衡二叉树"></a>面试题55 - II. 平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
 
 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
@@ -604,7 +675,8 @@ class Solution:
    3   3
   / \
  4   4
-返回 false 。</code></pre>
+返回 false 。
+</code></pre>
 <p>限制：1 &lt;= 树的结点个数 &lt;= 10000</p>
 <p>题解一（递归）：</p>
 <pre><code>class Solution:
@@ -612,13 +684,14 @@ class Solution:
         if not root:
             return True
         return abs(self.helper(root.left)-self.helper(root.right))&lt;=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
-
+    
     def helper(self,root):
         if not root:
             return 0
         left=self.helper(root.left)
         right=self.helper(root.right)
-        return max(left,right)+1</code></pre>
+        return max(left,right)+1
+</code></pre>
 <h3 id="面试题68-I-二叉搜索树的最近公共祖先"><a href="#面试题68-I-二叉搜索树的最近公共祖先" class="headerlink" title="面试题68 - I. 二叉搜索树的最近公共祖先"></a>面试题68 - I. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
 
 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
@@ -637,12 +710,13 @@ class Solution:
 输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
 输出: 2
 解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉搜索树中。
+</code></pre>
 <p>最近公共祖先（最近公共节点）:</p>
 <pre><code>根据题目给定的前提：
 
@@ -658,7 +732,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
     p.val 和 q.val 都大于 root.val
     (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
     如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
-    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
+    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
@@ -668,7 +743,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
             return self.lowestCommonAncestor(root.right,p,q)
         elif root.val &gt; p.val and root.val &gt; q.val:
             return self.lowestCommonAncestor(root.left,p,q)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|后序遍历：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
@@ -681,7 +757,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
         elif not r:
             return l
         else:
-            return root</code></pre>
+            return root
+</code></pre>
 <p>题解三|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -699,7 +776,8 @@ class Solution:
                 root=root.left
             else:
                 break
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="面试题68-II-二叉树的最近公共祖先"><a href="#面试题68-II-二叉树的最近公共祖先" class="headerlink" title="面试题68 - II. 二叉树的最近公共祖先"></a>面试题68 - II. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
@@ -718,12 +796,13 @@ class Solution:
 输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
 输出: 5
 解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉树中。
+</code></pre>
 <p>题解一（后序遍历）：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -753,7 +832,8 @@ class Solution:
         if not left and not right: return # 1.
         if not left: return right # 3.
         if not right: return left # 4.
-        return root # 2. if left and right:</code></pre>
+        return root # 2. if left and right:
+</code></pre>
 
       
     </div>
@@ -1886,7 +1966,7 @@ having count(Email) &gt; 1;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-11 16:25:06" itemprop="dateModified" datetime="2020-12-11T16:25:06+08:00">2020-12-11</time>
+                <time title="Modified: 2021-04-28 16:30:43" itemprop="dateModified" datetime="2021-04-28T16:30:43+08:00">2021-04-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1931,7 +2011,8 @@ having count(Email) &gt; 1;
 
 被除数和除数均为 32 位有符号整数。
 除数不为 0。
-假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。</code></pre>
+假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。
+</code></pre>
 <p>题解一|减法|超时:</p>
 <p>超时：当被除数为2147483648，除数为 1，必然超时。</p>
 <pre><code>class Solution:
@@ -1944,11 +2025,13 @@ having count(Email) &gt; 1;
             res+=1
             dividend-=divisor
         res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
+        return min(max(res,-2**31),2**31-1)
+</code></pre>
 <p>题解二|增倍除数:</p>
 <pre><code>&lt;&lt; 是左移，末位补0，类比十进制数在末尾添0相当于原数乘以10，x&lt;&lt;1是将x的二进制表示左移一位，相当于原数x乘2。比如整数4在二进制下是100，4&lt;&lt;1左移1位变成1000(二进制)，结果是8。
 
-&gt;&gt;是右移，右移1位相当于除以2。</code></pre>
+&gt;&gt;是右移，右移1位相当于除以2。
+</code></pre>
 <pre><code>class Solution:
     def divide(self, dividend: int, divisor: int) -&gt; int:
         res=0
@@ -1963,7 +2046,8 @@ having count(Email) &gt; 1;
                 i &lt;&lt;=1
                 tmp &lt;&lt;=1
         res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
+        return min(max(res,-2**31),2**31-1)
+</code></pre>
 <p>题解三|位移：<br>算法是把除法化归成移位和减法两种运算方法。对于 10 进制数，移位运算就是乘（左移）除（右移）10，而我们都知道计算机中的移位运算是乘（左移）除（右移）2，因为计算机是通过二进制的方法存储数的。这样，类比十进制，二进制的除法（仍以 45/2 为例）可以写作（注意，这里我们并没有用到乘除法）</p>
 <pre><code>class Solution:
     def divide(self, dividend: int, divisor: int) -&gt; int:
@@ -1977,7 +2061,7 @@ having count(Email) &gt; 1;
         while dividend &gt;= divisor:
             count+=1
             divisor &lt;&lt;=1
-
+        
         while count &gt; 0:
             count -=1
             divisor &gt;&gt;=1
@@ -1985,9 +2069,10 @@ having count(Email) &gt; 1;
             if divisor &lt;= dividend:
                 res+=1
                 dividend -= divisor
-
+        
         res=res*flag
-        return min(max(res,-2**31),2**31-1)</code></pre>
+        return min(max(res,-2**31),2**31-1)
+</code></pre>
 <h3 id="50-Pow-x-n"><a href="#50-Pow-x-n" class="headerlink" title="50. Pow(x, n)"></a>50. Pow(x, n)</h3><pre><code>链接：https://leetcode-cn.com/problems/powx-n/
 
 实现 pow(x, n) ，即计算 x 的 n 次幂函数。
@@ -2008,7 +2093,8 @@ having count(Email) &gt; 1;
 说明:
 
 -100.0 &lt; x &lt; 100.0
-n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</code></pre>
+n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。
+</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/powx-n/solution/powx-n-by-leetcode-solution/">https://leetcode-cn.com/problems/powx-n/solution/powx-n-by-leetcode-solution/</a></p>
 <p>题解一|快速幂|递归：</p>
 <p>时间复杂度：O(logn)，即为递归的层数。<br>空间复杂度：O(logn)，即为递归的层数。这是由于递归的函数调用会使用栈空间。</p>
@@ -2044,8 +2130,9 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</code><
                 new*=new
                 n//=2
             return ans
-
-        return helper(n) if n&gt;=0 else 1/helper(-n)</code></pre>
+                
+        return helper(n) if n&gt;=0 else 1/helper(-n)
+</code></pre>
 <h3 id="69-x的平方根"><a href="#69-x的平方根" class="headerlink" title="69.x的平方根"></a>69.x的平方根</h3><pre><code>链接：https://leetcode-cn.com/problems/sqrtx/
 
 实现 int sqrt(int x) 函数。
@@ -2063,11 +2150,27 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</code><
 输入: 8
 输出: 2
 说明: 8 的平方根是 2.82842..., 
-     由于返回类型是整数，小数部分将被舍去。</code></pre>
-<p>题解一|二分法):</p>
+     由于返回类型是整数，小数部分将被舍去。
+</code></pre>
+<p>题解一|二分法:</p>
 <p>思路分析：使用二分法搜索平方根的思想很简单，就类似于小时候我们看的电视节目中的“猜价格”游戏，高了就往低了猜，低了就往高了猜，范围越来越小。因此，使用二分法猜算术平方根就很自然。</p>
 <p>一个数的平方根肯定不会超过它自己，不过直觉还告诉我们，一个数的平方根最多不会超过它的一半，例如 8的平方根，8 的一半是 4，4^2=16&gt;8，如果这个数越大越是如此，因此我们要计算一下，这个边界是多少。为此，解如下不等式：(a/2)^2 &gt;= a</p>
 <p>时间复杂度：O(logn)<br>空间复杂度：O(1)</p>
+<pre><code>class Solution:
+    def mySqrt(self, x: int) -&gt; int:
+        left,right=1,x//2+1
+        while left&lt;=right:
+            mid=left+(right-left)//2
+            square=mid*mid
+            if square==x:
+                return mid
+            elif square&gt;x:
+                right=mid-1
+            else:
+                left=mid+1
+        return right
+        
+</code></pre>
 <pre><code>class Solution:
     def mySqrt(self, x: int) -&gt; int:
         left=0
@@ -2082,8 +2185,9 @@ n 是 32 位有符号整数，其数值范围是 [−231, 231 − 1] 。</code><
                 right=mid-1
             else:
                 left=mid
-
-        return left</code></pre>
+            
+        return left
+</code></pre>
 <pre><code># 单独照顾0这个特例
 
 class Solution:
@@ -2102,8 +2206,9 @@ class Solution:
                 right=mid-1
             else:
                 left=mid
-
-        return left</code></pre>
+            
+        return left
+</code></pre>
 <pre><code>class Solution:
 
     def mySqrt(self, x):
@@ -2119,7 +2224,8 @@ class Solution:
             else:
                 left = mid
 
-        return left</code></pre>
+        return left
+</code></pre>
 <p>?题解二（牛顿法）:</p>
 <p>牛顿法的应用：一个是求方程的根，另一个是求解最优化问题</p>
 <p>使用牛顿法可以得到一个正实数的算术平方根，因为题目中说“结果只保留整数部分”，因此，我们把使用牛顿法得到的浮点数转换为整数即可。</p>
@@ -2131,14 +2237,17 @@ class Solution:
             return -1
         if x==0:
             return 0
-
+        
         cur=1
         while True:
             pre=cur
             cur=(cur+x/cur)/2
             if abs(cur-pre)&lt; 1e-6:
-                return int(cur)</code></pre>
-<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136. 只出现一次的数字"></a>136. 只出现一次的数字</h3><pre><code>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+                return int(cur)
+</code></pre>
+<h3 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136.只出现一次的数字"></a>136.只出现一次的数字</h3><pre><code>链接：https://leetcode-cn.com/problems/single-number/
+
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
 
 说明：
 
@@ -2148,31 +2257,12 @@ class Solution:
 
 输入: [2,2,1]
 输出: 1
-示例 2:
+示例 2:
 
 输入: [4,1,2,1,2]
-输出: 4</code></pre>
-<p>题解一|位运算：</p>
-<pre><code>class Solution:
-    def singleNumber(self, nums: List[int]) -&gt; int:
-        return reduce(lambda x,y:x^y,nums)</code></pre>
-<pre><code>class Solution:
-    def singleNumber(self, nums: List[int]) -&gt; int:
-        res=0
-        for i in nums:
-            res^=i
-        return res</code></pre>
-<pre><code>class Solution(object):
-    def singleNumber(self, nums):
-        &quot;&quot;&quot;
-        :type nums: List[int]
-        :rtype: int
-        &quot;&quot;&quot;
-        ans=nums[0]
-        for i in range(1,len(nums)):
-            ans^=nums[i]
-        return ans</code></pre>
-<p>题解二|hash:</p>
+输出: 4
+</code></pre>
+<p>题解一|list：</p>
 <pre><code>class Solution:
     def singleNumber(self, nums: List[int]) -&gt; int:
         temp=[]
@@ -2181,7 +2271,10 @@ class Solution:
                 temp.append(i)
             else:
                 temp.remove(i)
-        return temp[0]</code></pre>
+        # return temp[0]
+        return temp.pop()
+</code></pre>
+<p>题解二|hash：</p>
 <pre><code>class Solution:
     def singleNumber(self, nums: List[int]) -&gt; int:
         temp=&#123;&#125;
@@ -2192,7 +2285,69 @@ class Solution:
                 temp[i]+=1
         for k,v in temp.items():
             if v==1:
-                return k</code></pre>
+                return k
+</code></pre>
+<p>题解三|位运算：</p>
+<p>异或运算有以下三个性质。</p>
+<pre><code>任何数和 0 做异或运算，结果仍然是原来的数，即 a⊕0=a。
+任何数和其自身做异或运算，结果是 0，即 a⊕a=0。
+异或运算满足交换律和结合律，即 a⊕b⊕a=b⊕a⊕a=b⊕(a⊕a)=b⊕0=b。
+</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        res=0
+        for i in nums:
+            res^=i
+        return res
+</code></pre>
+<pre><code>from functools import reduce # python2不需要引入
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return reduce(lambda x,y:x^y,nums)
+</code></pre>
+<h3 id="137-只出现一次的数字-II"><a href="#137-只出现一次的数字-II" class="headerlink" title="137.只出现一次的数字 II"></a>137.只出现一次的数字 II</h3><pre><code>链接：https://leetcode-cn.com/problems/single-number-ii/
+
+给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现了三次。找出那个只出现了一次的元素。
+
+说明：
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+示例 1:
+
+输入: [2,2,3,2]
+输出: 3
+示例 2:
+
+输入: [0,1,0,1,0,1,99]
+输出: 99
+</code></pre>
+<p>题解一|hash：</p>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        hash=&#123;&#125;
+        for i in nums:
+            if i not in hash:
+                hash[i]=1
+            else:
+                hash[i]+=1
+        for k,v in hash.items():
+            if v!=3:
+                return k
+</code></pre>
+<p>题解二|数学运算：</p>
+<pre><code>3×(a+b+c)−(a+a+a+b+b+b+c)=2c
+
+时间复杂度：O(N)，遍历输入数组。
+空间复杂度：O(N)，存储 N/3N/3 个元素的集合。
+</code></pre>
+<pre><code>class Solution:
+    def singleNumber(self, nums: List[int]) -&gt; int:
+        return (3*sum(set(nums))-sum(nums))//2
+</code></pre>
+<p>？？？题解三|位运算:</p>
+<p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/or.png"></p>
 <h3 id="166-分数到小数"><a href="#166-分数到小数" class="headerlink" title="166. 分数到小数"></a>166. 分数到小数</h3><pre><code>链接：https://leetcode-cn.com/problems/fraction-to-recurring-decimal/
 
 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。
@@ -2223,18 +2378,20 @@ class Solution:
 
 输入：numerator = 1, denominator = 5
 输出：&quot;0.2&quot;
-
+ 
 
 提示：
 
 -231 &lt;= numerator, denominator &lt;= 231 - 1
-denominator != 0</code></pre>
+denominator != 0
+</code></pre>
 <p>题解一|hash：</p>
 <p>注意：</p>
 <pre><code>正负号；
 是否有小数点，也就是能否被整除；
 如果有小数点的话，是否有循环；
-如果有循环，如何添加括号；</code></pre>
+如果有循环，如何添加括号；
+</code></pre>
 <pre><code>class Solution(object):
     def fractionToDecimal(self, numerator, denominator):
         &quot;&quot;&quot;
@@ -2247,7 +2404,7 @@ denominator != 0</code></pre>
         res=[]
         if numerator ^ denominator &lt; 0:
             res.append(&#39;-&#39;)
-
+        
         numerator=abs(numerator)
         denominator=abs(denominator)
 
@@ -2268,7 +2425,8 @@ denominator != 0</code></pre>
             b*=10
             a,b=divmod(b,denominator)
             res.append(str(a))
-        return &#39;&#39;.join(res)</code></pre>
+        return &#39;&#39;.join(res)
+</code></pre>
 <h3 id="171-Excel表列序号"><a href="#171-Excel表列序号" class="headerlink" title="171.Excel表列序号"></a>171.Excel表列序号</h3><pre><code>链接：https://leetcode-cn.com/problems/excel-sheet-column-number/
 
 给定一个Excel表格中的列名称，返回其相应的列序号。
@@ -2294,7 +2452,8 @@ denominator != 0</code></pre>
 示例 3:
 
 输入: &quot;ZY&quot;
-输出: 701</code></pre>
+输出: 701
+</code></pre>
 <p>题解一：</p>
 <pre><code>class Solution:
     def titleToNumber(self, s: str) -&gt; int: 
@@ -2302,7 +2461,8 @@ denominator != 0</code></pre>
         for each in s:
             num=(ord(each)-65)+1
             res=res*26+num
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="172-阶乘后的零"><a href="#172-阶乘后的零" class="headerlink" title="172. 阶乘后的零"></a>172. 阶乘后的零</h3><pre><code>链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes/
 
 给定一个整数 n，返回 n! 结果尾数中零的数量。
@@ -2317,7 +2477,8 @@ denominator != 0</code></pre>
 输入: 5
 输出: 1
 解释: 5! = 120, 尾数中有 1 个零.
-说明: 你算法的时间复杂度应为 O(log n) 。</code></pre>
+说明: 你算法的时间复杂度应为 O(log n) 。
+</code></pre>
 <p>题解一：</p>
 <p>如果依靠算出阶乘结果，再计算有多少个0，很容易溢出。</p>
 <p>思路：末尾有多少个0，只需要给当前数乘以一个10，就可以加一个0.</p>
@@ -2338,13 +2499,16 @@ denominator != 0</code></pre>
                     tmp//=5
                 else:
                     break
-        return count</code></pre>
+        return count
+</code></pre>
 <p>以上算法超时，继续优化。</p>
 <p>对于一个数的阶乘，5 的因子一定是每隔 5 个数出现一次，也就是下边的样子。</p>
-<pre><code>n! = 1 * 2 * 3 * 4 * (1 * 5) * ... * (2 * 5) * ... * (3 * 5) *... * n</code></pre>
+<pre><code>n! = 1 * 2 * 3 * 4 * (1 * 5) * ... * (2 * 5) * ... * (3 * 5) *... * n
+</code></pre>
 <p>因为每隔 5 个数出现一个 5，所以计算出现了多少个 5，我们只需要用 n/5 就可以算出来。</p>
 <p>但还没有结束，继续分析。</p>
-<pre><code>... * (1 * 5) * ... * (1 * 5 * 5) * ... * (2 * 5 * 5) * ... * (3 * 5 * 5) * ... * n</code></pre>
+<pre><code>... * (1 * 5) * ... * (1 * 5 * 5) * ... * (2 * 5 * 5) * ... * (3 * 5 * 5) * ... * n
+</code></pre>
 <p>每隔 25 个数字，出现的是两个 5，所以除了每隔 5 个数算作一个 5，每隔 25 个数，还需要多算一个 5。</p>
 <p>也就是我们需要再加上 n / 25 个 5。</p>
 <p>同理我们还会发现每隔 5 * 5 * 5 = 125 个数字，会出现 3 个 5，所以我们还需要再加上 n / 125 。</p>
@@ -2365,7 +2529,7 @@ denominator != 0</code></pre>
 
 如果 n 是快乐数就返回 True ；不是，则返回 False 。
 
-
+ 
 
 示例：
 
@@ -2375,7 +2539,8 @@ denominator != 0</code></pre>
 12 + 92 = 82
 82 + 22 = 68
 62 + 82 = 100
-12 + 02 + 02 = 1</code></pre>
+12 + 02 + 02 = 1
+</code></pre>
 <p>思路：</p>
 <pre><code>根据我们的探索，我们猜测会有以下三种可能。
 
@@ -2383,10 +2548,12 @@ denominator != 0</code></pre>
     最终会进入循环。
     值会越来越大，最后接近无穷大。
 
-根据我们的观察，发现不会出现无穷大的情况。</code></pre>
+根据我们的观察，发现不会出现无穷大的情况。
+</code></pre>
 <p>实现：</p>
 <pre><code>给一个数字 n，它的下一个数字是什么？     做数位分离，求平方和。
-按照一系列的数字来判断我们是否进入了一个循环。     每次生成链中的下一个数字时，我们都会检查它是否已经在 HashSet 中。</code></pre>
+按照一系列的数字来判断我们是否进入了一个循环。     每次生成链中的下一个数字时，我们都会检查它是否已经在 HashSet 中。
+</code></pre>
 <p>时间复杂度：O(logn)<br>空间复杂度：O(logn)</p>
 <p>题解一|set：</p>
 <pre><code>class Solution:
@@ -2397,12 +2564,13 @@ denominator != 0</code></pre>
                 n,digits=divmod(n,10)
                 ans+=pow(digits,2)
             return ans
-
+        
         seen=set()
         while n!=1 and n not in seen:
             seen.add(n)
             n=getNext(n)
-        return n==1</code></pre>
+        return n==1
+</code></pre>
 <p>题解二|快慢指针：</p>
 <p>时间复杂度：O(logn)<br>空间复杂度：O(1)</p>
 <pre><code>class Solution:
@@ -2413,27 +2581,28 @@ denominator != 0</code></pre>
                 n,digits=divmod(n,10)
                 ans+=pow(digits,2)
             return ans
-
+        
         slow=n
         fast=getNext(n)
         while fast !=1 and fast != slow:
             slow=getNext(slow)
             fast=getNext(getNext(fast))
-        return fast==1</code></pre>
+        return fast==1
+</code></pre>
 <p>题解三|数学：</p>
 <p>如果这样做，您会发现只有一个循环：44→16→37→58→89→145→42→20→4。所有其他数字都在进入这个循环的链上，或者在进入 1 的链上。</p>
 <p>时间复杂度：O(logn)<br>空间复杂度：O(1)</p>
 <pre><code>class Solution:
     def isHappy(self, n: int) -&gt; bool:
         cycle=&#123;4, 16, 37, 58, 89, 145, 42, 20&#125;
-
+        
         def getNext(n):
             ans=0
             while n&gt;0:
                 n,digits=divmod(n,10)
                 ans+=pow(digits,2)
             return ans
-
+        
         while n!=1 and n not in cycle:
             n=getNext(n)
         return n==1
@@ -2453,11 +2622,12 @@ denominator != 0</code></pre>
 
 输入：n = 1
 输出：0
-
+ 
 
 提示：
 
-0 &lt;= n &lt;= 5 * 106</code></pre>
+0 &lt;= n &lt;= 5 * 106
+</code></pre>
 <p>题解一|暴力|超时：</p>
 <p>注意：题意是小于，而不是小于等于。</p>
 <pre><code>class Solution:
@@ -2473,7 +2643,8 @@ denominator != 0</code></pre>
                     break
             if flag:
                 count+=1
-        return count</code></pre>
+        return count
+</code></pre>
 <p> 题解二|暴力优化：</p>
 <pre><code>class Solution:
    def countPrimes(self, n: int) -&gt; int:
@@ -2490,14 +2661,16 @@ denominator != 0</code></pre>
                    break
            if flag:
                count+=1
-       return count</code></pre>
+       return count
+</code></pre>
 <p>题解三|厄拉多塞筛法:</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-primes/solution/ji-shu-zhi-shu-bao-li-fa-ji-you-hua-shai-fa-ji-you/">https://leetcode-cn.com/problems/count-primes/solution/ji-shu-zhi-shu-bao-li-fa-ji-you-hua-shai-fa-ji-you/</a></p>
 <p>思路：</p>
 <pre><code>选中数字2，并排除2的倍数；
 选中数字3，并排除3的倍数；
 选中数字5，并排除5的倍数；
-...</code></pre>
+...
+</code></pre>
 <pre><code>class Solution:
     def countPrimes(self, n: int) -&gt; int:
         count=0
@@ -2507,7 +2680,8 @@ denominator != 0</code></pre>
                 count+=1
                 for j in range(i+i,n,i):
                     sign[j]=False
-        return count</code></pre>
+        return count
+</code></pre>
 <h3 id="326-3的幂"><a href="#326-3的幂" class="headerlink" title="326. 3的幂"></a>326. 3的幂</h3><pre><code>链接：https://leetcode-cn.com/problems/power-of-three/
 
 给定一个整数，写一个函数来判断它是否是 3 的幂次方。
@@ -2529,7 +2703,8 @@ denominator != 0</code></pre>
 输入: 45
 输出: false
 进阶：
-你能不使用循环或者递归来完成本题吗？</code></pre>
+你能不使用循环或者递归来完成本题吗？
+</code></pre>
 <p>题解一|循环：</p>
 <p>时间复杂度：O(logb(n))，我们的例子中是 O(logn)，除数是用对数表示的。<br>空间复杂度：O(1)，没有使用额外的空间。</p>
 <pre><code>class Solution:
@@ -2538,7 +2713,8 @@ denominator != 0</code></pre>
             return 0
         while n%3==0:
             n//=3
-        return n==1</code></pre>
+        return n==1
+</code></pre>
 <p>题解二|递归：</p>
 <pre><code>class Solution:
     def isPowerOfThree(self, n: int) -&gt; bool:
@@ -2547,7 +2723,8 @@ denominator != 0</code></pre>
         if n&lt;=0 or n%3!=0:
             return False
         n=n//3
-        return self.isPowerOfThree(n)</code></pre>
+        return self.isPowerOfThree(n)
+</code></pre>
 <p>题解三|换底公式：</p>
 <pre><code>class Solution:
     import math
@@ -2556,7 +2733,8 @@ denominator != 0</code></pre>
             return False
         res=math.log10(n)/math.log10(3) # 不能使用math.log()，会有小数
         return True if res-int(res)==0 else False
-        # return (math.log10(n) / math.log10(3))%1 == 0</code></pre>
+        # return (math.log10(n) / math.log10(3))%1 == 0
+</code></pre>
 <h3 id="412-Fizz-Buzz"><a href="#412-Fizz-Buzz" class="headerlink" title="412. Fizz Buzz"></a>412. Fizz Buzz</h3><pre><code>链接：https://leetcode-cn.com/problems/fizz-buzz/
 
 写一个程序，输出从 1 到 n 数字的字符串表示。
@@ -2588,7 +2766,8 @@ n = 15,
     &quot;13&quot;,
     &quot;14&quot;,
     &quot;FizzBuzz&quot;
-]</code></pre>
+]
+</code></pre>
 <p>题解一：</p>
 <pre><code>class Solution:
     def fizzBuzz(self, n: int) -&gt; List[str]:
@@ -2602,7 +2781,8 @@ n = 15,
                 res.append(&#39;Buzz&#39;)
             else:
                 res.append(str(i))
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|递归：</p>
 <pre><code>class Solution:
     def __init__(self):
@@ -2620,7 +2800,8 @@ n = 15,
             self.res.append(&#39;Buzz&#39;)
         else:
             self.res.append(str(n))
-        return self.fizzBuzz(n-1)</code></pre>
+        return self.fizzBuzz(n-1)
+</code></pre>
 <p>题解三|hash：</p>
 <pre><code>class Solution:
     def fizzBuzz(self, n: int) -&gt; List[str]:
@@ -2634,7 +2815,8 @@ n = 15,
             if not tmp:
                 tmp=str(i)
             res.append(tmp)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="1502-判断能否形成等差数列"><a href="#1502-判断能否形成等差数列" class="headerlink" title="1502. 判断能否形成等差数列"></a>1502. 判断能否形成等差数列</h3><pre><code>链接：https://leetcode-cn.com/problems/can-make-arithmetic-progression-from-sequence/
 
 给你一个数字数组 arr 。
@@ -2657,7 +2839,8 @@ n = 15,
 提示：
 
 2 &lt;= arr.length &lt;= 1000
--10^6 &lt;= arr[i] &lt;= 10^6</code></pre>
+-10^6 &lt;= arr[i] &lt;= 10^6
+</code></pre>
 <p>题解一|模拟：</p>
 <p>时间复杂度：O(nlogn)。排序的时间代价为 O(nlogn)，遍历序列的时间代价是 O(n)，故渐进时间复杂度为 O(nlogn+n)=O(nlogn)。<br>空间复杂度：O(logn)。快速排序中使用的栈空间期望是 O(logn)。</p>
 <pre><code>class Solution:
@@ -2666,7 +2849,8 @@ n = 15,
         for i in range(1,len(arr)-1):
             if arr[i]*2 != arr[i-1]+arr[i+1]:
                 return False
-        return True</code></pre>
+        return True
+</code></pre>
 <h3 id="1447-最简分数"><a href="#1447-最简分数" class="headerlink" title="1447. 最简分数"></a>1447. 最简分数</h3><pre><code>链接：https://leetcode-cn.com/problems/simplified-fractions/
 
 给你一个整数 n ，请你返回所有 0 到 1 之间（不包括 0 和 1）满足分母小于等于  n 的 最简 分数 。分数可以以 任意 顺序返回。
@@ -2689,11 +2873,12 @@ n = 15,
 
 输入：n = 1
 输出：[]
-
+ 
 
 提示：
 
-1 &lt;= n &lt;= 100</code></pre>
+1 &lt;= n &lt;= 100
+</code></pre>
 <p>题解一：</p>
 <pre><code>class Solution:
     def simplifiedFractions(self, n: int) -&gt; List[str]:
@@ -2701,7 +2886,7 @@ n = 15,
             while y:
                 x,y=y,x%y
             return x
-
+    
         res=[]
         tmp=set()
         for i in range(2,n+1):
@@ -2712,7 +2897,8 @@ n = 15,
                     continue
                 tmp.add((a,b))
                 res.append(str(a)+&#39;/&#39;+str(b))
-        return res</code></pre>
+        return res
+</code></pre>
 
       
     </div>
@@ -2837,7 +3023,7 @@ n = 15,
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="参考文章：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xiaomangxie&#x2F;p&#x2F;10208441.html参考文章：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;permutations&#x2F;solution&#x2F;hui-su-suan-fa-xiang-jie-by-labuladong-2&#x2F; 九、回溯法回溯法（back tracking）（探索与回溯法）是一种选优搜索法，又称">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-01-21T09:20:06.000Z">
-<meta property="article:modified_time" content="2020-12-19T15:35:18.649Z">
+<meta property="article:modified_time" content="2021-01-11T09:09:33.894Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-19 23:35:18" itemprop="dateModified" datetime="2020-12-19T23:35:18+08:00">2020-12-19</time>
+                <time title="Modified: 2021-01-11 17:09:33" itemprop="dateModified" datetime="2021-01-11T17:09:33+08:00">2021-01-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,21 +226,24 @@
 
 2、选择列表：也就是你当前可以做的选择。
 
-3、结束条件：也就是到达决策树底层，无法再做选择的条件。</code></pre>
+3、结束条件：也就是到达决策树底层，无法再做选择的条件。
+</code></pre>
 <p>回溯算法的框架: 其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」。</p>
 <pre><code>result = []
 def backtrack(路径, 选择列表):
     if 满足结束条件:
         result.add(路径)
         return
-
+    
     for 选择 in 选择列表:
         做选择
         backtrack(路径, 选择列表)
-        撤销选择</code></pre>
+        撤销选择
+</code></pre>
 <pre><code>「路径」，记录你已经做过的选择；
 「选择列表」，表示你当前可以做出的选择；
-「结束条件」就是遍历到树的底层，在这里就是选择列表为空的时候。</code></pre>
+「结束条件」就是遍历到树的底层，在这里就是选择列表为空的时候。
+</code></pre>
 <pre><code>for 选择 in 选择列表:
     # 做选择
     将该选择从选择列表移除
@@ -248,7 +251,8 @@ def backtrack(路径, 选择列表):
     backtrack(路径, 选择列表)
     # 撤销选择
     路径.remove(选择)
-    将该选择再加入选择列表</code></pre>
+    将该选择再加入选择列表
+</code></pre>
 <h3 id="17-电话号码的字母组合"><a href="#17-电话号码的字母组合" class="headerlink" title="17. 电话号码的字母组合"></a>17. 电话号码的字母组合</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
 
 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
@@ -260,7 +264,8 @@ def backtrack(路径, 选择列表):
 输入：&quot;23&quot;
 输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].
 说明:
-尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。</code></pre>
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
+</code></pre>
 <p>题解一|暴力：</p>
 <p>时间复杂度：O(3^M×4^N)，M 是对应三个字母的数字个数，N 是对应四个字母的数字个数。<br>空间复杂度：O(3^M×4^N)，一共要生成 3^M×4^N个结果。</p>
 <pre><code>class Solution:
@@ -280,7 +285,8 @@ def backtrack(路径, 选择列表):
         ans=[&#39;&#39;]
         for num in digits:
             ans=[pre+suf for pre in ans for suf in key_all[num]]
-        return ans</code></pre>
+        return ans
+</code></pre>
 <pre><code>class Solution:
     def letterCombinations(self, digits: str) -&gt; List[str]:
         if not digits:
@@ -302,7 +308,8 @@ def backtrack(路径, 选择列表):
                 for j in hash[num]:
                     tmp.append(i+j)
                 ans=tmp[:]
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>题解二|回溯：</p>
 <p>时间复杂度：O(3^M×4^N)，M 是对应三个字母的数字个数，N 是对应四个字母的数字个数。<br>空间复杂度：O(3^M×4^N)，一共要生成 3^M×4^N个结果。</p>
 <pre><code>class Solution:
@@ -326,14 +333,15 @@ def backtrack(路径, 选择列表):
             if index == len(digits):
                 res.append(&#39;&#39;.join(path))
                 return
-
+            
             digit=int(digits[index]) # hash的key定义是int
             for i in hash.get(digit,[]):
                 path.append(i)
                 traceback(digits,index+1,path)
                 path.pop()
         traceback(digits,0,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def letterCombinations(self, digits: str) -&gt; List[str]:
         if not digits:
@@ -361,7 +369,8 @@ def backtrack(路径, 选择列表):
                 traceback(digits,first+1,path)
                 path.pop()
         traceback(digits,0,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22. 括号生成"></a>22. 括号生成</h3><pre><code>链接：https://leetcode-cn.com/problems/generate-parentheses/
 
 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。
@@ -375,7 +384,8 @@ def backtrack(路径, 选择列表):
        &quot;(())()&quot;,
        &quot;()(())&quot;,
        &quot;()()()&quot;
-     ]</code></pre>
+     ]
+</code></pre>
 <p>题解一|暴力：</p>
 <p>时间复杂度：O(2^{2n}n)，对于 2^{2n}个序列中的每一个，我们用于建立和验证该序列的复杂度为 O(n)。</p>
 <p>空间复杂度：O(n)，除了答案数组之外，我们所需要的空间取决于递归栈的深度，每一层递归函数需要 O(1) 的空间，最多递归 2n 层，因此空间复杂度为 O(n)。</p>
@@ -403,7 +413,8 @@ def backtrack(路径, 选择列表):
 
         ans = []
         generate([])
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>题解二|回溯：</p>
 <p>可以只在序列仍然保持有效时才添加 ‘(‘ or ‘)’，而不是像 方法一 那样每次添加。</p>
 <p>我们可以通过跟踪到目前为止放置的左括号和右括号的数目来做到这一点，</p>
@@ -412,12 +423,12 @@ def backtrack(路径, 选择列表):
 <p>空间复杂度：O(n)，除了答案数组之外，我们所需要的空间取决于递归栈的深度，每一层递归函数需要 O(1) 的空间，最多递归 2n 层，因此空间复杂度为 O(n)。</p>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
-
+        
         def backtrace(S,left,right):
             if len(S) == 2*n:
                 res.append(&#39;&#39;.join(S))
                 return
-
+            
             if left &lt; n:
                 S.append(&#39;(&#39;)
                 backtrace(S,left+1,right)
@@ -429,16 +440,17 @@ def backtrack(路径, 选择列表):
 
         res = []
         backtrace([],0,0)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
-
+        
         def backtrace(S,index):
             if len(S) == 2*n:
                 if index == 0:
                     res.append(&#39;&#39;.join(S))
                 return
-
+            
             if index &lt; n:
                 S.append(&#39;(&#39;)
                 backtrace(S,index+1)
@@ -450,7 +462,8 @@ def backtrack(路径, 选择列表):
 
         res = []
         backtrace([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解三|递归：</p>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
@@ -466,7 +479,8 @@ def backtrack(路径, 选择列表):
                 helper(left,right+1,n,s+&#39;)&#39;)
 
         helper(0,0,n,&#39;&#39;)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><pre><code>链接：https://leetcode-cn.com/problems/sudoku-solver/
 
 编写一个程序，通过已填充的空格来解决数独问题。
@@ -486,7 +500,8 @@ Note:
 
 给定的数独序列只包含数字 1-9 和字符 &#39;.&#39; 。
 你可以假设给定的数独只有唯一解。
-给定数独永远是 9x9 形式的。</code></pre>
+给定数独永远是 9x9 形式的。
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def solveSudoku(self, board: List[List[str]]) -&gt; None:
@@ -524,7 +539,8 @@ Note:
                 if board[(r//3)*3+i//3][(c//3)*3+i%3] == char:
                     return False
             return True
-        backtrace(board,0,0)</code></pre>
+        backtrace(board,0,0)
+</code></pre>
 <h3 id="39-组合总和"><a href="#39-组合总和" class="headerlink" title="39. 组合总和"></a>39. 组合总和</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum/
 
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -551,7 +567,8 @@ candidates 中的数字可以无限制重复被选取。
   [2,2,2,2],
   [2,3,3],
   [3,5]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯:</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/">https://leetcode-cn.com/problems/combination-sum/solution/hui-su-suan-fa-jian-zhi-python-dai-ma-java-dai-m-2/</a></p>
 <pre><code>class Solution:
@@ -559,7 +576,7 @@ candidates 中的数字可以无限制重复被选取。
         size=len(candidates)
         if size==0:
             return []
-
+            
         candidates.sort()
         res=[]
         path=[]
@@ -574,7 +591,8 @@ candidates 中的数字可以无限制重复被选取。
             path.append(candidates[i])
             self.helper(candidates,i,size,residue,res,path)
             path.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def combinationSum(self, candidates: List[int], target: int) -&gt; List[List[int]]:
         res=[]
@@ -593,9 +611,10 @@ candidates 中的数字可以无限制重复被选取。
                 backtrace(candidates,i,path,tmp) # 注意此处i的取值
                 # backtrace(candidates,start,path,tmp) # 结果为[[2,2,3],[2,3,2],[3,2,2],[7]]
                 path.pop()
-
+        
         backtrace(candidates,0,[],target)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="40-组合总和-II"><a href="#40-组合总和-II" class="headerlink" title="40.组合总和 II"></a>40.组合总和 II</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-ii/
 
 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -623,7 +642,8 @@ candidates 中的每个数字在每个组合中只能使用一次。
 [
   [1,2,2],
   [5]
-]</code></pre>
+]
+</code></pre>
 <p>这道题与上一问的区别在于：</p>
 <p>第 39 题：candidates 中的数字可以无限制重复被选取。<br>第 40 题：candidates 中的每个数字在每个组合中只能使用一次。<br>编码的不同在于下一层递归的起始索引不一样。</p>
 <p>第 39 题：还从候选数组的当前索引值开始。<br>第 40 题：从候选数组的当前索引值的下一位开始。<br>相同之处：解集不能包含重复的组合。</p>
@@ -633,7 +653,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
         size=len(candidates)
         if size==0:
             return []
-
+            
         candidates.sort()
         res=[]
         path=[]
@@ -652,11 +672,13 @@ candidates 中的每个数字在每个组合中只能使用一次。
             path.append(candidates[i])
             self.helper(candidates,i+1,size,residue,res,path)
             path.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <p>去重：无论是求组合/子集/排列，只要原数组中含有重复元素，通用一个去重方法：</p>
 <pre><code>1.先排序，使相同元素相邻；
 2.在backtrack的for循环里：
-    if(i&gt;start &amp;&amp; candidates[i]==candidates[i-1]) continue;</code></pre>
+    if(i&gt;start &amp;&amp; candidates[i]==candidates[i-1]) continue;
+</code></pre>
 <pre><code>这个避免重复思想是在是太重要了。
 这个方法最重要的作用是，可以让同一层级，不出现相同的元素。即
                   1
@@ -670,12 +692,12 @@ candidates 中的每个数字在每个组合中只能使用一次。
                  2      这种情况确是允许的
                /
               2  
-
+                
 为何会有这种神奇的效果呢？
 首先 i-1 == i 是用于判定当前元素是否和之前元素相同的语句。这个语句就能砍掉例1。
 可是问题来了，如果把所有当前与之前一个元素相同的都砍掉，那么例二的情况也会消失。 
 因为当第二个2出现的时候，他就和前一个2相同了。
-
+                
 那么如何保留例2呢？
 那么就用i &gt; start 来避免这种情况，你发现例1中的两个2是处在同一个层级上的，
 例2的两个2是处在不同层级上的。
@@ -694,7 +716,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
     if (i - 1 &gt;= start &amp;&amp; candidates[i - 1] == candidates[i]) &#123;
         continue;
     &#125;
-
+    
 3、当前选择的数字不能和下一个选择的数字重复，给子递归传i+1，避免与当前选的i重复。
 
     dfs(i + 1, temp, sum + candidates[i]);
@@ -719,9 +741,10 @@ candidates 中的每个数字在每个组合中只能使用一次。
                 path.append(candidates[i])
                 backtrace(candidates,i+1,path,tmp) # 此处是i+1
                 path.pop()
-
+        
         backtrace(candidates,0,[],target)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="46-全排列"><a href="#46-全排列" class="headerlink" title="46.全排列"></a>46.全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations/
 
 给定一个没有重复数字的序列，返回其所有可能的全排列。
@@ -737,11 +760,12 @@ candidates 中的每个数字在每个组合中只能使用一次。
   [2,3,1],
   [3,1,2],
   [3,2,1]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯:</p>
 <pre><code>class Solution:
     def permute(self, nums: List[int]) -&gt; List[List[int]]:
-
+        
         def backtrack(first=0):
             if first==lens:
                 output.append(nums[:]) # 可以加上return
@@ -749,11 +773,12 @@ candidates 中的每个数字在每个组合中只能使用一次。
                 nums[first],nums[i]=nums[i],nums[first]
                 backtrack(first+1) # 注意：不能使用i+1，否则会出现[[1,2,3],[1,3,2],[2,1,3],[3,2,1]]
                 nums[first],nums[i]=nums[i],nums[first]
-
+        
         lens=len(nums)
         output=[]
         backtrack()
-        return output</code></pre>
+        return output
+</code></pre>
 <pre><code>class Solution:
     def permute(self, nums):
         def backtrack(first=0):
@@ -860,7 +885,8 @@ output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
 2:i,first: 2 1
 2: 1 2
 2:i,first: 2 0
-2: 3 1</code></pre>
+2: 3 1
+</code></pre>
 <h3 id="47-全排列-II"><a href="#47-全排列-II" class="headerlink" title="47. 全排列 II"></a>47. 全排列 II</h3><pre><code>链接：https://leetcode-cn.com/problems/permutations-ii/
 
 给定一个可包含重复数字的序列，返回所有不重复的全排列。
@@ -873,11 +899,12 @@ output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
   [1,1,2],
   [1,2,1],
   [2,1,1]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯：<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
 <pre><code>class Solution:
     def permuteUnie(self, nums: List[int]) -&gt; List[List[int]]:
-
+        
         def backtrack(first=0):
             if first==lens:
                 output.append(nums[:])
@@ -895,29 +922,31 @@ output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
                     return False
                 i+=1
             return True
-
+    
         lens=len(nums)
         output=[]
         backtrack()
-        return output</code></pre>
+        return output
+</code></pre>
 <pre><code>class Solution:
     def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:
-
+        
         def backtrack(first=0):
             if first==lens:
                 output.append(nums[:])
             for i in range(first,lens):
-
+                
                 if nums[i] not in nums[first:i]:
                     nums[first],nums[i]=nums[i],nums[first]
                     backtrack(first+1)
                     nums[first],nums[i]=nums[i],nums[first]
-
+        
         lens=len(nums)
         output=[]
         nums.sort()
         backtrack()
-        return output</code></pre>
+        return output
+</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
 <pre><code>class Solution:
     def permuteUnique(self, nums: List[int]) -&gt; List[List[int]]:
@@ -938,7 +967,8 @@ output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 2, 1], [3, 1, 2]]
         nums.sort()
         used=[False] * len(nums)
         backtrack(0,[],used)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="51-N皇后"><a href="#51-N皇后" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><pre><code>链接：https://leetcode-cn.com/problems/n-queens/
 
 n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
@@ -963,13 +993,14 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
   &quot;...Q&quot;,
   &quot;.Q..&quot;]
 ]
-解释: 4 皇后问题存在两个不同的解法。</code></pre>
+解释: 4 皇后问题存在两个不同的解法。
+</code></pre>
 <p>题解一|回溯法:</p>
 <p>问题是十九世纪著名的数学家高斯1850年提出：在8X8格的国际象棋上摆放八个皇后（棋子），使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
 <p>1、判断每次输入的皇后是否在同一行、同一列或者同一斜线上<br>2、核心算法:<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-queens/solution/51-n-queenshui-su-fa-jing-dian-wen-ti-xiang-jie-by/">https://leetcode-cn.com/problems/n-queens/solution/51-n-queenshui-su-fa-jing-dian-wen-ti-xiang-jie-by/</a></p>
 <pre><code>class Solution:
     def solveNQueens(self, n: int) -&gt; List[List[str]]:
-
+        
         def isValid(row,col):
             for i in range(row):
                 for j in range(n): # 注意此处是n
@@ -990,11 +1021,12 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
                     board[row][col]=&#39;Q&#39;
                     helper(row+1)
                     board[row][col]=&#39;.&#39;
-
+            
         board=[[&#39;.&#39;]*n for i in range(n)]
         res=[]
         helper(0)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def solveNQueens(self, n: int) -&gt; List[List[str]]:
         board,ret=[[&#39;.&#39;]*n for _ in range(n)],[]
@@ -1051,21 +1083,22 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
 
 提示：
 
-皇后，是国际象棋中的棋子，意味着国王的妻子。皇后只做一件事，那就是“吃子”。当她遇见可以吃的棋子时，就迅速冲上去吃掉棋子。当然，她横、竖、斜都可走一或 N-1 步，可进可退。（引用自 百度百科 - 皇后 ）</code></pre>
+皇后，是国际象棋中的棋子，意味着国王的妻子。皇后只做一件事，那就是“吃子”。当她遇见可以吃的棋子时，就迅速冲上去吃掉棋子。当然，她横、竖、斜都可走一或 N-1 步，可进可退。（引用自 百度百科 - 皇后 ）
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def __init__(self):
         self.count=0
 
     def totalNQueens(self, n: int) -&gt; int:
-
+        
         def isValid(row,col):
             for i in range(row):
                 for j in range(n):
                     if board[i][j]==&#39;Q&#39; and (j==col or i-j==row-col or i+j==row+col):
                         return False
             return True
-
+        
         def helper(row):
             if row==n:
                 self.count+=1
@@ -1077,7 +1110,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
                     board[row][col]=&#39;.&#39;
         board=[[&#39;.&#39;]*n for i in range(n)]
         helper(0)
-        return self.count</code></pre>
+        return self.count
+</code></pre>
 <h3 id="60-第k个排列"><a href="#60-第k个排列" class="headerlink" title="60. 第k个排列"></a>60. 第k个排列</h3><pre><code>链接：https://leetcode-cn.com/problems/permutation-sequence/
 
 给出集合 [1,2,3,…,n]，其所有元素共有 n! 种排列。
@@ -1103,7 +1137,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
 示例 2:
 
 输入: n = 4, k = 9
-输出: &quot;2314&quot;</code></pre>
+输出: &quot;2314&quot;
+</code></pre>
 <p>题解一|回溯|超时：</p>
 <pre><code>class Solution:
     def getPermutation(self, n: int, k: int) -&gt; str:
@@ -1126,7 +1161,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         backtrace([],1)
         # print(res)
         tmp=[str(i) for i in res[k-1]]
-        return &#39;&#39;.join(tmp)</code></pre>
+        return &#39;&#39;.join(tmp)
+</code></pre>
 <p>优化|超时：</p>
 <pre><code>class Solution:
     def getPermutation(self, n: int, k: int) -&gt; str:
@@ -1135,7 +1171,7 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         def backtrace(path):
             if len(res) == k:
                 return
-
+            
             if len(path) == n:
                 return res.append(path[:])
 
@@ -1151,7 +1187,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
             return &#39;&#39;
         backtrace([])
         tmp=[str(i) for i in res[-1]]
-        return &#39;&#39;.join(tmp)</code></pre>
+        return &#39;&#39;.join(tmp)
+</code></pre>
 <p>回溯|剪枝：</p>
 <pre><code>class Solution:
     def getPermutation(self, n: int, k: int) -&gt; str:
@@ -1192,13 +1229,14 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
   [1,2],
   [1,3],
   [1,4],
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def combine(self, n: int, k: int) -&gt; List[List[int]]:
         if k == 0 or n==0:
             return []
-
+    
         res=[]
         path=[]
         return self.helper(n,k,res,path,1)
@@ -1212,7 +1250,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
             # self.helper(n,k,res,path,first+1) 
             # [[1,2],[1,3],[1,4],[2,2],[2,3],[2,4],[3,2],[3,3],[3,4],[4,2],[4,3],[4,4]]
             path.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def combine(self, n: int, k: int) -&gt; List[List[int]]:
         res=[]
@@ -1227,7 +1266,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         if not n or not k:
             return []
         backtrace([],1)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def combine(self, n: int, k: int) -&gt; List[List[int]]:
         res=[]
@@ -1244,7 +1284,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         if not n or not k:
             return []
         backtrace([],1)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="78-子集"><a href="#78-子集" class="headerlink" title="78.子集"></a>78.子集</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets/submissions/
 
 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
@@ -1264,7 +1305,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
   [2,3],
   [1,2],
   []
-]</code></pre>
+]
+</code></pre>
 <p>题解一|库函数:</p>
 <pre><code>class Solution:
     def subsets(self, nums: List[int]) -&gt; List[List[int]]:
@@ -1273,7 +1315,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         for i in range(len(nums)+1):
             for j in itertools.combinations(nums,i):
                 res.append(j)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代:</p>
 <pre><code>class Solution:
     def subsets(self, nums: List[int]) -&gt; List[List[int]]:
@@ -1289,18 +1332,19 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
         length=len(nums)
         if length==0:
             return []
-
+        
         res=[]
         path=[]
         return self.helper(nums,res,path,0)
-
+    
     def helper(self,nums,res,path,first=1):
         res.append(path[:])
         for i in range(first,len(nums)):
             path.append(nums[i])
             self.helper(nums,res,path,i+1)
             path.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def subsets(self, nums: List[int]) -&gt; List[List[int]]:
         res=[]
@@ -1311,7 +1355,8 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并
                 backtrace(path,i+1)
                 path.pop()
         backtrace([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="79-单词搜索"><a href="#79-单词搜索" class="headerlink" title="79. 单词搜索"></a>79. 单词搜索</h3><pre><code>链接：https://leetcode-cn.com/problems/word-search/
 
 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
@@ -1330,14 +1375,15 @@ board =
 给定 word = &quot;ABCCED&quot;, 返回 true
 给定 word = &quot;SEE&quot;, 返回 true
 给定 word = &quot;ABCB&quot;, 返回 false
-
+ 
 
 提示：
 
 board 和 word 中只包含大写和小写英文字母。
 1 &lt;= board.length &lt;= 200
 1 &lt;= board[i].length &lt;= 200
-1 &lt;= word.length &lt;= 10^3</code></pre>
+1 &lt;= word.length &lt;= 10^3
+</code></pre>
 <p>题解一|DFS：</p>
 <pre><code>class Solution:
     def exist(self, board: List[List[str]], word: str) -&gt; bool:
@@ -1358,7 +1404,8 @@ board 和 word 中只包含大写和小写英文字母。
             for j in range(n):
                 if dfs(board,word,i,j,0):
                     return True
-        return False</code></pre>
+        return False
+</code></pre>
 <h3 id="90-子集-II"><a href="#90-子集-II" class="headerlink" title="90. 子集 II"></a>90. 子集 II</h3><pre><code>链接：https://leetcode-cn.com/problems/subsets-ii/submissions/
 
 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
@@ -1376,19 +1423,20 @@ board 和 word 中只包含大写和小写英文字母。
   [2,2],
   [1,2],
   []
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯:</p>
 <pre><code>class Solution:
     def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:
         length=len(nums)
         if length==0:
             return []
-
+        
         nums.sort() # 一定需要先排序，否则结果中有重复的。
         res=[]
         path=[]
         return self.helper(nums,res,path,0)
-
+    
     def helper(self,nums,res,path,first=1):
         res.append(path[:])
         for i in range(first,len(nums)):
@@ -1397,7 +1445,8 @@ board 和 word 中只包含大写和小写英文字母。
             path.append(nums[i])
             self.helper(nums,res,path,i+1)
             path.pop()
-        return res</code></pre>
+        return res
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/">https://leetcode-cn.com/problems/subsets-ii/solution/hui-su-de-duo-chong-xie-fa-duo-ti-yu-jing-by-zhang/</a></p>
 <pre><code>class Solution:
     def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]:
@@ -1412,7 +1461,8 @@ board 和 word 中只包含大写和小写英文字母。
                 backtrace(path,i+1)
                 path.pop()
         backtrace([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="93-复原IP地址"><a href="#93-复原IP地址" class="headerlink" title="93.复原IP地址"></a>93.复原IP地址</h3><pre><code>链接：https://leetcode-cn.com/problems/restore-ip-addresses/
 
 给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
@@ -1420,20 +1470,21 @@ board 和 word 中只包含大写和小写英文字母。
 示例:
 
 输入: &quot;25525511135&quot;
-输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]</code></pre>
+输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;]
+</code></pre>
 <p>注意：<br>    IP的格式,每位是在0~255之间,<br>    不能出现以0开头的两位以上数字,比如012,08…</p>
 <p>题解一|暴力:</p>
 <pre><code>class Solution:
     def restoreIpAddresses(self, s: str) -&gt; List[str]:
         n=len(s)
         res=[]
-
+        
         def helper(tmp):
             if tmp==&#39;&#39; or (tmp[0]==&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:
             # if not tmp or (tmp[0]==&#39;0&#39; and len(tmp)&gt;1) or int(tmp)&gt;255:
                 return False
             return True
-
+        
         for i in range(3):
             for j in range(i+1,i+4):
                 for k in range(j+1,j+4):
@@ -1445,7 +1496,8 @@ board 和 word 中只包含大写和小写英文字母。
 
                         if all(map(helper,[tmp1,tmp2,tmp3,tmp4])):
                             res.append(tmp1+&#39;.&#39;+tmp2+&#39;.&#39;+tmp3+&#39;.&#39;+tmp4)
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|回溯:</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/">https://leetcode-cn.com/problems/restore-ip-addresses/solution/shou-hua-tu-jie-huan-yuan-dfs-hui-su-de-xi-jie-by-/</a></p>
 <p>思路:</p>
@@ -1459,7 +1511,8 @@ board 和 word 中只包含大写和小写英文字母。
 有三种选择，做了选择后，又面临三种选择：再切出一种长度的片段作为第二个片段。
 这会像树一样向下分支，我们用 DFS 去遍历所有选择，并且是回溯，为什么是回溯？
 因为某一步的选择可能来到一个错误的状态，得不到正确的结果，不要往下做了，要撤销最后一个选择，回到选择前的状态，去试另一个选择。
-大概像是：选择、探索、撤销选择的过程。好，我们现在了解了回溯的要点1——选择。</code></pre>
+大概像是：选择、探索、撤销选择的过程。好，我们现在了解了回溯的要点1——选择。
+</code></pre>
 <p>回溯的要点2——约束:</p>
 <pre><code>约束限制了我们的搜索分支，这道题的约束条件是：
 
@@ -1467,16 +1520,19 @@ board 和 word 中只包含大写和小写英文字母。
     片段的值范围是 0~255
     不能是 &quot;0x&quot;、&quot;0xx&quot; 形式（这个是测试用例告诉我们的）
 
-我们要用这些约束在DFS中充分地剪枝，规避掉一些选择，避免去搜索一些不会产生正确答案的分支。</code></pre>
+我们要用这些约束在DFS中充分地剪枝，规避掉一些选择，避免去搜索一些不会产生正确答案的分支。
+</code></pre>
 <p>回溯的要点3——目标:</p>
 <pre><code>我们的目标决定了我们 DFS 什么时候捕捉答案，什么时候砍掉死支，不继续走了返回出来。
 我们目标是生成 4 个有效片段，并且要用光 IP 字符串的字符。
 当遍历的节点满足该条件时，说明已经生成了一个有效组合，推入结果数组。然后回溯，继续探索。
-生成了4个有效片段，但没用光所有字符，不是有效的组合，不继续往下递归，直接返回，提前回溯。</code></pre>
+生成了4个有效片段，但没用光所有字符，不是有效的组合，不继续往下递归，直接返回，提前回溯。
+</code></pre>
 <p>定义dfs函数:</p>
 <pre><code>dfs函数传什么，用什么代表不同节点的状态？
 选择切出一个长度的片段后，剩余的子串继续递归，可以传子串，也可以传指向起始位置的指针，加上当前已经生成的片段数组，作为状态，传入 dfs 函数。
-dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」。</code></pre>
+dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」。
+</code></pre>
 <pre><code>class Solution:
     def restoreIpAddresses(self, s: str) -&gt; List[str]:
         res=[]
@@ -1497,7 +1553,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
                 helper(path,first+i)
                 path.pop()
         helper([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def restoreIpAddresses(self, s: str) -&gt; List[str]:
         res=[]
@@ -1516,7 +1573,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
                     return
                 helper(path+[tmp],first+i)
         helper([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def restoreIpAddresses(self, s: str) -&gt; List[str]:
         def __segment(s,left,right):
@@ -1537,7 +1595,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
                 if split == 4:
                     res.append(&#39;&#39;.join(path))
                 return
-            if len(s) - first</code></pre>
+            if len(s) - first
+</code></pre>
 <h3 id="216-组合总和-III"><a href="#216-组合总和-III" class="headerlink" title="216. 组合总和 III"></a>216. 组合总和 III</h3><pre><code>链接：https://leetcode-cn.com/problems/combination-sum-iii/
 
 找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
@@ -1553,7 +1612,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
 示例 2:
 
 输入: k = 3, n = 9
-输出: [[1,2,6], [1,3,5], [2,3,4]]</code></pre>
+输出: [[1,2,6], [1,3,5], [2,3,4]]
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def combinationSum3(self, k: int, n: int) -&gt; List[List[int]]:
@@ -1571,7 +1631,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
         if not k or not n:
             return []
         backtrace([],1,n)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="357-计算各个位数不同的数字个数"><a href="#357-计算各个位数不同的数字个数" class="headerlink" title="357. 计算各个位数不同的数字个数"></a>357. 计算各个位数不同的数字个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
 
 给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x &lt; 10n 。
@@ -1580,7 +1641,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
 
 输入: 2
 输出: 91 
-解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。</code></pre>
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。
+</code></pre>
 <p>题解一|动态规划：</p>
 <pre><code>class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
@@ -1595,7 +1657,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
             dp1[i]=dp2[i]+dp1[i-1]
         if n&gt;=11:
             return dp[10]
-        return dp1[n]</code></pre>
+        return dp1[n]
+</code></pre>
 <p>题解二|数学：</p>
 <p>这是一道数学题，很容易发现规律：</p>
 <p>如果 n = 1，ans = 10；<br>如果 n = 2，考虑两位数都不相同，有 9 * 9 = 81 种情况（第一个数字不能以 0 开头，第二个数字可以有 0），再加上 n = 1 时的情况即可得到 ans = 91；<br>如果 n = 3，考虑三位数都不相同，有 9 * 9 * 8 = 648 种情况（第一个数字不能以 0 开头），再加上 n = 2 时的情况即可得到 ans = 739；<br>以此类推即可。</p>
@@ -1609,12 +1672,13 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
                 res *= factor
                 factor -= 1
             return res
-
+        
         pre = i = 1
         while i &lt;= n and i &lt;= 10:  # i要&lt;=10
             pre += 9 * factorial(i-1)  # i位不同的数字与前面结果累加
             i += 1
-        return pre</code></pre>
+        return pre
+</code></pre>
 <p>??题解三|回溯：</p>
 <pre><code>class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
@@ -1633,7 +1697,8 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
             return count
         if not n:
             return 1
-        return backtrace(0,used)</code></pre>
+        return backtrace(0,used)
+</code></pre>
 <h3 id="401-二进制手表"><a href="#401-二进制手表" class="headerlink" title="401. 二进制手表"></a>401. 二进制手表</h3><pre><code>链接：https://leetcode-cn.com/problems/binary-watch/
 
 二进制手表顶部有 4 个 LED 代表 小时（0-11），底部的 6 个 LED 代表 分钟（0-59）。
@@ -1649,14 +1714,15 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
 
 输入: n = 1
 返回: [&quot;1:00&quot;, &quot;2:00&quot;, &quot;4:00&quot;, &quot;8:00&quot;, &quot;0:01&quot;, &quot;0:02&quot;, &quot;0:04&quot;, &quot;0:08&quot;, &quot;0:16&quot;, &quot;0:32&quot;]
-
+ 
 
 提示：
 
 输出的顺序没有要求。
 小时不会以零开头，比如 “01:00” 是不允许的，应为 “1:00”。
 分钟必须由两位数组成，可能会以零开头，比如 “10:2” 是无效的，应为 “10:02”。
-超过表示范围（小时 0-11，分钟 0-59）的数据将会被舍弃，也就是说不会出现 &quot;13:00&quot;, &quot;0:61&quot; 等时间。</code></pre>
+超过表示范围（小时 0-11，分钟 0-59）的数据将会被舍弃，也就是说不会出现 &quot;13:00&quot;, &quot;0:61&quot; 等时间。
+</code></pre>
 <p>题解一|暴力：</p>
 <pre><code>class Solution:
     def readBinaryWatch(self, num: int) -&gt; List[str]:
@@ -1665,14 +1731,16 @@ dfs 函数做的是「按一定规则，切割从指针 start 开始的子串」
             for j in range(60):
                 if (bin(i)+bin(j)).count(&#39;1&#39;) == num:
                     res.append(&#39;%d:%02d&#39;%(i,j))
-        return res     </code></pre>
+        return res     
+</code></pre>
 <p>扩展：</p>
 <pre><code>%d就是普通的输出了整形数
 %2d是将数字按宽度为2，采用右对齐方式输出，若数据位数不到2位，则左边补空格。
 %02d，和%2d差不多，只不过左边补0
 
 %-2d将数字按宽度为2，采用左对齐方式输出，若数据位数不到2位，则右边补空格
-%.2d 输出整形时最少输出2位，如不够前面以0占位。如输出2时变成02，200时只输出200；输出浮点型时（%.2f）小数点后强制2位输出</code></pre>
+%.2d 输出整形时最少输出2位，如不够前面以0占位。如输出2时变成02，200时只输出200；输出浮点型时（%.2f）小数点后强制2位输出
+</code></pre>
 <p>比如：</p>
 <pre><code>num = 1
 print(&quot;%d&quot; % (num))结果为：   （1）
@@ -1680,11 +1748,12 @@ print(&quot;%2d&quot; % (num))结果为：  （ 1）
 print(&quot;%02d&quot; % (num))结果为： （01）
 print(&quot;%-2d&quot; % (num))结果为： （1 ）
 print(&quot;%.2d&quot; % (num))结果为： （01）
-print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
+print(&quot;%.2d&quot; % (200))结果为： （200）
+</code></pre>
 <p>题解二|回溯</p>
 <pre><code>class Solution:
     def readBinaryWatch(self, num: int) -&gt; List[str]:
-
+        
         def traceback(num,index,status):
             if num==0:
                 hour=status[0]+2*status[1]+4*status[2]+8*status[3]
@@ -1698,7 +1767,8 @@ print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
                 status[i]=0
         res=[]
         traceback(num,0,[0]*10)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>    def readBinaryWatch(self, num: int) -&gt; List[str]:
         &quot;&quot;&quot;
         思路： 递归回溯法
@@ -1712,21 +1782,22 @@ print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
             num : 还剩下的可点亮的灯的数量
             index: 是当前选择点亮哪一个灯
             status: 记录是哪些位置的灯被点亮了
-
+            
             &quot;&quot;&quot;
             if num == 0: # 没有可以点亮的灯了，记录当前结果，并返回
                 h = sum([i*j for i,j in zip(hour, status[:4])])
                 m = sum([i*j for i,j in zip(minute, status[4:])])
-                if h &lt; 12 and m &lt; 60:
+                if h &lt; 12 and m &lt; 60: 
                     res.append(&#39;%d:%02d&#39; % (h, m))
                 return
             for i in range(index, 10):
                 status[i] = 1 # 做出下一步的选择
                 traceback(num-1, i+1, status) # 在剩下的灯里面去点亮num-1个灯
                 status[i] = 0 # 返回到上一步选择时的状态            
-
+        
         traceback(num, 0, [0] * 10)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="784-字母大小写全排列"><a href="#784-字母大小写全排列" class="headerlink" title="784. 字母大小写全排列"></a>784. 字母大小写全排列</h3><pre><code>链接：https://leetcode-cn.com/problems/letter-case-permutation/
 
 给定一个字符串S，通过将字符串S中的每个字母转变大小写，我们可以获得一个新的字符串。返回所有可能得到的字符串集合。
@@ -1743,7 +1814,8 @@ print(&quot;%.2d&quot; % (200))结果为： （200）</code></pre>
 注意：
 
 S 的长度不超过12。
-S 仅由数字和字母组成。</code></pre>
+S 仅由数字和字母组成。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def letterCasePermutation(self, S: str) -&gt; List[str]:
@@ -1759,7 +1831,8 @@ S 仅由数字和字母组成。</code></pre>
             else:
                 dfs(s[1:],tmp+[s[0]])
         dfs(S,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <p>题解二|迭代</p>
 <pre><code>class Solution:
     def letterCasePermutation(self, S: str) -&gt; List[str]:
@@ -1774,7 +1847,8 @@ S 仅由数字和字母组成。</code></pre>
                     tmp.append(r+c.upper())
                     tmp.append(r+c.lower())
                 res=tmp[:]
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="剑指-Offer-38-字符串的排列"><a href="#剑指-Offer-38-字符串的排列" class="headerlink" title="剑指 Offer 38. 字符串的排列"></a>剑指 Offer 38. 字符串的排列</h3><pre><code>链接：https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/
 
 输入一个字符串，打印出该字符串中字符的所有排列。
@@ -1785,17 +1859,18 @@ S 仅由数字和字母组成。</code></pre>
 
 输入：s = &quot;abc&quot;
 输出：[&quot;abc&quot;,&quot;acb&quot;,&quot;bac&quot;,&quot;bca&quot;,&quot;cab&quot;,&quot;cba&quot;]
-
+ 
 
 限制：
 
-1 &lt;= s 的长度 &lt;= 8</code></pre>
+1 &lt;= s 的长度 &lt;= 8
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def permutation(self, s: str) -&gt; List[str]:
         res=[]
         c=list(s)
-
+        
         def backtrace(first):
             if len(s) == first:  # 不能使用len(s)==len(c)作为结束条件，因为c其实没变。
                 return res.append(&#39;&#39;.join(c))
@@ -1808,7 +1883,8 @@ S 仅由数字和字母组成。</code></pre>
                 backtrace(first+1)
                 c[first],c[i]=c[i],c[first]
         backtrace(0)
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def permutation(self, s: str) -&gt; List[str]:
         res=[]
@@ -1816,7 +1892,7 @@ S 仅由数字和字母组成。</code></pre>
         list_s.sort()
         self.sort_s=&#39;&#39;.join(list_s)
         used=[False]*len(s)        
-
+        
         def backtrace(path,first):
             if len(self.sort_s) == len(path): 
                 return res.append(&#39;&#39;.join(path[:]))
@@ -1831,7 +1907,8 @@ S 仅由数字和字母组成。</code></pre>
                 path.pop()
                 used[i]=False
         backtrace([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="面试题-08-04-幂集"><a href="#面试题-08-04-幂集" class="headerlink" title="面试题 08.04. 幂集"></a>面试题 08.04. 幂集</h3><pre><code>幂集。编写一种方法，返回某集合的所有子集。集合中不包含重复的元素。
 
 说明：解集不能包含重复的子集。
@@ -1849,7 +1926,8 @@ S 仅由数字和字母组成。</code></pre>
   [2,3],
   [1,2],
   []
-]</code></pre>
+]
+</code></pre>
 <p>题解一|回溯：</p>
 <pre><code>class Solution:
     def subsets(self, nums: List[int]) -&gt; List[List[int]]:
@@ -1861,7 +1939,9 @@ S 仅由数字和字母组成。</code></pre>
                 backtrace(path,i+1)
                 path.pop()
         backtrace([],0)
-        return res</code></pre>
+        return res
+        
+</code></pre>
 <h3 id="面试题-08-07-无重复字符串的排列组合"><a href="#面试题-08-07-无重复字符串的排列组合" class="headerlink" title="面试题 08.07. 无重复字符串的排列组合"></a>面试题 08.07. 无重复字符串的排列组合</h3><pre><code>无重复字符串的排列组合。编写一种方法，计算某字符串的所有排列组合，字符串每个字符均不相同。
 
 示例1:
@@ -1875,13 +1955,14 @@ S 仅由数字和字母组成。</code></pre>
 提示:
 
 字符都是英文字母。
-字符串长度在[1, 9]之间。</code></pre>
+字符串长度在[1, 9]之间。
+</code></pre>
 <p>题解一|回溯:</p>
 <pre><code>class Solution:
     def permutation(self, S: str) -&gt; List[str]:
         res=[]
         c=list(S)
-
+        
         def backtrace(first):
             if len(S) == first:  # 不能使用len(s)==len(c)作为结束条件，因为c其实没变。
                 return res.append(&#39;&#39;.join(c))
@@ -1890,7 +1971,8 @@ S 仅由数字和字母组成。</code></pre>
                 backtrace(first+1)
                 c[first],c[i]=c[i],c[first]
         backtrace(0)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="面试题-08-09-括号"><a href="#面试题-08-09-括号" class="headerlink" title="面试题 08.09. 括号"></a>面试题 08.09. 括号</h3><pre><code>括号。设计一种算法，打印n对括号的所有合法的（例如，开闭一一对应）组合。
 
 说明：解集不能包含重复的子集。
@@ -1903,7 +1985,8 @@ S 仅由数字和字母组成。</code></pre>
   &quot;(())()&quot;,
   &quot;()(())&quot;,
   &quot;()()()&quot;
-]</code></pre>
+]
+</code></pre>
 <pre><code>class Solution:
     def generateParenthesis(self, n: int) -&gt; List[str]:
         res=[]
@@ -1922,7 +2005,8 @@ S 仅由数字和字母组成。</code></pre>
                 path.pop()
             print(path)
         backtrace([],0)
-        return res</code></pre>
+        return res
+</code></pre>
 
     </div>
 
@@ -2060,7 +2144,7 @@ S 仅由数字和字母组成。</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

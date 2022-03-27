@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"gongyanli.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="十、图???133.克隆图链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;clone-graph&#x2F;  给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。  图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。  class Node &amp;#123;     public int val;     public List&amp;lt">
+  <meta name="description" content="十、图133.克隆图链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;clone-graph&#x2F;  给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。  图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。  class Node &amp;#123;     public int val;     public List&lt;No">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode-10-图-二-岛屿系列">
 <meta property="og:url" content="http://gongyanli.com/LeetCode-10-%E5%9B%BE-%E4%BA%8C-%E5%B2%9B%E5%B1%BF%E7%B3%BB%E5%88%97/index.html">
 <meta property="og:site_name" content="茉莉Python">
-<meta property="og:description" content="十、图???133.克隆图链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;clone-graph&#x2F;  给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。  图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。  class Node &amp;#123;     public int val;     public List&amp;lt">
+<meta property="og:description" content="十、图133.克隆图链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;clone-graph&#x2F;  给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。  图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。  class Node &amp;#123;     public int val;     public List&lt;No">
 <meta property="og:locale">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/grid.jpg">
 <meta property="article:published_time" content="2020-02-17T06:55:49.000Z">
-<meta property="article:modified_time" content="2020-12-21T11:19:49.712Z">
+<meta property="article:modified_time" content="2021-06-16T12:55:25.481Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-21 19:19:49" itemprop="dateModified" datetime="2020-12-21T19:19:49+08:00">2020-12-21</time>
+                <time title="Modified: 2021-06-16 20:55:25" itemprop="dateModified" datetime="2021-06-16T20:55:25+08:00">2021-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="十、图"><a href="#十、图" class="headerlink" title="十、图"></a>十、图</h2><h3 id="133-克隆图"><a href="#133-克隆图" class="headerlink" title="???133.克隆图"></a>???133.克隆图</h3><pre><code>链接：https://leetcode-cn.com/problems/clone-graph/
+        <h2 id="十、图"><a href="#十、图" class="headerlink" title="十、图"></a>十、图</h2><h3 id="133-克隆图"><a href="#133-克隆图" class="headerlink" title="133.克隆图"></a>133.克隆图</h3><pre><code>链接：https://leetcode-cn.com/problems/clone-graph/
 
 给你无向 连通 图中一个节点的引用，请你返回该图的 深拷贝（克隆）。
 
@@ -230,8 +230,10 @@
 class Node &#123;
     public int val;
     public List&lt;Node&gt; neighbors;
-&#125;</code></pre>
-<p>题解一|dfs|hash：<br>思路：</p>
+&#125;
+</code></pre>
+<p>题解一|dfs|hash：</p>
+<p>思路：</p>
 <p>1、使用一个哈希表存储所有已被访问和克隆的节点。哈希表中的 key 是原始图中的节点，value 是克隆图中的对应节点。</p>
 <p>2、从给定节点开始遍历图。如果某个节点已经被访问过，则返回其克隆图中的对应节点。我们给定无向边边 A - B，表示 A 能连接到 B，且 B 能连接到 A。如果不对访问过的节点做标记，则会陷入死循环中。</p>
 <p>3、如果当前访问的节点不在哈希表中，则创建它的克隆节点并存储在哈希表中。注意：在进入递归之前，必须先创建克隆节点并保存在哈希表中。如果不保证这种顺序，可能会在递归中再次遇到同一个节点，再次遍历该节点时，陷入死循环。</p>
@@ -257,16 +259,10 @@ class Solution:
             for n in node.neighbors:
                 clone.neighbors.append(dfs(n))
             return clone
-        return dfs(node)</code></pre>
+        return dfs(node)
+</code></pre>
 <p>题解二|bfs：</p>
 <pre><code>&quot;&quot;&quot;
-# Definition for a Node.
-class Node:
-    def __init__(self, val = 0, neighbors = []):
-        self.val = val
-        self.neighbors = neighbors
-&quot;&quot;&quot;
-&quot;&quot;&quot;
 # Definition for a Node.
 class Node:
     def __init__(self, val = 0, neighbors = None):
@@ -288,7 +284,8 @@ class Solution:
                     visited[neighbor]=Node(neighbor.val,[])
                     queue.append(neighbor)
                 visited[n].neighbors.append(visited[neighbor]) # 更新当前节点的邻居列表
-        return visited[node]</code></pre>
+        return visited[node]
+</code></pre>
 <h3 id="200-岛屿数量"><a href="#200-岛屿数量" class="headerlink" title="200. 岛屿数量"></a>200. 岛屿数量</h3><pre><code>链接：https://leetcode-cn.com/problems/number-of-islands/
 
 给你一个由 &#39;1&#39;（陆地）和 &#39;0&#39;（水）组成的的二维网格，请你计算网格中岛屿的数量。
@@ -297,7 +294,7 @@ class Solution:
 
 此外，你可以假设该网格的四条边均被水包围。
 
-
+ 
 
 示例 1：
 
@@ -317,14 +314,15 @@ class Solution:
   [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;]
 ]
 输出：3
-
+ 
 
 提示：
 
 m == grid.length
 n == grid[i].length
 1 &lt;= m, n &lt;= 300
-grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
+grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;
+</code></pre>
 <p>题解一|DFS：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/">https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/</a></p>
 <pre><code>class Solution:
@@ -339,7 +337,7 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
             helper(grid,i+1,j) # 下
             helper(grid,i,j-1) # 左
             helper(grid,i,j+1) # 右
-
+        
         if not grid or len(grid[0])==0:
             return 0
         count=0
@@ -348,7 +346,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 if grid[i][j]==&#39;1&#39;:
                     count+=1
                     helper(grid,i,j)
-        return count</code></pre>
+        return count
+</code></pre>
 <p>题解二|BFS|超时：</p>
 <pre><code>class Solution:
     def numIslands(self, grid: List[List[str]]) -&gt; int:
@@ -367,7 +366,45 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 if grid[i][j]==&#39;1&#39;:
                     bfs(grid,i,j)
                     count+=1
-        return count</code></pre>
+        return count
+</code></pre>
+<pre><code>class Solution:
+    def __init__(self) -&gt; None:
+        self.directions=[(1,0),(-1,0),(0,1),(0,-1)]
+
+    def inArea(self,i,j,rows,cols):
+        return i&gt;=0 and i&lt;rows and j&gt;=0 and j&lt;cols
+
+    def numIslands(self, grid: List[List[str]]) -&gt; int:
+        if not grid or not grid[0]:
+            return 0
+            
+        m,n=len(grid),len(grid[0])
+
+        count=0
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==&#39;1&#39;:
+                    grid[i][j]==&#39;2&#39;
+                    self.bfs(grid,i,j,m,n)
+                    count+=1
+        return count
+
+    def bfs(self,grid,i,j,rows,cols):
+        queue=[(i,j)]
+        while queue:
+            front=queue.pop(0)
+            x=front[0]
+            y=front[1]
+            for direction in self.directions:
+                newx=x+direction[0]
+                newy=y+direction[1]
+                if self.inArea(newx,newy,rows,cols) and grid[newx][newy]==&#39;1&#39;:
+                    grid[newx][newy]=&#39;2&#39;
+                    queue.append((newx,newy))
+        return True
+</code></pre>
 <h3 id="463-岛屿的周长"><a href="#463-岛屿的周长" class="headerlink" title="463. 岛屿的周长"></a>463. 岛屿的周长</h3><pre><code>链接：https://leetcode-cn.com/problems/island-perimeter/
 
 给定一个包含 0 和 1 的二维网格地图，其中 1 表示陆地 0 表示水域。
@@ -386,7 +423,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
 
 输出: 16
 
-解释: 它的周长是下面图片中的 16 个黄色的边：</code></pre>
+解释: 它的周长是下面图片中的 16 个黄色的边：
+</code></pre>
 <p>题解一|DFS：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/grid.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/grid.jpg"></p>
 <p>当我们的 dfs 函数因为「坐标 (r, c) 超出网格范围」返回的时候，实际上就经过了一条黄色的边；而当函数因为「当前格子是海洋格子」返回的时候，实际上就经过了一条蓝色的边。</p>
@@ -412,7 +450,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
         for x in range(m):
             for y in range(n):
                 if grid[x][y]==1:
-                    return dfs(grid,x,y)</code></pre>
+                    return dfs(grid,x,y)
+</code></pre>
 <h3 id="695-岛屿的最大面积"><a href="#695-岛屿的最大面积" class="headerlink" title="695. 岛屿的最大面积"></a>695. 岛屿的最大面积</h3><pre><code>链接：https://leetcode-cn.com/problems/max-area-of-island/
 
 给定一个包含了一些 0 和 1 的非空二维数组 grid 。
@@ -438,7 +477,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
 [[0,0,0,0,0,0,0,0]]
 对于上面这个给定的矩阵, 返回 0。
 
-注意: 给定的矩阵grid 的长度和宽度都不超过 50。</code></pre>
+注意: 给定的矩阵grid 的长度和宽度都不超过 50。
+</code></pre>
 <p>题解一|DFS：</p>
 <pre><code>class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -&gt; int:
@@ -449,6 +489,7 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 return 0
             grid[i][j]=2
             return 1+dfs(grid,i+1,j)+dfs(grid,i-1,j)+dfs(grid,i,j+1)+dfs(grid,i,j-1)
+            
         m=len(grid)
         n=len(grid[0])
         area=0
@@ -459,7 +500,86 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 if grid[i][j]==1:
                     tmp=dfs(grid,i,j)
                     area=max(area,tmp)
-        return area</code></pre>
+        return area
+</code></pre>
+<p>题解二|bfs：</p>
+<p>时间复杂度：O(m*n)，这里 m 表示二维矩阵的行数、n 表示二维矩阵的列数，最坏情况下每一个单元格都会被遍历一次；<br>空间复杂度：O(m)<em>n，数组 visited 的大小为<br>m×n，队列的大小最多为 m</em>n。</p>
+<pre><code>class Solution:
+    def __init__(self) -&gt; None:
+        self.directions=[(0,1),(0,-1),(1,0),(-1,0)]
+
+    def inArea(self,i,j,rows,cols):
+        return i&gt;=0 and i&lt;rows and j&gt;=0 and j&lt;cols
+
+    def maxAreaOfIsland(self, grid: List[List[int]]) -&gt; int:
+        m,n=len(grid),len(grid[0])
+        visited=[[False]*n for i in range(m)]
+        maxArea=0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==1 and not visited[i][j]:
+                    maxArea=max(maxArea,self.bfs(grid,i,j,m,n,visited))
+        return maxArea
+    
+    def bfs(self,grid,i,j,rows,cols,visited):
+        count=0
+        queue=[(i,j)]
+        visited[i][j]=True
+        while queue:
+            front=queue.pop(0)
+            x=front[0]
+            y=front[1]
+            count+=1
+            for direction in self.directions:
+                newx=x+direction[0]
+                newy=y+direction[1]
+
+                if self.inArea(newx,newy,rows,cols) and grid[newx][newy] == 1 and not visited[newx][newy]:
+                    queue.append((newx,newy))
+                    visited[newx][newy]=True
+        return count
+</code></pre>
+<p>转换为一维向量：</p>
+<pre><code>class Solution:
+    def __init__(self) -&gt; None:
+        self.directions=[(0,1),(0,-1),(1,0),(-1,0)]
+
+    def inArea(self,i,j,rows,cols):
+        return i&gt;=0 and i&lt;rows and j&gt;=0 and j&lt;cols
+
+    def getIndex(self,x,y,cols):
+        return x*cols+y
+
+    def maxAreaOfIsland(self, grid: List[List[int]]) -&gt; int:
+        m,n=len(grid),len(grid[0])
+        visited=[False]* (m*n)
+        maxArea=0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==1 and not visited[self.getIndex(i,j,n)]:
+                    maxArea=max(maxArea,self.bfs(grid,i,j,m,n,visited))
+        return maxArea
+    
+    def bfs(self,grid,i,j,rows,cols,visited):
+        count=0
+        index=self.getIndex(i,j,cols)
+        queue=[index]
+        visited[index]=True
+        while queue:
+            front=queue.pop(0)
+            x=front//cols
+            y=front%cols
+            count+=1
+            for direction in self.directions:
+                newx=x+direction[0]
+                newy=y+direction[1]
+                newindex=self.getIndex(newx,newy,cols)
+
+                if self.inArea(newx,newy,rows,cols) and grid[newx][newy] == 1 and not visited[newindex]:
+                    queue.append(newindex)
+                    visited[newindex]=True
+        return count
+</code></pre>
 <h3 id="827-最大人工岛"><a href="#827-最大人工岛" class="headerlink" title="827. 最大人工岛"></a>827. 最大人工岛</h3><pre><code>链接：https://leetcode-cn.com/problems/making-a-large-island/
 
 在二维地图上， 0代表海洋， 1代表陆地，我们最多只能将一格 0 海洋变成 1变成陆地。
@@ -484,7 +604,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
 说明:
 
 1 &lt;= grid.length = grid[0].length &lt;= 50
-0 &lt;= grid[i][j] &lt;= 1</code></pre>
+0 &lt;= grid[i][j] &lt;= 1
+</code></pre>
 <p>题解一|DFS：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/">https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-lei-wen-ti-de-tong-yong-jie-fa-dfs-bian-li-/</a></p>
 <pre><code>class Solution:
@@ -534,7 +655,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
             for j in range(n):
                 tmp=thisArea(grid,i,j,hash) 
                 res=max(res,tmp)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="1254-统计封闭岛屿的数目"><a href="#1254-统计封闭岛屿的数目" class="headerlink" title="1254. 统计封闭岛屿的数目"></a>1254. 统计封闭岛屿的数目</h3><pre><code>链接：https://leetcode-cn.com/problems/number-of-closed-islands/
 
 有一个二维矩阵 grid ，每个位置要么是陆地（记号为 0 ）要么是水域（记号为 1 ）。
@@ -569,7 +691,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
 提示：
 
 1 &lt;= grid.length, grid[0].length &lt;= 100
-0 &lt;= grid[i][j] &lt;=1</code></pre>
+0 &lt;= grid[i][j] &lt;=1
+</code></pre>
 <p>题解一|dfs：</p>
 <pre><code>class Solution:
     def __init__(self):
@@ -599,7 +722,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                     self.val=1
                     dfs(grid,i,j)
                     count+=self.val
-        return count</code></pre>
+        return count
+</code></pre>
 <pre><code>class Solution:
     def closedIsland(self, grid: List[List[int]]) -&gt; int:
         def dfs(grid,i,j):
@@ -626,7 +750,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 if grid[i][j]==0:
                     if dfs(grid,i,j):
                         count+=1
-        return count</code></pre>
+        return count
+</code></pre>
 <pre><code>class Solution:
     def closedIsland(self, grid: List[List[int]]) -&gt; int:
         def dfs(grid,i,j):
@@ -639,7 +764,7 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
             down = dfs(grid,i+1,j);
             left = dfs(grid,i,j-1);
             right = dfs(grid,i,j+1);
-
+            
             # return dfs(grid,i-1,j) or dfs(grid,i+1,j) or dfs(grid,i,j-1) or dfs(grid,i,j+1)
             return up or down or left or right
 
@@ -652,7 +777,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
                 if grid[i][j]==0:
                     if not dfs(grid,i,j):
                         count+=1
-        return count</code></pre>
+        return count
+</code></pre>
 <h3 id="1568-使陆地分离的最少天数"><a href="#1568-使陆地分离的最少天数" class="headerlink" title="1568. 使陆地分离的最少天数"></a>1568. 使陆地分离的最少天数</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-number-of-days-to-disconnect-island
 
 给你一个由若干 0 和 1 组成的二维网格 grid ，其中 0 表示水，而 1 表示陆地。岛屿由水平方向或竖直方向上相邻的 1 （陆地）连接形成。
@@ -697,7 +823,8 @@ grid[i][j] 的值为 &#39;0&#39; 或 &#39;1&#39;</code></pre>
 提示：
 
 1 &lt;= grid.length, grid[i].length &lt;= 30
-grid[i][j] 为 0 或 1</code></pre>
+grid[i][j] 为 0 或 1
+</code></pre>
 <p>题解一|dfs:</p>
 <pre><code>class Solution:
     def minDays(self, grid: List[List[int]]) -&gt; int:
@@ -734,7 +861,8 @@ grid[i][j] 为 0 或 1</code></pre>
                     if count() != 1: # 分隔1个岛屿，如果岛屿个数已经大于1个，或者为0个，得出需要分离1个。
                         return 1
                     grid[i][j]=1
-        return 2 # 如果以上都没有返回，说明需要分隔2个。因为任意连通岛屿通过分隔2次，都能分隔成功。</code></pre>
+        return 2 # 如果以上都没有返回，说明需要分隔2个。因为任意连通岛屿通过分隔2次，都能分隔成功。
+</code></pre>
 
     </div>
 
@@ -818,7 +946,7 @@ grid[i][j] 为 0 或 1</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">十、图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#133-%E5%85%8B%E9%9A%86%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">???133.克隆图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">200. 岛屿数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#463-%E5%B2%9B%E5%B1%BF%E7%9A%84%E5%91%A8%E9%95%BF"><span class="nav-number">1.3.</span> <span class="nav-text">463. 岛屿的周长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#695-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF"><span class="nav-number">1.4.</span> <span class="nav-text">695. 岛屿的最大面积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#827-%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B"><span class="nav-number">1.5.</span> <span class="nav-text">827. 最大人工岛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1254-%E7%BB%9F%E8%AE%A1%E5%B0%81%E9%97%AD%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%95%B0%E7%9B%AE"><span class="nav-number">1.6.</span> <span class="nav-text">1254. 统计封闭岛屿的数目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1568-%E4%BD%BF%E9%99%86%E5%9C%B0%E5%88%86%E7%A6%BB%E7%9A%84%E6%9C%80%E5%B0%91%E5%A4%A9%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">1568. 使陆地分离的最少天数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">十、图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#133-%E5%85%8B%E9%9A%86%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">133.克隆图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">200. 岛屿数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#463-%E5%B2%9B%E5%B1%BF%E7%9A%84%E5%91%A8%E9%95%BF"><span class="nav-number">1.3.</span> <span class="nav-text">463. 岛屿的周长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#695-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF"><span class="nav-number">1.4.</span> <span class="nav-text">695. 岛屿的最大面积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#827-%E6%9C%80%E5%A4%A7%E4%BA%BA%E5%B7%A5%E5%B2%9B"><span class="nav-number">1.5.</span> <span class="nav-text">827. 最大人工岛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1254-%E7%BB%9F%E8%AE%A1%E5%B0%81%E9%97%AD%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%95%B0%E7%9B%AE"><span class="nav-number">1.6.</span> <span class="nav-text">1254. 统计封闭岛屿的数目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1568-%E4%BD%BF%E9%99%86%E5%9C%B0%E5%88%86%E7%A6%BB%E7%9A%84%E6%9C%80%E5%B0%91%E5%A4%A9%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">1568. 使陆地分离的最少天数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -872,7 +1000,7 @@ grid[i][j] 为 0 或 1</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

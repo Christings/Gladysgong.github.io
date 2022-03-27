@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -2634,7 +2634,7 @@ class Solution:
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-18 22:32:40" itemprop="dateModified" datetime="2020-08-18T22:32:40+08:00">2020-08-18</time>
+                <time title="Modified: 2021-02-10 13:36:26" itemprop="dateModified" datetime="2021-02-10T13:36:26+08:00">2021-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2677,7 +2677,8 @@ class Solution:
           11  13  4
          /  \      \
         7    2      1
-返回 true, 因为存在目标和为 22 的根节点到叶子节点的路径 5-&gt;4-&gt;11-&gt;2。</code></pre>
+返回 true, 因为存在目标和为 22 的根节点到叶子节点的路径 5-&gt;4-&gt;11-&gt;2。
+</code></pre>
 <p>题解一|递归:</p>
 <p>时间复杂度：我们访问每个节点一次，时间复杂度为 O(N) ，其中 N 是节点个数。<br>空间复杂度：最坏情况下，整棵树是非平衡的，例如每个节点都只有一个孩子，递归会调用 N 次（树的高度），因此栈的空间开销是 O(N) 。但在最好情况下，树是完全平衡的，高度只有 log(N)，因此在这种情况下空间复杂度只有 O(log(N)) 。</p>
 <pre><code># Definition for a binary tree node.
@@ -2694,14 +2695,15 @@ class Solution:
         sum-=root.val # 不能交换顺序
         if not root.left and not root.right:
             return sum==0
-        return self.hasPathSum(root.left,sum) or self.hasPathSum(root.right,sum)</code></pre>
+        return self.hasPathSum(root.left,sum) or self.hasPathSum(root.right,sum)
+</code></pre>
 <p>题解二|迭代:</p>
 <p>时间复杂度：和递归方法相同是 O(N)。<br>空间复杂度：当树不平衡的最坏情况下是 O(N) 。在最好情况（树是平衡的）下是 O(logN)。</p>
 <pre><code>class Solution:
     def hasPathSum(self, root: TreeNode, sum: int) -&gt; bool:
         if not root:
             return False
-
+        
         stack=[(root,sum-root.val)]
         while stack:
             node,curr=stack.pop()
@@ -2711,7 +2713,8 @@ class Solution:
                 stack.append((node.left,curr-node.left.val))
             if node.right:
                 stack.append((node.right,curr-node.right.val))
-        return False</code></pre>
+        return False
+</code></pre>
 <h3 id="113-路径总和-II"><a href="#113-路径总和-II" class="headerlink" title="113. 路径总和 II"></a>113. 路径总和 II</h3><pre><code>链接：https://leetcode-cn.com/problems/path-sum-ii/
 
 给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
@@ -2733,7 +2736,8 @@ class Solution:
 [
    [5,4,11,2],
    [5,8,4,5]
-]</code></pre>
+]
+</code></pre>
 <p>题解一|递归:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2751,11 +2755,13 @@ class Solution:
             if not root.left and not root.right and sum-root.val==0:
                 path+=[root.val]
                 paths.append(path)
+                return 
 
             helper(root.left,sum-root.val,path+[root.val])
             helper(root.right,sum-root.val,path+[root.val])
         helper(root,sum)
-        return paths</code></pre>
+        return paths
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2776,7 +2782,8 @@ class Solution:
             helper(root.left,sum,path+[root.val])
             helper(root.right,sum,path+[root.val])
         helper(root,sum,[])
-        return res</code></pre>
+        return res
+</code></pre>
 <p>?题解二|迭代|超时：</p>
 <pre><code>class Solution:
     def pathSum(self, root: TreeNode, sum: int) -&gt; List[List[int]]:
@@ -2792,7 +2799,8 @@ class Solution:
                 stack.append((root.left,curr+[root.left.val]))
             if node.right:
                 stack.append((root.right,curr+[root.right.val]))
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="437-路径总和-III"><a href="#437-路径总和-III" class="headerlink" title="437. 路径总和 III"></a>437. 路径总和 III</h3><pre><code>链接：https://leetcode-cn.com/problems/path-sum-iii/
 
 给定一个二叉树，它的每个结点都存放着一个整数值。
@@ -2819,7 +2827,8 @@ root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
 
 1.  5 -&gt; 3
 2.  5 -&gt; 2 -&gt; 1
-3.  -3 -&gt; 11</code></pre>
+3.  -3 -&gt; 11
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -2842,7 +2851,8 @@ class Solution:
 
         if not root:
             return 0
-        return helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)</code></pre>
+        return helper(root,sum)+self.pathSum(root.left,sum)+self.pathSum(root.right,sum)
+</code></pre>
 
       
     </div>
@@ -2967,7 +2977,7 @@ class Solution:
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="面试题 04.10. 检查子树链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;check-subtree-lcci&#x2F;  检查子树。你有两棵非常大的二叉树：T1，有几万个节点；T2，有几万个节点。设计一个算法，判断 T2 是否为 T1 的子树。  如果 T1 有这么一个节点 n，其子树与 T2 一模一样，则 T2 为 T1 的子树，也就是说，从节点 n 处把树砍断，得到的树与">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-05-08T03:41:24.000Z">
-<meta property="article:modified_time" content="2020-12-24T09:06:55.029Z">
+<meta property="article:modified_time" content="2021-01-11T15:33:16.148Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-24 17:06:55" itemprop="dateModified" datetime="2020-12-24T17:06:55+08:00">2020-12-24</time>
+                <time title="Modified: 2021-01-11 23:33:16" itemprop="dateModified" datetime="2021-01-11T23:33:16+08:00">2021-01-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,10 +235,12 @@
  输出：false
 提示：
 
-树的节点数目范围为[0, 20000]。</code></pre>
+树的节点数目范围为[0, 20000]。
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>一：在 t1 中找到 t2 的起点。先判断 t1 当前节点，如果不对就判断 t1 左子树和 t1 右子树。
-二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。</code></pre>
+二：从找到的起点开始判断剩下的点，t1 和 t2 同步左右子树搜索。
+</code></pre>
 <pre><code>class Solution:
     def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
 
@@ -256,7 +258,8 @@
             return False
         if not t2:
             return True
-        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)</code></pre>
+        return helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
+</code></pre>
 <pre><code>class Solution:
     def checkSubTree(self, t1: TreeNode, t2: TreeNode) -&gt; bool:
         if not  t1:
@@ -264,7 +267,7 @@
         if not t2:
             return True
         return self.helper(t1,t2) or self.checkSubTree(t1.left,t2) or self.checkSubTree(t1.right,t2)
-
+    
     def helper(self,t1,t2):
         if not t2:
             return True
@@ -273,7 +276,8 @@
         elif t1.val != t2.val:
             return False
         else:
-            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)</code></pre>
+            return self.helper(t1.left,t2.left) and self.helper(t1.right,t2.right)
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -286,7 +290,7 @@ class Solution:
         if not A or not B:
             return False
         return self.helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
-
+    
     def helper(self,A,B):
         if not A and B:
             return False
@@ -295,7 +299,8 @@ class Solution:
         elif A.val != B.val:
             return False
         else:
-            return self.helper(A.left,B.left) and self.helper(A.right,B.right)</code></pre>
+            return self.helper(A.left,B.left) and self.helper(A.right,B.right)
+</code></pre>
 <pre><code>class Solution:
     def isSubStructure(self, A: TreeNode, B: TreeNode) -&gt; bool:
         def helper(A,B):
@@ -304,7 +309,8 @@ class Solution:
             if not A or (A.val != B.val):
                 return False
             return helper(A.left,B.left) and helper(A.right,B.right)
-        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))</code></pre>
+        return bool(A and B) and (helper(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B))
+</code></pre>
 <h3 id="面试题-17-12-BiNode"><a href="#面试题-17-12-BiNode" class="headerlink" title="面试题 17.12. BiNode"></a>面试题 17.12. BiNode</h3><pre><code>链接：https://leetcode-cn.com/problems/binode-lcci/
 
 二叉树数据结构TreeNode可用来表示单向链表（其中left置空，right为下一个链表节点）。实现一个方法，把二叉搜索树转换为单向链表，要求值的顺序保持不变，转换操作应是原址的，也就是在原始的二叉搜索树上直接修改。
@@ -319,11 +325,13 @@ class Solution:
 输出： [0,null,1,null,2,null,3,null,4,null,5,null,6]
 提示：
 
-节点数量不会超过 100000。</code></pre>
+节点数量不会超过 100000。
+</code></pre>
 <p>题解一|迭代|中序遍历：</p>
 <pre><code>root.left=None
 pre.right=root
-pre=root</code></pre>
+pre=root
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -348,14 +356,15 @@ class Solution:
                 pre=root
 
                 root=root.right
-        return head.right</code></pre>
+        return head.right
+</code></pre>
 <p>题解二|递归:</p>
 <pre><code>class Solution:
     def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
         head=TreeNode(0)
         self.helper(root,head)
         return head.right
-
+    
     def helper(self,root,pre):
         if root:
             pre=self.helper(root.left,pre)
@@ -363,7 +372,8 @@ class Solution:
             pre.right=root
             pre=root
             pre=self.helper(root.right,pre)
-        return pre</code></pre>
+        return pre
+</code></pre>
 <pre><code>class Solution:
     def convertBiNode(self, root: TreeNode) -&gt; TreeNode:
         head=TreeNode(0)
@@ -380,7 +390,8 @@ class Solution:
         self.pre.right=root
         self.pre=root
 
-        self.helper(root.right)</code></pre>
+        self.helper(root.right)
+</code></pre>
 <h3 id="面试题-04-12-求和路径"><a href="#面试题-04-12-求和路径" class="headerlink" title="面试题 04.12. 求和路径"></a>面试题 04.12. 求和路径</h3><pre><code>链接：https://leetcode-cn.com/problems/paths-with-sum-lcci/
 
 给定一棵二叉树，其中每个节点都含有一个整数数值(该值或正或负)。设计一个算法，打印节点数值总和等于某个给定值的所有路径的数量。注意，路径不一定非得从二叉树的根节点或叶节点开始或结束，但是其方向必须向下(只能从父节点指向子节点方向)。
@@ -401,7 +412,8 @@ class Solution:
 解释：和为 22 的路径有：[5,4,11,2], [5,8,4,5], [4,11,7]
 提示：
 
-节点总数 &lt;= 10000</code></pre>
+节点总数 &lt;= 10000
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -424,7 +436,58 @@ class Solution:
             count+=1
         count+=self.helper(root.left,sum-root.val)
         count+=self.helper(root.right,sum-root.val)
-        return count</code></pre>
+        return count
+</code></pre>
+<h3 id="剑指-Offer-36-二叉搜索树与双向链表"><a href="#剑指-Offer-36-二叉搜索树与双向链表" class="headerlink" title="剑指 Offer 36. 二叉搜索树与双向链表"></a>剑指 Offer 36. 二叉搜索树与双向链表</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/
+
+输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。
+
+为了让您更好地理解问题，以下面的二叉搜索树为例：
+
+
+我们希望将这个二叉搜索树转化为双向循环链表。链表中的每个节点都有一个前驱和后继指针。对于双向循环链表，第一个节点的前驱是最后一个节点，最后一个节点的后继是第一个节点。
+
+下图展示了上面的二叉搜索树转化成的链表。“head” 表示指向链表中有最小元素的节点。
+
+特别地，我们希望可以就地完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
+
+注意：本题与主站 426 题相同：https://leetcode-cn.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/
+
+注意：此题对比原题有改动。
+</code></pre>
+<p>题解一|中序遍历：</p>
+<pre><code>&quot;&quot;&quot;
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+&quot;&quot;&quot;
+class Solution:
+    def __init__(self):
+        self.head=None
+        self.pre=None
+    
+    def treeToDoublyList(self, root: &#39;Node&#39;) -&gt; &#39;Node&#39;:
+        if not root:
+            return root
+        self.dfs(root)
+        self.head.left,self.pre.right=self.pre,self.head
+        return self.head
+       
+    def dfs(self,root):
+        if not root:
+            return
+        self.dfs(root.left)
+        if not self.pre:
+            self.head=root
+        else:
+            self.pre.right=root
+            root.left=self.pre
+        self.pre=root
+        self.dfs(root.right)
+</code></pre>
 <h3 id="面试题54-二叉搜索树的第k大节点"><a href="#面试题54-二叉搜索树的第k大节点" class="headerlink" title="面试题54. 二叉搜索树的第k大节点"></a>面试题54. 二叉搜索树的第k大节点</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
 
 给定一棵二叉搜索树，请找出其中第k大的节点。
@@ -449,10 +512,11 @@ class Solution:
   /
  1
 输出: 4
-
+ 
 限制：
 
-1 ≤ k ≤ 二叉搜索树元素个数</code></pre>
+1 ≤ k ≤ 二叉搜索树元素个数
+</code></pre>
 <p>注意：和二叉搜索树的第k小节点的区别。</p>
 <p>题解一|迭代：</p>
 <pre><code># Definition for a binary tree node.
@@ -476,7 +540,8 @@ class Solution:
                 k-=1
                 if k==0:
                     return root.val
-                root=root.left</code></pre>
+                root=root.left
+</code></pre>
 <p>题解二|递归:</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -500,7 +565,8 @@ class Solution:
         if self.k==0:
             self.res=root.val # 直接return不行，需要存入全局变量中
         self.helper(root.left)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -522,7 +588,8 @@ class Solution:
         if self.k==0:
             self.res=root.val # 直接return不行，需要存入全局变量中
         self.helper(root.left)
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <h3 id="面试题55-I-二叉树的深度"><a href="#面试题55-I-二叉树的深度" class="headerlink" title="面试题55 - I. 二叉树的深度"></a>面试题55 - I. 二叉树的深度</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/
 
 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
@@ -538,7 +605,8 @@ class Solution:
    15   7
 返回它的最大深度 3 。
 
-提示：节点总数 &lt;= 10000</code></pre>
+提示：节点总数 &lt;= 10000
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
@@ -546,7 +614,8 @@ class Solution:
             return 0
         left=self.maxDepth(root.left)
         right=self.maxDepth(root.right)
-        return max(left,right)+1</code></pre>
+        return max(left,right)+1
+</code></pre>
 <p>题解二|迭代:</p>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
@@ -564,7 +633,8 @@ class Solution:
                     tmp.append(root.right)
             stack=tmp
             depth+=1
-        return depth</code></pre>
+        return depth
+</code></pre>
 <pre><code>class Solution:
     def maxDepth(self, root: TreeNode) -&gt; int:
         if not root:
@@ -580,7 +650,8 @@ class Solution:
                     tmp.append(root.right)
             stack=tmp
             depth+=1
-        return depth</code></pre>
+        return depth
+</code></pre>
 <h3 id="面试题55-II-平衡二叉树"><a href="#面试题55-II-平衡二叉树" class="headerlink" title="面试题55 - II. 平衡二叉树"></a>面试题55 - II. 平衡二叉树</h3><pre><code>链接：https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/
 
 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
@@ -607,7 +678,8 @@ class Solution:
    3   3
   / \
  4   4
-返回 false 。</code></pre>
+返回 false 。
+</code></pre>
 <p>限制：1 &lt;= 树的结点个数 &lt;= 10000</p>
 <p>题解一（递归）：</p>
 <pre><code>class Solution:
@@ -615,13 +687,14 @@ class Solution:
         if not root:
             return True
         return abs(self.helper(root.left)-self.helper(root.right))&lt;=1 and self.isBalanced(root.left) and self.isBalanced(root.right)
-
+    
     def helper(self,root):
         if not root:
             return 0
         left=self.helper(root.left)
         right=self.helper(root.right)
-        return max(left,right)+1</code></pre>
+        return max(left,right)+1
+</code></pre>
 <h3 id="面试题68-I-二叉搜索树的最近公共祖先"><a href="#面试题68-I-二叉搜索树的最近公共祖先" class="headerlink" title="面试题68 - I. 二叉搜索树的最近公共祖先"></a>面试题68 - I. 二叉搜索树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/
 
 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
@@ -640,12 +713,13 @@ class Solution:
 输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
 输出: 2
 解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉搜索树中。
+</code></pre>
 <p>最近公共祖先（最近公共节点）:</p>
 <pre><code>根据题目给定的前提：
 
@@ -661,7 +735,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
     p.val 和 q.val 都大于 root.val
     (两个子节点的值都大于根节点的值，说明它们的公共节点只能在二叉树的右子树寻找）
     如果上述的情况皆不满足，说明其公共节点既不在左子树也不在右子树上，只能为最顶端的公共节点，return root
-    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val</code></pre>
+    p.val &lt; root.val &amp;&amp; q.val &gt; root.val 或 p.val &gt; root.val &amp;&amp; q.val &lt; root.val
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
@@ -671,7 +746,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
             return self.lowestCommonAncestor(root.right,p,q)
         elif root.val &gt; p.val and root.val &gt; q.val:
             return self.lowestCommonAncestor(root.left,p,q)
-        return root</code></pre>
+        return root
+</code></pre>
 <p>题解二|后序遍历：</p>
 <pre><code>class Solution:
     def lowestCommonAncestor(self, root: &#39;TreeNode&#39;, p: &#39;TreeNode&#39;, q: &#39;TreeNode&#39;) -&gt; &#39;TreeNode&#39;:
@@ -684,7 +760,8 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。</code></pre>
         elif not r:
             return l
         else:
-            return root</code></pre>
+            return root
+</code></pre>
 <p>题解三|迭代：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -702,7 +779,8 @@ class Solution:
                 root=root.left
             else:
                 break
-        return root</code></pre>
+        return root
+</code></pre>
 <h3 id="面试题68-II-二叉树的最近公共祖先"><a href="#面试题68-II-二叉树的最近公共祖先" class="headerlink" title="面试题68 - II. 二叉树的最近公共祖先"></a>面试题68 - II. 二叉树的最近公共祖先</h3><pre><code>链接：https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
 
 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
@@ -721,12 +799,13 @@ class Solution:
 输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
 输出: 5
 解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
-
+ 
 
 说明:
 
 所有节点的值都是唯一的。
-p、q 为不同节点且均存在于给定的二叉树中。</code></pre>
+p、q 为不同节点且均存在于给定的二叉树中。
+</code></pre>
 <p>题解一（后序遍历）：</p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -756,7 +835,8 @@ class Solution:
         if not left and not right: return # 1.
         if not left: return right # 3.
         if not right: return left # 4.
-        return root # 2. if left and right:</code></pre>
+        return root # 2. if left and right:
+</code></pre>
 
     </div>
 
@@ -840,7 +920,7 @@ class Solution:
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-10-%E6%A3%80%E6%9F%A5%E5%AD%90%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">面试题 04.10. 检查子树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-17-12-BiNode"><span class="nav-number">2.</span> <span class="nav-text">面试题 17.12. BiNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-12-%E6%B1%82%E5%92%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">面试题 04.12. 求和路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9854-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">面试题54. 二叉搜索树的第k大节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-I-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">面试题55 - I. 二叉树的深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-II-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">面试题55 - II. 平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-I-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">7.</span> <span class="nav-text">面试题68 - I. 二叉搜索树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-II-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">8.</span> <span class="nav-text">面试题68 - II. 二叉树的最近公共祖先</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-10-%E6%A3%80%E6%9F%A5%E5%AD%90%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">面试题 04.10. 检查子树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-17-12-BiNode"><span class="nav-number">2.</span> <span class="nav-text">面试题 17.12. BiNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98-04-12-%E6%B1%82%E5%92%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">面试题 04.12. 求和路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%91%E6%8C%87-Offer-36-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">剑指 Offer 36. 二叉搜索树与双向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9854-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">面试题54. 二叉搜索树的第k大节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-I-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">面试题55 - I. 二叉树的深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9855-II-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">7.</span> <span class="nav-text">面试题55 - II. 平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-I-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">8.</span> <span class="nav-text">面试题68 - I. 二叉搜索树的最近公共祖先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%9868-II-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="nav-number">9.</span> <span class="nav-text">面试题68 - II. 二叉树的最近公共祖先</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -894,7 +974,7 @@ class Solution:
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

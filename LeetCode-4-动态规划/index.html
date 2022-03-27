@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png">
 <meta property="og:image" content="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/keyborad.png">
 <meta property="article:published_time" content="2020-01-19T03:28:41.000Z">
-<meta property="article:modified_time" content="2021-01-02T08:29:37.763Z">
+<meta property="article:modified_time" content="2021-06-07T01:40:59.348Z">
 <meta property="article:author" content="Lilly">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-02 16:29:37" itemprop="dateModified" datetime="2021-01-02T16:29:37+08:00">2021-01-02</time>
+                <time title="Modified: 2021-06-07 09:40:59" itemprop="dateModified" datetime="2021-06-07T09:40:59+08:00">2021-06-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,7 +252,8 @@
 示例 2：
 
 输入: &quot;cbbd&quot;
-输出: &quot;bb&quot;</code></pre>
+输出: &quot;bb&quot;
+</code></pre>
 <p>题解一|暴力破解：<br>    很明显，暴力法将选出所有子字符串可能的开始和结束位置，并检验它是不是回文。<br>    时间复杂度：O(n^2),往往利用python的切片可以很好的缩减复杂度<br>    如果不用切片，还需要遍历一次子字符串，时间复杂度就是O(n^3)<br>    空间复杂度：O(1)</p>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
@@ -282,7 +283,8 @@
             else:
                 left+=1
                 right-=1
-        return True</code></pre>
+        return True
+</code></pre>
 <p>时间复杂度：O(N^3)，这里 N 是字符串的长度，枚举字符串的左边界、右边界，然后继续验证子串是否是回文子串，这三种操作都与 N 相关；<br>空间复杂度：O(1)，只使用到常数个临时变量，与字符串长度无关。</p>
 <pre><code>class Solution:
     # 暴力匹配（超时）
@@ -310,7 +312,8 @@
                 return False
             left += 1
             right -= 1
-        return True</code></pre>
+        return True
+</code></pre>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
         if s==s[::-1]:
@@ -323,9 +326,11 @@
                 if j-i+1 &gt; maxLen and s[i:j+1]==s[i:j+1][::-1]: # arr=&#39;abb&#39;,arr[0:1]=&#39;a&#39;,右边是开区间
                     maxLen=j-i+1
                     ans=s[i:j+1]
-        return ans</code></pre>
+        return ans
+</code></pre>
 <p>题解二|每个字母当成回文串的中心：</p>
-<pre><code>考虑两种情况:回文串的长度为奇数或者偶数情况。</code></pre>
+<pre><code>考虑两种情况:回文串的长度为奇数或者偶数情况。
+</code></pre>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
         n=len(s)
@@ -337,11 +342,12 @@
             if len(self.res) &lt; j-i-1:
                 self.res=s[i+1:j]
                 # print(i,self.res)
-
+        
         for i in range(n):
             helper(i,i)
             helper(i,i+1) # 解决case为&quot;cbbd&quot;,即解决回文串为偶数的情况
-        return self.res</code></pre>
+        return self.res
+</code></pre>
 <p>题解三|把每个字母当成回文串的结束：</p>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
@@ -360,9 +366,10 @@
             elif i - max_len &gt;=0 and even == even[::-1]:
                 start = i - max_len
                 max_len += 1
-
+                
         #print(start,max_len)
-        return s[start: start+max_len]</code></pre>
+        return s[start: start+max_len]
+</code></pre>
 <p>题解四|动态规划：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp.png"></p>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp2.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp2.png"></p>
@@ -377,7 +384,8 @@
     只需要判断字符串在(l-1)和（r+1)两个位置是否为相同的字符，是不是减少了很多重复计算。
 
     初始状态，l=r 时，此时 dp[l][r]=true
-    状态转移方程，dp[l][r]=true 并且(l-1)和（r+1)两个位置为相同的字符，此时 dp[l-1][r+1]=true。</code></pre>
+    状态转移方程，dp[l][r]=true 并且(l-1)和（r+1)两个位置为相同的字符，此时 dp[l-1][r+1]=true。
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/gao-hao-dong-tai-gui-hua-he-zhong-xin-tuo-zhan-zhu/</a></p>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
@@ -398,7 +406,8 @@
                         count=r-l+1
                         start=l
                         end=r
-        return s[start:end+1]</code></pre>
+        return s[start:end+1]
+</code></pre>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
         # 观察是否存在状态，例如 babab,可知aba是回文序列，那么可以看出babab也是回文序列，当b = b的时候
@@ -426,7 +435,8 @@
                     if cur_len &gt; max_len:
                         max_len = cur_len
                         start_index = i
-        return s[start_index:start_index+max_len]</code></pre>
+        return s[start_index:start_index+max_len]
+</code></pre>
 <pre><code>class Solution:
     def longestPalindrome(self, s: str) -&gt; str:
         if(not s or len(s)==1):
@@ -449,6 +459,7 @@
                     start=i
                     max_len=l
         return s[start:start+max_len]
+        
 </code></pre>
 <h3 id="10-正则表达式匹配"><a href="#10-正则表达式匹配" class="headerlink" title="10. 正则表达式匹配"></a>10. 正则表达式匹配</h3><pre><code>链接：https://leetcode-cn.com/problems/regular-expression-matching/
 
@@ -491,7 +502,8 @@
 0 &lt;= p.length &lt;= 30
 s 可能为空，且只包含从 a-z 的小写字母。
 p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
-保证每次出现字符 * 时，前面都匹配到有效的字符</code></pre>
+保证每次出现字符 * 时，前面都匹配到有效的字符
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/">https://leetcode-cn.com/problems/regular-expression-matching/solution/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/</a></p>
 <p>思路：</p>
@@ -504,7 +516,8 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
             s[i-1]==p[j-2] or p[j-2]==&#39;*&#39;:
                 p[j-2]重复0次，dp[i][j]=dp[i][j-2]
                 p[j-2]重复1次，dp[i][j]=dp[i-1][j-2]
-                p[j-2]重复2次以上，dp[i][j]=dp[i-1][j]</code></pre>
+                p[j-2]重复2次以上，dp[i][j]=dp[i-1][j]
+</code></pre>
 <p>3、初始值<br>    s和p为空，匹配。dp[i][j]=True<br>    s不为空，p为空，不匹配。dp[i][0]=False<br>    s为空，p不为空，如果要匹配，s=’’,p=’a*’,这样让p变成空，才能匹配。dp[0][j]=dp[0][j-2]=True</p>
 <pre><code>class Solution:
     def isMatch(self, s: str, p: str) -&gt; bool:
@@ -540,13 +553,15 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
 
 输入: &quot;)()())&quot;
 输出: 4
-解释: 最长有效括号子串为 &quot;()()&quot;</code></pre>
+解释: 最长有效括号子串为 &quot;()()&quot;
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义dp：dp[i]表示以i结尾的最长有效括号<br>2、递推表达式：</p>
 <pre><code>    s[i]==&#39;(&#39;,所以dp[i]=0；
     s[i]==&#39;)&#39;:
         当s[i-1]==&#39;(&#39;,所以dp[i]=dp[i-2]+2；
-        当s[i-1]==&#39;)&#39;,且s[i-dp[i-1]-1]为&#39;(&#39;,所以dp[i]= dp[i-1] + 2 + dp[i-dp[i-1]-2]；</code></pre>
+        当s[i-1]==&#39;)&#39;,且s[i-dp[i-1]-1]为&#39;(&#39;,所以dp[i]= dp[i-1] + 2 + dp[i-dp[i-1]-2]；
+</code></pre>
 <p>3、初始化dp[i]=0</p>
 <p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
@@ -564,7 +579,8 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                     dp[i]=dp[i-1]+2+dp[i-dp[i-1]-2]  # dp[i-dp[i-1]-2]解决case：()(())
             if dp[i]&gt;count:
                 count=dp[i]
-        return count</code></pre>
+        return count
+</code></pre>
 <pre><code>class Solution:
     def longestValidParentheses(self, s: str) -&gt; int:
         count=0
@@ -603,7 +619,8 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
                     stack.append(i)
                 else:
                     res=max(res,i-stack[-1])
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53.最大子序和"></a>53.最大子序和</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-subarray/
 
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
@@ -615,7 +632,8 @@ p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
 进阶:
 
-如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</code></pre>
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+</code></pre>
 <p>参考：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-cshi-xian-si-chong-jie-fa-bao-li-f/">https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-cshi-xian-si-chong-jie-fa-bao-li-f/</a><br>题解一：</p>
 <pre><code>遍历整个数组，在数组的每一个位置时，求出一个全局最大值L，代表以当前位置
 为结尾的最大字串，而G是当前位置的L和上一个位置L相比较后，取数值更大的。
@@ -634,7 +652,8 @@ g：当前位置l和上一个位置l取数值最大
 位置6：L=6，G=6
 位置7：L=-1，G=6
 位置8：L=4，G=6
-最后，全局最大值G就是我们的结果。</code></pre>
+最后，全局最大值G就是我们的结果。
+</code></pre>
 <pre><code>class Solution:
     def maxSubArray(self, nums):
         &quot;&quot;&quot;
@@ -645,14 +664,16 @@ g：当前位置l和上一个位置l取数值最大
         for n in nums:
             l=max(n,l+n)
             g=max(l,g)
-        return g</code></pre>
+        return g
+</code></pre>
 <p>题解二：</p>
 <pre><code>class Solution:
     def maxSubArray(self, nums: List[int]) -&gt; int:
         for i in range(1,len(nums)):
             nums[i]=max(nums[i],nums[i]+nums[i-1])
-
-        return max(nums) # 取子序和中最大值</code></pre>
+            
+        return max(nums) # 取子序和中最大值
+</code></pre>
 <p>题解三|动态规划:<br>    1、定义数组元素的含义</p>
 <pre><code>    dp[i]为以num[i]结尾的子段的最大子段和
     dp[1]为以num[1]结尾的最大子段和
@@ -672,7 +693,8 @@ g：当前位置l和上一个位置l取数值最大
 3、找出初始值
 
     dp[0]=num[0]
-    dp[1]=max(dp[0]+num[1],num[1])</code></pre>
+    dp[1]=max(dp[0]+num[1],num[1])
+</code></pre>
 <pre><code>class Solution:
     def maxSubArray(self, nums: List[int]) -&gt; int:
         lens=len(nums)
@@ -698,14 +720,16 @@ g：当前位置l和上一个位置l取数值最大
 [-2, 1, -2, 4, 3, 5, 0, 0, 0]
 [-2, 1, -2, 4, 3, 5, 6, 0, 0]
 [-2, 1, -2, 4, 3, 5, 6, 1, 0]
-[-2, 1, -2, 4, 3, 5, 6, 1, 5]</code></pre>
+[-2, 1, -2, 4, 3, 5, 6, 1, 5]
+</code></pre>
 <h3 id="62-不同路径"><a href="#62-不同路径" class="headerlink" title="62.不同路径"></a>62.不同路径</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-paths/
 
 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
 
 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
 
-问总共有多少条不同的路径？</code></pre>
+问总共有多少条不同的路径？
+</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/unique-path.png" alt="tree1"></p>
 <pre><code>例如，上图是一个7 x 3 的网格。有多少可能的路径？
 
@@ -723,7 +747,8 @@ g：当前位置l和上一个位置l取数值最大
 示例 2:
 
 输入: m = 7, n = 3
-输出: 28</code></pre>
+输出: 28
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组元素的含义<br>    目的：从左上角到右下角一共有多少种路径<br>    dp[i][j]含义：从左上角走到(i,j)这个位置时，一共有dp[i][j]种路径</p>
 <p>2、找到数组的递推关系式</p>
@@ -732,14 +757,16 @@ g：当前位置l和上一个位置l取数值最大
     一种是从 (i-1, j) 这个位置走一步到达
     一种是从(i, j - 1) 这个位置走一步到达
 
-所以：dp[i][j]=dp[i-1][j]+dp[i][j-1]</code></pre>
+所以：dp[i][j]=dp[i-1][j]+dp[i][j-1]
+</code></pre>
 <p>3、找到初始值</p>
 <pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了。
 
 图中的最上面一行和左边一列，因此初始值如下：
 
     dp[0][0….n-1] = 1; // 相当于最上面一行，只能一直往右走
-    dp[0…m-1][0] = 1; // 相当于最左面一列，只能一直往下走</code></pre>
+    dp[0…m-1][0] = 1; // 相当于最左面一列，只能一直往下走
+</code></pre>
 <p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)，使用dp数组保存结果</p>
 <pre><code>class Solution:
     def uniquePaths(self, m: int, n: int) -&gt; int:
@@ -751,7 +778,7 @@ g：当前位置l和上一个位置l取数值最大
             dp[i][0]=1
         for j in range(n):
             dp[0][j]=1
-
+            
         for i in range(1,m):
             for j in range(1,n):
                 dp[i][j]=dp[i-1][j]+dp[i][j-1]
@@ -767,11 +794,12 @@ g：当前位置l和上一个位置l取数值最大
             dp[i][0]=1
         for j in range(m):
             dp[0][j]=1
-
+            
         for i in range(1,n):
             for j in range(1,m):
                 dp[i][j]=dp[i-1][j]+dp[i][j-1]
-        return dp[n-1][m-1]</code></pre>
+        return dp[n-1][m-1]
+</code></pre>
 <p>题解二|动态规划优化:</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486303&amp;idx=1&amp;sn=6034d1e6ca24253da64d6c539998f7c6&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486303&amp;idx=1&amp;sn=6034d1e6ca24253da64d6c539998f7c6&amp;scene=21#wechat_redirect</a></p>
 <p>转化成一维，关系式为 dp[i] = dp[i] + dp[i-1]</p>
@@ -783,12 +811,13 @@ g：当前位置l和上一个位置l取数值最大
         dp=n*[0] # n是列
         for i in range(n):
             dp[i]=1
-
+        
         for i in range(1,m):
             dp[0]=1 # 每行第一个值为1。
             for j in range(1,n):
                 dp[j]=dp[j-1]+dp[j]
-        return dp[n-1]</code></pre>
+        return dp[n-1]
+</code></pre>
 <h3 id="63-不同路径-II"><a href="#63-不同路径-II" class="headerlink" title="63.不同路径 II"></a>63.不同路径 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-paths-ii/
 
 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
@@ -816,17 +845,20 @@ g：当前位置l和上一个位置l取数值最大
 3x3 网格的正中间有一个障碍物。
 从左上角到右下角一共有 2 条不同的路径：
 1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下
-2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</code></pre>
+2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组元素的含义<br>    机器人从左上角走到(i, j) 这个位置时，一共有 dp[i][j] 种路径<br>2、找出关系数组元素间的关系式<br>    想象以下，机器人要怎么样才能到达 (i, j)这个位置？由于机器人可以向下走或者向右走，所以有两种方式到达。当遇到障碍时</p>
 <pre><code>一种是从 (i-1, j) 这个位置走一步到达
 
 一种是从(i, j-1) 这个位置走一步到达
 
-因为是计算所有可能的步骤，所以是把所有可能走的路径都加起来，所以关系式是 dp[i][j] = dp[i-1][j] + dp[i][j-1]。（当没有遇到障碍时，就用以上的方式进行）</code></pre>
+因为是计算所有可能的步骤，所以是把所有可能走的路径都加起来，所以关系式是 dp[i][j] = dp[i-1][j] + dp[i][j-1]。（当没有遇到障碍时，就用以上的方式进行）
+</code></pre>
 <p>3、找出初始值<br>    dp[0][0]=1</p>
 <pre><code>dp[0][i]=dp[0][i-1]; // 相当于最上面一行，机器人只能一直往右走（当没有遇到障碍时）
-dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下走（当没有遇到障碍时）</code></pre>
+dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下走（当没有遇到障碍时）
+</code></pre>
 <pre><code>class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int:
         if obstacleGrid is None:
@@ -874,6 +906,7 @@ dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下�
                 if j&gt;=1:
                     dp[j]=dp[j-1]+dp[j]
         return dp[n-1]
+            
 </code></pre>
 <h3 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64.最小路径和"></a>64.最小路径和</h3><pre><code>链接：https://leetcode-cn.com/problems/minimum-path-sum/
 
@@ -890,9 +923,11 @@ dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下�
   [4,2,1]
 ]
 输出: 7
-解释: 因为路径 1→3→1→1→1 的总和最小。</code></pre>
+解释: 因为路径 1→3→1→1→1 的总和最小。
+</code></pre>
 <p>题解一|动态规划：<br>1、定义数组元素的含义<br>    目的是从左上角到右下角，最小路径和是多少。<br>    dp[i][j]含义：当从左上角走到(i,j)位置时，最小路径和为dp[i][j]</p>
-<pre><code>定义二维数据，数组是从下标 0 开始算起的，所以右下角的位置是 (m-1, n - 1)，所以 dp[m-1][n-1] 就是我们所求。</code></pre>
+<pre><code>定义二维数据，数组是从下标 0 开始算起的，所以右下角的位置是 (m-1, n - 1)，所以 dp[m-1][n-1] 就是我们所求。
+</code></pre>
 <p>2、找到数组的递推关系式</p>
 <pre><code>如何才能到达 (i, j) 这个位置？由于可以向下走或者向右走，所以有两种方式到达：
 
@@ -901,12 +936,14 @@ dp[i][0]=dp[i-1][0]; // 相当于最左面一列，机器人只能一直往下�
 
 不过本次计算不是所有可能路径，而是计算哪一个路径和最小。
 
-所以：dp[i][j]=min(dp[i-1][j],dp[i][j-1])+arr[i][j]</code></pre>
+所以：dp[i][j]=min(dp[i-1][j],dp[i][j-1])+arr[i][j]
+</code></pre>
 <p>3、找到初始值</p>
 <pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp[0][0….n-1] 和所有的 dp[0….m-1][0]
 
 dp[0][j] = arr[0][j] + dp[0][j-1]; // 相当于最上面一行，只能一直往左走
-dp[i][0] = arr[i][0] + dp[i][0];  // 相当于最左面一列，只能一直往下走</code></pre>
+dp[i][0] = arr[i][0] + dp[i][0];  // 相当于最左面一列，只能一直往下走
+</code></pre>
 <p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)</p>
 <pre><code>class Solution:
     def minPathSum(self, grid: List[List[int]]) -&gt; int:
@@ -918,13 +955,13 @@ dp[i][0] = arr[i][0] + dp[i][0];  // 相当于最左面一列，只能一直往�
         dp=[ n*[_] for _ in range(m)]
         # print(dp)
         dp[0][0]=grid[0][0] 
-
+        
         for i in range(1,m):
             dp[i][0]=dp[i-1][0]+grid[i][0]
 
         for i in range(1,n):
             dp[0][i]=dp[0][i-1]+grid[0][i]
-
+        
         for i in range(1,m):
             for j in range(1,n):
                 dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j]
@@ -954,26 +991,31 @@ dp[i][0] = arr[i][0] + dp[i][0];  // 相当于最左面一列，只能一直往�
 解释： 有三种方法可以爬到楼顶。
 1.  1 阶 + 1 阶 + 1 阶
 2.  1 阶 + 2 阶
-3.  2 阶 + 1 阶</code></pre>
+3.  2 阶 + 1 阶
+</code></pre>
 <p>题解一|递归：</p>
 <pre><code>class Solution:
     def climbStairs(self, n: int) -&gt; int:
         if n&lt;=2:
             return n
-        return self.climbStairs(n-1)+self.climbStairs(n-2)</code></pre>
+        return self.climbStairs(n-1)+self.climbStairs(n-2)
+</code></pre>
 <p>题解二|动态规划：<br>1、定义数组元素的含义</p>
 <pre><code>dp[i]含义：跳上第i个台阶总共有dp[i]种跳法；
-dp[n]即为我们所求结果。</code></pre>
+dp[n]即为我们所求结果。
+</code></pre>
 <p>2、找出数组元素间的关系式</p>
 <pre><code>把一个规模比较大的问题分成几个规模比较小的问题，然后由小的问题推导出大的问题。
 到达第 n 级的台阶有两种方式：
     一种是从第 n-1 级跳上来
     一种是从第 n-2 级跳上来
-所以：dp[n] = dp[n-1] + dp[n-2]。</code></pre>
+所以：dp[n] = dp[n-1] + dp[n-2]。
+</code></pre>
 <p>3、找出初始值</p>
 <pre><code>n=1时，dp[1]=dp[0]+dp[-1]，不允许下标为-1，所以dp[1]=1
 n=0时，dp[0]=0
-n=2时，dp[2]=dp[1]+dp[0]=1，所以以上初始值定义不严谨，因为dp[2]=2</code></pre>
+n=2时，dp[2]=dp[1]+dp[0]=1，所以以上初始值定义不严谨，因为dp[2]=2
+</code></pre>
 <p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
     def climbStairs(self, n: int) -&gt; int:
@@ -984,7 +1026,8 @@ n=2时，dp[2]=dp[1]+dp[0]=1，所以以上初始值定义不严谨，因为dp[2
         dp[2]=2
         for i in range(3,n+1):
             dp[i]=dp[i-1]+dp[i-2]
-        return dp[n] # 返回最后一个数</code></pre>
+        return dp[n] # 返回最后一个数
+</code></pre>
 <h3 id="72-编辑距离"><a href="#72-编辑距离" class="headerlink" title="72.编辑距离"></a>72.编辑距离</h3><pre><code>链接：https://leetcode-cn.com/problems/edit-distance/
 
 给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。
@@ -1011,7 +1054,8 @@ intention -&gt; inention (删除 &#39;t&#39;)
 inention -&gt; enention (将 &#39;i&#39; 替换为 &#39;e&#39;)
 enention -&gt; exention (将 &#39;n&#39; 替换为 &#39;x&#39;)
 exention -&gt; exection (将 &#39;n&#39; 替换为 &#39;c&#39;)
-exection -&gt; execution (插入 &#39;u&#39;)</code></pre>
+exection -&gt; execution (插入 &#39;u&#39;)
+</code></pre>
 <p>思路：</p>
 <pre><code>if s1[i] == s2[j]:
     啥都别做（skip）
@@ -1020,7 +1064,8 @@ else:
     三选一：
         插入（insert）
         删除（delete）
-        替换（replace）</code></pre>
+        替换（replace）
+</code></pre>
 <p>题解一|递归|自顶向下：</p>
 <pre><code>class Solution:
     def minDistance(self, word1: str, word2: str) -&gt; int:
@@ -1037,7 +1082,8 @@ else:
                     dp(i-1,j)+1, # 删除
                     dp(i-1,j-1)+1 # 替换
                     )
-        return dp(len(word1)-1,len(word2)-1)</code></pre>
+        return dp(len(word1)-1,len(word2)-1)
+</code></pre>
 <p>解释：</p>
 <pre><code>if s1[i] == s2[j]:
     return dp(i - 1, j - 1)  # 啥都不做
@@ -1063,7 +1109,8 @@ dp(i - 1, j - 1) + 1 # 替换
 # 解释：
 # 我直接把 s1[i] 替换成 s2[j]，这样它俩就匹配了
 # 同时前移 i，j 继续对比
-# 操作数加一</code></pre>
+# 操作数加一
+</code></pre>
 <p>优化：</p>
 <pre><code>class Solution:
     def minDistance(self, word1: str, word2: str) -&gt; int:
@@ -1085,13 +1132,15 @@ dp(i - 1, j - 1) + 1 # 替换
                     dp(i-1,j-1)+1 # 替换
                     )
             return memo[(i,j)]
-        return dp(len(word1)-1,len(word2)-1)</code></pre>
+        return dp(len(word1)-1,len(word2)-1)
+</code></pre>
 <p>题解二|动态规划：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp4.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp4.png"></p>
 <p>思路：</p>
 <pre><code>理解 word1 上的删除等价 word2 上的增加, word1 上的增加等价于 word2 上的删除
 2维的 dp array 中某一点 dp[i][j] 的意义: word1[ : i] 到 word[ : j] 转换所需要的最小的数目
-不太需要关注具体进行了删除、增加还是替换操作，而是专注于 a 状态到 b 状态所需要的步数</code></pre>
+不太需要关注具体进行了删除、增加还是替换操作，而是专注于 a 状态到 b 状态所需要的步数
+</code></pre>
 <pre><code>class Solution:
     def minDistance(self, word1: str, word2: str) -&gt; int:
         m = len(word1)
@@ -1112,13 +1161,16 @@ dp(i - 1, j - 1) + 1 # 替换
                 # 否则从三种状态中选一个最小的然后 +1
                 else:
                     dp[i][j] = min(dp[i - 1][j - 1], min(dp[i - 1][j], dp[i][j - 1])) + 1
-        return dp[m][n]</code></pre>
+        return dp[m][n]
+</code></pre>
 <p>题解三|动态规划：</p>
-<pre><code>参考：https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486294&amp;idx=1&amp;sn=dd8968700d19ea8b1db29065dc2f7b01&amp;scene=21#wechat_redirect</code></pre>
+<pre><code>参考：https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486294&amp;idx=1&amp;sn=dd8968700d19ea8b1db29065dc2f7b01&amp;scene=21#wechat_redirect
+</code></pre>
 <p>1、定义数组元素的含义</p>
 <pre><code>目的：求将 word1 转换成 word2 所使用的最少操作数 。
 
-dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的长度为 j 时，将 word1 转化为 word2 所使用的最少操作次数为 dp[i][j]。</code></pre>
+dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的长度为 j 时，将 word1 转化为 word2 所使用的最少操作次数为 dp[i][j]。
+</code></pre>
 <p>2、找出关系数组元素间的关系式</p>
 <pre><code>第一种：如果我们 word1[i] 与 word2 [j] 相等，这个时候不需要进行任何操作，所以 dp[i][j] = dp[i-1][j-1]。
 
@@ -1131,11 +1183,13 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
 
 （3）、如果把字符 word1[i] 删除，则有 dp[i][j] = dp[i-1][j] + 1;
 
-所以应该选择一种操作，使得 dp[i][j] 的值最小，显然关系式有：dp[i][j] = min(dp[i-1] [j-1]，dp[i][j-1]，dp[i-1][j]) + 1;</code></pre>
+所以应该选择一种操作，使得 dp[i][j] 的值最小，显然关系式有：dp[i][j] = min(dp[i-1] [j-1]，dp[i][j-1]，dp[i-1][j]) + 1;
+</code></pre>
 <p>3、找出初始值</p>
 <pre><code>当 dp[i][j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp[0][0….n] 和所有的 dp[0….m][0]。
 
-这个还是非常容易计算的，因为当有一个字符串的长度为 0 时，转化为另外一个字符串，那就只能一直进行插入或者删除操作了。</code></pre>
+这个还是非常容易计算的，因为当有一个字符串的长度为 0 时，转化为另外一个字符串，那就只能一直进行插入或者删除操作了。
+</code></pre>
 <p>时间复杂度：O(m<em>n)<br>空间复杂度：O(m</em>n)</p>
 <pre><code>class Solution:
     def minDistance(self, word1: str, word2: str) -&gt; int:
@@ -1144,10 +1198,10 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
         dp = [ n*[_] for _ in range(m) ]
         for i in range(1,m):
             dp[i][0]=dp[i-1][0]+1
-
+        
         for i in range(1,n):
             dp[0][i]=dp[0][i-1]+1
-
+        
         for i in range(1,m):
             for j in range(1,n):
                 if word1[i-1]==word2[j-1]:
@@ -1156,7 +1210,8 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
                     dp[i][j]=min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1
         # print(dp)
         # print(dp[-1][-1])
-        return dp[m-1][n-1]</code></pre>
+        return dp[m-1][n-1]
+</code></pre>
 <p>???题解四|动态规划优化：</p>
 <p>定义额外变量 pre = (i-1,j-1) 的值<br>二维的dp[i][j]=min(dp[i-1][j],dp[i-1][j-1],dp[i][j-1])+1<br>转换为一维的dp[i]=min(dp[i-1],pre,dp[i])+1</p>
 <p>空间复杂度：O(n)</p>
@@ -1168,7 +1223,7 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
 
         for i in range(0,n):
             dp[i]=i
-
+        
         for i in range(1,m):
             tmp=dp[0]
             dp[0]=i
@@ -1179,7 +1234,8 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
                     dp[j]=pre
                 else:
                     dp[j]=min(dp[j-1],pre,dp[j])+1
-        return dp[n-1]</code></pre>
+        return dp[n-1]
+</code></pre>
 <h3 id="91-解码方法"><a href="#91-解码方法" class="headerlink" title="91.解码方法"></a>91.解码方法</h3><pre><code>链接：https://leetcode-cn.com/problems/decode-ways/
 
 一条包含字母 A-Z 的消息通过以下方式进行了编码：
@@ -1199,7 +1255,8 @@ dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的�
 
 输入: &quot;226&quot;
 输出: 3
-解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</code></pre>
+解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。
+</code></pre>
 <p>题解一|动态规划：</p>
 <pre><code>此题类似于青蛙跳台阶问题，不同的只是多了很多限制条件。
 
@@ -1228,10 +1285,11 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
 字符串以‘0’开头时返回0
 字符串含有‘00’时返回0
 字符串中s[i]=&#39;0&#39;但是int(s[i-1])&gt;2时返回0
-字符串s[i-1:i]&gt;26时，此时应该分开计算。dp[i]+=dp[i-1]</code></pre>
+字符串s[i-1:i]&gt;26时，此时应该分开计算。dp[i]+=dp[i-1]
+</code></pre>
 <pre><code>class Solution:
     def numDecodings(self, s: str) -&gt; int:
-
+    
         if s[0]==&#39;0&#39; or s is None:
             return 0
         if len(s)==1:
@@ -1252,7 +1310,7 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
             if s[i]==&#39;0&#39; and s[i-1]==&#39;0&#39;:
                 return 0
         return dp[-1]
-
+                
 用例‘10’这个例子预期输出应该是1,但是实际输出为2，所以for循环从2开始有问题。
 即使改成如下也有问题：
         if s==&#39;10&#39; or s==&#39;20&#39;:
@@ -1260,15 +1318,16 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
         elif int(s)&gt;26:
             return 0
         elif len(s)==2:
-            return 2</code></pre>
+            return 2
+</code></pre>
 <pre><code>class Solution:
     def numDecodings(self, s: str) -&gt; int:
-
+    
         if s[0]==&#39;0&#39; or s is None:
             return 0
         if len(s)==1:
             return 1
-
+    
         length=len(s)
         dp=[0]*(length+1)
         dp[0]=1
@@ -1282,7 +1341,8 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
             if s[i]==&#39;0&#39; and s[i-1]==&#39;0&#39;:
                 return 0
         # print(dp[-1])
-        return dp[length]</code></pre>
+        return dp[length]
+</code></pre>
 <h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="95. 不同的二叉搜索树 II"></a>95. 不同的二叉搜索树 II</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii/
 
 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
@@ -1305,7 +1365,8 @@ dp[2]=2(此题限制2不好，因为‘10’返回1，’27‘返回0)
     \       /     /      / \      \
      3     2     1      1   3      2
     /     /       \                 \
-   2     1         2                 3</code></pre>
+   2     1         2                 3
+</code></pre>
 <p>题解一|递归：<br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree3.png" alt="tree3"><br><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree4.png" alt="tree4"></p>
 <pre><code># Definition for a binary tree node.
 # class TreeNode:
@@ -1324,7 +1385,7 @@ class Solution:
         # 结束条件
         if start&gt;end:
             return [None,]
-
+        
         trees=[]
         for i in range(start,end+1):
             leftTrees=self.build(start,i-1)
@@ -1336,7 +1397,8 @@ class Solution:
                     currentTree.right=r
                     trees.append(currentTree)
         # print(trees)
-        return trees</code></pre>
+        return trees
+</code></pre>
 <h3 id="96-不同的二叉搜索树"><a href="#96-不同的二叉搜索树" class="headerlink" title="96.不同的二叉搜索树"></a>96.不同的二叉搜索树</h3><pre><code>链接：https://leetcode-cn.com/problems/unique-binary-search-trees/
 
 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
@@ -1352,7 +1414,8 @@ class Solution:
     \       /     /      / \      \
      3     2     1      1   3      2
     /     /       \                 \
-   2     1         2                 3</code></pre>
+   2     1         2                 3
+</code></pre>
 <p>题解一|动态规划:</p>
 <p>二叉树定义：</p>
 <p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
@@ -1361,19 +1424,23 @@ class Solution:
 <pre><code>给定一个有序序列 1 ... n，为了根据序列构建一棵二叉搜索树。我们可以遍历每个数字 i，将该数字作为树根，1 ... (i-1) 序列将成为左子树，(i+1) ... n 序列将成为右子树。于是，我们可以递归地从子序列构建子树。
 在上述方法中，由于根各自不同，每棵二叉树都保证是独特的。
 
-可见，问题可以分解成规模较小的子问题。因此，我们可以存储并复用子问题的解，而不是递归的（也重复的）解决这些子问题，这就是动态规划法。</code></pre>
+可见，问题可以分解成规模较小的子问题。因此，我们可以存储并复用子问题的解，而不是递归的（也重复的）解决这些子问题，这就是动态规划法。
+</code></pre>
 <p>函数定义：</p>
 <pre><code>令G(n)的从1到n可以形成二叉搜索树个数
 令f(i)为以i为根的二叉搜索树的个数
 
-所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)</code></pre>
+所以G(n)是解决问题的函数：G(n) = f(1) + f(2) + f(3) + f(4) + ... + f(n)
+</code></pre>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/tree.png" alt="tree"></p>
 <p>1、定义数组元素的含义</p>
-<pre><code>G[i]代表二叉搜索树的个数</code></pre>
+<pre><code>G[i]代表二叉搜索树的个数
+</code></pre>
 <p>2、找出数组之间的的关系式<br>    以i为根，[0,i-1]为左节点，[i+1,n]为右节点<br>    之后再对[0,i-1]和[i+1,n]递归求解</p>
 <pre><code>f(i)=G(i-1)+G(n-i)
 G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
-    =G(0)G(n-1)+G(1)G(n-2)+...+G(n-1)G(0)</code></pre>
+    =G(0)G(n-1)+G(1)G(n-2)+...+G(n-1)G(0)
+</code></pre>
 <p>3、找出初始值<br>    G[0]=1<br>    G[1]=1<br>    G[2]=2</p>
 <pre><code>class Solution:
     def numTrees(self, n: int) -&gt; int:
@@ -1385,7 +1452,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(1,i+1):
                 dp[i]+=dp[j-1]*dp[i-j]
         # print(dp)
-        return dp[n]</code></pre>
+        return dp[n]
+</code></pre>
 <h3 id="118-杨辉三角"><a href="#118-杨辉三角" class="headerlink" title="118.杨辉三角"></a>118.杨辉三角</h3><pre><code>链接：https://leetcode-cn.com/problems/pascals-triangle/
 
 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
@@ -1402,7 +1470,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
    [1,2,1],
   [1,3,3,1],
  [1,4,6,4,1]
-]</code></pre>
+]
+</code></pre>
 <p>题解一：</p>
 <pre><code>class Solution:
     def generate(self, numRows: int) -&gt; List[List[int]]:
@@ -1413,17 +1482,19 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(1,len(row)-1):
                 row[j]=triangle[i-1][j-1]+triangle[i-1][j]
             triangle.append(row)
-        return triangle</code></pre>
+        return triangle
+</code></pre>
 <p>题解二|动态规划：</p>
 <pre><code>1、定义数组元素的含义
     dp存储每个数
 
 2、找出数组之间的的关系式
     遍历dp，将为0的位置使用动态规划填入，公式：dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
-
+    
 3、找出初始值
     初始化结果数组，numRows表示结果数组dp的行数，每一行的元素个数等于所处第几行。全部初始化为0；
-    将边界全部初始化为1；</code></pre>
+    将边界全部初始化为1；
+</code></pre>
 <p>时间复杂度：O(n^2)，等差数列求和。<br>空间复杂度：O(n^2)，等差数列求和。</p>
 <pre><code>class Solution:
     def generate(self, numRows: int) -&gt; List[List[int]]:
@@ -1434,14 +1505,16 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(i+1):
                 if dp[i][j]==0:
                     dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
-        return dp</code></pre>
+        return dp
+</code></pre>
 <pre><code>class Solution:
     def generate(self, numRows: int) -&gt; List[List[int]]:
         dp=[[1]*i for i in range(1,numRows+1)]
         for i in range(2,numRows):
             for j in range(1,i):
                 dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
-        return dp</code></pre>
+        return dp
+</code></pre>
 <h3 id="119-杨辉三角-II"><a href="#119-杨辉三角-II" class="headerlink" title="119. 杨辉三角 II"></a>119. 杨辉三角 II</h3><pre><code>链接：https://leetcode-cn.com/problems/pascals-triangle-ii/
 
 给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
@@ -1452,7 +1525,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
 
 输入: 3
 输出: [1,3,3,1]
-进阶：你可以优化你的算法到 O(k) 空间复杂度吗？</code></pre>
+进阶：你可以优化你的算法到 O(k) 空间复杂度吗？
+</code></pre>
 <p>题解一|动态规划：</p>
 <pre><code>class Solution:
     def getRow(self, rowIndex: int) -&gt; List[int]:
@@ -1463,7 +1537,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(i+1):
                 if dp[i][j]==0:
                     dp[i][j]=dp[i-1][j-1]+dp[i-1][j]
-        return dp[rowIndex]</code></pre>
+        return dp[rowIndex]
+</code></pre>
 <p>题解二|动态规划优化：</p>
 <pre><code>class Solution:
     def getRow(self, rowIndex: int) -&gt; List[int]:
@@ -1472,7 +1547,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
             for j in range(i-1,0,-1):
                 print(j,)
                 dp[j]=dp[j-1]+dp[j]
-        return dp</code></pre>
+        return dp
+</code></pre>
 <pre><code>class Solution:
     def getRow(self, rowIndex: int) -&gt; List[int]:
         dp = [1] * (rowIndex+1)
@@ -1498,17 +1574,20 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
 
 说明：
 
-如果你可以只使用 O(n) 的额外空间（n 为三角形的总行数）来解决这个问题，那么你的算法会很加分。</code></pre>
+如果你可以只使用 O(n) 的额外空间（n 为三角形的总行数）来解决这个问题，那么你的算法会很加分。
+</code></pre>
 <p>题解一|动态规划：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp1.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp1.png"></p>
 <p>1、定义数组的含义</p>
-<pre><code>dp[i][j]为最小路径和</code></pre>
+<pre><code>dp[i][j]为最小路径和
+</code></pre>
 <p>2、找出递推关系式</p>
 <pre><code>从第二行开始，遍历区间[1,n):
     对每一层的元素进行遍历，遍历区间[0,len(triangle[i])，存在3种情况：
         首位；
         末位；
-        其他元素；</code></pre>
+        其他元素；
+</code></pre>
 <p>3、找到初始值</p>
 <pre><code>class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -&gt; int:
@@ -1527,7 +1606,8 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
                     dp[i][j]=triangle[i-1][j-1]+triangle[i][j]
                 else:
                     dp[i][j]=min(triangle[i-1][j],triangle[i-1][j-1])+triangle[i][j]
-        return min(dp[-1])</code></pre>
+        return min(dp[-1])
+</code></pre>
 <p>优化一下，空间复杂度变为O(n).</p>
 <pre><code>class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -&gt; int:
@@ -1568,11 +1648,13 @@ G(n)=f(1) + f(2) + f(3) + f(4) + ... + f(n)
 示例 3：
 
 输入: s = &quot;catsandog&quot;, wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;, &quot;cat&quot;]
-输出: false</code></pre>
+输出: false
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组的含义</p>
 <pre><code>dp=[False,...,false],长度为n+1，n为字符串长度。
-dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
+dp[i]表示s的前i位是否可以用wordDict中的单词表示。
+</code></pre>
 <p>2、找出递推关系式</p>
 <pre><code>遍历字符串的所有子串，遍历开始索引i，遍历区间[0,n)：
     遍历结束索引j，遍历区间[i+1,n+1)：
@@ -1580,9 +1662,11 @@ dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
 
         解释：dp[i]=True说明s的前i位可以用wordDict表示，则s[i,⋯,j)出现在wordDict中，说明s的前j位可以表示。
 
-返回dp[n]</code></pre>
+返回dp[n]
+</code></pre>
 <p>3、找到初始值</p>
-<pre><code>初始化dp[0]=True，空字符可以被表示。</code></pre>
+<pre><code>初始化dp[0]=True，空字符可以被表示。
+</code></pre>
 <p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
@@ -1594,7 +1678,8 @@ dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
                 if dp[i] and s[i:j] in wordDict:
                     dp[j]=True
         # return dp[n]
-        return dp[-1]</code></pre>
+        return dp[-1]
+</code></pre>
 <p>题解二|DFS|记忆化递归：</p>
 <pre><code>class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
@@ -1612,7 +1697,8 @@ dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
             memo[first]=False
             return False
 
-        return dfs(0)</code></pre>
+        return dfs(0)
+</code></pre>
 <p>??题解三|记忆化回溯）:</p>
 <pre><code>1、使用记忆化函数，保存出现过的backtrack(s)，避免重复计算。
 
@@ -1625,7 +1711,8 @@ dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
         解释：保存遍历结束索引中，可以使字符串切割完成的情况。
     返回res
 
-3、返回backtrack(s)</code></pre>
+3、返回backtrack(s)
+</code></pre>
 <pre><code>class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -&gt; bool:
         import functools
@@ -1638,7 +1725,8 @@ dp[i]表示s的前i位是否可以用wordDict中的单词表示。</code></pre>
                 if(s[:i] in wordDict):
                     res=back_track(s[i:]) or res
             return res
-        return back_track(s)</code></pre>
+        return back_track(s)
+</code></pre>
 <p>题解四|BFS|超时：</p>
 <pre><code>import collections
 
@@ -1661,7 +1749,8 @@ class Solution:
                         return True
                     else:
                         queue.append(j+1)
-        return False</code></pre>
+        return False
+</code></pre>
 <h3 id="152-乘积最大子数组"><a href="#152-乘积最大子数组" class="headerlink" title="152. 乘积最大子数组"></a>152. 乘积最大子数组</h3><pre><code>链接：https://leetcode-cn.com/problems/maximum-product-subarray/
 
 给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。
@@ -1675,12 +1764,14 @@ class Solution:
 
 输入: [-2,0,-1]
 输出: 0
-解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。</code></pre>
+解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+</code></pre>
 <p>题解一|动态规划:</p>
 <p>此题类似于52题最大子序和，唯一的区别是：由于存在负数，那么会导致最大的变最小的，最小的变最大的，因此还需要维护当前最小值minTmp，minTmp = min(minTmp * nums[i], nums[i])</p>
 <p>1、定义数组元素的含义</p>
 <pre><code>dp[i]为以num[i]结尾的子段的最大子段乘积
-dp[1]为以num[1]结尾的最大子段乘积</code></pre>
+dp[1]为以num[1]结尾的最大子段乘积
+</code></pre>
 <p>2、寻找递推表达式</p>
 <pre><code>只考虑第一个元素，则最大子段和为其本身 dp[0] = nums[0]
 
@@ -1692,10 +1783,12 @@ dp[1]为以num[1]结尾的最大子段乘积</code></pre>
 
 dp[i]=max(dp[i-1]*num[i],num[i])
 由于存在负数：
-dp_[i]=min(dp_[i-1]*num[i],num[i])</code></pre>
+dp_[i]=min(dp_[i-1]*num[i],num[i])
+</code></pre>
 <p>3、找出初始值</p>
 <pre><code>dp[0]=num[0]
-dp[1]=max(dp[0]* num[1],num[1])</code></pre>
+dp[1]=max(dp[0]* num[1],num[1])
+</code></pre>
 <pre><code>class Solution:
     def maxProduct(self, nums: List[int]) -&gt; int:
         lens=len(nums)
@@ -1710,7 +1803,8 @@ dp[1]=max(dp[0]* num[1],num[1])</code></pre>
             dp[i]=max(dp[i-1]*nums[i],nums[i],mindp[i-1]*nums[i])
             mindp[i]=min(dp[i-1]*nums[i],nums[i],mindp[i-1]*nums[i])
             res=max(res,dp[i])
-        return res</code></pre>
+        return res
+</code></pre>
 <pre><code>class Solution:
     def maxProduct(self, nums: List[int]) -&gt; int:
         lens=len(nums)
@@ -1726,7 +1820,8 @@ dp[1]=max(dp[0]* num[1],num[1])</code></pre>
             minTmp=min(minTmp*nums[i],nums[i])
 
             res=max(res,maxTmp)
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="221-最大正方形"><a href="#221-最大正方形" class="headerlink" title="221.最大正方形"></a>221.最大正方形</h3><pre><code>链接：https://leetcode-cn.com/problems/maximal-square/
 
 在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。
@@ -1740,21 +1835,25 @@ dp[1]=max(dp[0]* num[1],num[1])</code></pre>
 1 1 1 1 1
 1 0 0 1 0
 
-输出: 4</code></pre>
+输出: 4
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组元素的含义</p>
 <pre><code>dp[i][j]表示以(i,j)为右下角，且只包含1的正方形边长最大值;
-计算出所有 dp(i,j) 的值，那么其中的最大值即为矩阵中只包含 1 的正方形的边长最大值，其平方即为最大正方形的面积。</code></pre>
+计算出所有 dp(i,j) 的值，那么其中的最大值即为矩阵中只包含 1 的正方形的边长最大值，其平方即为最大正方形的面积。
+</code></pre>
 <p>2、寻找递推表达式</p>
 <pre><code>如果该位置的值是 0，则 dp(i,j)=0，因为当前位置不可能在由 1 组成的正方形中；
 
 如果该位置的值是 1，则 dp(i,j) 的值由其上方、左方和左上方的三个相邻位置的 dp值决定。具体而言，当前位置的元素值等于三个相邻位置的元素中的最小值加 1，状态转移方程如下：
 
-dp(i,j)=min(dp(i−1,j),dp(i−1,j−1),dp(i,j−1))+1</code></pre>
+dp(i,j)=min(dp(i−1,j),dp(i−1,j−1),dp(i,j−1))+1
+</code></pre>
 <p>3、找出初始值</p>
 <pre><code>if matrix[i][j]==&#39;1&#39;:
     if i==0 or j==0:
-        dp[i][j]=1</code></pre>
+        dp[i][j]=1
+</code></pre>
 <pre><code>class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -&gt; int:
         if len(matrix)==0 or len(matrix[0])==0:
@@ -1787,7 +1886,8 @@ dp(i,j)=min(dp(i−1,j),dp(i−1,j−1),dp(i,j−1))+1</code></pre>
 说明:  
 
 1 是丑数。
-n 不超过1690。</code></pre>
+n 不超过1690。
+</code></pre>
 <p>题解一|动态规划+3个指针:</p>
 <pre><code>class Solution:
     def nthUglyNumber(self, n: int) -&gt; int:
@@ -1802,7 +1902,8 @@ n 不超过1690。</code></pre>
                 i3+=1
             if ugly== nums[i5]*5:
                 i5+=1
-        return nums[n-1]</code></pre>
+        return nums[n-1]
+</code></pre>
 <h3 id="279-完全平方数"><a href="#279-完全平方数" class="headerlink" title="279. 完全平方数"></a>279. 完全平方数</h3><pre><code>链接：https://leetcode-cn.com/problems/perfect-squares/
 
 给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
@@ -1816,16 +1917,19 @@ n 不超过1690。</code></pre>
 
 输入: n = 13
 输出: 2
-解释: 13 = 4 + 9.</code></pre>
+解释: 13 = 4 + 9.
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组元素的含义</p>
-<pre><code>dp[i]表示i最少可以由几个平方数构成</code></pre>
+<pre><code>dp[i]表示i最少可以由几个平方数构成
+</code></pre>
 <p>2、寻找递推表达式</p>
 <pre><code>遍历dp，对于i，遍历区间[2,n+1)：
     遍历所有平方数小于i的数j，遍历区间[1,int(\sqrt&#123;i&#125;)+1):
         dp[i]=min(dp[i],dp[i-j*j]+1)
         始终保存所有可能情况中的最小值
-返回dp[n]</code></pre>
+返回dp[n]
+</code></pre>
 <p>3、找出初始值<br>    dp=[0,1,2,…,n]，长度为n+1，最多次数就是全由1构成。</p>
 <p>时间复杂度：O(n\sqrt{n})<br>空间复杂度：O(n)</p>
 <pre><code>import math
@@ -1835,7 +1939,8 @@ class Solution:
         for i in range(2,n+1):
             for j in range(1,int(math.sqrt(i))+1): # 开方也可使用i**0.5
                 dp[i]=min(dp[i],dp[i-j*j]+1)
-        return dp[n]</code></pre>
+        return dp[n]
+</code></pre>
 <p>题解二|广度优先遍历bfs：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bfs.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/bfs.png"></p>
 <p>借助队列实现广度优先遍历（层次遍历）:</p>
@@ -1850,7 +1955,8 @@ class Solution:
             定义x=tmp-i^2
             若x==0，返回当前的路径长度。
             若x not in visited，表示当前节点未出现过：将该节点入队并在访问数组中加入。
-4、返回step</code></pre>
+4、返回step
+</code></pre>
 <p>时间复杂度：O(n*\sqrt{n})，并不准确<br>空间复杂度：O(n)</p>
 <pre><code>from collections import deque
 class Solution:
@@ -1872,7 +1978,8 @@ class Solution:
                     if node not in visited:
                         queue.appendleft(node)
                         visited.add(node)
-        return step</code></pre>
+        return step
+</code></pre>
 <h3 id="继续理解-300-最长上升子序列"><a href="#继续理解-300-最长上升子序列" class="headerlink" title="继续理解 300. 最长上升子序列"></a>继续理解 300. 最长上升子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-increasing-subsequence/
 
 给定一个无序的整数数组，找到其中最长上升子序列的长度。
@@ -1886,13 +1993,16 @@ class Solution:
 
 可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。
 你算法的时间复杂度应该为 O(n^2) 。
-进阶: 你能将算法的时间复杂度降低到 O(n*logn) 吗?</code></pre>
+进阶: 你能将算法的时间复杂度降低到 O(n*logn) 吗?
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组元素的含义</p>
-<pre><code>定义 dp[i] 为考虑前 i 个元素，以第 i 个数字结尾的最长上升子序列的长度，注意 nums[i] 必须被选取。</code></pre>
+<pre><code>定义 dp[i] 为考虑前 i 个元素，以第 i 个数字结尾的最长上升子序列的长度，注意 nums[i] 必须被选取。
+</code></pre>
 <p>2、寻找递推表达式</p>
 <pre><code>从小到大计算 dp[] 数组的值，在计算 dp[i] 之前，我们已经计算出 dp[0…i−1] 的值:
-dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
+dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]
+</code></pre>
 <p>3、找出初始值<br>    dp[i]=1，1 个字符显然是长度为 1 的上升子序列。</p>
 <p>时间复杂度：O(n^2)，其中 n 为数组 nums 的长度。动态规划的状态数为 n，计算状态 dp[i] 时，需要 O(n) 的时间遍历 dp[0…i−1] 的所有状态，所以总时间复杂度为 O(n^2)</p>
 <p>空间复杂度：O(n)，需要额外使用长度为 n 的 dp 数组。</p>
@@ -1900,22 +2010,24 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
     def lengthOfLIS(self, nums: List[int]) -&gt; int:
         if not nums:
             return 0
-        dp=[]
+        dp=len(nums)*[1]
         for i in range(len(nums)):
-            dp.append(1)
             for j in range(i):
                 if nums[i]&gt;nums[j]:
                     dp[i]=max(dp[i],dp[j]+1)
-        return max(dp)</code></pre>
+        return max(dp)
+</code></pre>
 <p>题解二|动态规划+二分查找：</p>
 <p>1、定义数组元素的含义</p>
-<pre><code>tails[k] 的值代表 长度为 k+1 子序列 的尾部元素值。</code></pre>
+<pre><code>tails[k] 的值代表 长度为 k+1 子序列 的尾部元素值。
+</code></pre>
 <p>2、寻找递推表达式</p>
 <pre><code>设 res 为 tails 当前长度，代表直到当前的最长上升子序列长度。设 j∈[0,res)，考虑每轮遍历 nums[k] 时，通过二分法遍历 [0,res) 列表区间，找出 nums[k]的大小分界点，会出现两种情况：
 
-    区间中存在 tails[i] &gt; nums[k] ： 将第一个满足 tails[i] &gt; nums[k]执行 tails[i] = nums[k] ；因为更小的 nums[k]后更可能接一个比它大的数字。
-
-    区间中不存在 tails[i] &gt; nums[k] ： 意味着 nums[k]可以接在前面所有长度的子序列之后，因此肯定是接到最长的后面（长度为 res），新子序列长度为 res + 1。</code></pre>
+    区间中存在 tails[i] &gt; nums[k] ： 将第一个满足 tails[i] &gt; nums[k]执行 tails[i] = nums[k] ；因���更小的 nums[k]后更可能接一个比它大的数字。
+    
+    区间中不存在 tails[i] &gt; nums[k] ： 意味着 nums[k]可以接在前面所有长度的子序列之后，因此肯定是接到最长的后面（长度为 res），新子序列长度为 res + 1。
+</code></pre>
 <p>3、找出初始值<br>    tails[i]=0，tails 列表所有值 =0。</p>
 <p>4、返回 res ，即最长上升子子序列长度。</p>
 <p>时间复杂度 O(NlogN) ： 遍历 nums 列表需 O(N)，在每个 nums[i] 二分法需 O(logN)<br>空间复杂度 O(N) ： tails 列表占用线性大小额外空间。</p>
@@ -1935,31 +2047,32 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
             tails[i]=num
             if j==res:
                 res+=1
-        return res</code></pre>
+        return res
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w">https://mp.weixin.qq.com/s/02o_OPgePjaz3dXnw9TA1w</a></p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/search.jpg"></p>
 <pre><code>class Solution:
     def lengthOfLIS(self, nums: List[int]) -&gt; int:
+        if not nums:
+            return 0
         n=len(nums)
-        top=n*[0]
-        piles=0
+        dp=n*[0]
+        count=0
         for i in range(n):
-            poker=nums[i]
-            left,right=0,piles
+            left,right=0,count
             while left&lt;right:
-                mid=left+(right-left)//2
-                if top[mid]&gt;poker:
+                mid=left+((right-left)&gt;&gt;1)
+                if top[mid]&gt;=nums[i]:
                     right=mid
-                elif top[mid]&lt;poker:
-                    left=mid+1
                 else:
-                    right=mid
+                    left=mid+1
 
-            if left==piles:
-                piles+=1
-            top[left]=poker
-        return piles</code></pre>
-<p>题解三|贪心|二分查找：</p>
+            if left==count:
+                count+=1
+            top[left]=nums[i]
+        return count
+</code></pre>
+<p>题解三|二分查找：</p>
 <p>时间复杂度：O(nlogn)。数组 nums 的长度为 n，我们依次用数组中的元素去更新 dp 数组，而更新 do 数组时需要进行 O(logn) 的二分搜索，所以总时间复杂度为 O(nlogn)。</p>
 <p>空间复杂度：O(n)</p>
 <pre><code>class Solution(object):
@@ -1985,7 +2098,8 @@ dp[i]=max(dp[j])+1,其中0≤j&lt;i且num[j]&lt;num[i]</code></pre>
                     else:
                         left=mid+1
                 dp[loc]=num
-        return len(dp)</code></pre>
+        return len(dp)
+</code></pre>
 <h3 id="303-区域和检索-数组不可变"><a href="#303-区域和检索-数组不可变" class="headerlink" title="303. 区域和检索 - 数组不可变"></a>303. 区域和检索 - 数组不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-immutable/
 
 给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
@@ -2000,9 +2114,11 @@ sumRange(0, 5) -&gt; -3
 说明:
 
 你可以假设数组不可变。
-会多次调用 sumRange 方法。</code></pre>
+会多次调用 sumRange 方法。
+</code></pre>
 <p>题解一|暴力：</p>
-<pre><code>缺点：每次调用sumRange都要重新进行计算</code></pre>
+<pre><code>缺点：每次调用sumRange都要重新进行计算
+</code></pre>
 <pre><code>class NumArray:
 
     def __init__(self, nums: List[int]):
@@ -2016,7 +2132,8 @@ sumRange(0, 5) -&gt; -3
 
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
-# param_1 = obj.sumRange(i,j)</code></pre>
+# param_1 = obj.sumRange(i,j)
+</code></pre>
 <p>题解二|缓存+动态规划：</p>
 <pre><code>class NumArray:
 
@@ -2035,7 +2152,8 @@ sumRange(0, 5) -&gt; -3
 
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
-# param_1 = obj.sumRange(i,j)</code></pre>
+# param_1 = obj.sumRange(i,j)
+</code></pre>
 <pre><code>class NumArray:
 
     def __init__(self, nums: List[int]):
@@ -2053,7 +2171,8 @@ sumRange(0, 5) -&gt; -3
 
 # Your NumArray object will be instantiated and called as such:
 # obj = NumArray(nums)
-# param_1 = obj.sumRange(i,j)</code></pre>
+# param_1 = obj.sumRange(i,j)
+</code></pre>
 <h3 id="304-二维区域和检索-矩阵不可变"><a href="#304-二维区域和检索-矩阵不可变" class="headerlink" title="304. 二维区域和检索 - 矩阵不可变"></a>304. 二维区域和检索 - 矩阵不可变</h3><pre><code>链接：https://leetcode-cn.com/problems/range-sum-query-2d-immutable/
 
 给定一个二维矩阵，计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2)。
@@ -2078,16 +2197,19 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
 你可以假设矩阵不可变。
 会多次调用 sumRegion 方法。
-你可以假设 row1 ≤ row2 且 col1 ≤ col2。</code></pre>
+你可以假设 row1 ≤ row2 且 col1 ≤ col2。
+</code></pre>
 <p>题解一|动态规划：</p>
 <p><img src="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png" alt="https://gypsy-1255824480.cos.ap-beijing.myqcloud.com/blog/dp22.png"></p>
-<pre><code>sum(abcd)=sum(od)−sum(ob)−sum(oc)+sum(oa)</code></pre>
+<pre><code>sum(abcd)=sum(od)−sum(ob)−sum(oc)+sum(oa)
+</code></pre>
 <p>1、定义数组的含义</p>
-<pre><code>dp[i][j]表示矩阵左上角到matrix[i][j]的累加和</code></pre>
+<pre><code>dp[i][j]表示矩阵左上角到matrix[i][j]的累加和
+</code></pre>
 <pre><code>class NumMatrix:
 
     def __init__(self, matrix: List[List[int]]):
-
+        
         if not matrix or not matrix[0]:pass
         else:
             row = len(matrix)
@@ -2108,17 +2230,18 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
 # Your NumMatrix object will be instantiated and called as such:
 # obj = NumMatrix(matrix)
-# param_1 = obj.sumRegion(row1,col1,row2,col2)</code></pre>
+# param_1 = obj.sumRegion(row1,col1,row2,col2)
+</code></pre>
 <pre><code>class NumMatrix:
 
     def __init__(self, matrix: List[List[int]]):
-
+        
         if not matrix or not matrix[0]:pass
         else:
             row = len(matrix)
             col = len(matrix[0])
             self.dp = [[ 0 ] * (col + 1) for _ in range(row + 1)]
-
+        
             for i in range(1, row + 1):
                 for j in range(1, col + 1):
                     self.dp[i][j] = matrix[i - 1][j - 1] + self.dp[i - 1][j] + self.dp[i][j - 1] - self.dp[i-1][j-1] # [i-1, j-1] # 重复计算了, 所以需要减去.
@@ -2128,7 +2251,8 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
 # Your NumMatrix object will be instantiated and called as such:
 # obj = NumMatrix(matrix)
-# param_1 = obj.sumRegion(row1,col1,row2,col2)</code></pre>
+# param_1 = obj.sumRegion(row1,col1,row2,col2)
+</code></pre>
 <h3 id="334-递增的三元子序列"><a href="#334-递增的三元子序列" class="headerlink" title="334. 递增的三元子序列"></a>334. 递增的三元子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/increasing-triplet-subsequence/
 
 给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
@@ -2146,7 +2270,8 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 示例 2:
 
 输入: [5,4,3,2,1]
-输出: false</code></pre>
+输出: false
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>时间复杂度：O(n^2)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
@@ -2173,7 +2298,8 @@ sumRegion(1, 2, 2, 4) -&gt; 12
                 m2=i
             else:
                 return True
-        return False</code></pre>
+        return False
+</code></pre>
 <h3 id="338-比特位计数"><a href="#338-比特位计数" class="headerlink" title="338. 比特位计数"></a>338. 比特位计数</h3><pre><code>链接：https://leetcode-cn.com/problems/counting-bits/
 
 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
@@ -2190,18 +2316,22 @@ sumRegion(1, 2, 2, 4) -&gt; 12
 
 给出时间复杂度为O(n*sizeof(integer))的解答非常容易。但你可以在线性时间O(n)内用一趟扫描做到吗？
 要求算法的空间复杂度为O(n)。
-你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。</code></pre>
+你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、定义数组含义</p>
-<pre><code>dp[i]表示数字i计算其二进制数中的 1 的数目。</code></pre>
+<pre><code>dp[i]表示数字i计算其二进制数中的 1 的数目。
+</code></pre>
 <p>2、找出数组递推关系式</p>
 <pre><code>当i为奇数时：
     奇数一定比前面那个偶数多一个 1，因为多的就是最低位的 1。
 当i为偶数时：
-    二进制是逢2开始进位的，也就是在偶数的时候，一个偶数相当一另一个数成以2得到，在二进制运算中，就是左移一位，也就是在低位多加1个0，故遇到偶数的时候就是dp[i] = dp[i/2]。</code></pre>
+    二进制是逢2开始进位的，也就是在偶数的时候，一个偶数相当一另一个数成以2得到，在二进制运算中，就是左移一位，也就是在低位多加1个0，故遇到偶数的时候就是dp[i] = dp[i/2]。
+</code></pre>
 <p>3、找到初始值</p>
 <pre><code>dp[0]=0
-dp[1]=1</code></pre>
+dp[1]=1
+</code></pre>
 <p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>
 <pre><code>class Solution:
     def countBits(self, num: int) -&gt; List[int]:
@@ -2215,7 +2345,8 @@ dp[1]=1</code></pre>
                 dp[i]=dp[i//2]
             else:
                 dp[i]=dp[i-1]+1
-        return dp</code></pre>
+        return dp
+</code></pre>
 <h3 id="343-整数拆分"><a href="#343-整数拆分" class="headerlink" title="343. 整数拆分"></a>343. 整数拆分</h3><pre><code>链接：https://leetcode-cn.com/problems/integer-break/
 
 给定一个正整数 n，将其拆分为至少两个正整数的和，并使这些整数的乘积最大化。 返回你可以获得的最大乘积。
@@ -2230,16 +2361,19 @@ dp[1]=1</code></pre>
 输入: 10
 输出: 36
 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36。
-说明: 你可以假设 n 不小于 2 且不大于 58。</code></pre>
+说明: 你可以假设 n 不小于 2 且不大于 58。
+</code></pre>
 <p>题解一|动态规划</p>
 <p>1、定义数组</p>
-<pre><code>dp[i]代表i拆分后的最大乘积</code></pre>
+<pre><code>dp[i]代表i拆分后的最大乘积
+</code></pre>
 <p>2、递推表达式</p>
 <pre><code>dp[i]=max(dp[i],j*(i-j),j*dp[i-j])
 
 (i - j) * j 代表的是整数 i 拆分成 2 部分, 分别为 (i - j) * j；
 
-j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表在之前的动态规划求得的整数 i - j 的分割最大的乘积</code></pre>
+j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表在之前的动态规划求得的整数 i - j 的分割最大的乘积
+</code></pre>
 <p>3、初始值<br>    dp[i]=1，从3开始。</p>
 <pre><code>class Solution:
     def integerBreak(self, n: int) -&gt; int:
@@ -2247,7 +2381,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
         for i in range(3,n+1):
             for j in range(1,i):
                 dp[i]=max(dp[i],j*(i-j),j*dp[i-j])
-        return dp[n]</code></pre>
+        return dp[n]
+</code></pre>
 <h3 id="354-俄罗斯套娃信封问题"><a href="#354-俄罗斯套娃信封问题" class="headerlink" title="354. 俄罗斯套娃信封问题"></a>354. 俄罗斯套娃信封问题</h3><pre><code>链接：https://leetcode-cn.com/problems/russian-doll-envelopes/
 
 给定一些标记了宽度和高度的信封，宽度和高度以整数对形式 (w, h) 出现。当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。
@@ -2261,7 +2396,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
 
 输入: envelopes = [[5,4],[6,4],[6,7],[2,3]]
 输出: 3 
-解释: 最多信封的个数为 3, 组合为: [2,3] =&gt; [5,4] =&gt; [6,7]。</code></pre>
+解释: 最多信封的个数为 3, 组合为: [2,3] =&gt; [5,4] =&gt; [6,7]。
+</code></pre>
 <p>题解一|动态规划|超时</p>
 <pre><code>class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -&gt; int:
@@ -2275,7 +2411,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
                 if envelopes[i][1] &gt; envelopes[j][1] and dp[j]+1 &gt; dp[i]:
                     dp[i]=dp[j]+1
                 count=max(count,dp[i])
-        return count</code></pre>
+        return count
+</code></pre>
 <p>稍微修改下，通过：</p>
 <pre><code>class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -&gt; int:
@@ -2287,7 +2424,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
             for j in range(i):
                 if envelopes[i][1] &gt; envelopes[j][1] and dp[j]+1 &gt; dp[i]:
                     dp[i]=max(dp[i],dp[j]+1)
-        return max(dp)</code></pre>
+        return max(dp)
+</code></pre>
 <h3 id="357-计算各个位数不同的数字个数"><a href="#357-计算各个位数不同的数字个数" class="headerlink" title="357. 计算各个位数不同的数字个数"></a>357. 计算各个位数不同的数字个数</h3><pre><code>链接：https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
 
 给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x &lt; 10^n 。
@@ -2296,7 +2434,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
 
 输入: 2
 输出: 91 
-解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。</code></pre>
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。
+</code></pre>
 <p>题解一|动态规划:</p>
 <pre><code>数字一共有0~9十个，所以n超过十位一定会重复。
 
@@ -2305,7 +2444,8 @@ j * dp[i - j]代表的是整数 i 拆 2 部分以上， dp[i - j] 就是代表�
 3位 9*9*8+9*9+10
 4位 9*9*8*7+9*9*8+9*9+10
 ...
-i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1] = 9）</code></pre>
+i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1] = 9）
+</code></pre>
 <pre><code>class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
         if n==0:
@@ -2319,7 +2459,8 @@ i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1]
             dp1[i]=dp2[i]+dp1[i-1]
         if n&gt;=11:
             return dp[10]
-        return dp1[n]</code></pre>
+        return dp1[n]
+</code></pre>
 <pre><code>class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
         if n==0:
@@ -2329,7 +2470,8 @@ i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1]
         for i in range(2,size+1):
             fisrt+=second
             second*=(10-i)
-        return fisrt</code></pre>
+        return fisrt
+</code></pre>
 <p>??题解二|回溯：</p>
 <pre><code>class Solution:
     def countNumbersWithUniqueDigits(self, n: int) -&gt; int:
@@ -2349,7 +2491,8 @@ i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1]
             return count
         if not n:
             return 1
-        return backtrace(0,used)</code></pre>
+        return backtrace(0,used)
+</code></pre>
 <h3 id="368-最大整除子集"><a href="#368-最大整除子集" class="headerlink" title="368. 最大整除子集"></a>368. 最大整除子集</h3><pre><code>链接：https://leetcode-cn.com/problems/largest-divisible-subset/
 
 给出一个由无重复的正整数组成的集合，找出其中最大的整除子集，子集中任意一对 (Si，Sj) 都要满足：Si % Sj = 0 或 Sj % Si = 0。
@@ -2363,7 +2506,8 @@ i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1]
 示例 2:
 
 输入: [1,2,4,8]
-输出: [1,2,4,8]</code></pre>
+输出: [1,2,4,8]
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、sorted()排序；<br>2、dp[i]表示以下标i位置元素结尾得最长序列。<br>3、遍历0-(i-1)，如果nums[i]整除nums[j]，则判断dp[i]和dp[j] + 1哪个大</p>
 <pre><code>class Solution:
@@ -2380,7 +2524,8 @@ i位 dp1[i] = dp2[i-1]*(10-(i-1))+dp1[i-1]  （i从2开始，dp1[1] = 10, dp2[1]
                         dp[i]=dp[j]+[nums[i]]
             if len(dp[i])&gt;len(res):
                 res=dp[i]
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="392-判断子序列"><a href="#392-判断子序列" class="headerlink" title="392. 判断子序列"></a>392. 判断子序列</h3><pre><code>链接：https://leetcode-cn.com/problems/is-subsequence/
 
 给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
@@ -2401,7 +2546,8 @@ s = &quot;axc&quot;, t = &quot;ahbgdc&quot;
 
 后续挑战 :
 
-如果有大量输入的 S，称作S1, S2, ... , Sk 其中 k &gt;= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代码？</code></pre>
+如果有大量输入的 S，称作S1, S2, ... , Sk 其中 k &gt;= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代码？
+</code></pre>
 <p>题解一|双指针：</p>
 <pre><code>class Solution:
     def isSubsequence(self, s: str, t: str) -&gt; bool:
@@ -2412,7 +2558,8 @@ s = &quot;axc&quot;, t = &quot;ahbgdc&quot;
                 count+=1
                 p+=1
             q+=1
-        return p==len(s)</code></pre>
+        return p==len(s)
+</code></pre>
 <p>题解二|二分+哈希：</p>
 <pre><code>class Solution:
     def isSubsequence(self, s: str, t: str) -&gt; bool:
@@ -2440,8 +2587,9 @@ s = &quot;axc&quot;, t = &quot;ahbgdc&quot;
             if left == len(indexes):
                 return False
             index = indexes[left]
-
-        return True</code></pre>
+            
+        return True
+</code></pre>
 <h3 id="516-最长回文子序列"><a href="#516-最长回文子序列" class="headerlink" title="516. 最长回文子序列"></a>516. 最长回文子序列</h3><pre><code>给定一个字符串 s ，找到其中最长的回文子序列，并返回该序列的长度。可以假设 s 的最大长度为 1000 。
 
 示例 1:
@@ -2465,7 +2613,8 @@ s = &quot;axc&quot;, t = &quot;ahbgdc&quot;
 提示：
 
 1 &lt;= s.length &lt;= 1000
-s 只包含小写英文字母</code></pre>
+s 只包含小写英文字母
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、dp 数组的定义是：在子串s[i..j]中，最长回文子序列的长度为dp[i][j]</p>
 <p>2、状态转移方程</p>
@@ -2474,7 +2623,8 @@ s 只包含小写英文字母</code></pre>
     dp[i][j] = dp[i + 1][j - 1] + 2;
 else
     // s[i+1..j] 和 s[i..j-1] 谁的回文子序列更长？
-    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);</code></pre>
+    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+</code></pre>
 <p>答案：dp[0][n - 1]，也就是整个s的最长回文子序列的长度。</p>
 <p>3、bad case</p>
 <p>如果只有一个字符，显然最长回文子序列长度是 1，也就是dp[i][j] = 1,(i == j)。</p>
@@ -2503,12 +2653,14 @@ else
 <p>题解一：</p>
 <p>流程：对于动态规划问题，首先要明白有哪些「状态」，有哪些「选择」。</p>
 <p>有哪些「选择」是很明显的：</p>
-<pre><code>4 种，就是题目中提到的四个按键，分别是A、C-A、C-C、C-V（Ctrl简写为C）。</code></pre>
+<pre><code>4 种，就是题目中提到的四个按键，分别是A、C-A、C-C、C-V（Ctrl简写为C）。
+</code></pre>
 <p>有哪些「状态」？或者换句话说，我们需要知道什么信息，才能将原问题分解为规模更小的子问题？</p>
 <p>定义三个状态行不行：</p>
 <pre><code>第一个状态是剩余的按键次数，用n表示；
 第二个状态是当前屏幕上字符 A 的数量，用a_num表示；
-第三个状态是剪切板中字符 A 的数量，用copy表示。</code></pre>
+第三个状态是剪切板中字符 A 的数量，用copy表示。
+</code></pre>
 <p>如此定义「状态」，就可以知道 base case：当剩余次数n为 0 时，a_num就是我们想要的答案。</p>
 <p>结合刚才说的 4 种「选择」，我们可以把这几种选择通过状态转移表示出来：</p>
 <pre><code>dp(n - 1, a_num + 1, copy),    # A
@@ -2522,7 +2674,8 @@ dp(n - 1, a_num + copy, copy), # C-V
 dp(n - 2, a_num, a_num)        # C-A C-C
 解释：全选和复制必然是联合使用的，
 剪切板中 A 的数量变为屏幕上 A 的数量
-同时消耗 2 个操作数</code></pre>
+同时消耗 2 个操作数
+</code></pre>
 <p>问题的规模n在不断减小，肯定可以到达n = 0的 base case，所以这个思路是正确的：</p>
 <pre><code>def maxA(n):
     def dp(n,a_num,copy):
@@ -2535,7 +2688,8 @@ dp(n - 2, a_num, a_num)        # C-A C-C
             dp(n-1,a_num+copy,copy),
             dp(n-2,a_num,a_num)
             )
-    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A</code></pre>
+    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A
+</code></pre>
 <p>优化：</p>
 <pre><code>def maxA(n):
     memo=dict()
@@ -2553,16 +2707,19 @@ dp(n - 2, a_num, a_num)        # C-A C-C
             dp(n-2,a_num,a_num)
             )
         return memo[(n,a_num,copy)]
-    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A</code></pre>
+    return dp(n,0,0) # 可以按n次按键，屏幕和剪切板种还没有A
+</code></pre>
 <p>可以把这个 dp 函数写成 dp 数组：</p>
-<pre><code>dp[n][a_num][copy] #状态的总数（时空复杂度）就是这个三维数组的体积</code></pre>
+<pre><code>dp[n][a_num][copy] #状态的总数（时空复杂度）就是这个三维数组的体积
+</code></pre>
 <p>我们知道变量n最多为N，但是a_num和copy最多为多少我们很难计算，复杂度起码也有 O(N^3) 吧。</p>
 <p>题解二：</p>
 <p>「选择」还是那 4 个，但是这次我们只定义一个「状态」，也就是剩余的敲击次数n。</p>
 <p>最优按键序列一定只有两种情况：</p>
 <pre><code>要么一直按A：A,A,…A（当 N 比较小时）。
 
-要么是这么一个形式：A,A,…C-A,C-C,C-V,C-V,…C-V（当 N 比较大时）。</code></pre>
+要么是这么一个形式：A,A,…C-A,C-C,C-V,C-V,…C-V（当 N 比较大时）。
+</code></pre>
 <p>因为字符数量少（N 比较小）时，C-A C-C C-V这一套操作的代价相对比较高，可能不如一个个按A；而当 N 比较大时，后期C-V的收获肯定很大。这种情况下整个操作序列大致是：开头连按几个A，然后C-A C-C组合再接若干C-V，然后再C-A C-C接着若干C-V，循环下去。</p>
 <p>换句话说，最后一次按键要么是A要么是C-V。明确了这一点，可以通过这两种情况来设计算法：</p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486045&amp;idx=2&amp;sn=c270733b9ea06403ab9851bbc5d935db&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247486045&amp;idx=2&amp;sn=c270733b9ea06403ab9851bbc5d935db&amp;scene=21#wechat_redirect</a></p>
@@ -2579,7 +2736,8 @@ dp(n - 2, a_num, a_num)        # C-A C-C
 
 输入: [2,2,2,2,2]
 输出: 5
-解释: 最长递增子序列的长度是1，并且存在5个子序列的长度为1，因此输出5。</code></pre>
+解释: 最长递增子序列的长度是1，并且存在5个子序列的长度为1，因此输出5。
+</code></pre>
 <p>题解一|动态规划：</p>
 <pre><code>class Solution:
     def findNumberOfLIS(self, nums: List[int]) -&gt; int:
@@ -2601,7 +2759,8 @@ dp(n - 2, a_num, a_num)        # C-A C-C
         for i in range(len(nums)):
             if dp[i]==MAX:
                 res+=count[i]
-        return res</code></pre>
+        return res
+</code></pre>
 <h3 id="674-最长连续递增序列"><a href="#674-最长连续递增序列" class="headerlink" title="674. 最长连续递增序列"></a>674. 最长连续递增序列</h3><pre><code>链接：https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/
 
 给定一个未经排序的整数数组，找到最长且连续的的递增序列，并返回该序列的长度。
@@ -2616,12 +2775,14 @@ dp(n - 2, a_num, a_num)        # C-A C-C
 
 输入: [2,2,2,2,2]
 输出: 1
-解释: 最长连续递增序列是 [2], 长度为1。</code></pre>
+解释: 最长连续递增序列是 [2], 长度为1。
+</code></pre>
 <p>题解一|动态规划：</p>
 <p>1、数组定义：dp[i]代表nums[i]值结尾的最长连续递增序列的长度<br>2、状态转移方程</p>
 <pre><code>nums[i]＞nums[i−1]，i至少可以与i-1形成一个连续递增序列，因为它们俩挨着，并且是递增的，长度上是dp[i-1]+1
 
-nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数要比前一个数小，呈下降的趋势，注意不认为是递增的</code></pre>
+nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数要比前一个数小，呈下降的趋势，注意不认为是递增的
+</code></pre>
 <p>3、初始值dp[i]=1</p>
 <p>时间复杂度：o(n)<br>空间复杂度：o(n)</p>
 <pre><code>class Solution:
@@ -2632,7 +2793,8 @@ nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数�
         for i in range(1,len(nums)):
                 if nums[i] &gt; nums[i-1]:
                     dp[i]=max(dp[i],dp[i-1]+1)
-        return max(dp)                    </code></pre>
+        return max(dp)                    
+</code></pre>
 <p>o(1)</p>
 <pre><code>public int findLengthOfLCIS(int[] nums) &#123;
         if (nums == null || nums.length == 0) return 0;
@@ -2649,6 +2811,7 @@ nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数�
         &#125;
         return max;
     &#125;
+           
 </code></pre>
 <h3 id="746-使用最小花费爬楼梯"><a href="#746-使用最小花费爬楼梯" class="headerlink" title="746. 使用最小花费爬楼梯"></a>746. 使用最小花费爬楼梯</h3><pre><code>链接：https://leetcode-cn.com/problems/min-cost-climbing-stairs/
 
@@ -2671,13 +2834,15 @@ nums[i]＜=nums[i-1],这时候，不能形成连续递增序列，后一个数�
 注意：
 
 cost 的长度将会在 [2, 1000]。
-每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。</code></pre>
+每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。
+</code></pre>
 <p>题解一|动态规划：<br>1、定义<br>    dp[i]为踏上第i级台阶的最小花费<br>2、状态转移<br>踏上第i级台阶有两种方法：</p>
 <pre><code>先踏上第i-2级台阶（最小总花费dp[i-2]），再直接迈两步踏上第i级台阶（花费cost[i]），最小总花费dp[i-2] + cost[i]；
 
 先踏上第i-1级台阶（最小总花费dp[i-1]），再迈一步踏上第i级台阶（花费cost[i]），最小总花费dp[i-1] + cost[i]；
 
-则dp[i]是上面这两个最小总花费中的最小值。</code></pre>
+则dp[i]是上面这两个最小总花费中的最小值。
+</code></pre>
 <p>因此状态转移方程是：dp[i] = min(dp[i-2], dp[i-1]) + cost[i]。</p>
 <p>3、初始条件：</p>
 <pre><code>最后一步踏上第0级台阶，最小花费dp[0] = cost[0]。
@@ -2686,7 +2851,8 @@ cost 的长度将会在 [2, 1000]。
 
 可以分别踏上第0级与第1级台阶，花费cost[0] + cost[1]；
 也可以从地面开始迈两步直接踏上第1级台阶，花费cost[1]。
-最小值dp[1] = min(cost[0] + cost[1], cost[1]) = cost[1]。</code></pre>
+最小值dp[1] = min(cost[0] + cost[1], cost[1]) = cost[1]。
+</code></pre>
 <pre><code>class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -&gt; int:
         if not cost:
@@ -2696,7 +2862,8 @@ cost 的长度将会在 [2, 1000]。
         dp[1]=cost[1]
         for i in range(2,len(cost)):
             dp[i]=min(dp[i-1]+cost[i],dp[i-2]+cost[i])
-        return min(dp[-1],dp[-2])</code></pre>
+        return min(dp[-1],dp[-2])
+</code></pre>
 <h3 id="1025-除数博弈"><a href="#1025-除数博弈" class="headerlink" title="1025. 除数博弈"></a>1025. 除数博弈</h3><pre><code>链接：https://leetcode-cn.com/problems/divisor-game/
 
 爱丽丝和鲍勃一起玩游戏，他们轮流行动。爱丽丝先手开局。
@@ -2719,25 +2886,30 @@ cost 的长度将会在 [2, 1000]。
 输入：3
 输出：false
 解释：爱丽丝选择 1，鲍勃也选择 1，然后爱丽丝无法进行操作。
-
+ 
 
 提示：
 
-1 &lt;= N &lt;= 1000</code></pre>
+1 &lt;= N &lt;= 1000
+</code></pre>
 <p>题解一|归纳</p>
 <p>思路：最后轮到谁时 N=1，那么谁就是输家。</p>
 <p>假设N为奇数，即 N%2=1:</p>
-<pre><code>那么 N 的约数x一定都是奇数，N-x 一定是偶数；</code></pre>
+<pre><code>那么 N 的约数x一定都是奇数，N-x 一定是偶数；
+</code></pre>
 <p>假设N为偶数，即 N%2=0:</p>
-<pre><code>那么 N 的约数x可能是奇数，也可能是偶数。x为奇数时，N-x为奇数；x为偶数时，N-x为偶数。</code></pre>
+<pre><code>那么 N 的约数x可能是奇数，也可能是偶数。x为奇数时，N-x为奇数；x为偶数时，N-x为偶数。
+</code></pre>
 <p>题目中说“两个玩家都以最佳状态参与游戏”，并且爱丽丝先手，那她一定会努力让自己得胜。</p>
 <p>结论：</p>
 <pre><code>若N是偶数，爱丽丝一定会选x为奇数，让轮到鲍勃的(N-x)为奇数，这样她每次都会轮到偶数直至胜利；
 
-若N是奇数，爱丽丝没得选，只能让鲍勃轮到的（N-x)为偶数，此时主动权就在鲍勃手中，他会让爱丽丝每次轮到奇数，直至鲍勃获胜。</code></pre>
+若N是奇数，爱丽丝没得选，只能让鲍勃轮到的（N-x)为偶数，此时主动权就在鲍勃手中，他会让爱丽丝每次轮到奇数，直至鲍勃获胜。
+</code></pre>
 <pre><code>class Solution:
     def divisorGame(self, N: int) -&gt; bool:
-        return N%2==0</code></pre>
+        return N%2==0
+</code></pre>
 <p>题解二|动态规划</p>
 <p>定义：dp[i]为当N=i时，Alice的输赢</p>
 <pre><code>class Solution:
@@ -2752,7 +2924,8 @@ cost 的长度将会在 [2, 1000]。
                 if dp[i-j] == False and i%j == 0: # 当dp[i-j]为奇数时，dp[i]为偶数
                     dp[i]=True
                     break
-        return dp[N]</code></pre>
+        return dp[N]
+</code></pre>
 <h3 id="面试题-08-01-三步问题"><a href="#面试题-08-01-三步问题" class="headerlink" title="面试题 08.01. 三步问题"></a>面试题 08.01. 三步问题</h3><pre><code>链接：https://leetcode-cn.com/problems/three-steps-problem-lcci/
 
 三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。实现一种方法，计算小孩有多少种上楼梯的方式。结果可能很大，你需要对结果模1000000007。
@@ -2768,7 +2941,8 @@ cost 的长度将会在 [2, 1000]。
  输出：13
 提示:
 
-n范围在[1, 1000000]之间</code></pre>
+n范围在[1, 1000000]之间
+</code></pre>
 <p>题解一|动态规划</p>
 <pre><code>class Solution:
     def watiaosToStep(self, n: int) -&gt; int:
@@ -2780,7 +2954,8 @@ n范围在[1, 1000000]之间</code></pre>
         dp[3]=4
         for i in range(4,n+1):
             dp[i]=(dp[i-1]+dp[i-2]+dp[i-3]) % 1000000007
-        return dp[n]</code></pre>
+        return dp[n]
+</code></pre>
 <h3 id="面试题-16-17-连续数列"><a href="#面试题-16-17-连续数列" class="headerlink" title="面试题 16.17. 连续数列"></a>面试题 16.17. 连续数列</h3><pre><code>链接：https://leetcode-cn.com/problems/contiguous-sequence-lcci/
 
 给定一个整数数组，找出总和最大的连续数列，并返回总和。
@@ -2792,7 +2967,8 @@ n范围在[1, 1000000]之间</code></pre>
 解释： 连续子数组 [4,-1,2,1] 的和最大，为 6。
 进阶：
 
-如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。</code></pre>
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+</code></pre>
 <pre><code>class Solution:
     def maxSubArray(self, nums: List[int]) -&gt; int:
         if not nums:
@@ -2804,7 +2980,8 @@ n范围在[1, 1000000]之间</code></pre>
         dp[1]=max(dp[0]+nums[1],nums[1])
         for i in range(2,len(nums)):
             dp[i]=max(dp[i-1]+nums[i],nums[i])
-        return max(dp)</code></pre>
+        return max(dp)
+</code></pre>
 <h3 id="面试题42-连续子数组的最大和"><a href="#面试题42-连续子数组的最大和" class="headerlink" title="面试题42. 连续子数组的最大和"></a>面试题42. 连续子数组的最大和</h3><pre><code>链接：https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/
 
 输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
@@ -2816,12 +2993,13 @@ n范围在[1, 1000000]之间</code></pre>
 输入: nums = [-2,1,-3,4,-1,2,1,-5,4]
 输出: 6
 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
-
+ 
 
 提示：
 
 1 &lt;= arr.length &lt;= 10^5
--100 &lt;= arr[i] &lt;= 100</code></pre>
+-100 &lt;= arr[i] &lt;= 100
+</code></pre>
 <pre><code>class Solution:
     def maxSubArray(self, nums: List[int]) -&gt; int:
         if not nums:
@@ -2833,7 +3011,8 @@ n范围在[1, 1000000]之间</code></pre>
         dp[1]=max(dp[0]+nums[1],nums[1])
         for i in range(2,len(nums)):
             dp[i]=max(dp[i-1]+nums[i],nums[i])
-        return max(dp)</code></pre>
+        return max(dp)
+</code></pre>
 
     </div>
 
@@ -2971,7 +3150,7 @@ n范围在[1, 1000000]之间</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
